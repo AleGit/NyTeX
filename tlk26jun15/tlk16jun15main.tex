@@ -23,7 +23,7 @@
 }
 
 %\include{Title}
-%\include{References}
+\include{References}
 %\include{Overview}
 
 %====================================================================
@@ -41,5 +41,29 @@
 %\include{SubstitutionTrees}
 %
 %\include{Experiences}
+
+\frame{
+	$x = \ma \lor x\neq \ma$\hfill  $\bot = \bot \lor \bot \neq \bot$
+	
+	$\mf(\ma) \neq \mf(\mb)$\hfill  $\mf(\bot) \neq \mf(\ma)$
+	
+	$R = \{ x = \ma \}$ is ground complete
+	
+	$\sigma= \{x\mapsto\mb\}$ $(x=\ma) \sigma = \ma \to \mb$ with $\ma > \mb$ $\mf(a) \neq \mb$
+	
+	
+	
+	
+	}
+	
+	\frame {
+		% see PUZ063-1.p 
+		
+		$\mP(\ma), \lnot\mP(\mf(\ma,\mb)), \mf(x,\mb)=x$
+		
+		$\mP(\ma), \lnot\mP(\mf(\ma,\mb)), \mf(\bot,\mb)=\bot$
+		
+		$\{\mf(x,\mb)=x\}$ is ground complete and with $\{ x\mapsto \ma \}$ we get $\lnot\mP(\ma)$
+		}
  
 \end{document}
