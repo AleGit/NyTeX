@@ -1,0 +1,26 @@
+% !TeX root = ../m3Handout.tex
+% !TeX encoding = UTF-8
+% !TeX spellcheck = en_US
+
+\begin{block}{Insert}
+	\def\TRIEWIDTH{4cm}
+	\def\TEXTWIDTH{\textwidth-\TRIEWIDTH-2em}
+	\begin{minipage}{\TEXTWIDTH}
+		\input{DISCRIMINATIONTREE/Terms}
+		\begin{align*}
+			t_1 &\Rightarrow \mh.\mf.{*}.{*}\\
+			t_2 &\Rightarrow \mh.\mf.{*}.\mh.\ma \\
+			t_3 &\Rightarrow \mh.\mf.\mh.\ma.\ma
+			\end{align*}
+	\end{minipage}
+	\begin{minipage}{\TRIEWIDTH}
+		\def\pyL{-0.3}
+		\def\pxL{-0.0}
+		\begin{tikzpicture}[->,dotted]
+		\renewcommand{\PAUSE}{\pause}
+		\input{DISCRIMINATIONTREE/Index}
+		\node (lu) at (-3,-5.5) {} ;
+		\end{tikzpicture}
+	\end{minipage}
+	%
+\end{block}

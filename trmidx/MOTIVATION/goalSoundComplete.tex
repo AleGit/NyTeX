@@ -1,0 +1,30 @@
+% !TeX root = ../m3Handout.tex
+% !TeX encoding = UTF-8
+% !TeX spellcheck = en_US
+
+	\begin{goal}
+		A sound and refutation complete calculus.
+	\end{goal}	
+\pause	
+	\begin{block}{Resolution (without equality)}
+		Resolve and factor all clauses and literals in an unsatisfiable set
+\pause
+	\begin{gather*}
+			\infer
+			[(\sigma)\text{ resolution}]
+			{(\mcC \lor \mcD)\sigma}
+			{A\lor\mcC & \lnot B \lor\mcD}
+			\hspace{1cm}
+			\infer
+			[(\sigma)\text{ factoring}]
+			{(A \lor \mcC)\sigma}
+			{A\lor B\lor\mcC} \\[0.7em]
+		\sigma = \mgu(A,B)
+	\end{gather*} 
+\pause
+	and the empty clause will be derived eventually.
+\end{block}
+\pause
+	\begin{observation}
+		Usually the set grows too fast to obtain a result.
+	\end{observation}

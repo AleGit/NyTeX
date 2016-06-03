@@ -1,0 +1,73 @@
+%% !TEX root = ../m3talk.tex
+%% !TEX encoding = UTF-8 Unicode
+\begin{exampleblock}{superposition inference rules}
+% Ordered Resolution (R), Ordered Factoring (F)
+\begin{gather*}
+	\infer
+	[\text{ordered}\atop\text{resolution}]
+	{(\mcC \lor \mcD)\cdot\mgu(A,B)}
+	{{\colSmx A} \lor\mcC & {\colMax \lnot B} \lor\mcD}
+\hspace{1cm}
+	\infer
+	[\text{ordered}\atop\text{factoring}]
+	{(A \lor \mcC)\cdot\mgu(A,B)}
+	{{\colMax A}\lor B'\lor\mcC}
+%where
+%$\sigma=\cdot\mgu(A,B)$ is defined, 
+%$A\sigma$ {\colSmx is strictly maximal} in $\mcC\sigma$,
+%$\lnot B\sigma$ {\colMax is maximal} in $\mcD\sigma$, 
+%$A\sigma$ is maximal in $\mcD\sigma$;
+%%
+%\item ordered paramodulation $(P_-,P_+)$
+%\[
+\\[0.7em]
+	\infer
+	[\text{ordered}\atop\text{paramodulation}]
+	{(\mcC\lor \lnot A[t]\lor\mcD)\,\cdot\mgu(s,s')}
+	{{\colSmx s\foEQ t} \lor\mcC\quad {\colMax \lnot A[s']}\lor\mcD}
+\hspace{2mm}
+	\infer
+	[]
+	{(\mcC\lor A[t]\lor\mcD)\,\cdot\mgu(s,s')}
+	{{\colSmx s\foEQ t} \lor\mcC\quad {\colSmx A[s']}\lor\mcD}
+%where $\sigma=\cdot\mgu(s,s')$ is defined, 
+%$(s\foEQ t)\sigma$ {\colSmx is strictly maximal} in $\mcC\sigma$, 
+%$\lnot A[s']$ {\colMax is maximal} in $\mcD\sigma$,
+%\\A[s'] \text{\colSmx is strictly maximal in} \mcD\sigma;
+%%
+\\[0.7em]
+	\infer
+	[\text{super-}\atop\text{position}]
+	{(\mcC\lor u[t]\foNEQ v\lor\mcD)\,\cdot\mgu(s,s')}
+	{{\colSmx s\foEQ t}\lor\mcC\quad {\colMax u[s']\foNEQ v}\lor\mcD}
+\hspace{2mm}
+	\infer
+	[]
+	{(\mcC\lor u[t]\foEQ v\lor\mcD)\,\cdot\mgu(s,s')}
+	{{\colSmx s\foEQ t}\lor\mcC\quad {\colSmx u[s']\foEQ v}\lor\mcD}
+%\]
+%%
+%where $\sigma=\cdot\mgu(s,s')$ is defined,
+%$s'\not\in\mcV$, 
+%$t\sigma\NGTPREQ s\sigma$,
+%$v\sigma\NGTPREQ u[s']\sigma$;
+%%
+%\item 
+%equality resolution $(R_\foEQ)$,
+% and equality factoring $(F_\foEQ)$
+\\[0.7em]
+	\infer
+	[\text{equality}\atop\text{resolution}]
+	{\mcC\cdot\mgu(s,s')}
+	{{\colSmx s\foNEQ s'}\lor\mcC}
+\hspace{1cm}
+	\infer
+	[\text{equality}\atop\text{factoring}]
+	{(v\foNEQ s'\lor u\foEQ s'\lor\mcC)\cdot\mgu(s,s')}
+	{{s\foEQ s'}\lor {\colMax u\foEQ v}\lor\mcC}
+%where 
+%$\sigma=\cdot\mgu(s,s')$ is defined,
+%$(s=s')\sigma\NGTPREQ(u\foEQ v)$.
+\\[1em]\text{where literals $\ell\cdot\mgu(.,.)$ are {\colSmx strictly} {\colMax maximal}}
+\end{gather*}
+\end{exampleblock}

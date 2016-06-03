@@ -1,0 +1,29 @@
+% !TeX root = ../m3Handout.tex
+% !TeX encoding = UTF-8
+% !TeX spellcheck = en_US
+
+
+
+\begin{block}{Build}
+\def\TRIEWIDTH{4cm}
+\def\TEXTWIDTH{\textwidth-\TRIEWIDTH-2em}
+\begin{minipage}{\TEXTWIDTH}
+$
+	\TI{t_1}\,\mh(\mf(x,y)),
+	\TI{t_2}\mh(\mf( x,\ma)),
+	\TI{t_3}\mh(\mf(\ma,\ma))
+$
+	\begin{align*}
+		t_1 &\Rightarrow \{ \mh.1.\mf.1.{*},  \mh.1.\mf.2.{*} \}\\
+		t_2 &\Rightarrow \{ \mh.1.\mf.1.{*},  \mh.1.\mf.2.\ma \}\\
+		t_3 &\Rightarrow \{ \mh.1.\mf.1.\ma,  \mh.1.\mf.2 \ma \}
+		\end{align*}
+\end{minipage}	
+\begin{minipage}{\TRIEWIDTH}
+\begin{tikzpicture}[->,dotted]
+\renewcommand{\PAUSE}{\pause}
+\input{PATHINDEXING/Index}
+\onslide<1->
+\end{tikzpicture}
+\end{minipage}
+\end{block}

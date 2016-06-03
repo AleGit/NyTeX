@@ -1,0 +1,65 @@
+% !TeX root = ../m3Handout.tex
+% !TeX encoding = UTF-8
+% !TeX spellcheck = en_US
+
+\begin{block}{Retrieve}
+\def\TRIEWIDTH{4cm}
+\def\TEXTWIDTH{\textwidth-\TRIEWIDTH-2em}
+\begin{minipage}{\TEXTWIDTH}
+	$
+	\TI{t_1}\mh(\mf(x,y)), 
+	\TI{t_2}\mh(\mf({ x},{\ma})), 
+	\TI{t_3}\mh(\mf(\ma,\ma))
+	$
+	\begin{align*}
+		\mh(\mf(z,\mb))) &\Rightarrow\{ \mh.1.\mf.1.{*}, \mh.1.\mf.2.\mb\}
+		\\[0.7em]
+		u : \mh(\mf({\colN z},{\colHi \mb}))
+			& \mapsto 
+\onslide<6->{
+	\{ t_1, {\colG t_2}, 
+	\onslide<7->{t_3} \}
+}
+\onslide<12->{
+	\cap \{t_1 \}
+}\\
+\onslide<13->{			i : \mh(\mf(z, \mb)) &\mapsto \{ {\colG t_1,t_2,t_3 }\} \cap \{  \}
+}			\\
+\onslide<14->{			g : \mh(\mf(z, \mb)) &\mapsto \{ t_1, {\colG t_2} \} \cap \{ t_1 \}
+}			\\
+\onslide<15->{			v : \mh(\mf(z, \mb)) &\mapsto \{ {\colG t_1,t_2 }\} \cap \{  \}
+}		\\[0.7em]
+\onslide<16->{			\colG v: \mh(\mf(z, z)) &\mapsto \{ {\colLo t_1},{\colG t_2} \} \cap \{ {\colLo t_1} \}
+}		\end{align*}
+\end{minipage}
+%
+\begin{minipage}{{\TRIEWIDTH}}
+	\begin{tikzpicture}[->,dotted]
+	\input{PATHINDEXING/Index}
+
+	\pause\path[bend right, dashed, colN](root) edge (h);
+	\node at (1.3,5) {\scriptsize$(\mh,1.\mf.1.{*})$};
+	\pause\path[bend right, dashed, colN]	(h) edge (h1);
+	\node at (1.0,4) {\scriptsize$(1,\mf.1.{*})$};
+	\pause\path[bend right, dashed, colN]	(h1) edge (h1f);
+	\node at (0.7,3) {\scriptsize$(\mf,1.{*})$};
+	\pause\path[bend right, dashed, colN]	(h1f) edge (h1f1);
+	\node at (0.4,2) {\scriptsize$(1,{*})$};
+	\pause\path[bend right, dashed, colN]	(h1f1) edge (h1f1x)	; 
+	\node at (0.1,1) {\scriptsize$({*},\epsilon)$};
+	\pause\path[bend right, dashed, colN]	(h1f1) edge (h1f1a);
+	
+	\pause\path[bend left, dashed, colHi]	(root) edge (h)	;
+	\node at (3.5,5) {\scriptsize$(\mh,1.\mf.2.\mb)$};
+	\pause\path[bend left, dashed, colHi]	(h) edge (h1)	;
+	\node at (3.4,4) {\scriptsize$(1,\mf.2.\mb)$};
+	\pause\path[bend left, dashed, colHi]	(h1) edge (h1f)	;
+	\node at (3.3,3) {\scriptsize$(\mf,2.\mb)$};
+	\pause\path[bend left, dashed, colHi]	(h1f) edge (h1f2)	;
+	\node at (3.2,2) {\scriptsize$(2,\mb)$};
+	\pause\path[bend left, dashed, colHi]	(h1f2) edge (h1f2x)	; 
+	\node at (3.1,1) {\scriptsize$(\mb,\epsilon)$};
+	\onslide<1->
+	\end{tikzpicture}
+\end{minipage}
+\end{block}

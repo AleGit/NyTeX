@@ -1,0 +1,49 @@
+\ORIGIN
+
+\def\pyL{-0.2}
+\def\pxL{0.05}
+
+\PAUSE
+
+\node (root) at (2.5,5) {.};
+\node (h) at (2.5,4) {.};
+\path (root) edge node {$\mh$} (h);
+
+\PAUSE
+\node (h1) at (2.5,3) {.};
+\path (h) edge node {$1$} (h1);
+
+\PAUSE
+\node (h1f) at (1.5,2) {.};
+\path (h1) edge node {$\mf$} (h1f);
+
+\PAUSE
+\node (h1f1) at (0.5,1) {.};
+\path (h1f) edge node {$1$} (h1f1);
+
+\PAUSE
+\node (h1f1x) at (0,0) {.};
+\path (h1f1) edge node {$*$} (h1f1x);
+\node (12) at (\pxL,\pyL) {\scriptsize$t_1,t_2$};
+
+\PAUSE
+\node (h1f1a) at (1,0) {.};
+\path (h1f1) edge node {$\ma$} (h1f1a);
+\node (3) at (\pxL+1,\pyL) {\scriptsize$t_3$};
+
+\PAUSE
+\node (h1f2) at (2.5,1) {.};
+\path (h1f) edge node {$2$} (h1f2);
+
+\PAUSE
+\node (h1f2x) at (2,0) {.};
+\path (h1f2) edge node {$*$} (h1f2x);
+\node (1) at (\pxL+2,\pyL) {\scriptsize$t_1$};
+
+\PAUSE
+\node (h1f2a) at (3,0) {.};
+\path (h1f2) edge node {$\ma$} (h1f2a);
+\node (23) at (\pxL+3,\pyL) {\scriptsize$t_2,t_3$};
+
+
+\node (lu) at (0,-0.5) {} ;

@@ -1,0 +1,46 @@
+% !TeX spellcheck = en_US
+% !TeX root = ../m3Handout.tex
+% !TeX encoding = UTF-8
+
+\begin{block}{}
+	\vspace{-1em}
+\begin{align*}
+	\Sigma = &\ ( \SIGV, \SIGF, \SIGP)
+	\tag*{signature}
+	\\
+	\SIGV = &\ \{ x,y,z,\ldots \}
+	\tag*{variables}
+	\\
+	 \SIGF = &\ \{\ma,\mf,\mg,\mh,\ldots \}
+	  \tag*{function symbols}
+	  \\
+	   \SIGP = &\ \{ \mP, \mQ, \ldots \} 
+	   \tag*{predicate symbols}
+	   \\
+	   \SIGT_{\SIGV\SIGF} = &\ \SIGV \cup \{f(t_1,\ldots,t_n)
+	   \mid f\in\SIGF^{(n)}, t_i\in\SIGT_{\SIGV\SIGF}\ \}
+	   \tag*{terms}
+	   \\
+	   \SIGT_{\Sigma} = &\ \{A, B, \ldots\}  \subseteq \{ P ( t_1, \ldots, t_n )
+	   \mid P\in\SIGP^{(n)}, t_i\in \SIGT_{\SIGV\SIGF}
+	   \}
+	   \\
+	   \SIGE = &\ \{ s\foEQ t\mid s,t\in \SIGT_{\SIGV\SIGF} \}
+	   \tag*{predicate terms and equations}
+	   \\
+	   &\ A, \lnot A, s\foEQ t, s\foNEQ t 
+	   \tag*{literals}
+	   \\
+	   &\ \mcC, \mcD, A\lor\mcC, s\foEQ t \lor \mcD, \ldots
+	   \tag*{clauses}
+	   \\
+	   &\ \{ \mcC_1, \ldots, \mcC_n \}
+	   \tag*{clausal form}
+\end{align*}
+\end{block}
+
+
+
+
+
+
