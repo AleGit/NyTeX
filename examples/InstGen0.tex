@@ -1,0 +1,28 @@
+\begin{align*}
+	S_0\bot =&\  
+	\{ 
+	{\colHi\mP(\bot)} \lor \lnot\mP(\bot), 
+	{\colHi\lnot \mP(\ma)}, 
+	{\colHi\mP(\mb)} 
+		\} \tag{satisfiable} \\
+		&\quad 
+		\infer[x\mapsto\ma]{
+			\mP(\ma)\lor\lnot\mP(y)
+			}{\mP(x)\lor\lnot\mP(y))&\lnot\mP(\ma)}
+			\\
+			S_1\bot \supsetneq&\  
+			\{  
+			{\colHi\lnot \mP(\ma)}, 
+			{\colHi\mP(\mb)},
+				{\colLo\mP(\ma)} \lor {\colHi \lnot \mP(\bot) } \}
+				\tag{satisfiable}
+				\\
+				&\quad
+				\infer[y\mapsto\mb]{
+					\mP(\ma)\lor\mP(\mb)}{
+					\mP(\mb)&\mP(\ma)\lor\lnot\mP(y)
+					}
+					\\
+					S_2\bot \supsetneq&\ 
+					\{ \lnot\mP(\ma), \mP(\mb), \mP(\ma) \lor \lnot\mP(\mb) \} \tag{unsatisfiable}
+	\end{align*}
