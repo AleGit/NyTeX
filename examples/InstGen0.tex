@@ -1,10 +1,11 @@
 \begin{align*}
+	\vspace{-1em}
 	S_0\bot =&\  
 	\{ 
 	{\colHi\mP(\bot)} \lor \lnot\mP(\bot), 
 	{\colHi\lnot \mP(\ma)}, 
 	{\colHi\mP(\mb)} 
-		\} \tag{satisfiable} \\
+		\} \tag*{satisfiable} \\
 		&\quad 
 		\infer[x\mapsto\ma]{
 			\mP(\ma)\lor\lnot\mP(y)
@@ -15,7 +16,7 @@
 			{\colHi\lnot \mP(\ma)}, 
 			{\colHi\mP(\mb)},
 				{\colLo\mP(\ma)} \lor {\colHi \lnot \mP(\bot) } \}
-				\tag{satisfiable}
+				\tag*{satisfiable}
 				\\
 				&\quad
 				\infer[y\mapsto\mb]{
@@ -24,5 +25,5 @@
 					}
 					\\
 					S_2\bot \supsetneq&\ 
-					\{ \lnot\mP(\ma), \mP(\mb), \mP(\ma) \lor \lnot\mP(\mb) \} \tag{unsatisfiable}
+					\{ \lnot\mP(\ma), \mP(\mb), \mP(\ma) \lor \lnot\mP(\mb) \} \tag*{unsatisfiable}
 	\end{align*}

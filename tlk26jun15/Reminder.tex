@@ -1,3 +1,5 @@
+
+
 \subsection{Resolution and InstGen}
 
 \frame{
@@ -25,21 +27,72 @@
 			\end{Example}
 		}
 		
-	\frame{
-		\begin{Example}[Infinite domain]
-		\begin{align*}
-		S =&\ 
-		\{ 
-			\lnot\mP(x,x)),
-			\mP(y,\mf(y)
-%			\lnot\mP(z_1,z_2))\lor\lnot(\mP(z_2,z_3))\lor\mP(z_1,z_3)
-		\} \\
-		&\quad
-		\infer[y\mapsto x, x\mapsto \mf(x)]
-		{}
-		{}
-		\end{align*}
-		\end{Example}
-		}
+%	\frame{
+%		\begin{Example}[Infinite domain]
+%		\begin{align*}
+%		S =&\ 
+%		\{ 
+%			\lnot\mP(x,x)),
+%			\mP(y,\mf(y)
+%%			\lnot\mP(z_1,z_2))\lor\lnot(\mP(z_2,z_3))\lor\mP(z_1,z_3)
+%		\} \\
+%		&\quad
+%		\infer[y\mapsto x, x\mapsto \mf(x)]
+%		{}
+%		{}
+%		\end{align*}
+%		\end{Example}
+%		}
+%		
+\subsection{Subsumption}
+		\frame{
+			\begin{block}{Subsumption}
+				\vspace{-1em}
+%				Subsumed clauses can be removed from a set of first order clauses without affecting satisfiability.
+%				Proper instances of clauses affect the satisfiability of the set of ground instances.
+				\begin{gather*}
+					S = \{C, D, \ldots \}, \exists\theta\ C\theta\subseteq D \tag*{C subsumes D}\\
+					 S \text{ satisfiable } 
+					 \overset{\text{\colHi\cmark}}\iff 
+					  (S \setminus D) \text{ satisfiable } \\
+					S\bot \text{ satisfiable } 
+					{\colLo\overset{\text{\colLo\xmark}}\iff} 
+					(S \setminus D)\bot \text{ satisfiable }
+					\end{gather*}
+				\end{block}
+			
+			\begin{Example}[]
+				\vspace{-1em}
+					\begin{align*}
+						S_0 =&\ 
+						\{
+							\mP(x,y), \lnot\mP(\ma,z)
+						\} \\
+						S_0\bot =&\ 
+						\{
+						\mP(\bot,\bot), \lnot\mP(\ma,\bot)\tag*{satisfiable}
+						\} \\
+						&\quad\infer[
+						x\mapsto\ma, z\mapsto y]{
+							\mP(\ma,y)\quad 
+							{\colG\lnot\mP(\ma,y)}}{
+							\mP(x,y) & \lnot\mP(\ma,z)}\\
+						S_1 =&\ 
+						\{
+						\mP(x,y), \lnot\mP(\ma,z), \mP(\ma,y)
+						\} \\
+						S_1\bot =&\ 
+						\{
+						\mP(\bot,\bot), 
+						{\colLo\lnot\mP(\ma,\bot)}, 
+						{\colLo\mP(\ma,\bot)}
+						\}\tag*{unsatisfiable}
+					\end{align*}
+				
+				\end{Example}
+%							\begin{block}{}
+%								Proper instances of clauses affect the satisfiability of the set of ground instances.
+%							\end{block}
+			}
 		
 
