@@ -1,18 +1,47 @@
-\frame{
-	\begin{example}
-		\vspace{-1em}
-		\begin{align*}
-%			
-			S =&\ \{ \mP(\ma), \lnot\mP(\mf(\ma,\mb)), \mf(x,\mb)= x \} \\
-%			
-			&x=x \\
-			{\colG x\neq y\ \lor}\ &y=x \\
-			{\colG x\neq y \lor y\neq z\ \lor}\ &x=z
-			\\
-%			
-			{\colG x_1\neq y_1 \lor x_2\neq y_2\ \lor}\ &\mf(x_1,x_2) = \mf(y_1,y_2) \\
-		    {\colG x\neq y\ \lor}\ &\lnot\mP(x) \lor \mP(y)
-			\end{align*}
-		\end{example}
-	
-	}
+\subsection{Schemata}
+
+\begin{frame}
+%	\begin{block}{Schemata}
+%		\vspace{-1em}
+%		\begin{align*}		
+%			&x=x &s\neq s
+%			\\
+%			{\colG x\neq y\ \lor}\ 
+%				&y=x &s \neq t
+%			\\
+%			{\colG x\neq y \lor y\neq z\ \lor}\ 
+%				&x=z &s\neq t
+%			\\
+%			{\colG x_1\neq y_1 \lor x_2\neq y_2 \ \lor}\ 
+%			&\mf(x_1,x_2) = \mf(y_1,y_2) 
+%				&\mf(s)\neq\mf(t)
+%			\\
+%		    {\colG x\neq y\ \lor}\ &\lnot\mP(x) \lor \mP(y) 
+%			    &\mP(s), \lnot\mP(t)
+%			\end{align*}
+%		\end{block}
+%		
+		\begin{example}
+			\vspace{-1em}
+			\begin{align*}
+			S =&\ \{ \mP(\ma), \lnot\mP(\mf(\ma,\mb)), \mf(x,\mb)= x \} 
+			\\[0.5em]
+%			&\quad\infer[
+%			]{
+%				\ma\neq y \lor \lnot \mP(\ma) \lor \mP(y)
+%				}{
+%				x\neq y \lor \lnot\mP(x) \lor \mP(y)  & \mP(\ma)
+%			}
+%				\\[0.5em]
+%				&\quad\infer[
+%				]{
+%					x\neq \mf(\ma,\mb) \lor \lnot \mP(x) \lor \mP(\mf(\ma,\mb))
+%				}{
+%				x\neq y \lor \lnot\mP(x) \lor \mP(y) & \lnot\mP(\mf(\ma,\mb))
+%			}
+&\quad \ma\neq y \lor \lnot \mP(\ma) \lor \mP(y) \tag*{congruence}\\
+&\quad x\neq \mf(\ma,\mb) \lor \lnot \mP(x) \lor \mP(\mf(\ma,\mb)) \tag*{congruence}
+\end{align*}
+			\end{example}
+			
+			\end{frame}
