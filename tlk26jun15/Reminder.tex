@@ -11,18 +11,20 @@
 	\input{../definitions/InstGenRule}
 \end{Definition}
 
-\begin{Example}[Unsatisfiable set of clauses]
-	$S = \{ \mP(x)\lor\lnot\mP(y), \lnot\mP(\ma),\mP(\mb)\}$
-\end{Example}
+%\begin{Example}[Unsatisfiable set of clauses]
+%	$S = \{ \mP(x)\lor\lnot\mP(y), \lnot\mP(\ma),\mP(\mb)\}$
+%\end{Example}
 }
 
 \subsection{Examples}
 \frame{
 	\begin{Example}[Resolution]
+		\vspace{-1em}
 		\input{../examples/Resolution}
 		\end{Example}
 		
 			\begin{Example}[Inst-Gen]
+				\vspace{-1em}
 				\input{../examples/InstGen0}
 			\end{Example}
 		}
@@ -50,44 +52,38 @@
 				\vspace{-1em}
 %				Subsumed clauses can be removed from a set of first order clauses without affecting satisfiability.
 %				Proper instances of clauses affect the satisfiability of the set of ground instances.
-				\begin{gather*}
-					S = \{C, D, \ldots \}, \exists\theta\ C\theta\subseteq D \tag*{C subsumes D}\\
+				\begin{align*}
+					S = \{C, D, \ldots \}\qquad &\exists\theta\ C\theta\subseteq D 
+					\tag*{C subsumes D}\\
 					 S \text{ satisfiable } 
-					 \overset{\text{\colHi\cmark}}\iff 
-					  (S \setminus D) \text{ satisfiable } \\
+					 \overset{\text{\colHi\cmark}}\iff& 
+					  (S \setminus D) \text{ satisfiable }
+%					   \tag*{Resolution}
+					   \\
+					   \theta\text{ is proper, }
 					S\bot \text{ satisfiable } 
-					{\colLo\overset{\text{\colLo\xmark}}\iff} 
-					(S \setminus D)\bot \text{ satisfiable }
-					\end{gather*}
+					{\colLo\overset{\text{\colLo\xmark}}\iff}& 
+					(S \setminus D)\bot \text{ satisfiable } 
+%					\tag*{Inst-Gen}
+					\\
+					\theta\text{ is renaming, }
+					S\bot \text{ satisfiable } 
+					{\overset{\text{\colHi\cmark}}\iff}& 
+					(S \setminus D)\bot \text{ satisfiable } 
+					\end{align*}
 				\end{block}
 			
 			\begin{Example}[]
 				\vspace{-1em}
-					\begin{align*}
-						S_0 =&\ 
-						\{
-							\mP(x,y), \lnot\mP(\ma,z)
-						\} \\
-						S_0\bot =&\ 
-						\{
-						\mP(\bot,\bot), \lnot\mP(\ma,\bot)\tag*{satisfiable}
-						\} \\
-						&\quad\infer[
-						x\mapsto\ma, z\mapsto y]{
-							\mP(\ma,y)\quad 
-							{\colG\lnot\mP(\ma,y)}}{
-							\mP(x,y) & \lnot\mP(\ma,z)}\\
-						S_1 =&\ 
-						\{
-						\mP(x,y), \lnot\mP(\ma,z), \mP(\ma,y)
-						\} \\
-						S_1\bot =&\ 
-						\{
-						\mP(\bot,\bot), 
-						{\colLo\lnot\mP(\ma,\bot)}, 
-						{\colLo\mP(\ma,\bot)}
-						\}\tag*{unsatisfiable}
-					\end{align*}
+					\begin{gather*}
+\{ 	\mP(x,y), \lnot\mP(\ma,z) \} 
+\qquad 
+\{ 	\mP(x,y), \lnot\mP(\ma,z), {\colG\mP(\ma,z)} \} 
+\\
+	\{ \mP(\bot,\bot), \lnot\mP(\ma,\bot) \} 
+	\qquad 
+	\{ \mP(\bot,\bot), {\lnot\mP(\ma,\bot)},{\colLo\mP(\ma,\bot)} \}
+					\end{gather*}
 				
 				\end{Example}
 %							\begin{block}{}

@@ -1,0 +1,56 @@
+% !TeX spellcheck = en_US
+% !TeX encoding = UTF-8
+
+\begin{tikzpicture}[scale = 1, transform shape, draw=black, fill=black, thick, sloped]
+
+	\draw[->, ultra thick] (0,0) -- 
+	node[pos=0, above] {$F$} 
+	(2,0);
+		
+	% outer rectangle
+	\draw[rounded corners=-1.5mm] (1,3) rectangle (8.5,-3);
+	% is F a theorem?
+	\draw(2.4,2.7) node {\color{colN}Is $F$ a theorem?};
+	
+\pause
+	% SLIDE Is S satifiable?
+	\node[colG] (S) at (1.6,-2.7) {\scriptsize$\lnot F \approx S$};
+\pause
+		\node (S) at (2.5,0) {$S$};
+		
+
+			% SLIDE 2
+			\draw[thin,dashed,draw=colO] (2.5,0) ellipse (0.4 and 1.2); % S
+			
+			% inner rectangle
+			\draw[rounded corners=-1.5mm]  (1.5,-2.25) rectangle (8,2.25); 
+			% is S satisfaible?
+			\draw (3.2,-1.9) node {\color{colN}Is $\lnot F$ satisfiable?};
+	
+\pause
+		% SLIDE unsatisfiable
+		\draw[thin,dashed,draw=colO] (2.6,0) ellipse (0.6 and 1.44);  % S
+		\draw[dashed, draw=colG, thick] decorate[decoration={snake}] {(1.4, 1) -- (8.2,0.6)};
+		\draw[->, draw=colHi, ultra thick] (6.5,1.8) -- 
+			node[pos=0,below] {unsatisfiable}
+			node[pos=0.85, above] {theorem} 
+			(10,1.8) ;
+
+\pause
+		% SLIDE satisfiable
+		\draw[thin,dashed,draw=colO] (2.8,0) ellipse (0.9 and 1.73);  % S
+		\draw[dashed, draw=colG, thick]  decorate[decoration={snake}] { (1.4,-1)  --  (8.2,-0.6) };
+		\draw[->,draw=colLo, ultra thick] (7,-1.3) -- 
+			node[pos=0, below] {satisfiable}
+			node[pos=0.75, above] {not a theorem} (11,-1.3) ;
+		 
+\pause
+		% SLIDE 5
+		 \draw[thin,dashed,draw=colO] (3.2,0) ellipse (1.35 and 2.07); % S
+		 	\draw[->,draw=colNa, ultra thick] (7,0.15) -- 
+		 	%	node[pos=0,above] {space out}
+		 	node[pos=0,below] {time out}
+		 	node[pos=0.85, above] {maybe} (10.5,0.15) ;
+
+	\onslide<1->
+\end{tikzpicture}

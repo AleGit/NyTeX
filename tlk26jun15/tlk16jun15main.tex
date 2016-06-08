@@ -32,9 +32,19 @@
 
 \input{hofstadter}
 
+
 %\input{../trmidx/MOTIVATION/forwardSubsumption.tex}
 
 \section{Previously}
+
+\begin{frame}
+	% We transform a first formula in to a equisatisfiable set of clauses,
+	% i.e. the conjunction of universally quantified disjunction of variable distinct first order literals
+	% then we check if the set is satisfiable, if not then the formula is a theorem.
+	\frametitle{Motivation}
+\input{../tikz/refutation}
+\end{frame}
+
 \include{Reminder}
 
 
@@ -51,31 +61,31 @@
 %\include{Experiences}
 
 \section{Equality}
-\include{Equality}
+%\include{Equality}
 
 
-\frame{
-	$x = \ma \lor x\neq \ma$\hfill  $\bot = \bot \lor \bot \neq \bot$
-	
-	$\mf(\ma) \neq \mf(\mb)$\hfill  $\mf(\bot) \neq \mf(\ma)$
-	
-	$R = \{ x = \ma \}$ is ground complete
-	
-	$\sigma= \{x\mapsto\mb\}$ $(x=\ma) \sigma = \ma \to \mb$ with $\ma > \mb$ $\mf(a) \neq \mb$
-	
-	
-	
-	
-	}
-	
-	\frame {
-		% see PUZ063-1.p 
-		
-		$\mP(\ma), \lnot\mP(\mf(\ma,\mb)), \mf(x,\mb)=x$
-		
-		$\mP(\ma), \lnot\mP(\mf(\ma,\mb)), \mf(\bot,\mb)=\bot$
-		
-		$\{\mf(x,\mb)=x\}$ is ground complete and with $\{ x\mapsto \ma \}$ we get $\lnot\mP(\ma)$
-		}
+%\frame{
+%	$x = \ma \lor x\neq \ma$\hfill  $\bot = \bot \lor \bot \neq \bot$
+%	
+%	$\mf(\ma) \neq \mf(\mb)$\hfill  $\mf(\bot) \neq \mf(\ma)$
+%	
+%	$R = \{ x = \ma \}$ is ground complete
+%	
+%	$\sigma= \{x\mapsto\mb\}$ $(x=\ma) \sigma = \ma \to \mb$ with $\ma > \mb$ $\mf(a) \neq \mb$
+%	
+%	
+%	
+%	
+%	}
+%	
+%	\frame {
+%		% see PUZ063-1.p 
+%		
+%		$\mP(\ma), \lnot\mP(\mf(\ma,\mb)), \mf(x,\mb)=x$
+%		
+%		$\mP(\ma), \lnot\mP(\mf(\ma,\mb)), \mf(\bot,\mb)=\bot$
+%		
+%		$\{\mf(x,\mb)=x\}$ is ground complete and with $\{ x\mapsto \ma \}$ we get $\lnot\mP(\ma)$
+%		}
  
 \end{document}
