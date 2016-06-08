@@ -52,25 +52,25 @@
 				\vspace{-1em}
 %				Subsumed clauses can be removed from a set of first order clauses without affecting satisfiability.
 %				Proper instances of clauses affect the satisfiability of the set of ground instances.
-				\begin{align*}
-					S = \{C, D, \ldots \}\qquad &\exists\theta\ C\theta\subseteq D 
+				\begin{gather*}
+					S = \{C, D, \ldots \}\qquad \exists\theta\ C\theta\subseteq D 
 					\tag*{C subsumes D}\\
-					 S \text{ satisfiable } 
-					 \overset{\text{\colHi\cmark}}\iff& 
-					  (S \setminus D) \text{ satisfiable }
+					 S \text{ satisfiable} 
+					 \overset{\text{\colHi\cmark}}\iff (S \setminus D) \text{ satisfiable }
 %					   \tag*{Resolution}
 					   \\
 					   \theta\text{ is proper, }
-					S\bot \text{ satisfiable } 
-					{\colLo\overset{\text{\colLo\xmark}}\iff}& 
+					S\bot \text{ satisfiable}\ 
+%					{\colLo\overset{\text{\colLo\xmark}}{\colLo\Leftarrow \Rightarrow}}
+					{\colLo\overset{\text{\xmark}}{\Leftarrow\Rightarrow}}\
 					(S \setminus D)\bot \text{ satisfiable } 
 %					\tag*{Inst-Gen}
 					\\
 					\theta\text{ is renaming, }
-					S\bot \text{ satisfiable } 
-					{\overset{\text{\colHi\cmark}}\iff}& 
+					S\bot \text{ satisfiable} 
+					{\overset{\text{\colHi\cmark}}\iff}
 					(S \setminus D)\bot \text{ satisfiable } 
-					\end{align*}
+					\end{gather*}
 				\end{block}
 			
 			\begin{Example}[]
