@@ -75,7 +75,20 @@
 \subsection{Structure}
 
 \begin{frame}
-	\lstinline|Hello, World!|
+%	\lstinline|Hello, World!|
+%	\lstinline|/// Create uninterpreted global (predicate) function `symbol` application|
+%	\lstinline|/// with uninterpreted arguments `args` of implicit global type `free_type`|
+%	\lstinline|/// and explicit return type `term_tau`:|
+%	\lstinline|/// * `free_tau` - the symbol is a constant/function symbol|
+%	\lstinline|/// * `bool_tau` - the symbol is a proposition/predicate symbol|
+\lstinline|func application(symbol:String, args:[term_t], tau:type_t) -> term_t \{|
+%	    	
+\lstinline|guard args.count > 0 else \{ return constant(symbol, tau) \}|
+\lstinline|let domain = [type_t](count:count, repeatedValue: free_tau)|
+%	    	
+\lstinline|let f = function(symbol, domain:domain(args.count, tau:Yices.free_tau), range: term_tau)|
+%	    	\lstinline|return yices_application(f, UInt32(args.count), args)|
+%	    \lstinline|}
 	\end{frame}
 
 \subsection{Indexing}

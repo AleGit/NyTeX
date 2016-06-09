@@ -7,17 +7,19 @@
 \node (pc) [myrect] at (0,8em) {passive clauses};
 \node (ab) [myrect] at (-8em,3.5em) {instantiation};
 \node (gs) [myrect] at (-8em,8em) {SMT};
-\node (un) [mycircle] at (-15em,8em) {un\-satis\-fiable};
+\node (un) [mycircle,colHi,very thick] at (-15em,8em) {un\-satis\-fiable};
 \node (se) [myrect] at (-8em,12.5em) {selection};
 \node (gc) [myrect] at (0em,16em) {given clause};
-\node (ac) [myrect,dashed] at (-13em,16.5em) {active clauses};
+\node (ac) [myrect,dashed] at (-14em,16.5em) {active clauses};
 
-\node (sl) [myrect, thick] at (8.5em,12.5em) {selected literals};
-\node (us) [myrect,very thick, minimum width=8em, minimum height=3.5em, text width=7em] at (8.5em,8em) {search for\\clashing literals};
-\node (sa) [mycircle] at (16em,8em) {satis\-fiable};
-\node (su) [myrect] at (8.5em,3.5em) {substitution};
+\node (sl) [myrect, thick] at (8em,12.5em) {selected literal};
+\node (us) [myrect] at (8em,8em) {search for conflicts};
+\node (sa) [mycircle, very thick,colLo] at (15em,8em) {satis\-fiable};
+\node (su) [myrect] at (8em,3.5em) {substitution};
 
-\draw[myarrow] (start) to (nc);
+\node (parse) [myrect,dotted]  at (14em,-2em) {read\\file(s)};
+
+\draw[myarrow, dotted] (parse) to [bend left=20] (nc);
 \draw[myarrow] (nc) to (pc);
 \draw[myarrow] (nc.west)  to [bend left=10] (ab);
 \draw[myarrow] (ab) to (gs);
@@ -30,9 +32,13 @@
 \draw[myarrow] (su) to [bend left=10] (nc.east);
 \draw[myarrow] (sl) to (us);
 \draw[myarrow] (gc.east) to [bend left=10] (sl.north);
-\draw[myarrow,dashed] (gc.north) to [bend right=15](ac);
+%\draw[myarrow,dashed] (gc.north) to [bend right=15](ac);
+\draw[myarrow, dashed] (gc) to [bend right=20] (ac);
 
-\path (nc) edge [myarrow,loop below, dashed] (nc);
+\path (nc) edge [myarrow,loop below, dashed] (nc)
+ (parse) edge [myarrow, loop above, dotted] (parse)
+ (19em,-2em) edge [myarrow,dotted](parse)
+;
 \end{tikzpicture}
 %\caption{Inst-Gen loop with maximal completion}
 %\label{fig:inst-gen-maxcomp}
