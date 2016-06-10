@@ -1,15 +1,15 @@
-% !TeX root = ../m3Handout.tex
+% !TeX root = tlk16jun15h.tex
 % !TeX encoding = UTF-8
 % !TeX spellcheck = en_US
 
 \begin{gather*}
 	\{
-	\TI{1}\mh(\mf(x,x)),
-	\TI{2}\mh(\mg(\ma,x)), 
-	\TI{3}\mh(\mf(y,z)),
-	\TI{4}\mh(\mg(\ma,y)), 
-	\TI{5}\mh(\mf(y,x)), 
-	\TI{6}\mh(\mg(y,a))
+	\TI{1}\mP(\mf(x,x)),
+	\TI{2}\mP(\mg(\ma,x)), 
+	\TI{3}\mP(\mf(y,z)),
+	\TI{4}\mP(\mg(\ma,y)), 
+	\TI{5}\mP(\mf(y,x)), 
+	\TI{6}\mP(\mg(y,a))
 	\}
 \end{gather*}
 %
@@ -37,7 +37,7 @@
 	\node (h1g2a) at (6,1) {\{6\}};
 	\node (h1g2x) at (6,0) {\{2,4\}};
 	
-	\path (root) edge node {$\mh$} (h)
+	\path (root) edge node {$\mP$} (h)
 	(h) edge node {$1$} (h1)
 	
 	(h1)
@@ -68,7 +68,11 @@
 	(h1g2) 
 	edge node {$\ma$} (h1g2a)
 	edge node {$*$} (h1g2x)
+	
+	(root)
+	edge node {$\lnot$} (1,4)
+	edge node {$\mQ$} (1,1)
 	;
 	\end{tikzpicture}
 \end{center}
-$\mh(\mg(y,x)) \mapsto \{ \mh.1.\mg.1.{*}, \mh.1.\mg.2.{*} \}$
+$\lnot\mP(\mg(\mb,z)) \mapsto \{ \mP.1.\mg.1.{\mb}, \mP.1.\mg.2.{*} \} \mapsto \{6\} \cap \{2,4,6\}$

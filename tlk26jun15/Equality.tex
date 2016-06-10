@@ -1,47 +1,45 @@
+% !TeX root = tlk16jun15h.tex
+
+
 \subsection{Schemata}
 
 \begin{frame}
+		
+	\begin{example}
+		\vspace{-1em}
+		\begin{align*}
+			S =& \{ {\colHi\mP(\ma)}, \lnot\mP(\mf(\ma,\mb)), \mf(x,\mb)= x \} \tag*{unsatisfiable}
+			\\
+			&\quad\ma\neq y\lor \lnot\mP(\ma) \lor \mP (y)
+			\tag*{$\mP(\ma)$, congruence}
+		\end{align*}
+	\end{example}
+	
 	\begin{block}{Schemata}
 		\vspace{-1em}
 		\begin{align*}		
-			&x=x &s\neq s
+			\colG x=x 
+			&\colG\qquad s\neq s
 			\\
-			{\colG x\neq y\ \lor}\ 
-				&y=x &s \neq t
+			\colG x\neq y \lor y=x 
+			&\colG\qquad s \neq t
 			\\
-			{\colG x\neq y \lor y\neq z\ \lor}\ 
-				&x=z &s\neq t
+			\colG x\neq y \lor y\neq z \lor x=z 
+			&\colG\qquad s\neq t
 			\\
-			{\colG x_1\neq y_1 \lor x_2\neq y_2 \ \lor}\ 
-			&\mf(x_1,x_2) = \mf(y_1,y_2) 
-				&\mf(s)\neq\mf(t)
+			x_1\neq y_1\lor x_2\neq y_2\lor{\colLo\mf(x_1,x_2) = \mf(y_1,y_2)} 
+			&\qquad\mf(s_1,s_2)\neq\mf(t_1,t_2)
 			\\
-		    {\colG x\neq y\ \lor}\ &\lnot\mP(x) \lor \mP(y) 
-			    &\mP(s), \lnot\mP(t)
+		    {x}\neq {y}\ \lor {\colLo\lnot\mP({x})} \lor \mP({y}) 
+			    &\qquad\mP({s}) \\
+			    {x}\neq {y}\ \lor \lnot\mP({x}) \lor {\colLo\mP({y})} 
+			    &\qquad\lnot\mP({s})
 			\end{align*}
 		\end{block}
-%		
-		\begin{example}
-			\vspace{-1em}
-			\begin{align*}
-			S =&\ \{ \mP(\ma), \lnot\mP(\mf(\ma,\mb)), \mf(x,\mb)= x \} 
-			\\[0.5em]
-%			&\quad\infer[
-%			]{
-%				\ma\neq y \lor \lnot \mP(\ma) \lor \mP(y)
-%				}{
-%				x\neq y \lor \lnot\mP(x) \lor \mP(y)  & \mP(\ma)
-%			}
-%				\\[0.5em]
-%				&\quad\infer[
-%				]{
-%					x\neq \mf(\ma,\mb) \lor \lnot \mP(x) \lor \mP(\mf(\ma,\mb))
-%				}{
-%				x\neq y \lor \lnot\mP(x) \lor \mP(y) & \lnot\mP(\mf(\ma,\mb))
-%			}
-&\quad \ma\neq y \lor \lnot \mP(\ma) \lor \mP(y) \tag*{congruence}\\
-&\quad x\neq \mf(\ma,\mb) \lor \lnot \mP(x) \lor \mP(\mf(\ma,\mb)) \tag*{congruence}
-\end{align*}
-			\end{example}
-			
 			\end{frame}
+			
+%			\begin{frame}
+%				
+%				\input{}
+%				
+%				\end{frame}

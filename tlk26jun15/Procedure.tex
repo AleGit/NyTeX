@@ -1,0 +1,69 @@
+% !TeX root = tlk16jun15h.tex
+
+
+\subsection{Run-Loop}
+
+\frame{\input{IMPL/loop}}
+
+\subsection{Redundancy}
+		\frame{
+			\begin{block}{Subsumption}
+				\vspace{-1em}
+%				Subsumed clauses can be removed from a set of first order clauses without affecting satisfiability.
+%				Proper instances of clauses affect the satisfiability of the set of ground instances.
+				\begin{gather*}
+					S = \{C, D, \ldots \}\qquad \exists\theta\ C\theta\subseteq D 
+					\tag*{C subsumes D}\\
+					 S \text{ satisfiable} 
+					 \overset{\text{\colHi\cmark}}\iff (S \setminus D) \text{ satisfiable }
+%					   \tag*{Resolution}
+					   \\
+					   \theta\text{ is proper, }
+					S\bot \text{ satisfiable}\ 
+%					{\colLo\overset{\text{\colLo\xmark}}{\colLo\Leftarrow \Rightarrow}}
+					{\colLo\overset{\text{\xmark}}{\Leftarrow\Rightarrow}}\
+					(S \setminus D)\bot \text{ satisfiable } 
+%					\tag*{Inst-Gen}
+					\\
+					\theta\text{ is renaming, }
+					S\bot \text{ satisfiable} 
+					{\overset{\text{\colHi\cmark}}\iff}
+					(S \setminus D)\bot \text{ satisfiable } 
+					\end{gather*}
+				\end{block}
+			
+			\begin{Example}[]
+				\vspace{-1em}
+					\begin{gather*}
+\{ 	\mP(x,y), \lnot\mP(\ma,z) \} 
+\qquad 
+\{ 	\mP(x,y), \lnot\mP(\ma,z), {\colG\mP(\ma,z)} \} 
+\\
+	\{ \mP(\bot,\bot), \lnot\mP(\ma,\bot) \} 
+	\qquad 
+	\{ \mP(\bot,\bot), {\lnot\mP(\ma,\bot)},{\colLo\mP(\ma,\bot)} \}
+					\end{gather*}
+				
+				\end{Example}
+%							\begin{block}{}
+%								Proper instances of clauses affect the satisfiability of the set of ground instances.
+%							\end{block}
+			}
+			
+			\subsection{Data structures}
+			\frame{
+				\begin{block}{needed data structures}
+					\begin{enumerate}
+						\item representation of clauses, literals and terms
+						\item fast retrieval of clauses with a selected literal that is unifiable with the negation selected literal of a given clause
+						\item fast retrieval of clauses with a set of literals that is a renamed subset of a given clause
+					\end{enumerate}
+					
+					\end{block}
+				}
+				
+				\frame{
+					\input{../tikz/PrefixTrees}}
+				
+%				\frame{
+%					\input{../trmidx/DISCRIMINATIONTREE/Index}}

@@ -1,4 +1,14 @@
+\subsection{refutation}
 
+\begin{frame}
+	% We transform a first formula in to a equisatisfiable set of clauses,
+	% i.e. the conjunction of universally quantified disjunction of variable distinct first order literals
+	% then we check if the set is satisfiable, if not then the formula is a theorem.
+	\frametitle{Goal}
+	
+	\input{../tikz/refutation}
+	
+\end{frame}
 
 \subsection{Resolution and InstGen}
 
@@ -29,66 +39,7 @@
 			\end{Example}
 		}
 		
-%	\frame{
-%		\begin{Example}[Infinite domain]
-%		\begin{align*}
-%		S =&\ 
-%		\{ 
-%			\lnot\mP(x,x)),
-%			\mP(y,\mf(y)
-%%			\lnot\mP(z_1,z_2))\lor\lnot(\mP(z_2,z_3))\lor\mP(z_1,z_3)
-%		\} \\
-%		&\quad
-%		\infer[y\mapsto x, x\mapsto \mf(x)]
-%		{}
-%		{}
-%		\end{align*}
-%		\end{Example}
-%		}
-%		
-\subsection{Subsumption}
-		\frame{
-			\begin{block}{Subsumption}
-				\vspace{-1em}
-%				Subsumed clauses can be removed from a set of first order clauses without affecting satisfiability.
-%				Proper instances of clauses affect the satisfiability of the set of ground instances.
-				\begin{gather*}
-					S = \{C, D, \ldots \}\qquad \exists\theta\ C\theta\subseteq D 
-					\tag*{C subsumes D}\\
-					 S \text{ satisfiable} 
-					 \overset{\text{\colHi\cmark}}\iff (S \setminus D) \text{ satisfiable }
-%					   \tag*{Resolution}
-					   \\
-					   \theta\text{ is proper, }
-					S\bot \text{ satisfiable}\ 
-%					{\colLo\overset{\text{\colLo\xmark}}{\colLo\Leftarrow \Rightarrow}}
-					{\colLo\overset{\text{\xmark}}{\Leftarrow\Rightarrow}}\
-					(S \setminus D)\bot \text{ satisfiable } 
-%					\tag*{Inst-Gen}
-					\\
-					\theta\text{ is renaming, }
-					S\bot \text{ satisfiable} 
-					{\overset{\text{\colHi\cmark}}\iff}
-					(S \setminus D)\bot \text{ satisfiable } 
-					\end{gather*}
-				\end{block}
-			
-			\begin{Example}[]
-				\vspace{-1em}
-					\begin{gather*}
-\{ 	\mP(x,y), \lnot\mP(\ma,z) \} 
-\qquad 
-\{ 	\mP(x,y), \lnot\mP(\ma,z), {\colG\mP(\ma,z)} \} 
-\\
-	\{ \mP(\bot,\bot), \lnot\mP(\ma,\bot) \} 
-	\qquad 
-	\{ \mP(\bot,\bot), {\lnot\mP(\ma,\bot)},{\colLo\mP(\ma,\bot)} \}
-					\end{gather*}
-				
-				\end{Example}
-%							\begin{block}{}
-%								Proper instances of clauses affect the satisfiability of the set of ground instances.
-%							\end{block}
-			}
+	
+
 		
 

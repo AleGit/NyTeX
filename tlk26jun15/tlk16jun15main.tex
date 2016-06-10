@@ -36,110 +36,19 @@
 % BEGIN: CONTENT ----------------------------------------------------
 %====================================================================
 
-
-
-
-%\input{../trmidx/MOTIVATION/forwardSubsumption.tex}
-
 \section{Previously}
-
-\begin{frame}
-	% We transform a first formula in to a equisatisfiable set of clauses,
-	% i.e. the conjunction of universally quantified disjunction of variable distinct first order literals
-	% then we check if the set is satisfiable, if not then the formula is a theorem.
-	\frametitle{Goal}
-
-\input{../tikz/refutation}
-
-\end{frame}
 
 \include{Reminder}
 
-\section{Implementation}
+\section{Procedure}
 
-\frame{
-\input{IMPL/loop}
-}
-
-\subsection{Tools}
-
-%\begin{frame}
-%	\begin{enumerate}
-%		\item Flex, Bison for parsing
-%		\item Swift, C
-%		\item Xcode IDE
-%		\item yices 2
-%	\end{enumerate}}
-%\end{frame}
-
-\subsection{Structure}
-
-\begin{frame}
-%	\lstinline|Hello, World!|
-%	\lstinline|/// Create uninterpreted global (predicate) function `symbol` application|
-%	\lstinline|/// with uninterpreted arguments `args` of implicit global type `free_type`|
-%	\lstinline|/// and explicit return type `term_tau`:|
-%	\lstinline|/// * `free_tau` - the symbol is a constant/function symbol|
-%	\lstinline|/// * `bool_tau` - the symbol is a proposition/predicate symbol|
-\lstinline|func application(symbol:String, args:[term_t], tau:type_t) -> term_t \{|
-%	    	
-\lstinline|guard args.count > 0 else \{ return constant(symbol, tau) \}|
-\lstinline|let domain = [type_t](count:count, repeatedValue: free_tau)|
-%	    	
-\lstinline|let f = function(symbol, domain:domain(args.count, tau:Yices.free_tau), range: term_tau)|
-%	    	\lstinline|return yices_application(f, UInt32(args.count), args)|
-%	    \lstinline|}
-	\end{frame}
-
-\subsection{Indexing}
-
-\begin{frame}
-	\begin{enumerate}
-		\item Path indices of selected literals for clauses to find clashing literals
-		\item Discrimination trees of literals for clauses to find variants of clauses
-	\end{enumerate}
-	\end{frame}
-
-
-%\include{Motivation}
-%
-%\include{Position}
-%
-%\include{PathIndexing}
-%
-%\include{DiscriminationTree}
-%
-%\include{SubstitutionTrees}
-%
-%\include{Experiences}
+\include{Procedure}
 
 \section{Equality}
-%\include{Equality}
+\include{Equality}
 
 
-%\frame{
-%	$x = \ma \lor x\neq \ma$\hfill  $\bot = \bot \lor \bot \neq \bot$
-%	
-%	$\mf(\ma) \neq \mf(\mb)$\hfill  $\mf(\bot) \neq \mf(\ma)$
-%	
-%	$R = \{ x = \ma \}$ is ground complete
-%	
-%	$\sigma= \{x\mapsto\mb\}$ $(x=\ma) \sigma = \ma \to \mb$ with $\ma > \mb$ $\mf(a) \neq \mb$
-%	
-%	
-%	
-%	
-%	}
-%	
-%	\frame {
-%		% see PUZ063-1.p 
-%		
-%		$\mP(\ma), \lnot\mP(\mf(\ma,\mb)), \mf(x,\mb)=x$
-%		
-%		$\mP(\ma), \lnot\mP(\mf(\ma,\mb)), \mf(\bot,\mb)=\bot$
-%		
-%		$\{\mf(x,\mb)=x\}$ is ground complete and with $\{ x\mapsto \ma \}$ we get $\lnot\mP(\ma)$
-%		}
+
 \section{work to do}
 
 \frame{
