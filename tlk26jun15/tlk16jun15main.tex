@@ -48,8 +48,35 @@
 \include{Equality}
 
 
+\section{Bernays–Schönfinkel-Ramsey}
+
+\subsection{Effectively Propositional}
+
+\begin{frame}
+	\begin{block}{}
+		The Bernays–Schönfinkel-Ramsey class of first-order formulae is a decidable fragment of first-order logic.
+%		 and can be effectively translated into propositional logic (EPR).
+Each formulae in this fragment is equivalent to a formula
+$\exists a_1\ldots a_m \forall y_1\ldots\ y_n F(a_1,\ldots,a_m,y_1,\ldots,y_n)$ 
+where F is quantifier free and does not contain any function symbol,
+which can easily transformed into
+$\forall y_1\ldots\ y_n G(y_1,\ldots,y_n)$
+where $G$ contains only constant function symbols.
+		\end{block}
+		
+		
+		
+		\begin{example}
+			\vspace{-1em}
+			\begin{gather*}
+				\ma\neq x\lor\mQ(\ma,x), \mQ(y,\mb)
+			\end{gather*}
+		\end{example}
+	\end{frame}
 
 \section{work to do}
+
+
 
 \frame{
 	\begin{itemize}
