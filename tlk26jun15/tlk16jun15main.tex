@@ -53,18 +53,18 @@
 \subsection{Effectively Propositional}
 
 \begin{frame}
-	\begin{block}{}
-		The Bernays–Schönfinkel-Ramsey class of first-order formulae is a decidable fragment of first-order logic.
-%		 and can be effectively translated into propositional logic (EPR).
-Each formulae in this fragment is equivalent to a formula
-$\exists a_1\ldots a_m \forall y_1\ldots\ y_n F(a_1,\ldots,a_m,y_1,\ldots,y_n)$ 
-where F is quantifier free and does not contain any function symbol,
-which can easily transformed into
-$\forall y_1\ldots\ y_n G(y_1,\ldots,y_n)$
-where $G$ contains only constant function symbols.
+		
+		
+		
+		\begin{block}{}
+			The Bernays–Schönfinkel-Ramsey class of first-order formulae is a decidable fragment of first-order logic.
+			%		 and can be effectively translated into propositional logic (EPR).
+			Each formula in this fragment is equivalent to a satisfiable formula
+			\[\exists a_1\ldots a_m \forall y_1\ldots\ y_n\,F\] 
+			where $F$ is quantifier free and does not contain function symbols.
+			
+			
 		\end{block}
-		
-		
 		
 		\begin{example}
 			\vspace{-1em}
@@ -72,6 +72,11 @@ where $G$ contains only constant function symbols.
 				\ma\neq x\lor\mQ(\ma,x), \mQ(y,\mb)
 			\end{gather*}
 		\end{example}
+		
+		\begin{block}{Remark}
+			In practice the additon of equality axioms reduces the success rates of (instantiation-based) automated theorem provers drastically (even in this segment).
+			\end{block}
+		
 	\end{frame}
 
 \section{work to do}

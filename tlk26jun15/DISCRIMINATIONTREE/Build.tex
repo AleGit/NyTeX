@@ -1,0 +1,26 @@
+% !TeX root = tlk16jun15h.tex
+% !TeX encoding = UTF-8
+% !TeX spellcheck = en_US
+
+\begin{block}{}
+	\def\TRIEWIDTH{4cm}
+	\def\TEXTWIDTH{\textwidth-\TRIEWIDTH-2em}
+	\begin{minipage}{\TEXTWIDTH}
+		\input{DISCRIMINATIONTREE/Terms}
+		\begin{align*}
+			\ell_1 &\mapsto \mP.\mf.{*}.{*}\\
+			\ell_2 &\mapsto \mP.\mf.{*}.\mh.\ma \\
+			\ell_3 &\mapsto \mP.\mf.\mh.\ma.\ma
+			\end{align*}
+	\end{minipage}
+	\begin{minipage}{\TRIEWIDTH}
+		\def\pyL{-0.3}
+		\def\pxL{-0.0}
+		\begin{tikzpicture}[->,dotted]
+		\renewcommand{\PAUSE}{}
+		\input{DISCRIMINATIONTREE/Index}
+		\node (lu) at (-3,-5.5) {} ;
+		\end{tikzpicture}
+	\end{minipage}
+	%
+\end{block}

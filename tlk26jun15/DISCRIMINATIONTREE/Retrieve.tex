@@ -1,0 +1,40 @@
+% !TeX root = ../m3Handout.tex
+% !TeX encoding = UTF-8
+% !TeX spellcheck = en_US
+
+\begin{block}{Retrieve}
+	\def\TRIEWIDTH{4cm}
+	\def\TEXTWIDTH{\textwidth-\TRIEWIDTH-2em}
+	\begin{minipage}{\TEXTWIDTH}
+		\input{DISCRIMINATIONTREE/Terms}
+		\begin{align*}
+			\mh(\mf(x',\ma))&\Rightarrow \mh.\mf.{*}.\ma 
+			\\[0.7em]
+			u: \mh(\mf(x',\ma))&\mapsto \{
+\onslide<5->{t_1,} 
+\onslide<7->{t_3} 
+\}
+\\
+\onslide<8->{			i:\mh(\mf(x',\ma))&\mapsto \{t_3\} } \\
+\onslide<9->{			g:\mh(\mf(x',\ma))&\mapsto \{t_1\} }\\
+\onslide<10->{			v:\mh(\mf(x',\ma))&\mapsto \{  \} }\\
+		\end{align*}
+	\end{minipage}
+	%
+	\begin{minipage}{\TRIEWIDTH}
+		\begin{tikzpicture}[->,dotted]
+		\input{DISCRIMINATIONTREE/Index} 
+		\renewcommand{\PAUSE}{\pause}	
+\PAUSE\path[bend right, dashed, colN] (root) edge  (h);
+\PAUSE\path[bend right, dashed, colN] (h) edge  (hf);
+\PAUSE\path[bend right, dashed, colN] (hf) edge (hfx);			
+\PAUSE\path[bend right, dashed, colN] (hfx) edge  (hfxx);
+\PAUSE\path[bend right, dashed, colN] (hf) edge  (hfha);
+\PAUSE\path[bend right, dashed, colN] (hfha) edge (hfhaa);
+
+				\node (lu) at (-3,-5.5) {} ;
+\onslide<1->
+		\end{tikzpicture}
+	\end{minipage}
+	%
+\end{block}

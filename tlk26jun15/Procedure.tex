@@ -62,8 +62,23 @@
 					\end{block}
 				}
 				
+				\subsection{Path indexing}
 				\frame{
 					\input{../tikz/PrefixTrees}}
 				
-%				\frame{
-%					\input{../trmidx/DISCRIMINATIONTREE/Index}}
+				\subsection{Discrimination trees}
+				\frame{
+					\input{DISCRIMINATIONTREE/Build}
+					
+					\begin{block}{Implementation}
+						\vspace{-1em}
+%						The literal index is implemented as mapping from yices literals to clauses.
+						
+						\begin{align*}
+							\texttt{ Clause}&\mapsto\mathtt{(Int,\ Set\ of\ term\_t)}\\
+						\texttt{ term\_t}&\mapsto \mathtt{Set\ of\ Int}\\
+							\texttt{ Int}&\mapsto \mathtt{Clause}
+						\end{align*}
+						
+						\end{block}
+					}
