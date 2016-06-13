@@ -82,3 +82,37 @@
 						
 						\end{block}
 					}
+					
+\subsection{Yices API}
+\begin{frame}
+\scalebox{0.85}[1.0]{\begin{minipage}{40em}
+\texttt{{\colEm type\_t} yices\_bool\_type({\colEm void});}
+\\[0.25em]							
+\texttt{{\colEm type\_t} yices\_new\_uninterpreted\_type({\colEm void});}
+\\[0.25em]							
+\texttt{{\colEm type\_t} yices\_function\_type({\colEm uint32\_t} n, const {\colEm type\_t} dom{\colEm []}, {\colEm type\_t} range);}
+\\[0.75em]							
+\texttt{{\colEm term\_t} yices\_new\_uninterpreted\_term({\colEm type\_t} tau);}
+\\[0.25em]
+\texttt{{\colEm term\_t} yices\_application({\colEm term\_t} fun, {\colEm uint32\_t} n, const {\colEm term\_t} arg[]);}
+\\[0.25em]
+\texttt{{\colEm term\_t} yices\_eq({\colEm term\_t} left, {\colEm term\_t} right);}
+\\[0.75em]
+\texttt{{\colEm term\_t} yices\_not({\colEm term\_t} arg);}
+\\[0.25em]
+\texttt{{\colEm term\_t} yices\_or({\colEm uint32\_t} n, {\colEm term\_t} arg{\colEm []});}
+\\[0.75em]
+\texttt{{\colEm int32\_t} yices\_assert\_formula({\colEm context\_t *ctx}, {\colEm term\_t} t);}
+\\[0.75em]
+\texttt{{\colEm smt\_status\_t} yices\_check\_context({\colEm context\_t *}ctx, const {\colEm param\_t *}params);}
+\\[0.25em]
+\texttt{{\colEm model\_t} *yices\_get\_model({\colEm context\_t *}ctx, {\colEm int32\_t} keep\_subst);}
+\\[0.25em]
+\texttt{{\colEm int32\_t} yices\_get\_bool\_value({\colEm model\_t *}mdl, {\colEm term\_t} t, {\colEm int32\_t *}val);}
+
+\end{minipage}}
+							
+							
+						
+	
+						\end{frame}
