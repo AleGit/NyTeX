@@ -1,9 +1,14 @@
+% !TeX root = tlk16jun15h.tex
+
 \begin{gather*}
 	\vspace{-1em}
-\infer[x\mapsto \ma]{
-	\infer[y\mapsto \mb]{\emptyclause}{
-		\lnot\mP(y)&\mP(\mb)
-		}
-	}{\mP(x)\lor\lnot\mP(y)&\lnot\mP(\ma)
-			}
+	S = 
+	\{ 
+	\mP(x) \lor \lnot\mP(y), 
+	\lnot \mP(\ma), 
+	\mP(\mb) 
+	\}\\[0.5em]
+\infer[y\mapsto\mb]{\emptyclause}{
+\infer[x\mapsto\ma]{\mP(y)}{\mP(x) & \lnot \mP(y)} & \mP(\mb)
+	}
 			\end{gather*}
