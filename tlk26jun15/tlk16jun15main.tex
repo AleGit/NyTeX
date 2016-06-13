@@ -74,22 +74,35 @@
 		\end{example}
 		
 		\begin{block}{Remark}
-			In practice the additon of equality axioms reduces the success rates of (instantiation-based) automated theorem provers drastically (even in this segment).
+			In practice the additon of equality axioms reduces the success rates of (instantiation-based) automated theorem provers drastically.
 			\end{block}
 		
 	\end{frame}
 
-\section{work to do}
+\section{Summary and Outlook}
 
 
 
 \frame{
 	\begin{itemize}
-		\item migrate to Linux / Swift 3
-		\item integrate unit superposition
-		\item integrate ordered maximal completion 
-		\item experiments
-		\item optimizations
+		\item Done:
+	\begin{itemize}
+		\item Scanning and parsing with \texttt{flex} and \texttt{bison}
+		\item Application logic with two simple strategies
+		\item SMT Checking with Yices 2
+	\end{itemize}
+	\item Ongoing:
+	\begin{itemize}
+		\item Integration of Unit Superposition calculus
+		\item Integration of Z3 for unsatisfiable core and maximal completion
+		\item Tests and experiments
+	\end{itemize}
+	\item Missing:
+	\begin{itemize}
+		\item Good strategies
+		\item Combinations of strategies
+		\item Migration to Linux
+	\end{itemize}
 	\end{itemize}
 	}
 \subsection{optimization}

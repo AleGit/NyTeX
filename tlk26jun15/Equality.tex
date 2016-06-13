@@ -20,22 +20,22 @@
 	\begin{block}{Schemata}
 		\vspace{-1em}
 		\begin{align*}		
-			\colG x=x 
+			\colHi x=x\tag*{reflexivity} 
 			&\colG\qquad s\neq s
 			\\
-			\colG x\neq y \lor y=x 
-			&\colG\qquad s \neq t
+			\colG x\neq y \lor \colHi y=x 
+			&\colG\qquad s \neq t\tag*{symmetry}
 			\\
-			\colG x\neq y \lor y\neq z \lor x=z 
-			&\colG\qquad s\neq t
+			\colG x\neq y \lor y\neq z \lor \colHi x=z 
+			&\colG\qquad s\neq t\tag*{transitivity}
 			\\
-			x_1\neq y_1\lor x_2\neq y_2\lor{\colLo\mf(x_1,x_2) = \mf(y_1,y_2)} 
+			x_1\neq y_1\lor x_2\neq y_2\lor{\colHi\mf(x_1,x_2) = \mf(y_1,y_2)} 
 			&\qquad\mf(s_1,s_2)\neq\mf(t_1,t_2)
 			\\
-		    {x}\neq {y}\ \lor {\colLo\lnot\mP({x})} \lor \mP({y}) 
+		    {x}\neq {y}\ \lor {\colHi\lnot\mP({x})} \lor \mP({y}) 
 			    &\qquad\mP({s}) \\
-			    {x}\neq {y}\ \lor \lnot\mP({x}) \lor {\colLo\mP({y})} 
-			    &\qquad\lnot\mP({s})
+			    {x}\neq {y}\ \lor \lnot\mP({x}) \lor {\colHi\mP({y})} 
+			    &\qquad\lnot\mP({s})\tag*{congruence}
 			\end{align*}
 		\end{block}
 			\end{frame}
@@ -46,10 +46,10 @@
 					\end{Lemma}
 					
 					\begin{Proof}[Symmetry]
-						\infer[\text{R}]{x\neq y \lor y = x}{
+						\infer[\text{reflexivity}]{x\neq y \lor y = x}{
 						\infer[x_1\mapsto x, x_2\mapsto x, y_1\mapsto y, y_2\mapsto x]
 						{x\neq y \lor x\neq x \lor x\neq x \lor y = x}{
-						\infer[\text{C}]{x_1\neq y_1 \lor x_2\neq y_2 \lor x_1\neq x_2 \lor y_1=y_2}{}
+						\infer[\text{predicate congruence}]{x_1\neq y_1 \lor x_2\neq y_2 \lor x_1\neq x_2 \lor y_1=y_2}{}
 					}
 					}
 						\end{Proof}
