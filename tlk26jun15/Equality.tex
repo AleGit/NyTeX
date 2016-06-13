@@ -46,20 +46,21 @@
 					\end{Lemma}
 					
 					\begin{Proof}[Symmetry]
-						\infer[\text{reflexivity}]{x\neq y \lor y = x}{
+						\infer[\text{reflexivity}]{x= y \rightarrow y = x}{
 						\infer[x_1\mapsto x, x_2\mapsto x, y_1\mapsto y, y_2\mapsto x]
-						{x\neq y \lor x\neq x \lor x\neq x \lor y = x}{
-						\infer[\text{predicate congruence}]{x_1\neq y_1 \lor x_2\neq y_2 \lor x_1\neq x_2 \lor y_1=y_2}{}
+						{x= y \land x = x \land x = x \rightarrow y = x}{
+						\infer[\text{congruence}]{x_1 = y_1 \land x_2 = y_2 \land x_1 = x_2 \rightarrow y_1 = y_2}{
+							}
 					}
 					}
 						\end{Proof}
 						
 						
 						\begin{Proof}[Transitivity]
-							\infer[\text{R}]{x\neq y \lor y\neq z \lor x = z}{
+							\infer[\text{reflexivity}]{x\neq y \lor y\neq z \lor x = z}{
 								\infer[x_1\mapsto x, x_2\mapsto y, y_1\mapsto x, y_2\mapsto z]
 								{x\neq x \lor y\neq z \lor x\neq y \lor x=z}{
-									\infer[\text{C}]{x_1\neq y_1 \lor x_2\neq y_2 \lor x_1\neq x_2 \lor y_1=y_2}{}
+									\infer[\text{congruence}]{x_1\neq y_1 \lor x_2\neq y_2 \lor x_1\neq x_2 \lor y_1=y_2}{}
 								}
 							}
 						\end{Proof}
