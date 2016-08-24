@@ -1,0 +1,133 @@
+% !TeX encoding = UTF-8
+% !TeX spellcheck = en_US
+
+\documentclass[ 
+% amsmath=
+% amsthm=
+% array=
+% calc
+% enumerate=
+% extsizes
+% geometry
+% hyperref
+xcolor={usenames,dvipsnames,svgnames,tablem} 
+%,bigger
+,handout
+]{beamer}
+% automatically loaded: xcolor, amsmath, amsthm, calc, geometry, hyperref, extsizes
+
+% \input{HEADER/HEADER}
+
+\input{../HEADER/Beamer}
+\input{../HEADER/Colors}
+\input{../HEADER/Commands}
+\input{../HEADER/Symbols}
+\input{../HEADER/Drawing}
+
+
+\renewcommand{\ORIGIN}{}
+\providecommand{\PAUSE}{}
+
+\author{Alexander Maringele}
+\title{flea}
+\subtitle{system description}
+\date{September 2016 -- Obergurgl}
+
+\begin{document}
+
+% ==============================================================
+\frame{\maketitle}
+
+% ==============================================================
+\frame{
+	\frametitle{Refutation}
+	\input{../tikz/refutation.tex}
+	}
+% ==============================================================
+\frame{
+    \frametitle{Goals}
+    \framesubtitle{fisrst order logic with equality theorem attester}
+    \begin{itemize}
+    % \item automated
+    % \item first order logic with equality
+    % \item prover 
+    \item maintainable
+    \item simple
+    \item tested
+    \item fast
+    \item extendable
+    \item flexible
+    \end{itemize}
+}
+% =======%=======================================================
+\frame {
+    \begin{enumerate}
+    \item start with 
+        \begin{itemize}
+        \item empty list of processed clauses with selected literals
+        \item list of unprocessed clauses
+        \item empty (satisfiable) yices context
+        \end{itemize}
+    \item return satisfiable if the list of unprocessed clauses is empty
+
+    \item select a unprocessed file and process it
+
+        \begin{itemize}
+        \item assert a ground instance of the clause in the yices context
+        \item return unsatisfiable if the context is unsatisfiable
+        \item retrieve a model from the context
+        \item select a literal of the clause that holds in the model
+        \item search for contradictions with the selected 
+        literals of the processed clauses and retrieve
+        non-redundant instances from the contributing clauses and
+        add them to the unprocessed clauses 
+        \item remove the clause from the list of unprocessed clauses
+        \item add the clause and its selected literal to the processed clauses
+        \end{itemize}
+
+    
+        \item continue with step 2.
+
+
+    \end{enumerate}
+}
+
+% ==============================================================
+
+% ==============================================================
+
+% ==============================================================
+
+% ==============================================================
+
+% ==============================================================
+
+% ==============================================================
+
+% ==============================================================
+
+% ==============================================================
+
+% ==============================================================
+
+% ==============================================================
+
+% ==============================================================
+\frame{\input{../examples/InstGen0.tex}}
+% ==============================================================
+\frame{\input{../examples/Resolution.tex}}
+% ==============================================================
+\frame{\input{../definitions/InstGenRule.tex}}
+% ==============================================================
+\frame{\input{../definitions/Resolution.tex}}
+% ==============================================================
+\frame{\input{../definitions/UnitSuperposition.tex}}
+% ==============================================================
+\frame{\input{../tikz/PrefixTrees.tex}}
+% ==============================================================
+
+% issues
+%\frame{\input{../tikz/DiscriminationTree.tex}} % incomplete
+% \frame{\input{../tikz/refutation.tex}}
+
+\end{document}

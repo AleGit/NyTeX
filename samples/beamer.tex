@@ -25,8 +25,20 @@ xcolor={usenames,dvipsnames,svgnames,tablem}
 \input{../HEADER/Drawing}
 
 
+\renewcommand{\ORIGIN}{}
+\providecommand{\PAUSE}{}
+
 \begin{document}
 
-Hello, World!
+\frame{\input{../examples/InstGen0.tex}}
+\frame{\input{../examples/Resolution.tex}}
+\frame{\input{../definitions/InstGenRule.tex}}
+\frame{\input{../definitions/Resolution.tex}}
+\frame{\input{../definitions/UnitSuperposition.tex}}
+\frame{\input{../tikz/PrefixTrees.tex}}
+
+% issues
+%\frame{\input{../tikz/DiscriminationTree.tex}} % incomplete
+% \frame{\input{../tikz/refutation.tex}}
 
 \end{document}
