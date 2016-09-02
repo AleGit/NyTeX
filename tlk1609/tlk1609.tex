@@ -28,7 +28,7 @@ xcolor={usenames,dvipsnames,svgnames,tablem}
 \renewcommand{\ORIGIN}{}
 \providecommand{\PAUSE}{}
 
-\author{Alexander Maringele}
+\author[Alexander Maringele]{Alexander Maringele\\ {Supervisor: Georg Moser}}
 \title{\textbf{FLEA}}
 % \subtitle{\textbf First Order \textbf Logic With \textbf Equality Theorem \textbf Attester}
 \subtitle{a master project}
@@ -40,7 +40,9 @@ xcolor={usenames,dvipsnames,svgnames,tablem}
 \frame{\maketitle}
 \frame{\tableofcontents}
 
+
 \section{Project}
+\subsection{Goals and requirements}
 
 \frame{
 	\frametitle{Project overview}
@@ -49,38 +51,87 @@ xcolor={usenames,dvipsnames,svgnames,tablem}
 	\item Goals
 	\begin{itemize}
 %		\item Master thesis
-		\item ATP for FOL with equality
+		\item ATP for {FOL} with equality
 		\item Master thesis
 	\end{itemize}
 	\item Requirements
 	\begin{itemize}
-		\item Problem files
-		\item Clauses, literals, and terms
-		\item Substitution and unification
-		\item Proof search (strategies)
-		\item Performance and success rate
+		\item Input: problems in clausal normal form
+		\item Data: clauses, literals, terms, indices, etc.
+		\item Algorithms: substitution, unification, etc.
+		\item \textbf{Proof search} (strategies)
+%		\item Performance and success rate
 	\end{itemize}
 	\item Non-Goals and Non-Requirements
 	\begin{itemize}
-		\item Transformation FOF $\approx$ CNF
 		\item CASC
+		\item FOF $\approx$ CNF
 	\end{itemize}
 \end{itemize}
 }	
 
+\subsection{Clausal normal form}
+
 \frame{
-	\frametitle{TPTP}
-	\framesubtitle{Problem files}
+	\frametitle{Clausal normal form }
+	\framesubtitle{TPTP Syntax}
 	
-	
+%	\url{http://www.cs.miami.edu/~tptp/}\\
+	\scalebox{0.9}[1.0]{\begin{minipage}{40em}
+	\texttt{$\cdots$\\
+		cnf(same\_hates, hypothesis, ( $\sim$hates(agatha,X) | hates(butler,X) )).\\
+		$\cdots$\\	
 }
+\end{minipage}}
+		\begin{gather*}
+			\left\{\ \ldots,\
+			\lnot \text{hates}(\text{agatha},x)
+			\lor 
+			\text{hates}(\text{butler},x),\ \ldots\right\} \tag*{{\em clausal} NF}
+			\\\equiv\\
+			\ldots\ \land\ 
+				\forall x\ {(}
+				\lnot \text{hates}(\text{agatha},x)
+				\lor 
+				\text{hates}(\text{butler},x) {)}
+			\  \land\ \ldots \tag*{{\em conjunctive}~NF}
+			\end{gather*}
+		
+		\vspace{1em}
 	
+	\nocite{SS98}
+	%\nocite{Hofstadter:1979:GEB:539932,NHRV2001ote}
+	%\nocite{ SRV2001ti,ZHM2009jar,RV2003eir,NHRV2001ote}	% ZHM2009jar, RV2003eir, NHRV2001ote
+	\bibliographystyle{amsalpha}
+	\bibliography{biblio}
+
+%	\qquad\href{http://www.cs.miami.edu/~tptp/}{http://www.cs.miami.edu/\~{}tptp/}
+}
+
+%\subsection{Data structures}
+%
+%\frame{
+%	\frametitle{Data structures and algorithms}
+%	
+%	\begin{itemize}
+%		\item Sets of clauses, multisets of literals
+%		\item Atoms, i.e predicate terms or equations
+%		\item Functional (constant) terms and variables
+%		\item Substitutions, i.e.~mappings from variables to terms
+%	\end{itemize}
+%	
+%	\begin{itemize}
+%		\item Apply substitutions on clauses
+%		\item Find most general unifier of atoms
+%	\end{itemize}
+%	}
 	
+\subsection{Proof search}	
 
 % ==============================================================
 \frame{
+	\framesubtitle{Proof search}
 	\frametitle{Refutation}
-	\framesubtitle{}
 	\input{../tikz/refutation.tex}
 	}
 % ==============================================================
@@ -153,21 +204,108 @@ xcolor={usenames,dvipsnames,svgnames,tablem}
 % ==============================================================
 
 % ==============================================================
-\frame{\input{../examples/InstGen0.tex}}
+\frame{
+	\frametitle{Ordered Resolution}
+	\framesubtitle{Proof search}
+	\begin{block}{}
+	\input{../definitions/Resolution.tex}
+	\end{block}
+	\begin{block}{}
+	\input{../examples/Resolution.tex}
+	\end{block}}
 % ==============================================================
-\frame{\input{../examples/Resolution.tex}}
+\frame{
+	\frametitle{Inst-Gen}
+	\framesubtitle{Proof search}
+	\begin{block}{}
+	\input{../definitions/InstGenRule.tex}
+\end{block}
+
+\begin{block}{}
+	\vspace{-1.5em}
+\begin{align*}
+	S =&\  
+	\{ 
+	{\mP(x)} \lor \lnot\mP(y), 
+	{\lnot \mP(\ma)}, 
+	{\mP(\mb)} 
+	\} \tag*{\colG unsatisfiable}
+	\\
+	S\bot =&\  
+	\{ 
+	{\colHi\mP(\bot)} \lor \lnot\mP(\bot), 
+	{\lnot\colLo \mP(\ma)}, 
+	{\colHi\mP(\mb)} 
+	\} \tag*{satisfiable}
+	\\
+	S_p=&\ 
+	({\colHi p_1} \lor \lnot p_1) \land \lnot {\colLo p_2} \land {\colHi p_3}
+	\tag*{satisfiable}
+%	&\quad 
+%	\infer[x\mapsto\ma]{
+%		\mP(\ma)\lor\lnot\mP(y)
+%	}{\mP(x)\lor\lnot\mP(y))&\lnot\mP(\ma)}
+%	\\
+%	S_1\bot \supsetneq&\  
+%	\{  
+%	{\colHi\lnot \mP(\ma)}, 
+%	{\colHi\mP(\mb)},
+%	{\colLo\mP(\ma)} \lor {\colHi \lnot \mP(\bot) } \}
+%	\tag*{satisfiable}
+%	\\
+%	&\quad
+%	\infer[y\mapsto\mb]{
+%		\mP(\ma)\lor\mP(\mb)}{
+%		\mP(\mb)&\mP(\ma)\lor\lnot\mP(y)
+%	}
+%	\\
+%	S_2\bot \supsetneq&\ 
+%	\{ \lnot\mP(\ma), \mP(\mb), \mP(\ma) \lor \lnot\mP(\mb) \} \tag*{unsatisfiable}
+\end{align*}
+\end{block}
+
+
+
+
+}
 % ==============================================================
-\frame{\input{../definitions/InstGenRule.tex}}
+
+\frame{
+	\frametitle{Inst-Gen}
+	\begin{block}{}
+		\vspace{-1.5em}
+	\input{../examples/InstGen0.tex}
+	\\
+	\end{block}
+	\vspace{1em}
+	\begin{block}{Incomplete with equality}
+		\vspace{-1.2em}
+		\begin{align*}
+			&\{
+			\mP(\ma),\lnot\mP(\mf(x,b)), \mf(x,\mb) = x
+			\} \tag*{\colG unsatisfiable}
+				\end{align*}
+		\end{block}
+	}
 % ==============================================================
-\frame{\input{../definitions/Resolution.tex}}
+%\frame{\input{../definitions/Resolution.tex}}
 % ==============================================================
-\frame{\input{../definitions/UnitSuperposition.tex}}
+%\frame{\input{../definitions/UnitSuperposition.tex}}
 % ==============================================================
-\frame{\input{../tikz/PrefixTrees.tex}}
+
 % ==============================================================
 
 % issues
 %\frame{\input{../tikz/DiscriminationTree.tex}} % incomplete
 % \frame{\input{../tikz/refutation.tex}}
+
+\section{Implementation}
+\subsection{Run-loop}
+
+\frame{
+	\frametitle{Run-loop}
+	
+	\input{loop}
+}
 
 \end{document}
