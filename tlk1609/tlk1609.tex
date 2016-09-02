@@ -323,24 +323,7 @@ xcolor={usenames,dvipsnames,svgnames,tablem}
 	
 	\begin{block}{Schemata}
 		\vspace{-1em}
-		\begin{align*}		
-			\colHi x=x\tag*{reflexivity} 
-			&\qquad s\neq s
-			\\
-			 x\neq y \lor \colHi y=x 
-			&\qquad s \neq t\tag*{symmetry}
-			\\
-			 x\neq y \lor y\neq z \lor \colHi x=z 
-			&\qquad s\neq t\tag*{transitivity}
-			\\
-			x_1\neq y_1\lor x_2\neq y_2\lor{\colHi\mf(x_1,x_2) = \mf(y_1,y_2)} 
-			&\qquad\mf(s_1,s_2)\neq\mf(t_1,t_2)
-			\\
-			{x}\neq {y}\ \lor {\colHi\lnot\mP({x})} \lor \mP({y}) 
-			&\qquad\mP({s}) \\
-			{x}\neq {y}\ \lor \lnot\mP({x}) \lor {\colHi\mP({y})} 
-			&\qquad\lnot\mP({s})\tag*{congruence}
-		\end{align*}
+		\input{content/schemata}
 	\end{block}
 \end{frame}
 
