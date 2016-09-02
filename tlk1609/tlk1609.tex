@@ -75,9 +75,9 @@ xcolor={usenames,dvipsnames,svgnames,tablem}
 	}
 
 \frame{
-	\frametitle{Ordered Resolution}
-	\framesubtitle{Proof search}
-	\begin{block}{}
+%	\frametitle{Ordered Resolution}
+%	\framesubtitle{Proof search}
+	\begin{block}{Ordered Resolution}
 	\input{../definitions/Resolution.tex}
 	\end{block}
 	\begin{block}{}
@@ -85,32 +85,23 @@ xcolor={usenames,dvipsnames,svgnames,tablem}
 	\end{block}}
 % ==============================================================
 \frame{
-	\frametitle{Inst-Gen}
-	\framesubtitle{Proof search}
-	\begin{block}{}
+%	\frametitle{Inst-Gen}
+%	\framesubtitle{Proof search}
+	\begin{block}{Inst-Gen}
 	\input{../definitions/InstGenRule.tex}
 \end{block}
 
-\begin{block}{}
-	\vspace{-1.5em}
+\begin{block}{Selection}
+	\vspace{-1em}
 \begin{align*}
-	S =&\  
-	\{ 
-	{\mP(x)} \lor \lnot\mP(y), 
-	{\lnot \mP(\ma)}, 
-	{\mP(\mb)} 
-	\} \tag*{\colG unsatisfiable}
-	\\
-	P=&\ 
-	({\colHi p_*} \lor \lnot p_*) \land \lnot {\colLo p_a} \land {\colHi p_b}
-	\tag*{satisfiable}
+	\input{example/selection}
 \end{align*}
 \end{block}
 }
 % ==============================================================
 
 \frame{
-	\frametitle{Inst-Gen}
+%	\frametitle{Inst-Gen}
 	\begin{block}{}
 		\vspace{-1.5em}
 	\input{example/instgen}
