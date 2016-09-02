@@ -1,0 +1,36 @@
+\begin{align*}
+		S_0 =&\  
+		\{ 
+		{\mP(x)} \lor \lnot\mP(y), 
+		{\lnot \mP(\ma)}, 
+		{\mP(\mb)} 
+		\} \tag*{\colG unsatisfiable}
+		\\
+		P_0=&\ 
+		({\colHi p_*} \lor \lnot p_*) \land \lnot {\colLo p_a} \land {\colHi p_b}
+		\tag*{satisfiable}\\
+		&\quad 
+		\infer[x\mapsto\ma]{
+			\mP(\ma)\lor\lnot\mP(y)
+		}{\mP(x)\lor\lnot\mP(y))&\lnot\mP(\ma)}
+		\\
+		P_1=&\ 
+		({p_*} \lor \lnot p_*) 
+		\land \lnot {\colLo p_a} 
+		\land {\colHi p_b}
+		\land ({p_a} \lor {\lnot\colLo p_*})
+		\tag*{satisfiable}\\
+		&\quad
+		\infer[y\mapsto\mb]{
+			\mP(\ma)\lor\lnot\mP(\mb)}{
+			\mP(\mb)&\mP(\ma)\lor\lnot\mP(y)
+		}
+		\\
+		P_2=&\ 
+		({p_*} \lor \lnot p_*) 
+		\land \lnot {\colLo p_a} 
+		\land {\colHi p_b}
+		\land ({p_a} \lor {\lnot p_*})
+		\land (p_a \lor \lnot p_b)
+		\tag*{unsatisfiable}
+	\end{align*}

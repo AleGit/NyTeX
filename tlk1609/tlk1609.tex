@@ -36,10 +36,11 @@ xcolor={usenames,dvipsnames,svgnames,tablem}
 
 \begin{document}
 
-% ==============================================================
 \frame{\maketitle}
-%\frame{\tableofcontents}
+% ==============================================================
 
+%\frame{\tableofcontents}
+% ==============================================================
 
 \section{Project}
 \subsection{Goals and requirements}
@@ -47,86 +48,22 @@ xcolor={usenames,dvipsnames,svgnames,tablem}
 \frame{
 	\frametitle{Project overview}
 	\framesubtitle{Goals and requirements}
-	\begin{itemize}
-	\item Goals
-	\begin{itemize}
-%		\item Master thesis
-		\item ATP for {FOL} with equality
-		\item Master thesis
-	\end{itemize}
-	\item Requirements
-	\begin{itemize}
-		\item Input: problems in clausal normal form
-		\item Data: clauses, literals, terms, indices, etc.
-		\item Algorithms: substitution, unification, etc.
-		\item \textbf{Proof search} (strategies)
-%		\item Performance and success rate
-	\end{itemize}
-	\item Non-Goals and Non-Requirements
-	\begin{itemize}
-		\item CASC
-		\item FOF $\approx$ CNF
-	\end{itemize}
-\end{itemize}
-}	
+	\input{content/goals}
+}
+% ==============================================================	
 
 \subsection{Clausal normal form}
 
 \frame{
 	\frametitle{Clausal normal form }
 	\framesubtitle{TPTP Syntax}
-	
-%	\url{http://www.cs.miami.edu/~tptp/}\\
-	\scalebox{0.8}[1.0]{\begin{minipage}{40em}
-	\texttt{$\cdots$\\
-		cnf(same\_hates, hypothesis, ( $\sim$hates(agatha,X) | hates(butler,X) )).\\
-		$\cdots$\\	
-}
-\end{minipage}}
-		\begin{gather*}
-			\left\{\ \ldots,\
-			\lnot \text{hates}(\text{agatha},x)
-			\lor 
-			\text{hates}(\text{butler},x),\ \ldots\right\} 
-%			\tag*{{\em clausal} NF}
-			\\\equiv\\
-			\ldots\ \land\ 
-				\forall x\ {(}
-				\lnot \text{hates}(\text{agatha},x)
-				\lor 
-				\text{hates}(\text{butler},x) {)}
-			\  \land\ \ldots 
-%			\tag*{{\em conjunctive}~NF}
-			\end{gather*}
-		
-		\vspace{1em}
-	
-	\nocite{SS98}
-	%\nocite{Hofstadter:1979:GEB:539932,NHRV2001ote}
-	%\nocite{ SRV2001ti,ZHM2009jar,RV2003eir,NHRV2001ote}	% ZHM2009jar, RV2003eir, NHRV2001ote
-	\bibliographystyle{amsalpha}
-	\bibliography{biblio}
 
-%	\qquad\href{http://www.cs.miami.edu/~tptp/}{http://www.cs.miami.edu/\~{}tptp/}
-}
+	\input{content/clausal}
+	
 
-%\subsection{Data structures}
-%
-%\frame{
-%	\frametitle{Data structures and algorithms}
-%	
-%	\begin{itemize}
-%		\item Sets of clauses, multisets of literals
-%		\item Atoms, i.e predicate terms or equations
-%		\item Functional (constant) terms and variables
-%		\item Substitutions, i.e.~mappings from variables to terms
-%	\end{itemize}
-%	
-%	\begin{itemize}
-%		\item Apply substitutions on clauses
-%		\item Find most general unifier of atoms
-%	\end{itemize}
-%	}
+}
+% ==============================================================
+
 	
 \subsection{Proof search}	
 
@@ -136,76 +73,7 @@ xcolor={usenames,dvipsnames,svgnames,tablem}
 	\frametitle{Refutation}
 	\input{../tikz/refutation.tex}
 	}
-% ==============================================================
-%\frame{
-%    \frametitle{Goals}
-%    \framesubtitle{First order logic with equality theorem attester}
-%    \begin{itemize}
-%    % \item automated
-%    % \item first order logic with equality
-%    % \item prover 
-%    \item maintainable
-%    \item simple
-%    \item tested
-%    \item fast
-%    \item extendable
-%    \item flexible
-%    \end{itemize}
-%}
-% =======%=======================================================
-%\frame {
-%    \begin{enumerate}
-%    \item start with 
-%        \begin{itemize}
-%        \item empty list of processed clauses with selected literals
-%        \item list of unprocessed clauses
-%        \item empty (satisfiable) yices context
-%        \end{itemize}
-%    \item return satisfiable if the list of unprocessed clauses is empty
-%
-%    \item select a unprocessed file and process it
-%
-%        \begin{itemize}
-%        \item assert a ground instance of the clause in the yices context
-%        \item return unsatisfiable if the context is unsatisfiable
-%        \item retrieve a model from the context
-%        \item select a literal of the clause that holds in the model
-%        \item search for contradictions with the selected 
-%        literals of the processed clauses and retrieve
-%        non-redundant instances from the contributing clauses and
-%        add them to the unprocessed clauses 
-%        \item remove the clause from the list of unprocessed clauses
-%        \item add the clause and its selected literal to the processed clauses
-%        \end{itemize}
-%
-%    
-%        \item continue with step 2.
-%
-%
-%    \end{enumerate}
-%}
 
-% ==============================================================
-
-% ==============================================================
-
-% ==============================================================
-
-% ==============================================================
-
-% ==============================================================
-
-% ==============================================================
-
-% ==============================================================
-
-% ==============================================================
-
-% ==============================================================
-
-% ==============================================================
-
-% ==============================================================
 \frame{
 	\frametitle{Ordered Resolution}
 	\framesubtitle{Proof search}
@@ -245,54 +113,13 @@ xcolor={usenames,dvipsnames,svgnames,tablem}
 	\frametitle{Inst-Gen}
 	\begin{block}{}
 		\vspace{-1.5em}
-	\begin{align*}
-		S_0 =&\  
-		\{ 
-		{\mP(x)} \lor \lnot\mP(y), 
-		{\lnot \mP(\ma)}, 
-		{\mP(\mb)} 
-		\} \tag*{\colG unsatisfiable}
-		\\
-		P_0=&\ 
-		({\colHi p_*} \lor \lnot p_*) \land \lnot {\colLo p_a} \land {\colHi p_b}
-		\tag*{satisfiable}\\
-		&\quad 
-		\infer[x\mapsto\ma]{
-			\mP(\ma)\lor\lnot\mP(y)
-		}{\mP(x)\lor\lnot\mP(y))&\lnot\mP(\ma)}
-		\\
-		P_1=&\ 
-		({p_*} \lor \lnot p_*) 
-		\land \lnot {\colLo p_a} 
-		\land {\colHi p_b}
-		\land ({p_a} \lor {\lnot\colLo p_*})
-		\tag*{satisfiable}\\
-		&\quad
-		\infer[y\mapsto\mb]{
-			\mP(\ma)\lor\lnot\mP(\mb)}{
-			\mP(\mb)&\mP(\ma)\lor\lnot\mP(y)
-		}
-		\\
-		P_2=&\ 
-		({p_*} \lor \lnot p_*) 
-		\land \lnot {\colLo p_a} 
-		\land {\colHi p_b}
-		\land ({p_a} \lor {\lnot p_*})
-		\land (p_a \lor \lnot p_b)
-		\tag*{unsatisfiable}
-	\end{align*}
-	\\
+	\input{example/instgen}
 	\end{block}
 	\vspace{1em}
 	\begin{block}{Equality as predicate}
 		\vspace{-1.2em}
-		\begin{align*}
-			S=&\ \{
-			\mP(\ma),\lnot\mP(\mf(x,\mb)), \mf(x,\mb) = x
-			\} \tag*{saturated}\\
-			P=&\ p \land \lnot q \land e \tag*{satisfiable}
-				\end{align*}
-		\end{block}
+		\input{example/equality}
+		
 	}
 % ==============================================================
 %\frame{\input{../definitions/Resolution.tex}}
@@ -303,22 +130,7 @@ xcolor={usenames,dvipsnames,svgnames,tablem}
 	
 	\begin{block}{}
 		\vspace{-1.5em}
-		\begin{align*}
-			S_0 =&\ \{ {\mP(\ma)}, \lnot\mP(\mf(\ma,\mb)), \mf(x,\mb)= x \} \tag*{unsatisfiable}
-%			\\
-%			S\bot =& \{ {\colHi\mP(\ma)}, \lnot\mP(\mf(\ma,\mb)), \mf(\bot,\mb)= \bot \} \tag*{satisfiable}
-			\\
-			P_0 =&\ 
-			{\colHi p_a} \land {\lnot \colLo p_1} \land {\colHi e_1}
-			\tag*{satisfiable}
-			\\	
-			&\quad\ma\neq y\lor \lnot\mP(\ma) \lor \mP (y)
-			\tag*{$\mP(\ma)$, congruence}
-			\\
-			P_1 =&\ 
-			{\colHi p_a} \land {\lnot \colLo p_1} \land {\colHi e_1}
-			\land (\lnot e_2 \lor \lnot p_a \lor {\colHi p_*})
-		\end{align*}
+		\input{example/pacongruence}
 	\end{block}
 	
 	\begin{block}{Schemata}
@@ -327,38 +139,18 @@ xcolor={usenames,dvipsnames,svgnames,tablem}
 	\end{block}
 \end{frame}
 
-%\begin{frame}
-%	\begin{Lemma}
-%		\emph{Symmetry} and transitivity are consequences of \emph{reflexivity} and \emph{congruence}.
-%	\end{Lemma}
-%	
-%	\begin{Proof}[Symmetry]
-%		\infer[\text{reflexivity}]{x= y \rightarrow y = x}{
-%			\infer[x_1\mapsto x, x_2\mapsto x, y_1\mapsto y, y_2\mapsto x]
-%			{x= y \land x = x \land x = x \rightarrow y = x}{
-%				\infer[\text{congruence}]{x_1 = y_1 \land x_2 = y_2 \land x_1 = x_2 \rightarrow y_1 = y_2}{
-%				}
-%			}
-%		}
-%	\end{Proof}
-%	
-%	
-%	\begin{Proof}[Transitivity]
-%		\infer[\text{reflexivity}]{x\neq y \lor y\neq z \lor x = z}{
-%			\infer[x_1\mapsto x, x_2\mapsto y, y_1\mapsto x, y_2\mapsto z]
-%			{x\neq x \lor y\neq z \lor x\neq y \lor x=z}{
-%				\infer[\text{congruence}]{x_1\neq y_1 \lor x_2\neq y_2 \lor x_1\neq x_2 \lor y_1=y_2}{}
-%			}
-%		}
-%	\end{Proof}
-%\end{frame}
+\begin{frame}
+	\input{lemma/symmtrans}
+	\input{lemma/symmproof}
+	\input{lemma/transproof}
+	\end{frame}
+
+
 
 
 % ==============================================================
 
-% issues
-%\frame{\input{../tikz/DiscriminationTree.tex}} % incomplete
-% \frame{\input{../tikz/refutation.tex}}
+
 
 \section{Implementation}
 \subsection{Run-loop}
@@ -366,7 +158,31 @@ xcolor={usenames,dvipsnames,svgnames,tablem}
 \frame{
 	\frametitle{Run-loop}
 	
-	\input{loop}
+	\input{content/loop}
 }
+% ==============================================================
+
+
+% ==============================================================
+
+% ==============================================================
+
+% ==============================================================
+
+% ==============================================================
+
+% ==============================================================
+
+% ==============================================================
+
+% ==============================================================
+
+% ==============================================================
+
+% ==============================================================
+
+% ==============================================================
+
+% ==============================================================
 
 \end{document}

@@ -1,0 +1,9 @@
+	\begin{Proof}[Symmetry]
+		\infer[\text{reflexivity}]{x= y \rightarrow y = x}{
+			\infer[x_1\mapsto x, x_2\mapsto x, y_1\mapsto y, y_2\mapsto x]
+			{x= y \land x = x \land x = x \rightarrow y = x}{
+				\infer[\text{congruence}]{x_1 = y_1 \land x_2 = y_2 \land x_1 = x_2 \rightarrow y_1 = y_2}{
+				}
+			}
+		}
+	\end{Proof}
