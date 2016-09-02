@@ -29,68 +29,108 @@ xcolor={usenames,dvipsnames,svgnames,tablem}
 \providecommand{\PAUSE}{}
 
 \author{Alexander Maringele}
-\title{flea}
-\subtitle{system description}
-\date{September 2016 -- Obergurgl}
+\title{\textbf{FLEA}}
+% \subtitle{\textbf First Order \textbf Logic With \textbf Equality Theorem \textbf Attester}
+\subtitle{a master project}
+\date{Sep 2016 -- Obergurgl}
 
 \begin{document}
 
 % ==============================================================
 \frame{\maketitle}
+\frame{\tableofcontents}
+
+\section{Project}
+
+\frame{
+	\frametitle{Project overview}
+	\framesubtitle{Goals and requirements}
+	\begin{itemize}
+	\item Goals
+	\begin{itemize}
+%		\item Master thesis
+		\item ATP for FOL with equality
+		\item Master thesis
+	\end{itemize}
+	\item Requirements
+	\begin{itemize}
+		\item Problem files
+		\item Clauses, literals, and terms
+		\item Substitution and unification
+		\item Proof search (strategies)
+		\item Performance and success rate
+	\end{itemize}
+	\item Non-Goals and Non-Requirements
+	\begin{itemize}
+		\item Transformation FOF $\approx$ CNF
+		\item CASC
+	\end{itemize}
+\end{itemize}
+}	
+
+\frame{
+	\frametitle{TPTP}
+	\framesubtitle{Problem files}
+	
+	
+}
+	
+	
 
 % ==============================================================
 \frame{
 	\frametitle{Refutation}
+	\framesubtitle{}
 	\input{../tikz/refutation.tex}
 	}
 % ==============================================================
-\frame{
-    \frametitle{Goals}
-    \framesubtitle{fisrst order logic with equality theorem attester}
-    \begin{itemize}
-    % \item automated
-    % \item first order logic with equality
-    % \item prover 
-    \item maintainable
-    \item simple
-    \item tested
-    \item fast
-    \item extendable
-    \item flexible
-    \end{itemize}
-}
+%\frame{
+%    \frametitle{Goals}
+%    \framesubtitle{First order logic with equality theorem attester}
+%    \begin{itemize}
+%    % \item automated
+%    % \item first order logic with equality
+%    % \item prover 
+%    \item maintainable
+%    \item simple
+%    \item tested
+%    \item fast
+%    \item extendable
+%    \item flexible
+%    \end{itemize}
+%}
 % =======%=======================================================
-\frame {
-    \begin{enumerate}
-    \item start with 
-        \begin{itemize}
-        \item empty list of processed clauses with selected literals
-        \item list of unprocessed clauses
-        \item empty (satisfiable) yices context
-        \end{itemize}
-    \item return satisfiable if the list of unprocessed clauses is empty
-
-    \item select a unprocessed file and process it
-
-        \begin{itemize}
-        \item assert a ground instance of the clause in the yices context
-        \item return unsatisfiable if the context is unsatisfiable
-        \item retrieve a model from the context
-        \item select a literal of the clause that holds in the model
-        \item search for contradictions with the selected 
-        literals of the processed clauses and retrieve
-        non-redundant instances from the contributing clauses and
-        add them to the unprocessed clauses 
-        \item remove the clause from the list of unprocessed clauses
-        \item add the clause and its selected literal to the processed clauses
-        \end{itemize}
-
-    
-        \item continue with step 2.
-
-
-    \end{enumerate}
-}
+%\frame {
+%    \begin{enumerate}
+%    \item start with 
+%        \begin{itemize}
+%        \item empty list of processed clauses with selected literals
+%        \item list of unprocessed clauses
+%        \item empty (satisfiable) yices context
+%        \end{itemize}
+%    \item return satisfiable if the list of unprocessed clauses is empty
+%
+%    \item select a unprocessed file and process it
+%
+%        \begin{itemize}
+%        \item assert a ground instance of the clause in the yices context
+%        \item return unsatisfiable if the context is unsatisfiable
+%        \item retrieve a model from the context
+%        \item select a literal of the clause that holds in the model
+%        \item search for contradictions with the selected 
+%        literals of the processed clauses and retrieve
+%        non-redundant instances from the contributing clauses and
+%        add them to the unprocessed clauses 
+%        \item remove the clause from the list of unprocessed clauses
+%        \item add the clause and its selected literal to the processed clauses
+%        \end{itemize}
+%
+%    
+%        \item continue with step 2.
+%
+%
+%    \end{enumerate}
+%}
 
 % ==============================================================
 
