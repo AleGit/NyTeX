@@ -170,12 +170,45 @@ P_3 \land (\lnot e_8 \lor e_6) \land {\colHi e_8}
 
 
 \section{Implementation}
+\subsection{Tools \& Details}
+
+\frame {
+	\begin{itemize}
+		\item requirements
+		\begin{itemize}
+			\item Linux, macOS
+			\item Flex, Bison, Clang, Swift 3
+			\item Yices
+		\end{itemize}
+		\item structure
+		\begin{itemize}
+			\item wrapper for yices, parsing, syslog, and some POSIX APIs
+			\item data and algorithms
+			\item strategy: sequential processing of growing list of clauses
+		\end{itemize}
+		\item optimizations
+		\begin{itemize}
+			\item indexing of selected literals
+			\item indexing of clauses
+			\item sharing of terms
+		\end{itemize}
+		\item in progress = missing
+		\begin{itemize}
+			\item alternative procedure for equality
+			\item experiments
+			\item written thesis
+		\end{itemize}
+	\end{itemize}
+
+	}
+	
 \subsection{Run-loop}
 
 \frame{
-	\frametitle{Run-loop}
-	
+%	\frametitle{Run-loop}
+	\begin{block}{Run-loop}
 	\input{content/loop}
+	\end{block}
 }
 % ==============================================================
 
@@ -198,8 +231,16 @@ P_3 \land (\lnot e_8 \lor e_6) \land {\colHi e_8}
 
 % ==============================================================
 
-% ==============================================================
+\section{Appendix}
 
+% ==============================================================
+	\begin{frame}
+		\input{lemma/symmtrans}
+		\input{lemma/symmproof}
+		\input{lemma/transproof}
+		\end{frame}
+	
+	% ==============================================================
 % ==============================================================
 
 \end{document}
