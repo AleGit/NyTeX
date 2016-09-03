@@ -26,9 +26,15 @@
 
 \frame{
 	\frametitle{Clausal normal form }
-	\framesubtitle{TPTP Syntax}
-
+\begin{block}{PUZ001-1}
 	\input{content/clausal}
+	\end{block}
+	\vspace{0.5em}
+	{	\nocite{SS98}
+		%\nocite{Hofstadter:1979:GEB:539932,NHRV2001ote}
+		%\nocite{ SRV2001ti,ZHM2009jar,RV2003eir,NHRV2001ote}	% ZHM2009jar, RV2003eir, NHRV2001ote
+		\bibliographystyle{amsalpha}
+		\bibliography{biblio}}
 }
 % ==============================================================
 
@@ -37,7 +43,6 @@
 
 % ==============================================================
 \frame{
-	\framesubtitle{Proof search}
 	\frametitle{Refutation}
 	\input{../tikz/refutation.tex}
 	}
@@ -53,11 +58,12 @@
 	\end{block}}
 % ==============================================================
 \frame{
-%	\frametitle{Inst-Gen}
-%	\framesubtitle{Proof search}
-	\begin{block}{Inst-Gen}
+	\frametitle{Inst-Gen}
+	\begin{block}{}
 	\input{../definitions/InstGenRule.tex}
 \end{block}
+
+\vspace{1em}
 
 \begin{block}{Selection}
 	\vspace{-1em}
@@ -75,14 +81,14 @@
 	\input{example/instgen}
 	\end{block}
 	\vspace{1em}
-	\begin{block}{Equality as predicate}
+	\begin{block}{Equality}
 		\vspace{-1.2em}
 		\input{example/equality}
 	\end{block}
 	}
 % ==============================================================
 \frame{
-	\begin{block}{Equality}
+	\begin{block}{Equality Axioms}
 		\vspace{-1em}
 		\input{definitions/equality}
 		

@@ -1,32 +1,24 @@
-%	\url{http://www.cs.miami.edu/~tptp/}\\
-	\scalebox{0.8}[1.0]{\begin{minipage}{40em}
-	\texttt{$\cdots$\\
+\scalebox{0.8}[1.0]{
+	\begin{minipage}{40em}
+		\texttt{$\cdots$\\
 		cnf(same\_hates, hypothesis, ( $\sim$hates(agatha,X) | hates(butler,X) )).\\
-		$\cdots$\\	
+		$\cdots$
+		}
+	\end{minipage}
 }
-\end{minipage}}
-		\begin{gather*}
-			\left\{\ \ldots,\
-			\lnot \text{hates}(\text{agatha},x)
-			\lor 
-			\text{hates}(\text{butler},x),\ \ldots\right\} 
-%			\tag*{{\em clausal} NF}
-			\\\equiv\\
-			\ldots\ \land\ 
-				\forall x\ {(}
-				\lnot \text{hates}(\text{agatha},x)
-				\lor 
-				\text{hates}(\text{butler},x) {)}
-			\  \land\ \ldots 
-%			\tag*{{\em conjunctive}~NF}
-			\end{gather*}
-		
-		\vspace{1em}
-	
-	\nocite{SS98}
-	%\nocite{Hofstadter:1979:GEB:539932,NHRV2001ote}
-	%\nocite{ SRV2001ti,ZHM2009jar,RV2003eir,NHRV2001ote}	% ZHM2009jar, RV2003eir, NHRV2001ote
-	\bibliographystyle{amsalpha}
-	\bibliography{biblio}
-
+\begin{gather*}
+	\left\{\ \ldots,\
+	\lnot \text{hates}(\text{agatha},x)
+	\lor 
+	\text{hates}(\text{butler},x),\ \ldots\right\} 
+%	\tag*{{\em clausal} NF}
+	\\\equiv\\
+	\ldots\ \land\ 
+	\forall x\ {(}
+	\lnot \text{hates}(\text{agatha},x)
+	\lor 
+	\text{hates}(\text{butler},x) {)}
+	\  \land\ \ldots 
+%	\tag*{{\em conjunctive}~NF}
+\end{gather*}
 %	\qquad\href{http://www.cs.miami.edu/~tptp/}{http://www.cs.miami.edu/\~{}tptp/}
