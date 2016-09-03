@@ -1,0 +1,33 @@
+\begin{gather*}
+	\infer[x\mapsto s]
+	{{ s=s} 
+%		\qquad \mcC
+		}
+	{x = x & s\neq s \lor \mcC } 
+	\tag*{reflexivity}
+	\\[0.4em]
+	\infer[x\mapsto t, y\mapsto s]
+	{t\neq s \lor s=t}
+	{x\neq y\lor y=x & s\neq t \lor \mcC}
+	\tag*{symmetry}
+	\\[0.4em]
+	\infer[x\mapsto s, y\mapsto t]
+	{s\neq y \lor y \neq t \lor s = t}
+	{x\neq y \lor y\neq z \lor x = z & s \neq t \lor \mcC}
+	\tag*{transitivity}
+	\\[0.4em]
+	\infer[x\mapsto s,y\mapsto t]
+	{s \neq t \lor \mf(s) = \mf(t)}
+	{x\neq y \lor \mf(x) = \mf(y) & \mf(s)\neq \mf(t)}
+	\tag*{f-congruence}
+	\\[0.4em]
+	\infer[x \mapsto s]
+	{s \neq y \lor \lnot\mP(s) \lor \mP(y)}
+	{x \neq y \lor \lnot \mP(x) \lor \mP(y) & {\mP(s)} \lor \mcC}
+	\tag*{P$_+$-congruence}
+	\\[0.4em]
+	\infer[y\mapsto s]
+	{x\neq s \lor \lnot \mP(x) \lor \mP(s)}
+	{x \neq y \lor \lnot \mP(x) \lor \mP(y) & {\lnot\mP(s)} \lor C}
+	\tag*{P$_\lnot$-congruence}
+\end{gather*}

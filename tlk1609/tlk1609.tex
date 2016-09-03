@@ -1,38 +1,8 @@
 % !TeX encoding = UTF-8
 % !TeX spellcheck = en_US
 
-\documentclass[ 
-% amsmath=
-% amsthm=
-% array=
-% calc
-% enumerate=
-% extsizes
-% geometry
-% hyperref
-xcolor={usenames,dvipsnames,svgnames,tablem} 
-%,bigger
-,handout
-]{beamer}
-% automatically loaded: xcolor, amsmath, amsthm, calc, geometry, hyperref, extsizes
-
-% \input{HEADER/HEADER}
-
-\input{../HEADER/Beamer}
-\input{../HEADER/Colors}
-\input{../HEADER/Commands}
-\input{../HEADER/Symbols}
-\input{../HEADER/Drawing}
-
-
-\renewcommand{\ORIGIN}{}
-\providecommand{\PAUSE}{}
-
-\author[Alexander Maringele]{Alexander Maringele\\ {Supervisor: Georg Moser}}
-\title{\textbf{FLEA}}
-% \subtitle{\textbf First Order \textbf Logic With \textbf Equality Theorem \textbf Attester}
-\subtitle{first order proving with equality\\master project\\}
-\date{Sep 2016 -- Obergurgl}
+\input{header}
+\input{content/titledefs}
 
 \begin{document}
 
@@ -59,8 +29,6 @@ xcolor={usenames,dvipsnames,svgnames,tablem}
 	\framesubtitle{TPTP Syntax}
 
 	\input{content/clausal}
-	
-
 }
 % ==============================================================
 
@@ -110,37 +78,95 @@ xcolor={usenames,dvipsnames,svgnames,tablem}
 	\begin{block}{Equality as predicate}
 		\vspace{-1.2em}
 		\input{example/equality}
-		
+	\end{block}
 	}
 % ==============================================================
-%\frame{\input{../definitions/Resolution.tex}}
-% ==============================================================
-%\frame{\input{../definitions/UnitSuperposition.tex}}
-% ==============================================================
-\begin{frame}
-	
-	\begin{block}{}
-		\vspace{-1.5em}
-		\input{example/pacongruence}
-	\end{block}
-	
-	\begin{block}{Schemata}
+\frame{
+	\begin{block}{Equality}
 		\vspace{-1em}
-		\input{content/schemata}
-	\end{block}
-\end{frame}
-
-\begin{frame}
-	\input{lemma/symmtrans}
-	\input{lemma/symmproof}
-	\input{lemma/transproof}
-	\end{frame}
-
-
-
-
+		\input{definitions/equality}
+		
+	\end{block}}
 % ==============================================================
 
+%\begin{frame}
+%	
+%	
+%%	
+%%	\begin{block}{}
+%%		\vspace{-1.5em}
+%%		\input{example/pacongruence}
+%%	\end{block}
+%	
+%	\begin{block}{Schemata}
+%		\vspace{-1em}
+%		\input{content/schemata}
+%	\end{block}
+%\end{frame}
+%%
+\frame{
+	\begin{align*}
+		S_0 = &\ 
+		\{
+		^{1:}\mP(\ma),
+		^{2:}\lnot\mP(\mf(x,\mb)), 
+		^{3:}\mf(x,\mb) = x
+		\} 
+		\tag*{\colG unsatisfiable}
+		\\
+		P_0 = &\ 
+		{\colHi p_1} \land {\lnot\colLo p_2} \land {\colHi e_3} 
+		\tag*{satisfiable}
+		\\
+		&\
+		^{4:}x\neq \mf(x,\mb) \lor \lnot \mP(x) \lor \mP(\mf(x,\mb)) 
+		\tag*{$^{2:1}\mP_\lnot$-congruence}
+		\\
+		P_1 =&\ P_0
+		 \land (\lnot {\colLo e_4} \lor \lnot p_* \lor p_2) 
+		\\
+&\ ^{5:}\mf(x,\mb) \neq x \lor x = \mf(x,\mb)
+\tag*{$^{4:1}$symmetry}
+\\
+P_2 =&\ P_0
+\land (\lnot {\colHi e_4} \lor \lnot {\colLo p_*} \lor {\colLo p_2}) 
+\land ({\lnot\colHi e_3} \lor {\colHi e_4})
+\\
+&\ 
+^{6:}\ma \neq \mf(\ma,\mb) \lor \lnot \mP(\ma) \lor \mP(\mf(\ma,\mb))
+\tag*{$^{4:1,1:1}\ x\mapsto\ma$}
+\\
+&\
+^{7:}\lnot\mP(\mf(\ma,\mb))
+\tag*{$^{2:1,6:1}\ x\mapsto\ma$}
+\\
+P_3 =&\
+P_2 \land
+({\lnot\colLo e_6} \lor {\lnot\colHi p_1} \lor {\colLo p_6})
+\land {\lnot \colLo p_6}
+\\
+&\
+^{8:}\mf(\ma,\mb) \neq \ma \lor \ma = \mf(\ma,\mb)
+\tag*{$^{1:1}$-symmetry}
+\\
+&\
+^{9:}\mf(\ma,\mb)=\ma)
+\tag*{$^{3:1,8:1}\ x\mapsto a$}
+\\
+P_4 =&\
+P_3 \land (\lnot e_8 \lor e_6) \land {\colHi e_8}
+\tag*{unsatisfiable}
+	\end{align*}
+}
+% ==============================================================	
+	
+	%\begin{frame}
+	%	\input{lemma/symmtrans}
+	%	\input{lemma/symmproof}
+	%	\input{lemma/transproof}
+	%	\end{frame}
+	
+	% ==============================================================
 
 
 \section{Implementation}
