@@ -164,15 +164,26 @@ P_3 \land (\lnot e_8 \lor e_6) \land {\colHi e_8}
 \tag*{unsatisfiable}
 	\end{align*}
 }
+
+\begin{frame}
+\begin{block}{Inst-Gen-Eq}
+%	\vspace{-1em}
+Find 	 a tree proof for the empty clause from selected literals.
+
+Instantiate contributing clauses with substitutions from the tree. 
+\end{block}
+
+\begin{block}{Unit-Superposition}
+	\vspace{-1em}
+	\input{definitions/InstGenEq}
+\end{block}
+\end{frame}
 % ==============================================================	
 	
-	%\begin{frame}
-	%	\input{lemma/symmtrans}
-	%	\input{lemma/symmproof}
-	%	\input{lemma/transproof}
-	%	\end{frame}
 	
 	% ==============================================================
+	
+
 
 
 \section{Implementation}
@@ -190,7 +201,7 @@ P_3 \land (\lnot e_8 \lor e_6) \land {\colHi e_8}
 		\begin{itemize}
 			\item wrapper for C-APIs
 			\item data and algorithms
-			\item strategy: sequential processing of growing list of clauses
+			\item sequential processing of growing list of clauses
 		\end{itemize}
 		\item optimizations
 		\begin{itemize}
@@ -200,7 +211,7 @@ P_3 \land (\lnot e_8 \lor e_6) \land {\colHi e_8}
 		\end{itemize}
 		\item in progress = missing
 		\begin{itemize}
-			\item alternative procedure for equality
+			\item maximal completion
 			\item experiments
 			\item written thesis
 		\end{itemize}
@@ -245,8 +256,7 @@ P_3 \land (\lnot e_8 \lor e_6) \land {\colHi e_8}
 %		\input{lemma/symmproof}
 %		\input{lemma/transproof}
 %		\end{frame}
-	
-	% ==============================================================
+% ==============================================================
 % ==============================================================
 
 \end{document}
