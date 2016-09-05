@@ -1,13 +1,15 @@
 \begin{gather*}
 	\infer[x\mapsto s]
 	{{ s=s} 
-%		\qquad \mcC
+%		\qquad{\colG \mcC }
 		}
 	{x = x & s\neq s \lor \mcC } 
 	\tag*{reflexivity}
 	\\[0.5em]
 	\infer[x\mapsto t, y\mapsto s]
-	{t\neq s \lor s=t}
+	{t\neq s \lor s=t 
+%		\qquad \colG t\neq s \lor \mcC
+		}
 	{x\neq y\lor y=x & s\neq t \lor \mcC}
 	\tag*{symmetry}
 	\\[0.5em]

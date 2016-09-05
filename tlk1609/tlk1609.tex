@@ -58,8 +58,8 @@
 	\end{block}}
 % ==============================================================
 \frame{
-	\frametitle{Inst-Gen}
-	\begin{block}{}
+	\frametitle{}
+	\begin{block}{Inst-Gen}
 	\input{../definitions/InstGenRule.tex}
 \end{block}
 
@@ -183,18 +183,18 @@ P_3 \land (\lnot e_8 \lor e_6) \land {\colHi e_8}
 		\item requirements
 		\begin{itemize}
 			\item Linux, macOS
-			\item Flex, Bison, Clang, Swift 3
-			\item Yices
+			\item Flex, Bison, Clang, Swift 
+			\item Yices, Z3
 		\end{itemize}
 		\item structure
 		\begin{itemize}
-			\item wrapper for yices, parsing, syslog, and some POSIX APIs
+			\item wrapper for C-APIs
 			\item data and algorithms
 			\item strategy: sequential processing of growing list of clauses
 		\end{itemize}
 		\item optimizations
 		\begin{itemize}
-			\item indexing of selected literals
+			\item indexing of literals
 			\item indexing of clauses
 			\item sharing of terms
 		\end{itemize}

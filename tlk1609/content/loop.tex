@@ -5,12 +5,12 @@
 \node[rectangle] (start) at (0,-4em) {};
 \node (nc) [myrect] at (0,0) {new\\clauses};
 \node (pc) [myrect] at (0,8em) {passive clauses};
-\node (ab) [myrect] at (-8em,3.5em) {instantiation};
+\node (ab) [myrect] at (-8em,3.5em) {encoding};
 \node (gs) [myrect] at (-8em,8em) {SAT/SMT};
 \node (un) [mycircle,colHi,very thick] at (-15em,8em) {un\-satis\-fiable};
 \node (se) [myrect] at (-8em,12.5em) {selection};
 \node (gc) [myrect] at (0em,16em) {given clause};
-\node (ac) [myrect,dashed] at (-14em,16.5em) {active clauses};
+\node (ac) [myrect,dashed] at (14em,16.5em) {active clauses};
 
 \node (sl) [myrect, thick] at (8em,12.5em) {selected literal};
 \node (us) [myrect,colO] at (8em,8em) {search for conflicts};
@@ -33,7 +33,9 @@
 \draw[myarrow] (sl) to (us);
 \draw[myarrow] (gc.east) to [bend left=10] (sl.north);
 %\draw[myarrow,dashed] (gc.north) to [bend right=15](ac);
-\draw[myarrow, dashed] (gc) to [bend right=20] (ac);
+\draw[myarrow, dashed] (gc) to [bend left=20] (ac);
+
+\path (ac) edge [bend left, dotted] (us);
 
 \path (nc) edge [myarrow,loop below, dashed] (nc)
  (parse) edge [myarrow, loop above, dotted] (parse)
