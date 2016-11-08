@@ -3,7 +3,7 @@
 % !TeX spellcheck = en_US
 
 \begin{definition}
-	We build the set of function {\myem terms} $\mcTFV$ 
+	We build the set of (function) {\myem terms} $\mcTfFV$ 
 	from function symbols $\mcFf \subseteq \mcF$ and 
 	a countable set of {\myem variables} $\mcV$ disjoint from $\mcF$.
 	Every variable $x\in\mcV$ is a term,
@@ -14,11 +14,14 @@
 	and terms $t_1,\ldots,t_n$
 	is a term.
 %	
-	We build the set of predicate terms or {\myem atoms}
-	from predicate symbols $\mcFP \subseteq \mcF$ and terms $\mcTFV$. 
+	We build the set of predicate terms or {\myem atoms} $\mcTPFV$
+	from predicate symbols $\mcFP \subseteq \mcF$ and terms $t\in\mcTfFV$. 
 	Every proposition $p\in\mcFP^{(0)}$ is an atom 
 	and every expression $P(t_1,\ldots,t_n)$
 	for every predicate symbol $P\in\mcFP$ with arity $n>0$ and terms $t_1,\ldots,t_n$ is an atom.
-	The equation $s\ \mEQ\ t$ with terms $s,t$ is an atom too.
+%	Every equation $s\ \mEQ\ t$ for terms $s,t$ is an atom too.
+%
+%	We speak of the set of general terms 
+%	$\mcTFV = \mcTfFV\disjointunion\mcTPFV$ as the disjoint union of terms and atoms.
 \end{definition}
 
