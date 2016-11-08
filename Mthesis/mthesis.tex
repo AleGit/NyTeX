@@ -1,0 +1,68 @@
+% !TeX encoding = UTF-8
+% !TeX spellcheck = en_US
+
+%% https://en.wikibooks.org/wiki/LaTeX/Document_Structure
+\documentclass[]{clmthesis}
+
+%% https://en.wikibooks.org/wiki/LaTeX/Modular_Documents
+\usepackage{mystyle}
+
+\begin{document}
+\nocite{Ramsey01011930}
+
+% BEGIN: titlepage setup -------------------------------------------
+\title{Yet another first order theorem prover with equality}
+\plaintitle{Theorem prover with equality}
+\mailaddress{alexander.maringele@uibk.ac.at}
+\matriculationnumber{8517725}
+\author{Alexander~Maringele}
+\plainauthor{Alexander~Maringele}
+\date{\today}
+\supervisor{Assoc.~Prof.~Dr.~Georg~Moser}
+\institute{Institute of Computer Science}
+\abstract{Instantiation-based ...}
+\acknowledgments{Thanks.}
+% END: titlepage setup ----------------------------------------------
+\maketitle
+%\acknowledgments{}
+\tableofcontents
+
+%====================================================================
+% BEGIN: CONTENT ----------------------------------------------------
+%====================================================================
+\chapter{Introduction} 			
+\section{Introduction}
+
+\section{Preliminaries}
+\section{Theorem proving without equality}
+\subsection{Resolution}
+\subsection{Instantiation-based}
+\section{Theorem proving with equality}
+\subsection{Superposition}
+\subsection{Instantiation-based}
+\section{iProver-Eq}
+\section{Conclusion}
+
+
+%===================================================================
+% END: CONTENT -----------------------------------------------------
+%===================================================================
+
+%\cleardoublepage
+%\phantomsection
+%\addcontentsline{toc}{chapter}{\listfigurename}\listoffigures
+
+%\addcontentsline{toc}{chapter}{\listtablename}\listoftables
+
+%\Glasnadel
+%\printglossaries
+
+% BEGIN: appendix ----------------------------------------------------
+\appendix
+
+%\input{LogicSymbols}
+
+% END: appendix ------------------------------------------------------
+
+
+\end{document}

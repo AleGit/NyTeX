@@ -1,0 +1,84 @@
+% !TeX encoding = UTF-8
+% !TeX spellcheck = en_US
+
+\ProvidesPackage{mystyle}
+
+%% == LaTeX ============================================================= %%
+%% https://en.wikibooks.org/wiki/LaTeX
+%% ====================================================================== %%
+
+
+%% -- 2.4 Colors -------------------------------------------------------- %%
+%% https://en.wikibooks.org/wiki/LaTeX/Colors
+\usepackage[ usenames, dvipsnames, svgnames, table]{xcolor}
+%\input{mystyle/Colors.tex}
+%% ---------------------------------------------------------------------- %%
+
+
+%% -- 2.8 Internationalization ------------------------------------------ %%
+%% https://en.wikibooks.org/wiki/LaTeX/Internationalization
+\usepackage[utf8x]{inputenc} 		% input
+\usepackage[T1]{fontenc}	 		% output (PDF)
+
+\usepackage[english]{babel}			% language
+%% ---------------------------------------------------------------------- %%
+
+
+%% -- 2.10 Tables ------------------------------------------------------- %%
+% https://en.wikibooks.org/wiki/LaTeX/Tables
+%% ---------------------------------------------------------------------- %%
+
+
+%% -- 2.16-17 Hyperlinks ------------------------------------------------ %%
+% https://en.wikibooks.org/wiki/LaTeX/Hyperlinks
+% https://en.wikibooks.org/wiki/LaTeX/Labels_and_Cross-referencing
+\usepackage{hyperref}
+%% ---------------------------------------------------------------------- %%
+
+
+%% -- 4.1-3 Mathematics ------------------------------------------------- %%
+% https://en.wikibooks.org/wiki/LaTeX/Mathematics
+% https://en.wikibooks.org/wiki/LaTeX/Advanced_Mathematics
+\usepackage{amsmath}		
+\usepackage{mathtools} 
+\usepackage{amssymb}
+
+% https://en.wikibooks.org/wiki/LaTeX/Theorems
+\usepackage{amsthm}			
+\usepackage{proof} 
+	
+\input{mystyle/Symbols}
+%% ---------------------------------------------------------------------- %%
+
+
+
+
+
+%\usepackage{calc}
+%\usepackage{geometry}
+
+%% -- 4.5 Algorithms ---------------------------------------------------- %%
+% https://en.wikibooks.org/wiki/LaTeX/Algorithms
+%% ---------------------------------------------------------------------- %%
+
+
+%% -- 4.6 Listings ------------------------------------------------------ %%
+% https://en.wikibooks.org/wiki/LaTeX/Source_Code_Listings
+\usepackage{listings} 
+\input{mystyle/Listings.tex}
+%% ---------------------------------------------------------------------- %%
+
+
+%% -- Graphics ---------------------------------------------------------- %%
+% https://en.wikibooks.org/wiki/LaTeX/PGF/TikZ
+\usepackage{tikz}
+\input{mystyle/Drawings}
+%% ---------------------------------------------------------------------- %%
+
+
+%% -- Macros ------------------------------------------------------------ %%
+%% https://en.wikibooks.org/wiki/LaTeX/Macros
+\input{mystyle/Commands}
+%% ---------------------------------------------------------------------- %%
+
+
