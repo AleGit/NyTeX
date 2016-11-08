@@ -1,0 +1,24 @@
+% !TeX root = ../mthesis.tex
+% !TeX encoding = UTF-8
+% !TeX spellcheck = en_US
+
+\begin{definition}
+	We build the set of function {\myem terms} $\mcTFV$ 
+	from function symbols $\mcFf \subseteq \mcF$ and 
+	a countable set of {\myem variables} $\mcV$ disjoint from $\mcF$.
+	Every variable $x\in\mcV$ is a term,
+	every constant $c\in\mcFf^{(0)}$ is a term, 
+	and every expression $f(t_1,\ldots,t_n)$
+	for every function symbol $f\in\mcFf$ 
+	with arity $n>0$ 
+	and terms $t_1,\ldots,t_n$
+	is a term.
+%	
+	We build the set of predicate terms or {\myem atoms}
+	from predicate symbols $\mcFP \subseteq \mcF$ and terms $\mcTFV$. 
+	Every proposition $p\in\mcFP^{(0)}$ is an atom 
+	and every expression $P(t_1,\ldots,t_n)$
+	for every predicate symbol $P\in\mcFP$ with arity $n>0$ and terms $t_1,\ldots,t_n$ is an atom.
+	The equation $s\ \mEQ\ t$ with terms $s,t$ is an atom too.
+\end{definition}
+

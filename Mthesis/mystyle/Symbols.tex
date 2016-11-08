@@ -4,10 +4,12 @@
 %% ==============================================================
 %% ### MISC ###
 
+\newcommand{\disjointunion}{\uplus}
+
 %\newcommand{\EQ}{\simeq}
 %\newcommand{\NEQ}{\not\simeq}
-\newcommand{\foEQ}{\approx}		%	{\simeq}
-\newcommand{\foNEQ}{\not\foEQ}
+%\newcommand{\foEQ}{\approx}		%	{\simeq}
+%\newcommand{\foNEQ}{\not\foEQ}
 
 \newcommand\TOP[2]{\genfrac{}{}{0pt}{}{#1}{#2}}
 \newcommand\TOPTEXT[2]{\TOP{\text{#1}}{\text{#2}}}
@@ -72,29 +74,51 @@
 
 % constant (function, predicate) symbols
 
-\newcommand{\mf}{{\mathsf f}}
-\newcommand{\mg}{{\mathsf g}}
-\newcommand{\mh}{{\mathsf h}}
 \newcommand{\ma}{{\mathsf a}}
 \newcommand{\mb}{{\mathsf b}}
 \newcommand{\mc}{{\mathsf c}}
 \newcommand{\md}{{\mathsf d}}
-\newcommand{\mx}{{\mathsf x}}
-\newcommand{\my}{{\mathsf y}}
+
+\newcommand{\mf}{{\mathsf f}}
+\newcommand{\mg}{{\mathsf g}}
+\newcommand{\mh}{{\mathsf h}}
+
+\newcommand{\mpp}{{\mathsf p}}
+\newcommand{\mq}{{\mathsf q}}
+\newcommand{\mr}{{\mathsf r}}
+
+%\newcommand{\mx}{{\mathsf x}}
+%\newcommand{\my}{{\mathsf y}}
+
 \newcommand{\msucc}{{\mathsf s}}
 \newcommand{\mpred}{{\mathsf p}}
+
 \newcommand{\mA}{{\mathsf A}}
 \newcommand{\mB}{{\mathsf B}}
 \newcommand{\mL}{{\mathsf L}}
+
 \newcommand{\mP}{{\mathsf P}}
 \newcommand{\mQ}{{\mathsf Q}}
+\newcommand{\mR}{{\mathsf R}}
+
+\newcommand{\mEQ}{{\mathsf \approx}}
+\newcommand{\mNE}{{\mathsf \not\approx}}
 
 % caligraphic symbols
 
 \newcommand{\mcC}{{\mathcal C}}
 \newcommand{\mcD}{{\mathcal D}}
 %\newcommand{\mcE}{{\mathcal E}}
-%\newcommand{\mcF}{{\mathcal F}}
+\newcommand{\mcT}{{\mathcal T}}
+
+% signature, function and predicate symbols
+\newcommand{\mcF}{{\mathcal F}}
+\newcommand{\mcFf}{{\mcF_\mf}}
+\newcommand{\mcFP}{{\mcF_\mP}}
+\newcommand{\mcFfP}{\mcFf\,\disjointunion\,\mcFP}
+% terms with signature
+\newcommand{\mcTFV}{{\mcT(\mcFf,\!\mcV)}}
+
 %\newcommand{\mcM}{{\mathcal M}}
 %\newcommand{\mcO}{{\mathcal O}}
 \newcommand{\mcP}{{\mathcal P}}

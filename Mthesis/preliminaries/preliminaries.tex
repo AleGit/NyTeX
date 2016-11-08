@@ -1,0 +1,332 @@
+% !TEX encoding = UTF-8 Unicode
+% !TEX root = ../m2report.tex
+%
+We assume familiarity with propositional and predicate logic \cite{Huth:2004:LCS:975331}, 
+automated theorem proving \cite{Fitting:1996:FLA:230183}, 
+term rewriting \cite{Baader:1998:TR:280474}, 
+decision procedures \cite{Kroening:2008:DPA:1391237}, 
+and (maximum) satisfiability testing \cite{Biere:2009:HSV:1550723}.
+Even so, for clarity we introduce
+definitions and state lemmas and theorems without proofs in this section.
+% to be used in the following sections.
+Notions and notations follow (with deviations) the lecture notes \cite{AM2015tr} and \cite{GM2013ar}.
+%____________________________________________________________________________________________________________
+%\subsection{Signatures}\label{sec:signature}
+%% DEF %% 
+\begin{definition}\label{def:signature}
+A {\myem signature} $\mcF=\mcFfP$ is the disjoint union of {\myem function symbols} $\mcFf$
+and {\myem predicate symbols} $\mcFP$.
+The {\myem arity} of a symbol is the number of its arguments.
+With $\mcF^{(i)}$ we denote symbols with arity $i$.
+Function symbols $\mc\in\mcFf^{(0)}$ with no arguments are called {\myem constants}.
+%Predicate symbols $\mP\in\mcFP^{(0)}$ with no arguments are propositions. 
+%The special binary equality symbol ${\foEQ}\in\mcFP$ is always available.
+\end{definition}
+%\begin{remark}
+%We exclusively use the symbol $\sEQ$ for identity in this report.
+%\end{remark}
+\begin{definition}
+An {\myem interpretation} $\mcI$ over a signature $\mcF$ consists 
+of a {\myem universe}, i.e.~non-empty set  $A$,
+operations $\mf^\mcI: A^n\rightarrow A$  for every function symbol $\mf\in\mcFf$, 
+and possibly empty relations $\mP^\mcI\subseteq A^n$ for every predicate symbol $\mP\in\mcFP$.
+A {\myem consistent interpretation} of the equational symbol ${\trEQ}\in\mcFP^{(2)}$ must respect the theory of equality
+with reflexivity, symmetry, transitivity, function congruence, and predicate congruence.
+\end{definition}
+%____________________________________________________________________________________________________________
+%\subsection{Terms}\label{sec:terms}
+\begin{definition}
+We build the set of {\myem (function) terms} $\mcTFV$ 
+from a signature $\mcF$ and 
+a countable set of {\myem variables} $\mcV$ disjoint from $\mcF$.
+Every variable $x\in\mcV$ is a term,
+every constant $c\in\mcFf$ is a term, and
+every expression $\mf(t_1,\ldots,t_n)$
+for every function symbol $\mf\in\mcFf$ with arity $n>0$ 
+and terms $t_1,\ldots,t_n$
+is a term.
+%
+We build the set of general or {\myem predicate} terms $\mP(t_1,\ldots,t_n)$ from
+predicate symbols $\mP\in\mcFP$ with arity $n$ and terms $t_1,\ldots,t_n$.
+%
+A term is {\myem ground} if its set of variables $\var(t)=\myemptyset$ is empty.
+The set of all ground (function) terms is donated by $\mcT(\mcFf)$.
+\end{definition}
+
+%
+%\begin{remark}
+%Most of the following definitions are easily applicable on predicate terms too.
+%\end{remark}
+%%
+%% DEF %%
+\begin{definition}\label{def:position}
+A {\myem position} is a finite sequence of positive integers.
+The root position is the empty sequence $\epsilon$.
+Position $pq$ is obtained by concatenation of positions $p$ and $q$.
+%
+The expression $t|_p$ denotes the subterm at position $p$
+and $t[s]_p$ is obtained by replacing the subterm of $t$ at position $p$ with the term $s$.
+%A (function) term is called {\myem linear} if it does not contain multiple occurrences of the same variable.
+%
+\end{definition} 
+%% DEF %%
+%\begin{definition}\label{def:subterm}
+%The~{\myem subterm} $t|_p$ of term $t$ {\myem at position} $p\in\pos(t)$ is defined as
+%\begin{gather*}
+%t|_p = \left\{\begin{array}{ll}
+%		t 		& \text{if }p=\epsilon \\
+%		t_i|_q	& \text{if }t=\mf(t_1,\ldots,t_n)\text{ and }p=iq
+%	\end{array}\right.
+%\end{gather*}
+%%
+%If $s$ is a term then $t[s]_p$ represents the term build by replacing the subterm of $t$ at position $p$ with the term $s$.
+%\begin{gather*}
+%t[s]_p = \left\{\begin{array}{ll}
+%		s 		& \text{if }p=\epsilon \\
+%		\mf(t_1,\ldots,t_i[s]_q,\ldots,t_n)	& \text{if }t=\mf(t_1,\ldots,t_n)\text{ and }p=iq
+%	\end{array}\right.
+%\end{gather*}
+%A {\myem hole} denotes a special constant symbol $\ctxhole\in\mcFf^{(0)}$. 
+%A {\myem context} is a term $t$ with exactly one hole, i.e.~one occurrence $|t|_{\ctxhole}=1$.
+%\end{definition}
+%% DEF %%
+\begin{definition}\label{def:substitution}
+A {\myem substitution} is an assignment $\alpha$ from variables $x\in\mcV$ to terms in $\mcTFV$
+with finite {\myem domain} $\dom(\alpha) = \{ x\in\mcV\mid\alpha(x) \neq x \}$.
+We write substitutions as mappings $\sigma=\{ x_1\mapsto s_1,\ldots,x_n\mapsto s_n \}$
+where $\dom(\sigma)=\{ x_1,\ldots,x_n \}$ and $\sigma(x_i)=s_i$.
+A {\myem variable substitution} is an assignment from $\mcV$ to $\mcV$.
+A {\myem renaming} is a bijective variable substitution.
+A {\myem proper instantiator} is a substitution that is not a variable substitution.
+%We define the {\myem instance} $t\sigma$ of a term $t$ 
+%\begin{align*}
+%	t\sigma &= \left\{\begin{array}{ll}
+%		s_i 					& \text{if }t=x_i\in\dom(\sigma)\\
+%		t					& \text{if }t\in\mcV\,\backslash\dom(\sigma)\\
+%		\mf(t_1\sigma,\ldots,t_n\sigma)	&\text{if }t=\mf(t_1,\ldots,t_n)
+%	\end{array}\right.
+%\end{align*}
+%and the {\myem composition} of two substitutions $\sigma$ and $\tau$ as
+%\begin{align*}
+%	\sigma\tau&=\{ x_i\mapsto s_i\tau\mid x_i\in\dom(\sigma) \}
+%	\cup
+%	\{ y_i\mapsto t_i\mid y_i\in\dom(\tau) \backslash \dom(\sigma) \}.
+%\end{align*}
+\end{definition}
+%% DEF %% 
+\begin{definition}\label{def:unifier}
+Two terms $s$ and $t$ are {\myem unifiable} if there exists a substitution such that $s\sigma=t\sigma$.
+They are {\myem variants} if their most general unifier is a renaming.
+The {\myem most general unifier} $\sigma=\mgu(s,t)$ is a unifier such that
+for every other unifier $\sigma'$ there exists a substitution $\tau$ such that
+$\sigma' = \sigma \tau$. 
+\end{definition}
+%% DEF %%
+%\begin{example}
+%The unifier $\sigma'=\{ x\mapsto\mg(\ma),y\mapsto\mb,z\mapsto\mg(\mb)\}$ 
+%of terms $s=\mf(x,\mg(y))$ 
+%and  $t=\mf(\mg(\ma),z)$
+%is less general than $\sigma=\mgu(s,t)=\{ x\mapsto\mg(\ma), z\mapsto\mg(y)$:
+%$\sigma'=\sigma\{ y\mapsto\mb \}$.
+%\end{example}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\subsection{First order formulae}
+%
+\begin{definition}\label{def:first-order}
+%Let $\mcF$ be a signature. 
+A {\myem first order formula} $F$ is either an 
+{\myem atomic formula}, i.e.~a predicate term or an equation, or a composition of formulae where $\mP$ is a predicate symbol and $s,t,t_1,\ldots,t_n$ are terms.
+%
+\[
+ F ::= \mP(t_1,\ldots,t_n) \mid
+	s \foEQ t \mid
+	\lnot F \mid 
+	\forall x F \mid
+	\exists x F \mid
+	 F\lor F \mid
+	 F\land F \mid
+	 F\rightarrow F
+\]
+%negation $\lnot F$,
+%universal quantification $\forall x F$, 
+%existential quantification $\exists x F$, 
+%%of one formula $\phi$;
+%disjunction $ F\lor F'$, 
+%conjunction $ F\land F'$, 
+%or implication $ F\rightarrow F'$. 
+%Exclusive disjunction $ F\oplus F$ abbreviates $( F\lor F)\land(\lnot\phi\lor\lnot F)$.
+%of two formulae $\phi$ and $\psi$.
+\end{definition}
+%% REM %%
+%% DEF %%
+\begin{definition}\label{def:literals}
+A {\myem literal} $L$ is either an atom
+or the negation of an atom.
+%, where $l\not{}\hspace{-0.5mm}\circ$ abbreviates $\lnot(l\circ r)$
+%for binary symobl $\circ$.
+%A literal is ground if all its terms are ground.
+%The complement $L^c$ of a literal $L$ is defined as %with some atom $A$: 
+%\[ L^c = \left\{ \begin{array}{rl}
+%A & \text{if } L = \lnot A\\
+%\lnot A & \text{if } L = A
+%\end{array}\right.
+%\]
+Two literals are complementary if one is an atom and the other is the negation of this atom.
+%
+A {\myem clause}\ \ $\mcC = L_1\lor\ldots\lor L_n$  is a possible empty multiset of literals and is interpreted as disjunction of literals.
+The {\myem empty clause} $\emptyclause$ expresses a contradiction. 
+%A clause is ground if all its literals are ground.
+A finite {\myem set of clauses} $S=\{ \mcC_1,\ldots,\mcC_n \}$ 
+is interpreted as an universally quantified conjunction of variable distinct clauses
+$S\equiv\forall\vec{x}_1\ldots\forall\vec{x}_n\left(\mcC_1\land\ldots\land\mcC_n\right)$ with 
+$\var(\mcC_i)=\vec{x}_i$, 
+$\vec{x}_i\cap\vec{x}_j=\myemptyset\lor i=j$.
+%A set of clauses is ground if all its clauses are ground.
+\end{definition}
+%
+\begin{remark}
+When the same variable symbols are used in different clauses the distinguishing additions, e.g.~super- or subscripts, were omitted due to laziness.
+\end{remark}
+%
+%\begin{definition}
+%A {\em clause} $\mathcal C = L_1\lor \ldots\lor L_n$ is a possible empty multiset of literals and is interpreted as disjunction of literals. 
+%$\square$ denotes the {\em empty clause}, respectively false, contradiction, pair or conjunction of complementary literals.
+%A clause is ground if all its literals are ground.
+%A finite {\em set of clauses} $S=\{ \mathcal C_1,\ldots \mathcal C_n \}$ is interpreted as universally quantified conjunction of all its clauses.
+%\end{definition}
+%
+\begin{definition}\label{def:model}
+%A ground literal $L$ holds in an Herbrand {\myem interpretation} $\mathcal I$ (a domain of ground terms and definitions for functions and predicates), 
+%if it is the logical consequence $\mathcal I\models L$ of ground literals in $\mathcal I$.
+%A non-ground literal holds in $\mathcal I$, if all its ground instances hold in $\mathcal I$.
+%A clause holds in $\mathcal I$, if at least one of its literals holds in $\mathcal I$.
+%A set of clauses $S$ holds in $\mathcal I$, if every clause $\mathcal C\in S$ holds in $\mathcal I$.
+%An interpretation is consistent $\mathcal I\not\models\square$, if no pair of complementary literals holds in $\mathcal I$.
+%A set of clauses $S$ is {\myem satisfiable} if it has a {\myem model} $\mathcal M$, i.e.~a consistent interpretation $\mathcal M\models S$.
+A {\myem term model} $\mcM$ is an consistent interpretation where the elements of the domain $A$ 
+are equivalence classes of ground terms
+and the interpretation of each ground term $t^\mcM := [t]_\sim$ is its equivalence class.
+An equation $s\trEQ t$ of ground terms holds in $\mcM$ if $[s]_\sim=[t]_\sim$;
+a ground predicate term $\mP(t_1,\ldots,t_n)$ holds in $\mcM$ if $\mP([t_1]_\sim,\ldots,[t_n]_\sim)] \in A^n$.
+A ground literal holds in $\mcM$ if and only if its complementary literal does not hold in $\mcM$.
+
+A non-ground literal holds in $\mcM$ if all its 
+%(infinitely many in the presence of function symbols with arity greater than one) 
+(perhaps infinitely many)
+instances hold in $\mcM$.
+A clause holds in $\mcM$, if at least one of its literals holds in $\mcI$.
+A set of clauses $S$ holds in $\mcM$, if every clause $\mcC\in S$ holds in $\mcM$.
+Then we say $\mcM$ is a model {\em for} $S$.
+
+\end{definition}
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% SUBSEC %%
+
+%% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\subsection{Term rewrite systems}
+%% DEF %%
+\begin{definition}
+A {\myem rewrite rule}  $l \rightarrow r$ is an equation of terms where the left-hand side is not a variable
+and the variables which occur in the right-hand side occur also in the left-hand side.
+%\[
+%	l\not\in\mcV\text{ and }\var(r)\subseteq\var(l)
+%\] 
+A rewrite rule $l'\rightarrow r'$ is a {\myem variant} of $l\rightarrow r$ if there is a renaming $\varrho$ such that 
+$(l\rightarrow r)\varrho = (l\varrho\rightarrow r\varrho) = l'\rightarrow r'$.
+A {\myem term rewrite system} is a set of rewrite rules without variants.
+%\end{definition}
+%% REM %%
+%\begin{remark}
+%It's easy to see (lemma \vref{lem:xa}) that not all equations $s\foEQ t$ or their inverse $t\foEQ s$ are rewrite rules.
+%%A little sloppy we may write $l\trEQ r$ to express that $l\rightarrow r$ or its inverse $l\leftarrow r$ must be rewrite rules,
+%%e.g.~$x\trEQ f(x)$.
+%%If we do not care we write $l\foEQ r$.
+%\end{remark}
+%
+%\begin{definition}
+The expression $s\rightarrow t$ denotes a {\myem rewrite step} 
+from term $s$ to term $t$
+if there exists 
+a position $p\in\pos(s)$,
+a rewrite rule $l\rightarrow r$,
+and a substitution $\sigma$ such that
+$s|_p=l\sigma$ and $t=s[r\sigma]_p$.
+The subterm $l\sigma$ is called {\myem redex} and
+$s$ rewrites to $t$ by {\myem contracting} $l\sigma$ to {\myem contractum} $r\sigma$.
+%
+We may write 
+$s\rightarrow_{p,l\rightarrow r,\sigma}t$ to indicate position, rewrite rule and substitution
+or $s\rightarrow_\mcR t$ to indicate the origin of the rule.
+%
+A term $s$ is {\myem irreducible} or in {\myem normal form} if there is no rewrite step $s\rightarrow t$ for any term $t$. 
+The set of normal forms $\mNFR$ of a TRS $\mcR$ contains all irreducible terms of the TRS.
+%
+\end{definition}
+%%%
+\begin{definition}
+A term $s$ can be rewritten to term $t$ with notion $s\rightarrow^* t$ 
+if there exists at least one {\myem rewrite sequence} $(a_1,\ldots ,a_n)$ such that
+$s=a_1$, $a_n=t$, and $a_i\rightarrow a_{i+1}$ are rewrite steps for $1\leq i<n$.
+A TRS is {\myem terminating} if there is no infinite rewrite sequence of terms.
+%
+Two Terms $s$ and $t$ are {\myem joinable} with notion $s\downarrow t$ 
+if both can be rewritten to some term $c$, i.e.~$s \rightarrow^*c\ \, ^*\!\!\leftarrow t$.
+A TRS is {\myem confluent } if $s$ and $t$ are joinable whenever $s\ ^*\!\!\leftarrow a \rightarrow^* t$ holds for some term $a$.
+%
+Terms $s$ and $t$ are {\myem convertible} with notion $s\leftrightarrow^* t$ 
+if there exists a sequence $(a_1,\ldots ,a_n)$ such that
+$s=a_1$, $a_n=t$, and $a_i\leftrightarrow a_{i+1}$, i.e.~$a_i\rightarrow a_{i+1}$ or $a_i\leftarrow a_{i+1}$ are rewrite steps for $1\leq i<n$.
+\end{definition}
+%
+%% DEF %%
+\begin{definition}\label{def:closed-under}
+%A binary relation $R$ on terms is {\myem closed under contexts}
+%if $u[s]|_p\,R\;u[t]|_p$ holds 
+%for all positions $p\in\pos(u)$ and
+%for all terms $s,t,u$ with $s\,R\;t$.
+%It is {\myem closed under substitutions}
+%if $s\sigma\,R\;t\sigma$ holds for all substitutions $\sigma$
+%and all terms $s,t$ with $s\,R\;t$.
+A binary relation $\relation$ on terms is called a {\myem rewrite relation} whenever it is {\myem closed under contexts},
+i.e.~$u[s]|_p\relation u[t]|_p$ %holds 
+for all positions $p\in\pos(u)$ and
+for all terms $s,t,u$ with $s\relation t$
+and {\myem closed under substitutions}, 
+i.e.~$s\sigma\relation t\sigma$ %holds
+for all substitutions $\sigma$
+and all terms $s,t$ with $s\relation t$.
+\end{definition}
+\begin{lemma}
+The relations $\rightarrow^*_\mcR$, 
+$\rightarrow^+_\mcR$,
+$\downarrow_\mcR$, $\uparrow_\mcR$ are rewrite relations on every TRS $\mcR$.
+\end{lemma}
+%
+\begin{definition}
+A proper (i.e.~irreflexive and transitive) order on terms is called {\myem rewrite order} if it is a rewrite relation.
+A {\myem reduction order} is a well-founded rewrite order,
+i.e.~there is no infinite sequence 
+$(a_i)_{i\in\mathbb{N}}$
+where $a_i\gtpre a_{i+1}$ for all $i$.
+% with $i\in\mathbb{N}$.
+A {\myem simplification order} is a rewrite order with the {\myem subterm property},
+i.e.~$u[t]_p \gtpre t$ for all terms $u$, $t$ and positions $p\neq\epsilon$.
+\end{definition}
+\begin{lemma}
+Every simplification order is well-founded, i.e.~it is a reduction order.
+\end{lemma}
+%% DEF %%
+%
+\begin{theorem}
+A TRS $\mcR$ is terminating if and only if there exists a reduction order $\gtpre$
+such that $l\gtpre r$ for every rewrite rule $l\rightarrow r\in\mcR$.
+We call $\mcR$ simply terminating if $\gtpre$ is a simplification order.
+\end{theorem}
+
+%\begin{theorem}[Knuth-Bendix-Criterion]
+%\end{theorem}
+%% DEF %%
+

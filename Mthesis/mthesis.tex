@@ -5,10 +5,10 @@
 \documentclass[]{clmthesis}
 
 %% https://en.wikibooks.org/wiki/LaTeX/Modular_Documents
-\usepackage{mystyle}
+\input{mystyle/Packages.tex}	% \usepackage{mystyle}	
 
 \begin{document}
-\nocite{*}
+% \nocite{*}
 
 % BEGIN: titlepage setup -------------------------------------------
 \title{Yet another first order theorem prover with equality}
@@ -30,10 +30,10 @@
 %====================================================================
 % BEGIN: CONTENT ----------------------------------------------------
 %====================================================================
-\chapter{Introduction} 			
-\section{Introduction}
 
-\section{Preliminaries}
+\input{introduction/main}
+\input{preliminaries/main}
+
 \section{Theorem proving without equality}
 \subsection{Resolution}
 \subsection{Instantiation-based}

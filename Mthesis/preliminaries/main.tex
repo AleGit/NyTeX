@@ -1,0 +1,26 @@
+% !TeX root = ../mthesis.tex
+% !TeX encoding = UTF-8
+% !TeX spellcheck = en_US
+
+\section{Preliminaries}
+
+We assume familiarity with propositional and predicate logic \cite{Huth:2004:LCS:975331}, 
+automated theorem proving \cite{Fitting:1996:FLA:230183}, 
+term rewriting \cite{Baader:1998:TR:280474}, 
+decision procedures \cite{Kroening:2008:DPA:1391237}, 
+and (maximum) satisfiability testing \cite{Biere:2009:HSV:1550723}.
+Even so, for clarity we introduce
+definitions and state lemmas and theorems without proofs.
+Notions and notations follow (with small deviations) the lecture notes \cite{AM2015tr} and \cite{GM2013ar}.
+This section is mostly an extension of the same section in our seminar report \cite{axm:SR2}.
+
+\input{preliminaries/signature}
+
+\input{preliminaries/terms}
+
+In examples we usually use $\ma,\mb,\mc,\md$ for constants $c\in\mcFf^{(0)}$,
+$\mf,\mg,\mh$ for function symbols $f\in\mcFf^{(>0)}$,
+$\mpp,\mq,\mr$ for propositions $p\in\mcFP^{(0)}$, and 
+$\mP,\mQ,\mR$ for predicate symbols $P\in\mcFP^{(>0)}$.
+The special binary equality symbol $\mEQ$ is always available.
+% and can be seen as special predicate ${\mEQ}\in\mcFP^{(2)}$.
