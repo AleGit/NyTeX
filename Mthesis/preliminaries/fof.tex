@@ -1,0 +1,30 @@
+% !TeX root = ../mthesis.tex
+% !TeX encoding = UTF-8
+% !TeX spellcheck = en_US
+
+\begin{definition}\label{def:first-order}
+%Let $\mcF$ be a signature. 
+A {\myem first order formula} $F$ is either an 
+{\myem atomic formula} (an atom or an equation)
+or a composition of formulae.
+%
+\[
+ F ::= P(t_1,\ldots,t_n) \mid
+	s\ \mEQ\ t \mid
+	(\lnot F) \mid 
+	(\forall x F) \mid
+	(\exists x F) \mid
+	(F\lor F) \mid
+	(F\land F) \mid
+	(F\rightarrow F)
+\]
+%negation $\lnot F$,
+%universal quantification $\forall x F$, 
+%existential quantification $\exists x F$, 
+%%of one formula $\phi$;
+%disjunction $ F\lor F'$, 
+%conjunction $ F\land F'$, 
+%or implication $ F\rightarrow F'$. 
+%Exclusive disjunction $ F\oplus F$ abbreviates $( F\lor F)\land(\lnot\phi\lor\lnot F)$.
+%of two formulae $\phi$ and $\psi$.
+\end{definition}
