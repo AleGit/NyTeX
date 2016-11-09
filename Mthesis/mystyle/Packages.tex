@@ -46,8 +46,8 @@
 % https://en.wikibooks.org/wiki/LaTeX/Theorems
 \usepackage{amsthm}			
 \usepackage{proof} 
-	
-\input{mystyle/Symbols}
+
+\input{mystyle/Operators.tex}
 %% ---------------------------------------------------------------------- %%
 
 
@@ -65,20 +65,21 @@
 %% -- 4.6 Listings ------------------------------------------------------ %%
 % https://en.wikibooks.org/wiki/LaTeX/Source_Code_Listings
 \usepackage{listings} 
-\input{mystyle/Listings.tex}
+\input{mystyle/Listings.tex}	% definitions
 %% ---------------------------------------------------------------------- %%
 
 
 %% -- Graphics ---------------------------------------------------------- %%
 % https://en.wikibooks.org/wiki/LaTeX/PGF/TikZ
 \usepackage{tikz}
-\input{mystyle/Drawings}
+\input{mystyle/Drawings}		% definitions and tikz macros
 %% ---------------------------------------------------------------------- %%
 
 
 %% -- Macros ------------------------------------------------------------ %%
 %% https://en.wikibooks.org/wiki/LaTeX/Macros
-\input{mystyle/Commands}
+\input{mystyle/Commands}		% complex macros
+\input{mystyle/Symbols}			% simple macros
 %% ---------------------------------------------------------------------- %%
 
 

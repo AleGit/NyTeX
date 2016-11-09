@@ -1,5 +1,4 @@
 % !TeX encoding = UTF-8
-% !TeX spellcheck = en_US
 
 %% ==============================================================
 %% ### MISC ###
@@ -20,55 +19,9 @@
 %\newcommand{\iSUB}[2]{#2\!\mapsto\!#1}
 %\newcommand{\BgSyntaxTree}{\usebackgroundtemplate{\transparent{0.1}\includegraphics[width=\paperwidth]{SyntaxTreeBackground.png}}}
 
-\newcommand{\EMPH}[1]{\emph{\textcolor{colEm}{#1}}}
+%\newcommand{\EMPH}[1]{\emph{\textcolor{colEm}{#1}}}
+\newcommand{\myem}{\em\colEm}
 
-%% ==============================================================
-%% ### MY MATH ENVIRONMENTS ###
-
-\theoremstyle{plain}
-%\newtheorem{theorem}{Theorem}
-%\newtheorem{proposition}{Proposition}
-%\newtheorem{lemma}{Lemma}
-%\newtheorem*{corollary}{Corollary}
-
-\theoremstyle{definition}
-%\newtheorem{definition}{Definition}
-\newtheorem{Conjecture}{Conjecture}
-%\newtheorem*{example}{Example}
-%\newtheorem{algorithm}{Algorithm}
-\newtheorem{procedure}{Procedure}
-\newtheorem{goal}{Goal}
-\newtheorem{notation}{Notation}
-
-\theoremstyle{remark}
-%\newtheorem*{remark}{Remark}
-\newtheorem*{observation}{Observation}
-%\newtheorem*{note}{Note}
-%\newtheorem{case}{Case}
-
-%% ==============================================================
-%% ### MY MATH DEFINITIONS ###
-
-% math operators
-
-\DeclareMathOperator{\arity}{arity}
-\DeclareMathOperator{\var}{var}			% variables of a term
-\DeclareMathOperator{\pos}{pos}			% position in a term
-%\DeclareMathOperator{\T}{T}
-\DeclareMathOperator{\dom}{dom}			% domain
-%\DeclareMathOperator{\rng}{rng}
-%\DeclareMathOperator{\img}{img}
-\DeclareMathOperator{\mgu}{mgu}			% most general unifier
-%\DeclareMathOperator{\wgt}{W\!}
-\DeclareMathOperator{\sel}{sel}
-%\DeclareMathOperator{\mul}{mul}
-%\DeclareMathOperator{\add}{add}
-
-\DeclareMathOperator{\UNIF}{unifiable}
-\DeclareMathOperator{\INST}{instance}
-\DeclareMathOperator{\GNRL}{generalization}
-\DeclareMathOperator{\VRNT}{variant}
-\DeclareMathOperator{\PSTR}{pstr}
 
 \newcommand{\NGTPREQ}{\not\succcurlyeq}
 
@@ -114,7 +67,13 @@
 % signature, function and predicate symbols
 \newcommand{\mcF}{{\mathcal F}}
 \newcommand{\mcFf}{{\mcF_\mf}}
+\newcommand{\mcFfO}{{\mcF_\mf^{(0)}}}
+\newcommand{\mcFfgo}{{\mcF_\mf^{(>0)}}}
+\newcommand{\mcFfn}{{\mcF_\mf^{(n)}}}
 \newcommand{\mcFP}{{\mcF_\mP}}
+\newcommand{\mcFPO}{{\mcF_\mP^{(0)}}}
+\newcommand{\mcFPgo}{{\mcP_\mf^{(>0)}}}
+\newcommand{\mcFPn}{{\mcF_\mP^{(n)}}}
 \newcommand{\mcFfP}{\mcFf\,\disjointunion\,\mcFP}
 % terms with signature
 % \newcommand{\mcTFV}{{\mcT(\mcFf,\!\mcV)}}
@@ -129,10 +88,10 @@
 %\newcommand{\mcT}{{\mathcal T}}
 \newcommand{\mcV}{{\mathcal V}}
 
-\newcommand{\Var}{{}\mcV\mathsf{ar}}
-\newcommand{\Dom}{{}\mcD\mathsf{om}}
-\newcommand{\Pos}{{}\mcP\mathsf{os}}
-\newcommand{\PosStr}{\Pos^\Sigma}
+%\newcommand{\Var}{{}\mcV\mathsf{ar}}
+%\newcommand{\Dom}{{}\mcD\mathsf{om}}
+%\newcommand{\Pos}{{}\mcP\mathsf{os}}
+%\newcommand{\PosStr}{\Pos^\Sigma}
 
 % fraktal symbols
 
