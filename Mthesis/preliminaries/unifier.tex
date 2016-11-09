@@ -1,0 +1,11 @@
+% !TeX root = ../mthesis.tex
+% !TeX encoding = UTF-8
+% !TeX spellcheck = en_US
+
+\begin{definition}\label{def:unifier}
+Two terms $s$ and $t$ are {\myem unifiable} if there exists a substitution $\sigma$ such that $s\sigma=t\sigma$.
+They are {\myem variants} if their most general unifier is a renaming.
+The {\myem most general unifier} $\sigma=\mgu(s,t)$ is a unifier such that
+for every other unifier $\sigma'$ there exists a substitution $\tau$ such that
+$\sigma' = \sigma \tau$. 
+\end{definition}
