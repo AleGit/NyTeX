@@ -2,15 +2,14 @@
 % !TeX encoding = UTF-8
 % !TeX spellcheck = en_US
 
-\begin{definition}\label{def:first-order}
+\begin{definition}\label{def:formula}
 %Let $\mcF$ be a signature. 
-A {\myem first order formula} $F$ is either an 
-{\myem atomic formula} (a predicate or an equation)
-or a composition of formulae.
+A {\myem formula} $F$ is either an 
+{\myem atom} or a {\myem junction} of smaller formulae.
 %
 \[
  F ::= P(t_1,\ldots,t_n) \mid
-	s\ \mEQ\ t \mid
+	s\mEQ t \mid
 	(\lnot F) \mid 
 	(\forall x F) \mid
 	(\exists x F) \mid
@@ -28,3 +27,5 @@ or a composition of formulae.
 %Exclusive disjunction $ F\oplus F$ abbreviates $( F\lor F)\land(\lnot\phi\lor\lnot F)$.
 %of two formulae $\phi$ and $\psi$.
 \end{definition}
+
+\noindent Note: We abbreviate $\lnot(s\mEQ t)$ with $s\mNE t$.

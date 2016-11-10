@@ -3,27 +3,23 @@
 % !TeX spellcheck = en_US
 
 \begin{definition}\label{def:literals}
-A {\myem literal} $L$ is either an atom
-or the negation of an atom.
-%, where $l\not{}\hspace{-0.5mm}\circ$ abbreviates $\lnot(l\circ r)$
-%for binary symobl $\circ$.
-%A literal is ground if all its terms are ground.
-%The complement $L^c$ of a literal $L$ is defined as %with some atom $A$: 
-%\[ L^c = \left\{ \begin{array}{rl}
-%A & \text{if } L = \lnot A\\
-%\lnot A & \text{if } L = A
-%\end{array}\right.
-%\]
-Two literals are complementary if one is an atom and the other is the negation of this atom.
+A {\myem literal} $L$ is either an atom or the negation of an atom.
 %
 A {\myem clause}\ \ $\mcC = L_1\lor\ldots\lor L_n$  is a possible empty multiset of literals 
 and is equivalent to the universally quantified disjunction of its literals.
 The {\myem empty clause} $\emptyclause$ expresses a contradiction. 
-%A clause is ground if all its literals are ground.
-A finite {\myem set of clauses} $S=\{ \mcC_1,\ldots,\mcC_n \}$ 
-is equivalent to the conjunction of its clauses.
-$S\equiv(\forall\vec{x}_1\mcC_1)\land\ldots\land(\forall\vec{x}_n\mcC_n)$ with 
-$\vec{x}_i = \var(\mcC_i)$.
-%$\vec{x}_i\cap\vec{x}_j=\emptyclause\lor i=j$.
-%A set of clauses is ground if all its clauses are ground.
+%
+A finite {\myem set of clauses} $S=\{ \mcC_1,\ldots,\mcC_n \}$ is equivalent to the conjunction of its clauses.
+The empty set of clauses expresses a tautology.
+
+%We define the {\myem complement }of a literal $L$ as follows
+%\[
+%L^c = \left\{
+%\begin{array}{rl}
+%\lnot L & \text{if $L$ is an atom} \\
+%A 	& \text{if }L = \lnot A
+%\end{array}
+%\right.
+%\]
+%Two literals are complementary if one is an atom, i.e. a positive literal and the other is the negation of this atom.
 \end{definition}

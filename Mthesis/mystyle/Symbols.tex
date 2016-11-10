@@ -54,32 +54,46 @@
 \newcommand{\mQ}{{\mathsf Q}}
 \newcommand{\mR}{{\mathsf R}}
 
-\newcommand{\mEQ}{{\mathsf \approx}}
-\newcommand{\mNE}{{\mathsf \not\approx}}
+\newcommand{\mEQ}{\approx}
+\newcommand{\mNE}{\not\approx}
+\newcommand{\limplies}{\rightarrow}		% logical implication, see lor, land, lnot
 
 % caligraphic symbols
 
 \newcommand{\mcC}{{\mathcal C}}
 \newcommand{\mcD}{{\mathcal D}}
-%\newcommand{\mcE}{{\mathcal E}}
+\newcommand{\mcE}{{\mathcal E}}
 \newcommand{\mcT}{{\mathcal T}}
 
-% signature, function and predicate symbols
-\newcommand{\mcF}{{\mathcal F}}
-\newcommand{\mcFf}{{\mcF_\mf}}
+% signature, terms, predicates, equations
+\newcommand{\mcF}{{\mathcal F}}		% signature
+\newcommand{\mcFf}{{\mcF_\mf}}		% function symbols
+\newcommand{\mcFP}{{\mcF_\mP}}		% predicate symbols
+\newcommand{\mcFfPE}{\mcFf\,\disjointunion\,\mcFP\,\disjointunion\,\{\mEQ\}}
+
+\newcommand{\mcTf}{\mcT_\mf}						% terms (short)
+\newcommand{\mcTFfV}{{\mcT(\mcF_\mf,\mcV)}}		% terms (long)
+\newcommand{\mcPT}{{\mcP(\mcFP,\mcTf})}				% predicates
+\newcommand{\mcET}{{\mcE(\mEQ, \mcTf})}				% equations
+
+
+
+% reevaluate:
+\newcommand{\mcFn}{{\mathcal F^{(n)}}}
+
+
 \newcommand{\mcFfO}{{\mcF_\mf^{(0)}}}
 \newcommand{\mcFfgo}{{\mcF_\mf^{(>0)}}}
 \newcommand{\mcFfn}{{\mcF_\mf^{(n)}}}
-\newcommand{\mcFP}{{\mcF_\mP}}
+
 \newcommand{\mcFPO}{{\mcF_\mP^{(0)}}}
 \newcommand{\mcFPgo}{{\mcP_\mf^{(>0)}}}
 \newcommand{\mcFPn}{{\mcF_\mP^{(n)}}}
-\newcommand{\mcFfP}{\mcFf\,\disjointunion\,\mcFP}
+
 % terms with signature
 % \newcommand{\mcTFV}{{\mcT(\mcFf,\!\mcV)}}
-\newcommand{\mcTFV}{{\mcT(\mcF\!,\mcV)}}	% the set of function terms
-\newcommand{\mcTfFV}{{\mcT_\mf(\mcF\!,\mcV)}}	% the set of function terms
-\newcommand{\mcTPFV}{{\mcT_\mP(\mcF\!,\mcV)}}	% the set of predicate terms
+%\newcommand{\mcTFV}{{\mcT(\mcF\!,\mcV)}}		% the set of function terms
+
 
 %\newcommand{\mcM}{{\mathcal M}}
 %\newcommand{\mcO}{{\mathcal O}}
@@ -154,3 +168,8 @@
 
 \newcommand{\cmark}{\ding{51}}
 \newcommand{\xmark}{\ding{55}}
+
+\newcommand{\species}{\mathsf{species}}
+\newcommand{\human}{\mathsf{human}}
+\newcommand{\mortal}{\mathsf{mortal}}
+\newcommand{\socrates}{\mathsf{socrates}}

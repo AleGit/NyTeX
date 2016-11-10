@@ -3,9 +3,11 @@
 % !TeX spellcheck = en_US
 
 \begin{definition}\label{def:unifier}
-Two terms $s$ and $t$ are {\myem unifiable} if there exists a substitution $\sigma$ such that $s\sigma=t\sigma$.
-They are {\myem variants} if their most general unifier is a renaming.
-The {\myem most general unifier} $\sigma=\mgu(s,t)$ is a unifier such that
-for every other unifier $\sigma'$ there exists a substitution $\tau$ such that
+Two terms or literals $T, U$ are {\myem unifiable} if there exists a substitution $\sigma$ such that $T\sigma=U\sigma$.
+The {\myem most general unifier} $\mgu(T,U)$ is a unifier such that
+for every other unifier $\sigma'$ there exists a substitution $\tau$ where
 $\sigma' = \sigma \tau$. 
+Two literals are variants if their $\mgu$ is a renaming.
+Two literals are clashing when the complement of one literal 
+and the unchanged other literal are unifiable, i.e.~$L$ and $L'$ are clashing if $\mgu(L^c, L')$ exists.
 \end{definition}

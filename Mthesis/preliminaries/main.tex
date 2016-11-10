@@ -2,7 +2,7 @@
 % !TeX encoding = UTF-8
 % !TeX spellcheck = en_US
 
-\section{Preliminaries}
+\chapter{Preliminaries}
 
 We assume familiarity with propositional and predicate logic \cite{Huth:2004:LCS:975331}, 
 automated theorem proving \cite{Fitting:1996:FLA:230183}, 
@@ -14,16 +14,20 @@ definitions and state lemmas and theorems without proofs.
 Notions and notations follow (with small deviations) the lecture notes \cite{AM2015tr} and \cite{GM2013ar}.
 This section is mostly an extension of the same section in our seminar report \cite{axm:SR2}.
 
+\section{Syntax}
+
 \input{preliminaries/signature}
 
 \input{preliminaries/terms}
 
-In examples we usually use $\ma,\mb,\mc,\md$ for constants $c\in\mcFfO$,
-$\mf,\mg,\mh$ for function symbols $f\in\mcFfgo$,
-$\mpp,\mq,\mr$ for propositions $p\in\mcFPO$, and 
-$\mP,\mQ,\mR$ for predicate symbols $P\in\mcFPgo$.
-%The special binary equality symbol $\mEQ$ is always available.
-% and can be seen as special predicate ${\mEQ}\in\mcFP^{(2)}$.
+\input{preliminaries/atoms}
+
+%In examples we usually use $\ma,\mb,\mc,\md$ for constants $c\in\mcFfO$,
+%$\mf,\mg,\mh$ for function symbols $f\in\mcFfgo$,
+%$\mpp,\mq,\mr$ for propositions $p\in\mcFPO$, and 
+%$\mP,\mQ,\mR$ for predicate symbols $P\in\mcFPgo$.
+%%The special binary equality symbol $\mEQ$ is always available.
+%% and can be seen as special predicate ${\mEQ}\in\mcFP^{(2)}$.
 
 \input{preliminaries/fof}
 
