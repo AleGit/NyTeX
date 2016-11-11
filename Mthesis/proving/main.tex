@@ -4,45 +4,53 @@
 
 \chapter{First Order Theorem Proving}
 
-\epigraph{All men are mortal
+%\epigraph{All men are mortal
+%	
+%	Fosca is a man
+%	
+%	Therefore Fosca is mortal
+%	}{Syllogism
+%}
+
+\epigraph{Tous les hommes sont mortels
 	
-	Socrates is a man
+	Fosca est un homme
 	
-	Socrates is mortal
-	}{Syllogism
+	Par conséquent Fosca est mortel
+}{Syllogism
 }
 
-\begin{example} Let $\mcF = \{\species^1, \socrates^0, \human^0 \} \disjointunion \{ \mortal^1  \} \disjointunion \{\mEQ^2\}$ be a signature. 
-	Consider the problem $\{ \mcC_1, \mcC_2, \mcC_3 \}$
+\begin{example} Let $\mcF = \{\species^1, \fosca^0, \human^0 \} \disjointunion \{ \mortal^1  \} \disjointunion \{\mEQ^2\}$ be a signature. 
+	Consider the set of clauses $\{ \mcC_1, \mcC_2, \mcC_3 \}$, i.e.~{\myem the problem}:
 
 %\begin{align*}
 %	\forall x \left((\species(x)\mEQ\human)\limplies\mathsf{Mortal}(x) \tag*{theory}\right)\\
-%	\species(\socrates)\mEQ\human \tag*{fact} \\
-%	\mathsf{Mortal}(\socrates) \tag*{conjecture}
+%	\species(\fosca)\mEQ\human \tag*{fact} \\
+%	\mathsf{Mortal}(\fosca) \tag*{conjecture}
 %\end{align*}
 
 \begin{align*}
 \mcC_1: &&\species(x)\mNE\human\lor\mortal(x) \tag*{theory}\\
-\mcC_2: &&\species(\socrates)\mEQ\human \tag*{fact} \\
-\mcC_3: &&\lnot\mortal(\socrates) \tag*{negated conjecture} \\
+\mcC_2: &&\species(\fosca)\mEQ\human \tag*{fact} \\
+\mcC_3: &&\lnot\mortal(\fosca) \tag*{negated conjecture} \\
 %\\
-%4 &&\species(\socrates)\mNE\human\lor\mortal(\socrates) \tag*{instance}
+%4 &&\species(\fosca)\mNE\human\lor\mortal(\fosca) \tag*{instance}
 \end{align*}
 
 We search for all clashing literals, and instantiate their clauses with the unifiers.
 \begin{prooftree}
 	\AxiomC{${\colHi \species(x)\mNE\human}\lor\mortal(x)$}
-	\AxiomC{$\colHi\species(\socrates)\mEQ\human$}
+	\AxiomC{$\colHi\species(\fosca)\mEQ\human$}
 	
-	\RightLabel{$\{x\mapsto\socrates\}$}
-	\BinaryInfC{$\mcC_4: \species(\socrates)\mNE\human\lor\mortal(\socrates)\qquad \mcC_2$}
+	\RightLabel{$\{x\mapsto\fosca\}$}
+	\BinaryInfC{$\mcC_4: \species(\fosca)\mNE\human\lor\mortal(\fosca)\qquad \mcC_2$}
 \end{prooftree}
 \begin{prooftree}
 	\AxiomC{${\species(x)\mNE\human}\lor\colHi\mortal(x)$}
-	\AxiomC{$\colHi\lnot\mortal(\socrates)$}
+	\AxiomC{$\colHi\lnot\mortal(\fosca)$}
 	
-	\RightLabel{$\{x\mapsto\socrates\}$}
-	\BinaryInfC{$\mcC_4: \species(\socrates)\mNE\human\lor\mortal(\socrates)\qquad\mcC_3$}
+	\RightLabel{$\{x\mapsto\fosca\}$}
+	\BinaryInfC{$\mcC_4: \species(\fosca)\mNE\human\lor\mortal(\fosca)\qquad\mcC_3$}
 \end{prooftree}
 
 We have derived a set of ground instances $\{ \mcC_2, \mcC_3, \mcC_4 \}$ 
