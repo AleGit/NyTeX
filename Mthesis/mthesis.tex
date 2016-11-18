@@ -7,6 +7,13 @@
 %% https://en.wikibooks.org/wiki/LaTeX/Modular_Documents
 \input{mystyle/Packages.tex}	% \usepackage{mystyle}	
 
+\includeonly{
+%	introduction/main,
+	preliminaries/main,
+%	proving/main,
+%	flea/main
+}
+
 \begin{document}
 % \nocite{*}
 
@@ -20,22 +27,23 @@
 \date{\today}
 \supervisor{Assoc.~Prof.~Dr.~Georg~Moser}
 \institute{Institute of Computer Science}
+
 \abstract{Instantiation-based ...}
-\acknowledgments{Thanks.}
 % END: titlepage setup ----------------------------------------------
-\maketitle
-%\acknowledgments{}
+
+
+%\acknowledgments{Thanks.}
+%\maketitle
 \tableofcontents
 
 %====================================================================
 % BEGIN: CONTENT ----------------------------------------------------
 %====================================================================
 
-
-\input{introduction/main}
-\input{preliminaries/main}
-\input{proving/main}
-\input{flea/main}
+\include{introduction/main}
+\include{preliminaries/main}
+\include{proving/main}
+\include{flea/main}
 
 %\section{Theorem proving without equality}
 %\subsection{Resolution}
@@ -53,9 +61,9 @@
 
 %\cleardoublepage
 %\phantomsection
-%\addcontentsline{toc}{chapter}{\listfigurename}\listoffigures
+\addcontentsline{toc}{chapter}{\listfigurename}\listoffigures
 
-%\addcontentsline{toc}{chapter}{\listtablename}\listoftables
+\addcontentsline{toc}{chapter}{\listtablename}\listoftables
 
 %\Glasnadel
 %\printglossaries

@@ -57,13 +57,23 @@
 \newcommand{\mEQ}{\approx}
 \newcommand{\mNE}{\not\approx}
 \newcommand{\limplies}{\rightarrow}		% logical implication, see lor, land, lnot
+\newcommand{\rwEQ}{\approx}
+
+\newcommand{\rwRule}[1]{\xrightarrow[{#1}]{}}
+
+
 
 % caligraphic symbols
 
 \newcommand{\mcC}{{\mathcal C}}
 \newcommand{\mcD}{{\mathcal D}}
 \newcommand{\mcE}{{\mathcal E}}
+\newcommand{\mcR}{{\mathcal R}}
 \newcommand{\mcT}{{\mathcal T}}
+
+\newcommand{\mcf}{{\mathpzc f}}
+\newcommand{\mct}{{\mathpzc t}}
+\newcommand{\mcr}{{\mathpzc r}}
 
 % signature, terms, predicates, equations
 \newcommand{\mcF}{{\mathcal F}}		% signature
@@ -77,6 +87,8 @@
 \newcommand{\mcET}{{\mcE(\mEQ, \mcTf})}				% equations
 
 
+\newcommand{\mNF}[1]{\mathsf{NF}(#1)}	% Normal Form
+\newcommand{\mNFR}{\mNF{\mcR}}		% set of normal forms	
 
 % reevaluate:
 \newcommand{\mcFn}{{\mathcal F^{(n)}}}
@@ -95,7 +107,8 @@
 %\newcommand{\mcTFV}{{\mcT(\mcF\!,\mcV)}}		% the set of function terms
 
 
-%\newcommand{\mcM}{{\mathcal M}}
+\newcommand{\mcI}{{\mathcal I}}
+\newcommand{\mcM}{{\mathcal M}}
 %\newcommand{\mcO}{{\mathcal O}}
 \newcommand{\mcP}{{\mathcal P}}
 %\newcommand{\mcR}{{\mathcal R}}
@@ -164,6 +177,7 @@
 	{l=r & L[l']}	
 }
 
+\newcommand{\ctxhole}{\boxdot}	
 \newcommand{\emptyclause}{\square}
 
 \newcommand{\cmark}{\ding{51}}

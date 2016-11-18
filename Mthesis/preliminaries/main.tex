@@ -36,3 +36,106 @@ This section is mostly an extension of the same section in our seminar report \c
 \input{preliminaries/substitution}
 
 \input{preliminaries/unifier}
+
+\section{Semantics}
+
+\begin{definition}
+	An {\myem interpretation} $\mcI$ over a signature $\mcF$ consists 
+	of a {\myem universe}, i.e.~non-empty set  $A$,
+	operations $\mf^\mcI: A^n\rightarrow A$  for every function symbol $\mf\in\mcFf$, 
+	and possibly empty relations $\mP^\mcI\subseteq A^n$ for every predicate symbol $\mP\in\mcFP$.
+	A {\myem normal interpretation} respects the theory of equality
+	with reflexivity, symmetry, transitivity, function congruence, and predicate congruence
+	for the equational symbol ${\mEQ}\in\mcFP^{(2)}$.
+\end{definition}
+
+\begin{definition}\label{def:termmodel}
+	%A ground literal $L$ holds in an Herbrand {\myem interpretation} $\mathcal I$ (a domain of ground terms and definitions for functions and predicates), 
+	%if it is the logical consequence $\mathcal I\models L$ of ground literals in $\mathcal I$.
+	%A non-ground literal holds in $\mathcal I$, if all its ground instances hold in $\mathcal I$.
+	%A clause holds in $\mathcal I$, if at least one of its literals holds in $\mathcal I$.
+	%A set of clauses $S$ holds in $\mathcal I$, if every clause $\mathcal C\in S$ holds in $\mathcal I$.
+	%An interpretation is consistent $\mathcal I\not\models\square$, if no pair of complementary literals holds in $\mathcal I$.
+	%A set of clauses $S$ is {\myem satisfiable} if it has a {\myem model} $\mathcal M$, i.e.~a consistent interpretation $\mathcal M\models S$.
+	A {\myem term model} $\mcM$ is an normal interpretation where the elements of the domain $A$ 
+	are equivalence classes of ground terms
+	and the interpretation of each ground term $t^\mcM := [t]_\sim$ is its equivalence class.
+	An equation $s\mEQ t$ of ground terms holds in $\mcM$ if $[s]_\sim=[t]_\sim$;
+	a ground predicate $\mP(t_1,\ldots,t_n)$ holds in $\mcM$ if $\mP([t_1]_\sim,\ldots,[t_n]_\sim)] \in A^n$.
+	A ground literal holds in $\mcM$ if and only if its complementary literal does not hold in $\mcM$.
+	
+	A non-ground literal holds in $\mcM$ if all its 
+	%(infinitely many in the presence of function symbols with arity greater than one) 
+	(perhaps infinitely many)
+	instances hold in $\mcM$.
+	A clause holds in $\mcM$, if at least one of its literals holds in $\mcI$.
+	A set of clauses $S$ holds in $\mcM$, if every clause $\mcC\in S$ holds in $\mcM$.
+	Then we say $\mcM$ is a model {\em for} $S$.
+	
+\end{definition}
+
+\section{Term Rewriting}
+
+\begin{definition}\label{def:position}
+	A {\myem position} is a finite sequence of positive integers.
+	The root position is the empty sequence $\epsilon$.
+	Position $pq$ is obtained by concatenation of positions $p$ and $q$.
+	%
+	The set of all positions of a term or literal is defined as 
+	\begin{gather*}
+	\pos(\mct) = \left\{\begin{array}{ll}
+	\{ \epsilon \} 		
+	& \text{if }T = x \in \mcV
+	\\
+	\{ \epsilon \} \cup \bigcup_{i=1}^{n} \{ iq\mid q\in\pos(t_i) \}	
+	& \text{if }T=f(t_1,\ldots,t_n)\text{ where } f\in\mcF^{(n)}.
+	\end{array}\right.
+	\end{gather*}
+The~{\myem subterm} $t|_p$ of term $t$ {\myem at position} $p\in\pos(t)$ is defined as
+\begin{gather*}
+\mct|_p = \left\{\begin{array}{ll}
+		t 		& \text{if }p=\epsilon \\
+		t_i|_q	& \text{if }t=\mcf(t_1,\ldots,t_n)\text{ and }p=iq
+	\end{array}\right.
+\end{gather*}
+%
+If $s$ is a term then $t[s]_p$ represents the term build by replacing the subterm of $t$ at position $p$ with the term $s$.
+\begin{gather*}
+t[s]_p = \left\{\begin{array}{ll}
+		s 		& \text{if }p=\epsilon \\
+		\mf(t_1,\ldots,t_i[s]_q,\ldots,t_n)	& \text{if }t=\mf(t_1,\ldots,t_n)\text{ and }p=iq
+	\end{array}\right.
+\end{gather*}
+%A {\myem hole} denotes a special constant symbol $\ctxhole\in\mcFf^{(0)}$. 
+%A {\myem context} is a term $t$ with exactly one hole, i.e.~one occurrence $|t|_{\ctxhole}=1$.
+\end{definition}
+
+\begin{definition}
+	A {\myem rewrite rule} is an equation of terms where the left-hand side is not a variable
+	and the variables occuring in the right-hand side occur also in the left-hand side.
+	\[
+		\ell\rwEQ r \text{ is rewrite rule }\quad :\Longleftrightarrow\quad\ell\not\in\mcV\text{ and }\var(r)\subseteq\var(l)
+	\] 
+	A rewrite rule $\ell'\rwEQ r'$ is a {\myem variant} of $\ell\rwEQ r$ if there is a renaming $\varrho$
+	such that 
+	$(l\rightarrow r)\varrho = l'\rightarrow r'$.
+	A {\myem term rewrite system} is a set of rewrite rules without variants.
+	%
+	
+	The expression $s\rwRule{p,\ell\rwEQ r\!,\sigma}t$ denotes a {\myem rewrite step} 
+	from term $s$ to term $t$
+	with 
+	a position $p\in\pos(s)$,
+	a rewrite rule $l\rightarrow r$,
+	and a substitution $\sigma$ such that
+	$s|_p=l\sigma$ and $t=s[r\sigma]_p$.
+	The subterm $l\sigma$ is called {\myem redex} and
+	$s$ rewrites to $t$ by {\myem contracting} $l\sigma$ to {\myem contractum} $r\sigma$.
+	%
+	We write $s\rightarrow_\mcR t$ when we just claim that $s\rwRule{p,\ell\rwEQ r\!, \sigma}t$ exists and $l\rwEQ r\in\mcR$.
+	
+	
+	%
+	A term $s$ is {\myem irreducible} or in {\myem normal form} if there is no rewrite step $s\rightarrow t$ for any term $t$. 
+	The set of normal forms $\mNFR$ of a TRS $\mcR$ contains all irreducible terms of the TRS.
+	\end{definition}
