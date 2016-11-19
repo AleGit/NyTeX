@@ -10,10 +10,10 @@
 	A {\myem variable substitution} is a mapping from $\mcV$ to $\mcV$.
 	A {\myem renaming} is a bijective variable substitution.
 	A {\myem proper instantiator} is a substitution that is not a variable substitution.
-	We define the instance $T\sigma$ of a term, literal or clause $T$,
+	We define the instance $\mkt\sigma$ of a term, literal or clause $\mkt$,
 	respectively the application of a substitution $\sigma$ to terms, literals, and clauses as follows:
 	\begin{align*}
-		T\sigma &= \left\{\begin{array}{ll}
+		\mkt\sigma &= \left\{\begin{array}{ll}
 			s_i 					& \text{if }T=x_i\in\dom(\sigma)\\
 			y					& \text{if }T=y\in\mcV\,\backslash\dom(\sigma)\\
 %			c					& \text{if }tc \in \mcFf^{\!0}\\
@@ -36,6 +36,6 @@
 
 \begin{lemma}\label{lem:substitution}
 	With the definitions in \ref{def:substitution} the identity
-	$(T\sigma)\tau = T(\sigma\tau)$ holds for
+%	$(\mkt\sigma)\tau = \mkt(\sigma\tau)$ holds for
 	arbitrary terms, literals, clauses, and substitutions.
 \end{lemma}

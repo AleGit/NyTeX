@@ -23,3 +23,16 @@ The empty set of clauses expresses a tautology.
 %\]
 %Two literals are complementary if one is an atom, i.e. a positive literal and the other is the negation of this atom.
 \end{definition}
+
+\begin{definition}We define the set of subterms, the set of variables of a first order expression $\mkt$ (i.e. term, atom, literal, clause)
+	
+	\begin{align*}
+		\var(\mkt) &= \left\{\begin{array}{ll}
+			\{ \mkt \} & \text{if } \mkt  \in \mcV)\\
+			\{\ \} &\text{if } \mkt \in \mcFO\\
+			\bigcup & \text{if }  \mkt = \mkf(t_1, \ldots t_n), \mkf \in \mcFn, n > 0
+%			\emptyset &\text{if } \mkt \in \mcFO
+		\end{array}\right.	
+	\end{align*}
+	
+\end{definition}

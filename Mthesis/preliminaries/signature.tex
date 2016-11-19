@@ -3,12 +3,23 @@
 % !TeX spellcheck = en_US
 
 \begin{definition}\label{def:signature}
-A {\myem signature} $\mcF=\mcFfPE$ is the disjoint union 
-of {\myem function symbols} $\mcFf$, {\myem predicate symbols} $\mcFP$
-and the equality symbol.
+A first order {\myem signature} 
+$\mcF= \mcFf 
+\disjointunion \mcFP 
+\disjointunion \{ \mEQ \} 
+\disjointunion \{ \lnot \lor \land \ldots \}
+\disjointunion \{( ) ,  \}$ 
+with equality is the disjoint union 
+of 
+{\myem function symbols} $\mcFf$, 
+{\myem predicate symbols} $\mcFP$,
+the equality symbol, 
+connectives, 
+and auxiliary symbols.
+%
 The {\myem arity} of a symbol is the number of its arguments.
 With $\mcFn$ we denote symbols with arity $n$.
-Function symbols $c\in\mcFfO$ with no arguments are called {\myem constants}.
+%Function symbols $c\in\mcFfO$ with no arguments are called {\myem constants}.
 %Predicate symbols $p\in\mcFPO$ with no arguments are called propositions. 
 %As usual the arity of the equality symbol is two.
 \end{definition}

@@ -1,4 +1,6 @@
+% !TeX root = ../mthesis.tex
 % !TeX encoding = UTF-8
+% !TeX spellcheck = en_US
 
 %% ==============================================================
 %% ### MISC ###
@@ -56,29 +58,34 @@
 
 \newcommand{\mEQ}{\approx}
 \newcommand{\mNE}{\not\approx}
-\newcommand{\limplies}{\rightarrow}		% logical implication, see lor, land, lnot
 \newcommand{\rwEQ}{\approx}
+\newcommand{\limplies}{\rightarrow}		% logical implication, see lor, land, lnot
 
 \newcommand{\rwRule}[1]{\xrightarrow[{#1}]{}}
 
 
+% general terms or symbols
+
+\newcommand{\mkf}{{\mathfrak f}}
+\newcommand{\mkt}{{\mathfrak t}}
+\newcommand{\mkr}{{\mathfrak r}}
 
 % caligraphic symbols
 
+
+\newcommand{\mcA}{{\mathcal A}}
 \newcommand{\mcC}{{\mathcal C}}
 \newcommand{\mcD}{{\mathcal D}}
 \newcommand{\mcE}{{\mathcal E}}
 \newcommand{\mcR}{{\mathcal R}}
 \newcommand{\mcT}{{\mathcal T}}
 
-\newcommand{\mcf}{{\mathpzc f}}
-\newcommand{\mct}{{\mathpzc t}}
-\newcommand{\mcr}{{\mathpzc r}}
-
 % signature, terms, predicates, equations
 \newcommand{\mcF}{{\mathcal F}}		% signature
 \newcommand{\mcFf}{{\mcF_\mf}}		% function symbols
 \newcommand{\mcFP}{{\mcF_\mP}}		% predicate symbols
+\newcommand{\mcCon}{\mcF_\mathsf{con}}
+\newcommand{\mcAux}{\mcF_\mathsf{aux}}
 \newcommand{\mcFfPE}{\mcFf\,\disjointunion\,\mcFP\,\disjointunion\,\{\mEQ\}}
 
 \newcommand{\mcTf}{\mcT_\mf}						% terms (short)
@@ -92,7 +99,7 @@
 
 % reevaluate:
 \newcommand{\mcFn}{{\mathcal F^{(n)}}}
-
+\newcommand{\mcFO}{{\mathcal F^{(0)}}}
 
 \newcommand{\mcFfO}{{\mcF_\mf^{(0)}}}
 \newcommand{\mcFfgo}{{\mcF_\mf^{(>0)}}}
