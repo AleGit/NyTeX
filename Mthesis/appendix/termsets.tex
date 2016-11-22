@@ -1,0 +1,36 @@
+% !TeX root = ../mthesis.tex
+% !TeX encoding = UTF-8
+% !TeX spellcheck = en_US
+
+\begin{definition}We define the set of variables
+	
+	\begin{align*}
+		\var(t) &= \left\{\begin{array}{ll}
+			\{ t \} & \text{if } t \in \mcV \\
+			\bigcup_{i=1}^n \var(t_i) & \text{if }  t = f(t_1, \ldots t_n), f \in \mcFn
+%			\emptyset &\text{if } \mkt \in \mcFO
+		\end{array}\right.	
+	\end{align*}
+	the set of subterms
+	\begin{align*}
+	\subterms(t) &= \left\{\begin{array}{ll}
+	\{ t \} & \text{if } t \in \mcV \\
+	\{ t \} \cup \bigcup_{i=1}^n \subterms(t_i) & \text{if }  t = f(t_1, \ldots t_n), f \in \mcFn
+	%			\emptyset &\text{if } \mkt \in \mcFO
+	\end{array}\right.	
+	\end{align*}
+	of a term $t$.
+	
+\end{definition}
+
+
+%\begin{definiton}
+	\begin{align*}
+	\forall x\ &\ x = x \\
+	\forall x,y\ &\ x = y \Leftrightarrow y = x \\
+	\forall x,y,z\ &\ x = y \land y = z \Rightarrow x = y \\
+	\forall x_1,\ldots,x_n,y_1,\ldots,y_n\ &\ x_1=y_1\land\ldots x_n=y_n\Rightarrow f(x_1,\ldots,x_n)=f(y_1,\ldots,y_n) \\
+	\forall x_1,\ldots,x_n,y_1,\ldots,y_n\ &\ x_1=y_1\land\ldots x_n=y_n\Rightarrow P(x_1,\ldots,x_n)\Leftrightarrow P(y_1,\ldots,y_n) \\
+	\end{align*}
+%\end{definition}
+

@@ -6,8 +6,13 @@
 
 \input{epigraphs/syllogism}
 
+The instantiation based idea to prove a first order theorem from a set of axioms is simple. 
+It exploits the fact that a formula is valid if and only if its negation is unsatisfiable.
+So we transform the problem, i.e.~the axioms and the negated conjecture(s) into an equisatisfiable set of clauses.
+Afterwards we search for an unsatisfiable set of ground instances of these clauses.
+
 \begin{example} Let $\mcF = \{\species^1, \fosca^0, \human^0 \} \disjointunion \{ \mortal^1  \} \disjointunion \{\mEQ^2\}$ be a signature. 
-	Consider the set of clauses $\{ \mcC_1, \mcC_2, \mcC_3 \}$, i.e.~{\myem the problem}:
+	Consider the set of clauses $\{ \mcC_1, \mcC_2, \mcC_3 \}$, i.e.~{\myem the problem}, with the derived instance $\mcC_4$.
 
 %\begin{align*}
 %	\forall x \left((\species(x)\mEQ\human)\limplies\mathsf{Mortal}(x) \tag*{theory}\right)\\
@@ -16,31 +21,42 @@
 %\end{align*}
 
 \begin{align*}
-\mcC_1: &&\species(x)\mNE\human\lor\mortal(x) \tag*{theory}\\
-\mcC_2: &&\species(\fosca)\mEQ\human \tag*{fact} \\
-\mcC_3: &&\lnot\mortal(\fosca) \tag*{negated conjecture} \\
+\mcC_1 &:= L_{11}\lor L_{12}&\species(x)\mNE\human\lor\mortal(x) \tag*{theory}\\
+\mcC_2 &:= L_2&\species(\fosca)\mEQ\human \tag*{fact} \\
+\mcC_3 &:=L_3&\lnot\mortal(\fosca) \tag*{negated conjecture} \\
+\mcC_4 &:=L_2^\mcc\lor L_3^\mcc&\species(\fosca)\mNE\human\lor\mortal(\fosca)\tag*{$\mcC_1 \{x\mapsto\fosca\}$}
 %\\
 %4 &&\species(\fosca)\mNE\human\lor\mortal(\fosca) \tag*{instance}
 \end{align*}
 
-We search for all clashing literals, and instantiate their clauses with the unifiers.
-\begin{prooftree}
-	\AxiomC{${\colHi \species(x)\mNE\human}\lor\mortal(x)$}
-	\AxiomC{$\colHi\species(\fosca)\mEQ\human$}
-	
-	\RightLabel{$\{x\mapsto\fosca\}$}
-	\BinaryInfC{$\mcC_4: \species(\fosca)\mNE\human\lor\mortal(\fosca)\qquad \mcC_2$}
-\end{prooftree}
-\begin{prooftree}
-	\AxiomC{${\species(x)\mNE\human}\lor\colHi\mortal(x)$}
-	\AxiomC{$\colHi\lnot\mortal(\fosca)$}
-	
-	\RightLabel{$\{x\mapsto\fosca\}$}
-	\BinaryInfC{$\mcC_4: \species(\fosca)\mNE\human\lor\mortal(\fosca)\qquad\mcC_3$}
-\end{prooftree}
+The set of ground instances $\{ \mcC_2, \mcC_3, \mcC_4  \}$ is unsatisfiable,
+which is easily checked by a SMT solver.
 
-We have derived a set of ground instances $\{ \mcC_2, \mcC_3, \mcC_4 \}$ 
-and its unsatisfiability can be checked by a SMT solver.
+\section{Theory}
+
+
+
+	An equational interpretation must satisfy the formulas for reflexivity, symmetry, transitivity, 
+	function congruence for every function symbol $f\in\mcFf$, 
+	and predicate congruence for every predicate symbol $P\in\mcFP$.
+	\[
+		\begin{array}[t]{c}
+		x\mEQ x 
+\qquad
+		x\mNE y\lor y\mEQ x
+\qquad		
+		x\mNE y\lor y\mNE z\lor x\mEQ z \\[0.7em]
+%		
+x_1 \mNE y_1\lor\ldots\lor x_n \mNE y_n\lor f(x_1,\ldots,x_n)\mEQ f(y_1,\ldots,y_n) \\[0.7em]
+%
+x_1\mNE y_1\lor\ldots\lor x_n\mNE y_n\lor\lnot P_i(x_1,\ldots,x_n)\lor P(y_i,\ldots,y_n)
+
+		\end{array}
+	\]
+
+
+
+
 
 
 

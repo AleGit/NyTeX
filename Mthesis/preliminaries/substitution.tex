@@ -10,18 +10,18 @@
 	A {\myem variable substitution} is a mapping from $\mcV$ to $\mcV$.
 	A {\myem renaming} is a bijective variable substitution.
 	A {\myem proper instantiator} is a substitution that is not a variable substitution.
-	We define the instance $\mkt\sigma$ of a term, literal or clause $\mkt$,
-	respectively the application of a substitution $\sigma$ to terms, literals, and clauses as follows:
+	We define the instance $\mct\sigma$ of a term
+	respectively the application of a substitution $\sigma$ to a term $\mct$:
 	\begin{align*}
-		\mkt\sigma &= \left\{\begin{array}{ll}
-			s_i 					& \text{if }T=x_i\in\dom(\sigma)\\
-			y					& \text{if }T=y\in\mcV\,\backslash\dom(\sigma)\\
-%			c					& \text{if }tc \in \mcFf^{\!0}\\
-			f(t_1\sigma,\ldots,t_n\sigma)	&\text{if }T=f(t_1,\ldots,t_n), f\in\mcFfn \\[0.5em]
-			P(t_1\sigma,\ldots,t_n\sigma)	&\text{if }T=P(t_1,\ldots,t_n), P\in\mcFPn \\
-			s\sigma\mEQ t\sigma			&\text{if }T=s\mEQ t \\[0.5em]
-			\lnot(A\sigma)					&\text{if }T=\lnot A \\
-			L_1\sigma\lor\ldots\lor L_n\sigma	&\text{if }T=L_1\lor\ldots\lor L_n \\
+		\mct\sigma &= \left\{\begin{array}{ll}
+			s_i 				& \text{if }\mct=x_i\in\dom(\sigma)\\
+			y					& \text{if }\mct=y\in\mcV\,\backslash\dom(\sigma)\\
+%			\mct					& \text{if }\mct \in \mcF^{\!0}\\
+			\mcf(t_1\sigma,\ldots,t_n\sigma)	&\text{if }\mct=\mcf(t_1,\ldots,t_n), \mcf\!\in\mcFn \\[0.5em]
+%			P(t_1\sigma,\ldots,t_n\sigma)	&\text{if }\mkt=P(t_1,\ldots,t_n), P\in\mcFPn \\
+%			s\sigma\mEQ t\sigma			&\text{if }\mkt=s\mEQ t \\[0.5em]
+%			\lnot(A\sigma)					&\text{if }\mkt=\lnot A \\
+%			L_1\sigma\lor\ldots\lor L_n\sigma	&\text{if }\mkt=L_1\lor\ldots\lor L_n \\
 		\end{array}\right.	
 	\end{align*}
 %	
@@ -36,6 +36,6 @@
 
 \begin{lemma}\label{lem:substitution}
 	With the definitions in \ref{def:substitution} the identity
-%	$(\mkt\sigma)\tau = \mkt(\sigma\tau)$ holds for
+	$(\mkt\sigma)\tau = \mkt(\sigma\tau)$ holds for
 	arbitrary terms, literals, clauses, and substitutions.
 \end{lemma}
