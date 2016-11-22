@@ -10,21 +10,19 @@
 	A {\myem variable substitution} is a mapping from $\mcV$ to $\mcV$.
 	A {\myem renaming} is a bijective variable substitution.
 	A {\myem proper instantiator} is a substitution that is not a variable substitution.
-	We define the instance $\mct\sigma$ of a term
-	respectively the application of a substitution $\sigma$ to a term $\mct$:
-	\begin{align*}
-		\mct\sigma &= \left\{\begin{array}{ll}
+	We define the instance $\mct\sigma$ of a first order expression
+	respectively the application of a substitution $\sigma$ to a first order expression $\mct$ (without quantifiers):
+	\DEFINE{
+		\mct\sigma
+	}{
 			s_i 				& \text{if }\mct=x_i\in\dom(\sigma)\\
 			y					& \text{if }\mct=y\in\mcV\,\backslash\dom(\sigma)\\
-%			\mct					& \text{if }\mct \in \mcF^{\!0}\\
-			\mcf(t_1\sigma,\ldots,t_n\sigma)	&\text{if }\mct=\mcf(t_1,\ldots,t_n), \mcf\!\in\mcFn \\[0.5em]
-%			P(t_1\sigma,\ldots,t_n\sigma)	&\text{if }\mkt=P(t_1,\ldots,t_n), P\in\mcFPn \\
-%			s\sigma\mEQ t\sigma			&\text{if }\mkt=s\mEQ t \\[0.5em]
+			\mcf(\mct_1\sigma,\ldots,\mct_n\sigma)	&\text{if }\mct=\mcf(\mct_1,\ldots,\mct_n)
+%			P(t_1\sigma,\ldots,t_n\sigma)	&\text{if }\mct=P(t_1,\ldots,t_n), P\in\mcFPn \\
+%			s\sigma\mEQ t\sigma			&\text{if }\mct=s\mEQ t \\[0.5em]
 %			\lnot(A\sigma)					&\text{if }\mkt=\lnot A \\
-%			L_1\sigma\lor\ldots\lor L_n\sigma	&\text{if }\mkt=L_1\lor\ldots\lor L_n \\
-		\end{array}\right.	
-	\end{align*}
-%	
+%			L_1\sigma\lor\ldots\lor L_n\sigma	&\text{if }\mkt=L_1\lor\ldots\lor L_n \\	
+}
 	We define the {\myem composition} of two substitutions $\sigma$ and $\tau$ as follows
 	\begin{align*}
 		\sigma\tau&=\{ x_i\mapsto s_i\tau\mid x_i\in\dom(\sigma) \}

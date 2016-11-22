@@ -13,14 +13,12 @@ A finite {\myem set of clauses} $S=\{ \mcC_1,\ldots,\mcC_n \}$ is equivalent to
 The empty set of clauses expresses a tautology.
 %
 We define the {\myem complement }of a literal 
-\[
-L^\mcc = \left\{
-\begin{array}{rl}
-\lnot L & \text{if } L \text{ is an atom} \\
-A 	& \text{if }L = \lnot A, \text{ the negation of an atom } A
-\end{array}
-\right.
-\]
+\DEFINE{
+	L^\mcc 
+}{
+	\lnot L & \text{if } L \text{ is an atom} \\
+	A 		& \text{if } L = \lnot A, \text{ the negation of an atom } A
+}
 %Two literals are complementary if one is an atom, i.e. a positive literal and the other is the negation of this atom.
 \end{definition}
 

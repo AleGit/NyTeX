@@ -86,30 +86,31 @@ This section is mostly an extension of the same section in our seminar report \c
 	Position $pq$ is obtained by concatenation of positions $p$ and $q$.
 	%
 	The set of all positions of a term or literal is defined as 
-	\begin{gather*}
-	\pos(\mkt) = \left\{\begin{array}{ll}
-	\{ \epsilon \} 		
-	& \text{if }T = x \in \mcV
-	\\
-	\{ \epsilon \} \cup \bigcup_{i=1}^{n} \{ iq\mid q\in\pos(t_i) \}	
-	& \text{if }T=f(t_1,\ldots,t_n)\text{ where } f\in\mcF^{(n)}.
-	\end{array}\right.
-	\end{gather*}
+	\DEFINE{ 
+		\pos(\mct) }
+	{
+		\{ \epsilon \} 		
+		& \text{if }\mct = x \in \mcV \\
+%		
+		\{ \epsilon \} \cup \bigcup_{i=1}^{n} \{ iq\mid q\in\pos(t_i) \}	
+		& \text{if }\mct=\mcf(t_1,\ldots,t_n)\text{ where } \mcf\in\mcF^{(n)}.
+	}
 The~{\myem subterm} $t|_p$ of term $t$ {\myem at position} $p\in\pos(t)$ is defined as
-\begin{gather*}
-\mkt|_p = \left\{\begin{array}{ll}
-		t 		& \text{if }p=\epsilon \\
-		t_i|_q	& \text{if }t=\mkf(t_1,\ldots,t_n)\text{ and }p=iq
-	\end{array}\right.
-\end{gather*}
+%
+\DEFINE{
+	t|_p
+}{
+	t 		& \text{if }p=\epsilon \\
+	t_i|_q	& \text{if }t=\mkf(t_1,\ldots,t_n)\text{ and }p=iq
+}
 %
 If $s$ is a term then $t[s]_p$ represents the term build by replacing the subterm of $t$ at position $p$ with the term $s$.
-\begin{gather*}
-t[s]_p = \left\{\begin{array}{ll}
-		s 		& \text{if }p=\epsilon \\
-		\mf(t_1,\ldots,t_i[s]_q,\ldots,t_n)	& \text{if }t=\mf(t_1,\ldots,t_n)\text{ and }p=iq
-	\end{array}\right.
-\end{gather*}
+\DEFINE{
+	t[s]_p}
+{
+	s 		& \text{if }p=\epsilon \\
+	\mf(t_1,\ldots,t_i[s]_q,\ldots,t_n)	& \text{if }t=\mf(t_1,\ldots,t_n)\text{ and }p=iq
+}
 %A {\myem hole} denotes a special constant symbol $\ctxhole\in\mcFf^{(0)}$. 
 %A {\myem context} is a term $t$ with exactly one hole, i.e.~one occurrence $|t|_{\ctxhole}=1$.
 \end{definition}
