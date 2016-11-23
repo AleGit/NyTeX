@@ -72,7 +72,7 @@ This section is mostly an extension of the same section in our seminar report \c
 	%(infinitely many in the presence of function symbols with arity greater than one) 
 	(perhaps infinitely many)
 	instances hold in $\mcM$.
-	A clause holds in $\mcM$, if at least one of its literals holds in $\mcI$.
+	A clause holds in $\mcM$, if at least one of its literals holds in $\mcM$.
 	A set of clauses $S$ holds in $\mcM$, if every clause $\mcC\in S$ holds in $\mcM$.
 	Then we say $\mcM$ is a model {\em for} $S$.
 	
@@ -118,29 +118,24 @@ If $s$ is a term then $t[s]_p$ represents the term build by replacing the subter
 \begin{definition}
 	A {\myem rewrite rule} is an equation of terms where the left-hand side is not a variable
 	and the variables occuring in the right-hand side occur also in the left-hand side.
-	\[
-		\ell\rwEQ r \text{ is rewrite rule }\quad :\Longleftrightarrow\quad\ell\not\in\mcV\text{ and }\var(r)\subseteq\var(l)
-	\] 
+%	\[
+%		\ell\rwEQ r \text{ is rewrite rule }\quad :\Longleftrightarrow\quad\ell\not\in\mcV\text{ and }\var(r)\subseteq\var(l)
+%	\] 
 	A rewrite rule $\ell'\rwEQ r'$ is a {\myem variant} of $\ell\rwEQ r$ if there is a renaming $\varrho$
 	such that 
 	$(l\rightarrow r)\varrho = l'\rightarrow r'$.
 	A {\myem term rewrite system} is a set of rewrite rules without variants.
-	%
-	
-	The expression $s\rwRule{p,\ell\rwEQ r\!,\sigma}t$ denotes a {\myem rewrite step} 
-	from term $s$ to term $t$
-	with 
-	a position $p\in\pos(s)$,
-	a rewrite rule $l\rightarrow r$,
+
+	We say $s\rightarrow_\mcR t$ is a 
+	{\myem rewrite step} 
+	 with respect to TRS $\mcR$ 
+	when there is a position $p \in \pos(s)$, 
+	a rewrite rule $l\rwEQ r\in\mcR$, 
 	and a substitution $\sigma$ such that
-	$s|_p=l\sigma$ and $t=s[r\sigma]_p$.
-	The subterm $l\sigma$ is called {\myem redex} and
+	$s|_p=l\sigma$ and $s[r\sigma]_p = t$.
+		The subterm $l\sigma$ is called {\myem redex} and
 	$s$ rewrites to $t$ by {\myem contracting} $l\sigma$ to {\myem contractum} $r\sigma$.
 	%
-	We write $s\rightarrow_\mcR t$ when we just claim that $s\rwRule{p,\ell\rwEQ r\!, \sigma}t$ exists and $l\rwEQ r\in\mcR$.
-	
-	
-	%
-	A term $s$ is {\myem irreducible} or in {\myem normal form} if there is no rewrite step $s\rightarrow t$ for any term $t$. 
-	The set of normal forms $\mNFR$ of a TRS $\mcR$ contains all irreducible terms of the TRS.
+	We say a term $s$ is {\myem irreducible} or in {\myem normal form} with respect to TRS $\mcR$ if there is no rewrite step $s\rightarrow_\mcR t$ for any term $t$. 
+	The set of normal forms $\mNFR$ contains all irreducible terms of the TRS $\mcR$.
 	\end{definition}
