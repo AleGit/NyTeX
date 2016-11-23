@@ -139,3 +139,65 @@ If $s$ is a term then $t[s]_p$ represents the term build by replacing the subter
 	We say a term $s$ is {\myem irreducible} or in {\myem normal form} with respect to TRS $\mcR$ if there is no rewrite step $s\rightarrow_\mcR t$ for any term $t$. 
 	The set of normal forms $\mNFR$ contains all irreducible terms of the TRS $\mcR$.
 	\end{definition}
+
+%\begin{definition}
+%	A {\myem rewrite relation} is a binary relation on terms that is closed under contexts and substitutions.
+%	A {\myem rewrite order} is a proper order (i.e. irreflexive and transitive relation) and a rewrite relation.
+%	A {\myem reduction order} is a well-founded rewrite order.
+%\end{definition}
+
+\begin{definition}
+	A term $s$ can be rewritten to term $t$ with notion $s\rightarrow^*_\mcR t$ 
+	if there exists at least one {\myem rewrite sequence} $(a_1,\ldots ,a_n)$ such that
+	$s=a_1$, $a_n=t$, and $a_i\rightarrow_\mcR a_{i+1}$ are rewrite steps for $1\leq i<n$.
+	A TRS is {\myem terminating} if there is no infinite rewrite sequence of terms.
+	%
+	Two Terms $s$ and $t$ are {\myem joinable} with notion $s\downarrow t$ 
+	if both can be rewritten to some term $c$, i.e.~$s \rightarrow^*c\ \, ^*\!\!\leftarrow t$.
+%	
+	Two Terms $s$ and $t$ are {\myem meetable} with notion $s\uparrow t$ 
+	if both can be rewritten from some common ancestor term $a$, i.e.~$s \leftarrow^*a\ \, ^*\!\!\rightarrow t$.
+%
+	A TRS is {\myem confluent } if $s$ and $t$ are joinable whenever $s\ ^*\!\!\leftarrow a \rightarrow^* t$ holds for some term $a$.
+	%
+	Terms $s$ and $t$ are {\myem convertible} with notion $s\leftrightarrow^* t$ 
+	if there exists a sequence $(a_1,\ldots ,a_n)$ such that
+	$s=a_1$, $a_n=t$, and $a_i\leftrightarrow a_{i+1}$, i.e.~$a_i\rightarrow a_{i+1}$ or $a_i\leftarrow a_{i+1}$ are rewrite steps for $1\leq i<n$.
+\end{definition}
+
+\begin{definition}\label{def:closed-under}
+	A {\myem rewrite relation} is a binary relation $\relation$ on terms thats is {\myem closed under contexts},
+	i.e.~$u[s]_p\relation u[t]_p$ %holds 
+	for all positions $p\in\pos(u)$ and
+	for all terms $s,t,u$ whenever $s\relation t$
+	and {\myem closed under substitutions}, 
+	i.e.~$s\sigma\relation t\sigma$ %holds
+	for all substitutions $\sigma$
+	and all terms $s,t$ whenever $s\relation t$.
+\end{definition}
+\begin{lemma}
+	The relations $\rightarrow^*_\mcR$, 
+	$\rightarrow^+_\mcR$,
+	$\downarrow_\mcR$, $\uparrow_\mcR$ are rewrite relations on every TRS $\mcR$.
+\end{lemma}
+%
+\begin{definition}
+	A proper (i.e.~irreflexive and transitive) order on terms is called {\myem rewrite order} if it is a rewrite relation.
+	A {\myem reduction order} is a well-founded rewrite order,
+	i.e.~there is no infinite sequence 
+	$(a_i)_{i\in\mathbb{N}}$
+	where $a_i\gtpre a_{i+1}$ for all $i$.
+	% with $i\in\mathbb{N}$.
+	A {\myem simplification order} is a rewrite order with the {\myem subterm property},
+	i.e.~$u[t]_p \gtpre t$ for all terms $u$, $t$ and positions $p\neq\epsilon$.
+\end{definition}
+\begin{lemma}
+	Every simplification order is well-founded, i.e.~it is a reduction order.
+\end{lemma}
+%% DEF %%
+%
+\begin{theorem}
+	A TRS $\mcR$ is terminating if and only if there exists a reduction order $\gtpre$
+	such that $l\gtpre r$ for every rewrite rule $l\rightarrow r\in\mcR$.
+	We call $\mcR$ simply terminating if $\gtpre$ is a simplification order.
+\end{theorem}

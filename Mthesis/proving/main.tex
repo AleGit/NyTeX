@@ -2,14 +2,18 @@
 % !TeX encoding = UTF-8
 % !TeX spellcheck = en_US
 
-\chapter{First Order Theorem Proving with Equality}
+\chapter{Automated First Order Theorem Proving}
 
 \input{epigraphs/syllogism}
+
+\section{Motivation}
 
 The instantiation based idea to prove a first order theorem from a set of axioms is simple. 
 It exploits the fact that a formula is valid if and only if its negation is unsatisfiable.
 So we transform the problem, i.e.~the axioms and the negated conjecture(s) into an equisatisfiable set of clauses.
 Afterwards we search for an unsatisfiable set of ground instances of these clauses.
+
+
 
 \begin{example} Let $\mcF = \{\species^1, \fosca^0, \human^0 \} \disjointunion \{ \mortal^1  \} \disjointunion \{\mEQ^2\}$ be a signature. 
 	Consider the set of clauses $\{ \mcC_1, \mcC_2, \mcC_3 \}$, i.e.~{\myem the problem}, with the derived instance $\mcC_4$.
@@ -24,13 +28,13 @@ Afterwards we search for an unsatisfiable set of ground instances of these claus
 \mcC_1 &:= L_{11}\lor L_{12}&\species(x)\mNE\human\lor\mortal(x) \tag*{theory}\\
 \mcC_2 &:= L_2&\species(\fosca)\mEQ\human \tag*{fact} \\
 \mcC_3 &:=L_3&\lnot\mortal(\fosca) \tag*{negated conjecture} \\
-\mcC_4 &:=L_2^\mcc\lor L_3^\mcc&\species(\fosca)\mNE\human\lor\mortal(\fosca)\tag*{$\mcC_1 \{x\mapsto\fosca\}$}
+%\mcC_4 &:=L_2^\mcc\lor L_3^\mcc&\species(\fosca)\mNE\human\lor\mortal(\fosca)\tag*{$\mcC_1 \{x\mapsto\fosca\}$}
 %\\
 %4 &&\species(\fosca)\mNE\human\lor\mortal(\fosca) \tag*{instance}
 \end{align*}
-
-The set of ground instances $\{ \mcC_2, \mcC_3, \mcC_4  \}$ is unsatisfiable,
-which is easily checked by a SMT solver.
+The set of ground instances $\{ \mcC_2, \mcC_3,\mcC_1 \{x\mapsto\fosca\}  \}$ is unsatisfiable,
+which can be easily checked with the DPLL \cite{Davis:1962:MPT:368273.368557, Davis:1960:CPQ:321033.321034} 
+method for ground clauses, i.e.~with a modern satisfiability checker.
 
 \section{Theory}
 
