@@ -4,18 +4,17 @@
 
 \begin{definition}\label{def:formula}
 %Let $\mcF$ be a signature. 
-A {\myem formula} $F$ is either an 
-{\myem atom} or a {\myem junction} of smaller formulae.
+We build the set of first order formulae with atoms, logical connectives, and logical quantifiers.
 %
 \[
  F ::= P(t_1,\ldots,t_n) \mid
 	s\mEQ t \mid
 	(\lnot F) \mid 
-	(\forall x F) \mid
-	(\exists x F) \mid
 	(F\lor F) \mid
 	(F\land F) \mid
-	(F\rightarrow F)
+	(F\rightarrow F) \mid
+	(\forall x F) \mid
+	(\exists x F)
 \]
 %negation $\lnot F$,
 %universal quantification $\forall x F$, 

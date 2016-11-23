@@ -3,22 +3,22 @@
 % !TeX spellcheck = en_US
 
 \begin{definition}\label{def:literals}
-A {\myem literal} $L$ is either an atom or the negation of an atom.
+A {\myem literal} $L$ is either an atom $A$ or a negated atom $\lnot A$.
+The {\myem complement } $L^\mcc$ of an atom (positive literal) is the negation of the atom.
+The complement of a negated atom (negative literal) is the atom itself. 
+%\DEFINE{
+%	L^\mcc 
+%}{
+%	\lnot L & \text{if } L \text{ is an atom} \\
+%	A 		& \text{if } L = \lnot A, \text{ the negation of an atom } A
+%}
 %
 A {\myem clause}\ \ $\mcC = L_1\lor\ldots\lor L_n$  is a possible empty multiset of literals 
-and is equivalent to the universally quantified disjunction of its literals.
-The {\myem empty clause} $\emptyclause$ expresses a contradiction. 
+and is equivalent to a universally quantified disjunction of its literals.
+%The {\myem empty clause} $\emptyclause$ expresses a contradiction. 
 %
-A finite {\myem set of clauses} $S=\{ \mcC_1,\ldots,\mcC_n \}$ is equivalent to the conjunction of its clauses.
-The empty set of clauses expresses a tautology.
+A finite {\myem set of clauses} $S=\{ \mcC_1,\ldots,\mcC_n \}$ is equivalent to a conjunction of all its clauses.
 %
-We define the {\myem complement }of a literal 
-\DEFINE{
-	L^\mcc 
-}{
-	\lnot L & \text{if } L \text{ is an atom} \\
-	A 		& \text{if } L = \lnot A, \text{ the negation of an atom } A
-}
 %Two literals are complementary if one is an atom, i.e. a positive literal and the other is the negation of this atom.
 \end{definition}
 

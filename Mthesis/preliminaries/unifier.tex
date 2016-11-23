@@ -3,8 +3,8 @@
 % !TeX spellcheck = en_US
 
 \begin{definition}\label{def:unifier}
-Two terms or literals $T, U$ are {\myem unifiable} if there exists a substitution $\sigma$ such that $T\sigma=U\sigma$.
-The {\myem most general unifier} $\mgu(T,U)$ is a unifier such that
+Two expressions $\mct, \mcu$ are {\myem unifiable} if there exists a substitution $\sigma$ such that $\mct\sigma=\mcu\sigma$.
+The {\myem most general unifier} $\mgu(\mct,\mcu)$ is a unifier such that
 for every other unifier $\sigma'$ there exists a substitution $\tau$ where
 $\sigma' = \sigma \tau$. 
 Two literals are variants if their $\mgu$ is a renaming.
