@@ -8,33 +8,40 @@
 
 \section{Motivation}
 
-The instantiation based idea to prove a first order theorem from a set of axioms is simple. 
-It exploits the fact that a formula is valid if and only if its negation is unsatisfiable.
-So we transform the problem, i.e.~the axioms and the negated conjecture(s) into an equisatisfiable set of clauses.
-Afterwards we search for an unsatisfiable set of ground instances of these clauses.
+The central idea of instantiation-based first order theorem proving is the
+translation of an undecidable problem into a sequence of effectivly decideable problems.
+
+First it makes use of the fact that a first-order formula is valid if and only if its negation is unsatisfiable.
+Second it uses the existing efficient transformation algorithms from arbitrary negated formulas to equisatisfiable sets of clauses.
+Third it utilizes that is is sufficient to find one unsatisfiable set of ground instances 
+to show that the original set of clauses is unsatisfiable.
 
 
-
-\begin{example} Let $\mcF = \{\species^1, \fosca^0, \human^0 \} \disjointunion \{ \mortal^1  \} \disjointunion \{\mEQ^2\}$ be a signature. 
-	Consider the set of clauses $\{ \mcC_1, \mcC_2, \mcC_3 \}$, i.e.~{\myem the problem}, with the derived instance $\mcC_4$.
-
-%\begin{align*}
-%	\forall x \left((\species(x)\mEQ\human)\limplies\mathsf{Mortal}(x) \tag*{theory}\right)\\
-%	\species(\fosca)\mEQ\human \tag*{fact} \\
-%	\mathsf{Mortal}(\fosca) \tag*{conjecture}
-%\end{align*}
-
+\begin{example} Let $\mcF = \{\species^1, \fosca^0, \human^0 \} \disjointunion \{ \mortal^1  \} \disjointunion \{\mEQ^2\}$ be a signature.
+	We translate the given syllogism into a formula $F$ in first order logic.
+	\begin{align*}
+	F &= A \limp (B \limp C) \\[0.5em]
+	A &= \forall x\,(\species(x) \mEQ \human \limp \mortal(x)) 	\tag{theory}\\
+	B &= \species(\fosca) \mEQ \human 							\tag{fact}\\
+	C &= \mortal(\fosca)										\tag{conjecture}
+	\end{align*}
+%	 
+	We transform the negated formula into an equivalent, hence equisatisfiable set of clauses.
+%
 \begin{align*}
-\mcC_1 &:= L_{11}\lor L_{12}&\species(x)\mNE\human\lor\mortal(x) \tag*{theory}\\
-\mcC_2 &:= L_2&\species(\fosca)\mEQ\human \tag*{fact} \\
-\mcC_3 &:=L_3&\lnot\mortal(\fosca) \tag*{negated conjecture} \\
+\lnot F &\mEQ \{ \mcC_1, \mcC_2, \mcC_3 \} \\[0.5em]
+\mcC_1 &= \species(x)\mNE\human\lor\mortal(x) \tag{theory}\\
+\mcC_2 &= \species(\fosca)\mEQ\human \tag{fact} \\
+\mcC_3 &= \lnot\mortal(\fosca) \tag{negated conjecture} \\
 %\mcC_4 &:=L_2^\mcc\lor L_3^\mcc&\species(\fosca)\mNE\human\lor\mortal(\fosca)\tag*{$\mcC_1 \{x\mapsto\fosca\}$}
 %\\
 %4 &&\species(\fosca)\mNE\human\lor\mortal(\fosca) \tag*{instance}
 \end{align*}
-The set of ground instances $\{ \mcC_2, \mcC_3,\mcC_1 \{x\mapsto\fosca\}  \}$ is unsatisfiable,
-which can be easily checked with the DPLL \cite{Davis:1962:MPT:368273.368557, Davis:1960:CPQ:321033.321034} 
-method for ground clauses, i.e.~with a modern satisfiability checker.
+When we instantiate $\mcC_1$ with instantiator $\sigma = \{x\mapsto\fosca\}$ we get an unsatisfiable 
+set of ground instances $\{ \mcC_2, \mcC_3, \mcC_1\sigma  \}$.
+This can be easily checked by the DPLL 
+method for ground clauses \cite{Davis:1962:MPT:368273.368557, Davis:1960:CPQ:321033.321034},
+i.e.~with a modern satisfiability checker.
 
 \section{Theory}
 
