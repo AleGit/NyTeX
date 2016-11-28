@@ -8,11 +8,34 @@
 	emph={Int,QF_LIA},
 }
 
+\lstdefinelanguage{Yices}{
+	language = C,
+	morekeywords={},
+%	comment={[l];},
+%	keywords={assert,xor, or, and},
+	keywords=[2]{type_t, uint32_t, term_t},
+%	emph={Int,QF_LIA},
+%	otherkeywords={yices_bool_type}
+}
+
+\lstdefinelanguage{flea}{
+	language = C,
+%	morekeywords={},	
+	%	comment={[l];},
+	%	keywords={assert,xor, or, and}, 	% 
+	keywords=[2]{func, var, let, protocol, associatedtype},	% Swift Keywords
+	keywords=[3]{String, UInt32},		% Swift data types
+	keywords=[4]{type_t, uint32_t, term_t,},		% Yices data types
+	%	emph={Int,QF_LIA},
+	%	otherkeywords={yices_bool_type}
+}
+
 \lstset {
 	backgroundcolor=\color{white},     	% choose the background color; you must add \usepackage{color} or \usepackage{xcolor}
 	basicstyle=\ttfamily\footnotesize, 	% the size of the fonts that are used for the code
 	breakatwhitespace=false,         	% sets if automatic breaks should only happen at whitespace
 	breaklines=true,                 	% sets automatic line breaking
+	caption=\lstname,
 	captionpos=b,                    	% sets the caption-position to bottom
 	commentstyle=\color{gray},    		% comment style
 	deletekeywords={...},            	% if you want to delete keywords from the given language
@@ -22,6 +45,8 @@
 	frame=none,		% frame=single, % adds a frame around the code
 	keepspaces=true,                % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
 	keywordstyle=\color{blue},      % keyword style
+	keywordstyle=[2]\color{red},
+	keywordstyle=[3]\color{purple},
 	% language=smtlib,	%Octave,    % the language of the code
 	% literate={;},
 	% otherkeywords={declare-fun,set-logic,assert,xor,or,and},            % if you want to add more keywords to the set
@@ -33,8 +58,9 @@
 	showspaces=false,               % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
 	showstringspaces=false,         % underline spaces within strings only
 	showtabs=false,                 % show tabs within strings adding particular underscores
-	stepnumber=2,                   % the step between two line-numbers. If it's 1, each line will be numbered
+	stepnumber=1,                   % the step between two line-numbers. If it's 1, each line will be numbered
 	stringstyle=\color{orange},     % string literal style
 	tabsize=2,	                   	% sets default tabsize to 2 spaces
-	title=\lstname                  % show the filename of files included with \lstinputlisting; also try caption instead of title
+%	title=\lstname,                  % show the filename of files included with \lstinputlisting; also try caption instead of title,
+	mathescape=true
 }
