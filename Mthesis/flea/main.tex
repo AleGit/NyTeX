@@ -7,7 +7,7 @@
 \input{epigraphs/faust}
 
 In this chapter we introduce \verb|FLEA| --
-First order Logic with Equality theorem Attester. 
+our {\textbf f}irst order {\textbf l}ogic with {\textbf e}quality theorem {\textbf a}ttester. 
 It is 
 -- as the reader may allready suspect --
 a modest implementation of an instantiation based theorem prover for first order clauses with equality.
@@ -25,24 +25,46 @@ protocol Node: Hashable {
 }
 \end{lstlisting}
 
-\section{Yices encodings}
+\section{Encodings}
+
+\begin{figure}
+	test
+\end{figure}
 
 We can simply encode first order atoms purely propositional 
 when we construct the name for the propositional atom 
 from a predicate or equation recursivly.
 
+\begin{definition}
 \DEFINE{\xi(\mct)}{
-	\bot &\text{if } \mct=x\in\mcV \\
+	\mc_0 &\text{if } \mct=x\in\mcV, \mc_0\not\in\mcF \\
 	\mc &\text{if } \mct=c\in\mcFO\\
-	\mcf,\xi(t_1),\ldots,\xi(t_n) &\text{if }\mct=\mcf(t_1,\ldots,t_n), \mcf\in\mcFn
+	\mcf\dis\xi(t_1)\dis\ldots\dis\xi(t_n) &\text{if }\mct=\mcf(t_1,\ldots,t_n), \mcf\in\mcFn
 }
+\end{definition}
 
 \begin{example}
 	\begin{align*}
-	\xi(\mpp(f(x,y),g(y) &= \mpp,\mf,\bot,\bot,\mg,\bot\\
-	\xi(\mf(x,y)\mEQ \mg(y) &= {\mEQ},\mf,\bot,\bot,\mg,\bot\\
+	\xi(\mpp(f(x,y),g(y)) &= \mpp\dis\mf\dis\bot\dis\bot\dis\mg\dis\bot\\
+	\xi(\mf(x,y)\mEQ \mg(y)) &= {\mEQ}\dis\mf\dis\bot\dis\bot\dis\mg\dis\bot\\
 	\end{align*}
 \end{example}
+
+\DEFINE{\Xi(\mct)}{
+	\mc_0 : U &\text{if } \mct=x\in\mcV, \mc_0\not\in\mcFO  
+	\\
+	\mc  : U &\text{if } \mct=c\in\mcFfO
+	\\
+	\mf
+	: (U^n\rightarrow U)\ \Xi(t_1)\ \ldots\ \Xi(t_n)
+	&\text{if }\mct=\mf(t_1,\ldots,t_n), \mf\in\mcFfn 
+	\\
+	\mP  : \mathsf{Bool} &\text{if } \mct=p\in\mcFPO
+	\\
+	\mP
+	: (U^n\rightarrow \mathsf{Bool})\ \Xi(t_1)\ \ldots\ \Xi(t_n)
+	&\text{if }\mct=\mP(t_1,\ldots,t_n), \mP\in\mcFPn 
+}
 
 \begin{lstlisting}[language=FLEA]{Propositional encoding}
 func encodeSAT<N:Node>(term: N) -> term_t {
