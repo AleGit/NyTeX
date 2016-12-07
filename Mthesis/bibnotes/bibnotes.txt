@@ -1,0 +1,60 @@
+\cite{AL1997}
+
+
+p.2 
+
+[Gil60] was improved by [DP60]
+[Rob65] resolution principle ~ propositional cut rule + substitutional unification principle
+
+[Bib82] Bibel's connection method has no resolution rule
+
+2.1 (p.5) fol is useful
+
+valid formulas are recursive enumarable
+
+interpretation, model
+
+p.10 emphasis on term structure and substitution
+
+2.2 (p.11) transformation to clause form
+
+p.18 definition clause
+
+p.18/19 notions of clauses (sequent calculus)
+
+p19 def horn clause
+
+p19 transformation to cnf [SS76]
+
+p.23 (2.3) term model and hebrand's theorem
+
+p.23 def fol formula for clause
+
+p.27 THEOREM - a set of clauses is satisfiable iff it has an Herbrand-model 
+
+p.38 HERBRAND's THEOREM - a set of clauses C is unsatisfiable iff there exists
+a finite unsatisfiable set of clauses that consists of ground instances of clauses in C.
+
+p.41 (2.4) sets of ground instances
+p.41 (2.4.1) GILMORE's METHOD
+p.43 (2.4.2) Davis and Putnam
+
+p.52 (2.5) the propositional resolution principle
+
+p.59 (2.6) substitution and unification
+
+p.72 (2.7) the general resolution principle
+
+
+
+
+
+
+
+
+
+
+
+
+
+
