@@ -3,7 +3,11 @@
 % !TeX spellcheck = en_US
 
 \begin{definition}\label{def:literals}
-A {\myem literal} $L$ is either an atom $A$ or a negated atom $\lnot A$.
+A {\myem literal} $L$ is either an atom $A$ or a negated\footnote{
+We usually abbreviate $\lnot(s\mEQ t)$ with $s\mNE t$.
+} 
+atom $\lnot A$.
+%
 The {\myem complement } $L^\mcc$ of an atom (positive literal) is the negation of the atom.
 The complement of a negated atom (negative literal) is the atom itself. 
 %\DEFINE{
@@ -22,10 +26,9 @@ A finite {\myem set of clauses} $S=\{ \mcC_1,\ldots,\mcC_n \}$ is equivalent to
 %Two literals are complementary if one is an atom, i.e. a positive literal and the other is the negation of this atom.
 \end{definition}
 
-\noindent Note: We abbreviate $\lnot(s\mEQ t)$ with $s\mNE t$.
-
 \begin{definition}
-	Terms, atoms, and literals are (first order) expressions.
-	We call an expression without variables {\myem ground} or {\myem closed}.
+	We denote
+	terms, atoms, and literals as first order expressions.
+	We call a first order expression without variables {\myem ground} or {\myem closed}.
 \end{definition}
 

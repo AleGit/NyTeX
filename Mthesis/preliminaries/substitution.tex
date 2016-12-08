@@ -14,7 +14,7 @@
 	A {\myem renaming} is a bijective variable substitution.
 	A {\myem proper instantiator} is a substitution that is not a variable substitution.
 	We define the instance $\mct\sigma$ of a first order expression
-	respectively the application of a substitution $\sigma$ to a first order expression $\mct$:
+	respectively the application of a substitution $\sigma$ to a first order expression $\mct$ as follows
 	\DEFINE{
 		\mct\sigma
 	}{
@@ -22,21 +22,28 @@
 			\\
 			y					& \text{if }\mct=y\in\mcV\,\backslash\dom(\sigma)
 			\\
-			\mcf(\mct_1\sigma,\ldots,\mct_n\sigma)	&\text{if }\mct=\mcf(\mct_1,\ldots,\mct_n), \mcf\in\mcFn
+			\mcf(\mct_1\sigma,\ldots,\mct_n\sigma)	&\text{if }\mct=\mcf(\mct_1,\ldots,\mct_n) 
+			\text{ where  }
+			 \mcf\in\mcFn 
+%			 \tag*{\footnotemark}
 			\\
 %			P(t_1\sigma,\ldots,t_n\sigma)	&\text{if }\mct=P(t_1,\ldots,t_n), P\in\mcFPn \\
 %			s\sigma\mEQ t\sigma			&\text{if }\mct=s\mEQ t \\[0.5em]
 			\lnot(A\sigma)					&\text{if }\mct=\lnot A
-%			\text{ where }A\text{ is an atom}
-			\text{ where } A\in\mcPT\disjointunion\mcET  \\
-%			L_1\sigma\lor\ldots\lor L_n\sigma	&\text{if }\mkt=L_1\lor\ldots\lor L_n \\	
+			\text{ where $A$ is an atom}
+%			\in\mcPT\disjointunion\mcET  
+			\\
+%			L_1\sigma\lor\ldots\lor L_n\sigma	&\text{if }\mct=L_1\lor\ldots\lor L_n 
+%			\text{ where $L_1,\ldots,L_n$ are literals}
+%			\\	
 }
-\
-end{defintion}
-\noindent Note: We use prefix and infix notation interchangable, e.g.
-${\mEQ}(s,t)$ represents the same equation as $s\mEQ t$.
 
-\begin{definition}\label{def:subcat}
+\noindent We define the instance of a clause as the multiset of the instances of its literals.
+\end{definition}
+%\footnotetext{We use prefix and infix notation interchangable, e.g.
+%${\mEQ}(s,t)$ represents the same equation as $s\mEQ t$.}
+
+\begin{definition}\label{def:substcomp}
 We define the {\myem composition} of two substitutions $\sigma$ and $\tau$ as follows
 	\begin{align*}
 		\sigma\tau&=\{ x_i\mapsto s_i\tau\mid x_i\in\dom(\sigma) \}
@@ -48,7 +55,7 @@ We define the {\myem composition} of two substitutions $\sigma$ and $\tau$ as fo
 
 
 \begin{lemma}\label{lem:substitution}
-	With the definitions in \ref{def:substitution} the identity
+	With the definitions in \ref{def:substitution} and \ref{def:substcomp} the identity
 	$(\mct\sigma)\tau = \mct(\sigma\tau)$ holds for
-	arbitrary terms, literals, clauses, and substitutions.
+	arbitrary first order expressions and substitutions.
 \end{lemma}
