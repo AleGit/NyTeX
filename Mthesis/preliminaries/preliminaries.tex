@@ -81,12 +81,27 @@ where notions and notations largely follow those in lecture notes \cite{AM2015tr
 
 \section{Term Rewriting}
 
+
+
+
+\begin{definition}
+	A {\myem rewrite rule} is an equation of terms where the left-hand side is not a variable
+	and the variables occuring in the right-hand side occur also in the left-hand side.
+	%	\[
+	%		\ell\rwEQ r \text{ is rewrite rule }\quad :\Longleftrightarrow\quad\ell\not\in\mcV\text{ and }\var(r)\subseteq\var(l)
+	%	\] 
+	A rewrite rule $\ell'\rwEQ r'$ is a {\myem variant} of $\ell\rwEQ r$ if there is a renaming $\varrho$
+	such that 
+	$(l\rightarrow r)\varrho = l'\rightarrow r'$.
+	A {\myem term rewrite system} is a set of rewrite rules without variants.
+\end{definition}
+
 \begin{definition}\label{def:position}
 	A {\myem position} is a finite sequence of positive integers.
 	The root position is the empty sequence $\epsilon$.
-	Position $pq$ is obtained by concatenation of positions $p$ and $q$.
+	The position $pq$ is obtained by concatenation of positions $p$ and $q$.
 	%
-	The set of all positions of a term or literal is defined as 
+	The set of all positions of an expression $\mct$ is defined as 
 	\DEFINE{ 
 		\pos(\mct) }
 	{
@@ -96,16 +111,16 @@ where notions and notations largely follow those in lecture notes \cite{AM2015tr
 		\{ \epsilon \} \cup \bigcup_{i=1}^{n} \{ iq\mid q\in\pos(t_i) \}	
 		& \text{if }\mct=\mcf(t_1,\ldots,t_n)\text{ where } \mcf\in\mcF^{(n)}.
 	}
-The~{\myem subterm} $\mct|_p$ of term $t$ {\myem at position} $p\in\pos(t)$ is defined as
+The~{\myem subexpression} $\mct|_p$ of an expression $\mct$ {\myem at position} $p\in\pos(\mct)$ is defined as
 %
 \DEFINE{
 	t|_p
 }{
 	t 		& \text{if }p=\epsilon \\
-	t_i|_q	& \text{if }t=\mkf(t_1,\ldots,t_n)\text{ and }p=iq
+	t_i|_q	& \text{if }t=\mcf(t_1,\ldots,t_n)\text{ and }p=iq
 }
 %
-If $s$ is a term then $t[s]_p$ represents the term build by replacing the subterm of $t$ at position $p$ with the term $s$.
+If $s$ is an expression then $t[s]_p$ represents the expression build by replacing the subexpression of $t$ at position $p$ with the term $s$.
 \DEFINE{
 	t[s]_p}
 {
@@ -117,16 +132,6 @@ If $s$ is a term then $t[s]_p$ represents the term build by replacing the subter
 \end{definition}
 
 \begin{definition}
-	A {\myem rewrite rule} is an equation of terms where the left-hand side is not a variable
-	and the variables occuring in the right-hand side occur also in the left-hand side.
-%	\[
-%		\ell\rwEQ r \text{ is rewrite rule }\quad :\Longleftrightarrow\quad\ell\not\in\mcV\text{ and }\var(r)\subseteq\var(l)
-%	\] 
-	A rewrite rule $\ell'\rwEQ r'$ is a {\myem variant} of $\ell\rwEQ r$ if there is a renaming $\varrho$
-	such that 
-	$(l\rightarrow r)\varrho = l'\rightarrow r'$.
-	A {\myem term rewrite system} is a set of rewrite rules without variants.
-
 	We say $s\rightarrow_\mcR t$ is a 
 	{\myem rewrite step} 
 	 with respect to TRS $\mcR$ 

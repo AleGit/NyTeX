@@ -1,0 +1,31 @@
+% !TeX root = ../mthesis.tex
+% !TeX encoding = UTF-8
+% !TeX spellcheck = en_US
+
+\chapter{other}
+
+%\section{Purely equational logic}
+
+We can transform a set of selected literals into a equational system 
+when we introduce one new constant symbol,
+and a new function symbol for every predicate symbol.
+\begin{align*}
+	P(t_1,\ldots,t_n) \quad\Rightarrow&\quad f_P(t_1,\ldots,t_n) \mEQ \bullet \\ 
+	\lnot P(t_1,\ldots,t_n) \quad\Rightarrow&\quad f_P(t_1,\ldots,t_n) \mNE \bullet
+\end{align*}
+
+%\section{Term Rewrite System}
+
+We can transform a set of selected literals into a term rewrite system 
+when we introduce two new constant symbols,
+and a new function symbol for every predicate symbol.
+\begin{align*}
+P(t_1,\ldots,t_n) \quad\Rightarrow&\quad f_P(t_1,\ldots,t_n) \rwEQ \mathsf{true} \\ 
+\lnot Q(t_1,\ldots,t_n) \quad\Rightarrow&\quad f_Q(t_1,\ldots,t_n) \rwEQ \mathsf{false} \\
+s \mEQ t \quad\Rightarrow&\quad s \mEQ t\rwEQ \mathsf{true} \\ 
+r \mNE u \quad\Rightarrow&\quad r \mEQ u\rwEQ  \mathsf{false} \\
+\end{align*}
+When we find a not unifiable critical peek, then the set of literals is incosistent.
+
+
+
