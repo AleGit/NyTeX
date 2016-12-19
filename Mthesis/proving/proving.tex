@@ -11,19 +11,19 @@ to the superposition calculus  in the 1990s there has been many approaches for a
 
 \section{Motivation}
 
-The central idea of instantiation-based first order theorem proving like Gilmore's Prover \cite{5392528} in 1960 is the
-translation of an undecidable problem into a sequence of effectivly decideable problems.
+The central idea of instantiation-based first order theorem proving is the
+translation of an undecidable problem into a possible infinite sequence of effectively decidable problems.
 
-First it makes use of the fact that a first-order formula is valid if and only if its negation is unsatisfiable.
-Second it uses the existing efficient transformation algorithms from arbitrary negated formulas to equisatisfiable sets of clauses.
-Third it utilizes that is is sufficient to find one unsatisfiable set of ground instances 
+First we make use of the fact that a first-order formula is valid if and only if its negation is unsatisfiable.
+Second we utilize the existing efficient transformation algorithms from arbitrary negated formulas to equisatisfiable sets of clauses.
+Through compactness and Hebrand's Theorem is is sufficient to find one unsatisfiable set of ground instances 
 to show that the original set of clauses is unsatisfiable.
 
 
-\begin{example} Let $\mcF = \{\species^1, \fosca^0, \human^0 \} \disjointunion \{ \mortal^1  \} \disjointunion \{\mEQ^2\}$ be a signature.
+\begin{example} Let $\mcF = \{\species^1, \fosca^0, \human^0 \}_{\mcFf} \disjointunion \{ \mortal^1  \}_{\mP} \disjointunion \{\mEQ^2\}$ be a signature.
 	We translate the given syllogism into a formula $F$ in first order logic.
 	\begin{align*}
-	F &= A \limp (B \limp C) \\[0.5em]
+	F &= A \limp (B \limp C) \equiv \lnot(A\land B) \lor C\\[0.5em]
 	A &= \forall x\,(\species(x) \mEQ \human \limp \mortal(x)) 	\tag{theory}\\
 	B &= \species(\fosca) \mEQ \human 							\tag{fact}\\
 	C &= \mortal(\fosca)										\tag{conjecture}
@@ -32,7 +32,8 @@ to show that the original set of clauses is unsatisfiable.
 	We transform the negated formula into an equivalent, hence equisatisfiable set of clauses.
 %
 \begin{align*}
-\lnot F &\mEQ \{ \mcC_1, \mcC_2, \mcC_3 \} \\[0.5em]
+\lnot F &\equiv A\land B \land\lnot C
+\mEQ \{ \mcC_1, \mcC_2, \mcC_3 \} \\[0.5em]
 \mcC_1 &= \species(x)\mNE\human\lor\mortal(x) \tag{theory}\\
 \mcC_2 &= \species(\fosca)\mEQ\human \tag{fact} \\
 \mcC_3 &= \lnot\mortal(\fosca) \tag{negated conjecture} \\
@@ -53,20 +54,61 @@ i.e.~with a modern satisfiability checker.
 	An equational interpretation must satisfy the formulas for reflexivity, symmetry, transitivity, 
 	function congruence for every function symbol $f\in\mcFf$, 
 	and predicate congruence for every predicate symbol $P\in\mcFP$.
-	\[
-		\begin{array}[t]{c}
-		x\mEQ x 
-\qquad
-		x\mNE y\lor y\mEQ x
-\qquad		
-		x\mNE y\lor y\mNE z\lor x\mEQ z \\[0.7em]
-%		
-x_1 \mNE y_1\lor\ldots\lor x_n \mNE y_n\lor f(x_1,\ldots,x_n)\mEQ f(y_1,\ldots,y_n) \\[0.7em]
-%
-x_1\mNE y_1\lor\ldots\lor x_n\mNE y_n\lor\lnot P_i(x_1,\ldots,x_n)\lor P(y_i,\ldots,y_n)
+%	\[
 
-		\end{array}
-	\]
+%		\begin{array}[t]{c}
+%		x\mEQ x 
+%\qquad
+%		x\mNE y\lor y\mEQ x
+%\qquad		
+%		x\mNE y\lor y\mNE z\lor x\mEQ z \\[0.7em]
+%%		
+%x_1 \mNE y_1\lor\ldots\lor x_n \mNE y_n\lor f(x_1,\ldots,x_n)\mEQ f(y_1,\ldots,y_n) \\[0.7em]
+%%
+%x_1\mNE y_1\lor\ldots\lor x_n\mNE y_n\lor\lnot P_i(x_1,\ldots,x_n)\lor P(y_i,\ldots,y_n)
+%
+%		\end{array}
+%	\]
+
+\begin{align*}
+	 x \mEQ x & \tag*{reflexivity} \\
+	x \mNE y \lor y \mEQ x & \tag*{symmetry}\\
+	x\mNE y\lor y\mNE z\lor x\mEQ z & \tag*{transitivity} \\
+	x_1 \mNE y_1\lor\ldots\lor x_n \mNE y_n\lor f(x_1,\ldots,x_n)\mEQ f(y_1,\ldots,y_n) &\quad f\in\mcFfn
+	\tag*{f-congruence}
+	\\
+	x_1\mNE y_1\lor\ldots\lor x_n\mNE y_n\lor\lnot P_i(x_1,\ldots,x_n)\lor P(y_i,\ldots,y_n) &\quad P\in\mcFPn
+	\tag*{P-congruence}
+	\\[0.7em]
+	x_1\mNE y_1\lor x_2\mNE y_2
+	\lor x_1\mNE x_2
+	\lor y_1\mEQ y_2
+	\tag*{$\mEQ$-congruence}
+\end{align*}
+
+\begin{align*}
+	x \mEQ x & \tag*{reflexivity} 
+	\\
+	x \mEQ y \limp y \mEQ x & \tag*{symmetry}
+	\\
+	(x\mEQ y\land y\mEQ z)\limp x\mEQ z & \tag*{transitivity} 
+	\\
+	(x_1 \mEQ y_1\land\ldots\land x_n \mEQ y_n)\limp f(x_1,\ldots,x_n)\mEQ f(y_1,\ldots,y_n) &\quad f\in\mcFfn
+	\tag*{f-congruence}
+	\\
+	x_1\mEQ y_1\land\ldots\land x_n\mNE y_n\land P_i(x_1,\ldots,x_n)
+	\limp P(y_i,\ldots,y_n) &\quad P\in\mcFPn
+	\tag*{P-congruence}
+	\\[0.7em]
+	(x_1\mEQ y_1
+	\land x_2\mEQ y_2
+	\land x_1\mEQ x_2)
+	\limp y_1\mEQ y_2
+	& \quad P\in\mcFPn[2]
+		\tag*{$\mEQ$-congruence}
+\end{align*}
+	
+	
 
 
 

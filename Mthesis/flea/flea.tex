@@ -39,7 +39,7 @@ from a predicate or equation recursivly.
 \DEFINE{\xi(\mct)}{
 	\mc_0 &\text{if } \mct=x\in\mcV, \mc_0\not\in\mcF 
 	\tag*{}\\
-	\mc &\text{if } \mct=c\in\mcFO\\
+	\mc &\text{if } \mct=c\in\mcFn[0]\\
 	\mcf\dis\xi(t_1)\dis\ldots\dis\xi(t_n) &\text{if }\mct=\mcf(t_1,\ldots,t_n), \mcf\in\mcFn
 }
 \end{definition}
@@ -52,15 +52,15 @@ from a predicate or equation recursivly.
 \end{example}
 
 \DEFINE{\Xi(\mct)}{
-	\mc_0 : U &\text{if } \mct=x\in\mcV, \mc_0\not\in\mcFO  
+	\mc_0 : U &\text{if } \mct=x\in\mcV, \mc_0\not\in\mcFn[0]  
 	\\
-	\mc  : U &\text{if } \mct=c\in\mcFfO
+	\mc  : U &\text{if } \mct=c\in\mcFfn[0]
 	\\
 	\mf
 	: (U^n\rightarrow U)\ \Xi(t_1)\ \ldots\ \Xi(t_n)
 	&\text{if }\mct=\mf(t_1,\ldots,t_n), \mf\in\mcFfn 
 	\\
-	\mP  : \mathsf{Bool} &\text{if } \mct=p\in\mcFPO
+	\mP  : \mathsf{Bool} &\text{if } \mct=p\in\mcFPn[0]
 	\\
 	\mP
 	: (U^n\rightarrow \mathsf{Bool})\ \Xi(t_1)\ \ldots\ \Xi(t_n)

@@ -106,16 +106,10 @@
 \newcommand{\mNFR}{\mNF{\mcR}}		% set of normal forms	
 
 % reevaluate:
-\newcommand{\mcFn}{{\mathcal F^{(n)}}}
-\newcommand{\mcFO}{{\mathcal F^{(0)}}}
+\newcommand{\mcFn}[1][n]{\mcF^{(#1)}}
+\newcommand{\mcFfn}[1][n]{{\mcFn[#1]_\mf}}
+\newcommand{\mcFPn}[1][n]{{\mcFn[#1]_\mP}}
 
-\newcommand{\mcFfO}{{\mcF_\mf^{(0)}}}
-\newcommand{\mcFfgo}{{\mcF_\mf^{(>0)}}}
-\newcommand{\mcFfn}{{\mcF_\mf^{(n)}}}
-
-\newcommand{\mcFPO}{{\mcF_\mP^{(0)}}}
-\newcommand{\mcFPgo}{{\mcP_\mf^{(>0)}}}
-\newcommand{\mcFPn}{{\mcF_\mP^{(n)}}}
 
 % terms with signature
 % \newcommand{\mcTFV}{{\mcT(\mcFf,\!\mcV)}}
