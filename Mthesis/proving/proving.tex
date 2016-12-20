@@ -19,8 +19,8 @@ First we demonstrate an early approach with Gilmore's prover \cite{5392528}, 196
 \section{Gilmore's Prover}
 
 Gilmore's Prover transforms a negated formula into a skolem normal form.
-Then it creates a sequence of ground instances $\mcC_i'$ of this formula while building the Herbrand universe 
-$H = \bigcup_{n\geq 0} H_i$:
+Then it creates a sequence of ground instances $\mcC_i$ of this formula while building the Herbrand universe 
+$H = \bigcup_{n\geq 0} H_i$ for the underlying signature
 recursivly
 \begin{align*}
 H_0 &:= \left\{ 
@@ -72,7 +72,7 @@ $C_i'$ are ground instances that uses just elements of $H_i$.
 	We negate the formula $\lnot F \equiv A\land B \land\lnot C$ and since there is exactly one constant we get
 	$H_0 = \{ \fosca \}$ for our Herbrand universe and get a single ground formula in $C_0'$
 	which we will transform into 
-	disjunctive normal form to easily check for satisfiability.
+	disjunctive normal form for satisfiability checking.
 %
 \begin{gather*}
 (\lnot\human(\fosca)\land\human(\fosca)\land\lnot\mortal(\fosca))
