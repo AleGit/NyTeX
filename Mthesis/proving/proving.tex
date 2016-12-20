@@ -2,50 +2,97 @@
 % !TeX encoding = UTF-8
 % !TeX spellcheck = en_US
 
-\chapter{Automated First Order Theorem Proving}
+\chapter{Automated Theorem Proving}
 
 \input{epigraphs/syllogism}
 
-From Gilmore's Prover \cite{5392528} in 1960 
-to the superposition calculus  in the 1990s there has been many approaches for automated reasoning \cite{Robinson:2001:HAR:778522}. 
-
-\section{Motivation}
-
 The central idea of instantiation-based first order theorem proving is the
-translation of an undecidable problem into a possible infinite sequence of effectively decidable problems.
-
+translation of an undecidable problem into a possible infinite sequence of decidable problems.
 First we make use of the fact that a first-order formula is valid if and only if its negation is unsatisfiable.
 Second we utilize the existing efficient transformation algorithms from arbitrary negated formulas to equisatisfiable sets of clauses.
-Through compactness and Hebrand's Theorem is is sufficient to find one unsatisfiable set of ground instances 
-to show that the original set of clauses is unsatisfiable.
+Through compactness and Hebrand's Theorem we know that it is sufficient to find an unsatisfiable set of ground instances 
+to show that the original set of clauses is unsatisfiable. 
 
 
-\begin{example} Let $\mcF = \{\species^1, \fosca^0, \human^0 \}_{\mcFf} \disjointunion \{ \mortal^1  \}_{\mP} \disjointunion \{\mEQ^2\}$ be a signature.
+First we demonstrate an early approach with Gilmore's prover \cite{5392528}, 1960. 
+
+\section{Gilmore's Prover}
+
+Gilmore's Prover transforms a negated formula into a skolem normal form.
+Then it creates a sequence of ground instances $\mcC_i'$ of this formula while building the Herbrand universe 
+$H = \bigcup_{n\geq 0} H_i$:
+recursivly
+\begin{align*}
+H_0 &:= \left\{ 
+	\begin{array}{ll}
+	\{ c \mid \mc\in\mcFfn[0] \} 
+	&\text{if constants exist}\\
+	\{ c \}
+	&\text{otherwise}
+	\end{array}
+\right. 
+\\
+H_{n+1} &:= \{\  
+	\mf(t_1,\ldots,t_k) \mid
+	\mf\in\mcFfn[k],
+	t_1,\ldots,t_k \in H_n
+\ \}
+\end{align*}
+
+$C_i'$ are ground instances that uses just elements of $H_i$. 
+
+
+
+
+
+\begin{example}
+	Let $\mcF = \{ \fosca \} \disjointunion \{ \mortal, \human \}$ be a signature without equality. 
 	We translate the given syllogism into a formula $F$ in first order logic.
 	\begin{align*}
-	F &= A \limp (B \limp C) \equiv \lnot(A\land B) \lor C\\[0.5em]
-	A &= \forall x\,(\species(x) \mEQ \human \limp \mortal(x)) 	\tag{theory}\\
-	B &= \species(\fosca) \mEQ \human 							\tag{fact}\\
-	C &= \mortal(\fosca)										\tag{conjecture}
+		F &= A \limp (B \limp C) \equiv \lnot(A\land B) \lor C 
+		\tag*{formula}
+		\\[0.5em]
+		A &= \forall x\, ( \human(x) \limp \mortal(x) 
+		\tag*{theory}
+		\\
+		B &= \human(\fosca) 
+		\tag*{fact}
+		\\
+		C &= \mortal(\fosca)
+		\tag*{conjecture}
 	\end{align*}
-%	 
-	We transform the negated formula into an equivalent, hence equisatisfiable set of clauses.
+\end{example}
+ 
+%We easily find a satisfying interpretation $\mcI$ with domain $\{ \fosca \}$ with 
+%$\fosca^\mcI = \fosca$,
+%$\human^\mcI = \{ (\fosca) \}$,
+%$\mortal^\mcI = \{ (\fosca) \}$.
+
+
+	We negate the formula $\lnot F \equiv A\land B \land\lnot C$ and since there is exactly one constant we get
+	$H_0 = \{ \fosca \}$ for our Herbrand universe and get a single ground formula in $C_0'$
+	which we will transform into 
+	disjunctive normal form to easily check for satisfiability.
 %
-\begin{align*}
-\lnot F &\equiv A\land B \land\lnot C
-\mEQ \{ \mcC_1, \mcC_2, \mcC_3 \} \\[0.5em]
-\mcC_1 &= \species(x)\mNE\human\lor\mortal(x) \tag{theory}\\
-\mcC_2 &= \species(\fosca)\mEQ\human \tag{fact} \\
-\mcC_3 &= \lnot\mortal(\fosca) \tag{negated conjecture} \\
-%\mcC_4 &:=L_2^\mcc\lor L_3^\mcc&\species(\fosca)\mNE\human\lor\mortal(\fosca)\tag*{$\mcC_1 \{x\mapsto\fosca\}$}
-%\\
-%4 &&\species(\fosca)\mNE\human\lor\mortal(\fosca) \tag*{instance}
-\end{align*}
-When we instantiate $\mcC_1$ with instantiator $\sigma = \{x\mapsto\fosca\}$ we get an unsatisfiable 
-set of ground instances $\{ \mcC_2, \mcC_3, \mcC_1\sigma  \}$.
-This can be easily checked by the DPLL 
-method for ground clauses \cite{Davis:1962:MPT:368273.368557, Davis:1960:CPQ:321033.321034},
-i.e.~with a modern satisfiability checker.
+\begin{gather*}
+(\lnot\human(\fosca)\land\human(\fosca)\land\lnot\mortal(\fosca))
+\\ 
+\lor
+\\ 
+(\mortal(\fosca)\land\human(\fosca)\land\lnot\mortal(\fosca))
+\end{gather*}
+Since both conjunctions contain complementary literals we conclude the negated formula is unsatisfiable.
+
+
+\begin{gather*}
+content...
+\end{gather*}
+
+%Since there is only one constant we instantiate $\mcC_1$ with instantiator $\sigma = \{x\mapsto\fosca\}$ and we get an unsatisfiable 
+%set of ground instances $\{ \mcC_2, \mcC_3, \mcC_1\sigma  \}$.
+%This can be easily checked by the DPLL 
+%method for ground clauses \cite{Davis:1962:MPT:368273.368557, Davis:1960:CPQ:321033.321034},
+%i.e.~with a modern satisfiability checker.
 
 \section{Theory}
 
@@ -116,5 +163,5 @@ i.e.~with a modern satisfiability checker.
 
 
 
-\end{example}
+%\end{example}
 
