@@ -6,15 +6,16 @@
 
 \input{epigraphs/syllogism}
 
+
 The central idea of instantiation-based first order theorem proving is the
 translation of an undecidable problem into a possible infinite sequence of decidable problems.
 First we make use of the fact that a first-order formula is valid if and only if its negation is unsatisfiable.
-Second we utilize the existing efficient transformation algorithms from arbitrary negated formulas to equisatisfiable sets of clauses.
-Through compactness and Hebrand's Theorem we know that it is sufficient to find an unsatisfiable set of ground instances 
-to show that the original set of clauses is unsatisfiable. 
+Second we utilize the existing efficient transformation algorithms from arbitrary formulas to equisatisfiable sets of clauses. 
+For a given set of clauses we create a sequence of finite subsets of all ground instances of this set
+until we've created an unsatisfiable one. 
 
 
-First we demonstrate an early approach with Gilmore's prover \cite{5392528}, 1960. 
+
 
 \section{Gilmore's Prover}
 
@@ -94,6 +95,38 @@ content...
 %method for ground clauses \cite{Davis:1962:MPT:368273.368557, Davis:1960:CPQ:321033.321034},
 %i.e.~with a modern satisfiability checker.
 
+\begin{example}
+	Consider the set of clauses 
+	$S = \{ 
+	\lnot\mE(\msucc(x), \mzero), 
+	\lnot \mE(\msucc(x), \msucc(y)) \lor \mE(x,y)
+	\}$ with binary predicate symbol $\mE$, unary function symbol $\msucc$, and constant symbol $\mzero$.
+	\begin{align*}
+	H_0 :=&\quad \{ \mzero \} & \mcC_0' &= \{  
+	\lnot\mE(\msucc(\mzero), \mzero), 
+	\lnot \mE(\msucc(\mzero), \msucc(\mzero)) \lor \mE(\mzero,\mzero)
+	\}
+	\\
+	H_1 :=&\quad \{ \msucc(\mzero) \} & \mcC_1' &= \{ 
+		\lnot\mE(\msucc(\msucc(\mzero), \mzero),
+		\lnot \mE(\msucc(\msucc(\mzero)), \msucc(\msucc(\mzero))) \lor \mE(\msucc(\mzero),\msucc(\mzero))
+	 \}
+	 \\\ldots
+	 \\
+	 H_i :=&\quad \{ 
+	 \msucc(\msucc^i(\mzero)) \} & \mcC_i' &= \{  
+	 \lnot\mE(\msucc(\msucc^i(\mzero)), \mzero), 
+	 \lnot \mE(\msucc(\msucc^i(\mzero)), \msucc(\msucc^i(\mzero)) \lor \mE(\msucc^i(\mzero),\msucc^i(\mzero))
+	 \}
+	\end{align*} 
+	It is easy to see that each $\mcC_i'$ is satisfiable and Gilmore's prover will proceed for ever.
+	\begin{align*}
+	A := &\ \{ \mzero \} \\
+	s := &\ \mzero\mapsto\mzero \\
+	\mE := &\ \{\ \} \subseteq A\times A
+	\end{align*}
+\end{example}
+
 \section{Theory}
 
 
@@ -159,9 +192,14 @@ content...
 
 
 
+\section{Inst-Gen}
+
+\section{Equality predicate}
+
+Consider the satisfiable set of clauses $S = \{a \relation b, b \relation c, \mP(\ma), \lnot \mP(\mc) \}$
+
+When we use the equality symbol as a predicate symbol 
+then at least we expect a congruence relation.
 
 
-
-
-%\end{example}
 

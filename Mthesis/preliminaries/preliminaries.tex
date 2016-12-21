@@ -25,12 +25,7 @@ where notions and notations largely follow those in lecture notes \cite{AM2015tr
 
 \input{preliminaries/atoms}
 
-%In examples we usually use $\ma,\mb,\mc,\md$ for constants $c\in\mcFfO$,
-%$\mf,\mg,\mh$ for function symbols $f\in\mcFfgo$,
-%$\mpp,\mq,\mr$ for propositions $p\in\mcFPO$, and 
-%$\mP,\mQ,\mR$ for predicate symbols $P\in\mcFPgo$.
-%The special binary equality symbol $\mEQ$ is always available.
-% and can be seen as special predicate ${\mEQ}\in\mcFP^{(2)}$.
+\input{preliminaries/ground}
 
 \input{preliminaries/fof}
 
@@ -43,14 +38,15 @@ where notions and notations largely follow those in lecture notes \cite{AM2015tr
 \section{Semantics}
 
 \begin{definition}
-	An {\myem interpretation} $\mcI$ over a signature $\mcF$ consists 
-	of a {\myem universe} or {\myem domain}, i.e.~non-empty set  $A$,
-	the definitions of functions $\mf^\mcI: A^n\rightarrow A$  for every function symbol $\mf\in\mcFf$, 
+	An {\myem interpretation} $\mcI$ over a signature $\mcF$ consists of a
+	non-empty set $A$ -- the {\myem universe} or {\myem domain},
+	definitions of functions $\mf^\mcI: A^n\rightarrow A$ for every function symbol $\mf\in\mcFf$, 
 	and definitions of possibly empty relations 
 	 ${\mP^\mcI}\subseteq A^n$ for every predicate symbol $\mP\in\mcFP$
-	 (and ${\mEQ^\mcI}\subseteq A^2$ for the equality symbol).
+	 (and ${\mEQ^\mcI}\subseteq A^2$ for the equality symbol)
 	
-	A ground predicate $\mP(t_1,\ldots,t_n)$ holds in $\mcI$ if $\mP(t_1,\ldots,t_n) \in A^n$.
+	A ground predicate $\mP(t_1,\ldots,t_n)$ holds in interpretation $\mcI$ 
+	if $\mP(t_1,\ldots,t_n) \in A^n$.
 	A ground literal holds in $\mcI$ if and only if its complementary literal does not hold in $\mcI$.
 	
 	A non-ground literal holds in $\mcI$ if all its 
@@ -227,5 +223,20 @@ A Herbrand universe
 \begin{definition}
 	
 \end{definition}
+
+\begin{theorem}[Herbrand]\label{the:herbrand}
+	Let $S$ be a set of clauses without equality. Then the following statements are equivalent.
+	\begin{itemize}
+		\item $S$ is satisfiable.
+		\item $S$ has a Herbrand model.
+		\item Every finite subset of all ground instances of $S$ has a Herbrand model.
+	\end{itemize} 
+\end{theorem}
+
+\begin{corollary}
+	Let $S$ be a set of clauses without equality. 
+	Then $S$ is unsatisfiable if and only if there exists 
+	an unsatisfiable finite set of ground instances of $S$.
+\end{corollary}
 
 
