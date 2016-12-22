@@ -19,17 +19,21 @@ until we've created an unsatisfiable one.
 
 \section{Gilmore's Prover}
 
-Gilmore's Prover transforms a negated formula into a skolem normal form.
-Then it creates a sequence of ground instances $\mcC_i$ of this formula while building the Herbrand universe 
-$H = \bigcup_{n\geq 0} H_i$ for the underlying signature
+By Hebrand's theorem we know that each satisfiable set of clauses $S$
+and each finite set of ground instances of $S$
+has a Hebrand model.
+Gilmore's Prover creates a sequence of finite sets of ground instances $S_i$ of $S$
+while building the Herbrand universe 
+$H = \bigcup_{n\geq 0} H_i$ 
+over the underlying signature
 recursivly
 \begin{align*}
 H_0 &:= \left\{ 
 	\begin{array}{ll}
-	\{ c \mid \mc\in\mcFfn[0] \} 
-	&\text{if constants exist}\\
-	\{ c \}
-	&\text{otherwise}
+	\{ \mc \mid \mc\in\mcFfn[0] \} 
+	&\text{if } \mcFfn[0]\not=\emptyset\\
+	\{ \mc \}
+	&\text{if } \mcFfn[0]=\emptyset, \mc\not\in\mcF
 	\end{array}
 \right. 
 \\
@@ -39,12 +43,8 @@ H_{n+1} &:= \{\
 	t_1,\ldots,t_k \in H_n
 \ \}
 \end{align*}
-
-$C_i'$ are ground instances that uses just elements of $H_i$. 
-
-
-
-
+%
+The set $S_i$ contains all ground instances of $S$ where variables are just substituted by elements of $H_i$. 
 
 \begin{example}
 	Let $\mcF = \{ \fosca \} \disjointunion \{ \mortal, \human \}$ be a signature without equality. 
@@ -71,7 +71,7 @@ $C_i'$ are ground instances that uses just elements of $H_i$.
 
 
 	We negate the formula $\lnot F \equiv A\land B \land\lnot C$ and since there is exactly one constant we get
-	$H_0 = \{ \fosca \}$ for our Herbrand universe and get a single ground formula in $C_0'$
+	$H_0 = \{ \fosca \}$ as first iteration. The first set of ground instances $S_0$ contains just a single ground formula
 	which we will transform into 
 	disjunctive normal form for satisfiability checking.
 %
@@ -127,7 +127,7 @@ content...
 	\end{align*}
 \end{example}
 
-\section{Theory}
+\section{Equality}
 
 
 
@@ -149,6 +149,10 @@ content...
 %
 %		\end{array}
 %	\]
+
+\begin{example}
+	Consider the set of clauses $\{ \mc \mEQ \mb \}$. Here we cannot find a Hebrand model where the equality symbol is interpreted as equality on its domain.
+\end{example}
 
 \begin{align*}
 	 x \mEQ x & \tag*{reflexivity} \\
