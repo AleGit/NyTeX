@@ -6,49 +6,45 @@
 
 \input{epigraphs/syllogism}
 
+We demonstrate the implications of undecidability for proving procedures like Gilmore's or InstGen.
+An we judge the procedures by there theoretical performance on decidable fragments. 
 
-The central idea of instantiation-based first order theorem proving is the
+We know by Herbrand's theorem (\ref{the:herbrand}, p.~\pageref{the:herbrand})
+that each satisfiable set of clauses $S$
+and each finite set of ground instances of $S$
+has a Hebrand model. 
+And we know by compactness (\ref{the:compactness}, p.~\pageref{the:compactness})
+that if every finite subset of a set of clauses $S$ is satisfiable then $S$ is satisfiable.
+The satisfiability of ground instances is decidable as we have seen in the previous chapter.
+So the central idea of instantiation-based first order theorem proving is the
 translation of an undecidable problem into a possible infinite sequence of decidable problems.
 First we make use of the fact that a first-order formula is valid if and only if its negation is unsatisfiable.
-Second we utilize the existing efficient transformation algorithms from arbitrary formulas to equisatisfiable sets of clauses. 
-For a given set of clauses we create a sequence of finite subsets of all ground instances of this set
+Second we utilize existing efficient transformation algorithms -- e.g. Tsetin -- from arbitrary formulas to equisatisfiable sets of clauses. 
+To prove that a given set of clauses is unsatisfiable we create a sequence of finite subsets of all ground instances of this set
 until we've created an unsatisfiable one. 
+
+
 
 
 
 
 \section{Gilmore's Prover}
 
-By Hebrand's theorem we know that each satisfiable set of clauses $S$
-and each finite set of ground instances of $S$
-has a Hebrand model.
-Gilmore's Prover creates a sequence of finite sets of ground instances $S_i$ of $S$
-while building the Herbrand universe 
-$H = \bigcup_{n\geq 0} H_i$ 
-over the underlying signature
-recursivly
-\begin{align*}
-H_0 &:= \left\{ 
-	\begin{array}{ll}
-	\{ \mc \mid \mc\in\mcFfn[0] \} 
-	&\text{if } \mcFfn[0]\not=\emptyset\\
-	\{ \mc \}
-	&\text{if } \mcFfn[0]=\emptyset, \mc\not\in\mcF
-	\end{array}
-\right. 
-\\
-H_{n+1} &:= \{\  
-	\mf(t_1,\ldots,t_k) \mid
-	\mf\in\mcFfn[k],
-	t_1,\ldots,t_k \in H_n
-\ \}
-\end{align*}
+Paul Gilmore presented the first implementation \cite{5392528} of an automated first order theorem prover in 1960.
 %
-The set $S_i$ contains all ground instances of $S$ where variables are just substituted by elements of $H_i$. 
+The prover's procedure 
+creates a sequence of finite sets of ground instances $S_k$ 
+for a set of clauses $S\approx\lnot F$ to prove the validity of a formula $F$.
+Each set $S_k$ contains all possible ground instances of $S$ 
+where all variables are substituted by elements of $H_k$
+from definition \ref{def:hk} of the Hebrand universe.
+Each $S_k$ is then transformed into a disjunctive normal form where satisfiability is obvious.
+The procedure is aborted when an unsatisfiable $S_k$ is encountered.
 
-\begin{example}
-	Let $\mcF = \{ \fosca \} \disjointunion \{ \mortal, \human \}$ be a signature without equality. 
-	We translate the given syllogism into a formula $F$ in first order logic.
+Following Gilmore's prover we can easily prove the syllogism from above.
+
+\begin{example}\label{ex:syllo}
+	First we translate the syllogism into a formula $F$ in first order logic.
 	\begin{align*}
 		F &= A \limp (B \limp C) \equiv \lnot(A\land B) \lor C 
 		\tag*{formula}
@@ -62,7 +58,6 @@ The set $S_i$ contains all ground instances of $S$ where variables are just subs
 		C &= \mortal(\fosca)
 		\tag*{conjecture}
 	\end{align*}
-\end{example}
  
 %We easily find a satisfying interpretation $\mcI$ with domain $\{ \fosca \}$ with 
 %$\fosca^\mcI = \fosca$,
@@ -70,10 +65,15 @@ The set $S_i$ contains all ground instances of $S$ where variables are just subs
 %$\mortal^\mcI = \{ (\fosca) \}$.
 
 
-	We negate the formula $\lnot F \equiv A\land B \land\lnot C$ and since there is exactly one constant we get
-	$H_0 = \{ \fosca \}$ as first iteration. The first set of ground instances $S_0$ contains just a single ground formula
-	which we will transform into 
-	disjunctive normal form for satisfiability checking.
+	Then we negate the formula $\lnot F \equiv A\land B \land\lnot C$.
+	Since there is exactly one constant we get
+	$H_0 = \{ \fosca \}$ and 
+	$S_0 = 
+	\{
+	(\lnot\human(\fosca)\lor\mortal(\fosca))\land\human(\fosca)\land\lnot\mortal(\fosca)
+	\}$ in our first iteration. 
+	At last we transform the single formula in 
+	the set of ground instances $S_0$ for easy satisfiability checking.
 %
 \begin{gather*}
 (\lnot\human(\fosca)\land\human(\fosca)\land\lnot\mortal(\fosca))
@@ -82,22 +82,70 @@ The set $S_i$ contains all ground instances of $S$ where variables are just subs
 \\ 
 (\mortal(\fosca)\land\human(\fosca)\land\lnot\mortal(\fosca))
 \end{gather*}
-Since both conjunctions contain complementary literals we conclude the negated formula is unsatisfiable.
+Since both conjunctions contain complementary literals we conclude the negated formula is unsatisfiable
+ and the given syllogism holds.
+ 
+\end{example}
 
+Gilmore's procedure will always terminate for an unsatisfiable set of clauses.
+It enumerates all possible sets of ground instances iteratively
+and one of them must be unsatisfiable for an unsatisfiable set of clauses. 
+However the number of iterations has no general upper bound. 
+Otherwise it would be a decision procedure for satisfiability in first order logic
+which cannot exist.
 
-\begin{gather*}
-content...
-\end{gather*}
-
-%Since there is only one constant we instantiate $\mcC_1$ with instantiator $\sigma = \{x\mapsto\fosca\}$ and we get an unsatisfiable 
-%set of ground instances $\{ \mcC_2, \mcC_3, \mcC_1\sigma  \}$.
-%This can be easily checked by the DPLL 
-%method for ground clauses \cite{Davis:1962:MPT:368273.368557, Davis:1960:CPQ:321033.321034},
-%i.e.~with a modern satisfiability checker.
+It is easy to see for a set of clauses without non-constant function symbols that we can stop the procedure after one iteration because $H_i = H_0$ and $S_i = S_0$ for all $i\geq0$.
+%
+But the procedure will never terminate even for very simple satisfiable sets where the Herbrand universe is infinite, i.e.~there is at least on non-constant function symbol.
 
 \begin{example}
-	Consider the set of clauses 
-	$S = \{ 
+	Consider the formula 
+	$F = \forall x\exists y\,\lnot\mE(x,y)$
+	which is a member of the Ackermann class $\forall^*\exists\forall^*$ 
+	where satisfiability is decidable.
+	The set of clauses 
+	$S = \{ \lnot\mE(x,\msucc(x)) \}$ is equisatisfiable to $F$.
+	The procedure yields the following sequences of distinct and satisfiable sets $S_{k\geq0}$:
+	\begin{align*}
+	H_{0} :=&\  \{ \mzero \} 
+	&
+	S_{0} :=&\ \{ \lnot\mE(\mzero,\msucc(\mzero))
+	\}
+	\tag*{satisfiable}
+	\\
+	H_{i+1} :=&\ H_i \disjointunion \{ \msucc(\msucc^{i}(\mzero)) \} 
+	&
+	S_{i+1} :=&\ S_i \disjointunion 
+	\{
+	\lnot\mE(\msucc^i(\mzero),\msucc(\msucc^i(\mzero)))
+	\}
+	\tag*{satisfiable}
+	\end{align*}
+\end{example}
+
+
+\begin{example}\label{ex:simplesat}
+	Consider the unsatisfiable set of clauses $S=\{ \mN(\msucc^{k+2}(\mzero)), \lnot\mN(\msucc(x))  \}$
+	\begin{align*}
+	H_{0} :=&\  \{ \mzero \} 
+	&
+	S_{0} :=&\ \{ \mN(\msucc^{k+2}(\mzero)), \lnot\mN(\msucc(\mzero))
+	\}
+	\tag*{satisfiable}
+	\\
+	H_{i+1} :=&\ H_i \disjointunion \{ \msucc(\msucc^{i}(\mzero)) \} 
+	&
+	S_{i+1} :=&\ S_i \disjointunion \{ \lnot\mN(\msucc(\msucc^i(\mzero)))
+	\}
+	\tag*{satisfiable}
+	\end{align*}
+\end{example}
+
+ 
+
+\begin{example}\label{ex:succ}
+	Consider the satisfiable set of clauses 
+	$S_{\ref{ex:succ}} = \{ 
 	\lnot\mE(\msucc(x), \mzero), 
 	\lnot \mE(\msucc(x), \msucc(y)) \lor \mE(x,y)
 	\}$ with binary predicate symbol $\mE$, unary function symbol $\msucc$, and constant symbol $\mzero$.
@@ -126,6 +174,44 @@ content...
 	\mE := &\ \{\ \} \subseteq A\times A
 	\end{align*}
 \end{example}
+
+
+
+Gilmore's prover has two main disadvantages:
+\begin{enumerate}
+	\item The generation of all instances up to a certain term depth.
+	\item The transformation to a disjunctive normal form to check unsatisfiability.
+\end{enumerate}
+
+The second was already addressed by Davis and Putnam in 1960
+which lead to the development of effective SAT Solvers.
+
+\begin{example}\label{ex:unsatE2}
+	Consider the unsatisfiable set of clauses 
+	\[ 
+	S_{\ref{ex:unsatE2}} = 
+	\{
+	\lnot\mE(\ms(x),x), \mE(\ms(\ms^i(y), \ms^i(y)) 
+	\} 
+	\]
+	Now we would have to construct $C'_{1233}$ to get instance $\lnot\mE(\ms(\ms^i(y), \ms^i(y))$
+\end{example}
+
+\section{InstGen}
+
+\begin{example}\label{ex:unsat2}
+Consider the unsatifiable set of instances
+$ 
+\{
+\lnot\mE(\ms(\ms^i(\mzero), \ms^i(\mc)), \mE(\ms(\ms^i(\mc), \ms^i(\mc)) 
+\} 
+$
+that is clearly an unsatisfiable subset of all ground instances of $S_{\ref{ex:unsatE2}}$.
+
+\end{example}
+
+
+
 
 \section{Equality}
 

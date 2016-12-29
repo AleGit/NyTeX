@@ -57,12 +57,30 @@ where notions and notations largely follow those in lecture notes \cite{AM2015tr
 	We say $\mcI$ is a model {\em for} $S$ if $S$ holds in $\mcI$. 
 \end{definition}
 
-\begin{definition}\label{def:termmodel}
-	A {\myem Herbrand interpretation}  $\mcH$ is an interpretation where the elements of the domain are ground terms
-	and the interpretation of each ground term $t^\mcH := t$ is the term itself.
+\begin{definition}\label{def:hk}
+	An {\myem Herbrand universe} is the smallest set that contains all $H_k\ge 0$ of
+	\begin{align*}
+	H_0 &:= \left\{ 
+	\begin{array}{ll}
+	\{ \mc \mid \mc\in\mcFfn[0] \} 
+	&\text{if } \mcFfn[0]\not=\emptyset\\
+	\{ \mc \}
+	&\text{if } \mcFfn[0]=\emptyset, \mc\not\in\mcF
+	\end{array}
+	\right. 
+	\\
+	H_{k+1} &:= H_k \cup \{\  
+	\mf(t_1,\ldots,t_k) \mid
+	\mf\in\mcFfn[k],
+	t_1,\ldots,t_k \in H_k
+	\ \}
+	\end{align*}
+	An {\myem Herbrand interpretation} $\mcH$ is an interpretation where the domain 
+	is an Hebrand unverse
 \end{definition}
 
 \begin{definition}
+	and the interpretation of each ground term $t^\mcH := t$ is the term itself.
 	An {\myem equational} interpretation interprets the equality symbol as equality on its domain.
 \end{definition}
 
@@ -76,6 +94,10 @@ where notions and notations largely follow those in lecture notes \cite{AM2015tr
 	A ground literal holds in $\mcM$ if and only if its complementary literal does not hold in $\mcM$.
 	
 \end{definition}
+
+\begin{example}
+	
+\end{example}
 
 \section{Term Rewriting}
 
@@ -208,11 +230,11 @@ If $s$ is an expression then $t[s]_p$ represents the expression build by replaci
 
 \section{Usefull theorems}
 
-\begin{theorem}[Compactness]
+\begin{theorem}[Compactness]\label{the:compactness}
 	If every finite subset of a set of formulas $S$ has a model then $S$ has a model. 
 \end{theorem}
 
-\begin{theorem}[Löwenheim Skolem]
+\begin{theorem}[Löwenheim Skolem]\label{the:loewenheim}
 	If a set of formulas $S$ has a model then $S$ has a countable model.
 \end{theorem}
 
@@ -238,5 +260,15 @@ A Herbrand universe
 	Then $S$ is unsatisfiable if and only if there exists 
 	an unsatisfiable finite set of ground instances of $S$.
 \end{corollary}
+
+\section{Conventions}
+
+\begin{align*}
+\mc, \md &\ \in\mcFfn[{0}]\tag*{constant symbols} \\
+\mf, \mg, \mh &\ \in\mcFfn[{n>0}]\tag*{function symbols} \\
+\mpp, \mq, \mr &\ \in\mcFPn[{0}]\tag*{propositional symbols}\\
+\mP, \mQ, \mR &\ \in\mcFPn[{n>0}]\tag*{predicate symbols}\\
+s,t,u &\ \in\mcTf = \mcTFfV\tag*{terms}
+\end{align*}
 
 
