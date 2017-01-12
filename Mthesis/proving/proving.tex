@@ -6,8 +6,8 @@
 
 \input{epigraphs/syllogism}
 
-We demonstrate the implications of undecidability for proving procedures like Gilmore's or InstGen.
-An we judge the procedures by there theoretical performance on decidable fragments. 
+In this chapter we demonstrate the implications of undecidability for instantiation-based proving procedures like Gilmore's prover or the InstGen framework.
+%An we judge the procedures by there theoretical performance on decidable fragments. 
 
 We know by Herbrand's theorem (\ref{the:herbrand}, p.~\pageref{the:herbrand})
 that each satisfiable set of clauses $S$
@@ -30,7 +30,7 @@ until we've created an unsatisfiable one.
 
 \section{Gilmore's Prover}
 
-Paul Gilmore presented the first implementation \cite{5392528} of an automated first order theorem prover in 1960.
+Paul Gilmore presented the first {\myem implementation} \cite{5392528} of an automated first order theorem prover in 1960.
 %
 The prover's procedure 
 creates a sequence of finite sets of ground instances $S_k$ 
@@ -46,7 +46,7 @@ Following Gilmore's prover we can easily prove the syllogism from above.
 \begin{example}\label{ex:syllo}
 	First we translate the syllogism into a formula $F$ in first order logic.
 	\begin{align*}
-		F &= A \limp (B \limp C) \equiv \lnot(A\land B) \lor C 
+		F &= A \limp (B \limp C) \equiv \lnot(A\land B) \lor C \equiv (A\land B)\limp C  
 		\tag*{formula}
 		\\[0.5em]
 		A &= \forall x\, ( \human(x) \limp \mortal(x) 
@@ -65,15 +65,16 @@ Following Gilmore's prover we can easily prove the syllogism from above.
 %$\mortal^\mcI = \{ (\fosca) \}$.
 
 
-	Then we negate the formula $\lnot F \equiv A\land B \land\lnot C$.
+	Then we negate the formula to conjunctive normal form $\lnot F \equiv A\land B \land\lnot C$.
 	Since there is exactly one constant we get
 	$H_0 = \{ \fosca \}$ and 
 	$S_0 = 
 	\{
 	(\lnot\human(\fosca)\lor\mortal(\fosca))\land\human(\fosca)\land\lnot\mortal(\fosca)
 	\}$ in our first iteration. 
-	At last we transform the single formula in 
-	the set of ground instances $S_0$ for easy satisfiability checking.
+	As last step we transform the single formula in 
+	the set of ground instances $S_0$ into a disjunctive normal form 
+	for easy satisfiability checking.
 %
 \begin{gather*}
 (\lnot\human(\fosca)\land\human(\fosca)\land\lnot\mortal(\fosca))
@@ -82,7 +83,7 @@ Following Gilmore's prover we can easily prove the syllogism from above.
 \\ 
 (\mortal(\fosca)\land\human(\fosca)\land\lnot\mortal(\fosca))
 \end{gather*}
-Since both conjunctions contain complementary literals we conclude the negated formula is unsatisfiable
+Both conjunctions contain complementary literals and we conclude the negated formula is unsatisfiable
  and the given syllogism holds.
  
 \end{example}
@@ -91,12 +92,15 @@ Gilmore's procedure will always terminate for an unsatisfiable set of clauses.
 It enumerates all possible sets of ground instances iteratively
 and one of them must be unsatisfiable for an unsatisfiable set of clauses. 
 However the number of iterations has no general upper bound. 
-Otherwise it would be a decision procedure for satisfiability in first order logic
-which cannot exist.
+Otherwise it would be a decision procedure for satisfiability
+which cannot exist because of undecidability of satisfiability in first order logic.
 
-It is easy to see for a set of clauses without non-constant function symbols that we can stop the procedure after one iteration because $H_i = H_0$ and $S_i = S_0$ for all $i\geq0$.
+It is easy to see that for a set of clauses without non-constant function symbols
+we can stop the procedure after one iteration because $H_i = H_0$ and $S_i = S_0$ for all $i\geq0$.
 %
-But the procedure will never terminate even for very simple satisfiable sets where the Herbrand universe is infinite, i.e.~there is at least on non-constant function symbol.
+On the other hand the procedure will never terminate 
+even for very simple satisfiable sets where the Herbrand universe is infinite, 
+i.e.~there is at least on non-constant function symbol.
 
 \begin{example}
 	Consider the formula 
@@ -125,55 +129,66 @@ But the procedure will never terminate even for very simple satisfiable sets whe
 
 
 \begin{example}\label{ex:simplesat}
-	Consider the unsatisfiable set of clauses $S=\{ \mN(\msucc^{k+2}(\mzero)), \lnot\mN(\msucc(x))  \}$
-	\begin{align*}
-	H_{0} :=&\  \{ \mzero \} 
-	&
-	S_{0} :=&\ \{ \mN(\msucc^{k+2}(\mzero)), \lnot\mN(\msucc(\mzero))
-	\}
-	\tag*{satisfiable}
-	\\
-	H_{i+1} :=&\ H_i \disjointunion \{ \msucc(\msucc^{i}(\mzero)) \} 
-	&
-	S_{i+1} :=&\ S_i \disjointunion \{ \lnot\mN(\msucc(\msucc^i(\mzero)))
-	\}
-	\tag*{satisfiable}
-	\end{align*}
+%	Consider the unsatisfiable set of clauses $S=\{ \mN(\msucc^{k+2}(\mzero)), \lnot\mN(\msucc(x))  \}$
+%	\begin{align*}
+%	H_{0} :=&\  \{ \mzero \} 
+%	&
+%	S_{0} :=&\ \{ \mN(\msucc^{k+2}(\mzero)), \lnot\mN(\msucc(\mzero))
+%	\}
+%	\tag*{satisfiable}
+%	\\
+%	H_{i+1} :=&\ H_i \disjointunion \{ \msucc(\msucc^{i}(\mzero)) \} 
+%	&
+%	S_{i+1} :=&\ S_i \disjointunion \{ \lnot\mN(\msucc(\msucc^i(\mzero)))
+%	\}
+%	\tag*{satisfiable}
+%	\end{align*}
 \end{example}
 
  
 
 \begin{example}\label{ex:succ}
-	Consider the satisfiable set of clauses 
-	$S_{\ref{ex:succ}} = \{ 
-	\lnot\mE(\msucc(x), \mzero), 
-	\lnot \mE(\msucc(x), \msucc(y)) \lor \mE(x,y)
-	\}$ with binary predicate symbol $\mE$, unary function symbol $\msucc$, and constant symbol $\mzero$.
-	\begin{align*}
-	H_0 :=&\quad \{ \mzero \} & \mcC_0' &= \{  
-	\lnot\mE(\msucc(\mzero), \mzero), 
-	\lnot \mE(\msucc(\mzero), \msucc(\mzero)) \lor \mE(\mzero,\mzero)
-	\}
-	\\
-	H_1 :=&\quad \{ \msucc(\mzero) \} & \mcC_1' &= \{ 
-		\lnot\mE(\msucc(\msucc(\mzero), \mzero),
-		\lnot \mE(\msucc(\msucc(\mzero)), \msucc(\msucc(\mzero))) \lor \mE(\msucc(\mzero),\msucc(\mzero))
-	 \}
-	 \\\ldots
-	 \\
-	 H_i :=&\quad \{ 
-	 \msucc(\msucc^i(\mzero)) \} & \mcC_i' &= \{  
-	 \lnot\mE(\msucc(\msucc^i(\mzero)), \mzero), 
-	 \lnot \mE(\msucc(\msucc^i(\mzero)), \msucc(\msucc^i(\mzero)) \lor \mE(\msucc^i(\mzero),\msucc^i(\mzero))
-	 \}
-	\end{align*} 
-	It is easy to see that each $\mcC_i'$ is satisfiable and Gilmore's prover will proceed for ever.
-	\begin{align*}
-	A := &\ \{ \mzero \} \\
-	s := &\ \mzero\mapsto\mzero \\
-	\mE := &\ \{\ \} \subseteq A\times A
-	\end{align*}
+%	Consider the satisfiable set of clauses 
+%	$S_{\ref{ex:succ}} = \{ 
+%	\lnot\mE(\msucc(x), \mzero), 
+%	\lnot \mE(\msucc(x), \msucc(y)) \lor \mE(x,y)
+%	\}$ with binary predicate symbol $\mE$, unary function symbol $\msucc$, and constant symbol $\mzero$.
+%	\begin{align*}
+%	H_0 :=&\quad \{ \mzero \} & \mcC_0' &= \{  
+%	\lnot\mE(\msucc(\mzero), \mzero), 
+%	\lnot \mE(\msucc(\mzero), \msucc(\mzero)) \lor \mE(\mzero,\mzero)
+%	\}
+%	\\
+%	H_1 :=&\quad \{ \msucc(\mzero) \} & \mcC_1' &= \{ 
+%		\lnot\mE(\msucc(\msucc(\mzero), \mzero),
+%		\lnot \mE(\msucc(\msucc(\mzero)), \msucc(\msucc(\mzero))) \lor \mE(\msucc(\mzero),\msucc(\mzero))
+%	 \}
+%	 \\\ldots
+%	 \\
+%	 H_i :=&\quad \{ 
+%	 \msucc(\msucc^i(\mzero)) \} & \mcC_i' &= \{  
+%	 \lnot\mE(\msucc(\msucc^i(\mzero)), \mzero), 
+%	 \lnot \mE(\msucc(\msucc^i(\mzero)), \msucc(\msucc^i(\mzero)) \lor \mE(\msucc^i(\mzero),\msucc^i(\mzero))
+%	 \}
+%	\end{align*} 
+%	It is easy to see that each $\mcC_i'$ is satisfiable and Gilmore's prover will proceed for ever.
+%	\begin{align*}
+%	A := &\ \{ \mzero \} \\
+%	s := &\ \mzero\mapsto\mzero \\
+%	\mE := &\ \{\ \} \subseteq A\times A
+%	\end{align*}
 \end{example}
+
+\begin{definition}
+	For a unary function symbol $\msucc$,
+	$i\in\mathbb{N}$ and an arbitrary term $t\in\mcTf$ we introduce the notation
+	\[
+\begin{array}{rl}
+\msucc^0(t) &:=\ t \\
+\msucc^{i+1}(t) &:=\ \msucc(\msucc^i(t))
+\end{array}
+	\]
+\end{definition}
 
 
 
@@ -187,27 +202,50 @@ The second was already addressed by Davis and Putnam in 1960
 which lead to the development of effective SAT Solvers.
 
 \begin{example}\label{ex:unsatE2}
-	Consider the unsatisfiable set of clauses 
-	\[ 
-	S_{\ref{ex:unsatE2}} = 
+	Consider the set of clauses 
+	$S =\
 	\{
-	\lnot\mE(\ms(x),x), \mE(\ms(\ms^i(y), \ms^i(y)) 
-	\} 
-	\]
-	Now we would have to construct $C'_{1233}$ to get instance $\lnot\mE(\ms(\ms^i(y), \ms^i(y))$
+	{ \lnot\mE(x, \ms(x)))}, 
+	{ \mE(\ms^k(y), \ms(\ms^k(y)))}
+	\}$ 
+	where the set of instances $S_k$ is clearly unsatisfiable for any $k\in\mathbb{N}$.
+%	
+\begin{align*}
+H_{0} :=&\  \{ \mc \} 
+&
+S_{0} :=&\ \{ 
+{\colHi\lnot\mE(\mc,\msucc(\mc))},\
+{\colEm \mE(\ms^k(\mc), \ms(\ms^k(\mc)))}
+\}
+\\
+H_{i} :=&\ \{ \mc, \ldots, \msucc^i(\mc) \} 
+&
+S_{i} \supsetneq&\
+\{
+{\colEm \lnot\mE(\msucc^i(\mc),\msucc(\msucc^i(\mc)))},\
+{\mE(\ms^k(\msucc^i(\mc)), \ms(\ms^k(\msucc^i(\mc))))}
+\}
+\end{align*}
 \end{example}
 
 \section{InstGen}
 
 \begin{example}\label{ex:unsat2}
-Consider the unsatifiable set of instances
-$ 
+Let $S$ be the set of clauses 
+$S_0 =\
 \{
-\lnot\mE(\ms(\ms^i(\mzero), \ms^i(\mc)), \mE(\ms(\ms^i(\mc), \ms^i(\mc)) 
-\} 
-$
-that is clearly an unsatisfiable subset of all ground instances of $S_{\ref{ex:unsatE2}}$.
-
+{ \lnot\mE(x, \ms(x)))}, 
+{ \mE(\ms^k(y), \ms(\ms^k(y)))}
+\}$
+ from Example \ref{ex:unsatE2}. 
+ The selected literals clash with unifier 
+ $\sigma = \{ x\mapsto \msucc(s^k(y)) \}$ and we get a new instance
+and $S_1 =\
+ \{
+ { \lnot\mE(x, \ms(x)))},\  
+ { \mE(\ms^k(y), \ms(\ms^k(y)))},\
+ { \lnot\mE(\ms^k(y), \ms(\ms^k(y)))}
+ \}$
 \end{example}
 
 
