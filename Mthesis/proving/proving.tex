@@ -26,22 +26,33 @@ is to find an unsatisfiable set of ground instances of a given set of clauses.
 
 To actually prove a theorem 
 we first make use of the fact that a first-order formula is valid if and only if its negation is unsatisfiable.
-Second we utilize existing efficient transformation algorithms (Tseitin, Plaisted, Greenbaum) 
-\cite{tseitin70} \cite{PLAISTED1986293}
--- e.g. Tseytin's transformation -- from an arbitrary formula to an equisatisfiable set of clauses, 
-i.e. the formula is satisfiable if and only if the set of clauses is satisfaible, 
+Second we utilize existing efficient transformation algorithms \cite[...]{tseitin70, PLAISTED1986293}
+from an arbitrary formula to an equisatisfiable set of clauses, 
+i.e.the formula is satisfiable if and only if the set of clauses is satisfaible, 
 but formula and set of clauses may have different models.
+To actually find an unsatisfiable set of unsatisfiable ground instances
+usually a sequence of sets of ground instances is generated.
 
 
-
-
+%
+%\section{Equisatisfiability}
+%
+%\begin{definition}
+%%	If a formula $F$ is satisfiable if and only if a set of clauses $S$ is satisfiable 
+%%	then we call $F$ and $S$ are equisatisfiable.
+%\end{definition}
+%
+%Tseitin's transformation \cite{tseitin70} -- 
+%
+%
+%There are some optimization to this transformation, e.g.~by Plaisted and Greenbaum in 1986 \cite{PLAISTED1986293}.
 
 
 
 
 \section{Gilmore's Prover}
 
-Paul Gilmore presented the first {\myem implementation} \cite{5392528} of an automated first order theorem prover in 1960.
+Paul Gilmore presented the first {\myem implementation} of an automated first order theorem prover in 1960 \cite{5392528}.
 %
 The prover's procedure 
 creates a sequence of finite sets of ground instances $S_k$ 
