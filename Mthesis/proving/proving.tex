@@ -6,22 +6,33 @@
 
 \input{epigraphs/syllogism}
 
-In this chapter we demonstrate the implications of undecidability for instantiation-based proving procedures like Gilmore's prover or the InstGen framework.
+In this chapter we demonstrate the implications of undecidability of first order logic 
+for instantiation-based proving procedures like Gilmore's prover or the InstGen framework.
 %An we judge the procedures by there theoretical performance on decidable fragments. 
-
-We know by Herbrand's theorem (\ref{the:herbrand}, p.~\pageref{the:herbrand})
-that each satisfiable set of clauses $S$
-and each finite set of ground instances of $S$
+%
+We know by Herbrand's theorem 
+%(\ref{the:herbrand}, p.~\pageref{the:herbrand})
+that each satisfiable set of (non-ground) clauses
+and each finite set of ground instances of a satisfiable set of (non-ground) clauses
 has a Hebrand model. 
-And we know by compactness (\ref{the:compactness}, p.~\pageref{the:compactness})
-that if every finite subset of a set of clauses $S$ is satisfiable then $S$ is satisfiable.
+And we know by compactness 
+%(\ref{the:compactness}, p.~\pageref{the:compactness})
+that if every finite subset of a set of clauses is satisfiable then this set is satisfiable.
 The satisfiability of ground instances is decidable as we have seen in the previous chapter.
-So the central idea of instantiation-based first order theorem proving is the
-translation of an undecidable problem into a possible infinite sequence of decidable problems.
-First we make use of the fact that a first-order formula is valid if and only if its negation is unsatisfiable.
-Second we utilize existing efficient transformation algorithms -- e.g. Tsetin -- from arbitrary formulas to equisatisfiable sets of clauses. 
-To prove that a given set of clauses is unsatisfiable we create a sequence of finite subsets of all ground instances of this set
-until we've created an unsatisfiable one. 
+So the central idea of instantiation-based first order theorem proving 
+is to find an unsatisfiable set of ground instances of a given set of clauses.
+%So the central idea of instantiation-based first order theorem proving is the
+%translation of an undecidable problem into a (potentially infinite) sequence of decidable problems.
+
+To actually prove a theorem 
+we first make use of the fact that a first-order formula is valid if and only if its negation is unsatisfiable.
+Second we utilize existing efficient transformation algorithms (Tseitin, Plaisted, Greenbaum) 
+\cite{tseitin70} \cite{PLAISTED1986293}
+-- e.g. Tseytin's transformation -- from an arbitrary formula to an equisatisfiable set of clauses, 
+i.e. the formula is satisfiable if and only if the set of clauses is satisfaible, 
+but formula and set of clauses may have different models.
+
+
 
 
 
