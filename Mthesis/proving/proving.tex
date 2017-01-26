@@ -20,18 +20,22 @@ And we know by compactness
 that if every finite subset of a set of clauses is satisfiable then this set is satisfiable.
 The satisfiability of ground instances is decidable as we have seen in the previous chapter.
 So the central idea of instantiation-based first order theorem proving 
-is to find an unsatisfiable set of ground instances of a given set of clauses.
+is to find an unsatisfiable and finite set of ground instances for a given set of clauses.
+In general a failure in this approach does not show satisfiability of the given set of clauses.
 %So the central idea of instantiation-based first order theorem proving is the
 %translation of an undecidable problem into a (potentially infinite) sequence of decidable problems.
 
+
 To actually prove a theorem 
 we first make use of the fact that a first-order formula is valid if and only if its negation is unsatisfiable.
-Second we utilize existing efficient transformation algorithms \cite[...]{tseitin70, PLAISTED1986293}
+Second we utilize existing efficient transformation algorithms \cite{tseitin70, PLAISTED1986293}
 from an arbitrary formula to an equisatisfiable set of clauses, 
-i.e.the formula is satisfiable if and only if the set of clauses is satisfaible, 
-but formula and set of clauses may have different models.
-To actually find an unsatisfiable set of unsatisfiable ground instances
-usually a sequence of sets of ground instances is generated.
+i.e.~the formula is satisfiable if and only if the set of clauses is satisfiable, 
+but the original formula and the resulting set of clauses may have very different models.
+It is sufficient to just guess an unsatisfiable set of ground instances. 
+But usually a sequence of sets of ground instances is generated 
+such that eventually an unsatisfiable one is found for arbitrary unsatisfiable set of clauses.
+
 
 
 %
@@ -52,8 +56,12 @@ usually a sequence of sets of ground instances is generated.
 
 \section{Gilmore's Prover}
 
-Paul Gilmore presented the first {\myem implementation} of a theoretically complete, i.e.~it will eventually find a proof for every valid formula,  automated first order theorem prover in 1960 \cite{5392528}.
-%
+In 1960 Paul Gilmore presented the first {\myem implementation} of a complete, 
+i.e.~a proof will be found eventually for every valid formula, 
+and automated theorem prover \cite{5392528} for first order logic without equality. 
+In practice this prover ran into memory issues or time outs more often than not.
+We will discuss reasons for this inefficiency after we have described and demonstrated the procedure.
+
 The prover's procedure 
 creates a sequence of finite sets of ground instances $S_k$ 
 for a set of clauses $S\approx\lnot F$ to prove the validity of a formula $F$.
@@ -126,16 +134,17 @@ i.e.~there is at least on non-constant function symbol.
 
 \begin{example}
 	Consider the formula 
-	$F = \forall x\exists y\,\lnot\mE(x,y)$
-	which is a member of the Ackermann class $\forall^*\exists\forall^*$ 
-	where satisfiability is decidable.
+	$G = \exists x\forall y\,\mE(x,y)$
+	which is a member of the Ackermann prefix class $\forall^*\exists\forall^*$ 
+	of first order formulae
+	where the satisfiability problem is decidable.
 	The set of clauses 
-	$S = \{ \lnot\mE(x,\msucc(x)) \}$ is equisatisfiable to $F$.
-	The procedure yields the following sequences of distinct and satisfiable sets $S_{k\geq0}$:
+	$S = \{ \mE(\mzero,y) \}$ is equisatisfiable to $G$ and clearly satisfiable.
+	The procedure yields the following sequence of distinct and satisfiable sets $S_{k\geq0}$:
 	\begin{align*}
 	H_{0} :=&\  \{ \mzero \} 
 	&
-	S_{0} :=&\ \{ \lnot\mE(\mzero,\msucc(\mzero))
+	S_{0} :=&\ \{ \mE(\mzero,\mzero)
 	\}
 	\tag*{satisfiable}
 	\\
@@ -143,62 +152,11 @@ i.e.~there is at least on non-constant function symbol.
 	&
 	S_{i+1} :=&\ S_i \disjointunion 
 	\{
-	\lnot\mE(\msucc^i(\mzero),\msucc(\msucc^i(\mzero)))
+	\lnot\mE(\mzero,\msucc(\msucc^i(\mzero)))
 	\}
 	\tag*{satisfiable}
 	\end{align*}
-\end{example}
-
-
-\begin{example}\label{ex:simplesat}
-%	Consider the unsatisfiable set of clauses $S=\{ \mN(\msucc^{k+2}(\mzero)), \lnot\mN(\msucc(x))  \}$
-%	\begin{align*}
-%	H_{0} :=&\  \{ \mzero \} 
-%	&
-%	S_{0} :=&\ \{ \mN(\msucc^{k+2}(\mzero)), \lnot\mN(\msucc(\mzero))
-%	\}
-%	\tag*{satisfiable}
-%	\\
-%	H_{i+1} :=&\ H_i \disjointunion \{ \msucc(\msucc^{i}(\mzero)) \} 
-%	&
-%	S_{i+1} :=&\ S_i \disjointunion \{ \lnot\mN(\msucc(\msucc^i(\mzero)))
-%	\}
-%	\tag*{satisfiable}
-%	\end{align*}
-\end{example}
-
- 
-
-\begin{example}\label{ex:succ}
-%	Consider the satisfiable set of clauses 
-%	$S_{\ref{ex:succ}} = \{ 
-%	\lnot\mE(\msucc(x), \mzero), 
-%	\lnot \mE(\msucc(x), \msucc(y)) \lor \mE(x,y)
-%	\}$ with binary predicate symbol $\mE$, unary function symbol $\msucc$, and constant symbol $\mzero$.
-%	\begin{align*}
-%	H_0 :=&\quad \{ \mzero \} & \mcC_0' &= \{  
-%	\lnot\mE(\msucc(\mzero), \mzero), 
-%	\lnot \mE(\msucc(\mzero), \msucc(\mzero)) \lor \mE(\mzero,\mzero)
-%	\}
-%	\\
-%	H_1 :=&\quad \{ \msucc(\mzero) \} & \mcC_1' &= \{ 
-%		\lnot\mE(\msucc(\msucc(\mzero), \mzero),
-%		\lnot \mE(\msucc(\msucc(\mzero)), \msucc(\msucc(\mzero))) \lor \mE(\msucc(\mzero),\msucc(\mzero))
-%	 \}
-%	 \\\ldots
-%	 \\
-%	 H_i :=&\quad \{ 
-%	 \msucc(\msucc^i(\mzero)) \} & \mcC_i' &= \{  
-%	 \lnot\mE(\msucc(\msucc^i(\mzero)), \mzero), 
-%	 \lnot \mE(\msucc(\msucc^i(\mzero)), \msucc(\msucc^i(\mzero)) \lor \mE(\msucc^i(\mzero),\msucc^i(\mzero))
-%	 \}
-%	\end{align*} 
-%	It is easy to see that each $\mcC_i'$ is satisfiable and Gilmore's prover will proceed for ever.
-%	\begin{align*}
-%	A := &\ \{ \mzero \} \\
-%	s := &\ \mzero\mapsto\mzero \\
-%	\mE := &\ \{\ \} \subseteq A\times A
-%	\end{align*}
+	So Gilmore's prover wouldn't terminate on this simple and decidable problem.
 \end{example}
 
 \begin{definition}
@@ -252,17 +210,24 @@ S_{i} \supsetneq&\
 
 \section{InstGen}
 
+InstGen introduces a new constant $\bot\not\in\mcF$
+
 \begin{example}\label{ex:unsat2}
-Let $S$ be the set of clauses 
+Let $S$ be the set of clauses from Example \ref{ex:unsatE2}. 
+Then the initial set of ground instances 
 $S_0 =\
 \{
-{ \lnot\mE(x, \ms(x)))}, 
-{ \mE(\ms^k(y), \ms(\ms^k(y)))}
+{ \lnot\mE(\bot, \ms(\bot)))}, 
+{ \mE(\ms^k(\bot), \ms(\ms^k(\bot)))}
 \}$
- from Example \ref{ex:unsatE2}. 
+is satisfiable with domain $A = \{ \bot, \ms(\bot), \ms^k(\bot), \ms(\ms^k(\bot)) \}$
+and predicate interpretation 
+$\mE^\mcI = \{ (\ms^k(\bot), \ms(\ms^k(\bot))
+ \} \subseteq A^2$. 
+ 
  The selected literals clash with unifier 
- $\sigma = \{ x\mapsto \msucc(s^k(y)) \}$ and we get a new instance
-and $S_1 =\
+ $\sigma = \{ x\mapsto \msucc(s^k(y)) \}$ and we get the next set of ground instances
+$S_1 =\
  \{
  { \lnot\mE(x, \ms(x)))},\  
  { \mE(\ms^k(y), \ms(\ms^k(y)))},\

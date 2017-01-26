@@ -37,28 +37,35 @@ where notions and notations largely follow those in lecture notes \cite{AM2015tr
 
 \section{Semantics}
 
+In this section we recall some basic aspects and definitions of semantics in first order logic. 
+We restate satisfiability of clauses only and ignore validity and arbitrary formulas in first order logic.
+
 \begin{definition}
 	An {\myem interpretation} $\mcI$ over a signature $\mcF$ consists of a
 	non-empty set $A$ -- the {\myem universe} or {\myem domain},
-	definitions of functions $\mf^\mcI: A^n\rightarrow A$ for every function symbol $\mf\in\mcFf$, 
+	definitions of (partial) functions $\mf^\mcI: A^n\rightarrow A$ for every function symbol $\mf\in\mcFf$, 
 	and definitions of possibly empty relations 
 	 ${\mP^\mcI}\subseteq A^n$ for every predicate symbol $\mP\in\mcFP$
 	 (and ${\mEQ^\mcI}\subseteq A^2$ for the equality symbol)
 	
-	A ground predicate $\mP(t_1,\ldots,t_n)$ holds in interpretation $\mcI$ 
+	A ground predicate $\mP(t_1,\ldots,t_n)$ {\myem holds} in interpretation $\mcI$ 
 	if $\mP(t_1,\ldots,t_n) \in A^n$.
-	A ground literal holds in $\mcI$ if and only if its complementary literal does not hold in $\mcI$.
-	
+	A ground literal does not hold in $\mcI$ if and only if its complementary literal holds in $\mcI$.
+%	
 	A non-ground literal holds in $\mcI$ if all its 
-	(perhaps infinitely many)
+	(perhaps infinitely many) ground
 	instances hold in $\mcI$.
 	A clause holds in $\mcI$, if at least one of its literals holds in $\mcI$.
 	A set of clauses $S$ holds in $\mcI$, if every clause $\mcC\in S$ holds in $\mcI$.
 	We say $\mcI$ is a model {\em for} $S$ if $S$ holds in $\mcI$. 
 \end{definition}
 
+\begin{definition}
+	A set of clauses $S$ is satisfiable if and only if there is a model $\mcM$ for $S$. 
+\end{definition}
+
 \begin{definition}\label{def:hk}
-	An {\myem Herbrand universe} is the smallest set that contains all $H_k\ge 0$ of
+	An {\myem Herbrand universe} is the smallest set of terms that contains all $H_k\ge 0$ of
 	\begin{align*}
 	H_0 &:= \left\{ 
 	\begin{array}{ll}
@@ -70,34 +77,57 @@ where notions and notations largely follow those in lecture notes \cite{AM2015tr
 	\right. 
 	\\
 	H_{k+1} &:= H_k \cup \{\  
-	\mf(t_1,\ldots,t_k) \mid
-	\mf\in\mcFfn[k],
-	t_1,\ldots,t_k \in H_k
+	\mf(t_1,\ldots,t_n) \mid
+	\mf\in\mcFfn[n],
+	t_1,\ldots,t_n \in H_k
 	\ \}
 	\end{align*}
-	An {\myem Herbrand interpretation} $\mcH$ is an interpretation where the domain 
-	is an Hebrand unverse
+	
 \end{definition}
 
 \begin{definition}
+	An {\myem Herbrand interpretation} $\mcH$ is an interpretation where the domain 
+	is an Hebrand universe
 	and the interpretation of each ground term $t^\mcH := t$ is the term itself.
 	An {\myem equational} interpretation interprets the equality symbol as equality on its domain.
 \end{definition}
 
 \begin{definition}
-	An {\myem equational term interpretation} $\mcM$ is an equational interpretation 
-	where the elements of the domain $A$ 
+	An {\myem term interpretation} 
+	$\mcI_t$ 
+	is an interpretation 
+	where the elements of its domain $A = \mcTFf/_\sim$ 
 		are equivalence classes of ground terms
-		and the interpretation of each ground term $t^\mcM := [t]_\sim$ is its equivalence class.
-		An equation $s\mEQ t$ of ground terms holds in $\mcM$ if $[s]_\sim=[t]_\sim$;
-	A ground predicate $\mP(t_1,\ldots,t_n)$ holds in $\mcM$ if $\mP([t_1]_\sim,\ldots,[t_n]_\sim)] \in A^n$.
-	A ground literal holds in $\mcM$ if and only if its complementary literal does not hold in $\mcM$.
+		and the interpretation of each ground term $t^{\mcI_t} := [t]_\sim$ is its equivalence class.
+%		An equation $s\mEQ t$ of ground terms holds in if $[s]_\sim=[t]_\sim$.
+	 A ground predicate $\mP(t_1,\ldots,t_n)$ holds if 
+	 $([t_1]_\sim,\ldots,[t_n]_\sim) \in \mP^{\mcI_t} \subseteq A^n$.
+%	A ground literal does not hold if and only if its complementary literal holds.
+	In an {\myem equational} term interpretation an equation $s\mEQ t$ holds if an only if $s\sim t$.
 	
 \end{definition}
 
 \begin{example}
+	Consider the satisfiable set of clauses $S = \{ x \mEQ \mf(x) \}$. 
+%	
+	We easily find a Herbrand model $\mcH$ with
+	predicate definition $\mEQ^\mcH = \{ (\mf^{i}(\ma)), \mf^{i+1}(\ma)) \mid i\geq 0  \} $. 
+	However $\mcH$ is not an equational model because obviously $\ma\neq\mf(\ma)$ in its domain.
+%	
+	Further on we easily find an equational model $\mcM$ 
+	with domain $\{ \mc \}$, function definition $\mf(\mc) = \mc$, 
+	and $\mEQ$ is defined by equality in its domain.
+	Certainly this model $\mcM$ is not an Hebrand model 
+	because the interpretation of ground term ${\mf(\mc)}^\mcM \neq \mf(\mc)$ is not the term itself.
 	
+	On the other hand we easily get an equational term model with domain $\{ [\ma]_\sim\}$, 
+	a plain function definition
+	$\mf([\ma]_\sim) = [\ma]_\sim$, 
+	and an equivalence relation
+	$\ma \sim \mf(\ma)$
+	where $\mEQ$ is defined by equality in its domain.	
 \end{example}
+
 
 \section{Term Rewriting}
 
@@ -230,6 +260,10 @@ If $s$ is an expression then $t[s]_p$ represents the expression build by replaci
 
 \section{Usefull theorems}
 
+\begin{theorem}[Church 1936, Turing 1937]
+The satisfiability problem for first order logic is undecidable
+\end{theorem}
+
 \begin{theorem}[Compactness]\label{the:compactness}
 	If every finite subset of a set of formulas $S$ has a model then $S$ has a model. 
 \end{theorem}
@@ -237,14 +271,6 @@ If $s$ is an expression then $t[s]_p$ represents the expression build by replaci
 \begin{theorem}[Löwenheim Skolem]\label{the:loewenheim}
 	If a set of formulas $S$ has a model then $S$ has a countable model.
 \end{theorem}
-
-\begin{definition}
-A Herbrand universe 
-\end{definition}
-
-\begin{definition}
-	
-\end{definition}
 
 \begin{theorem}[Herbrand]\label{the:herbrand}
 	Let $S$ be a set of clauses without equality. Then the following statements are equivalent.
