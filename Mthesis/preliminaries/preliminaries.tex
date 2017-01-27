@@ -17,7 +17,7 @@ This section is an extension of the same section in our seminar report \cite{axm
 where notions and notations largely follow those in lecture notes \cite{AM2015tr} and \cite{GM2013ar}.
 
 
-\section{Syntax}
+\section{Syntax of First Order logic}
 
 \input{preliminaries/signature}
 
@@ -35,10 +35,11 @@ where notions and notations largely follow those in lecture notes \cite{AM2015tr
 
 \input{preliminaries/unifier}
 
-\section{Semantics}
+\section{Semantics of First Order logic}
 
 In this section we recall some basic aspects and definitions of semantics in first order logic. 
-We restate satisfiability of clauses only and ignore validity and arbitrary formulas in first order logic.
+We state satisfiability of clauses. For brevity we ignore arbitrary formulas in first order logic
+in our definitions.
 
 \begin{definition}
 	An {\myem interpretation} $\mcI$ over a signature $\mcF$ consists of a
@@ -46,10 +47,10 @@ We restate satisfiability of clauses only and ignore validity and arbitrary form
 	definitions of (partial) functions $\mf^\mcI: A^n\rightarrow A$ for every function symbol $\mf\in\mcFf$, 
 	and definitions of possibly empty relations 
 	 ${\mP^\mcI}\subseteq A^n$ for every predicate symbol $\mP\in\mcFP$
-	 (and ${\mEQ^\mcI}\subseteq A^2$ for the equality symbol)
+	 (and ${\mEQ^\mcI}\subseteq A^2$ for the equality symbol).
 	
 	A ground predicate $\mP(t_1,\ldots,t_n)$ {\myem holds} in interpretation $\mcI$ 
-	if $\mP(t_1,\ldots,t_n) \in A^n$.
+	if and only if $(t_1,\ldots,t_n) \in \mP^\mcI$.
 	A ground literal does not hold in $\mcI$ if and only if its complementary literal holds in $\mcI$.
 %	
 	A non-ground literal holds in $\mcI$ if all its 
@@ -62,6 +63,7 @@ We restate satisfiability of clauses only and ignore validity and arbitrary form
 
 \begin{definition}
 	A set of clauses $S$ is satisfiable if and only if there is a model $\mcM$ for $S$. 
+	A set of clauses is valid if and only if all clauses hold in every interpretation.
 \end{definition}
 
 \begin{definition}\label{def:hk}

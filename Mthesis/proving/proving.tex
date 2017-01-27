@@ -56,9 +56,11 @@ such that eventually an unsatisfiable one is found for arbitrary unsatisfiable s
 
 \section{Gilmore's Prover}
 
-In 1960 Paul Gilmore presented the first {\myem implementation} of a complete, 
-i.e.~a proof will be found eventually for every valid formula, 
-and automated theorem prover \cite{5392528} for first order logic without equality. 
+In 1960 Paul Gilmore presented the first {\myem implementation} of an automated 
+theorem prover \cite{5392528} for first order logic without equality. 
+The procedure was theoretically complete, i.e.~for every valid formula 
+a proof will be found eventually.
+
 In practice this prover ran into memory issues or time outs more often than not.
 We will discuss reasons for this inefficiency after we have described and demonstrated the procedure.
 
@@ -130,7 +132,18 @@ we can stop the procedure after one iteration because $H_i = H_0$ and $S_i = S_0
 %
 On the other hand the procedure will never terminate 
 even for very simple satisfiable sets where the Herbrand universe is infinite, 
-i.e.~there is at least on non-constant function symbol.
+i.e.~there is at least one non-constant function symbol.
+
+\begin{definition}
+	For an unary function symbol $\msucc$, a natural number
+	$i\in\mathbb{N}$, and an arbitrary term $t\in\mcTf$ we introduce the notation
+	\[
+	\begin{array}{rl}
+	\msucc^0(t) &:=\ t \\
+	\msucc^{i+1}(t) &:=\ \msucc(\msucc^i(t))
+	\end{array}
+	\]
+\end{definition}
 
 \begin{example}
 	Consider the formula 
@@ -159,17 +172,6 @@ i.e.~there is at least on non-constant function symbol.
 	So Gilmore's prover wouldn't terminate on this simple and decidable problem.
 \end{example}
 
-\begin{definition}
-	For a unary function symbol $\msucc$,
-	$i\in\mathbb{N}$ and an arbitrary term $t\in\mcTf$ we introduce the notation
-	\[
-\begin{array}{rl}
-\msucc^0(t) &:=\ t \\
-\msucc^{i+1}(t) &:=\ \msucc(\msucc^i(t))
-\end{array}
-	\]
-\end{definition}
-
 
 
 Gilmore's prover has two main disadvantages:
@@ -188,7 +190,8 @@ which lead to the development of effective SAT Solvers.
 	{ \lnot\mE(x, \ms(x)))}, 
 	{ \mE(\ms^k(y), \ms(\ms^k(y)))}
 	\}$ 
-	where the set of instances $S_k$ is clearly unsatisfiable for any $k\in\mathbb{N}$.
+	where the sets of instances $S_i$ are satisfiable for $i<k$,
+	but the set of instances $S_{i+1}$ is clearly unsatisfiable for $i+1 = k\in\mathbb{N}$.
 %	
 \begin{align*}
 H_{0} :=&\  \{ \mc \} 
@@ -198,19 +201,104 @@ S_{0} :=&\ \{
 {\colEm \mE(\ms^k(\mc), \ms(\ms^k(\mc)))}
 \}
 \\
-H_{i} :=&\ \{ \mc, \ldots, \msucc^i(\mc) \} 
+H_{i+1} :=&\ H_i \disjointunion \{ \msucc^{i+1}(\mc) \} 
 &
-S_{i} \supsetneq&\
+S_{i+1} \supsetneq&\
 \{
-{\colEm \lnot\mE(\msucc^i(\mc),\msucc(\msucc^i(\mc)))},\
-{\mE(\ms^k(\msucc^i(\mc)), \ms(\ms^k(\msucc^i(\mc))))}
+{\colEm \lnot\mE(\msucc^{i+1}(\mc),\msucc(\msucc^{i+1}(\mc)))},\
+{\mE(\ms^k(\msucc^{i+1}(\mc)), \ms(\ms^k(\msucc^{i+1}(\mc))))}
 \}
 \end{align*}
+In this case the guess for a finite unsatisfiable set of ground instances appears more easy and yields a smaller set.
+\[
+	\{ 
+		{\lnot\mE(\mc,\msucc(\mc))},\
+		{\colHi \mE(\ms^k(\mc), \ms(\ms^k(\mc)))},
+		{\colLo \lnot\mE(\msucc^{k}(\mc),\msucc(\msucc^{k}(\mc)))}		
+	\}
+\]
 \end{example}
 
 \section{InstGen}
 
-InstGen introduces a new constant $\bot\not\in\mcF$
+Gilmore's prover blindly constructs new ground instances. 
+
+\begin{definition}[Inst-Gen]
+	\begin{gather*}
+	\infer
+	[\atop\text{Inst-Gen}] 
+	{(A\lor\mathcal C)\sigma\qquad (\lnot B\lor\mathcal D)\sigma}
+	{A\lor\mathcal C\quad&\quad \lnot B\lor\mathcal D}
+	\end{gather*}
+	\begin{center}$\sigma=\mgu(A,B)$, $\sigma$ is proper\end{center}
+	%	The rule looks very similar to the resolution rule in Definition \ref{def:res}.
+	%	But there is an important difference. 
+	%	Instead of combining two clauses to one single clause,
+	%	the most general unifier $\sigma$ is used to derive two instances.
+	%	At least one is different from its origin, because the substitution must be proper.
+	%	In contrast to the recombination of clauses  the maximal size of clauses, i.e.~the number of literals in a clause, 
+	%	obviously does not increase in any case.
+	%The maximal number of literals in any clause of $S$ does no grow.
+	%{\small This rule looks very similar to resolution. But instead of combining two clauses to one single new clause,
+	%the most general unifier $\sigma$ is used to derive two new clauses.}
+\end{definition}
+
+\begin{lemma}
+	The set of clauses 
+	$S_0 = S \cup
+	\{ 
+		 A\lor\mathcal C, \lnot B\lor\mathcal D
+	\}$ 
+	is satisfiable if and only if
+	the derived set of clauses 
+	$S_1 = S_0 \cup \{ (A\lor\mathcal C)\sigma, (\lnot B\lor\mathcal D)\sigma\}$
+	with $\sigma = \mgu(A,B)$ 
+	is satisfiable.
+\end{lemma}
+
+\begin{figure}[hbt]
+	\begin{center}
+		\begin{tikzpicture}[scale=0.95, transform shape]
+		\node[rectangle] (start) at (0,-4em) {};
+		\node (nc) [myrect] at (0,0) {new\\clauses};
+		\node (pc) [myrect] at (0,8em) {passive clauses};
+		\node (ab) [myrect] at (-8em,3.5em) {instantiation};
+		\node (gs) [myrect] at (-8em,8em) {SMT};
+		\node (un) [mycircle] at (-15em,8em) {un\-satis\-fiable};
+		\node (se) [myrect] at (-8em,12.5em) {selection};
+		\node (gc) [myrect] at (0em,16em) {given clause};
+		\node (ac) [myrect,dashed] at (-13em,16.5em) {active clauses};
+		
+		\node (sl) [myrect, thick] at (8.5em,12.5em) {selected literal};
+		\node (us) [myrect,very thick, 
+%		minimum width=8em, minimum height=3.5em, text width=7em
+		] at (8.5em,8em) {\large InstGen};
+		\node (sa) [mycircle] at (16em,8em) {satis\-fiable};
+		\node (su) [myrect] at (8.5em,3.5em) {substitution};
+		
+		\draw[myarrow] (start) to (nc);
+		\draw[myarrow] (nc) to (pc);
+		\draw[myarrow] (nc.west)  to [bend left=10] (ab);
+		\draw[myarrow] (ab) to (gs);
+		\draw[myarrow] (gs) to (un);
+		\draw[myarrow] (gs) to (se);
+		\draw[myarrow] (pc) to (gc);
+		\draw[myarrow] (se.north) to [bend left=10] (gc.west);
+		\draw[myarrow] (us) to (sa);
+		\draw[myarrow] (us) to (su);
+		\draw[myarrow] (su) to [bend left=10] (nc.east);
+		\draw[myarrow] (sl) to (us);
+		\draw[myarrow] (gc.east) to [bend left=10] (sl.north);
+		\draw[myarrow,dashed] (gc.north) to [bend right=15](ac);
+		\end{tikzpicture}
+		\caption{Proving loop with SMT and InstGen}
+		\label{fig:inst-gen-maxcomp}
+	\end{center}
+\end{figure}
+
+
+
+InstGen introduces a new distinct constant $\bot\not\in\mcF$
 
 \begin{example}\label{ex:unsat2}
 Let $S$ be the set of clauses from Example \ref{ex:unsatE2}. 
@@ -225,7 +313,7 @@ and predicate interpretation
 $\mE^\mcI = \{ (\ms^k(\bot), \ms(\ms^k(\bot))
  \} \subseteq A^2$. 
  
- The selected literals clash with unifier 
+ With just two unit clause ew easily find candidates for the application of the InstGen rule 
  $\sigma = \{ x\mapsto \msucc(s^k(y)) \}$ and we get the next set of ground instances
 $S_1 =\
  \{

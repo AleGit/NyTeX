@@ -6,7 +6,42 @@ A Cartesian product is a mathematical operation that returns a set of tuples fro
 A {\myem relation R} on a Cartesian product $A_1 \times \ldots \times A_n$ 
 is a subset of this Cartesian product.
 
+For the following definitions we express the conditions as predicates clausal form, 
+i.e.~the variables are universally quantified. 
+
 \end{definition}
+A binary relation $R$ on domain $A$
+\begin{align*}
+R(x,x)
+\tag*{reflexive}
+\\
+\lnot R(x,x) 
+\tag*{irreflexive}
+\\
+\lnot R(x,y) \lor \lnot R(y,z) \lor R(x,z)
+\tag*{transitive}
+\\
+\lnot R(x,y) \lor R(y,x)
+\tag*{symmetric}
+\\
+\lnot R(x,y) \lor \lnot R(y,x)
+\tag*{asymmetric}
+\\
+\lnot (x,y) \lor \lnot (y,x) \lor x = y
+\tag*{antisymmetric}
+\end{align*}
+
+\begin{corollary}
+	Not symmetric is different from asymmetric.
+	\begin{align*}
+	\lnot\left( \forall x \forall y\ (\lnot R(x,y) \lor R(y,x) \right)
+	&\equiv
+	\exists x\exists y\ R(x,y) \land \lnot R(y,x) \\
+	&\not\equiv
+	\forall x\forall y\ \lnot R(x,y) \lor \lnot R(y,x)
+	\end{align*} 
+\end{corollary}
+
 
 \begin{definition}
 	
