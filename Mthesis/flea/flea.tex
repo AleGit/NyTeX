@@ -7,7 +7,7 @@
 \input{epigraphs/faust}
 
 In this chapter we introduce \verb|FLEA| --
-our {\textbf f}irst order {\textbf l}ogic with {\textbf e}quality theorem {\textbf a}ttester. 
+our {\textbf F}irst Order {\textbf L}ogic with {\textbf E}quality Theorem {\textbf A}ttester. 
 It is 
 -- as the reader may allready suspect --
 a modest implementation of an instantiation based theorem prover for first order clauses with equality.
@@ -33,21 +33,26 @@ protocol Node: Hashable {
 
 We can simply encode first order atoms purely propositional 
 when we construct the name for the propositional atom 
-from a predicate or equation recursivly.
+from a predicate or equation recursively as concatination of symbols.
+
+
 
 \begin{definition}
+	We derive the propositional identifier of a general term as follows
 \DEFINE{\xi(\mct)}{
-	\mc_0 &\text{if } \mct=x\in\mcV, \mc_0\not\in\mcF 
+	\bot &\text{if } \mct=x\in\mcV, \bot\not\in\mcF 
 	\tag*{}\\
 	\mc &\text{if } \mct=c\in\mcFn[0]\\
-	\mcf\dis\xi(t_1)\dis\ldots\dis\xi(t_n) &\text{if }\mct=\mcf(t_1,\ldots,t_n), \mcf\in\mcFn
+	\mcf\encsep\xi(t_1)\encsep\ldots\encsep\xi(t_n) &\text{if }\mct=\mcf(t_1,\ldots,t_n), \mcf\in\mcFn
 }
+where $\bot, \encsep\not\in\mcF$ are distinct symbols that do not occur in the signature of the set of clauses.
 \end{definition}
 
 \begin{example}
+	We encode a simple predicate and an simple equation as follows.
 	\begin{align*}
-	\xi(\mpp(\mf(x,y),g(y)) &= \mpp\dis\mf\dis\bot\dis\bot\dis\mg\dis\bot\\
-	\xi(\mf(x,y)\mEQ \mg(y)) &= {\mEQ}\dis\mf\dis\bot\dis\bot\dis\mg\dis\bot\\
+	\xi(\mpp(\mf(x,y),g(y)) &= \mpp\encsep\mf\encsep\bot\encsep\bot\encsep\mg\encsep\bot\\
+	\xi(\mf(x,y)\mEQ \mg(y)) &= {\mEQ}\encsep\mf\encsep\bot\encsep\bot\encsep\mg\encsep\bot\\
 	\end{align*}
 \end{example}
 
@@ -66,6 +71,72 @@ from a predicate or equation recursivly.
 	: (U^n\rightarrow \mathsf{Bool})\ \Xi(t_1)\ \ldots\ \Xi(t_n)
 	&\text{if }\mct=\mP(t_1,\ldots,t_n), \mP\in\mcFPn 
 }
+
+\begin{lstlisting}[language=FLEA]
+struct Yices {
+ static func setUp() {
+  yices_init()
+ }
+ static func tearDown() {
+  yices_exit()
+ }
+}
+\end{lstlisting}
+
+\begin{lstlisting}[language=FLEA]
+extension Yices {
+ static var bool_tau = yices_bool_type()
+ static var free_tau: type_t { return namedType("$\tau$") }
+ 
+ /// Get or create (uninterpreted) type `name`.
+ static func namedType(_ name: String) -> type_t {
+  var tau = yices_get_type_by_name(name)
+  if tau == NULL_TYPE {
+   tau = yices_new_uninterpreted_type()
+   yices_set_type_name(tau, name)
+  }
+  return tau
+ }
+ 
+ /// Get or create an uninterpreted global `symbol` of type `term_tau`.
+ static func typedSymbol(symbol: String, term_tau: type_t) -> term_t {
+  var c = yices_get_term_by_name(symbol)
+  if c == NULL_TERM {
+   c = yices_new_uninterpreted_term(term_tau)
+   yices_set_term_name(c, symbol)
+  } 
+  return c
+ }
+\end{lstlisting}
+
+\begin{lstlisting}[language=FLEA] 
+ /// Get or create a global constant `symbol` of type `term_tau`
+ static func constant(_ symbol: String, term_tau: type_t) -> term_t {
+  return typedSymbol(symbol, term_tau: term_tau)
+ }
+ 
+ /// Create a homogenic domain tuple
+ static func domain(_ count: Int, tau: type_t) -> [type_t] {
+  return [type_t](repeating: tau, count: count)
+ }
+ 
+ /// Get or create a function symbol of type domain -> range
+ static func function(_ symbol: String, domain: [type_t], range: type_t) -> term_t {
+  let f_tau = yices_function_type(UInt32(domain.count), domain, range)
+  return typedSymbol(symbol, term_tau: f_tau)
+ }
+}
+\end{lstlisting}
+
+\begin{lstlisting}[language=FLEA, mathescape=true]{SMT encoding}
+yices_init()
+let B = yices_bool_type()
+let U = Yices.namedType(name: "$\tau$")
+
+
+if foo
+list= { $S_1,S_2,S_3$ }
+\end{lstlisting}
 
 \begin{lstlisting}[language=FLEA]{Propositional encoding}
 func encodeSAT<N:Node>(term: N) -> term_t {

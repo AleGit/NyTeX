@@ -7,7 +7,7 @@ Two expressions $\mct, \mcu$ are {\myem unifiable} if there exists a substitutio
 The {\myem most general unifier} $\mgu(\mct,\mcu)$ is a unifier such that
 for every other unifier $\sigma'$ there exists a substitution $\tau$ where
 $\sigma' = \sigma \tau$. 
-Two literals are variants if their $\mgu$ is a renaming.
+Two literals are variants if their most general unifier is a renaming.
 Two literals are {\myem clashing} when the complement of the first literal 
 and the unchanged second literal are unifiable, i.e.~$L$ and $L'$ are clashing if $\mgu(L^c, L')$ exists.
 \end{definition}

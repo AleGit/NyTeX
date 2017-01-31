@@ -1,48 +1,83 @@
+% !TeX root = ../mthesis.tex
+% !TeX encoding = UTF-8
+% !TeX spellcheck = en_US
 
-\begin{definition}
-A Cartesian product is a mathematical operation that returns a set of tuples from an ordered list of sets.
-%\end{definition}
 %\begin{definition}
-A {\myem relation R} on a Cartesian product $A_1 \times \ldots \times A_n$ 
-is a subset of this Cartesian product.
+%%A Cartesian product is a mathematical operation that returns a set of tuples from an ordered list of sets.
+%%\end{definition}
+%%\begin{definition}
+%A binary relation on $A$ is a subset of $A \times A$, the Cartesian product of $A$ and $A$, i.e.~all pairs of elements of $A$.
+%\end{definition}
 
-For the following definitions we express the conditions as predicates clausal form, 
-i.e.~the variables are universally quantified. 
+%For the following definitions we express the conditions as predicates clausal form, 
+%i.e.~the variables are universally quantified. 
 
-\end{definition}
-A binary relation $R$ on domain $A$
-\begin{align*}
-R(x,x)
-\tag*{reflexive}
-\\
-\lnot R(x,x) 
-\tag*{irreflexive}
-\\
-\lnot R(x,y) \lor \lnot R(y,z) \lor R(x,z)
-\tag*{transitive}
-\\
-\lnot R(x,y) \lor R(y,x)
-\tag*{symmetric}
-\\
-\lnot R(x,y) \lor \lnot R(y,x)
-\tag*{asymmetric}
-\\
-\lnot (x,y) \lor \lnot (y,x) \lor x = y
-\tag*{antisymmetric}
-\end{align*}
 
-\begin{corollary}
-	Not symmetric is different from asymmetric.
-	\begin{align*}
-	\lnot\left( \forall x \forall y\ (\lnot R(x,y) \lor R(y,x) \right)
-	&\equiv
-	\exists x\exists y\ R(x,y) \land \lnot R(y,x) \\
-	&\not\equiv
-	\forall x\forall y\ \lnot R(x,y) \lor \lnot R(y,x)
-	\end{align*} 
-\end{corollary}
+%\begin{definition}
+%We label a binary relation $R$ on an arbitrary domain $A$ if for all $x,y,z\in A$ the following holds
+%\begin{align*}
+%R(x,x)
+%\tag*{reflexive}
+%\\
+%\lnot R(x,x) 
+%\tag*{irreflexive}
+%\\
+%\lnot R(x,y) \lor \lnot R(y,z) \lor R(x,z)
+%\tag*{transitive}
+%\\
+%\lnot R(x,y) \lor R(y,x)
+%\tag*{symmetric}
+%\\
+%\lnot R(x,y) \lor \lnot R(y,x)
+%\tag*{asymmetric}
+%\\
+%\lnot R(x,y) \lor \lnot R(y,x) \lor x = y
+%\tag*{antisymmetric}
+%\end{align*}
+%
+%\noindent We recognize the difference between {\em not symmetric} and {\em asymmetric}.
+%%The first expresses that at least one pair of elements is not symmetrically related. 
+%%The second one expresses that all pairs of elements are not symmetrically related.
+%	\begin{align*}
+%	\lnot\left( \forall x \forall y\ \lnot R(x,y) \lor R(y,x) \right)
+%	&\equiv
+%	\exists x\exists y\ R(x,y) \land \lnot R(y,x) 
+%	\tag*{not symmetric}
+%	\\
+%	&\not\equiv
+%	\\
+%	\lnot\left( \exists x \exists y\ R(x,y) \land R(y,x)\right)
+%	&\equiv
+%	\forall x\forall y\ \lnot R(x,y) \lor \lnot R(y,x)
+%	\tag*{asymmetric}
+%	\end{align*} 
+%%\end{remark}
+%\end{definition}
 
 
 \begin{definition}
-	
+	A n-ary relation is a subset of the Cartesian product of $n$ sets.
+%	$A^n = \{ (a_1, \ldots, a_n) \mid a_i \in A\text{ for }0\leq i \leq n \}$.
+	A {\myem binary relation} $R$ on domain $A$ 
+	is a subset of $A^2 = A \times A = \{ (a,b) \mid a\in A, b\in A \}$ -- 
+	the set of all pairs of elements in $A$.
+	We write $R(a,b)$ or $a\ R\ b$ to express that $(a,b)\in R \subseteq A\times A$.
+\end{definition}
+\begin{definition}
+	An {\myem equivalence relation} $\sim$ on an arbitrary domain $A$ 
+	is a reflexive, transitive, and symmetric binary relation on $A$, 
+	i.e.~for arbitrary elements $x,y,z$ in $A$ the following three clauses hold.
+	\begin{align*}
+	x\sim x
+	\tag*{reflexivivity}
+	\\
+	x\not\sim y \lor  y \not\sim z \lor x\sim z
+	\tag*{transitivity}
+	\\
+	x\not\sim y \lor y\sim x
+	\tag*{symmetry}
+	\end{align*}
+	The {\myem equivalence class} $[a]_\sim$ of an element $a\in A$ contains all elements $b\in A$ that are equivalent to $a$.
+	Trivially $[a]_\sim = [b]_\sim$ if $a\sim b$.
+	The quotient set of $A$ modulo $\sim$ is the set of all equivalent classes $A/_\sim$. 
 \end{definition}

@@ -4,7 +4,9 @@
 
 \chapter{Related Work}
 
-%\section{Purely equational logic}
+%\section{Alternative approaches}
+
+\section{Purely equational logic}
 
 We can transform a set of selected literals into a equational system 
 when we introduce one new constant symbol $\bullet$,
@@ -14,21 +16,42 @@ and a new function symbol $f\!_P$ for every predicate symbol $P$:
 	\lnot P(t_1,\ldots,t_n) \quad\Rightarrow&\quad f\!_P(t_1,\ldots,t_n) \mNE \bullet
 \end{align*}
 
-%\section{Term Rewrite System}
+\section{Term Rewrite System}
 
 We can transform a set of selected literals into a term rewrite system 
-when we introduce two new constant symbols $\mathsf{true}$ and $\mathsf{false}$,
-and a new function symbol $f\!_P$ for every predicate symbol $P$:
+when we introduce two new constant symbols -- $\mathsf{true}$ and $\mathsf{false}$ --
+to transform each literal into a rewrite rule.
 \begin{align*}
-P(t_1,\ldots,t_n) \quad\Rightarrow &\quad f\!_P(t_1,\ldots,t_n) \rwEQ \mathsf{true} 
+P(t_1,\ldots,t_n) \quad\Rightarrow &\quad P(t_1,\ldots,t_n) \rwEQ \mathsf{true} 
 \\ 
-\lnot P(t_1,\ldots,t_n) \quad\Rightarrow &\quad f\!_P(t_1,\ldots,t_n) \rwEQ \mathsf{false} 
+\lnot P(t_1,\ldots,t_n) \quad\Rightarrow &\quad P(t_1,\ldots,t_n) \rwEQ \mathsf{false} 
 \\
 s \mEQ t \quad\Rightarrow&\quad s \mEQ t\rwEQ \mathsf{true} 
 \\ 
 r \mNE u \quad\Rightarrow&\quad r \mEQ u\rwEQ  \mathsf{false}
 \end{align*}
-When we find a not unifiable critical peek, then the set of literals is incosistent.
+When we find a not unifiable critical peek, then the set of literals is inconsistent.
+
+\begin{example}
+	Consider the unsatisfiable set $S = \{ \mP(x), \lnot \mP(\mf(y)) \}$. 
+	We derive the term rewrite system 
+	\begin{align*}
+	(1)&&
+		\mP(x) &\rwEQ \mathsf{true}
+		\tag*{$\ell_1 \rwEQ r_1$}
+		\\
+	(2)&&
+		\mP(\mf(y)) &\rwEQ \mathsf{false}
+		\tag*{$\ell_2 \rwEQ r_2$}
+	\end{align*}
+	with overlap $\left<(1),p,(2)\right>$ with $p=\epsilon$, 
+	$\sigma = \mgu(l_1, l_2|_\epsilon) = \{ x\mapsto \mf(y)\}$.
+	From overlap $\left(\ell_2\sigma[r_1\sigma]_\epsilon, \epsilon, \ell_2\sigma, r_2\sigma\right)
+	= (\mathsf{true}, \epsilon, \mP(\mf(y)), \mathsf{false})$
+%	we obtain critical pair $\mathsf{false} \leftarrow P(x) \rightarrow \mathsf{true}$
+	we obtain critical pair $\mathsf{true} \mEQ \mathsf{false}$.
+	
+\end{example}
 
 
 
