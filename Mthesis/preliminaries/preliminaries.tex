@@ -97,6 +97,18 @@ in our definitions.
 	and the interpretation of each ground term $t_\mcH := t$ is the term itself.
 \end{definition}
 
+\begin{example}
+	Consider the satisfiable set of clauses 
+	$S = \{  
+		\mP(\mf(x)) 
+	\}$. 
+	Let $H_S = \{ 
+		\mc, \mf(\mc), \mf(\mc), \ldots, \mf^i(\mc), \ldots
+	\}$ be the Hebrand universe for $S$.
+	We define $\mf_I$ by mapping $\mc_I := \mc$,
+	$\mf_I^{i+1}(x) := \mf (\mf_I^i(x))$
+\end{example}
+
 \begin{definition}
 	An {\myem term interpretation} 
 	$\mcI_t$ 
