@@ -3,7 +3,7 @@
 % !TeX spellcheck = en_US
 
 \begin{definition}\label{def:unifier}
-Two expressions $\mct, \mcu$ are {\myem unifiable} if there exists a substitution $\sigma$ such that $\mct\sigma=\mcu\sigma$.
+Two first order expressions $\mct, \mcu$ are {\myem unifiable} if there exists a substitution $\sigma$ such that $\mct\sigma=\mcu\sigma$.
 The {\myem most general unifier} $\mgu(\mct,\mcu)$ is a unifier such that
 for every other unifier $\sigma'$ there exists a substitution $\tau$ where
 $\sigma' = \sigma \tau$. 
@@ -11,3 +11,8 @@ Two literals are variants if their most general unifier is a renaming.
 Two literals are {\myem clashing} when the complement of the first literal 
 and the unchanged second literal are unifiable, i.e.~$L$ and $L'$ are clashing if $\mgu(L^c, L')$ exists.
 \end{definition}
+
+\begin{example}
+	Literals $\lnot\mP(x)$ and $\mP(\mf(\ma,y))$ 
+	are clashing by unifier $\{ x\mapsto \mf(\ma,y)\}$.
+\end{example}

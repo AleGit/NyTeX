@@ -59,3 +59,21 @@ We define the {\myem composition} of two substitutions $\sigma$ and $\tau$ as fo
 	$(\mct\sigma)\tau = \mct(\sigma\tau)$ holds for
 	arbitrary first order expressions and substitutions.
 \end{lemma}
+
+\begin{example} Let 
+	$\mct = \mf(x,y)$, 
+	$\sigma = \{ x\mapsto\mg(x),y\mapsto\mc \}$, 
+	and $\tau = \{ x\mapsto\md\}$.
+	\begin{align*}
+	(\mct\sigma)\tau 
+	&= \left(\mf(x,y)\, \{ x\mapsto\mg(x),y\mapsto\mc \}\right)\, \{ x\mapsto\md\}
+	= \mf(\mg(x), \md)\, \{ x\mapsto\md\} 
+	= \mf(\mg(\md), \mc)  
+	\\
+	\mct(\sigma\tau)
+	&= \mf(\mg(x),\md) \{ x\mapsto\mg(x)\,\{ x\mapsto\md \}, \mc\,\{ x\mapsto\md \} \}
+	= \mf(\mg(x),\md) \{ x\mapsto\mg(\md), \mc\}
+	= \mf(\mg(\md), \mc) 
+	\end{align*}
+	Hence $\mct\sigma\tau = \mf(\mg(\md), \mc)$ by definition.
+\end{example}

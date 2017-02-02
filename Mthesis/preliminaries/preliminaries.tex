@@ -10,14 +10,15 @@ We assume familiarity with propositional and predicate logic \cite{Huth:2004:LCS
 automated theorem proving \cite{Fitting:1996:FLA:230183}, 
 term rewriting \cite{Baader:1998:TR:280474}, 
 decision procedures \cite{Kroening:2008:DPA:1391237}, 
-and (maximum) satisfiability testing \cite{Biere:2009:HSV:1550723}.
-Even so, for clarity we introduce basic
-definitions and state basic lemmas and theorems without proofs.
-This section is an extension of the same section in our seminar report \cite{axm:SR2}
-where notions and notations largely follow those in lecture notes \cite{AM2015tr} and \cite{GM2013ar}.
+and satisfiability checking modulo theories \cite{Biere:2009:HSV:1550723}.
+For clarity we state basic syntax definitions of first order logic with equality in section \ref{sec:syntax},
+introduce basic concepts of first order semantics in section \ref{sec:semantics},
+and in section \ref{sec:termrewriting} 
+%This section is an extension of the same section in our seminar report \cite{axm:SR2}
+These notions and notations largely follow those in lecture notes \cite{AM2015tr} and \cite{GM2013ar}.
 
 
-\section{Syntax}
+\section{Syntax}\label{sec:syntax}
 
 \input{preliminaries/signature}
 
@@ -35,11 +36,11 @@ where notions and notations largely follow those in lecture notes \cite{AM2015tr
 
 \input{preliminaries/unifier}
 
-\section{Semantics}
+\section{Semantics}\label{sec:semantics}
 
 In this section we recall some basic aspects and definitions of semantics in first order logic. 
 We state satisfiability of clauses. For brevity we ignore arbitrary formulas in first order logic
-in our definitions.
+in this rehearsal of definitions. See the appendix for more details.
 
 \begin{definition}
 	An {\myem interpretation} $\mcI$ over a signature $\mcF$ consists of a
@@ -48,25 +49,35 @@ in our definitions.
 	and definitions of (possibly empty) n-ary relations 
 	 ${\mP_\mcI}\subseteq A^n$ for every predicate symbol $\mP\in\mcFP$
 	 and the definition of a binary relation ${\mEQ_\mcI}\subseteq A^2$ for the equality symbol.
-	 An {\myem equational} interpretation defines $\mEQ_\mcI$ as equality on its domain.
-	 i.e.~a ground term $s \mEQ_\mcI t$ holds if and only if $s_\mcI = t_\mcI$.
-	
-	A ground predicate $\mP(t_1,\ldots,t_n)$ {\myem holds} in interpretation $\mcI$ 
-	if and only if $(t_1,\ldots,t_n) \in \mP_\mcI$.
+%	
+	A ground predicate $\mP(t_1,\ldots,t_n)$ 
+	{\myem holds} in interpretation $\mcI$ 
+	if and only if $({t_1}_\mcI,\ldots,{t_n}_\mcI) \in \mP_\mcI$.
+	A ground equation $s = t$ holds if and only if $(s_\mcI,t_\mcI) \in {\mEQ_\mcI}$.
 	A ground literal does not hold in $\mcI$ if and only if its complementary literal holds in $\mcI$.
 %	
-	A non-ground literal holds in $\mcI$ if all its 
-	(perhaps infinitely many) ground
-	instances hold in $\mcI$.
+	A non-ground literal holds in $\mcI$ 
+	if all its exponentially many ground instances by
+	variable assignments hold in $\mcI$.
 	A clause holds in $\mcI$ if at least one of its literals holds in $\mcI$.
 	A set of clauses $S$ holds in $\mcI$ if every clause $\mcC\in S$ holds in $\mcI$.
-	We say $\mcI$ is a model {\em for} $S$ if $S$ holds in $\mcI$. 
-	
-	
+	Then $\mcI$ is a model {\myem for} $S$ and
+	we write $\mcI\models S$. 
+\end{definition}
+
+\begin{example}The definition above allows undesirable models, 
+	e.g.~$\mcI\models\{ \ma\mNE\ma \}$ whenever ${\mEQ_\mcI} = \emptyset$.
+	At least we expect $\mEQ_\mcI$ to be a reflexive relation, so that $\ma\mEQ_\mcI\ma$.
+\end{example}
+
+\begin{definition}
+	An {\myem normal} interpretation defines $\mEQ_\mcI$ as equality on its domain,
+	e.g.~the equation of ground terms $s \mEQ_\mcI t$ holds if and only 
+	if the interpretation of the ground terms $s_\mcI = t_\mcI$ are identical.
 \end{definition}
 
 \begin{definition}
-	A set of clauses $S$ is {\myem satisfiable} if and only if there is a model $\mcM$ for $S$. 
+	A set of clauses $S$ is {\myem satisfiable} if and only if there is at least one model $\mcM$ for $S$. 
 	A set of clauses is  {\myem valid} if and only if all clauses hold in every interpretation.
 \end{definition}
 
@@ -97,17 +108,17 @@ in our definitions.
 	and the interpretation of each ground term $t_\mcH := t$ is the term itself.
 \end{definition}
 
-\begin{example}
-	Consider the satisfiable set of clauses 
-	$S = \{  
-		\mP(\mf(x)) 
-	\}$. 
-	Let $H_S = \{ 
-		\mc, \mf(\mc), \mf(\mc), \ldots, \mf^i(\mc), \ldots
-	\}$ be the Hebrand universe for $S$.
-	We define $\mf_I$ by mapping $\mc_I := \mc$,
-	$\mf_I^{i+1}(x) := \mf (\mf_I^i(x))$
-\end{example}
+%\begin{example}
+%	Consider the satisfiable set of clauses 
+%	$S = \{  
+%		\mP(\mf(x)) 
+%	\}$. 
+%	Let $H_S = \{ 
+%		\mc, \mf(\mc), \mf(\mc), \ldots, \mf^i(\mc), \ldots
+%	\}$ be the Hebrand universe for $S$.
+%	We define $\mf_I$ by mapping $\mc_I := \mc$,
+%	$\mf_I^{i+1}(x) := \mf (\mf_I^i(x))$
+%\end{example}
 
 \begin{definition}
 	An {\myem term interpretation} 
@@ -120,7 +131,7 @@ in our definitions.
 	 A ground predicate $\mP(t_1,\ldots,t_n)$ holds if 
 	 $([t_1]_\sim,\ldots,[t_n]_\sim) \in \mP^{\mcI_t} \subseteq A^n$.
 %	A ground literal does not hold if and only if its complementary literal holds.
-	In an {\myem equational} term interpretation an equation $s\mEQ t$ holds if an only if $s\sim t$.
+%	In an {\myem equational} term interpretation an equation $s\mEQ t$ holds if an only if $s\sim t$.
 	
 \end{definition}
 
@@ -128,40 +139,38 @@ in our definitions.
 	Consider the satisfiable set of clauses $S = \{ x \mEQ \mf(x) \}$. 
 %	
 	We easily find a Herbrand model $\mcH$ with
-	predicate definition $\mEQ^\mcH = \{ (\mf^{i}(\ma)), \mf^{i+1}(\ma)) \mid i\geq 0  \} $. 
-	However $\mcH$ is not an equational model because obviously $\ma\neq\mf(\ma)$ in its domain.
+	predicate definition $\mEQ_\mcH = \{ (\mf^{i}(\ma)), \mf^{i+1}(\ma)) \mid i\geq 0  \} $. 
+	However $\mcH$ is not an normal model because obviously $\ma\neq\mf(\ma)$ in its domain.
 %	
-	Further on we easily find an equational model $\mcM$ 
-	with domain $\{ \mc \}$, function definition $\mf^\mcM(\mc) = \mc$, 
-	and $\mEQ_\mcM$ is defined by equality in its domain.
+	Further on we easily find an normal model $\mcM$ 
+	with domain $\{ \mc \}$, function definition $\mf_\mcM(\mc) = \mc$, 
+	and ${\mEQ_\mcM} = \{ (\mc,\mc)\}$ coincides with equality in its domain.
 	Certainly this model $\mcM$ is not an Hebrand model 
-	because the interpretation of ground term ${\mf(\mc)}^\mcM \neq \mf(\mc)$ is not the term itself.
-	
-	On the other hand we easily get an equational term model with domain $\{ [\ma]_\sim\}$, 
+	because the interpretation of ground term ${\mf(\mc)}_\mcM \neq \mf(\mc)$ is not the term itself.
+%	
+	On the other hand we easily get a normal term model $\mcM_t$ with domain $\{ [\ma]_\sim\}$, 
 	a plain function definition
-	$\mf([\ma]_\sim) = [\ma]_\sim$, 
-	and an equivalence relation
-	$\ma \sim \mf(\ma)$
-	where $\mEQ$ is defined by equality in its domain.	
+	$\mf_{\mcM_t}([\ma]_\sim) = [\ma]_\sim$
+	with equivalence relation
+	$\ma \sim \mf(\ma)$.
+	Hence $\mEQ_{\mcM_t}$ agrees to equality in its domain.	
 \end{example}
 
 
-%\section{Term Rewriting}
-%
-%
-%
-%
-%\begin{definition}
-%	A {\myem rewrite rule} is an equation of terms where the left-hand side is not a variable
-%	and the variables occuring in the right-hand side occur also in the left-hand side.
-%	%	\[
-%	%		\ell\rwEQ r \text{ is rewrite rule }\quad :\Longleftrightarrow\quad\ell\not\in\mcV\text{ and }\var(r)\subseteq\var(l)
-%	%	\] 
-%	A rewrite rule $\ell'\rwEQ r'$ is a {\myem variant} of $\ell\rwEQ r$ if there is a renaming $\varrho$
-%	such that 
-%	$(l\rightarrow r)\varrho = l'\rightarrow r'$.
-%	A {\myem term rewrite system} is a set of rewrite rules without variants.
-%\end{definition}
+\section{Term Rewriting}\label{sec:termrewriting}
+
+
+\begin{definition}\label{def:rewriterule}
+	A {\myem rewrite rule} is an equation of terms where the left-hand side is not a variable
+	and the variables occuring in the right-hand side occur also in the left-hand side.
+	%	\[
+	%		\ell\rwEQ r \text{ is rewrite rule }\quad :\Longleftrightarrow\quad\ell\not\in\mcV\text{ and }\var(r)\subseteq\var(l)
+	%	\] 
+	A rewrite rule $\ell'\rwEQ r'$ is a {\myem variant} of $\ell\rwEQ r$ if there is a renaming $\varrho$
+	such that 
+	$(l\rightarrow r)\varrho = l'\rightarrow r'$.
+	A {\myem term rewrite system} is a set of rewrite rules without variants.
+\end{definition}
 %
 %\begin{definition}\label{def:position}
 %	A {\myem position} is a finite sequence of positive integers.
@@ -275,43 +284,16 @@ in our definitions.
 %	We call $\mcR$ simply terminating if $\gtpre$ is a simplification order.
 %\end{theorem}
 
-\section{Usefull theorems}
 
-\begin{theorem}[Church 1936, Turing 1937]
-The satisfiability problem for first order logic is undecidable
-\end{theorem}
 
-\begin{theorem}[Compactness]\label{the:compactness}
-	If every finite subset of a set of formulas $S$ has a model then $S$ has a model. 
-\end{theorem}
+\section{Conventions}
 
-\begin{theorem}[Löwenheim Skolem]\label{the:loewenheim}
-	If a set of formulas $S$ has a model then $S$ has a countable model.
-\end{theorem}
-
-\begin{theorem}[Herbrand]\label{the:herbrand}
-	Let $S$ be a set of clauses without equality. Then the following statements are equivalent.
-	\begin{itemize}
-		\item $S$ is satisfiable.
-		\item $S$ has a Herbrand model.
-		\item Every finite subset of all ground instances of $S$ has a Herbrand model.
-	\end{itemize} 
-\end{theorem}
-
-\begin{corollary}
-	Let $S$ be a set of clauses without equality. 
-	Then $S$ is unsatisfiable if and only if there exists 
-	an unsatisfiable finite set of ground instances of $S$.
-\end{corollary}
-
-%\section{Conventions}
-%
-%\begin{align*}
-%\mc, \md &\ \in\mcFfn[{0}]\tag*{constant symbols} \\
-%\mf, \mg, \mh &\ \in\mcFfn[{n>0}]\tag*{function symbols} \\
-%\mpp, \mq, \mr &\ \in\mcFPn[{0}]\tag*{propositional symbols}\\
-%\mP, \mQ, \mR &\ \in\mcFPn[{n>0}]\tag*{predicate symbols}\\
-%s,t,u &\ \in\mcTf = \mcTFfV\tag*{terms}
-%\end{align*}
+\begin{align*}
+\mc, \md &\ \in\mcFfn[{0}]\tag*{constant symbols} \\
+\mf, \mg, \mh &\ \in\mcFfn[{n>0}]\tag*{function symbols} \\
+\mpp, \mq, \mr &\ \in\mcFPn[{0}]\tag*{propositional symbols}\\
+\mP, \mQ, \mR &\ \in\mcFPn[{n>0}]\tag*{predicate symbols}\\
+s,t,u &\ \in\mcTf = \mcTFfV\tag*{terms}
+\end{align*}
 
 

@@ -2,7 +2,72 @@
 % !TeX encoding = UTF-8
 % !TeX spellcheck = en_US
 
-\chapter{Decidability and Complexity}
+
+\chapter{Completeness}
+
+\begin{definition}
+	A logical calculus, i.e.~a formal proof system, is {\myem complete} if every valid formula is provable,
+	i.e.~a valid formula is formally deduced or justified by applying the rules of the formal system only.
+	A logical calculus is {\myem sound} if every provable formula is valid, 
+	i.e.~the proven formula holds in all interpretations.
+\end{definition}
+
+\begin{lemma}[Refutation]
+	By definition of the semantics of negation a formula is valid if and only if its negation is not satisfiable.
+\end{lemma}
+
+\begin{theorem}[Completeness, Gödel 1929]
+	Natural deduction, a sound formal system, is complete.
+\end{theorem}
+
+\begin{theorem}
+	[Undecidability, Church 1936, Turing 1937]
+	The satisfiability problem for first order logic is undecidable.
+\end{theorem}
+
+
+
+
+
+
+
+
+
+
+\begin{theorem}[Compactness]\label{the:compactness}
+	If every finite subset of a set of formulas $S$ has a model then $S$ has a model. 
+\end{theorem}
+
+\begin{theorem}[Löwenheim Skolem]\label{the:loewenheim}
+	If a set of formulas $S$ has a model then $S$ has a countable model.
+\end{theorem}
+
+\begin{theorem}[Herbrand]\label{the:herbrand}
+	Let $S$ be a set of clauses without equality. Then the following statements are equivalent.
+	\begin{itemize}
+		\item $S$ is satisfiable.
+		\item $S$ has a Herbrand model.
+		\item Every finite subset of all ground instances of $S$ has a Herbrand model.
+	\end{itemize} 
+\end{theorem}
+
+\begin{corollary}
+	Let $S$ be a set of clauses without equality. 
+	Then $S$ is unsatisfiable if and only if there exists 
+	an unsatisfiable finite set of ground instances of $S$.
+\end{corollary}
+
+\begin{lemma}
+	
+\end{lemma}
+
+
+
+\section{Decidable fragments and complexity}
+
+\begin{definition}Finite model property
+\end{definition}
+
 
 \begin{theorem}
 	content...
