@@ -20,6 +20,9 @@ These notions and notations largely follow those in lecture notes \cite{AM2015tr
 
 \section{Syntax}\label{sec:syntax}
 
+In this section we introduce the syntax of first order logic with equality in clausal normal form.
+We briefly relate it to universally quantified formulas in conjunctive normal form.
+
 \input{preliminaries/signature}
 
 \input{preliminaries/terms}
@@ -40,9 +43,9 @@ These notions and notations largely follow those in lecture notes \cite{AM2015tr
 
 In this section we recall some basic aspects and definitions of semantics in first order logic. 
 We state satisfiability of clauses. For brevity we ignore arbitrary formulas in first order logic
-in this rehearsal of definitions. See the appendix for more details.
+in this rehearsal of definitions. See the appendix for more details and mathematics.
 
-\begin{definition}
+\begin{definition}\label{def:interpretation}
 	An {\myem interpretation} $\mcI$ over a signature $\mcF$ consists of a
 	non-empty set $A$ -- the {\myem universe} or {\myem domain},
 	definitions of (partial) functions $\mf_\mcI: A^n\rightarrow A$ for every function symbol $\mf\in\mcFf$, 
@@ -55,18 +58,23 @@ in this rehearsal of definitions. See the appendix for more details.
 	if and only if $({t_1}_\mcI,\ldots,{t_n}_\mcI) \in \mP_\mcI$.
 	A ground equation $s = t$ holds if and only if $(s_\mcI,t_\mcI) \in {\mEQ_\mcI}$.
 	A ground literal does not hold in $\mcI$ if and only if its complementary literal holds in $\mcI$.
-%	
-	A non-ground literal holds in $\mcI$ 
-	if all its exponentially many ground instances by
+%
+\end{definition}
+\begin{definition}\label{def:model}
+	A variable {\myem assignment} is a mapping from variables to a domain.
+	A non-ground literal holds in an interpretation
+	if all its exponentially many ground instances by all possible 
 	variable assignments hold in $\mcI$.
 	A clause holds in $\mcI$ if at least one of its literals holds in $\mcI$.
 	A set of clauses $S$ holds in $\mcI$ if every clause $\mcC\in S$ holds in $\mcI$.
-	Then $\mcI$ is a model {\myem for} $S$ and
+	Then $\mcI$ is a model {\myem for} $S$, the interpretation satisfies $S$, and
 	we write $\mcI\models S$. 
 \end{definition}
 
-\begin{example}The definition above allows undesirable models, 
-	e.g.~$\mcI\models\{ \ma\mNE\ma \}$ whenever ${\mEQ_\mcI} = \emptyset$.
+\begin{example}The definitions \ref{def:interpretation} and \ref{def:model} 
+	from above allow undesirable models, 
+	e.g.~an interpretation $\mcI$ satisfies $\{ \ma\mNE\ma \}$ 
+		whenever ${\mEQ_\mcI} = \emptyset$.
 	At least we expect $\mEQ_\mcI$ to be a reflexive relation, so that $\ma\mEQ_\mcI\ma$.
 \end{example}
 

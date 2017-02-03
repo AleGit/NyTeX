@@ -26,6 +26,27 @@ A finite {\myem set of clauses} $S=\{ \mcC_1,\ldots,\mcC_n \}$ is equivalent to
 %Two literals are complementary if one is an atom, i.e. a positive literal and the other is the negation of this atom.
 \end{definition}
 
+\begin{example}The set of clauses is equivalent to a universally quantified formula in conjunctive normal form.
+	\begin{align*}
+		\{\, \mP(x)\lor\mR(x,y), \lnot \mE(x,\mf(x)) \, \}
+		&\equiv
+		\forall x \forall y\, (\mP(x)\lor\mR(x,y))
+		\land
+		\forall x\, (\lnot \mE(x,\mf(x))) 
+		\\
+		{\colG
+			\{\, \mP(x)\lor\mR(x,y), \lnot \mE(z,\mf(z)) \, \}}
+		&\equiv
+		\forall x \forall y\, (\mP(x)\lor\mR(y))
+		\land
+		\forall z\,(\lnot \mE(z,\mf(z)) 
+		\\
+		&\equiv
+		\forall x \forall y\forall z\, 
+		(\mP(x)\lor\mR(y)\land \lnot \mE(z,\mf(z))
+	\end{align*}
+\end{example}
+
 \begin{definition}
 	We denote
 	terms, atoms, and literals as first order expressions.
