@@ -101,7 +101,7 @@
 	x\not\sqsubseteq y \lor y\not\sqsubseteq x \lor x = y
 	\tag*{antisymmetry}
 	\end{align*}
-	hold for arbitrary elements $x,y,z$ in $A$.
+	always hold for arbitrary elements $x,y,z$ in $A$.
 \end{definition}
 
 \begin{definition}
@@ -115,34 +115,59 @@
 	\tag*{transitivity}
 	\end{align*}
 	always hold for arbitrary elements $x,y,z$ in $A$.
-	A proper order is a {\myem total order} if additionally the following clause holds
-	for all $x$ and $y$ in A.
+	A proper order is a {\myem total order} if additionally the following clause
 	\[
 		x \sqsubset y \lor y \sqsubset x  \lor x=y \tag*{totality}
 	\]
+	always holds for arbitrary $x$ and $y$ in $A$.
 \end{definition}
 
-\begin{example}The distinct subset relation $\subsetneq$ over a power set is a proper order, but not a total order.
-	\[
-		\{ 1 \} \not\subsetneq \{ 2 \}
-		\land \{ 2 \} \not\subsetneq \{ 1 \}
-		\land 	\{ 1 \} \neq \{ 2 \}
-	\]
-	\end{example}
+\begin{example}
+	By definition the empty relation $\emptyset \subseteq A \times A$ is a
+	irreflexive,
+	transitive,
+	symmetric,
+	antisymmetric,
+	and asymmetric
+	relation. 
+	Hence it is a proper order, but not total.
+\end{example}
 
-\begin{lemma}
-	Any proper order is asymmetric, e.g.
+\begin{example}
+	Any proper order is asymmetric, e.g.~the clause
 	\begin{align*}
-		x\not<y &\lor y\not<x \tag*{asymmetry}
+	x\not\sqsubset y &\lor y\not\sqsubset x \tag*{asymmetry}
 	\end{align*}
-always hold for any $x$ and $y$ in $A$.
-	\end{lemma}
+	always holds for arbitrary $x$ and $y$ in $A$.
+\end{example}
+
+\begin{example}The strict subset relation $\subsetneq$ over a power set is a proper order, but not a total, 
+	e.g. for the power set over natural numbers we have 
+	\[
+	\{ 1 \} \not\subsetneq \{ 2 \}
+	\land \{ 2 \} \not\subsetneq \{ 1 \}
+	\land 	\{ 1 \} \neq \{ 2 \}
+	\tag*{non-totality}
+	\]
+\end{example}
+
+
 
 \begin{definition}
 	An binary relation $\supset$ is {\myem well-founded} on a set $A$ if there is no infinite sequence 
 	$(a_i)_{i\in\mathbb{N}}$ of $a_i\in A$
 	with $a_i\supset a_{i+1}$ for all $i\in\mathbb{N}$.
 \end{definition}
+
+\begin{example}
+	The strict superset relation $\supsetneq$ on final sets is well-founded.
+	The canonical greater than relation $>$ is well founded on natural numbers,
+	but not on integers or positive rational numbers.
+	\begin{gather*}
+	-1 > -2 > \ldots > -(2^i) > -(2^{i+1}) > \ldots\\
+	1 > \frac{1}{2} > \frac{1}{4} > \ldots > \frac{1}{2^i} > \frac{1}{2^{i+1}} > \ldots
+	\end{gather*}
+\end{example}
 
 \begin{definition}\label{def:prec}
 	A {\myem precedence} $\gtpre$ is a proper order 

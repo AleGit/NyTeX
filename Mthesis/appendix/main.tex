@@ -6,13 +6,37 @@
 
 \input{epigraphs/Menge}
 
-In this chapter we recall some basic notions we have used but not defined in our thesis.
-We assume at least an {\myem basic} understanding of sets as described by Georg Cantor in the 19th century. 
+
+
+In this chapter we recall some mathematical and logical notions we have used but not defined in our thesis.
+We assume at least a {\myem basic} understanding of sets as described by Georg Cantor in the 19th century. 
 However we ignore all paradoxes in {\myem naive} set theory.
-Instead we just assume that our sets are definable within a consistent axiomatic 
--- e.g.~Zermalo-Fraenkel -- set theory.
-In section \ref{sec:app:maths} we define relations and orders and in
-section \ref{sec:app:fol} we derive sets and numbers from general first order terms.
+Instead we just assume that our sets are definable within a consistent set theory (e.g.~Zermalo-Fraenkel).
+Thus we have well defined {\myem membership} relations between our sets and objects,
+well defined {\myem subset} relations between our sets, 
+and well defined {\myem Cartesian products} over sets.
+
+In section \ref{sec:app:maths} we {\em finally} define {\myem relations} and {\myem orders}. 
+In section \ref{sec:app:fol} we derive sets and numbers general first order terms.
+
+\begin{figure}[hbt]\label{fig:conventions}
+	\begin{align*}
+	x,y,z &\ \in\mcV \tag*{variables} \\
+	\ma,\mb,\mc,\md &\ \in\mcFfn[{0}]\tag*{constant symbols} \\
+	\mf, \mg, \mh &\ \in\mcFfn[{n>0}]\tag*{function symbols} \\
+	\mpp, \mq, \mr &\ \in\mcFPn[{0}]\tag*{propositional symbols}\\
+	\mP, \mQ, \mR &\ \in\mcFPn[{n>0}]\tag*{predicate symbols}\\
+	\mcf, \mcg, \mch &\ \in\mcF^{n>0} \tag*{predicate or functions symbols}\\
+	\ell, r, s,t,u &\ \in\mcTf = \mcTFfV\tag*{(first order) terms}\\
+	\mcs, \mct, \mcu &\ \in \mcPT \cup \mcET \cup \mcTf \tag*{predicates, equations, terms}\\
+	\mu, \nu, \sigma, \tau &\ \tag*{substitutions, unifiers}\\
+	A,B,C,D &\ \tag*{atoms} \\
+	\mcL, L &\ \tag*{literals} \\
+%	\mcC, \mcD &\ \tag*{clauses} \\
+	S &\ \tag*{sets of clauses}
+	\end{align*}
+	\caption{Typographical conventions}
+\end{figure}
 
 \section{Relations and orders}\label{sec:app:maths}
 
@@ -21,6 +45,8 @@ section \ref{sec:app:fol} we derive sets and numbers from general first order te
 \section{First order logic}\label{sec:app:fol}
 
 \input{appendix/termsets}
+
+
 
 
 

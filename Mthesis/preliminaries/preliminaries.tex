@@ -13,9 +13,10 @@ decision procedures \cite{Kroening:2008:DPA:1391237},
 and satisfiability checking modulo theories \cite{Biere:2009:HSV:1550723}.
 For clarity we state basic syntax definitions of first order logic with equality in section \ref{sec:syntax},
 introduce basic concepts of first order semantics in section \ref{sec:semantics},
-and in section \ref{sec:termrewriting} 
+and term rewriting in section \ref{sec:termrewriting}. 
 %This section is an extension of the same section in our seminar report \cite{axm:SR2}
 These notions and notations largely follow those in lecture notes \cite{AM2015tr} and \cite{GM2013ar}.
+In figure \ref{fig:convention} we have listed typographical conventions.
 
 
 \section{Syntax}\label{sec:syntax}
@@ -48,26 +49,39 @@ in this rehearsal of definitions. See the appendix for more details and mathemat
 \begin{definition}\label{def:interpretation}
 	An {\myem interpretation} $\mcI$ over a signature $\mcF$ consists of a
 	non-empty set $A$ -- the {\myem universe} or {\myem domain},
-	definitions of (partial) functions $\mf_\mcI: A^n\rightarrow A$ for every function symbol $\mf\in\mcFf$, 
+	definitions of mappings $\mf_\mcI: A^n\rightarrow A$ for every function symbol $\mf\in\mcFf$, 
 	and definitions of (possibly empty) n-ary relations 
 	 ${\mP_\mcI}\subseteq A^n$ for every predicate symbol $\mP\in\mcFP$
 	 and the definition of a binary relation ${\mEQ_\mcI}\subseteq A^2$ for the equality symbol.
-%	
-	A ground predicate $\mP(t_1,\ldots,t_n)$ 
-	{\myem holds} in interpretation $\mcI$ 
-	if and only if $({t_1}_\mcI,\ldots,{t_n}_\mcI) \in \mP_\mcI$.
-	A ground equation $s = t$ holds if and only if $(s_\mcI,t_\mcI) \in {\mEQ_\mcI}$.
-	A ground literal does not hold in $\mcI$ if and only if its complementary literal holds in $\mcI$.
-%
+	 A (variable) {\myem assignment} is a mapping from variables to the domain.
+	 We define the {\myem evaluation} $\alpha_\mcI$ of a term $t$ 
+	 for assingment $\alpha$ and interpretation $\mcI$:
+	 \DEFINE{\alpha_\mcI(t)}{ 
+	 	\alpha(x) 
+	 	&\text{if }t=x\in\mcV \\
+	 	\mc_\mcI
+	 	&\text{if }t=\mc\in\mcFfn[0]
+	 	\\
+	 	\mf_\mcI (\alpha_\mcI(t_1),\ldots,\alpha_\mcI(t_n)) 
+	 	&\text{if }t=\mf(t_1,\ldots,t_n), \mf\in\mcFfn[n>0], t_i\in\mcTf 
+ }
 \end{definition}
 \begin{definition}\label{def:model}
-	A variable {\myem assignment} is a mapping from variables to a domain.
-	A non-ground literal holds in an interpretation
-	if all its exponentially many ground instances by all possible 
-	variable assignments hold in $\mcI$.
-	A clause holds in $\mcI$ if at least one of its literals holds in $\mcI$.
-	A set of clauses $S$ holds in $\mcI$ if every clause $\mcC\in S$ holds in $\mcI$.
-	Then $\mcI$ is a model {\myem for} $S$, the interpretation satisfies $S$, and
+	A (non-ground) predicate $\mP(t_1,\ldots,t_n)$ 
+	{\myem holds} in interpretation $\mcI$  
+	if all the evaluations of its n-tuple of terms 
+	$\{ 
+	(\alpha_\mcI({t_1}),\ldots,\alpha_\mcI({t_n}))
+	\mid \alpha : \var(t_1,\ldots,t_n) \to A \} \subseteq\mP_\mcI$
+	is a subset of relation $\mP_\mcI\subseteq A^n$.
+	Similar an equation $s\mEQ t$ holds if $\alpha_\mcI(s) \mEQ_\mcI \alpha_\mcI(t)$ 
+	for all possible evaluations $\alpha: \var(s,t) \to A$. 
+	A literal holds
+	if its complement does not hold.
+	A clause holds if at least one of its literals holds.
+	A set of clauses holds if every clause holds.
+	Then the interpretation $\mcI$ is a model {\myem for} the set of clauses $S$, 
+	the interpretation $\mcI$ satisfies $S$, and
 	we write $\mcI\models S$. 
 \end{definition}
 
@@ -96,8 +110,8 @@ in this rehearsal of definitions. See the appendix for more details and mathemat
 	\begin{array}{ll}
 	\{ \mc \mid \mc\in\mcFfn[0] \} 
 	&\text{if } \mcFfn[0]\not=\emptyset\\
-	\{ \mc \}
-	&\text{if } \mcFfn[0]=\emptyset, \mc\not\in\mcF
+	\{ \mc_0 \}
+	&\text{if } \mcFfn[0]=\emptyset, \mc_0\not\in\mcF
 	\end{array}
 	\right. 
 	\\
@@ -176,100 +190,102 @@ in this rehearsal of definitions. See the appendix for more details and mathemat
 	%	\] 
 	A rewrite rule $\ell'\rwEQ r'$ is a {\myem variant} of $\ell\rwEQ r$ if there is a renaming $\varrho$
 	such that 
-	$(l\rightarrow r)\varrho = l'\rightarrow r'$.
+	$(\ell\rightarrow r)\varrho := \ell\varrho\rightarrow r\varrho = l'\rightarrow r'$.
 	A {\myem term rewrite system} is a set of rewrite rules without variants.
 \end{definition}
+
+\begin{definition}\label{def:position}
+	A {\myem position} is a finite sequence of positive integers.
+	The root position is the empty sequence $\epsilon$.
+	The position $pq$ is obtained by concatenation of positions $p$ and $q$.
+	%
+	The set of all positions of an term $t$ is defined as 
+	\DEFINE{ 
+		\pos(t) }
+	{
+		\{ \epsilon \} 		
+		& \text{if }t = x \in \mcV \\
+%		
+		\{ \epsilon \} \cup \bigcup_{i=1}^{n} \{ iq\mid q\in\pos(t_i) \}	
+		& \text{if }t=\mf(t_1,\ldots,t_n)\text{ where } \mf\in\mcFfn.
+	}
+The~{\myem subterm} $t|_p$ of an term $t$ {\myem at position} $p\in\pos(t)$ is defined as
 %
-%\begin{definition}\label{def:position}
-%	A {\myem position} is a finite sequence of positive integers.
-%	The root position is the empty sequence $\epsilon$.
-%	The position $pq$ is obtained by concatenation of positions $p$ and $q$.
-%	%
-%	The set of all positions of an expression $\mct$ is defined as 
-%	\DEFINE{ 
-%		\pos(\mct) }
-%	{
-%		\{ \epsilon \} 		
-%		& \text{if }\mct = x \in \mcV \\
-%%		
-%		\{ \epsilon \} \cup \bigcup_{i=1}^{n} \{ iq\mid q\in\pos(t_i) \}	
-%		& \text{if }\mct=\mcf(t_1,\ldots,t_n)\text{ where } \mcf\in\mcF^{(n)}.
-%	}
-%The~{\myem subexpression} $\mct|_p$ of an expression $\mct$ {\myem at position} $p\in\pos(\mct)$ is defined as
-%%
-%\DEFINE{
-%	t|_p
-%}{
-%	t 		& \text{if }p=\epsilon \\
-%	t_i|_q	& \text{if }t=\mcf(t_1,\ldots,t_n)\text{ and }p=iq
-%}
-%%
-%If $s$ is an expression then $t[s]_p$ represents the expression build by replacing the subexpression of $t$ at position $p$ with the term $s$.
-%\DEFINE{
-%	t[s]_p}
-%{
-%	s 		& \text{if }p=\epsilon \\
-%	\mf(t_1,\ldots,t_i[s]_q,\ldots,t_n)	& \text{if }t=\mf(t_1,\ldots,t_n)\text{ and }p=iq
-%}
-%%A {\myem hole} denotes a special constant symbol $\ctxhole\in\mcFf^{(0)}$. 
-%%A {\myem context} is a term $t$ with exactly one hole, i.e.~one occurrence $|t|_{\ctxhole}=1$.
-%\end{definition}
+\DEFINE{
+	t|_p
+}{
+	t 		& \text{if }p=\epsilon \\
+	t_i|_q	& \text{if }t=\mf(t_1,\ldots,t_n), p=iq, \mf\in\mcFfn, 0 < i \leq n
+}
 %
-%\begin{definition}
-%	We say $s\rightarrow_\mcR t$ is a 
-%	{\myem rewrite step} 
-%	 with respect to TRS $\mcR$ 
-%	when there is a position $p \in \pos(s)$, 
-%	a rewrite rule $l\rwEQ r\in\mcR$, 
-%	and a substitution $\sigma$ such that
-%	$s|_p=l\sigma$ and $s[r\sigma]_p = t$.
-%		The subterm $l\sigma$ is called {\myem redex} and
-%	$s$ rewrites to $t$ by {\myem contracting} $l\sigma$ to {\myem contractum} $r\sigma$.
-%	%
-%	We say a term $s$ is {\myem irreducible} or in {\myem normal form} with respect to TRS $\mcR$ if there is no rewrite step $s\rightarrow_\mcR t$ for any term $t$. 
-%	The set of normal forms $\mNFR$ contains all irreducible terms of the TRS $\mcR$.
-%	\end{definition}
+With terms $s,t$ and position $p\in\pos(t)$ 
+the term $t[s]_p$ is gained by replacing the subterm in $t$ at position $p$ with term $s$.
+\DEFINE{
+	t[s]_p}
+{
+	s 		& \text{if }p=\epsilon \\
+	\mf(t_1,\ldots,t_i[s]_q,\ldots,t_n)	& \text{if }t=\mf(t_1,\ldots,t_n), p=iq, \mf\in\mcFfn, 0 < i \leq n
+}
+%A {\myem hole} denotes a special constant symbol $\ctxhole\in\mcFf^{(0)}$. 
+%A {\myem context} is a term $t$ with exactly one hole, i.e.~one occurrence $|t|_{\ctxhole}=1$.
+\end{definition}
 %
-%%\begin{definition}
-%%	A {\myem rewrite relation} is a binary relation on terms that is closed under contexts and substitutions.
-%%	A {\myem rewrite order} is a proper order (i.e. irreflexive and transitive relation) and a rewrite relation.
-%%	A {\myem reduction order} is a well-founded rewrite order.
-%%\end{definition}
+\begin{definition}
+	We say $s\rightarrow_\mcR t$ is a 
+	{\myem rewrite step} 
+	 with respect to TRS $\mcR$ 
+	when there is a position $p \in \pos(s)$, 
+	a rewrite rule $\ell\rwEQ r\in\mcR$, 
+	and a substitution $\sigma$ such that
+	$s|_p=\ell\sigma$ and $s[r\sigma]_p = t$.
+		The subterm $\ell\sigma$ is called {\myem redex} and
+	$s$ rewrites to $t$ by {\myem contracting} $\ell\sigma$ to {\myem contractum} $r\sigma$.
+	%
+	We say a term $s$ is {\myem irreducible} or in {\myem normal form} with respect to TRS $\mcR$ if there is no rewrite step $s\rightarrow_\mcR t$ for any term $t$. 
+	The set of normal forms $\mNFR$ contains all irreducible terms of the TRS $\mcR$.
+	\end{definition}
 %
 %\begin{definition}
-%	A term $s$ can be rewritten to term $t$ with notion $s\rightarrow^*_\mcR t$ 
-%	if there exists at least one {\myem rewrite sequence} $(a_1,\ldots ,a_n)$ such that
-%	$s=a_1$, $a_n=t$, and $a_i\rightarrow_\mcR a_{i+1}$ are rewrite steps for $1\leq i<n$.
-%	A TRS is {\myem terminating} if there is no infinite rewrite sequence of terms.
-%	%
-%	Two Terms $s$ and $t$ are {\myem joinable} with notion $s\downarrow t$ 
-%	if both can be rewritten to some term $c$, i.e.~$s \rightarrow^*c\ \, ^*\!\!\leftarrow t$.
-%%	
-%	Two Terms $s$ and $t$ are {\myem meetable} with notion $s\uparrow t$ 
-%	if both can be rewritten from some common ancestor term $a$, i.e.~$s \leftarrow^*a\ \, ^*\!\!\rightarrow t$.
-%%
-%	A TRS is {\myem confluent } if $s$ and $t$ are joinable whenever $s\ ^*\!\!\leftarrow a \rightarrow^* t$ holds for some term $a$.
-%	%
-%	Terms $s$ and $t$ are {\myem convertible} with notion $s\leftrightarrow^* t$ 
-%	if there exists a sequence $(a_1,\ldots ,a_n)$ such that
-%	$s=a_1$, $a_n=t$, and $a_i\leftrightarrow a_{i+1}$, i.e.~$a_i\rightarrow a_{i+1}$ or $a_i\leftarrow a_{i+1}$ are rewrite steps for $1\leq i<n$.
+%	A {\myem rewrite relation} is a binary relation on terms that is closed under contexts and substitutions.
+%	A {\myem rewrite order} is a proper order on terms
+%	(i.e. an irreflexive and transitive relation on terms) and a rewrite relation.
+%	A {\myem reduction order} is a well-founded rewrite order.
 %\end{definition}
 %
-%\begin{definition}\label{def:closed-under}
-%	A {\myem rewrite relation} is a binary relation $\relation$ on terms thats is {\myem closed under contexts},
-%	i.e.~$u[s]_p\relation u[t]_p$ %holds 
-%	for all positions $p\in\pos(u)$ and
-%	for all terms $s,t,u$ whenever $s\relation t$
-%	and {\myem closed under substitutions}, 
-%	i.e.~$s\sigma\relation t\sigma$ %holds
-%	for all substitutions $\sigma$
-%	and all terms $s,t$ whenever $s\relation t$.
-%\end{definition}
-%\begin{lemma}
-%	The relations $\rightarrow^*_\mcR$, 
-%	$\rightarrow^+_\mcR$,
-%	$\downarrow_\mcR$, $\uparrow_\mcR$ are rewrite relations on every TRS $\mcR$.
-%\end{lemma}
+\begin{definition}
+	A term $s$ can be rewritten to term $t$ with notion $s\rightarrow^*_\mcR t$ 
+	if there exists at least one {\myem rewrite sequence} $(a_1,\ldots ,a_n)$ such that
+	$s=a_1$, $a_n=t$, and $a_i\rightarrow_\mcR a_{i+1}$ are rewrite steps for $1\leq i<n$.
+	A TRS is {\myem terminating} if there is no infinite rewrite sequence of terms.
+	%
+	Two Terms $s$ and $t$ are {\myem joinable} with notion $s\downarrow t$ 
+	if both can be rewritten to some term $c$, i.e.~$s \rightarrow^*c\ \, ^*\!\!\leftarrow t$.
+%	
+	Two Terms $s$ and $t$ are {\myem meetable} with notion $s\uparrow t$ 
+	if both can be rewritten from some common ancestor term $a$, i.e.~$s \leftarrow^*a\ \, ^*\!\!\rightarrow t$.
+%
+	A TRS is {\myem confluent } if $s$ and $t$ are joinable whenever $s\ ^*\!\!\leftarrow a \rightarrow^* t$ holds for some term $a$.
+	%
+	Terms $s$ and $t$ are {\myem convertible} with notion $s\leftrightarrow^* t$ 
+	if there exists a sequence $(a_1,\ldots ,a_n)$ such that
+	$s=a_1$, $a_n=t$, and $a_i\leftrightarrow a_{i+1}$, i.e.~$a_i\rightarrow a_{i+1}$ or $a_i\leftarrow a_{i+1}$ are rewrite steps for $1\leq i<n$.
+\end{definition}
+%
+\begin{definition}\label{def:closed-under}
+	A {\myem rewrite relation} is a binary relation $\relation$ on terms that is {\myem closed under contexts},
+	i.e.~$u[s]_p\relation u[t]_p$ %holds 
+	for all positions $p\in\pos(u)$ and
+	for all terms $s,t,u$ whenever $s\relation t$
+	and {\myem closed under substitutions}, 
+	i.e.~$s\sigma\relation t\sigma$ %holds
+	for all substitutions $\sigma$
+	and all terms $s,t$ whenever $s\relation t$.
+\end{definition}
+\begin{lemma}
+	The relations $\rightarrow^*_\mcR$, 
+	$\rightarrow^+_\mcR$,
+	$\downarrow_\mcR$, $\uparrow_\mcR$ are rewrite relations on every TRS $\mcR$.
+\end{lemma}
 %%
 %\begin{definition}
 %	A proper (i.e.~irreflexive and transitive) order on terms is called {\myem rewrite order} if it is a rewrite relation.
@@ -292,16 +308,5 @@ in this rehearsal of definitions. See the appendix for more details and mathemat
 %	We call $\mcR$ simply terminating if $\gtpre$ is a simplification order.
 %\end{theorem}
 
-
-
-\section{Conventions}
-
-\begin{align*}
-\mc, \md &\ \in\mcFfn[{0}]\tag*{constant symbols} \\
-\mf, \mg, \mh &\ \in\mcFfn[{n>0}]\tag*{function symbols} \\
-\mpp, \mq, \mr &\ \in\mcFPn[{0}]\tag*{propositional symbols}\\
-\mP, \mQ, \mR &\ \in\mcFPn[{n>0}]\tag*{predicate symbols}\\
-s,t,u &\ \in\mcTf = \mcTFfV\tag*{terms}
-\end{align*}
 
 

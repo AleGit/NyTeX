@@ -7,7 +7,9 @@
 \input{epigraphs/syllogism}
 
 In this chapter we demonstrate the implications of undecidability of first order logic 
-for instantiation-based proving procedures like Gilmore's prover or the InstGen framework.
+for instantiation-based proving procedures with Gilmore's prover and the InstGen framework.
+It seems natural to expect decision procedures for decidable fragments of first order logic.
+
 %An we judge the procedures by there theoretical performance on decidable fragments. 
 %
 We know by Herbrand's theorem 
@@ -21,7 +23,7 @@ that if every finite subset of a set of clauses is satisfiable then this set is 
 The satisfiability of ground instances is decidable as we have seen in the previous chapter.
 So the central idea of instantiation-based first order theorem proving 
 is to find an unsatisfiable and finite set of ground instances for a given set of clauses.
-In general a failure in this approach does not show satisfiability of the given set of clauses.
+In general a failure in this search does not show satisfiability of the given set of clauses.
 %So the central idea of instantiation-based first order theorem proving is the
 %translation of an undecidable problem into a (potentially infinite) sequence of decidable problems.
 
@@ -59,7 +61,7 @@ such that eventually an unsatisfiable one is found for arbitrary unsatisfiable s
 In 1960 Paul Gilmore presented the first {\myem implementation} of an automated 
 theorem prover \cite{5392528} for first order logic without equality,
 which happened to use an instantiation-based approach. 
-The procedure was theoretically complete, i.e.~for every valid formula 
+The procedure is theoretically complete, i.e.~for every valid formula 
 a proof can be found eventually.
 
 In practice this prover ran into memory issues or time outs more often than not.
@@ -404,6 +406,16 @@ Consider the satisfiable set of clauses $S = \{a \relation b, b \relation c, \mP
 
 When we use the equality symbol as a predicate symbol 
 then at least we expect a congruence relation.
+
+\section{Examples}
+
+\begin{example}
+	\begin{align*}
+	\ack(\mzero,n) &\mEQ \msucc(n) \\
+	\ack(\msucc(m),\mzero) &\mEQ \ack(m, \msucc(\mzero)) \\
+	\ack(\msucc(m),\msucc(n)) &\mEQ \ack(m, \ack(\msucc(m),n))
+	\end{align*}
+\end{example}
 
 
 
