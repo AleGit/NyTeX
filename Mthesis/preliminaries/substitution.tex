@@ -55,25 +55,63 @@ We define the {\myem composition} of two substitutions $\sigma$ and $\tau$ as fo
 
 
 \begin{lemma}\label{lem:substitution}
-	With the definitions in \ref{def:substitution} and \ref{def:substcomp} the identity
+	With the definitions in \ref{def:substitution} and \ref{def:substcomp} the equation
 	$(\mct\sigma)\tau = \mct(\sigma\tau)$ holds for
 	arbitrary first order expressions and substitutions.
 \end{lemma}
 
-\begin{example} Let 
-	$\mct = \mf(x,y)$, 
-	$\sigma = \{ x\mapsto\mg(x),y\mapsto\mc \}$, 
-	and $\tau = \{ x\mapsto\md\}$.
-	\begin{align*}
-	(\mct\sigma)\tau 
-	&= \left(\mf(x,y)\, \{ x\mapsto\mg(x),y\mapsto\mc \}\right)\, \{ x\mapsto\md\}
-	= \mf(\mg(x), \md)\, \{ x\mapsto\md\} 
-	= \mf(\mg(\md), \mc)  
-	\\
-	\mct(\sigma\tau)
-	&= \mf(\mg(x),\md) \{ x\mapsto\mg(x)\,\{ x\mapsto\md \}, \mc\,\{ x\mapsto\md \} \}
-	= \mf(\mg(x),\md) \{ x\mapsto\mg(\md), \mc\}
-	= \mf(\mg(\md), \mc) 
-	\end{align*}
-	Hence $\mct\sigma\tau = \mf(\mg(\md), \mc)$ by definition.
-\end{example}
+\begin{proof}
+	Assume $\sigma$ and $\tau$ are substitutions. 
+	Then we use induction on the structure of arbitrary expression $\mct$
+	that the equation $(\mct\sigma)\tau =  \mct(\tau\sigma)$ holds in all possible cases.
+	\begin{itemize}
+		\item (base case) Let $\mct = x_i \in\dom(\sigma)$ then
+		$((x_i)\sigma)\tau\defEQ s_i\tau\defEQ x_i(\sigma\tau)$ holds.
+		
+		\item (base case) Let $\mct = y \not\in\dom(\sigma)$ then
+		$(y\sigma)\tau \defEQ y\tau \defEQ y(\sigma\tau)$ holds. 
+		
+		\item (step case) Let $\mct = \mcf(t_1,\ldots,t_n)$ 
+		then
+		$((\mcf(t_1,\ldots,t_n))\sigma)\tau
+		\defEQ 
+		(\mcf(t_1\sigma,\ldots,t_n\sigma))\tau
+		\defEQ 
+		\mcf((t_1\sigma)\tau,\ldots,(t_n\sigma)\tau)
+		\defEQ[IH]
+		\mcf(t_1(\sigma\tau),\ldots,t_n(\sigma\tau))
+		\defEQ
+		(\mcf(t_1,\ldots,t_n))(\sigma\tau)
+		$ holds.
+		
+		\item (step case) Let $\mct = \lnot A$ then
+		$((\lnot A)\sigma)\tau 
+		\defEQ 
+		(\lnot(A\sigma))\tau 
+		\defEQ 
+		\lnot((A\sigma)\tau)
+		\defEQ[IH]
+		\lnot(A(\sigma\tau))
+		\defEQ 
+		(\lnot A)(\sigma\tau)
+		$ holds.
+	\end{itemize}
+\end{proof}
+
+%\begin{example} Let 
+%	$\mct = \mf(x,y)$, 
+%	$\sigma = \{ x\mapsto\mg(x),y\mapsto\mc \}$, 
+%	and $\tau = \{ x\mapsto\md\}$.
+%	\begin{align*}
+%	(\mct\sigma)\tau 
+%	&= \left(\mf(x,y)\, \{ x\mapsto\mg(x),y\mapsto\mc \}\right)\, \{ x\mapsto\md\}
+%	= \mf(\mg(x), \md)\, \{ x\mapsto\md\} 
+%	= \mf(\mg(\md), \mc)  
+%	\\
+%	\mct(\sigma\tau)
+%	&= \mf(\mg(x),\md) \{ x\mapsto\mg(x)\,\{ x\mapsto\md \}, \mc\,\{ x\mapsto\md \} \}
+%	= \mf(\mg(x),\md) \{ x\mapsto\mg(\md), \mc\}
+%	= \mf(\mg(\md), \mc) 
+%	\end{align*}
+%	Hence $\mct\sigma\tau = \mf(\mg(\md), \mc)$ by definition.
+%\end{example}

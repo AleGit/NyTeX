@@ -148,14 +148,14 @@ i.e.~there is at least one non-constant function symbol.
 	\]
 \end{definition}
 
-\begin{example}
+\begin{example}\label{ex:satEzy}
 	Consider the formula 
 	$G = \exists x\forall y\,\mE(x,y)$
 	which is a member of the Ackermann prefix class $\forall^*\exists\forall^*$ 
 	of first order formulae
 	where the satisfiability problem is decidable.
 	The set of clauses 
-	$S = \{ \mE(\mzero,y) \}$ is equisatisfiable to $G$ and clearly satisfiable.
+	$S = \{\,\mE(\mzero,y)\,\}$ is equisatisfiable to $G$ and clearly satisfiable.
 	The procedure yields the following sequence of distinct and satisfiable sets $S_{k\geq0}$:
 	\begin{align*}
 	H_{0} :=&\  \{ \mzero \} 
@@ -188,37 +188,37 @@ which lead to the development of effective SAT Solvers.
 
 \begin{example}\label{ex:unsatE2}
 	Consider the set of clauses 
-	$S =\
-	\{
-	{ \lnot\mE(x, \ms(x)))}, 
+	$S =
+	\{\,
+	{ \lnot\mE(x, \ms(x)))},\, 
 	{ \mE(\ms^k(y), \ms(\ms^k(y)))}
-	\}$ 
+	\,\}$ 
 	where the sets of instances $S_i$ are satisfiable for $i<k$,
 	but the set of instances $S_{i+1}$ is clearly unsatisfiable for $i+1 = k\in\mathbb{N}$.
 %	
 \begin{align*}
-H_{0} :=&\  \{ \mc \} 
+H_{0} :=&\ \{\,\mzero\,\} 
 &
-S_{0} :=&\ \{ 
-{\colHi\lnot\mE(\mc,\msucc(\mc))},\
-{\colEm \mE(\ms^k(\mc), \ms(\ms^k(\mc)))}
-\}
+S_{0} :=&\ \{\, 
+{\colHi\lnot\mE(\mzero,\msucc(\mzero))},\,
+{\colEm \mE(\ms^k(\mzero),\,\ms(\ms^k(\mzero)))}
+\,\}
 \\
-H_{i+1} :=&\ H_i \disjointunion \{ \msucc^{i+1}(\mc) \} 
+H_{i+1} :=&\ H_i \disjointunion \{\,\msucc^{i+1}(\mzero)\,\} 
 &
 S_{i+1} \supsetneq&\
-\{
-{\colEm \lnot\mE(\msucc^{i+1}(\mc),\msucc(\msucc^{i+1}(\mc)))},\
-{\mE(\ms^k(\msucc^{i+1}(\mc)), \ms(\ms^k(\msucc^{i+1}(\mc))))}
-\}
+\{\,
+{\colEm \lnot\mE(\msucc^{i+1}(\mzero),\msucc(\msucc^{i+1}(\mzero)))},\,
+{\mE(\ms^k(\msucc^{i+1}(\mzero)), \ms(\ms^k(\msucc^{i+1}(\mzero))))}
+\,\}
 \end{align*}
-In this case the guess for a finite unsatisfiable set of ground instances appears more easy and yields a smaller set.
+In this case the guess for a finite unsatisfiable set of ground instances appears feasible and yields a smaller set.
 \[
-	\{ 
-		{\lnot\mE(\mc,\msucc(\mc))},\
-		{\colHi \mE(\ms^k(\mc), \ms(\ms^k(\mc)))},
-		{\colLo \lnot\mE(\msucc^{k}(\mc),\msucc(\msucc^{k}(\mc)))}		
-	\}
+	\{\, 
+%		{\lnot\mE(\mc,\msucc(\mc))},\
+		{\colHi \mE(\ms^k(\mzero), \ms(\ms^k(\mzero)))},
+		{\colLo \lnot\mE(\msucc^{k}(\mzero),\msucc(\msucc^{k}(\mzero)))}		
+	\,\}
 \]
 \end{example}
 
@@ -245,6 +245,31 @@ Gilmore's prover blindly constructs new ground instances.
 	%{\small This rule looks very similar to resolution. But instead of combining two clauses to one single new clause,
 	%the most general unifier $\sigma$ is used to derive two new clauses.}
 \end{definition}
+
+\begin{example}
+	Let $S = \{\,\mE(\mzero,y)\,\}$ be the satisfiable set of example \ref{ex:satEzy}. 
+	We can not derive any clause with InstGen.
+\end{example}
+
+\begin{example}
+Let $S =
+\{\,
+{ \lnot\mE(x, \ms(x)))},\, 
+{ \mE(\ms^k(y), \ms(\ms^k(y)))}
+\,\}$ 
+be the unsatisfiable set of example \ref{ex:unsatE2}. 
+We immediately derive a new clause with InstGen.
+\begin{gather*}
+\infer[x\mapsto\msucc^k(y)]{
+	{\colLo \lnot\mE(\ms^k(y), \ms(\ms^k(y))))} \qquad
+	{\colG \mE(\ms^k(y), \ms(\ms^k(y)))}
+}{
+	{ \lnot\mE(x, \ms(x)))} &
+	{\colHi \mE(\ms^k(y), \ms(\ms^k(y)))}
+}
+\end{gather*}
+	
+\end{example}
 
 \begin{lemma}
 	The set of clauses 

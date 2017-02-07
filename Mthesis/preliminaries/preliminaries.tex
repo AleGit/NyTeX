@@ -104,22 +104,23 @@ in this rehearsal of definitions. See the appendix for more details and mathemat
 \end{definition}
 
 \begin{definition}\label{def:hk}
-	An {\myem Herbrand universe} is the smallest set of terms that contains all $H_k\ge 0$ of
+	An {\myem Herbrand universe} is the smallest set of terms that contains all $H_i, i\geq 0$ of
 	\begin{align*}
 	H_0 &:= \left\{ 
 	\begin{array}{ll}
-	\{ \mc \mid \mc\in\mcFfn[0] \} 
+	\{\,\mc \mid \mc\in\mcFfn[0]\,\} 
 	&\text{if } \mcFfn[0]\not=\emptyset\\
-	\{ \mc_0 \}
+	\{\,\mc_0\,\}
 	&\text{if } \mcFfn[0]=\emptyset, \mc_0\not\in\mcF
 	\end{array}
 	\right. 
 	\\
-	H_{k+1} &:= H_k \cup \{\  
+	H_{k+1} &:= H_k \cup 
+	\{\,  
 	\mf(t_1,\ldots,t_n) \mid
 	\mf\in\mcFfn[n],
 	t_1,\ldots,t_n \in H_k
-	\ \}
+	\,\}
 	\end{align*}
 	
 \end{definition}
