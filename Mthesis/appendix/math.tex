@@ -222,3 +222,68 @@
 \begin{lemma}
 	LPO and KBO are simplification orders on (general) terms.
 \end{lemma}
+
+\begin{lemma}
+	\begin{align*}
+	\bigwedge_{i=1}^{n} 
+	\left(	
+		\bigvee_{j=1}^{c_i}\,p_{i,j} 
+	\right)
+	\ &\equiv
+	\bigvee_{(j_1,\ldots,j_n)}
+	\left(
+		\bigwedge_{i=1}^{n}\,a_{(i,j_i)}
+	\right)
+	&\text{with }(j_1,\ldots,j_n)\in\prod_{i=1}^{n}\{ 1,\ldots,c_i \}
+	\end{align*}
+\end{lemma}
+\begin{proof}By induction on $n$
+	\begin{itemize}
+		\item (base) $n=1$.
+		\begin{align*}
+		\bigvee_{j=1}^{c_1} p_{i,j}\ &= \bigvee_{(j_1)} p_{(1,j_1)} 
+		&
+		(j_1) \in \{ 1,\ldots, c_1 \}
+		\end{align*}
+		
+		\item (step) $n+1$
+		
+		\begin{align*}
+		\bigwedge_{i=1}^{n+1} 
+		\left(	
+			\bigvee_{j=1}^{c_i}\,p_{i,j} 
+		\right)
+		\ \defEQ&\quad
+		\left( 
+			\bigwedge_{i=1}^{n} 
+			\left(
+				\bigvee_{j=1}^{c_i}\,p_{i,j}
+			\right)
+		\right)
+%		
+		\land 
+		\left(\bigvee_{j=1}^{c_{n+1}} p_{n+1,j}\right)
+		\\
+		\defEV[I.H.]&\ 
+		\left(
+		\bigvee_{(j_1,\ldots,j_n)}
+		\bigwedge_{i=1}^{n}\,a_{(i,j_i)}
+		\right)
+		\land 
+		\left(\bigvee_{j=1}^{c_{n+1}} p_{n+1,j}\right)
+%		&(j_1,\ldots,j_n)\in\prod_{i=1}^{n}\{ 1,\ldots,c_i \}
+		\\
+		\defEV[DIST]&\ 
+		\bigvee_{j_{n+1}=1}^{c_{n+1}}
+		\left(
+		\bigvee_{(j_1,\ldots,j_n)}
+		\left(\left(
+		\bigwedge_{i=1}^{n}\,p_{(i,j_i)}
+		\right)\right)
+		\land p_{(n+1,j_{n+1})}
+		\right)
+		\end{align*}
+		
+		
+	\end{itemize}
+\end{proof}

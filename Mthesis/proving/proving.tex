@@ -123,19 +123,50 @@ Both conjunctions contain complementary literals and we conclude the negated for
  
 \end{example}
 
+\begin{procedure}[Gilmore's Prover]
+	We translate the negation of a formula $\lnot F$ into an equisatisfiable set of clauses 
+	$\lnot F \approx S = \bigcup_{i=1}^{n} \mcC_i$.
+	
+	We start our first iteration with $i=0$.
+	\begin{enumerate}
+		
+		\item We create $H_i$ (see Definition \ref{def:hk})
+		and the set of instances $S_i$ by substituting all variables 
+		in each clause by terms from $H_k$ in any possible permutation.
+		\[ S_i = \bigcup_{i=1}^{n} 
+		\{\,
+			\mcC_i\sigma \mid \mcC_i \in S,\,\sigma: \mcV\to H_i
+		\,\}
+		\]
+		
+		\item We translate $S_i$ into an equivalent disjunctive normal form 
+		(a disjunction of conjunctions)
+		where satisfiability is easily checked.
+		
+		
+
+\item When every conjunction contains a pair of complementary literals then we exit the procedure and report unsatisfiability of $\lnot F$.
+
+Otherwise we increase $i$ by one and continue with step 1.
+		
+		
+	\end{enumerate}
+	
+\end{procedure}
+
 Gilmore's procedure will always terminate for an unsatisfiable set of clauses.
 It enumerates all possible sets of ground instances iteratively
 and one of them must be unsatisfiable for an unsatisfiable set of clauses. 
 However the number of iterations has no general upper bound. 
-Otherwise it would be a decision procedure for satisfiability
-which cannot exist because of undecidability of satisfiability in first order logic.
+Otherwise it would be a decision procedure for satisfiability in first order logic
+which does not exist because of undecidability of satisfiability in first order logic.
 
 It is easy to see that for a set of clauses without non-constant function symbols
 we can stop the procedure after one iteration because $H_i = H_0$ and $S_i = S_0$ for all $i\geq0$.
 %
-On the other hand the procedure will never terminate 
-even for very simple satisfiable sets where the Herbrand universe is infinite, 
-i.e.~there is at least one non-constant function symbol.
+%On the other hand the procedure will never terminate 
+%even for very simple satisfiable sets where the Herbrand universe is infinite, 
+%i.e.~there is at least one non-constant function symbol.
 
 \begin{definition}
 	For an unary function symbol $\msucc$, a natural number
@@ -177,14 +208,111 @@ i.e.~there is at least one non-constant function symbol.
 
 
 
-Gilmore's prover has two main disadvantages:
+We observe three main disadvantages in Gilmore's procedure.
 \begin{enumerate}
-	\item The generation of all instances up to a certain term depth.
-	\item The transformation to a disjunctive normal form to check unsatisfiability.
+	\item\label{enum:gilmore:generation}
+	 The generation of instances is unguided. 
+	With each iteration exponentially many 
+	new instances are added
+	-- depending on the number and the arities of used symbols.
+	\begin{align*}
+		H'_0 &= \{\,\mc \,\}  
+		&H_0 = H'_0
+		\\
+		H'_1 &= \{\,\mf(\mc), \mg(\mc,\mc) \,\} 
+		&H_1 = H_0 \cup H'_1
+		\\
+		H'_2 &= 
+		\{\, 
+			\mf(\mf(\mc)), \mf(\mg(\mc,\mc)), 
+			\mg(\mc, \mf(\mc)), \mg(\mc, \mg(\mc,\mc)), \\
+			&\qquad \mg(\mf(\mc), \mc), \mg(\mf(\mc), \mf(\mc)), \mg(\mf(\mc), \mg(\mc,\mc)), \\
+			&\qquad \mg(\mg(\mc,\mc),\mc), \mg(\mg(\mc,\mc),\mf(\mc)), \mg(\mg(\mc,\mc), \mg(\mc,\mc)) 
+		\,\} 
+		&H_2 = H_1 \cup H'_2	
+		\\
+		H'_{i+1} &= 
+			\{\, \mf(a), \mg(a,b), \mg(b,a) \mid a\in H'_i, b\in H_i \, 
+			\}
+			&H_i = \bigcup_{j=1}^{i} H'_j
+		\end{align*}\\[-1.0em]		
+		This makes disadvantage No.~\ref{enum:gilmore:transformation} 
+		which is invoked at every iteration even worse.
+	\item\label{enum:gilmore:transformation} 
+	The check for unsatisfiability is far from efficient.
+	The transformation from a set of clauses to a formula 
+	in disjunctive normal form\footnote{
+		If a general algorithm with polynomial complexity existed 
+		that translates 
+		an arbitrary propositional formula into 
+		an equi-\allowbreak{}satisfiable formula in disjunctive normal 
+		form (where satisfiability is a linear check) 
+		then $\mathsf{SAT}$ would be in $\mcP$
+%		$\mathsf{SAT}\in\mcP$  
+		and $\mcP = \mcN\mcP$. 
+	} 
+	introduces an exponential 
+	blow up of the size of the formula
+	-- depending on the number of clauses $n$ in the set 
+	and the number of literals $c_i$ per clause $\mcC_i$ we get the disjunction of
+	$\prod_{1}^{n} c_i$ 
+	conjunctions of $n$ literals.
+	  \begin{align*}
+	  \bigwedge_{i=1}^{n} 
+	  \left(
+	  	\bigvee_{j_i=1}^{c_i} p_{(i,j_i)} 
+	  \right)
+	  \ &\equiv
+	  \bigvee_{(j_1,\ldots,j_n)}
+	  \left(
+	  	\bigwedge_{i=1}^{n} p_{(i,j_i)}
+	  \right)
+	  &\text{with }(j_1,\ldots,j_n)\in\prod_{i=1}^{n}\{ 1,\ldots,c_i \}
+	\end{align*}
+	In total the number of literals in the set of clauses is 
+	$n\cdot \bar{c}_{arith}$, 
+	while the equivalent disjunctive normal form contains 
+	$(\bar{c}_{geom})^n\cdot n$ literals\footnote{
+		%		$\prod_{1}^{n} c_i = (\bar{c}_{geom})^n$
+		%		with the geometric mean 
+		Geometric $\bar{c}_{geom} := \left(\prod_{1}^{n}c_i\right)^{\frac{1}{n}}$, 
+		arithmetic $\bar{c}_{arith} := \left(\sum_{1}^{n}c_i\right)\cdot\frac{1}{n}$ mean, and
+		%		where
+				$\bar{c}_{geom} 
+				\leq 
+				\bar{c}_{arith}$.
+	}.
+	\begin{gather*}
+%	a∧(b∨c)∧(d∨e∨f)
+%	\\
+%	\equiv
+%	\\
+%	(a∧b∧d)∨(a∧b∧e)∨(a∧b∧f)∨(a∧c∧d)∨(a∧c∧e)∨(a∧c∧f)
+%\\
+		\{ 1 \}\times\{1,2\}\times\{1,2,3\} = 
+		\{
+			(1,1,1),(1,1,2),(1,1,3),
+			(1,2,1),(1,2,2),(1,2,3)
+		\}
+	\end{gather*}
+	
+	\item\label{enum:gilmore:termination}
+	The procedure will not terminate for satisfiable sets 
+	when at least one non-constant predicate symbol and 
+	one non-constant function symbol are present in the signature.
+	\begin{gather*}
+	S=\{\,\mP(\mf(x)) \,\} \qquad H_0 = \{\,\mc\,\} \qquad S_0 = \{\,\mP(\mf(\mc))\,\} 
+	\\
+	\qquad H_i \subsetneq H_{i+1} = \bigcup_{k=0}^{i+1}\{\, \mf^{k}(\mc))\,\}
+	\qquad S_{i} \subsetneq S_{i+1} = \{\, \mP(\mf(a)) \mid a\in H_{i+1}
+	\,\}
+	\end{gather*}
 \end{enumerate}
 
-The second was already addressed by Davis and Putnam in 1960
-which lead to the development of effective SAT Solvers.
+
+
+The first was already addressed by Davis and Putnam in 1960 \cite{Davis:1960:CPQ:321033.321034}
+which lead to the development of effective propositional SAT Solvers.
 
 \begin{example}\label{ex:unsatE2}
 	Consider the set of clauses 
@@ -226,14 +354,16 @@ In this case the guess for a finite unsatisfiable set of ground instances appear
 
 Gilmore's prover blindly constructs new ground instances. 
 
-\begin{definition}[Inst-Gen]
+\begin{definition}[\InstGen] Let $A, B$ be atoms and $\mcC,\mcD$ be clauses.
 	\begin{gather*}
 	\infer
-	[\atop\text{Inst-Gen}] 
+	[{\InstGen}] 
 	{(A\lor\mathcal C)\sigma\qquad (\lnot B\lor\mathcal D)\sigma}
 	{A\lor\mathcal C\quad&\quad \lnot B\lor\mathcal D}
 	\end{gather*}
-	\begin{center}$\sigma=\mgu(A,B)$, $\sigma$ is proper\end{center}
+	\begin{center}$\sigma=\mgu(A,B)$
+%		, $\sigma$ is proper
+	\end{center}
 	%	The rule looks very similar to the resolution rule in Definition \ref{def:res}.
 	%	But there is an important difference. 
 	%	Instead of combining two clauses to one single clause,
@@ -247,18 +377,19 @@ Gilmore's prover blindly constructs new ground instances.
 \end{definition}
 
 \begin{example}
-	Let $S = \{\,\mE(\mzero,y)\,\}$ be the satisfiable set of example \ref{ex:satEzy}. 
-	We can not derive any clause with InstGen.
+	With \InstGen we cannot derive any new clause from satisfiable set 
+	$S = \{\,\mE(\mzero,y)\,\}$ 
+	introduced in Example \ref{ex:satEzy}.
 \end{example}
 
 \begin{example}
-Let $S =
+	With \InstGen we can derive a new clause from unsatisfiable set
+$S =
 \{\,
 { \lnot\mE(x, \ms(x)))},\, 
 { \mE(\ms^k(y), \ms(\ms^k(y)))}
 \,\}$ 
-be the unsatisfiable set of example \ref{ex:unsatE2}. 
-We immediately derive a new clause with InstGen.
+ introduced in Example \ref{ex:unsatE2}. 
 \begin{gather*}
 \infer[x\mapsto\msucc^k(y)]{
 	{\colLo \lnot\mE(\ms^k(y), \ms(\ms^k(y))))} \qquad
@@ -283,6 +414,10 @@ We immediately derive a new clause with InstGen.
 	with $\sigma = \mgu(A,B)$ 
 	is satisfiable.
 \end{lemma}
+
+\begin{proof}
+	
+\end{proof}
 
 \begin{figure}[hbt]
 	\begin{center}
