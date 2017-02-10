@@ -130,9 +130,11 @@ Both conjunctions contain complementary literals and we conclude the negated for
 	We start our first iteration with $i=0$.
 	\begin{enumerate}
 		
-		\item We create $H_i$ (see Definition \ref{def:hk})
-		and the set of instances $S_i$ by substituting all variables 
-		in each clause by terms from $H_k$ in any possible permutation.
+		\item We create $H_i$ from Definition \ref{def:hk}, 
+		i.e.~the set of all ground terms up to term depth $i$. 
+		We use $H_i$ to create the set of clause instances $S_i$ 
+		by substituting all variables 
+		in each clause by terms from $H_i$ in any possible permutation.
 		\[ S_i = \bigcup_{i=1}^{n} 
 		\{\,
 			\mcC_i\sigma \mid \mcC_i \in S,\,\sigma: \mcV\to H_i
@@ -140,12 +142,13 @@ Both conjunctions contain complementary literals and we conclude the negated for
 		\]
 		
 		\item We translate $S_i$ into an equivalent disjunctive normal form 
-		(a disjunction of conjunctions)
+		(i.e.~a disjunction of conjunctions of literals)
 		where satisfiability is easily checked.
 		
 		
 
-\item When every conjunction contains a pair of complementary literals then we exit the procedure and report unsatisfiability of $\lnot F$.
+		\item When every conjunction contains a pair of complementary literals 
+		then we exit the procedure and report unsatisfiability of $\lnot F$.
 
 Otherwise we increase $i$ by one and continue with step 1.
 		
@@ -168,6 +171,42 @@ we can stop the procedure after one iteration because $H_i = H_0$ and $S_i = S_0
 %even for very simple satisfiable sets where the Herbrand universe is infinite, 
 %i.e.~there is at least one non-constant function symbol.
 
+\begin{example}\label{ex:unsatE2}
+	Consider the set of clauses 
+	$S =
+	\{\,
+	{ \lnot\mE(x, \ms(x)))},\, 
+	{ \mE(\ms^k(y), \ms(\ms^k(y)))}
+	\,\}$ 
+	where the sets of instances $S_i$ are satisfiable for $i<k$,
+	but the set of instances $S_{i+1}$ is clearly unsatisfiable for $i+1 = k\in\mathbb{N}$.
+	%	
+	\begin{align*}
+	H_{0} :=&\ \{\,\mzero\,\} 
+	&
+	S_{0} :=&\ \{\, 
+	{\colHi\lnot\mE(\mzero,\msucc(\mzero))},\,
+	{\colEm \mE(\ms^k(\mzero),\,\ms(\ms^k(\mzero)))}
+	\,\}
+	\\
+	H_{i+1} :=&\ H_i \disjointunion \{\,\msucc^{i+1}(\mzero)\,\} 
+	&
+	S_{i+1} \supsetneq&\
+	\{\,
+	{\colEm \lnot\mE(\msucc^{i+1}(\mzero),\msucc(\msucc^{i+1}(\mzero)))},\,
+	{\mE(\ms^k(\msucc^{i+1}(\mzero)), \ms(\ms^k(\msucc^{i+1}(\mzero))))}
+	\,\}
+	\end{align*}
+	In this case the guess for a finite unsatisfiable set of ground instances appears feasible and yields a smaller set.
+	\[
+	\{\, 
+	%		{\lnot\mE(\mc,\msucc(\mc))},\
+	{\colHi \mE(\ms^k(\mzero), \ms(\ms^k(\mzero)))},
+	{\colLo \lnot\mE(\msucc^{k}(\mzero),\msucc(\msucc^{k}(\mzero)))}		
+	\,\}
+	\]
+\end{example}
+
 \begin{definition}
 	For an unary function symbol $\msucc$, a natural number
 	$i\in\mathbb{N}$, and an arbitrary term $t\in\mcTf$ we introduce the notation
@@ -178,6 +217,8 @@ we can stop the procedure after one iteration because $H_i = H_0$ and $S_i = S_0
 	\end{array}
 	\]
 \end{definition}
+
+
 
 \begin{example}\label{ex:satEzy}
 	Consider the formula 
@@ -208,53 +249,71 @@ we can stop the procedure after one iteration because $H_i = H_0$ and $S_i = S_0
 
 
 
-We observe three main disadvantages in Gilmore's procedure.
+We have observed three main disadvantages in Gilmore's procedure.
 \begin{enumerate}
 	\item\label{enum:gilmore:generation}
 	 The generation of instances is unguided. 
-	With each iteration exponentially many 
-	new instances are added
+	With each iteration exponentially many (mostly useless)
+	instances are created
 	-- depending on the number and the arities of used symbols.
-	\begin{align*}
-		H'_0 &= \{\,\mc \,\}  
-		&H_0 = H'_0
-		\\
-		H'_1 &= \{\,\mf(\mc), \mg(\mc,\mc) \,\} 
-		&H_1 = H_0 \cup H'_1
-		\\
-		H'_2 &= 
-		\{\, 
-			\mf(\mf(\mc)), \mf(\mg(\mc,\mc)), 
-			\mg(\mc, \mf(\mc)), \mg(\mc, \mg(\mc,\mc)), \\
-			&\qquad \mg(\mf(\mc), \mc), \mg(\mf(\mc), \mf(\mc)), \mg(\mf(\mc), \mg(\mc,\mc)), \\
-			&\qquad \mg(\mg(\mc,\mc),\mc), \mg(\mg(\mc,\mc),\mf(\mc)), \mg(\mg(\mc,\mc), \mg(\mc,\mc)) 
-		\,\} 
-		&H_2 = H_1 \cup H'_2	
-		\\
-		H'_{i+1} &= 
-			\{\, \mf(a), \mg(a,b), \mg(b,a) \mid a\in H'_i, b\in H_i \, 
-			\}
-			&H_i = \bigcup_{j=1}^{i} H'_j
-		\end{align*}\\[-1.0em]		
+%	\begin{align*}
+%		H'_0 &= \{\,\mc \,\}  
+%		&H_0 = H'_0
+%		\\
+%		H'_1 &= \{\,\mf(\mc), \mg(\mc,\mc) \,\} 
+%		&H_1 = H_0 \cup H'_1
+%		\\
+%		H'_2 &= 
+%		\{\, 
+%			\mf(\mf(\mc)), \mf(\mg(\mc,\mc)), 
+%			\mg(\mc, \mf(\mc)), \mg(\mc, \mg(\mc,\mc)), \\
+%			&\qquad \mg(\mf(\mc), \mc), \mg(\mf(\mc), \mf(\mc)), \mg(\mf(\mc), \mg(\mc,\mc)), \\
+%			&\qquad \mg(\mg(\mc,\mc),\mc), \mg(\mg(\mc,\mc),\mf(\mc)), \mg(\mg(\mc,\mc), \mg(\mc,\mc)) 
+%		\,\} 
+%		&H_2 = H_1 \cup H'_2	
+%		\\
+%		H'_{i+1} &= 
+%			\{\, \mf(a), \mg(a,b), \mg(b,a) \mid a\in H'_i, b\in H_i \, 
+%			\}
+%			&H_i = \bigcup_{j=1}^{i} H'_j
+%		\end{align*}\\[-1.0em]	
+\begin{align*}
+	\lvert S_{i} \rvert &= \sum_n \left( \lvert \mcFPn \rvert\cdot \lvert H_{i}\rvert^n \right)
+	&
+	\lvert H_0 \rvert &\geq 1	
+	\\
+	\lvert S_{i+1} \rvert &= \sum_n \left( \lvert \mcFPn \rvert\cdot \lvert H_{i+1}\rvert^n \right)
+%	\geq \lvert S_i \rvert^n
+	&
+	\lvert H_{i+1}\rvert &\geq 
+	\sum_{n>0}\left(
+	\lvert\mcFfn\rvert\cdot\lvert H_i \rvert^n
+	\right) 
+%	\\
+%	&\geq \sum_n \left( \lvert \mcFPn \rvert\cdot 
+%	\left( 
+%	\sum_{n>0}\left(\lvert \mcFPn \rvert\cdot \lvert H_{i}\rvert^n \right)\right)^n\ \right) \geq \lvert S_i \rvert^n
+\end{align*}
 		This makes disadvantage No.~\ref{enum:gilmore:transformation} 
 		which is invoked at every iteration even worse.
 	\item\label{enum:gilmore:transformation} 
 	The check for unsatisfiability is far from efficient.
-	The transformation from a set of clauses to a formula 
-	in disjunctive normal form\footnote{
-		If a general algorithm with polynomial complexity existed 
-		that translates 
+	The transformation from a set of clauses 
+	to a formula in disjunctive normal form
+	can introduce an exponential\footnote{
+		If a general algorithm without exponential blowup existed 
+		for the transformation of 
 		an arbitrary propositional formula into 
 		an equi-\allowbreak{}satisfiable formula in disjunctive normal 
 		form (where satisfiability is a linear check) 
 		then $\mathsf{SAT}$ would be in $\mcP$
 %		$\mathsf{SAT}\in\mcP$  
 		and $\mcP = \mcN\mcP$. 
-	} 
-	introduces an exponential 
-	blow up of the size of the formula
+	}  
+	blow up of the size of the formula 
 	-- depending on the number of clauses $n$ in the set 
-	and the number of literals $c_i$ per clause $\mcC_i$ we get the disjunction of
+	and the number of literals $c_i$ per clause $\mcC_i$ 
+	we get the disjunction of
 	$\prod_{1}^{n} c_i$ 
 	conjunctions of $n$ literals.
 	  \begin{align*}
@@ -298,57 +357,27 @@ We observe three main disadvantages in Gilmore's procedure.
 	
 	\item\label{enum:gilmore:termination}
 	The procedure will not terminate for satisfiable sets 
-	when at least one non-constant predicate symbol and 
-	one non-constant function symbol are present in the signature.
-	\begin{gather*}
-	S=\{\,\mP(\mf(x)) \,\} \qquad H_0 = \{\,\mc\,\} \qquad S_0 = \{\,\mP(\mf(\mc))\,\} 
+	when at least one non-constant predicate symbol is used in the set of clauses and 
+	one non-constant function symbol is available, e.g.~for $S=\{\,\mP(\mf(x)) \,\}$ we get
+	\begin{align*}
+	H_0 &= \{\,\mc\,\} & S_0 &= \{\,\mP(\mf(\mc))\,\} 
 	\\
-	\qquad H_i \subsetneq H_{i+1} = \bigcup_{k=0}^{i+1}\{\, \mf^{k}(\mc))\,\}
-	\qquad S_{i} \subsetneq S_{i+1} = \{\, \mP(\mf(a)) \mid a\in H_{i+1}
+	H_{i+1} &= \bigcup_{k=0}^{i+1}\{\, \mf^{k}(\mc))\,\}
+	& 
+	S_{i+1} &= \{\, \mP(\mf(a)) \mid a\in H_{i+1}
 	\,\}
-	\end{gather*}
+	\\
+	 &\mf^{i+1}(\mc) \in H_{i+1}\setminus H_i
+	 &
+	 &
+	 \mP(\mf(\mf^{i+1}(\mc))) \in S_{i+1} \setminus S_i
+	\end{align*}
 \end{enumerate}
 
 
 
 The first was already addressed by Davis and Putnam in 1960 \cite{Davis:1960:CPQ:321033.321034}
 which lead to the development of effective propositional SAT Solvers.
-
-\begin{example}\label{ex:unsatE2}
-	Consider the set of clauses 
-	$S =
-	\{\,
-	{ \lnot\mE(x, \ms(x)))},\, 
-	{ \mE(\ms^k(y), \ms(\ms^k(y)))}
-	\,\}$ 
-	where the sets of instances $S_i$ are satisfiable for $i<k$,
-	but the set of instances $S_{i+1}$ is clearly unsatisfiable for $i+1 = k\in\mathbb{N}$.
-%	
-\begin{align*}
-H_{0} :=&\ \{\,\mzero\,\} 
-&
-S_{0} :=&\ \{\, 
-{\colHi\lnot\mE(\mzero,\msucc(\mzero))},\,
-{\colEm \mE(\ms^k(\mzero),\,\ms(\ms^k(\mzero)))}
-\,\}
-\\
-H_{i+1} :=&\ H_i \disjointunion \{\,\msucc^{i+1}(\mzero)\,\} 
-&
-S_{i+1} \supsetneq&\
-\{\,
-{\colEm \lnot\mE(\msucc^{i+1}(\mzero),\msucc(\msucc^{i+1}(\mzero)))},\,
-{\mE(\ms^k(\msucc^{i+1}(\mzero)), \ms(\ms^k(\msucc^{i+1}(\mzero))))}
-\,\}
-\end{align*}
-In this case the guess for a finite unsatisfiable set of ground instances appears feasible and yields a smaller set.
-\[
-	\{\, 
-%		{\lnot\mE(\mc,\msucc(\mc))},\
-		{\colHi \mE(\ms^k(\mzero), \ms(\ms^k(\mzero)))},
-		{\colLo \lnot\mE(\msucc^{k}(\mzero),\msucc(\msucc^{k}(\mzero)))}		
-	\,\}
-\]
-\end{example}
 
 \section{InstGen}
 
