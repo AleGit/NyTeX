@@ -78,9 +78,11 @@
 	\tag*{symmetry}
 	\end{align*}
 	always hold for arbitrary elements $x,y,z$ in $A$.
-	The {\myem equivalence class} $[a]_\sim$ of an element $a\in A$ contains all elements $b\in A$ that are equivalent to $a$.
-	Trivially $[a]_\sim = [b]_\sim$ if $a\sim b$.
-	The quotient set of $A$ modulo $\sim$ is the set of all equivalent classes $A/_\sim$. 
+	The {\myem equivalence class} $[x]_\sim$
+%	 = \{ y \mid x \sim y, y \in A \}$ 
+	of an element $x\in A$ contains all elements $y\in A$ that are equivalent to $x$.
+	Trivially the equivalence $x\sim y$ implies the identity $[x]_\sim = [y]_\sim$.
+	The quotient set of $A$ modulo $\sim$ is the set of all equivalent classes $A/_{\!\sim}$. 
 \end{definition}
 
 \begin{lemma}
@@ -133,13 +135,22 @@
 	Hence it is a proper order, but not total.
 \end{example}
 
-\begin{example}
+\begin{lemma}
 	Any proper order is asymmetric, e.g.~the clause
 	\begin{align*}
 	x\not\sqsubset y &\lor y\not\sqsubset x \tag*{asymmetry}
 	\end{align*}
 	always holds for arbitrary $x$ and $y$ in $A$.
-\end{example}
+\end{lemma}
+
+\begin{proof} We use resolution to derive asymmetry from irreflectivity and transitivity.
+	\[
+			\infer[\{x'\mapsto x, z\mapsto x \}]{
+			x\not\sqsubset y \lor y\not\sqsubset x }{
+			{\colHi x\not\sqsubset x} & x'\not\sqsubset y \lor  y \not\sqsubset z \lor {\colLo x'\sqsubset z}
+		}
+	\]
+\end{proof}
 
 \begin{example}The strict subset relation $\subsetneq$ over a power set is a proper order, but not a total, 
 	e.g. for the power set over natural numbers we have 

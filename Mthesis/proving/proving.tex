@@ -6,9 +6,12 @@
 
 \input{epigraphs/syllogism}
 
-In this chapter we demonstrate the implications of undecidability of first order logic 
-for instantiation-based proving procedures with Gilmore's prover and the InstGen framework.
-It seems natural to expect decision procedures for decidable fragments of first order logic.
+In this chapter we demonstrate instance-based proving procedures.
+We highlight the impact of undecidability in first order logic
+for Gilmore's prover and the \InstGen framework.
+It seems natural to expect decision procedures for decidable fragments of first order logic,
+but that does not automatically follow from refutational completeness of these procedures.
+
 
 %An we judge the procedures by there theoretical performance on decidable fragments. 
 %
@@ -24,6 +27,9 @@ The satisfiability of ground instances is decidable as we have seen in the previ
 So the central idea of instantiation-based first order theorem proving 
 is to find an unsatisfiable and finite set of ground instances for a given set of clauses.
 In general a failure in this search does not show satisfiability of the given set of clauses.
+In practice we make many detours in the search and we experience very finite resources of space and time. 
+In theory we have no bound on the size of the smallest set of unsatisfiable ground instances.
+
 %So the central idea of instantiation-based first order theorem proving is the
 %translation of an undecidable problem into a (potentially infinite) sequence of decidable problems.
 
@@ -35,8 +41,8 @@ from an arbitrary formula to an equisatisfiable set of clauses,
 i.e.~the formula is satisfiable if and only if the set of clauses is satisfiable, 
 but the original formula and the resulting set of clauses may have very different models.
 It is sufficient to just guess an unsatisfiable set of ground instances. 
-But usually a sequence of sets of ground instances is generated 
-such that eventually an unsatisfiable one is found for arbitrary unsatisfiable set of clauses.
+But usually a sequence of systematically growing sets of ground instances is generated 
+such that eventually an unsatisfiable one is found for an arbitrary unsatisfiable set of clauses.
 
 
 
@@ -78,7 +84,7 @@ The procedure is aborted when an unsatisfiable $S_k$ is encountered.
 
 Following Gilmore's prover we can easily prove the syllogism from above.
 
-\begin{example}\label{ex:syllo}
+\begin{example}\label{ex:fosca:is:mortal}
 	First we translate the syllogism into a formula $F$ in first order logic.
 	\begin{align*}
 		F &= A \limp (B \limp C) \equiv \lnot(A\land B) \lor C \equiv (A\land B)\limp C  
@@ -100,7 +106,7 @@ Following Gilmore's prover we can easily prove the syllogism from above.
 %$\mortal^\mcI = \{ (\fosca) \}$.
 
 
-	Then we negate the formula to conjunctive normal form $\lnot F \equiv A\land B \land\lnot C$.
+	Then we negate the formula to clausal normal form $S_{(\ref{ex:fosca:is:mortal})} = A\land B \land\lnot C \equiv \lnot F$.
 	Since there is exactly one constant we get
 	$H_0 = \{ \fosca \}$ and 
 	$S_0 = 
@@ -112,45 +118,47 @@ Following Gilmore's prover we can easily prove the syllogism from above.
 	for easy satisfiability checking.
 %
 \begin{gather*}
+%S^{\ref{ex:fosca:is:mortal},0} \equiv \begin{array}{c}
 (\lnot\human(\fosca)\land\human(\fosca)\land\lnot\mortal(\fosca))
 \\ 
 \lor
 \\ 
 (\mortal(\fosca)\land\human(\fosca)\land\lnot\mortal(\fosca))
+%\end{array}
 \end{gather*}
 Both conjunctions contain complementary literals and we conclude the negated formula is unsatisfiable
  and the given syllogism holds.
  
 \end{example}
 
-\begin{procedure}[Gilmore's Prover]
-	We translate the negation of a formula $\lnot F$ into an equisatisfiable set of clauses 
-	$\lnot F \approx S = \bigcup_{i=1}^{n} \mcC_i$.
-	
-	We start our first iteration with $i=0$.
+\begin{procedure}[Gilmore's Prover]\label{proc:gilmore's:prover}
+	We translate the negation of our formula $F$ into an equisatisfiable set of clauses 
+	$\lnot F \approx S = \bigcup_{i=1}^{n} \mcC_i$ with an efficient algorithm \cite{tseitin70}, \cite{PLAISTED1986293}.
+	Then we start our first iteration with $k=0$.
 	\begin{enumerate}
 		
-		\item We create $H_i$ from Definition \ref{def:hk}, 
-		i.e.~the set of all ground terms up to term depth $i$. 
-		We use $H_i$ to create the set of clause instances $S_i$ 
+		\item We create the set of all ground terms up to term depth $k$, 
+		i.e.~the partial Herbrand universe $H_k$ according to Definition \ref{def:hk}. 
+		We use $H_k$ to create the set of clause instances $S_k$ 
 		by substituting all variables 
-		in each clause by terms from $H_i$ in any possible permutation.
-		\[ S_i = \bigcup_{i=1}^{n} 
+		in each clause by terms from $H_k$ in any possible permutation.
+		\[ S_k = \bigcup_{i=1}^{n} 
 		\{\,
-			\mcC_i\sigma \mid \mcC_i \in S,\,\sigma: \mcV\to H_i
+			\mcC_i\sigma \mid \mcC_i \in S,\,\sigma: \mcV\to H_k
 		\,\}
 		\]
 		
-		\item We translate $S_i$ into an equivalent disjunctive normal form 
+		\item We translate $S_k$ into an equivalent disjunctive normal form 
 		(i.e.~a disjunction of conjunctions of literals)
 		where satisfiability is easily checked.
 		
 		
 
 		\item When every conjunction contains a pair of complementary literals 
-		then we exit the procedure and report unsatisfiability of $\lnot F$.
+		then we exit the procedure and report unsatisfiability of $S$, 
+		hence validity of $F$.
 
-Otherwise we increase $i$ by one and continue with step 1.
+Otherwise we increase $k$ by one and continue with step 1.
 		
 		
 	\end{enumerate}
@@ -165,45 +173,57 @@ Otherwise it would be a decision procedure for satisfiability in first order log
 which does not exist because of undecidability of satisfiability in first order logic.
 
 It is easy to see that for a set of clauses without non-constant function symbols
-we can stop the procedure after one iteration because $H_i = H_0$ and $S_i = S_0$ for all $i\geq0$.
+we can stop the procedure after one iteration because $H_i = H_0$ and $S_i = S_0$ for all $i\geq0$,
+i.e.~no new elements were added to the Hebrand universe and now new ground instances could be generated.
 %
 %On the other hand the procedure will never terminate 
 %even for very simple satisfiable sets where the Herbrand universe is infinite, 
 %i.e.~there is at least one non-constant function symbol.
 
-\begin{example}\label{ex:unsatE2}
-	Consider the set of clauses 
-	$S =
+\begin{example}\label{ex:unsat:nexsx}
+	Let $k\in\mathbb{N}$ be an arbitrary but fixed number.
+	Consider the unsatisfiable set of clauses
+	$S_{(\ref{ex:unsat:nexsx})} = \{\, \lnot\mcL_1,\,\mcL_2\, \} =
 	\{\,
 	{ \lnot\mE(x, \ms(x)))},\, 
-	{ \mE(\ms^k(y), \ms(\ms^k(y)))}
-	\,\}$ 
-	where the sets of instances $S_i$ are satisfiable for $i<k$,
-	but the set of instances $S_{i+1}$ is clearly unsatisfiable for $i+1 = k\in\mathbb{N}$.
+	{ \mE(\ms^{k}(y), \ms(\ms^{k}(y)))}
+	\,\}$.
+	The sets of instances $S_i$ are satisfiable for $i<k$.
+	The set of instances $S_{k}$ is clearly unsatisfiable.
 	%	
 	\begin{align*}
 	H_{0} :=&\ \{\,\mzero\,\} 
 	&
 	S_{0} :=&\ \{\, 
-	{\colHi\lnot\mE(\mzero,\msucc(\mzero))},\,
-	{\colEm \mE(\ms^k(\mzero),\,\ms(\ms^k(\mzero)))}
+	{\colG \lnot\mE(\mzero,\msucc(\mzero))},\,
+	{\colHi \mE(\ms^k(\mzero),\,\ms(\ms^k(\mzero)))}
 	\,\}
+	\subsetneq S_k
 	\\
-	H_{i+1} :=&\ H_i \disjointunion \{\,\msucc^{i+1}(\mzero)\,\} 
+	H_{i+1} =&\ H_i\disjointunion\{\,\msucc(\msucc^{i}(\mzero))\,\}
 	&
 	S_{i+1} \supsetneq&\
 	\{\,
-	{\colEm \lnot\mE(\msucc^{i+1}(\mzero),\msucc(\msucc^{i+1}(\mzero)))},\,
-	{\mE(\ms^k(\msucc^{i+1}(\mzero)), \ms(\ms^k(\msucc^{i+1}(\mzero))))}
+	{\colG \lnot\mE(\msucc^{i+1}(\mzero),\msucc(\msucc^{i+1}(\mzero))),\,
+	\mE(\ms^k(\msucc^{i+1}(\mzero)), \ms(\ms^k(\msucc^{i+1}(\mzero))))}
+	\,\}
+	\\
+	H_{k} \supsetneq&\ \{\,\msucc^{k}(\mzero)\,\} 
+	&
+	S_{k} \supsetneq&\
+	\{\,
+	{\colLo \lnot\mE(\msucc^{k}(\mzero),\msucc(\msucc^{k}(\mzero)))},\,
+	{\colG\mE(\ms^k(\msucc^{k}(\mzero)), \ms(\ms^k(\msucc^{k}(\mzero))))}
+%	{\ldots}
 	\,\}
 	\end{align*}
-	In this case the guess for a finite unsatisfiable set of ground instances appears feasible and yields a smaller set.
+	We've produced $2\cdot k$ {\myem irrelevant} instances, i.e. these clauses did not cause any conflict in 
+	propositional satisfiability. 
+	In this example the guess for a finite unsatisfiable set of ground instances appears feasible and yields a smaller set.
 	\[
 	\{\, 
-	%		{\lnot\mE(\mc,\msucc(\mc))},\
-	{\colHi \mE(\ms^k(\mzero), \ms(\ms^k(\mzero)))},
-	{\colLo \lnot\mE(\msucc^{k}(\mzero),\msucc(\msucc^{k}(\mzero)))}		
-	\,\}
+	\lnot\mcL_1\sigma,\,\mcL_2\sigma
+	\,\} \qquad \sigma=\{x\mapsto \msucc^k(\mzero),\,y\mapsto \mzero\}
 	\]
 \end{example}
 
@@ -220,14 +240,14 @@ we can stop the procedure after one iteration because $H_i = H_0$ and $S_i = S_0
 
 
 
-\begin{example}\label{ex:satEzy}
+\begin{example}\label{ex:sat:exy}
 	Consider the formula 
 	$G = \exists x\forall y\,\mE(x,y)$
 	which is a member of the Ackermann prefix class $\forall^*\exists\forall^*$ 
 	of first order formulae
 	where the satisfiability problem is decidable.
 	The set of clauses 
-	$S = \{\,\mE(\mzero,y)\,\}$ is equisatisfiable to $G$ and clearly satisfiable.
+	$S_{(\ref{ex:sat:exy})}= \{\,\mE(\mzero,y)\,\}$ is equisatisfiable to $G$ and clearly satisfiable.
 	The procedure yields the following sequence of distinct and satisfiable sets $S_{k\geq0}$:
 	\begin{align*}
 	H_{0} :=&\  \{ \mzero \} 
@@ -376,8 +396,13 @@ We have observed three main disadvantages in Gilmore's procedure.
 
 
 
-The first was already addressed by Davis and Putnam in 1960 \cite{Davis:1960:CPQ:321033.321034}
-which lead to the development of effective propositional SAT Solvers.
+Issue \ref{enum:gilmore:transformation} was already implicitly 
+addressed in 1960 \cite{Davis:1960:CPQ:321033.321034}
+and refined in 1962 \cite{Davis:1962:MPT:368273.368557}
+by Davis, Putnam, Longeman, and Loveland, 
+which was the starting point for the development of efficient SAT solvers.
+
+\section{Resolution}
 
 \section{InstGen}
 
@@ -406,19 +431,13 @@ Gilmore's prover blindly constructs new ground instances.
 \end{definition}
 
 \begin{example}
-	With \InstGen we cannot derive any new clause from satisfiable set 
-	$S = \{\,\mE(\mzero,y)\,\}$ 
-	introduced in Example \ref{ex:satEzy}.
-\end{example}
-
-\begin{example}
-	With \InstGen we can derive a new clause from unsatisfiable set
-$S =
+	With \InstGen we immediately can derive a helpful clause from set
+$S_{(\ref{ex:unsat:nexsx})} =
 \{\,
 { \lnot\mE(x, \ms(x)))},\, 
 { \mE(\ms^k(y), \ms(\ms^k(y)))}
 \,\}$ 
- introduced in Example \ref{ex:unsatE2}. 
+ introduced in Example \ref{ex:unsat:nexsx}. 
 \begin{gather*}
 \infer[x\mapsto\msucc^k(y)]{
 	{\colLo \lnot\mE(\ms^k(y), \ms(\ms^k(y))))} \qquad
@@ -429,6 +448,12 @@ $S =
 }
 \end{gather*}
 	
+\end{example}
+
+\begin{example}
+	With \InstGen we cannot derive any new clause from satisfiable set 
+	$S_{(\ref{ex:sat:exy})  } = \{\,\mE(\mzero,y)\,\}$ 
+	introduced in Example \ref{ex:sat:exy}.
 \end{example}
 
 \begin{lemma}
@@ -448,6 +473,43 @@ $S =
 	
 \end{proof}
 
+\begin{procedure}[Inst-Gen-Loop]\label{proc:inst:gen:loop}
+	As in Gilmore's prover (Procedure \ref{proc:gilmore's:prover}) 
+	we translate the negation of our formula $F$ into an equisatisfiable set of clauses 
+	$S_0$. Then we introduce a distinct constant symbol 
+	$\consbot\not\in\mcF(S_0)$ even when there are constant symbols in the signature. 
+	We start our first iteration with $k=0$.
+	
+	\begin{enumerate}
+		\item\label{step:igl:skbot}
+		We construct a set $S_{k}\,\subsbot$ of ground instances from $S_k$
+		where instantiator $\subsbot := \{ x\mapsto \consbot \mid x\in\var(S_k) \} $ 
+		substitutes all occurring variables with constant symbol $\consbot$.
+%		
+		\item\label{step:igl:sksat} We check decidable satisfiability of $S_k\,\subsbot$ with a \SAT or \SMT-solver.
+		
+		If $S_k\,\subsbot$ is unsatisfiable then we exit the procedure and report {\myem unsatistifiablity of $S$}.
+		
+		\item\label{step:igl:model} The set $S_k\,\subsbot$ is satisfiable, hence we can retrieve a model $\mcM_k \models S_k\subsbot$.
+		We select one literal $L_i = \sel(\mcC_i)$ per clause $\mcC_i \in S_k$ 
+		such that the each grounded selected literal holds in model
+		$\mcM_k\models L_i\subsbot$ for all $i\leq | S_k |$.
+		
+		\item\label{step:igl:clashes} We search for pairs of selected literals $(A, \lnot B)$
+		such that $\tau = \mgu(A,B)$ exists.
+		
+		If no new pair exists we exit the procedure and report {\myem satistifiablity of $S$}.
+		
+		\item We set $S_{k+1} = S_k$ and for each pair of clashing literals $(L_{i_1}, L_{i_2})$ 
+		we apply \InstGen to the original clauses $\{\,A\lor\mcC,\lnot B\lor\mcD\,\}$
+		where $\sel(\mcC_{i_1}) = A$ and $\sel(\mcC_{i_1})=\lnot B$
+		to add new (not necessarily ground) instances to $S_{k+1}$.
+		
+		\item We increase $k$ by $1$ and continue with step \ref{step:igl:skbot}. 
+		
+	\end{enumerate}
+	
+
 \begin{figure}[hbt]
 	\begin{center}
 		\begin{tikzpicture}[scale=0.95, transform shape]
@@ -455,7 +517,7 @@ $S =
 		\node (nc) [myrect] at (0,0) {new\\clauses};
 		\node (pc) [myrect] at (0,8em) {passive clauses};
 		\node (ab) [myrect] at (-8em,3.5em) {instantiation};
-		\node (gs) [myrect] at (-8em,8em) {SMT};
+		\node (gs) [myrect] at (-8em,8em) { \SMT};
 		\node (un) [mycircle] at (-15em,8em) {un\-satis\-fiable};
 		\node (se) [myrect] at (-8em,12.5em) {selection};
 		\node (gc) [myrect] at (0em,16em) {given clause};
@@ -464,7 +526,7 @@ $S =
 		\node (sl) [myrect, thick] at (8.5em,12.5em) {selected literal};
 		\node (us) [myrect,very thick, 
 %		minimum width=8em, minimum height=3.5em, text width=7em
-		] at (8.5em,8em) {\large InstGen};
+		] at (8.5em,8em) { \InstGen};
 		\node (sa) [mycircle] at (16em,8em) {satis\-fiable};
 		\node (su) [myrect] at (8.5em,3.5em) {substitution};
 		
@@ -483,36 +545,59 @@ $S =
 		\draw[myarrow] (gc.east) to [bend left=10] (sl.north);
 		\draw[myarrow,dashed] (gc.north) to [bend right=15](ac);
 		\end{tikzpicture}
-		\caption{Proving loop with SMT and InstGen}
+		\caption{Proving loop with \SMT and \InstGen}
 		\label{fig:inst-gen-maxcomp}
 	\end{center}
 \end{figure}
+\end{procedure}
+
+\begin{lemma}
+	The $\tau = \mgu(A,B)$ in Procedure \ref{proc:inst:gen:loop}, 
+	step \ref{step:igl:clashes} is a proper instantiator, 
+	i.e.~it is not a variable renaming.
+\end{lemma}
+\begin{proof}
+	Assume $\tau$ in Procedure \ref{proc:inst:gen:loop}
+	is a renaming, then we have 
+	$A\tau\subsbot = A\subsbot$,
+	$B\tau\subsbot = B\subsbot$,
+	and by definition of the most general unifier $A\tau = B\tau$. 
+	Hence $A\subsbot = B\subsbot$ which contradicts that 
+	$M_k\models A\subsbot, \lnot B\subsbot$ 
+	by definition of step \ref{step:igl:model}. 
+	Hence the assumption is false and $\tau$ must be a proper instantiator.
+\end{proof}
 
 
 
-InstGen introduces a new distinct constant $\bot\not\in\mcF$
+
 
 \begin{example}\label{ex:unsat2}
-Let $S$ be the set of clauses from Example \ref{ex:unsatE2}. 
+Let $S_0 = S_{(\ref{ex:unsat:nexsx})}$ be the set of unsatisfiable clauses from Example \ref{ex:unsat:nexsx}. 
 Then the initial set of ground instances 
-$S_0 =\
-\{
-{ \lnot\mE(\bot, \ms(\bot)))}, 
-{ \mE(\ms^k(\bot), \ms(\ms^k(\bot)))}
-\}$
-is satisfiable with domain $A = \{ \bot, \ms(\bot), \ms^k(\bot), \ms(\ms^k(\bot)) \}$
+$S_0\subsbot =\
+\{\,
+{ \lnot\mE(\consbot, \ms(\consbot)))}, 
+{ \mE(\ms^k(\consbot), \ms(\ms^k(\consbot)))}
+\,\}$
+is satisfiable with domain $A = \{ \consbot, \ms(\consbot), \ms^k(\consbot), \ms(\ms^k(\consbot)) \}$
 and predicate interpretation 
-$\mE^\mcI = \{ (\ms^k(\bot), \ms(\ms^k(\bot))
+$\mE^\mcI = \{ (\ms^k(\consbot), \ms(\ms^k(\consbot))
  \} \subseteq A^2$. 
- 
- With just two unit clause ew easily find candidates for the application of the InstGen rule 
- $\sigma = \{ x\mapsto \msucc(s^k(y)) \}$ and we get the next set of ground instances
-$S_1 =\
- \{
- { \lnot\mE(x, \ms(x)))},\  
- { \mE(\ms^k(y), \ms(\ms^k(y)))},\
+% 
+ With just two unit clauses we easily find the only pair of clashing literals and compute the unifier
+ $\tau = \{ x\mapsto \msucc(s^k(y)) \}$. 
+ By application of \InstGen we construct our next set of clauses
+$
+S_1 =\
+S_0 \disjointunion
+ \{\,
+% { \lnot\mE(x, \ms(x)))},\  
+% { \mE(\ms^k(y), \ms(\ms^k(y)))},\
  { \lnot\mE(\ms^k(y), \ms(\ms^k(y)))}
- \}$
+ \,\}
+ $ 
+ and get an unsatisfiable set of ground instances $S_1\subsbot$.
 \end{example}
 
 
