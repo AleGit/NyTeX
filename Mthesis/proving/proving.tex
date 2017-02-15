@@ -36,13 +36,15 @@ In theory we have no bound on the size of the smallest set of unsatisfiable grou
 
 To actually prove a theorem 
 we first make use of the fact that a first-order formula is valid if and only if its negation is unsatisfiable.
-Second we utilize existing efficient transformation algorithms \cite{tseitin70, PLAISTED1986293}
-from an arbitrary formula to an equisatisfiable set of clauses, 
-i.e.~the formula is satisfiable if and only if the set of clauses is satisfiable, 
-but the original formula and the resulting set of clauses may have very different models.
-It is sufficient to just guess an unsatisfiable set of ground instances. 
+Second we efficiently transform the negated formula into an {\myem equisatisfiable} set of clauses,
+i.e.~the formula is satisfiable if and only if the set of clauses is satisfiable.
+%This can be done efficiently with Skolemization \cite{books/el/RV01/Hahnle01} and Tseitin-transformation \cite{tseitin70, PLAISTED1986293} as shown in \cite{Nonnengart01computingsmall}.
+
+It would sufficient to just luckily guess an unsatisfiable set of ground instances. 
 But usually a sequence of systematically growing sets of ground instances is generated 
-such that eventually an unsatisfiable one is found for an arbitrary unsatisfiable set of clauses.
+such that an unsatisfiable one will be found 
+for an arbitrary unsatisfiable set of clauses
+eventually.
 
 
 
