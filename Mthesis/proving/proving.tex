@@ -687,9 +687,13 @@ then at least we expect a congruence relation.
 
 \begin{example}
 	\begin{align*}
-	\ack(\mzero,n) &\mEQ \msucc(n) \\
-	\ack(\msucc(m),\mzero) &\mEQ \ack(m, \msucc(\mzero)) \\
-	\ack(\msucc(m),\msucc(n)) &\mEQ \ack(m, \ack(\msucc(m),n))
+	\ack(\mzero,y) &\mEQ \msucc(y) \\
+	\ack(\msucc(x),\mzero) &\mEQ \ack(x, \msucc(\mzero)) \\
+	\ack(\msucc(x),\msucc(y)) &\mEQ \ack(x, \ack(\msucc(x),y)) \\
+	\\
+%	x &\mNE \msucc(x)\\
+	x &\mNE y \lor \msucc(x) \mEQ \msucc(y)\\
+	\mzero &\mNE \msucc(x)\\
 	\end{align*}
 \end{example}
 
