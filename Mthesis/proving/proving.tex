@@ -497,8 +497,8 @@ $S_{(\ref{ex:unsat:nexsx})} =
 		such that the each grounded selected literal holds in model
 		$\mcM_k\models L_i\subsbot$ for all $i\leq | S_k |$.
 		
-		\item\label{step:igl:clashes} We search for pairs of selected literals $(A, \lnot B)$
-		such that $\tau = \mgu(A,B)$ exists.
+		\item\label{step:igl:clashes} We search for pairs of selected literals $(A, \lnot B) = (L_i, L_j^c)$
+		such that the most general unifier $\tau = \mgu(A,B)$ exists.
 		
 		If no new pair exists we exit the procedure and report {\myem satistifiablity of $S$}.
 		
