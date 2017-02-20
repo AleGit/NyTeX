@@ -402,7 +402,7 @@ Issue \ref{enum:gilmore:transformation} was already implicitly
 addressed in 1960 \cite{Davis:1960:CPQ:321033.321034}
 and refined in 1962 \cite{Davis:1962:MPT:368273.368557}
 by Davis, Putnam, Longeman, and Loveland, 
-which was the starting point for the development of efficient SAT solvers.
+which was the starting point for the development of efficient propositionally satisfiability checkers, i.e.~efficient modern SAT solvers.
 
 \section{Resolution}
 
@@ -500,12 +500,13 @@ $S_{(\ref{ex:unsat:nexsx})} =
 		\item\label{step:igl:clashes} We search for pairs of selected literals $(A, \lnot B) = (L_i, L_j^c)$
 		such that the most general unifier $\tau = \mgu(A,B)$ exists.
 		
-		If no new pair exists we exit the procedure and report {\myem satistifiablity of $S$}.
-		
-		\item We set $S_{k+1} = S_k$ and for each pair of clashing literals $(L_{i_1}, L_{i_2})$ 
-		we apply \InstGen to the original clauses $\{\,A\lor\mcC,\lnot B\lor\mcD\,\}$
-		where $\sel(\mcC_{i_1}) = A$ and $\sel(\mcC_{i_1})=\lnot B$
+		\item We set $S_{k+1} ::= S_k$ and for each pair of clashing literals $(L_i, L^c_j)$ 
+		we apply \InstGen to the originating clauses 
+		$\{\, \mcC_{i}, \mcC_{j}\, \} = \{\,L_i\lor\mcC, L_j\lor\mcD\,\}$
+%		where $\sel(\mcC_{i_1}) = L_i$ and $\sel(\mcC_{i_2})=\lnot L_j$
 		to add new (not necessarily ground) instances to $S_{k+1}$.
+		
+		If no new clauses were added, i.e.~$S_{k+1} = S_k$ after all pairs were processed we exit the procedure and report {\myem satistifiablity of $S$}.
 		
 		\item We increase $k$ by $1$ and continue with step \ref{step:igl:skbot}. 
 		
@@ -552,6 +553,75 @@ $S_{(\ref{ex:unsat:nexsx})} =
 	\end{center}
 \end{figure}
 \end{procedure}
+
+\begin{example} The selected literals of the first and the second clause change between iterations.
+%	1. p(a) | q(a)
+%	2. p(a) | ~q(X)
+%	3. ~p(X)
+\begin{align*}
+S_0 &= \{\,
+	\mP(\ma)\lor\mQ(\ma),
+	\mP(\ma)\lor\lnot\mQ(y),
+	\lnot\mP(x) 
+\,\}
+\\
+S_0\subsbot &=\{\, 
+	{\colHi\mP(\ma)}\lor\mQ(\ma),
+	{\colHi\mP(\ma)}\lor\lnot\mQ(\consbot),
+	{\colHi\lnot\mP(\consbot)} 
+\,\}
+\tag{satisfiable}
+\\
+&\qquad\infer[
+	x\mapsto\ma
+	]{
+		{\colG \mP(\ma)\lor\mQ(\ast)}\quad\lnot\mP(\ma)
+	}{
+		\mP(\ma)\lor\mQ(\ast) & \lnot\mP(x)
+	} 
+\tag*{$\ast\in\{\ma,y\}$}
+\\
+S_1 &=\{\, 
+	\mP(\ma)\lor\mQ(\ma),
+	\mP(\ma)\lor\lnot\mQ(y),
+	\lnot\mP(x),
+	\lnot\mP(\ma) 
+\,\}
+\\
+S_1\subsbot &=\{\,
+	{\colG\mP(\ma)}\lor{\colHi\mQ(\ma)},
+	{\colG\mP(\ma)}\lor{\colHi\lnot\mQ(\consbot)},
+	{\colHi\lnot\mP(\consbot)},
+	{\colHi\lnot\mP(\ma)} 
+\,\}
+\tag{satisfiable}
+\\
+&\qquad\infer[
+y\mapsto\ma
+]{
+	{\colG \mP(\ma)\lor\mQ(\ma)}\quad\mP(\ma)\lor\lnot\mQ(\ma)
+}{
+	\mP(\ma)\lor\mQ(\ma) & \mP(\ma)\lor\lnot\mQ(y)
+} 
+\\
+S_2 &=\{\, 
+\mP(\ma)\lor\mQ(\ma),
+\mP(\ma)\lor\lnot\mQ(y),
+\lnot\mP(x),
+\lnot\mP(\ma),
+\mP(\ma)\lor\lnot\mQ(\ma) 
+\,\}
+\\
+S_2\subsbot &=\{\,
+{\colG\mP(\ma)}\lor{\colHi\mQ(\ma)},
+{\colG\mP(\ma)}\lor{\colHi\lnot\mQ(\consbot)},
+{\colHi\lnot\mP(\consbot)},
+{\colHi\lnot\mP(\ma)},
+{\colLo\mP(\ma)}\lor{\colLo\lnot\mQ(\ma)} 
+\,\}
+\tag{unsatisfiable}
+\end{align*}
+\end{example}
 
 \begin{lemma}
 	The $\tau = \mgu(A,B)$ in Procedure \ref{proc:inst:gen:loop}, 
@@ -629,7 +699,7 @@ S_0 \disjointunion
 %	\]
 
 \begin{example}
-	Consider the set of clauses $\{ \mc \mEQ \mb \}$. Here we cannot find a Hebrand model where the equality symbol is interpreted as equality on its domain.
+	Consider the set of clauses $\{ \mc \mEQ \mb \}$. Here we don't find a Hebrand model where the equality symbol is interpreted as equality on its domain.
 \end{example}
 
 \begin{align*}
