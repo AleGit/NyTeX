@@ -53,7 +53,7 @@ in this rehearsal of definitions. See the appendix for more details and mathemat
 	and definitions of (possibly empty) n-ary relations 
 	 ${\mP_\mcI}\subseteq A^n$ for every predicate symbol $\mP\in\mcFP$
 	 and the definition of a binary relation ${\mEQ_\mcI}\subseteq A^2$ for the equality symbol.
-	 A (variable) {\myem assignment} is a mapping from variables to the domain.
+	 A (variable) {\myem assignment} is a mapping from variables to the used domain.
 	 We define the {\myem evaluation} $\alpha_\mcI$ of a term $t$ 
 	 for assingment $\alpha$ and interpretation $\mcI$:
 	 \DEFINE{\alpha_\mcI(t)}{ 
@@ -65,37 +65,40 @@ in this rehearsal of definitions. See the appendix for more details and mathemat
 	 	\mf_\mcI (\alpha_\mcI(t_1),\ldots,\alpha_\mcI(t_n)) 
 	 	&\text{if }t=\mf(t_1,\ldots,t_n), \mf\in\mcFfn[n>0], t_i\in\mcTf 
  }
+The evaluation of ground terms does not depend on variable assignments.
 \end{definition}
 \begin{definition}\label{def:model}
 	A (non-ground) predicate $\mP(t_1,\ldots,t_n)$ 
 	{\myem holds} in interpretation $\mcI$  
-	if all the evaluations of its n-tuple of terms 
+	if the set of all possible evaluations of its n-tuple of terms 
 	$\{ 
 	(\alpha_\mcI({t_1}),\ldots,\alpha_\mcI({t_n}))
 	\mid \alpha : \var(t_1,\ldots,t_n) \to A \} \subseteq\mP_\mcI$
 	is a subset of relation $\mP_\mcI\subseteq A^n$.
-	Similar an equation $s\mEQ t$ holds if $\alpha_\mcI(s) \mEQ_\mcI \alpha_\mcI(t)$ 
+	Similar an equation $s\mEQ t$ 
+	holds if $\alpha_\mcI(s) \mEQ_\mcI \alpha_\mcI(t)$,
+	i.e.~$(\alpha_\mcI(s),\alpha_\mcI(t)) \in {\mEQ_\mcI} \subseteq A^2$
 	for all possible evaluations $\alpha: \var(s,t) \to A$. 
 	A literal holds
-	if its complement does not hold.
+	if and only if its complement does not hold.
 	A clause holds if at least one of its literals holds.
 	A set of clauses holds if every clause holds.
-	Then the interpretation $\mcI$ is a model {\myem for} the set of clauses $S$, 
-	the interpretation $\mcI$ satisfies $S$, and
+	Then the interpretation is a model for the set of clauses and 
 	we write $\mcI\models S$. 
 \end{definition}
 
 \begin{example}The definitions \ref{def:interpretation} and \ref{def:model} 
-	from above allow undesirable models, 
+	allow undesirable models, 
 	e.g.~an interpretation $\mcI$ satisfies $\{ \ma\mNE\ma \}$ 
 		whenever ${\mEQ_\mcI} = \emptyset$.
-	At least we expect $\mEQ_\mcI$ to be a reflexive relation, so that $\ma\mEQ_\mcI\ma$.
+	But usually we expect at least that $\ma\mEQ_\mcI\ma$ holds in any model.
 \end{example}
 
 \begin{definition}
 	An {\myem normal} interpretation defines $\mEQ_\mcI$ as equality on its domain,
-	e.g.~the equation of ground terms $s \mEQ_\mcI t$ holds if and only 
-	if the interpretation of the ground terms $s_\mcI = t_\mcI$ are identical.
+	e.g.~the equation of terms $s \mEQ_\mcI t$ holds if and only 
+	if any evaluation of its terms are equal $\alpha_\mcI(s) = \alpha_\mcI(t)$ 
+	for all assignments $\alpha$.
 \end{definition}
 
 \begin{definition}
@@ -104,7 +107,7 @@ in this rehearsal of definitions. See the appendix for more details and mathemat
 \end{definition}
 
 \begin{definition}\label{def:hk}
-	An {\myem Herbrand universe} is the smallest set of terms that contains all $H_i, i\geq 0$ of
+	An {\myem Herbrand universe} is the smallest set of terms that contains all $H_{i\geq 0}$ of
 	\begin{align*}
 	H_0 &:= \left\{ 
 	\begin{array}{ll}
@@ -166,14 +169,14 @@ in this rehearsal of definitions. See the appendix for more details and mathemat
 	However $\mcH$ is not an normal model because obviously $\ma\neq\mf(\ma)$ in its domain.
 %	
 	Further on we easily find an normal model $\mcM$ 
-	with domain $\{ \mc \}$, function definition $\mf_\mcM(\mc) = \mc$, 
-	and ${\mEQ_\mcM} = \{ (\mc,\mc)\}$ coincides with equality in its domain.
+	with domain $\{ \mc \}$, function definition $\mf_\mcM(\mc) \mapsto \mc$, 
+	and the relation ${\mEQ_\mcM} = \{ (\mc,\mc)\}$ coincides with equality in its domain.
 	Certainly this model $\mcM$ is not an Hebrand model 
 	because the interpretation of ground term ${\mf(\mc)}_\mcM \neq \mf(\mc)$ is not the term itself.
 %	
 	On the other hand we easily get a normal term model $\mcM_t$ with domain $\{ [\ma]_\sim\}$, 
 	a plain function definition
-	$\mf_{\mcM_t}([\ma]_\sim) = [\ma]_\sim$
+	$\mf_{\mcM_t}([\ma]_\sim) \mapsto [\ma]_\sim$ 
 	with equivalence relation
 	$\ma \sim \mf(\ma)$.
 	Hence $\mEQ_{\mcM_t}$ agrees to equality in its domain.	
