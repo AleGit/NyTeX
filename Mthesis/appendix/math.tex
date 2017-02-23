@@ -59,7 +59,7 @@
 	A n-ary relation is a subset of the Cartesian product of $n$ sets.
 %	$A^n = \{ (a_1, \ldots, a_n) \mid a_i \in A\text{ for }0\leq i \leq n \}$.
 	A {\myem binary relation} $R$ on domain $A$ 
-	is a subset of $A^2 = A \times A = \{ (a,b) \mid a\in A, b\in A \}$ -- 
+	is a subset of $A \times A := \{ (a,b) \mid a\in A, b\in A \}$ -- 
 	the set of all pairs of elements in $A$.
 	We write $R(a,b)$ or $a\ R\ b$ to express that $(a,b)\in R \subseteq A\times A$.
 \end{definition}
@@ -79,10 +79,13 @@
 	\end{align*}
 	always hold for arbitrary elements $x,y,z$ in $A$.
 	The {\myem equivalence class} $[x]_\sim$
-%	 = \{ y \mid x \sim y, y \in A \}$ 
-	of an element $x\in A$ contains all elements $y\in A$ that are equivalent to $x$.
+	of an element $x$ contains all elements that are equivalent to $x$.
 	Trivially the equivalence $x\sim y$ implies the identity $[x]_\sim = [y]_\sim$.
-	The quotient set of $A$ modulo $\sim$ is the set of all equivalent classes $A/_{\!\sim}$. 
+	The quotient set modulo an equivalence relation is the set of a set's equivalent classes.
+	\begin{align*} 
+	[x]_\sim &:= \{\, y \mid x \sim y\} &
+	A/_{\!\sim} &:= \{\, [x]_\sim \mid x \in A \,\} 
+	\end{align*} 
 \end{definition}
 
 \begin{lemma}
@@ -171,7 +174,7 @@
 \end{definition}
 
 \begin{example}
-	The strict superset relation $\supsetneq$ on final sets is well-founded.
+	The strict superset relation $\supsetneq$ on finite sets is well-founded.
 	The canonical greater than relation $>$ is well founded on natural numbers,
 	but not on integers or positive rational numbers.
 	\begin{gather*}

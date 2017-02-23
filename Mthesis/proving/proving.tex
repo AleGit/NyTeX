@@ -321,18 +321,20 @@ We have observed three main disadvantages in Gilmore's procedure.
 	\item\label{enum:gilmore:transformation} 
 	The check for unsatisfiability is far from efficient.
 	The transformation from a set of clauses 
-	to a formula in disjunctive normal form
-	can introduce an exponential\footnote{
+	to a formula in disjunctive normal form\footnote{
+		The Tseitin transformation yields an equisatisfiable conjunctive or clausal normal form.
+	}
+	usually introduces an exponential\footnote{
 		If a general algorithm without exponential blowup existed 
 		for the transformation of 
 		an arbitrary propositional formula into 
-		an equi-\allowbreak{}satisfiable formula in disjunctive normal 
+		an equi\allowbreak{}satisfiable formula in disjunctive normal 
 		form (where satisfiability is a linear check) 
-		then $\mathsf{SAT}$ would be in $\mcP$
+		then $\mathsf{SAT}$ would appear to be in $\mcP$
 %		$\mathsf{SAT}\in\mcP$  
 		and $\mcP = \mcN\mcP$. 
 	}  
-	blow up of the size of the formula 
+	blow in the size of the formula 
 	-- depending on the number of clauses $n$ in the set 
 	and the number of literals $c_i$ per clause $\mcC_i$ 
 	we get the disjunction of
@@ -356,8 +358,8 @@ We have observed three main disadvantages in Gilmore's procedure.
 	$(\bar{c}_{geom})^n\cdot n$ literals\footnote{
 		%		$\prod_{1}^{n} c_i = (\bar{c}_{geom})^n$
 		%		with the geometric mean 
-		Geometric $\bar{c}_{geom} := \left(\prod_{1}^{n}c_i\right)^{\frac{1}{n}}$, 
-		arithmetic $\bar{c}_{arith} := \left(\sum_{1}^{n}c_i\right)\cdot\frac{1}{n}$ mean, and
+		Geometric mean $\bar{c}_{geom} := \left(\prod_{1}^{n}c_i\right)^{\frac{1}{n}}$, 
+		arithmetic mean $\bar{c}_{arith} := \left(\sum_{1}^{n}c_i\right)\cdot\frac{1}{n}$, and
 		%		where
 				$\bar{c}_{geom} 
 				\leq 
@@ -386,13 +388,12 @@ We have observed three main disadvantages in Gilmore's procedure.
 	\\
 	H_{i+1} &= \bigcup_{k=0}^{i+1}\{\, \mf^{k}(\mc))\,\}
 	& 
-	S_{i+1} &= \{\, \mP(\mf(a)) \mid a\in H_{i+1}
+	S_{i+1} &= \{\, \mP(\mf(t)) \mid t\in H_{i+1}
 	\,\}
 	\\
-	 &\mf^{i+1}(\mc) \in H_{i+1}\setminus H_i
+	 \mf^{i+1}(\mc) &\in H_{i+1}\setminus H_i
 	 &
-	 &
-	 \mP(\mf(\mf^{i+1}(\mc))) \in S_{i+1} \setminus S_i
+	 \mP(\mf(\mf^{i+1}(\mc))) &\in S_{i+1} \setminus S_i
 	\end{align*}
 \end{enumerate}
 
@@ -405,6 +406,130 @@ by Davis, Putnam, Longeman, and Loveland,
 which was the starting point for the development of efficient propositionally satisfiability checkers, i.e.~efficient modern SAT solvers.
 
 \section{Resolution}
+
+\begin{definition}[Resolution] Let $A, B$ be atoms and $\mcC,\mcD$ be clauses.
+	\begin{gather*}
+	\infer
+	[\text{Resolution}] 
+	{(\mcC\lor\mcD)\sigma}
+	{A\lor\mcC&\lnot B\lor\mcD}
+	\qquad
+	\infer
+	[\text{Factoring}] 
+	{(A\lor\mcC)\sigma}
+	{A\lor B\lor\mcC}
+	\end{gather*}
+	\begin{center}$\sigma=\mgu(A,B)$
+		%		, $\sigma$ is proper
+	\end{center}
+	%	The rule looks very similar to the resolution rule in Definition \ref{def:res}.
+	%	But there is an important difference. 
+	%	Instead of combining two clauses to one single clause,
+	%	the most general unifier $\sigma$ is used to derive two instances.
+	%	At least one is different from its origin, because the substitution must be proper.
+	%	In contrast to the recombination of clauses  the maximal size of clauses, i.e.~the number of literals in a clause, 
+	%	obviously does not increase in any case.
+	%The maximal number of literals in any clause of $S$ does no grow.
+	%{\small This rule looks very similar to resolution. But instead of combining two clauses to one single new clause,
+	%the most general unifier $\sigma$ is used to derive two new clauses.}
+\end{definition}
+
+\begin{example}
+	With Resolution we can derive the empty clause, i.e.~the unsatisfiability of set
+	$S_{(\ref{ex:unsat:nexsx})} =
+	\{\,
+	{ \lnot\mE(x, \ms(x)))},\, 
+	{ \mE(\ms^k(y), \ms(\ms^k(y)))}
+	\,\}$ 
+	introduced in Example \ref{ex:unsat:nexsx} 
+	in one step. 
+	\begin{gather*}
+	\infer[\{x\mapsto\msucc^k(y)\}]{
+		\square
+	}{
+		{ \mE(\ms^k(y), \ms(\ms^k(y)))} &
+		{ \lnot\mE(x, \ms(x)))} &
+	}
+	\end{gather*}
+\end{example}
+
+\begin{example}
+	With Resolution we cannot derive any new clause from satisfiable set 
+	$S_{(\ref{ex:sat:exy})  } = \{\,\mE(\mzero,y)\,\}$ 
+	introduced in Example \ref{ex:sat:exy} and we conclude satisfiability 
+	of the Resolution-saturated set $S_{(\ref{ex:sat:exy})  }$ from the absence of the empty clause.
+\end{example}
+
+\begin{example}\label{ex:sat:nezsx}
+	With satisfiable set $S_{\ref{ex:sat:nezsx}} = \{\, 
+		\lnot\mE(\mzero,\ms(x)), \mE(y,y') \lor \lnot \mE(\ms(y),\ms(y')
+		\,\}$
+		we observe an infinite sequence of resolutions,
+		hence the set does not saturate.
+		
+	\begin{gather*}
+%	\infer
+%	[\{y\mapsto\mzero, y'\mapsto\msucc(x)\}]
+%	{ 
+%		\lnot \mE(\ms({\colN\mzero}),\ms({\colN\msucc(x)}) 
+%	}{
+%		{\colHi\mE(y,y')} \lor \lnot \mE(\ms(y),\ms(y')) 
+%		&{\colLo \lnot\mE(\mzero,\ms(x))}
+%	}
+%	\tag{$i=0$}
+%	\\[1em]
+	\infer
+	[\{y\mapsto\msucc^i(\mzero), y'\mapsto\msucc^{i+1}(x)\}]
+	{
+		\lnot \mE(\msucc({\colN\msucc^{i}(\mzero)}),\msucc({\colN\msucc^{i+1}(x)})) 
+	}{
+		{\colHi\mE(y,y')} \lor \lnot \mE(\ms(y),\ms(y')) 
+		&{\colLo \lnot\mE(\ms^i(\mzero),\msucc^{i+1}(x))}
+	}
+	\tag{$i\geq 0$}
+	\end{gather*}
+\end{example}
+
+We have observed disadvantages in resolution. 
+
+\begin{enumerate}
+	\item If clauses contain more than two literals the resolution inference rule yields clauses with more literals than the sources.
+	\item We have to check all pairings 
+	of all positive literals with all negative literals for clashing.
+	$n_{\mcC\lor\mcD} = n_{(A\lor\mcC)} -1 + n_{(\lnot B\lor\mcD)}-1$
+\end{enumerate}
+
+\begin{definition}[Ordered Resolution] Let $A, B$ be atoms and $\mcC,\mcD$ be clauses.
+	\begin{gather*}
+	\infer
+	[\text{Ordered}\atop\text{Resolution}] 
+	{(\mcC\lor\mcD)\sigma}
+	{A\lor\mcC&\lnot B\lor\mcD}
+	\end{gather*}
+	\begin{center}$\sigma=\mgu(A,B)$, 
+		$A\sigma$ is strictly maximal in $\mcC\sigma$, 
+		$B\sigma$ is maximal in $\mcD\sigma$.
+	\end{center}
+	%	The rule looks very similar to the resolution rule in Definition \ref{def:res}.
+	%	But there is an important difference. 
+	%	Instead of combining two clauses to one single clause,
+	%	the most general unifier $\sigma$ is used to derive two instances.
+	%	At least one is different from its origin, because the substitution must be proper.
+	%	In contrast to the recombination of clauses  the maximal size of clauses, i.e.~the number of literals in a clause, 
+	%	obviously does not increase in any case.
+	%The maximal number of literals in any clause of $S$ does no grow.
+	%{\small This rule looks very similar to resolution. But instead of combining two clauses to one single new clause,
+	%the most general unifier $\sigma$ is used to derive two new clauses.}
+\end{definition}
+
+\begin{example}
+	With an ordering such that $\mE(\ms(y),\ms(y')) \succ \mE(y,y')$ on atoms and ${\lnot A} \succ A$
+	the satisfiable set $S_{\ref{ex:sat:nezsx}}$ saturates with ordered resolution,
+	because the (strictly) maximal literals 
+	$\lnot \mE(\ms(y),\ms(y') \colG\not\preccurlyeq \mE(y,y') $
+	and $\lnot\mE(\mzero,\ms(x))$
+	in the two clauses do not clash.
+\end{example}
 
 \section{InstGen}
 
@@ -441,21 +566,29 @@ $S_{(\ref{ex:unsat:nexsx})} =
 \,\}$ 
  introduced in Example \ref{ex:unsat:nexsx}. 
 \begin{gather*}
-\infer[x\mapsto\msucc^k(y)]{
-	{\colLo \lnot\mE(\ms^k(y), \ms(\ms^k(y))))} \qquad
+\infer[\{x\mapsto\msucc^k(y)\}]{
+	{ \lnot\mE(\ms^k(y), \ms(\ms^k(y))))} \qquad
 	{\colG \mE(\ms^k(y), \ms(\ms^k(y)))}
 }{
 	{ \lnot\mE(x, \ms(x)))} &
-	{\colHi \mE(\ms^k(y), \ms(\ms^k(y)))}
+	{ \mE(\ms^k(y), \ms(\ms^k(y)))}
 }
+\end{gather*}
+and we conclude unsatisfiability because of propositional unsatisfiability of 
+\begin{gather*}
+\{\,
+	\mE(\ms^k(\consbot), \ms(\ms^k(\consbot))), \lnot\mE(\ms^k(\consbot), \ms(\ms^k(\consbot)))) 
+\,\}
 \end{gather*}
 	
 \end{example}
 
 \begin{example}
-	With \InstGen we cannot derive any new clause from satisfiable set 
+	With \InstGen we cannot derive any new clause from set 
 	$S_{(\ref{ex:sat:exy})  } = \{\,\mE(\mzero,y)\,\}$ 
-	introduced in Example \ref{ex:sat:exy}.
+	introduced in Example \ref{ex:sat:exy} and we conclude satisfiability
+	of the \InstGen-saturated set $S_{(\ref{ex:sat:exy})  }$ 
+	because of the propositional satisfiability of $S_{(\ref{ex:sat:exy})  }\subsbot$.
 \end{example}
 
 \begin{lemma}
@@ -467,11 +600,14 @@ $S_{(\ref{ex:unsat:nexsx})} =
 	is satisfiable if and only if
 	the derived set of clauses 
 	$S_1 = S_0 \cup \{ (A\lor\mathcal C)\sigma, (\lnot B\lor\mathcal D)\sigma\}$
-	with $\sigma = \mgu(A,B)$ 
-	is satisfiable.
+	with $\sigma = \mgu(A,B)$ is satisfiable.
 \end{lemma}
 
 \begin{proof}
+	If $S_1$ is satisfiable then there exists an interpretation that satisfies all clauses in $S_1$. 
+	The same interpretation models all clauses in $S_0$ because $S_0\subseteq S_1$.
+	In reverse $S_1$ cannot be satisfiable if $S_0$ is not.
+	
 	
 \end{proof}
 
@@ -488,9 +624,10 @@ $S_{(\ref{ex:unsat:nexsx})} =
 		where instantiator $\subsbot := \{ x\mapsto \consbot \mid x\in\var(S_k) \} $ 
 		substitutes all occurring variables with constant symbol $\consbot$.
 %		
-		\item\label{step:igl:sksat} We check decidable satisfiability of $S_k\,\subsbot$ with a \SAT or \SMT-solver.
+		\item\label{step:igl:sksat} We check the decidable satisfiability of $S_k\,\subsbot$ 
+		with a modern \SAT or \SMT-solver.
 		
-		If $S_k\,\subsbot$ is unsatisfiable then we exit the procedure and report {\myem unsatistifiablity of $S$}.
+		If $S_k\,\subsbot$ is unsatisfiable then we exit the procedure and report {\myem usatisfiability} of $S$, i.e~the original formula $F$ is valid.
 		
 		\item\label{step:igl:model} The set $S_k\,\subsbot$ is satisfiable, hence we can retrieve a model $\mcM_k \models S_k\subsbot$.
 		We select one literal $L_i = \sel(\mcC_i)$ per clause $\mcC_i \in S_k$ 
@@ -506,7 +643,7 @@ $S_{(\ref{ex:unsat:nexsx})} =
 %		where $\sel(\mcC_{i_1}) = L_i$ and $\sel(\mcC_{i_2})=\lnot L_j$
 		to add new (not necessarily ground) instances to $S_{k+1}$.
 		
-		If no new clauses were added, i.e.~$S_{k+1} = S_k$ after all pairs were processed we exit the procedure and report {\myem satistifiablity of $S$}.
+		If no new clauses were added, i.e.~$S_{k+1} = S_k$ after all pairs were processed we exit the procedure and report {\myem satisfiability} of $S$, i.e.~the original formula $F$ is not valid.
 		
 		\item We increase $k$ by $1$ and continue with step \ref{step:igl:skbot}. 
 		
@@ -677,6 +814,79 @@ S_0 \disjointunion
 
 \section{Equality}
 
+\begin{example} The ordered resolution inference rule yields one tautology from congruence and injectivity,
+	which we can ignore.
+	\begin{align*}
+	\colN x \mEQ x
+	\tag*{$\mEQ$-reflexivity}\\
+	x \mEQ y \lor {\colN y \mNE x}
+	\tag*{$\mEQ$-symmetry}\\
+	x \mEQ z \lor {\colN x \mNE y} \lor {\colN y\mNE z}
+	\tag*{$\mEQ$-transitivity}\\
+	{\colN \msucc(x) \mEQ \msucc(y)} \lor x\mNE y
+	\tag*{$\msucc$-congruence}\\[0.5em]
+	x \mEQ y \lor {\colN \msucc(x) \mNE \msucc(y)}
+	\tag*{$\msucc$-injectivity}\\
+	{\colN 0 \mNE \msucc(x)}
+	\tag*{$0\not\in\img(\msucc)$}
+	\end{align*}
+%	\begin{align*}
+%	\infer[]
+%	{ x\mNE y\lor x\mEQ y}
+%	{
+%		{\colN \msucc(x) \mEQ \msucc(y)} \lor x\mNE y 
+%		&
+%		x \mEQ y \lor {\colN \msucc(x) \mNE \msucc(y)}
+%	}
+%	\end{align*}
+\end{example}
+
+\begin{example} When we look at the grounding we notice that selection process is unfortunate,
+	because the selected literals of any clause but congruence clashes with $0\mNE\msucc(x)$.
+	\begin{align*}
+	\colHi \consbot \mEQ \consbot
+	\tag*{reflexivity}\\
+	{ \consbot \mEQ \consbot} \lor {\colLo \consbot \mNE \consbot}
+	\tag*{symmetry}\\
+	{ \consbot \mEQ \consbot} 
+	\lor {\colLo \consbot \mNE \consbot} 
+	\lor {\colLo \consbot\mNE \consbot}
+	\tag*{transitivity}\\
+	{\colHi \msucc(x) \mEQ \msucc(y)} \lor {\colLo \consbot \mNE \consbot}
+	\tag*{congruence}\\[0.5em]
+	{ \consbot \mEQ \consbot} \lor {\colLo \msucc(x) \mNE \msucc(y)}
+	\tag*{injectivity}\\
+	{\colHi 0 \mNE \msucc(x)}
+	\end{align*}
+\end{example}
+
+
+
+\begin{example} With Superposition no derivation rule is applicable.
+	\begin{align*}
+	x \mEQ y \lor {\colN \msucc(x) \mNE \msucc(y)}
+	\tag*{injectivity}\\
+	{\colN 0 \mNE \msucc(x)}
+	\end{align*}
+\end{example}
+
+\begin{example} We extend our set with clause $\msucc(0) \mEQ \msucc(\msucc(x))$ 
+	that clashes with injectivity of $\msucc$.
+	\begin{gather*}
+	\infer[\{\,x'\mapsto x\,\}]
+	{\square}
+	{0\mNE s(x') &
+	\infer[
+	\{\, x'\mapsto 0, y'\mapsto\msucc(x) \,\}
+	]{
+		0 \mEQ \msucc(x)	
+	}{
+		x' \mEQ y' \lor {\colN \msucc(x')) \mNE \msucc(y')} 
+		& {\msucc(0) \mEQ \msucc(\msucc(x))}
+	}
+}
+	\end{gather*}
+\end{example}
 
 
 	An equational interpretation must satisfy the formulas for reflexivity, symmetry, transitivity, 

@@ -2,22 +2,39 @@
 % !TeX encoding = UTF-8
 % !TeX spellcheck = en_US
 
-\chapter{Additional Definitions}
+
+
+
+\chapter{Mathematics}
 
 \input{epigraphs/Menge}
 
 
 
-In this chapter we recall some mathematical and logical notions we have used but not defined the main part of our thesis.
-We assume at least a {\myem basic} understanding of sets as described by Georg Cantor in the 19th century. 
-However we ignore all paradoxes in {\myem naive} set theory.
-Instead we just assume that our sets are definable within a consistent set theory (e.g.~Zermalo-Fraenkel).
-Thus we have well defined {\myem membership} relations between our sets and objects,
-well defined {\myem subset} relations between our sets, 
+In this chapter we recall some mathematical and logical concepts and notions 
+we have used but not defined in the main part.
+We assume at least a {\myem basic} understanding of sets as already 
+described by Georg Cantor in the 19th century. 
+However we just assume that our sets are definable within a consistent set theory.
+Thus we have well defined {\myem membership} relationships between objects and sets,
+well defined {\myem subset} relationships between sets, 
 and well defined {\myem Cartesian products} over sets.
 
 In section \ref{sec:app:maths} we {\em finally} define {\myem relations} and {\myem orders}. 
 In section \ref{sec:app:fol} we describe sets and numbers general calculated from first order terms.
+
+
+
+\section{Relations and orders}\label{sec:app:maths}
+
+\input{appendix/math}
+
+\section{First order logic}\label{sec:app:fol}
+
+\input{appendix/termsets}
+
+
+\chapter{Conventions}
 
 \begin{figure}[hbt]\label{fig:conventions}
 	\begin{align*}
@@ -32,19 +49,16 @@ In section \ref{sec:app:fol} we describe sets and numbers general calculated fro
 	\mu, \nu, \sigma, \tau &\ \tag*{substitutions, unifiers}\\
 	A,B,C,D &\ \tag*{atoms} \\
 	\mcL, L &\ \tag*{literals} \\
-%	\mcC, \mcD &\ \tag*{clauses} \\
+	%	\mcC, \mcD &\ \tag*{clauses} \\
 	S &\ \tag*{sets of clauses}
 	\end{align*}
 	\caption{Typographical conventions}
 \end{figure}
 
-\section{Relations and orders}\label{sec:app:maths}
 
-\input{appendix/math}
 
-\section{First order logic}\label{sec:app:fol}
 
-\input{appendix/termsets}
+
 
 
 
