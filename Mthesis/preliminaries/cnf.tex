@@ -2,7 +2,7 @@
 % !TeX encoding = UTF-8
 % !TeX spellcheck = en_US
 
-\begin{definition}\label{def:literals}
+\begin{definition}[\CNF]\label{def:literals}\label{def:CNF}
 A (first order) {\myem literal} $L$ is either an atom $A$ or a negated\footnote{
 We usually abbreviate $\lnot(s\mEQ t)$ with $s\mNE t$.
 } 
@@ -24,6 +24,7 @@ and is equivalent to an universally quantified disjunction of its literals.
 A finite {\myem set of clauses} $S=\{ \mcC_1,\ldots,\mcC_n \}$ is equivalent to a conjunction of all its clauses.
 %
 %Two literals are complementary if one is an atom, i.e. a positive literal and the other is the negation of this atom.
+Formulae in this shape are in {\myem clause normal form}.
 \end{definition}
 
 \begin{example}The set of clauses is equivalent to a universally quantified formula in conjunctive normal form.

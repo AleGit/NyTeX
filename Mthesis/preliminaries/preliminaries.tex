@@ -6,23 +6,25 @@
 
 \input{epigraphs/defintion}
 
-We assume familiarity with propositional and predicate logic \cite{Huth:2004:LCS:975331}, 
-automated theorem proving \cite{Fitting:1996:FLA:230183}, 
+In this thesis we assume the reader's familiarity with 
+propositional and predicate logic \cite{Huth:2004:LCS:975331}, 
+%automated theorem proving \cite{Fitting:1996:FLA:230183}, 
 term rewriting \cite{Baader:1998:TR:280474}, 
 decision procedures \cite{Kroening:2008:DPA:1391237}, 
 and satisfiability checking modulo theories \cite{Biere:2009:HSV:1550723}.
-For clarity we state basic syntax definitions of first order logic with equality in section \ref{sec:syntax},
+Nevertheless -- for clarity -- we state basic notions and  definitions 
+of first order logic with equality in section \ref{sec:syntax},
 introduce basic concepts of first order semantics in section \ref{sec:semantics},
-and term rewriting in section \ref{sec:termrewriting}. 
+and describe basic term rewriting terminology in section \ref{sec:termrewriting}. 
 %This section is an extension of the same section in our seminar report \cite{axm:SR2}
 These notions and notations largely follow those in lecture notes \cite{AM2015tr} and \cite{GM2013ar}.
-In figure \ref{fig:convention} we have listed typographical conventions.
+Figure \vref{fig:conventions} in the appendix lists typographical conventions.
 
 
 \section{Syntax}\label{sec:syntax}
 
-In this section we introduce the syntax of first order logic with equality in clausal normal form.
-We briefly relate it to universally quantified formulas in conjunctive normal form.
+In this section we introduce the syntax of first order logic with equality in clause normal form.
+We loosely relate it to universally quantified formulas in conjunctive normal form.
 
 \input{preliminaries/signature}
 
@@ -57,7 +59,7 @@ in this rehearsal of definitions. See the appendix for more details and mathemat
 	 We define the {\myem evaluation} $\alpha_\mcI$ of a term $t$ 
 	 for assingment $\alpha$ and interpretation $\mcI$:
 	 \DEFINE{\alpha_\mcI(t)}{ 
-	 	\alpha(x) 
+	 	\alpha_\mcI(x) 
 	 	&\text{if }t=x\in\mcV \\
 	 	\mc_\mcI
 	 	&\text{if }t=\mc\in\mcFfn[0]
@@ -68,19 +70,17 @@ in this rehearsal of definitions. See the appendix for more details and mathemat
 The evaluation of ground terms does not depend on variable assignments.
 \end{definition}
 \begin{definition}\label{def:model}
-	A (non-ground) predicate $\mP(t_1,\ldots,t_n)$ 
-	{\myem holds} in interpretation $\mcI$  
-	if the set of all possible evaluations of its n-tuple of terms 
-	$\{ 
-	(\alpha_\mcI({t_1}),\ldots,\alpha_\mcI({t_n}))
-	\mid \alpha : \var(t_1,\ldots,t_n) \to A \} \subseteq\mP_\mcI$
-	is a subset of relation $\mP_\mcI\subseteq A^n$.
+	A predicate $\mP(t_1,\ldots,t_n)$ 
+	{\myem holds} for an assignment $\alpha_\mcI$ 
+	in an interpretation $\mcI$  
+	if and only if the evaluation of its n-tuple $
+	(\alpha_\mcI({t_1}),\ldots,\alpha_\mcI({t_n}))$
+	is an element of the relation $\mP_\mcI\subseteq A^n$.
 	Similar an equation $s\mEQ t$ 
-	holds if $\alpha_\mcI(s) \mEQ_\mcI \alpha_\mcI(t)$,
-	i.e.~$(\alpha_\mcI(s),\alpha_\mcI(t)) \in {\mEQ_\mcI} \subseteq A^2$
-	for all possible evaluations $\alpha: \var(s,t) \to A$. 
-	A literal holds
-	if and only if its complement does not hold.
+	holds if $\alpha_\mcI(s) \mEQ_\mcI \alpha_\mcI(t)$.
+	If an atom holds for all possible assignments 
+	then the atom holds in the interpretation. 
+	A literal holds if and only if its complement does not hold.
 	A clause holds if at least one of its literals holds.
 	The empty clause $\square$ can not hold in any interpretation. 
 	A set of clauses holds if every clause in it holds.
@@ -92,7 +92,7 @@ The evaluation of ground terms does not depend on variable assignments.
 	allow undesirable models, 
 	e.g.~an interpretation $\mcI$ satisfies $\{ \ma\mNE\ma \}$ 
 		whenever ${\mEQ_\mcI} = \emptyset$.
-	But usually we expect at least that $\ma\mEQ_\mcI\ma$ holds in any model.
+	Usually we expect at least that $\ma\mEQ_\mcI\ma$ holds in any interpretation.
 \end{example}
 
 \begin{definition}
