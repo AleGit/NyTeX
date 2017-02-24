@@ -2,11 +2,11 @@
 % !TeX encoding = UTF-8
 % !TeX spellcheck = en_US
 
-\begin{definition}[\CNF]\label{def:literals}\label{def:CNF}
-A (first order) {\myem literal} $L$ is either an atom $A$ or a negated\footnote{
-We usually abbreviate $\lnot(s\mEQ t)$ with $s\mNE t$.
+\begin{definition}[\CNF]\label{def:literals}\label{def:syntax:CNF}
+A (first order) {\myem literal} $L$ is either an atom $A$ or the negation\footnote{
+	We usually abbreviate $\lnot(s\mEQ t)$ with $s\mNE t$.
 } 
-atom $\lnot A$.
+$(\lnot A)$ of an atom.
 %
 The {\myem complement} $L^\mcc$ of an atom (positive literal) is the negation of the atom.
 The complement of a negated atom (negative literal) is the atom itself. 

@@ -79,7 +79,7 @@
 	\end{align*}
 	always hold for arbitrary elements $x,y,z$ in $A$.
 	The {\myem equivalence class} $[x]_\sim$
-	of an element $x$ contains all elements that are equivalent to $x$.
+	of an element $x$ is a subset of $A$ that contains all elements in $A$ that are equivalent to $x$.
 	Trivially the equivalence $x\sim y$ implies the identity $[x]_\sim = [y]_\sim$.
 	The quotient set modulo an equivalence relation is the set of a set's equivalent classes.
 	\begin{align*} 
@@ -168,7 +168,7 @@
 
 
 \begin{definition}
-	An binary relation $\supset$ is {\myem well-founded} on a set $A$ if there is no infinite sequence 
+	A binary relation $\supset$ is {\myem well-founded} on a set $A$ if there is no infinite sequence 
 	$(a_i)_{i\in\mathbb{N}}$ of $a_i\in A$
 	with $a_i\supset a_{i+1}$ for all $i\in\mathbb{N}$.
 \end{definition}
@@ -182,6 +182,13 @@
 	1 > \frac{1}{2} > \frac{1}{4} > \ldots > \frac{1}{2^i} > \frac{1}{2^{i+1}} > \ldots
 	\end{gather*}
 \end{example}
+
+\section{Term Rewriting}
+
+\begin{definition}
+	A binary relation $R$ on terms has the {\myem subterm property} if 
+	$s[t]_p\mathbin{R}t$ for all terms $s,t$ and all positions $p\in\pos(s) \setminus \{\epsilon\}$.
+\end{definition}
 
 \begin{definition}\label{def:prec}
 	A {\myem precedence} $\gtpre$ is a proper order 

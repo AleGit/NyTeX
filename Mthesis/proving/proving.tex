@@ -187,8 +187,8 @@ i.e.~no new elements were added to the Hebrand universe and now new ground insta
 	Consider the unsatisfiable set of clauses
 	$S_{(\ref{ex:unsat:nexsx})} = \{\, \lnot\mcL_1,\,\mcL_2\, \} =
 	\{\,
-	{ \lnot\mE(x, \ms(x)))},\, 
-	{ \mE(\ms^{k}(y), \ms(\ms^{k}(y)))}
+	{ \lnot\mE(x, \msucc(x)))},\, 
+	{ \mE(succ^{k}(y), \msucc(\msucc^{k}(y)))}
 	\,\}$.
 	The sets of instances $S_i$ are satisfiable for $i<k$.
 	The set of instances $S_{k}$ is clearly unsatisfiable.
@@ -198,7 +198,7 @@ i.e.~no new elements were added to the Hebrand universe and now new ground insta
 	&
 	S_{0} :=&\ \{\, 
 	{\colG \lnot\mE(\mzero,\msucc(\mzero))},\,
-	{\colHi \mE(\ms^k(\mzero),\,\ms(\ms^k(\mzero)))}
+	{\colHi \mE(\msucc^k(\mzero),\,\msucc(\msucc^k(\mzero)))}
 	\,\}
 	\subsetneq S_k
 	\\
@@ -207,7 +207,7 @@ i.e.~no new elements were added to the Hebrand universe and now new ground insta
 	S_{i+1} \supsetneq&\
 	\{\,
 	{\colG \lnot\mE(\msucc^{i+1}(\mzero),\msucc(\msucc^{i+1}(\mzero))),\,
-	\mE(\ms^k(\msucc^{i+1}(\mzero)), \ms(\ms^k(\msucc^{i+1}(\mzero))))}
+	\mE(\msucc^k(\msucc^{i+1}(\mzero)), \msucc(\msucc^k(\msucc^{i+1}(\mzero))))}
 	\,\}
 	\\
 	H_{k} \supsetneq&\ \{\,\msucc^{k}(\mzero)\,\} 
@@ -215,7 +215,7 @@ i.e.~no new elements were added to the Hebrand universe and now new ground insta
 	S_{k} \supsetneq&\
 	\{\,
 	{\colLo \lnot\mE(\msucc^{k}(\mzero),\msucc(\msucc^{k}(\mzero)))},\,
-	{\colG\mE(\ms^k(\msucc^{k}(\mzero)), \ms(\ms^k(\msucc^{k}(\mzero))))}
+	{\colG\mE(\msucc^k(\msucc^{k}(\mzero)), \msucc(\msucc^k(\msucc^{k}(\mzero))))}
 %	{\ldots}
 	\,\}
 	\end{align*}
@@ -438,8 +438,8 @@ which was the starting point for the development of efficient propositionally sa
 	With Resolution we can derive the empty clause, i.e.~the unsatisfiability of set
 	$S_{(\ref{ex:unsat:nexsx})} =
 	\{\,
-	{ \lnot\mE(x, \ms(x)))},\, 
-	{ \mE(\ms^k(y), \ms(\ms^k(y)))}
+	{ \lnot\mE(x, \msucc(x)))},\, 
+	{ \mE(\msucc^k(y), \msucc(\msucc^k(y)))}
 	\,\}$ 
 	introduced in Example \ref{ex:unsat:nexsx} 
 	in one step. 
@@ -447,8 +447,8 @@ which was the starting point for the development of efficient propositionally sa
 	\infer[\{x\mapsto\msucc^k(y)\}]{
 		\square
 	}{
-		{ \mE(\ms^k(y), \ms(\ms^k(y)))} &
-		{ \lnot\mE(x, \ms(x)))} &
+		{ \mE(\msucc^k(y), \msucc(\msucc^k(y)))} &
+		{ \lnot\mE(x, \msucc(x)))} &
 	}
 	\end{gather*}
 \end{example}
@@ -462,7 +462,7 @@ which was the starting point for the development of efficient propositionally sa
 
 \begin{example}\label{ex:sat:nezsx}
 	With satisfiable set $S_{\ref{ex:sat:nezsx}} = \{\, 
-		\lnot\mE(\mzero,\ms(x)), \mE(y,y') \lor \lnot \mE(\ms(y),\ms(y')
+		\lnot\mE(\mzero,\msucc(x)), \mE(y,y') \lor \lnot \mE(\msucc(y),\msucc(y')
 		\,\}$
 		we observe an infinite sequence of resolutions,
 		hence the set does not saturate.
@@ -483,8 +483,8 @@ which was the starting point for the development of efficient propositionally sa
 	{
 		\lnot \mE(\msucc({\colN\msucc^{i}(\mzero)}),\msucc({\colN\msucc^{i+1}(x)})) 
 	}{
-		{\colHi\mE(y,y')} \lor \lnot \mE(\ms(y),\ms(y')) 
-		&{\colLo \lnot\mE(\ms^i(\mzero),\msucc^{i+1}(x))}
+		{\colHi\mE(y,y')} \lor \lnot \mE(\msucc(y),\msucc(y')) 
+		&{\colLo \lnot\mE(\msucc^i(\mzero),\msucc^{i+1}(x))}
 	}
 	\tag{$i\geq 0$}
 	\end{gather*}
@@ -523,11 +523,11 @@ We have observed disadvantages in resolution.
 \end{definition}
 
 \begin{example}
-	With an ordering such that $\mE(\ms(y),\ms(y')) \succ \mE(y,y')$ on atoms and ${\lnot A} \succ A$
+	With an ordering such that $\mE(\msucc(y),\msucc(y')) \succ \mE(y,y')$ on atoms and ${\lnot A} \succ A$
 	the satisfiable set $S_{\ref{ex:sat:nezsx}}$ saturates with ordered resolution,
 	because the (strictly) maximal literals 
-	$\lnot \mE(\ms(y),\ms(y') \colG\not\preccurlyeq \mE(y,y') $
-	and $\lnot\mE(\mzero,\ms(x))$
+	$\lnot \mE(\msucc(y),\msucc(y') \colG\not\preccurlyeq \mE(y,y') $
+	and $\lnot\mE(\mzero,\msucc(x))$
 	in the two clauses do not clash.
 \end{example}
 
@@ -561,23 +561,23 @@ Gilmore's prover blindly constructs new ground instances.
 	With \InstGen we immediately can derive a helpful clause from set
 $S_{(\ref{ex:unsat:nexsx})} =
 \{\,
-{ \lnot\mE(x, \ms(x)))},\, 
-{ \mE(\ms^k(y), \ms(\ms^k(y)))}
+{ \lnot\mE(x, \msucc(x)))},\, 
+{ \mE(\msucc^k(y), \msucc(\msucc^k(y)))}
 \,\}$ 
  introduced in Example \ref{ex:unsat:nexsx}. 
 \begin{gather*}
 \infer[\{x\mapsto\msucc^k(y)\}]{
-	{ \lnot\mE(\ms^k(y), \ms(\ms^k(y))))} \qquad
-	{\colG \mE(\ms^k(y), \ms(\ms^k(y)))}
+	{ \lnot\mE(\msucc^k(y), \msucc(\msucc^k(y))))} \qquad
+	{\colG \mE(\msucc^k(y), \msucc(\msucc^k(y)))}
 }{
-	{ \lnot\mE(x, \ms(x)))} &
-	{ \mE(\ms^k(y), \ms(\ms^k(y)))}
+	{ \lnot\mE(x, \msucc(x)))} &
+	{ \mE(\msucc^k(y), \msucc(\msucc^k(y)))}
 }
 \end{gather*}
 and we conclude unsatisfiability because of propositional unsatisfiability of 
 \begin{gather*}
 \{\,
-	\mE(\ms^k(\consbot), \ms(\ms^k(\consbot))), \lnot\mE(\ms^k(\consbot), \ms(\ms^k(\consbot)))) 
+	\mE(\msucc^k(\consbot), \msucc(\msucc^k(\consbot))), \lnot\mE(\msucc^k(\consbot), \msucc(\msucc^k(\consbot)))) 
 \,\}
 \end{gather*}
 	
@@ -786,12 +786,12 @@ Let $S_0 = S_{(\ref{ex:unsat:nexsx})}$ be the set of unsatisfiable clauses from 
 Then the initial set of ground instances 
 $S_0\subsbot =\
 \{\,
-{ \lnot\mE(\consbot, \ms(\consbot)))}, 
-{ \mE(\ms^k(\consbot), \ms(\ms^k(\consbot)))}
+{ \lnot\mE(\consbot, \msucc(\consbot)))}, 
+{ \mE(\msucc^k(\consbot), \msucc(\msucc^k(\consbot)))}
 \,\}$
-is satisfiable with domain $A = \{ \consbot, \ms(\consbot), \ms^k(\consbot), \ms(\ms^k(\consbot)) \}$
+is satisfiable with domain $A = \{ \consbot, \msucc(\consbot), \msucc^k(\consbot), \msucc(\msucc^k(\consbot)) \}$
 and predicate interpretation 
-$\mE^\mcI = \{ (\ms^k(\consbot), \ms(\ms^k(\consbot))
+$\mE^\mcI = \{ (\msucc^k(\consbot), \msucc(\msucc^k(\consbot))
  \} \subseteq A^2$. 
 % 
  With just two unit clauses we easily find the only pair of clashing literals and compute the unifier
@@ -803,7 +803,7 @@ S_0 \disjointunion
  \{\,
 % { \lnot\mE(x, \ms(x)))},\  
 % { \mE(\ms^k(y), \ms(\ms^k(y)))},\
- { \lnot\mE(\ms^k(y), \ms(\ms^k(y)))}
+ { \lnot\mE(\msucc^k(y), \msucc(\msucc^k(y)))}
  \,\}
  $ 
  and get an unsatisfiable set of ground instances $S_1\subsbot$.
