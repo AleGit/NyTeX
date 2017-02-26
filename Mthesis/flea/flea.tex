@@ -215,10 +215,20 @@ func application(_ symbol: String,
 \end{lstlisting}
 
 
+\begin{definition}[Flattening of clauses]
+	
+	\end{definition}
+
+\begin{example}
+	\begin{align*}
+	\mP(t_1,\ldots, t_n) &\Rightarrow y_1\neq t_1 \lor \ldots y_n\neq t_n \lor \mP(y_1,\ldots,y_n) \\
+	s \mNE t &\Rightarrow y_s\mNE s\lor y_t\mNE t \lor y_s \mEQ y_t \\
+%	\mf(s_1,\ldost,s_m) \mEW \mg(t_1,\ldots,t_n) &\Rightarrow x_1\mNE s_1 \lor\ldots\lor x_m\mNE s_m \lor y_1\mNE t_1\lor\ldots\lor y_n\mNE t_n \lor \mf(x_1,\ldots,x_m)\
+	\end{align*}
+	\end{example}
 
 
-
-\section{Implentation}
+\section{Implementation}
 
 
 \section{Experiments}
