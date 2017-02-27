@@ -64,11 +64,58 @@ With Skolemization and Tseitin transformation we can effectively transform a arb
 
 
 
-\section{Decidable fragments and complexity}
+\section{Decidable fragments of first order logic}
+
+Since we have limited our first order syntax to \CNF in Definition \vref{def:syntax:CNF} 
+we transform all the pure syntactical requirements for decidability of first order formulae 
+to this representation, which introduces otherwise absent function symbols, albeit with restricted arities.
+
+
+\begin{lemma}[$(\exists^*\forall^*)^*$ --- $P(x)$]\ref{lem:monadic}
+	Satisfiability is decidable for monadic first order logic, 
+	i.e.~the clauses 
+	may contain constant and unary predicate symbols, 
+	constant function symbols,
+	and arbitrary many distinct variables 
+	(each perhaps on multiple positions).
+\end{lemma}
+
+
+\begin{lemma}[$\exists^*\!\vec{x}\,\forall y\,\exists^*\!\vec{z}$ --- $P(\vec{x},y,\vec{z})$]\label{lem:ackermann}
+	Satisfiability is decidable for the Ackermann class, 
+	i.e.~the clauses
+	may contain arbitrary predicate symbols, 
+	constant and unary function symbols, 
+	and at most one variable 
+	(each perhaps on multiple positions) per clause.
+\end{lemma}
+
+
+\begin{lemma}[$ \exists^*\!\vec{x}\,\forall y_1\forall y_2\,\exists^*\!\vec{z}$ --- $P(\vec{x},y,\vec{z})$]\label{lem:goedel}
+	Satisfiability is decidable for the Gödel class, 
+	i.e.~the clauses
+	may contain arbitrary predicate symbols, 
+	constant, unary, and binary function symbols, 
+	and at most two distinct variables 
+	(each perhaps on multiple positions) per clause.
+	
+\end{lemma}
+
+
+\begin{lemma}[$\exists^*\!\vec{x}\,\forall^*\!\vec{z}$ --- $P(\vec{x},\vec{z})$]\label{lem:schoenfinkel}
+	Satisfiability is decidable for the Schönfinkel-Bernays class, 
+	i.e.~the clauses
+	may contain arbitrary predicate symbols, 
+	constant function symbols, 
+	and arbitrary many distinct variables 
+	(each perhaps on multiple positions).
+	
+\end{lemma}
 
 \begin{lemma}
-	The satisfiability of a set of ground clauses is decidable.
 \end{lemma}
+
+
 
 
 
@@ -82,12 +129,11 @@ With Skolemization and Tseitin transformation we can effectively transform a arb
 
 
 
-In this chapter we will outline fragments and theories in first order logic, 
-where validity and satisfiability are decidable. 
-We will focus on satisfiability and will present the fragments, theories and problems in clausal form.
+\section{Decidable theories in first oder logic}
 
+praesburger arithmetic
 
-
+successor
 
 
 

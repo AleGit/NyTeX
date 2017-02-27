@@ -7,8 +7,8 @@
 \input{epigraphs/syllogism}
 
 In this chapter we demonstrate instance-based proving procedures.
-We highlight the impact of undecidability in first order logic
-for Gilmore's prover and the \InstGen framework.
+We look at the impact of undecidability in first order logic for proving procedures.
+We highlight if the presented procedures are in fact decision procedures for decidable fragments of first order logic.
 It seems natural to expect decision procedures for decidable fragments of first order logic,
 but that does not automatically follow from refutational completeness of these procedures.
 
@@ -66,8 +66,8 @@ eventually.
 
 \section{Gilmore's Prover}
 
-In 1960 Paul Gilmore presented the first {\myem implementation} of an automated 
-theorem prover \cite{5392528} for first order logic without equality,
+In 1960 Paul Gilmore presented a first {\myem implementation} of an automated 
+theorem prover \cite{5392528} for first order logic (without equality),
 which happened to use an instantiation-based approach. 
 The procedure is theoretically complete, i.e.~for every valid formula 
 a proof can be found eventually.
@@ -174,9 +174,17 @@ However the number of iterations has no general upper bound.
 Otherwise it would be a decision procedure for satisfiability in first order logic
 which does not exist because of undecidability of satisfiability in first order logic.
 
-It is easy to see that for a set of clauses without non-constant function symbols
-we can stop the procedure after one iteration because $H_i = H_0$ and $S_i = S_0$ for all $i\geq0$,
-i.e.~no new elements were added to the Hebrand universe and now new ground instances could be generated.
+\begin{lemma}
+	Gilmore's procedure is a decison procedure for monadic first order logic and the Schönfinkel-Bernays fragment. 
+\end{lemma}
+
+\begin{proof}
+	In the absence of non-constant function symbols 
+	the procedure can stop after the first iteration because $H_i = H_0$ and $S_i = S_0$ for all $i\geq0$,
+	i.e.~after the first iteration 
+	no new terms are added to the Hebrand universe 
+	and no new ground instances can be generated.
+\end{proof}
 %
 %On the other hand the procedure will never terminate 
 %even for very simple satisfiable sets where the Herbrand universe is infinite, 
@@ -188,9 +196,9 @@ i.e.~no new elements were added to the Hebrand universe and now new ground insta
 	$S_{(\ref{ex:unsat:nexsx})} = \{\, \lnot\mcL_1,\,\mcL_2\, \} =
 	\{\,
 	{ \lnot\mE(x, \msucc(x)))},\, 
-	{ \mE(succ^{k}(y), \msucc(\msucc^{k}(y)))}
+	{ \mE(\msucc^{k}(y), \msucc(\msucc^{k}(y)))}
 	\,\}$.
-	The sets of instances $S_i$ are satisfiable for $i<k$.
+	The sets of instances $S_{i}$ are satisfiable for all $i<k$.
 	The set of instances $S_{k}$ is clearly unsatisfiable.
 	%	
 	\begin{align*}
@@ -243,14 +251,9 @@ i.e.~no new elements were added to the Hebrand universe and now new ground insta
 
 
 \begin{example}\label{ex:sat:exy}
-	Consider the formula 
-	$G = \exists x\forall y\,\mE(x,y)$
-	which is a member of the Ackermann prefix class $\forall^*\exists\forall^*$ 
-	of first order formulae
-	where the satisfiability problem is decidable.
-	The set of clauses 
-	$S_{(\ref{ex:sat:exy})}= \{\,\mE(\mzero,y)\,\}$ is equisatisfiable to $G$ and clearly satisfiable.
-	The procedure yields the following sequence of distinct and satisfiable sets $S_{k\geq0}$:
+	Consider the satisfiable set of clauses $\mE(\mzero,x)$.
+	This set is clearly in the decidable Ackermann fragment of first order logic.
+	But the procedure yields an infinite sequence of distinct and satisfiable sets $S_{k\geq0}$:
 	\begin{align*}
 	H_{0} :=&\  \{ \mzero \} 
 	&
@@ -813,6 +816,8 @@ S_0 \disjointunion
 
 
 \section{Equality}
+
+The equality axioms only matches the conditions in \vref{lem:schoenfinkel}.
 
 \begin{example} The ordered resolution inference rule yields one tautology from congruence and injectivity,
 	which we can ignore.
