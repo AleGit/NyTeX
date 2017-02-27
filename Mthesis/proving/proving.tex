@@ -190,6 +190,17 @@ which does not exist because of undecidability of satisfiability in first order 
 %even for very simple satisfiable sets where the Herbrand universe is infinite, 
 %i.e.~there is at least one non-constant function symbol.
 
+
+
+\begin{definition}
+	For an unary function symbol $\mg\in\mcFfn[1]$, a natural number
+	$i\in\mathbb{N}$, and an arbitrary term $t\in\mcTf$ we introduce the notation
+	\[
+	\mg^0(t) := t \qquad
+	\mg^{i+1}(t) := \mg(\mg^i(t))
+	\]
+\end{definition}
+
 \begin{example}\label{ex:unsat:nexsx}
 	Let $k\in\mathbb{N}$ be an arbitrary but fixed number.
 	Consider the unsatisfiable set of clauses
@@ -237,27 +248,14 @@ which does not exist because of undecidability of satisfiability in first order 
 	\]
 \end{example}
 
-\begin{definition}
-	For an unary function symbol $\msucc$, a natural number
-	$i\in\mathbb{N}$, and an arbitrary term $t\in\mcTf$ we introduce the notation
-	\[
-	\begin{array}{rl}
-	\msucc^0(t) &:=\ t \\
-	\msucc^{i+1}(t) &:=\ \msucc(\msucc^i(t))
-	\end{array}
-	\]
-\end{definition}
-
-
-
 \begin{example}\label{ex:sat:exy}
-	Consider the satisfiable set of clauses $\mE(\mzero,x)$.
+	Consider the satisfiable set of clauses $\{\lnot\mE(\mzero,\msucc(x)\}$.
 	This set is clearly in the decidable Ackermann fragment of first order logic.
 	But the procedure yields an infinite sequence of distinct and satisfiable sets $S_{k\geq0}$:
 	\begin{align*}
 	H_{0} :=&\  \{ \mzero \} 
 	&
-	S_{0} :=&\ \{ \mE(\mzero,\mzero)
+	S_{0} :=&\ \{ \lnot\mE(\mzero,\msucc(\mzero))
 	\}
 	\tag*{satisfiable}
 	\\
