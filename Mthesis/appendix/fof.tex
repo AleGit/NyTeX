@@ -1,4 +1,4 @@
-In Section \ref{sec:syntax} we have defined atomic formulae in Definition \ref{def:atoms}, 
+In Section \ref{sec:syntax} we have already defined atomic formulae in Definition \ref{def:atoms}, 
 but we can only build formulae in clausal normal form (\CNF) with Definition \vref{def:syntax:CNF}.
 Now we will define arbitrary first order formulae (\FOF).
 
@@ -10,14 +10,14 @@ Now we will define arbitrary first order formulae (\FOF).
 	of a given formula $F$ are (composite) first order formulae.
 	Further, the disjunction $(F \lor F')$, 
 	the conjunction $(F \land F') $, 
-	and the implication $(F \limp F') $ 
+	and the implication $(F \limp F') \equiv (\lnot F) \lor F'$ 
 	of two given formulae $F$ and $F'$ 
 	are (composite) first order formulae.
 \end{definition}
 
 We've already defined when an atom holds for an assignment $\alpha_\mcI$ 
 in an interpretation $\mcI$ within Definition \vref{def:model}.
-Now we extend these definitions to arbitrary formulae.
+Now we extend these definitions to first order formulae.
 
 \begin{definition}[Semantics of \FOF]\label{def:semantics:FOF}
 	
@@ -28,6 +28,129 @@ Now we extend these definitions to arbitrary formulae.
 	a conjunction $F\land F'$ holds, if both of its subformualae $F$ and $F'$ hold, 
 	an implication $F\limp F'$ holds if its first subformula $F$ does not hold or its second subformula $F'$ holds (or both).
 \end{definition}
+
+\noindent We assume that each variable of a formula is quantified exactly once.
+
+\begin{definition}\label{def:syntax:PNF}
+	A first order formula $F = Q_1 x_1 \ldots Q_n x_n\, F'$ 
+	with quantifiers $Q_i\in\{\forall,\exists\}$, 
+	quantifier-free subformula $F'$ with $\var(F') = \{ x_1,\ldots,x_n \}$
+	is in {\myem prenex normal form}.
+\end{definition}
+
+\begin{lemma}
+	Any first order formula can be transformed 
+	into an equivalent prenex normal form 
+	by exhaustively using the following equivalences from left to right.
+	\begin{align*}
+	\lnot(\forall x F) &\equiv \exists x (\lnot F)
+	&
+	\lnot(\exists x F) &\equiv \forall x (\lnot F)
+	\\
+	{\colG G \land (\forall x F) \equiv{}} (\forall x F) \land G &\equiv \forall x (F \land G)  
+	&
+	{\colG G \land (\exists x F) \equiv{}} (\exists x F) \land G &\equiv \exists x (F \land G)  
+	\\
+	{\colG G \lor (\forall x F) \equiv{}} (\forall x F) \lor G &\equiv \forall x (F \lor G) 
+	&
+	{\colG G \lor (\exists x F) \equiv{}} (\exists x F) \lor G &\equiv \exists x (F \lor G)
+	\end{align*}
+	\begin{remark}
+		The equivalences depend on $y\not\in\var(F)$ and $x\not\in\var(G)$.
+	\end{remark}
+\end{lemma}
+
+\begin{lemma}We just state the following useful equivalences.
+	\begin{align*}
+		(\forall x F) \land (\forall y G) &\equiv \forall x (F\land G\{y\mapsto x\})
+		&
+		(\exists x F) \lor (\exists y G) &\equiv \exists x (F\lor G\{y\mapsto x\})
+		\\
+		\forall x \forall y F &\equiv \forall y \forall x F
+		&
+		\exists x \exists y F &\equiv \exists y \exists x F
+		\\
+		\forall x G &\equiv G & \exists x G &\equiv G
+		\\
+		(\forall x F) \land (\exists y G) &\equiv \exists y \forall x (F\land G)
+		&
+		(\forall x F) \lor (\exists y G) &\equiv \exists y \forall x (F\lor G)
+	\end{align*}
+\end{lemma}
+
+\begin{definition}
+	Monadic predicate logic is first order logic 
+	where the signature of the formulae just contains
+	propositional and unary predicate symbols,
+	but no function symbols.
+\end{definition}
+
+\begin{lemma}
+	In monadic predicate logic the following equivalence holds.
+	\[
+		\forall x \exists y F \equiv \exists y \forall x F
+	\]
+	
+\end{lemma}
+
+\begin{proof}By induction on the structure of F. 
+	\begin{itemize}
+		\item(base) Let $F$ be a literal with unary predicate symbol $\mP\in\mcFPn[1]$.
+		\begin{gather*}
+		\forall x \exists y\,{\colG\lnot}\mP(x) \equiv \forall x\, {\colG\lnot}\mP(x) 
+%		{\colG{}\equiv \exists y \forall x {\colG\lnot}\mP(x)}
+		\qquad 
+		\forall x \exists y\, {\colG\lnot}\mP(y) \equiv \exists y\, {\colG\lnot}\mP(y)  
+%		{\colG{}\equiv \exists y \forall x {\colG\lnot}\mP(y)}
+		\end{gather*}
+		\item(base) Let $F$ be a junction $\mcL \star \mcL'$ of two literals 
+		where $\star\in\{\lor,\land\}$.
+		\begin{align*}
+			\forall x(\exists y (\mcL\star\mcL'))
+			\equiv \forall x((\mcL\star(\exists y\mcL')))    )
+			\equiv (\forall x \mcL) \star (\exists y\mcL') 
+			\tag*{if $\mcL\in\{\lnot\mP(x),\mP(x)\}$}
+			\\
+			\exists y(\forall x (\mcL\star\mcL'))
+			\equiv \exists y((\forall x\mcL)\star \mcL')))    )
+			\equiv (\forall x \mcL) \star (\exists y\mcL')
+			\tag*{otherwise}
+		\end{align*}
+		\item Let $F$ be a junction $G\star G'$ of two sub-formulae
+		where $\star\in\{\lor,\land\}$.
+		\begin{gather*}
+	\forall x\exists y (G\lor G') 
+	\equiv \forall x (\exists y G \lor \exists y G')
+	\equiv \forall x \exists y G \lor \forall x \exists y G'
+\\
+	\defEV[IH] \exists y\forall x  G \lor \exists y\forall x G'
+	\equiv \exists y(\forall x  G \lor \forall x G')
+	\equiv \exists y \forall x (G \lor G')
+		\end{gather*}
+		
+	\end{itemize}
+\end{proof}
+
+
+\begin{lemma}[Monadic first order logic]
+	Any first order formulae with constant or unary predicate symbols only but no function symbols 
+	is equisatisfiable to a set of clauses with unary predicates and constant function symbols.
+\end{lemma}
+
+\begin{lemma}[Ackermann class]
+	Any formula in prenex normal form with prefix $\exists^* \forall \exists^*$ 
+	and arbitrary predicate symbols but without function symbols is equisatisfiable to 
+	a set of clauses with the same predicate symbols, but additional Skolem constants and unary Skolem functions.
+\end{lemma}
+
+
+\begin{lemma}[Gödel class]
+	Any formula in prefix normal form with prefix $\exists^* \forall\forall \exists^*$ 
+	with predicate symbols but without function symbols 
+	is equisatisfiable to a set of clauses 
+	but additional Skolem constants and binary Skolem functions.
+\end{lemma}
+
 
 \begin{remark}Usually we us precedences on connectives to omit parentheses 
 	and some heuristics to structure the formulae for readability 

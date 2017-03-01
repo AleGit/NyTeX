@@ -24,7 +24,7 @@ Figure \vref{fig:conventions} in the appendix lists typographical conventions.
 \section{Syntax}\label{sec:syntax}
 
 In this section we introduce the syntax of first order logic with equality in clause normal form.
-We loosely relate it to universally quantified formulas in conjunctive normal form.
+We will loosely relate it to formulae in prenex normal form (see Definition \ref{def:PNF} for details).
 
 \input{preliminaries/signature}
 
@@ -87,6 +87,26 @@ The evaluation of ground terms does not depend on variable assignments.
 	Then the interpretation is a model for the set of clauses and 
 	we write $\mcI\models S$. 
 \end{definition}
+
+\begin{lemma}[Instantiation]\label{lem:instantiation}
+	Let $S$ be a set of clauses and $\mcM$ a model for $S$.
+	Then $\mcM\models S\sigma$ holds for any substitution $\sigma$.
+\end{lemma}
+%\begin{proof}
+%	By induction of the finite cardinality $n = | \domain(\sigma)|$. Let $\mcM\models S$.
+%	\begin{enumerate}
+%		\item $n = 0$ then $S\sigma = S$
+%		\item $n = 1$ Show that if $\mcM\models S$ then $\mcM\models S\{x\mapsto t\}$
+%		(By induction on S)
+%		\begin{enumerate}
+%			\item If $P(c)$ holds, then $P(\mc)\sigma = P(\mc)$ holds
+%			\item If $P(y)$ holds, then $P(y)\sigma = P(y)$ holds.
+%			\item If $P(x)$ holds, then 
+%			then $P(x)\sigma = P(t)$ holds.
+%		\end{enumerate}
+%		\item $S(\sigma\{x_0\mapsto t_0\} = (S\sigma)\{x_0\mapsto t_0\}$
+%	\end{enumerate}
+%\end{proof}
 
 \begin{example}The definitions \ref{def:interpretation} and \ref{def:model} 
 	allow undesirable models, 
