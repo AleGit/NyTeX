@@ -27,24 +27,18 @@ A finite {\myem set of clauses} $S=\{ \mcC_1,\ldots,\mcC_n \}$ is equivalent to
 We call this quantifier-free representation {\myem clausal normal form}.
 \end{definition}
 
-\begin{example}The set of clauses is equivalent to a universally quantified formula in conjunctive normal form.
+\begin{example}A set of clauses is equivalent to a universally quantified formula in conjunctive prenex normal form.
 	\begin{align*}
-		\{\, \mP(x)\lor\mR(x,y), \lnot \mE(x,\mf(x)) \, \}
+		\{\, \mP(x)\lor\mR(x,y), \lnot \mE(z,\mf(z)) \, \}
 		&\equiv
 		\forall x \forall y\, (\mP(x)\lor\mR(x,y))
-		\land
-		\forall x\, (\lnot \mE(x,\mf(x))) 
-		\\
-		{\colG
-			\{\, \mP(x)\lor\mR(x,y), \lnot \mE(z,\mf(z)) \, \}}
-		&\equiv
-		\forall x \forall y\, (\mP(x)\lor\mR(y))
-		\land
-		\forall z\,(\lnot \mE(z,\mf(z)) 
+		\land \forall x\, (\lnot \mE(x,\mf(x))) 
 		\\
 		&\equiv
-		\forall x \forall y\forall z\, 
-		(\mP(x)\lor\mR(y)\land \lnot \mE(z,\mf(z))
+		\forall x \forall y\left( 
+		(\mP(x)\lor\mR(x,y))
+		\land \lnot \mE(x,\mf(x))
+		\right)
 	\end{align*}
 \end{example}
 

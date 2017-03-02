@@ -1,0 +1,95 @@
+% !TeX root = ../mthesis.tex
+% !TeX encoding = UTF-8
+% !TeX spellcheck = en_US
+
+
+\begin{definition}
+	A {\myem partial order} is a reflexive, transitive, and antisymmetric binary relation, 
+	i.e.~$\sqsubseteq$ is a partial order on $A$ if
+	the following three clauses hold for arbitrary elements $x,y,z$ in $A$.
+	\begin{align*}
+	x\sqsubseteq x
+	\tag*{reflexivivity}
+	\\
+	x\not\sqsubseteq y \lor  y \not\sqsubseteq z \lor x\sqsubseteq z
+	\tag*{transitivity}
+	\\
+	x\not\sqsubseteq y \lor y\not\sqsubseteq x \lor x = y
+	\tag*{antisymmetry}
+	\end{align*}
+\end{definition}
+
+\begin{definition}
+	A {\myem proper order} is a irreflexive and transitive binary relation, 
+	i.e.~$\sqsubset$ is a proper order on $A$ if the following two clauses hold.
+	\begin{align*}
+	x\not\sqsubset x
+	\tag*{irreflexivivity}
+	\\
+	x\not\sqsubset y \lor  y \not\sqsubset z \lor x\sqsubset z
+	\tag*{transitivity}
+	\end{align*}
+	always hold for arbitrary elements $x,y,z$ in $A$.
+	A proper order is a {\myem total order} if additionally the following clause
+	\[
+		x \sqsubset y \lor y \sqsubset x  \lor x=y \tag*{totality}
+	\]
+\end{definition}
+
+\begin{example}
+	By definition the empty relation $\emptyset \subseteq A \times A$ is a
+	irreflexive,
+	transitive,
+	symmetric,
+	antisymmetric,
+	and asymmetric
+	relation. 
+	Hence it is a proper order, but not total.
+\end{example}
+
+\begin{lemma}
+	Any proper order is asymmetric, e.g.~the clause
+	\begin{align*}
+	x\not\sqsubset y &\lor y\not\sqsubset x \tag*{asymmetry}
+	\end{align*}
+	always holds for arbitrary $x$ and $y$ in $A$.
+\end{lemma}
+
+\begin{proof} We use resolution to derive asymmetry from irreflectivity and transitivity.
+	\[
+			\infer[\{x'\mapsto x, z\mapsto x \}]{
+			x\not\sqsubset y \lor y\not\sqsubset x }{
+			{\colHi x\not\sqsubset x} & x'\not\sqsubset y \lor  y \not\sqsubset z \lor {\colLo x'\sqsubset z}
+		}
+	\]
+\end{proof}
+
+\begin{example}The strict subset relation $\subsetneq$ over a power set is a proper order, but not a total, 
+	e.g. for the power set over natural numbers we have 
+	\[
+	\{ 1 \} \not\subsetneq \{ 2 \}
+	\land \{ 2 \} \not\subsetneq \{ 1 \}
+	\land 	\{ 1 \} \neq \{ 2 \}
+	\tag*{non-totality}
+	\]
+\end{example}
+
+
+
+\begin{definition}
+	A binary relation $\supset$ is {\myem well-founded} on a set $A$ if there is no infinite sequence 
+	$(a_i)_{i\in\mathbb{N}}$ of $a_i\in A$
+	with $a_i\supset a_{i+1}$ for all $i\in\mathbb{N}$.
+\end{definition}
+
+\begin{example}
+	The strict superset relation $\supsetneq$ on finite sets is well-founded.
+	The canonical greater than relation $>$ is well founded on natural numbers,
+	but not on integers or positive rational numbers.
+	\begin{gather*}
+	-1 > -2 > \ldots > -(2^i) > -(2^{i+1}) > \ldots\\
+	1 > \frac{1}{2} > \frac{1}{4} > \ldots > \frac{1}{2^i} > \frac{1}{2^{i+1}} > \ldots
+	\end{gather*}
+\end{example}
+
+

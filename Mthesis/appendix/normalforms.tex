@@ -1,0 +1,86 @@
+% !TeX root = ../mthesis.tex
+% !TeX encoding = UTF-8
+% !TeX spellcheck = en_US
+
+\noindent We can assume that each variable of a formula is quantified exactly once. 
+We can achieve this by carefully renaming variables to unused variable names.
+
+\begin{example}We replace formulae at the left hand side with equivalent formulae.
+	\begin{align*}
+	\forall x (\boxed{\mP(x) \land \forall {\colLo x} \mQ({\colLo x}, {\colG y})}) 
+	&\equiv 
+	\forall x (\mP(x) \land \forall {\colHi z}{\colN \forall y} \mQ({\colHi z}, {\colN y}))
+	\\
+	\boxed{\forall x \mP(x)} \land \boxed{\forall {\colLo x} \mQ({\colLo x}, {\colG y})} 
+	&\equiv 
+	\forall x \mP(x) \land \forall {\colHi z}{\colN \forall y} \mQ({\colHi z}, {\colN y}) 
+	)\\
+	\end{align*}
+\end{example}
+
+\begin{definition}\label{def:syntax:PNF}
+	A first order formula $F = Q_1 x_1 \ldots Q_n x_n\, F'$ 
+	with quantifiers $Q_i\in\{\forall,\exists\}$, 
+	quantifier-free subformula $F'$ with $\var(F') = \{ x_1,\ldots,x_n \}$
+	is in {\myem prenex normal form}.
+\end{definition}
+
+\begin{definition}\label{def:syntax:PNF}
+	{\myem negational prenex normal form}.
+\end{definition}
+
+\begin{definition}\label{def:syntax:PNF}
+	{\myem conjunctive prenex normal form}.
+\end{definition}
+
+\begin{lemma}
+	Any first order formula can be transformed 
+	into an equivalent prenex normal form 
+	by exhaustively using the following equivalences from left to right.
+	\begin{align*}
+	\lnot(\forall x F) &\equiv \exists x (\lnot F)
+	&
+	\lnot(\exists x F) &\equiv \forall x (\lnot F)
+	\\
+	{\colG G \land (\forall x F) \equiv{}} (\forall x F) \land G &\equiv \forall x (F \land G)  
+	&
+	{\colG G \land (\exists x F) \equiv{}} (\exists x F) \land G &\equiv \exists x (F \land G)  
+	\\
+	{\colG G \lor (\forall x F) \equiv{}} (\forall x F) \lor G &\equiv \forall x (F \lor G) 
+	&
+	{\colG G \lor (\exists x F) \equiv{}} (\exists x F) \lor G &\equiv \exists x (F \lor G)
+	\end{align*}
+	\begin{remark}
+		The equivalences depend on $y\not\in\var(F)$ and $x\not\in\var(G)$.
+	\end{remark}
+\end{lemma}
+
+\begin{lemma}We just state the following useful equivalences.
+	\begin{align*}
+		(\forall x F) \land (\forall y G) &\equiv \forall x (F\land G\{y\mapsto x\})
+		&
+		(\exists x F) \lor (\exists y G) &\equiv \exists x (F\lor G\{y\mapsto x\})
+		\\
+		(\forall x F) \lor (\forall y G) &\equiv \forall x\forall y (F\lor G)
+		&
+		(\exists x F) \land (\exists y G) &\equiv \exists x\exists y (F\land G)
+		\\
+		\forall x \forall y F &\equiv \forall y \forall x F
+		&
+		\exists x \exists y F &\equiv \exists y \exists x F
+		\\
+		\forall x G &\equiv G & \exists x G &\equiv G
+		\\
+		(\forall x F) \land (\exists y G) &\equiv \exists y \forall x (F\land G)
+		&
+		(\forall x F) \lor (\exists y G) &\equiv \exists y \forall x (F\lor G)
+	\end{align*}
+\end{lemma}
+
+\begin{lemma}Just in case, you are wondering.
+	\begin{align*}
+	(\forall x F) \lor (\forall y G) &\not\equiv \forall x (F\lor G\{y\mapsto x\})
+	&
+	(\exists x F) \land (\exists y G) &\not\equiv \exists x (F\land G\{y\mapsto x\})
+	\end{align*}
+\end{lemma}
