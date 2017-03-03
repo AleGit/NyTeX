@@ -1,32 +1,111 @@
-% !TeX root _{=} ../mthesis.tex
-% !TeX encoding _{=} UTF-8
-% !TeX spellcheck _{=} en_US
+% !TeX root = ../mthesis.tex
+% !TeX encoding = UTF-8
+% !TeX spellcheck = en_US
 
+The following tables 
+\ref{tab:decidedable:FiniteModelProperty}, 
+\ref{tab:decidable:InfinityAxioms} ,
+\ref{tab:undecidable:PurePredicateLogic}, and
+\ref{tab:undecidable:FunctionsAndEquations}
+present a classification\footnote{
+	Definition and compact overview from presentation
+	“\href{http://logic.rwth-aachen.de/~graedel/kalmar.pdf}{Decidable fragments of first-order and fixed-point logic}”
+	by E.~Grädel (\url{http://logic.rwth-aachen.de/~graedel/}).	
+} 
+of formulae in \PNF
+regarding decidability of satisfiability. 
+
+\begin{definition}\label{def:prefix:class}
+	For first oder formulae in \PNF we describe prefix classes with triples
+	\[
+		[\, \Pi, (p_1,p_2,\ldots), (f_1,f_2,\ldots)\,]_{(=)}
+	\]
+	where $\Pi$ describes the quantifier prefix,
+	$p_i$ the maximal number of predicates symbols of arity $i$,
+	$p_j$ the maximal number of function symbols of arity $j$,
+	and the presence of the equality predicate is indicated by subscript $=$,
+	i.e. the equality symbol is not counted as binary predicate symbol.
+\end{definition}
+
+\begin{example}
+	The monadic predicate calculus includes formulae with arbitrary quantifier prefix, 
+	arbitrary many unary predicate symbols, the equality symbol, but no function symbols.
+	\begin{align*}
+		[\,all, (\omega), (0 )&\,]_= \tag{Löwenheim 1925, Kalmár 1929}
+	\\
+	[\,\exists^*\forall\exists^*,all,(0)&\,]_= \tag{Ackermann 1928}
+	\end{align*}
+	The Ackermann prefix class contains formulae with arbitrary many existential quantifiers, 
+	but just one universal quantifier. It contains arbitrary many predicate symbols
+	with arbitrary arities, the equality symbol, but no function symbols.
+\end{example}
+
+\begin{remark}
+	We cannot state symmetry or transitivity within the Ackermann class.
+\end{remark}
+
+%Goldfarb, Gurevich, Rabin, Shelah completly characterized decidable and undecidable prefix classes.
 
 \begin{table}[hbt]
-		\begin{align*}
-		[\,\forall\exists\forall, (\omega, 1), (0)&\,] \tag{Kahr 1962}
-		\\
-		[\,\forall^3 \exists, (\omega, 1), (0)&\,] \tag{Surányi 1959}
-		\\
-		[\,\forall^{∗} \exists, (0, 1), (0)&\,] \tag{Kalmár-Surányi 1950}
-		\\
-		[\,\forall\exists\forall^{∗} , (0, 1), (0)&\,]  \tag{Denton 1960}
-		\\
-		[\,\forall\exists\forall\exists^{∗}, (0, 1), (0)&\,] \tag{Gurevich 1966}
-		\\
-		[\,\forall^3 \exists^{∗} , (0, 1), (0)&\,] \tag{Kalmár-Surányi 1947}
-		\\
-		[\,\forall\exists^{∗} \forall, (0, 1), (0)&\,] \tag{Kostyrko-Genenz 1964}
-		\\
-		[\,\exists^{∗} \forall\exists\forall, (0, 1), (0)&\,] \tag{Surányi 1959}
-		\\
-		[\,\exists^{∗} \forall^3 \exists, (0, 1), (0)&\,] \tag{Surányi 1959}
-		\end{align*}
-		\caption{undecidable prefix classes in pure predicate logic}
-	\end{table}
+\begin{align*}
+%\colG [\,all, (\omega), (0 )&\colG\,]_= \tag{Löwenheim 1925, Kalmár 1929}
+%\\
+[\,\exists^{∗}\forall^{∗}, all, (0)&\,]_{=} \tag{Bernays, Schönfinkel 1928, Ramsey 1932}
+\\
+[\,\exists^{∗}\forall^2\exists^{∗} , all, (0)&\,] \tag{Gödel 1932, Kalmár 1933, Schütte 1934}
+\\
+[\,all, (\omega), (\omega)&\,] \tag{Löb 1967, Gurevich 1969}
+\\
+[\,\exists^{∗}\forall\exists^{∗}, all, all&\,] \tag{Gurevich 1973}
+\\
+[\,\exists^{∗}, all, all&\,]_{=} \tag{Gurevich 1976}
+\\
+\\
+[\,all, (\omega), (1)&\,]_{=} \tag{Rabin 1969} 
+\\
+[\,\exists^{∗}\forall\exists^{∗}, all, (1)&\,]_{=} \tag{Shelah 1977}
+\end{align*}
+%\caption[Decidable prefix classes]{Decidable prefix classes in first order logic}
+\caption[Decidable prefix classes]{Decidable prefix classes with final model property }
+\label{tab:decidedable:FiniteModelProperty}
+\end{table}
 
-	\begin{table}[hbt]
+\begin{table}[hbt]
+	\begin{align*}
+	[\,all, (\omega), (1)&\,]_{=} \tag{Rabin 1969} 
+	\\
+	[\,\exists^{∗}\forall\exists^{∗}, all, (1)&\,]_{=} \tag{Shelah 1977}
+	\end{align*}
+	%\caption[Decidable prefix classes]{Decidable prefix classes in first order logic}
+	\caption[Decidable prefix classes]{Decidable prefix classes with infinity axioms. }
+	\label{tab:decidable:InfinityAxioms}
+\end{table}
+
+\begin{table}[hbt]
+	\begin{align*}
+	[\,\forall\exists\forall, (\omega, 1), (0)&\,] \tag{Kahr 1962}
+	\\
+	[\,\forall^3 \exists, (\omega, 1), (0)&\,] \tag{Surányi 1959}
+	\\
+	[\,\forall^{∗} \exists, (0, 1), (0)&\,] \tag{Kalmár-Surányi 1950}
+	\\
+	[\,\forall\exists\forall^{∗} , (0, 1), (0)&\,]  \tag{Denton 1960}
+	\\
+	[\,\forall\exists\forall\exists^{∗}, (0, 1), (0)&\,] \tag{Gurevich 1966}
+	\\
+	[\,\forall^3 \exists^{∗} , (0, 1), (0)&\,] \tag{Kalmár-Surányi 1947}
+	\\
+	[\,\forall\exists^{∗} \forall, (0, 1), (0)&\,] \tag{Kostyrko-Genenz 1964}
+	\\
+	[\,\exists^{∗} \forall\exists\forall, (0, 1), (0)&\,] \tag{Surányi 1959}
+	\\
+	[\,\exists^{∗} \forall^3 \exists, (0, 1), (0)&\,] \tag{Surányi 1959}
+	\end{align*}
+	\caption{Undecidable prefix classes in pure predicate logic}
+	\label{tab:undecidable:PurePredicateLogic}
+\end{table}
+
+\begin{table}[hbt]
 	\begin{align*}
 	[\,\forall, (0), (2)&\,]_{=} \tag{Gurevich 1976}
 	\\
@@ -42,39 +121,69 @@
 	\\
 	[\,\forall^2\exists^{∗}, (0, 1), (0)&\,]_{=} \tag{Goldfarb 1984}
 	\end{align*}
-	\caption{undecidable prefix classes with functions or equality}
+	\caption{Undecidable prefix classes with functions or equality}
+	\label{tab:undecidable:FunctionsAndEquations}
 \end{table}
+
 
 \begin{table}[hbt]
-\begin{align*}
-[\,\exists^{∗}\forall^{∗}, all, (0)&\,]_{=} \tag{Bernays, Schönfinkel 1928, Ramsey 1932}
-\\
-[\,\exists^{∗} \forall^2 \exists^{∗} , all, (0)&\,] \tag{Gödel 1932, Kalmár 1933, Schütte 1934}
-\\
-[\,all, (\omega), (\omega)&\,] \tag{Löb 1967, Gurevich 1969}
-\\
-[\,\exists^{∗}\forall\exists^{∗}, all, all&\,] \tag{Gurevich 1973}
-\\
-[\,\exists^{∗}, all, all&\,]_{=} \tag{Gurevich 1976}
-\\
-\\
-[\,all, (\omega), (1)&\,]_{=} \tag{Rabin 1969} 
-\\
-[\,\exists^{∗}\forall\exists^{∗}, all, (1)&\,]_{=} \tag{Shelah 1977}
-\end{align*}
-\caption{Complete list of decidable prefix classes}
+	\begin{gather*}
+		\begin{array}{rcccl}
+		\text{undecidable} &&\multicolumn{1}{c}{decidable}  & &  \text{classification}
+		\\ \\{}
+		[\,\forall\exists\forall, (\omega, 1), (0)\,] &\multirow{9}{*}{$\supsetneq$}&
+		\multirow{9}{*}{$[\,\Pi, (p_1, {\colHi 0}), (0)\,]$} &\multirow{9}{*}{$\subseteq$}&
+		\multirow{9}{*}{$[\,all,(\omega),(\omega)\,]$}
+	\\{}
+	[\,\forall^3 \exists, (\omega, 1), (0)\,] &&
+	&&
+	\\{}
+	[\,\forall^{∗} \exists, (0, 1), (0)\,] &&
+	&&
+	\\{}
+	[\,\forall\exists\forall^{∗} , (0, 1), (0)\,]&&
+	&&
+	\\{}
+	[\,\forall\exists\forall\exists^{∗}, (0, 1), (0)\,]&&
+	&&
+	\\{}
+	[\,\forall^3 \exists^{∗} , (0, 1), (0)\,] &&
+	&&
+	\\{}
+	[\,\forall\exists^{∗} \forall, (0, 1), (0)\,] &&
+	&&
+	\\{}
+	[\,\exists^{∗} \forall\exists\forall, (0, 1), (0)\,]&&
+	&&
+	\\{}
+	[\,\exists^{∗} \forall^3 \exists, (0, 1), (0)\,] &&
+	&&
+\\{}
+\\{}
+	[\,\forall, (0), ({\colLo 2})\,]_{=} &\supsetneq&
+	[\,\forall, (0), ({\colHi 1})\,]_{=} &\subseteq&[\,all, (\omega), (1)\,]_{=}
+	\\{}
+	[\,\forall, (0), (0, {\colLo 1})\,]_{=} &\supsetneq&
+	[\,\forall, (0), (0, {\colHi 0})\,]_{=}	&\subseteq&[\,all, (\omega), (1)\,]_{=}
+	\\[0.5em]
+	[\,\forall^2 , (0, {\colN 1}), ({\colLo 1})\,]_{\color{white}=} &\supsetneq&
+	[\,\forall^2 , (0, {\colN 1}), ({\colHi 0})\,]_{\color{white}=} &\subseteq&[\,\exists^{∗}\forall^2\exists^{∗} , all, (0)\,]_{\color{white}=}
+	\\{}
+	%
+	{[\,\forall^2 , ({\colN 1}), (0, {\colLo 1})\,]_{\color{white}=}}&\supsetneq&
+	[\,\forall^2 , ({\colN 1}), (0, {\colHi 0})\,]_{\color{white}=}&\subseteq&[\,\exists^{∗}\forall^2\exists^{∗} , all, (0)\,]_{\color{white}=}
+	\\[0.5em]
+	[\,\forall^2\exists, (\omega, {\colLo 1}), (0)\,]_{=} &\subseteq&
+	[\,\forall^2\exists, (\omega, {\colHi 0}), (0)\,]_{=} &\subseteq&[\,all, (\omega), (1)\,]_{=}
+	\\{}
+	%
+	[\,\exists^{∗}\forall^2\exists, (0, {\colLo 1}), (0)\,]_{=}&\supsetneq&
+		[\,\exists^{∗}\forall^2\exists, (0, {\colHi 0}), (0)\,]_{=}&\subseteq&[\,all, (\omega), (1)\,]_{=}
+	\\{}
+	[\,\forall^2\exists^{∗}, (0, {\colLo 1}), (0)\,]_{=}&\supsetneq&
+	[\,\forall^2\exists^{∗}, (0, {\colHi 0}), (0)\,]_{=}&\subseteq& [\,all, (\omega), (1)\,]_{=}
+	\end{array}
+	\end{gather*}
 \end{table}
-The Löwenheim $[\,all, (\omega), (0 )\,]_=$ (Löwenheim 1925, Kalmár 1929)
-and Ackermann $[\,\exists^*\forall\exists^*,all,(0)\,]_=$ (Ackermann 1928) 
-classe are subclasses of bigger ones where one unary function symbol is present.
 
 
-
-\footnotemark
-\footnotetext{
-%	\url{http://logic.rwth-aachen.de/~graedel/kalmar.pdf}
-%	
-	\href{http://logic.rwth-aachen.de/~graedel/kalmar.pdf}{Decidable fragments of first-order and fixed-point logic,
-		Erich Grädel}
-%	
-}
