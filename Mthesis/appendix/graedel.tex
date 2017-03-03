@@ -2,21 +2,19 @@
 % !TeX encoding = UTF-8
 % !TeX spellcheck = en_US
 
-The following tables 
-\ref{tab:decidedable:FiniteModelProperty}, 
-\ref{tab:decidable:InfinityAxioms} ,
-\ref{tab:undecidable:PurePredicateLogic}, and
-\ref{tab:undecidable:FunctionsAndEquations}
-present a classification\footnote{
+%\ref{tab:decidedable:FiniteModelProperty} and
+%\ref{tab:decidable:InfinityAxioms}
+%\ref{tab:undecidable:PurePredicateLogic}, and
+%\ref{tab:undecidable:FunctionsAndEquations}
+This subsection presents fragments of first order logic where satisfiability is decidable.\footnote{
 	Definition and compact overview from presentation
 	“\href{http://logic.rwth-aachen.de/~graedel/kalmar.pdf}{Decidable fragments of first-order and fixed-point logic}”
 	by E.~Grädel (\url{http://logic.rwth-aachen.de/~graedel/}).	
-} 
-of formulae in \PNF
-regarding decidability of satisfiability. 
+}  
+
 
 \begin{definition}\label{def:prefix:class}
-	For first oder formulae in \PNF we describe prefix classes with triples
+	We describe classes of first order formulae in \PNF with triples
 	\[
 		[\, \Pi, (p_1,p_2,\ldots), (f_1,f_2,\ldots)\,]_{(=)}
 	\]
@@ -28,16 +26,21 @@ regarding decidability of satisfiability.
 \end{definition}
 
 \begin{example}
-	The monadic predicate calculus includes formulae with arbitrary quantifier prefix, 
+	The monadic predicate calculus includes formulae with arbitrary quantifier prefixes, 
 	arbitrary many unary predicate symbols, the equality symbol, but no function symbols.
 	\begin{align*}
-		[\,all, (\omega), (0 )&\,]_= \tag{Löwenheim 1925, Kalmár 1929}
+	\colG [\,all, (\omega), (1)\,]_= 
+	\quad\supsetneq& &
+		[\,all, (\omega), (0 )&\,]_=
+		 \tag{Löwenheim 1925, Kalmár 1929}
 	\\
-	[\,\exists^*\forall\exists^*,all,(0)&\,]_= \tag{Ackermann 1928}
+	\colG [\,\exists^*\forall\exists^*,all,(1)\,]_=
+	\quad\supsetneq& &
+	[\,\exists^*\forall\exists^*,all,(0)&\,]_{=} \tag{Ackermann 1928}
 	\end{align*}
 	The Ackermann prefix class contains formulae with arbitrary many existential quantifiers, 
 	but just one universal quantifier. It contains arbitrary many predicate symbols
-	with arbitrary arities, the equality symbol, but no function symbols.
+	with arbitrary arities, the equality symbol, but no function symbols. 
 \end{example}
 
 \begin{remark}
@@ -81,109 +84,114 @@ regarding decidability of satisfiability.
 	\label{tab:decidable:InfinityAxioms}
 \end{table}
 
-\begin{table}[hbt]
-	\begin{align*}
-	[\,\forall\exists\forall, (\omega, 1), (0)&\,] \tag{Kahr 1962}
-	\\
-	[\,\forall^3 \exists, (\omega, 1), (0)&\,] \tag{Surányi 1959}
-	\\
-	[\,\forall^{∗} \exists, (0, 1), (0)&\,] \tag{Kalmár-Surányi 1950}
-	\\
-	[\,\forall\exists\forall^{∗} , (0, 1), (0)&\,]  \tag{Denton 1960}
-	\\
-	[\,\forall\exists\forall\exists^{∗}, (0, 1), (0)&\,] \tag{Gurevich 1966}
-	\\
-	[\,\forall^3 \exists^{∗} , (0, 1), (0)&\,] \tag{Kalmár-Surányi 1947}
-	\\
-	[\,\forall\exists^{∗} \forall, (0, 1), (0)&\,] \tag{Kostyrko-Genenz 1964}
-	\\
-	[\,\exists^{∗} \forall\exists\forall, (0, 1), (0)&\,] \tag{Surányi 1959}
-	\\
-	[\,\exists^{∗} \forall^3 \exists, (0, 1), (0)&\,] \tag{Surányi 1959}
-	\end{align*}
-	\caption{Undecidable prefix classes in pure predicate logic}
-	\label{tab:undecidable:PurePredicateLogic}
-\end{table}
+%\begin{table}[hbt]
+%	\begin{align*}
+%	[\,\forall\exists\forall, (\omega, 1), (0)&\,] \tag{Kahr 1962}
+%	\\
+%	[\,\forall^3 \exists, (\omega, 1), (0)&\,] \tag{Surányi 1959}
+%	\\
+%	[\,\forall^{∗} \exists, (0, 1), (0)&\,] \tag{Kalmár-Surányi 1950}
+%	\\
+%	[\,\forall\exists\forall^{∗} , (0, 1), (0)&\,]  \tag{Denton 1960}
+%	\\
+%	[\,\forall\exists\forall\exists^{∗}, (0, 1), (0)&\,] \tag{Gurevich 1966}
+%	\\
+%	[\,\forall^3 \exists^{∗} , (0, 1), (0)&\,] \tag{Kalmár-Surányi 1947}
+%	\\
+%	[\,\forall\exists^{∗} \forall, (0, 1), (0)&\,] \tag{Kostyrko-Genenz 1964}
+%	\\
+%	[\,\exists^{∗} \forall\exists\forall, (0, 1), (0)&\,] \tag{Surányi 1959}
+%	\\
+%	[\,\exists^{∗} \forall^3 \exists, (0, 1), (0)&\,] \tag{Surányi 1959}
+%	\end{align*}
+%	\caption{Undecidable prefix classes in pure predicate logic}
+%	\label{tab:undecidable:PurePredicateLogic}
+%\end{table}
 
-\begin{table}[hbt]
-	\begin{align*}
-	[\,\forall, (0), (2)&\,]_{=} \tag{Gurevich 1976}
-	\\
-	[\,\forall, (0), (0, 1)&\,]_{=} \tag{Gurevich 1976}
-	\\
-	[\,\forall^2 , (0, 1), (1)&\,] \tag{Gurevich 1969}
-	\\
-	[\,\forall^2 , (1), (0, 1)&\,] \tag{Gurevich 1969}
-	\\
-	[\,\forall^2\exists, (\omega, 1), (0)&\,]_{=} \tag{Goldfarb 1984}
-	\\
-	[\,\exists^{∗}\forall^2\exists, (0, 1), (0)&\,]_{=} \tag{Goldfarb 1984}
-	\\
-	[\,\forall^2\exists^{∗}, (0, 1), (0)&\,]_{=} \tag{Goldfarb 1984}
-	\end{align*}
-	\caption{Undecidable prefix classes with functions or equality}
-	\label{tab:undecidable:FunctionsAndEquations}
-\end{table}
+%\begin{table}[hbt]
+%	\begin{align*}
+%	[\,\forall, (0), (2)&\,]_{=} \tag{Gurevich 1976}
+%	\\
+%	[\,\forall, (0), (0, 1)&\,]_{=} \tag{Gurevich 1976}
+%	\\
+%	[\,\forall^2 , (0, 1), (1)&\,] \tag{Gurevich 1969}
+%	\\
+%	[\,\forall^2 , (1), (0, 1)&\,] \tag{Gurevich 1969}
+%	\\
+%	[\,\forall^2\exists, (\omega, 1), (0)&\,]_{=} \tag{Goldfarb 1984}
+%	\\
+%	[\,\exists^{∗}\forall^2\exists, (0, 1), (0)&\,]_{=} \tag{Goldfarb 1984}
+%	\\
+%	[\,\forall^2\exists^{∗}, (0, 1), (0)&\,]_{=} \tag{Goldfarb 1984}
+%	\end{align*}
+%	\caption{Undecidable prefix classes with functions or equality}
+%	\label{tab:undecidable:FunctionsAndEquations}
+%\end{table}
 
 
-\begin{table}[hbt]
-	\begin{gather*}
-		\begin{array}{rcccl}
-		\text{undecidable} &&\multicolumn{1}{c}{decidable}  & &  \text{classification}
-		\\ \\{}
-		[\,\forall\exists\forall, (\omega, 1), (0)\,] &\multirow{9}{*}{$\supsetneq$}&
-		\multirow{9}{*}{$[\,\Pi, (p_1, {\colHi 0}), (0)\,]$} &\multirow{9}{*}{$\subseteq$}&
-		\multirow{9}{*}{$[\,all,(\omega),(\omega)\,]$}
-	\\{}
-	[\,\forall^3 \exists, (\omega, 1), (0)\,] &&
-	&&
-	\\{}
-	[\,\forall^{∗} \exists, (0, 1), (0)\,] &&
-	&&
-	\\{}
-	[\,\forall\exists\forall^{∗} , (0, 1), (0)\,]&&
-	&&
-	\\{}
-	[\,\forall\exists\forall\exists^{∗}, (0, 1), (0)\,]&&
-	&&
-	\\{}
-	[\,\forall^3 \exists^{∗} , (0, 1), (0)\,] &&
-	&&
-	\\{}
-	[\,\forall\exists^{∗} \forall, (0, 1), (0)\,] &&
-	&&
-	\\{}
-	[\,\exists^{∗} \forall\exists\forall, (0, 1), (0)\,]&&
-	&&
-	\\{}
-	[\,\exists^{∗} \forall^3 \exists, (0, 1), (0)\,] &&
-	&&
-\\{}
-\\{}
-	[\,\forall, (0), ({\colLo 2})\,]_{=} &\supsetneq&
-	[\,\forall, (0), ({\colHi 1})\,]_{=} &\subseteq&[\,all, (\omega), (1)\,]_{=}
-	\\{}
-	[\,\forall, (0), (0, {\colLo 1})\,]_{=} &\supsetneq&
-	[\,\forall, (0), (0, {\colHi 0})\,]_{=}	&\subseteq&[\,all, (\omega), (1)\,]_{=}
-	\\[0.5em]
-	[\,\forall^2 , (0, {\colN 1}), ({\colLo 1})\,]_{\color{white}=} &\supsetneq&
-	[\,\forall^2 , (0, {\colN 1}), ({\colHi 0})\,]_{\color{white}=} &\subseteq&[\,\exists^{∗}\forall^2\exists^{∗} , all, (0)\,]_{\color{white}=}
-	\\{}
-	%
-	{[\,\forall^2 , ({\colN 1}), (0, {\colLo 1})\,]_{\color{white}=}}&\supsetneq&
-	[\,\forall^2 , ({\colN 1}), (0, {\colHi 0})\,]_{\color{white}=}&\subseteq&[\,\exists^{∗}\forall^2\exists^{∗} , all, (0)\,]_{\color{white}=}
-	\\[0.5em]
-	[\,\forall^2\exists, (\omega, {\colLo 1}), (0)\,]_{=} &\subseteq&
-	[\,\forall^2\exists, (\omega, {\colHi 0}), (0)\,]_{=} &\subseteq&[\,all, (\omega), (1)\,]_{=}
-	\\{}
-	%
-	[\,\exists^{∗}\forall^2\exists, (0, {\colLo 1}), (0)\,]_{=}&\supsetneq&
-		[\,\exists^{∗}\forall^2\exists, (0, {\colHi 0}), (0)\,]_{=}&\subseteq&[\,all, (\omega), (1)\,]_{=}
-	\\{}
-	[\,\forall^2\exists^{∗}, (0, {\colLo 1}), (0)\,]_{=}&\supsetneq&
-	[\,\forall^2\exists^{∗}, (0, {\colHi 0}), (0)\,]_{=}&\subseteq& [\,all, (\omega), (1)\,]_{=}
-	\end{array}
-	\end{gather*}
-\end{table}
+%\begin{table}[hbt]
+%	\begin{gather*}
+%		\begin{array}{rcccl}
+%		\text{undecidable} &&\multicolumn{1}{c}{decidable}  & &  \text{classification}
+%		\\ \\{}
+%[\,\Pi_?, (p_1, {\colLo 1}), (0)\,] &\supsetneq&
+%[\,\Pi_?, (p_1, {\colHi 0}), (0)\,]&\subseteq&
+%[\,all,(\omega),(\omega)\,]
+%%\\[0.5em]		
+%%		\\ \\{}
+%%		[\,\forall\exists\forall, (\omega, 1), (0)\,] &\multirow{9}{*}{$\supsetneq$}&
+%%		\multirow{9}{*}{$[\,\Pi, (p_1, {\colHi 0}), (0)\,]$} &\multirow{9}{*}{$\subseteq$}&
+%%		\multirow{9}{*}{$[\,all,(\omega),(\omega)\,]$}
+%%	\\{}
+%%	[\,\forall^3 \exists, (\omega, 1), (0)\,] &&
+%%	&&
+%%	\\{}
+%%	[\,\forall^{∗} \exists, (0, 1), (0)\,] &&
+%%	&&
+%%	\\{}
+%%	[\,\forall\exists\forall^{∗} , (0, 1), (0)\,]&&
+%%	&&
+%%	\\{}
+%%	[\,\forall\exists\forall\exists^{∗}, (0, 1), (0)\,]&&
+%%	&&
+%%	\\{}
+%%	[\,\forall^3 \exists^{∗} , (0, 1), (0)\,] &&
+%%	&&
+%%	\\{}
+%%	[\,\forall\exists^{∗} \forall, (0, 1), (0)\,] &&
+%%	&&
+%%	\\{}
+%%	[\,\exists^{∗} \forall\exists\forall, (0, 1), (0)\,]&&
+%%	&&
+%%	\\{}
+%%	[\,\exists^{∗} \forall^3 \exists, (0, 1), (0)\,] &&
+%%	&&
+%%\\{}
+%\\[0.5em]
+%	[\,\forall, (0), ({\colLo 2})\,]_{=} &\supsetneq&
+%	[\,\forall, (0), ({\colHi 1})\,]_{=} &\subseteq&[\,all, (\omega), (1)\,]_{=}
+%	\\{}
+%	[\,\forall, (0), (0, {\colLo 1})\,]_{=} &\supsetneq&
+%	[\,\forall, (0), (0, {\colHi 0})\,]_{=}	&\subseteq&[\,all, (\omega), (1)\,]_{=}
+%	\\[0.5em]
+%	[\,\forall^2 , (0, {\colN 1}), ({\colLo 1})\,]_{\color{white}=} &\supsetneq&
+%	[\,\forall^2 , (0, {\colN 1}), ({\colHi 0})\,]_{\color{white}=} &\subseteq&[\,\exists^{∗}\forall^2\exists^{∗} , all, (0)\,]_{\color{white}=}
+%	\\{}
+%	%
+%	{[\,\forall^2 , ({\colN 1}), (0, {\colLo 1})\,]_{\color{white}=}}&\supsetneq&
+%	[\,\forall^2 , ({\colN 1}), (0, {\colHi 0})\,]_{\color{white}=}&\subseteq&[\,\exists^{∗}\forall^2\exists^{∗} , all, (0)\,]_{\color{white}=}
+%	\\[0.5em]
+%	[\,\forall^2\exists, (\omega, {\colLo 1}), (0)\,]_{=} &\subseteq&
+%	[\,\forall^2\exists, (\omega, {\colHi 0}), (0)\,]_{=} &\subseteq&[\,all, (\omega), (1)\,]_{=}
+%	\\{}
+%	%
+%	[\,\exists^{∗}\forall^2\exists, (0, {\colLo 1}), (0)\,]_{=}&\supsetneq&
+%		[\,\exists^{∗}\forall^2\exists, (0, {\colHi 0}), (0)\,]_{=}&\subseteq&[\,all, (\omega), (1)\,]_{=}
+%	\\{}
+%	[\,\forall^2\exists^{∗}, (0, {\colLo 1}), (0)\,]_{=}&\supsetneq&
+%	[\,\forall^2\exists^{∗}, (0, {\colHi 0}), (0)\,]_{=}&\subseteq& [\,all, (\omega), (1)\,]_{=}
+%	\end{array}
+%	\end{gather*}
+%\end{table}
 
 
