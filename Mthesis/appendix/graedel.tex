@@ -75,6 +75,48 @@ This subsection presents fragments of first order logic where satisfiability is 
 	\label{tab:decidable:InfinityAxioms}
 \end{table}
 
+\begin{definition}\label{def:prefix:class}
+	We describe classes of first order formulae in \CNF with triples
+	\[
+	_{_\CNF}[\, \pi, (p_1,p_2,\ldots), (f_1,f_2,\ldots)\,]_{(=)}
+	\]
+	where $\pi$ is the maximal number of variables per clause,
+	$p_i$ the maximal number of predicates symbols of arity $i$,
+	$p_j$ the maximal number of function symbols of arity $j$,
+	and the presence of the equality predicate is indicated by subscript $=$,
+	i.e. the equality symbol is not counted as binary predicate symbol.
+\end{definition}
+
+\begin{table}[hbt]
+\begin{align*}
+\PNF& & \CNF& \\
+[\,\exists^{∗}\forall^{∗}, all, (0)&\,]_{=} 
+& _{_\CNF}[\,\omega,all, (0)&\,]_{=}
+\\
+[\,\exists^{∗}\forall^2\exists^{∗} , all, (0)&\,] 
+& _{_\CNF}[\,2, all, (0,\omega)&\,]
+\\
+[\,all, (\omega), (\omega)&\,]
+& _{_\CNF}[\,\omega, (\omega), (\omega)&\,]
+\\
+[\,\exists^{∗}\forall\exists^{∗}, all, all&\,]
+& _{_\CNF}[\,1,all, all&\,]
+\\
+[\,\exists^{∗}, all, all&\,]_{=}
+& _{_\CNF}[\, 0, all, all&\,]_{=}
+\\
+[\,all, (\omega), (1)&\,]_{=} 
+& _{_\CNF}[\,\omega, (\omega), (1)&\,]_{=} 
+\\
+[\,\exists^{∗}\forall\exists^{∗}, all, (1)&\,]_{=}
+& _{_\CNF}[\,1, all, (1)&\,]_{=}
+\end{align*}
+\caption[Transformation]{Transformation into equisatisfiable clausal forms}
+\label{tab:decidedable:CNF}
+\end{table}
+
+
+
 
 %%% ADDITIONAL MATERIAL %%%%
 
