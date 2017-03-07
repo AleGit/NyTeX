@@ -1,11 +1,11 @@
 % !TeX encoding = UTF-8
 
 % shortens the definition by cases
-\newcommand{\DEFINE}[2]{{
+\newcommand{\DEFINE}[3][=]{{
 		\begin{gather*}
-		#1 = \left\{
+		#2 #1 \left\{
 				\begin{array}{ll}
-					#2
+					#3
 				\end{array}
 		\right.
 		\end{gather*}

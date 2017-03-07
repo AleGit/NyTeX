@@ -20,9 +20,10 @@ This subsection presents fragments of first order logic where satisfiability is 
 	\]
 	where $\Pi$ describes the quantifier prefix,
 	$p_i$ the maximal number of predicates symbols of arity $i$,
-	$p_j$ the maximal number of function symbols of arity $j$,
-	and the presence of the equality predicate is indicated by subscript $=$,
-	i.e. the equality symbol is not counted as binary predicate symbol.
+	$f_i$ the maximal number of function symbols of arity $i$.
+	The equality symbol is not counted as binary predicate symbol.
+	Instead the subscript $=$ indicates its presence.
+	
 \end{definition}
 
 \begin{example}
@@ -75,16 +76,20 @@ This subsection presents fragments of first order logic where satisfiability is 
 	\label{tab:decidable:InfinityAxioms}
 \end{table}
 
+Now we look how formulae from these decidable fragments can be transformed nicely into equisatisfiable set of clauses.
+The transformation is easy for formulae where the quantifiers follow a specific pattern where the appearances of the universal quantifier is limited. First we remove leading existential quantifiers and replace their variables with Skolem constants.
+Then we remove the trailing existential quantifiers and replace there variables with Skolem functions where the variables of the universal quantifiers are the arguments. After that we remove the remaining universal quantifiers. We transform the remaining formula with constants, functions and a restricted number of free variables into (an equisatisfiable) conjunctive normal form with a suitable procedure. 
+
 \begin{definition}\label{def:prefix:class}
-	We describe classes of first order formulae in \CNF with triples
+	We describe classes of first order formulae in clausal normal form with triples
 	\[
 	_{_\CNF}[\, \pi, (p_1,p_2,\ldots), (f_1,f_2,\ldots)\,]_{(=)}
 	\]
-	where $\pi$ is the maximal number of variables per clause,
+	where $\pi$ is the maximal number of distinct variables (with multiple occurrences),
 	$p_i$ the maximal number of predicates symbols of arity $i$,
-	$p_j$ the maximal number of function symbols of arity $j$,
-	and the presence of the equality predicate is indicated by subscript $=$,
-	i.e. the equality symbol is not counted as binary predicate symbol.
+	$f_i$ the maximal number of function symbols of arity $i$.
+	The equality symbol is not counted as binary predicate symbol.
+	Instead the subscript $=$ indicates its presence.
 \end{definition}
 
 \begin{table}[hbt]
@@ -116,6 +121,56 @@ This subsection presents fragments of first order logic where satisfiability is 
 \end{table}
 
 
+\begin{proof}We use induction on the structure of $F$.
+	\begin{enumerate}
+		\item (base) A literal,
+		i.e.a (negated) predicate with one argument term $t$.
+		We abbreviate the literal with $L(z)$ if $\var(t) = \{ z \}$. 
+		\begin{gather*}
+			\forall x \exists y L(x)  \equiv \forall x L(x) \equiv {\colG \exists y} \forall x L(x)
+			\qquad\qquad
+			\forall x \exists y L(y)  \equiv \exists y L(y) \equiv \exists y{\colG \forall x}  L(y)
+		\end{gather*}
+		\item (step)A negation.
+		\begin{gather*}
+		\forall x \exists y\, (\lnot G) 
+		\equiv \lnot (\exists x \forall y\, G)
+		\defEV[I.H.] \lnot (\forall y\exists x \, G) 
+		\equiv \exists y \forall x\, (\lnot G)
+		\end{gather*}
+		\item (step) A conjunction 
+		of a literal with the universal quantified variable and a formula.
+		\begin{align*}
+		\forall x \exists y\,({L(x)\land H}) 
+		&\equiv \forall x\,({L(x)} \land \exists y\,{H})
+		\equiv \forall x\,L(x)\land \forall x\exists y\,H
+		\\&\defEV[IH] \forall x\,{L(x)} \land \exists y\forall x\,{H}
+%		\equiv \exists y\forall x\,({L(x)\land H})
+		\equiv\exists y \forall x\,({L(x)\land H})
+		\end{align*}
+		\item A disjunction of a literal with the existential quantified variable and a formula.
+		\begin{align*}
+		\forall y \exists x\,({L(x)\lor H}) 
+		&\equiv\lnot(\exists y \forall x (L^c(x)\land\lnot H)))\\
+		&\defEV[3.]\lnot(\forall x\exists y  (L^c(x)\land\lnot H))) 
+		\equiv \exists x\forall y\, (L(x) \land H)
+		\end{align*}
+		\item A conjunction of a literal with the existential quantified variable and a formula.
+		\begin{align*}
+		\forall x \exists y\,({L(y)\land H}) 
+		&\equiv\lnot(\exists x\forall y \,({L^c(y) \lor \lnot H})) \\
+		&\defEV[4.]\lnot(\forall x\exists y \,({L^c(y) \lor \lnot H}) )
+		\equiv \exists x\forall y\,(L(y)\land H)
+		\end{align*}
+		\item A disjunction of a literal with universal quantified variable and a formula.
+		\begin{align*}
+		\forall x \exists y\,(L(x)\lor H) 
+		&\equiv \lnot (\exists x\forall y\,(L^c(x) \land H)) \\
+		&\defEV[4.]\lnot (\forall y\exists x\,(L^c(x) \land\lnot H)) 
+		\equiv \exists y \exists x\,(L(x)\lor H))\\
+		\end{align*}
+	\end{enumerate}
+\end{proof}
 
 
 %%% ADDITIONAL MATERIAL %%%%

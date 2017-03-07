@@ -2,33 +2,52 @@
 % !TeX encoding = UTF-8
 % !TeX spellcheck = en_US
 
-\begin{definition}For a term $t$ we define the set of variables
-	
-	\begin{align*}
-		\var(t) &= \left\{\begin{array}{ll}
-			\{ x \} & \text{if } t = x \in \mcV \\
-			\bigcup_{i=1}^n \var(t_i) & \text{if }  t = \mf(t_1, \ldots t_n), \mf \in \mcFfn
-%			\emptyset &\text{if } \mkt \in \mcFO
-		\end{array}\right.	
-	\end{align*}
+\begin{definition}We define the set of variables
+	\DEFINE{\var(t)} {
+		\{ x \} & \text{if } t = x \in \mcV \\
+		\bigcup_{i=1}^n \var(t_i) & \text{if }  t = \mf(t_1, \ldots t_n), \mf \in \mcFfn
+	}	
 	the set of function symbols
-	\begin{align*}
-	\fun(t) &= \left\{\begin{array}{ll}
-	\emptyset & \text{if } t = x \in \mcV \\
-	\{ \mf \} \cup \bigcup_{i=1}^n \fun(t_i) & \text{if }  t = \mf(t_1, \ldots t_n), \mf \in \mcFfn
-	%			\emptyset &\text{if } \mkt \in \mcFO
-	\end{array}\right.	
-	\end{align*}
+	\DEFINE{\fun(t)}{
+		\emptyset & \text{if } t = x \in \mcV \\
+		\{ \mf \} \cup \bigcup_{i=1}^n \fun(t_i) & \text{if }  t = \mf(t_1, \ldots t_n), \mf \in \mcFfn
+	}
 	and the set of subterms
-	\begin{align*}
-	\subterms(t) &= \left\{\begin{array}{ll}
-	\{ t \} & \text{if } t \in \mcV \\
-	\{ t \} \cup \bigcup_{i=1}^n \subterms(t_i) & \text{if }  t = f(t_1, \ldots t_n), f \in \mcFn
-	%			\emptyset &\text{if } \mkt \in \mcFO
-	\end{array}\right.	
-	\end{align*}
+		\DEFINE{\subterms(t)}{
+			\{ t \} & \text{if } t \in \mcV \\
+			\{ t \} \cup \bigcup_{i=1}^n \subterms(t_i) & \text{if }  t = f(t_1, \ldots t_n), f \in \mcFn
+	}
+of a first order term $t$.
 	
 \end{definition}
+
+\begin{definition}
+	We define the set of {\myem free} variables
+	\DEFINE{\fvar(F)}{
+		\bigcup_{i=1}^n \var(t_i) &\text{if }F = P(t_1,\ldots,t_n) 
+		\\
+		\var(s) \cup \var(t) &\text{if }F = s\mEQ t
+		\\
+		\fvar(G)&\text{if }F = \lnot G
+		\\
+		\fvar(G) \cup \fvar(H)&\text{if }F = G\land H, G\lor H\text{ or } G\limp H
+		\\
+		\fvar (G) \setminus \{ x\} &\text{if } F = \forall x G \text{ or } \exists x G
+	}
+the set of subformulae
+\DEFINE[=\{F\}\disjointunion]{\subforms(F)}{
+	\emptyset &\text{if }F\text{ is an atomic formula}
+	\\
+	\subforms(G)&\text{if }F = \lnot G
+	\\
+	\subforms(G) \cup \subforms(H)&\text{if }F = G\land H, G\lor H\text{ or } G\limp H
+	\\
+	\subforms (G)  &\text{if } F = \forall x G \text{ or } \exists x G
+}
+of formula $F$.
+\end{definition}
+
+
 
 
 %\begin{definiton}

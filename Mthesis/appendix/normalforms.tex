@@ -5,15 +5,17 @@
 \noindent We can assume that each variable of a formula is quantified exactly once. 
 We can achieve this by carefully renaming variables to unused variable names.
 
-\begin{example}We replace formulae at the left hand side with equivalent formulae.
+\begin{example}We replace the formulae at the left hand side with an equivalent one.
 	\begin{align*}
 	\forall x (\boxed{\mP(x) \land \forall {\colLo x} \mQ({\colLo x}, {\colG y})}) 
 	&\equiv 
 	\forall x (\mP(x) \land \forall {\colHi z}{\colN \forall y} \mQ({\colHi z}, {\colN y}))
+	\colG \equiv (\forall x\, \mP(x)) \land (\forall z \forall y\, \mQ(z,y))
 	\\
 	\boxed{\forall x \mP(x)} \land \boxed{\forall {\colLo x} \mQ({\colLo x}, {\colG y})} 
 	&\equiv 
 	\forall x \mP(x) \land \forall {\colHi z}{\colN \forall y} \mQ({\colHi z}, {\colN y}) 
+	\colG\equiv \forall x \forall y (\mP(x) \land \mQ(x,y))
 	)\\
 	\end{align*}
 \end{example}
@@ -50,12 +52,10 @@ We can achieve this by carefully renaming variables to unused variable names.
 	&
 	{\colG G \lor (\exists x F) \equiv{}} (\exists x F) \lor G &\equiv \exists x (F \lor G)
 	\end{align*}
-	\begin{remark}
-		The equivalences depend on $y\not\in\var(F)$ and $x\not\in\var(G)$.
-	\end{remark}
+	whenever $x\not\in\var(G)$.
 \end{lemma}
 
-\begin{lemma}We just state the following useful equivalences.
+\begin{lemma}
 	\begin{align*}
 		(\forall x F) \land (\forall y G) &\equiv \forall x (F\land G\{y\mapsto x\})
 		&
@@ -77,10 +77,10 @@ We can achieve this by carefully renaming variables to unused variable names.
 	\end{align*}
 \end{lemma}
 
-\begin{lemma}Just in case, you are wondering.
+\begin{remark}
 	\begin{align*}
-	(\forall x F) \lor (\forall y G) &\not\equiv \forall x (F\lor G\{y\mapsto x\})
+	\forall x \mP(x) \lor \forall y \lnot\mP(y) &\not\equiv \forall x (\mP(x)\lor\lnot\mP(x)
 	&
-	(\exists x F) \land (\exists y G) &\not\equiv \exists x (F\land G\{y\mapsto x\})
+	\exists x \mP(x) \land \exists y \lnot\mP(y) &\not\equiv \exists  (\mP(x)\land\lnot\mP(x)
 	\end{align*}
-\end{lemma}
+\end{remark}
