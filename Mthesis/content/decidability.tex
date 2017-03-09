@@ -69,76 +69,168 @@ With Skolemization and Tseitin transformation we can effectively transform a arb
 
 
 
-\section{Decidable fragments of first order logic}
+\section{Fragments of first order logic}\label{sec:decidable:fol:fragments}
 
-Since we have limited our first order syntax to \CNF in Definition \vref{def:syntax:CNF} 
-we transform all the pure syntactical requirements for decidability of first order formulae 
-to this representation, which introduces otherwise absent function symbols, albeit with restricted arities.
-
-
-\begin{lemma}[$(\exists^*\forall^*)^*$ --- $P(x)$]\ref{lem:monadic}
-	Satisfiability is decidable for monadic first order logic, 
-	i.e.~the clauses 
-	may contain constant and unary predicate symbols, 
-	constant function symbols,
-	and arbitrary many distinct variables 
-	(each perhaps on multiple positions).
-\end{lemma}
-
-
-\begin{lemma}[$\exists^*\!\vec{x}\,\forall y\,\exists^*\!\vec{z}$ --- $P(\vec{x},y,\vec{z})$]\label{lem:ackermann}
-	Satisfiability is decidable for the Ackermann class, 
-	i.e.~the clauses
-	may contain arbitrary predicate symbols, 
-	constant and unary function symbols, 
-	and at most one variable 
-	(each perhaps on multiple positions) per clause.
-\end{lemma}
-
-
-\begin{lemma}[$ \exists^*\!\vec{x}\,\forall y_1\forall y_2\,\exists^*\!\vec{z}$ --- $P(\vec{x},y,\vec{z})$]\label{lem:goedel}
-	Satisfiability is decidable for the Gödel class, 
-	i.e.~the clauses
-	may contain arbitrary predicate symbols, 
-	constant, unary, and binary function symbols, 
-	and at most two distinct variables 
-	(each perhaps on multiple positions) per clause.
-	
-\end{lemma}
-
-
-\begin{lemma}[$\exists^*\!\vec{x}\,\forall^*\!\vec{z}$ --- $P(\vec{x},\vec{z})$]\label{lem:schoenfinkel}
-	Satisfiability is decidable for the Schönfinkel-Bernays class, 
-	i.e.~the clauses
-	may contain arbitrary predicate symbols, 
-	constant function symbols, 
-	and arbitrary many distinct variables 
-	(each perhaps on multiple positions).
-	
-\end{lemma}
-
-\begin{lemma}
-\end{lemma}
+This subsection presents purely syntactical defined fragments
+of first order logic where satisfiability is decidable.\footnote{
+	Definition and compact overview from presentation
+	“\href{http://logic.rwth-aachen.de/~graedel/kalmar.pdf}{Decidable fragments of first-order and fixed-point logic}”
+	by E.~Grädel (\url{http://logic.rwth-aachen.de/~graedel/}).	
+}  
 
 
 
-
-
-\begin{definition}Finite model property
+\begin{definition}[\PNF]
+	A first order formula $F = \quantify_1 x_1 \ldots \quantify_n x_n\, G$ is in prenex normal form
+	if $\quantify_i \in \{\forall,\exists\}$ for $1 < i \leq n$,
+	the subformula $G$ is quantifier free, and 
+	the set of free variables $\fvar(G) = \{ x_1, \ldots, x_n \}$
+	matches the quantified variables.
 \end{definition}
 
 
-\begin{theorem}
-	content...
-\end{theorem}
+\begin{definition}[\cite{MR1482227}]\label{def:prefix:class}
+	We describe classes of first order formulae in \PNF with triples
+	\[
+	[\, \Pi, (p_1,p_2,\ldots), (f_1,f_2,\ldots)\,]_{(\mEQ)}
+	\]
+	where $\Pi$ describes the quantifier prefix 
+	$\Upsilon\!_1 \ldots \Upsilon\!_n$ without variables,
+	the value $p_i$ the maximal number of predicate symbols
+	and the value $f_i$ the maximal number of function symbols with arity $i$.
+	The equality symbol is not counted as binary predicate symbol.
+	The subscript indicates its presence of the equality symbol in the signature. 
+	
+\end{definition}
+
+\begin{example}
+	The monadic predicate calculus includes formulae with arbitrary quantifier prefixes, 
+	arbitrary many unary predicate symbols, the equality symbol, but no function symbols.
+	\begin{align*}
+	\colG [\,all, (\omega), (1)\,]_= 
+	\quad\supsetneq& &
+	[\,all, (\omega), (0 )&\,]_=
+	\tag{Löwenheim 1925, Kalmár 1929}
+	\\
+	\colG [\,\exists^*\forall\exists^*,all,(1)\,]_=
+	\quad\supsetneq& &
+	[\,\exists^*\forall\exists^*,all,(0)&\,]_{=} \tag{Ackermann 1928}
+	\end{align*}
+	The Ackermann prefix class contains formulae with arbitrary many existential quantifiers, 
+	but just one universal quantifier. It contains arbitrary many predicate symbols
+	with arbitrary arities, the equality symbol, but no function symbols. 
+\end{example}
+
+%Goldfarb, Gurevich, Rabin, Shelah completly characterized decidable and undecidable prefix classes.
+
+\begin{table}[hbt]
+	\begin{align*}
+	%\colG [\,all, (\omega), (0 )&\colG\,]_= \tag{Löwenheim 1925, Kalmár 1929}
+	%\\
+	[\,\exists^{∗}\forall^{∗}, all, (0)&\,]_{=} \tag{Bernays, Schönfinkel 1928, Ramsey 1932}
+	\\
+	[\,\exists^{∗}\forall^2\exists^{∗} , all, (0)&\,] \tag{Gödel 1932, Kalmár 1933, Schütte 1934}
+	\\
+	[\,all, (\omega), (\omega)&\,] \tag{Löb 1967, Gurevich 1969}
+	\\
+	[\,\exists^{∗}\forall\exists^{∗}, all, all&\,] \tag{Gurevich 1973}
+	\\
+	[\,\exists^{∗}, all, all&\,]_{=} \tag{Gurevich 1976}
+	\end{align*}
+	%\caption[Decidable prefix classes]{Decidable prefix classes in first order logic}
+	\caption[Decidable prefix classes]{Decidable prefix classes with final model property }
+	\label{tab:decidedable:FiniteModelProperty}
+\end{table}
+
+\begin{table}[hbt]
+	\begin{align*}
+	[\,all, (\omega), (1)&\,]_{=} \tag{Rabin 1969} 
+	\\
+	[\,\exists^{∗}\forall\exists^{∗}, all, (1)&\,]_{=} \tag{Shelah 1977}
+	\end{align*}
+	%\caption[Decidable prefix classes]{Decidable prefix classes in first order logic}
+	\caption[Decidable prefix classes]{Decidable prefix classes with infinity axioms. }
+	\label{tab:decidable:InfinityAxioms}
+\end{table}
+
+\begin{lemma}
+	Satisfiability is decidable \cite{MR1482227} in all prefix classes from Tables 
+	\ref{tab:decidedable:FiniteModelProperty} and \ref{tab:decidable:InfinityAxioms}.
+	Each of theses classes is closed under conjunction with respect to satisfiability.
+\end{lemma}
 
 
 
-\section{Decidable theories in first oder logic}
+\section{Theories in first oder logic}\label{sec:decidable:fol:theories}
 
-praesburger arithmetic
+\begin{definition}(Theory)
+	
+\end{definition}
 
-successor
+\subsection{Presburger arithmetic}
+
+The signature of Presburger arithmetic contains two constant symbols $0,1$, 
+one binary function symbol $+$ and the equality symbol $\mEQ$.
+%Let $G$ be an arbitrary first order expression over this signature.
+Then Table \ref{tab:presburger:axioms} states the axioms for Presburger arithmetic. 
+The last line states infinitely many induction axioms for arbitrary formulae $G$.
+
+\begin{table}[hbt]	
+\begin{gather*}
+\forall x\,\left(
+0 \mNE x + 1
+\right)
+\\
+\forall x\,\left(
+x + 0 \mEQ x
+\right)
+\\
+\forall x\forall y\,\left(
+x + 1 \mEQ y + 1 \limp x \mEQ y
+\right)
+\\
+\forall x\forall y\,\left(
+x+(y+1) \mEQ (x+y)+1
+\right)\\
+\underbrace{G(0)}_{\text{base}} 
+\land\, \forall x\,\underbrace{
+\left(G(x) \limp G(x+1)\right)
+}_{\text{step case}}
+\,\limp\, \forall y\,G(y)
+\tag{induction}
+\end{gather*}
+\caption{(Infinite) axiomisation of Presburger arithmetic}
+\label{tab:presburger:axioms}
+\end{table}
+
+\begin{remark}
+	The axioms of Presburger arithmetic 
+cannot be stated in any decidable prenex class of first order logic,
+because the signature contains a binary function and the equality symbol.
+The induction axiom translates to the following prenex normal form.
+\[
+	\exists x \forall y \left(
+	\lnot G(0) \lor (G(x) \land \lnot G(x+1) \lor G(y)
+	\right)
+	\tag*{\PNF}
+\]
+\end{remark}
+
+\begin{example}\label{ex:presburger:G}
+	With $G = \exists y\, (y+y\mEQ x)\lor(y+y+1\mEQ x)$
+	the induction schema yields
+	\begin{gather*}
+	{\exists y\, (y+y\mEQ 0)\lor(y+y+1\mEQ 0)}
+	\\\land\\
+	\forall x\, 
+	\Big(\exists y\, (y+y\mEQ x)\lor(y+y+1\mEQ x)) 
+	\limp 
+	(\exists y\, (y+y\mEQ x+1)\lor(y+y+1\mEQ x+1)
+	\Big)
+	\\\limp\\
+	\forall x \exists y\, (y+y\mEQ x)\lor(y+y+1\mEQ x)
+	\end{gather*}
+\end{example}
 
 
 

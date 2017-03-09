@@ -2,81 +2,13 @@
 % !TeX encoding = UTF-8
 % !TeX spellcheck = en_US
 
-%\ref{tab:decidedable:FiniteModelProperty} and
-%\ref{tab:decidable:InfinityAxioms}
 %\ref{tab:undecidable:PurePredicateLogic}, and
 %\ref{tab:undecidable:FunctionsAndEquations}
-This subsection presents fragments of first order logic where satisfiability is decidable.\footnote{
-	Definition and compact overview from presentation
-	“\href{http://logic.rwth-aachen.de/~graedel/kalmar.pdf}{Decidable fragments of first-order and fixed-point logic}”
-	by E.~Grädel (\url{http://logic.rwth-aachen.de/~graedel/}).	
-}  
 
 
-\begin{definition}\label{def:prefix:class}
-	We describe classes of first order formulae in \PNF with triples
-	\[
-		[\, \Pi, (p_1,p_2,\ldots), (f_1,f_2,\ldots)\,]_{(=)}
-	\]
-	where $\Pi$ describes the quantifier prefix,
-	$p_i$ the maximal number of predicates symbols of arity $i$,
-	$f_i$ the maximal number of function symbols of arity $i$.
-	The equality symbol is not counted as binary predicate symbol.
-	Instead the subscript $=$ indicates its presence.
-	
-\end{definition}
-
-\begin{example}
-	The monadic predicate calculus includes formulae with arbitrary quantifier prefixes, 
-	arbitrary many unary predicate symbols, the equality symbol, but no function symbols.
-	\begin{align*}
-	\colG [\,all, (\omega), (1)\,]_= 
-	\quad\supsetneq& &
-		[\,all, (\omega), (0 )&\,]_=
-		 \tag{Löwenheim 1925, Kalmár 1929}
-	\\
-	\colG [\,\exists^*\forall\exists^*,all,(1)\,]_=
-	\quad\supsetneq& &
-	[\,\exists^*\forall\exists^*,all,(0)&\,]_{=} \tag{Ackermann 1928}
-	\end{align*}
-	The Ackermann prefix class contains formulae with arbitrary many existential quantifiers, 
-	but just one universal quantifier. It contains arbitrary many predicate symbols
-	with arbitrary arities, the equality symbol, but no function symbols. 
-\end{example}
-
-%Goldfarb, Gurevich, Rabin, Shelah completly characterized decidable and undecidable prefix classes.
-
-\begin{table}[hbt]
-\begin{align*}
-%\colG [\,all, (\omega), (0 )&\colG\,]_= \tag{Löwenheim 1925, Kalmár 1929}
-%\\
-[\,\exists^{∗}\forall^{∗}, all, (0)&\,]_{=} \tag{Bernays, Schönfinkel 1928, Ramsey 1932}
-\\
-[\,\exists^{∗}\forall^2\exists^{∗} , all, (0)&\,] \tag{Gödel 1932, Kalmár 1933, Schütte 1934}
-\\
-[\,all, (\omega), (\omega)&\,] \tag{Löb 1967, Gurevich 1969}
-\\
-[\,\exists^{∗}\forall\exists^{∗}, all, all&\,] \tag{Gurevich 1973}
-\\
-[\,\exists^{∗}, all, all&\,]_{=} \tag{Gurevich 1976}
-\end{align*}
-%\caption[Decidable prefix classes]{Decidable prefix classes in first order logic}
-\caption[Decidable prefix classes]{Decidable prefix classes with final model property }
-\label{tab:decidedable:FiniteModelProperty}
-\end{table}
-
-\begin{table}[hbt]
-	\begin{align*}
-	[\,all, (\omega), (1)&\,]_{=} \tag{Rabin 1969} 
-	\\
-	[\,\exists^{∗}\forall\exists^{∗}, all, (1)&\,]_{=} \tag{Shelah 1977}
-	\end{align*}
-	%\caption[Decidable prefix classes]{Decidable prefix classes in first order logic}
-	\caption[Decidable prefix classes]{Decidable prefix classes with infinity axioms. }
-	\label{tab:decidable:InfinityAxioms}
-\end{table}
-
-Now we look how formulae from these decidable fragments can be transformed nicely into equisatisfiable set of clauses.
+We look how formulae from these decidable fragments of first order logic 
+(Tables \ref{tab:decidedable:FiniteModelProperty} and \ref{tab:decidable:InfinityAxioms})
+can be transformed nicely into equisatisfiable set of clauses.
 The transformation is easy for formulae where the quantifiers follow a specific pattern where the appearances of the universal quantifier is limited. First we remove leading existential quantifiers and replace their variables with Skolem constants.
 Then we remove the trailing existential quantifiers and replace there variables with Skolem functions where the variables of the universal quantifiers are the arguments. After that we remove the remaining universal quantifiers. We transform the remaining formula with constants, functions and a restricted number of free variables into (an equisatisfiable) conjunctive normal form with a suitable procedure. 
 
@@ -97,72 +29,114 @@ Then we remove the trailing existential quantifiers and replace there variables 
 \PNF& & \CNF& \tag*{}\\
 [\,\exists^{∗}\forall^{∗}, all, (0)&\,]_{=} 
 & _{_\CNF}[\,\omega,all, (0)&\,]_{=}
+\label{tab:decidable:CNF:1}
 \\
 [\,\exists^{∗}\forall^2\exists^{∗} , all, (0)&\,] 
 & _{_\CNF}[\,2, all, (0,\omega)&\,]
+\label{tab:decidable:CNF:2}
 \\
 [\,all, (\omega), (\omega)&\,]
 & _{_\CNF}[\,\omega, (\omega), (\omega)&\,]
+\label{tab:decidable:CNF:3}
 \\
 [\,\exists^{∗}\forall\exists^{∗}, all, all&\,]
 & _{_\CNF}[\,1,all, all&\,]
+\label{tab:decidable:CNF:4}
 \\
 [\,\exists^{∗}, all, all&\,]_{=}
 & _{_\CNF}[\, 0, all, all&\,]_{=}
+\label{tab:decidable:CNF:5}
 \\
 [\,all, (\omega), (1)&\,]_{=} 
 & _{_\CNF}[\,\omega, (\omega), (1)&\,]_{=} 
+\label{tab:decidable:CNF:6}
 \\
 [\,\exists^{∗}\forall\exists^{∗}, all, (1)&\,]_{=}
-& _{_\CNF}[\,1, all, (1)&\,]_{=}
+& _{_\CNF}[\,1, all, (\omega)&\,]_{=}
+\label{tab:decidable:CNF:7}
 \end{align}
 \caption[Transformation]{Transformation into equisatisfiable clausal forms}
 \label{tab:decidedable:CNF}
 \end{table}
 
+First we substitute existentially quantified leading variables with Skolem constants.
 
-\begin{proof}We use induction on the structure of $F$.
+\begin{itemize}
+	\item[\ref{tab:decidable:CNF:1}] We get arbitrarily many free variables by dropping the universal quantifiers.
+	\item[\ref{tab:decidable:CNF:2}]
+	Existentially quantified trailing variables are substituted by binary Skolem functions.
+	We get two free variables by dropping the universal quantifiers.
+	\item[\ref{tab:decidable:CNF:3}]
+	Class is equivalent to $[\,\exists^{∗}\forall^{∗}, (\omega), (\omega)\,]$.
+	\item[\ref{tab:decidable:CNF:4}]
+	We get one free variables by dropping the universal quantifier.
+	\item[\ref{tab:decidable:CNF:5}]
+	There are no free variables.
+	\item[\ref{tab:decidable:CNF:6}]
+	\item[\ref{tab:decidable:CNF:7}]
+\end{itemize}
+
+\begin{lemma}\label{lem:unary}
+	A formula in $[\,all, (\omega), (\omega)\,]$ is equivalent / equisatisfiable 
+	to a formula in $[\,\exists^*\forall^*, (\omega), (\omega)\,]$.
+\end{lemma}
+
+\begin{lemma}\label{lem:unary:equals}
+	??? A formula in $[\,all, (\omega), (1)\,]_=$ is equivalent / equisatisfiable 
+	to a formula in $[\,\exists^*\forall^*, (\omega), (1)\,]_=$ ???
+\end{lemma}
+
+\begin{proof} It is sufficient to show for unary predicate and function symbols 
+	that $\forall x\exists y\,F\equiv\exists y\forall y\,F$
+	where $x,y\in\fvar(F)$. 
+	We use induction on the structure of $F$.
 	\begin{enumerate}
-		\item (base) A literal,
-		i.e.a (negated) predicate with one argument term $t$.
+		\item (base) $F$ is a literal,
+		i.e.~a (negated) predicate with one argument term $t$.
 		We abbreviate the literal with $L(z)$ if $\var(t) = \{ z \}$. 
 		\begin{gather*}
 			\forall x \exists y L(x)  \equiv \forall x L(x) \equiv {\colG \exists y} \forall x L(x)
 			\qquad\qquad
 			\forall x \exists y L(y)  \equiv \exists y L(y) \equiv \exists y{\colG \forall x}  L(y)
 		\end{gather*}
-		\item (step)A negation.
+		\item (step) $F$ is the negation of a formula.
 		\begin{gather*}
 		\forall x \exists y\, (\lnot G) 
 		\equiv \lnot (\exists x \forall y\, G)
-		\defEV[I.H.] \lnot (\forall y\exists x \, G) 
+		\defEV[IH] \lnot (\forall y\exists x \, G) 
 		\equiv \exists y \forall x\, (\lnot G)
 		\end{gather*}
-		\item (step) A conjunction 
-		of a literal with the universal quantified variable and a formula.
+		\item (step) $F$ is the junction $\landlor\in\{\land,\lor\}$ of a “free” literal and a formula.
+		\begin{gather*}
+		\forall x\exists y\,( L(z) \landlor G) 
+		\equiv L(z) \landlor \forall x\exists y\, G
+		\defEV[IH]L(z) \landlor \exists y\forall x\, G
+		\equiv\exists y\forall x\,( L(z) \landlor G )
+		\end{gather*}
+		\item (step) $F$ is the conjunction of a “universal” literal and a formula.
 		\begin{align*}
-		\forall x \exists y\,({L(x)\land H}) 
-		&\equiv \forall x\,({L(x)} \land \exists y\,{H})
-		\equiv \forall x\,L(x)\land \forall x\exists y\,H
-		\\&\defEV[IH] \forall x\,{L(x)} \land \exists y\forall x\,{H}
-%		\equiv \exists y\forall x\,({L(x)\land H})
-		\equiv\exists y \forall x\,({L(x)\land H})
+		\forall x \exists y\,({L(x)\land G}) 
+		&\equiv \forall x\,({L(x)} \land \exists y\,G)
+		\equiv \forall x\,L(x)\land \forall x\exists y\,G
+		\\&\defEV[IH] \forall x\,{L(x)} \land \exists y\forall x\,G
+%		\equiv \exists y\forall x\,({L(x)\land G})
+		\equiv\exists y \forall x\,({L(x)\land G})
 		\end{align*}
-		\item A disjunction of a literal with the existential quantified variable and a formula.
+		\item (step) $F$ is the disjunction of an “existential” literal and a formula.
 		\begin{align*}
 		\forall y \exists x\,({L(x)\lor H}) 
 		&\equiv\lnot(\exists y \forall x (L^c(x)\land\lnot H)))\\
 		&\defEV[3.]\lnot(\forall x\exists y  (L^c(x)\land\lnot H))) 
 		\equiv \exists x\forall y\, (L(x) \land H)
 		\end{align*}
-		\item A conjunction of a literal with the existential quantified variable and a formula.
+		\item (step) $F$ is the conjunction of an “existential” literal and a formula.
 		\begin{align*}
 		\forall x \exists y\,({L(y)\land H}) 
 		&\equiv\lnot(\exists x\forall y \,({L^c(y) \lor \lnot H})) \\
 		&\defEV[4.]\lnot(\forall x\exists y \,({L^c(y) \lor \lnot H}) )
 		\equiv \exists x\forall y\,(L(y)\land H)
 		\end{align*}
-		\item A disjunction of a literal with universal quantified variable and a formula.
+		\item (step) $F$ is the disjunction of a “universal” literal and a formula.
 		\begin{align*}
 		\forall x \exists y\,(L(x)\lor H) 
 		&\equiv \lnot (\exists x\forall y\,(L^c(x) \land H)) \\
@@ -172,117 +146,125 @@ Then we remove the trailing existential quantifiers and replace there variables 
 	\end{enumerate}
 \end{proof}
 
-
-%%% ADDITIONAL MATERIAL %%%%
-
-%\begin{table}[hbt]
-%	\begin{align*}
-%	[\,\forall\exists\forall, (\omega, 1), (0)&\,] \tag{Kahr 1962}
-%	\\
-%	[\,\forall^3 \exists, (\omega, 1), (0)&\,] \tag{Surányi 1959}
-%	\\
-%	[\,\forall^{∗} \exists, (0, 1), (0)&\,] \tag{Kalmár-Surányi 1950}
-%	\\
-%	[\,\forall\exists\forall^{∗} , (0, 1), (0)&\,]  \tag{Denton 1960}
-%	\\
-%	[\,\forall\exists\forall\exists^{∗}, (0, 1), (0)&\,] \tag{Gurevich 1966}
-%	\\
-%	[\,\forall^3 \exists^{∗} , (0, 1), (0)&\,] \tag{Kalmár-Surányi 1947}
-%	\\
-%	[\,\forall\exists^{∗} \forall, (0, 1), (0)&\,] \tag{Kostyrko-Genenz 1964}
-%	\\
-%	[\,\exists^{∗} \forall\exists\forall, (0, 1), (0)&\,] \tag{Surányi 1959}
-%	\\
-%	[\,\exists^{∗} \forall^3 \exists, (0, 1), (0)&\,] \tag{Surányi 1959}
-%	\end{align*}
-%	\caption{Undecidable prefix classes in pure predicate logic}
-%	\label{tab:undecidable:PurePredicateLogic}
-%\end{table}
-
-%\begin{table}[hbt]
-%	\begin{align*}
-%	[\,\forall, (0), (2)&\,]_{=} \tag{Gurevich 1976}
-%	\\
-%	[\,\forall, (0), (0, 1)&\,]_{=} \tag{Gurevich 1976}
-%	\\
-%	[\,\forall^2 , (0, 1), (1)&\,] \tag{Gurevich 1969}
-%	\\
-%	[\,\forall^2 , (1), (0, 1)&\,] \tag{Gurevich 1969}
-%	\\
-%	[\,\forall^2\exists, (\omega, 1), (0)&\,]_{=} \tag{Goldfarb 1984}
-%	\\
-%	[\,\exists^{∗}\forall^2\exists, (0, 1), (0)&\,]_{=} \tag{Goldfarb 1984}
-%	\\
-%	[\,\forall^2\exists^{∗}, (0, 1), (0)&\,]_{=} \tag{Goldfarb 1984}
-%	\end{align*}
-%	\caption{Undecidable prefix classes with functions or equality}
-%	\label{tab:undecidable:FunctionsAndEquations}
-%\end{table}
+\begin{proof}
+	\begin{enumerate}
+		\item $\forall x \exists y\, x\mEQ y$
+		\item $\forall x \exists y\, y\mEQ x$
+	\end{enumerate}
+		
+\end{proof}
 
 
-%\begin{table}[hbt]
-%	\begin{gather*}
-%		\begin{array}{rcccl}
-%		\text{undecidable} &&\multicolumn{1}{c}{decidable}  & &  \text{classification}
-%		\\ \\{}
-%[\,\Pi_?, (p_1, {\colLo 1}), (0)\,] &\supsetneq&
-%[\,\Pi_?, (p_1, {\colHi 0}), (0)\,]&\subseteq&
-%[\,all,(\omega),(\omega)\,]
-%%\\[0.5em]		
-%%		\\ \\{}
-%%		[\,\forall\exists\forall, (\omega, 1), (0)\,] &\multirow{9}{*}{$\supsetneq$}&
-%%		\multirow{9}{*}{$[\,\Pi, (p_1, {\colHi 0}), (0)\,]$} &\multirow{9}{*}{$\subseteq$}&
-%%		\multirow{9}{*}{$[\,all,(\omega),(\omega)\,]$}
-%%	\\{}
-%%	[\,\forall^3 \exists, (\omega, 1), (0)\,] &&
-%%	&&
-%%	\\{}
-%%	[\,\forall^{∗} \exists, (0, 1), (0)\,] &&
-%%	&&
-%%	\\{}
-%%	[\,\forall\exists\forall^{∗} , (0, 1), (0)\,]&&
-%%	&&
-%%	\\{}
-%%	[\,\forall\exists\forall\exists^{∗}, (0, 1), (0)\,]&&
-%%	&&
-%%	\\{}
-%%	[\,\forall^3 \exists^{∗} , (0, 1), (0)\,] &&
-%%	&&
-%%	\\{}
-%%	[\,\forall\exists^{∗} \forall, (0, 1), (0)\,] &&
-%%	&&
-%%	\\{}
-%%	[\,\exists^{∗} \forall\exists\forall, (0, 1), (0)\,]&&
-%%	&&
-%%	\\{}
-%%	[\,\exists^{∗} \forall^3 \exists, (0, 1), (0)\,] &&
-%%	&&
-%%\\{}
-%\\[0.5em]
-%	[\,\forall, (0), ({\colLo 2})\,]_{=} &\supsetneq&
-%	[\,\forall, (0), ({\colHi 1})\,]_{=} &\subseteq&[\,all, (\omega), (1)\,]_{=}
-%	\\{}
-%	[\,\forall, (0), (0, {\colLo 1})\,]_{=} &\supsetneq&
-%	[\,\forall, (0), (0, {\colHi 0})\,]_{=}	&\subseteq&[\,all, (\omega), (1)\,]_{=}
-%	\\[0.5em]
-%	[\,\forall^2 , (0, {\colN 1}), ({\colLo 1})\,]_{\color{white}=} &\supsetneq&
-%	[\,\forall^2 , (0, {\colN 1}), ({\colHi 0})\,]_{\color{white}=} &\subseteq&[\,\exists^{∗}\forall^2\exists^{∗} , all, (0)\,]_{\color{white}=}
-%	\\{}
-%	%
-%	{[\,\forall^2 , ({\colN 1}), (0, {\colLo 1})\,]_{\color{white}=}}&\supsetneq&
-%	[\,\forall^2 , ({\colN 1}), (0, {\colHi 0})\,]_{\color{white}=}&\subseteq&[\,\exists^{∗}\forall^2\exists^{∗} , all, (0)\,]_{\color{white}=}
-%	\\[0.5em]
-%	[\,\forall^2\exists, (\omega, {\colLo 1}), (0)\,]_{=} &\subseteq&
-%	[\,\forall^2\exists, (\omega, {\colHi 0}), (0)\,]_{=} &\subseteq&[\,all, (\omega), (1)\,]_{=}
-%	\\{}
-%	%
-%	[\,\exists^{∗}\forall^2\exists, (0, {\colLo 1}), (0)\,]_{=}&\supsetneq&
-%		[\,\exists^{∗}\forall^2\exists, (0, {\colHi 0}), (0)\,]_{=}&\subseteq&[\,all, (\omega), (1)\,]_{=}
-%	\\{}
-%	[\,\forall^2\exists^{∗}, (0, {\colLo 1}), (0)\,]_{=}&\supsetneq&
-%	[\,\forall^2\exists^{∗}, (0, {\colHi 0}), (0)\,]_{=}&\subseteq& [\,all, (\omega), (1)\,]_{=}
-%	\end{array}
-%	\end{gather*}
-%\end{table}
+%% ADDITIONAL MATERIAL %%%%
+
+\begin{table}[hbt]
+	\begin{align*}
+	[\,\forall\exists\forall, (\omega, 1), (0)&\,] \tag{Kahr 1962}
+	\\
+	[\,\forall^3 \exists, (\omega, 1), (0)&\,] \tag{Surányi 1959}
+	\\
+	[\,\forall^{∗} \exists, (0, 1), (0)&\,] \tag{Kalmár-Surányi 1950}
+	\\
+	[\,\forall\exists\forall^{∗} , (0, 1), (0)&\,]  \tag{Denton 1960}
+	\\
+	[\,\forall\exists\forall\exists^{∗}, (0, 1), (0)&\,] \tag{Gurevich 1966}
+	\\
+	[\,\forall^3 \exists^{∗} , (0, 1), (0)&\,] \tag{Kalmár-Surányi 1947}
+	\\
+	[\,\forall\exists^{∗} \forall, (0, 1), (0)&\,] \tag{Kostyrko-Genenz 1964}
+	\\
+	[\,\exists^{∗} \forall\exists\forall, (0, 1), (0)&\,] \tag{Surányi 1959}
+	\\
+	[\,\exists^{∗} \forall^3 \exists, (0, 1), (0)&\,] \tag{Surányi 1959}
+	\end{align*}
+	\caption{Undecidable prefix classes in pure predicate logic}
+	\label{tab:undecidable:PurePredicateLogic}
+\end{table}
+
+\begin{table}[hbt]
+	\begin{align*}
+	[\,\forall, (0), (2)&\,]_{=} \tag{Gurevich 1976}
+	\\
+	[\,\forall, (0), (0, 1)&\,]_{=} \tag{Gurevich 1976}
+	\\
+	[\,\forall^2 , (0, 1), (1)&\,] \tag{Gurevich 1969}
+	\\
+	[\,\forall^2 , (1), (0, 1)&\,] \tag{Gurevich 1969}
+	\\
+	[\,\forall^2\exists, (\omega, 1), (0)&\,]_{=} \tag{Goldfarb 1984}
+	\\
+	[\,\exists^{∗}\forall^2\exists, (0, 1), (0)&\,]_{=} \tag{Goldfarb 1984}
+	\\
+	[\,\forall^2\exists^{∗}, (0, 1), (0)&\,]_{=} \tag{Goldfarb 1984}
+	\end{align*}
+	\caption{Undecidable prefix classes with functions or equality}
+	\label{tab:undecidable:FunctionsAndEquations}
+\end{table}
+
+
+\begin{table}[hbt]
+	\begin{gather*}
+		\begin{array}{rcccl}
+		\text{undecidable} &&\multicolumn{1}{c}{decidable}  & &  \text{classification}
+		\\ \\{}
+[\,\Pi_?, (p_1, {\colLo 1}), (0)\,] &\supsetneq&
+[\,\Pi_?, (p_1, {\colHi 0}), (0)\,]&\subseteq&
+[\,all,(\omega),(\omega)\,]
+\\[0.5em]		
+		\\ \\{}
+		[\,\forall\exists\forall, (\omega, 1), (0)\,] &\multirow{9}{*}{$\supsetneq$}&
+		\multirow{9}{*}{$[\,\Pi, (p_1, {\colHi 0}), (0)\,]$} &\multirow{9}{*}{$\subseteq$}&
+		\multirow{9}{*}{$[\,all,(\omega),(\omega)\,]$}
+	\\{}
+	[\,\forall^3 \exists, (\omega, 1), (0)\,] &&
+	&&
+	\\{}
+	[\,\forall^{∗} \exists, (0, 1), (0)\,] &&
+	&&
+	\\{}
+	[\,\forall\exists\forall^{∗} , (0, 1), (0)\,]&&
+	&&
+	\\{}
+	[\,\forall\exists\forall\exists^{∗}, (0, 1), (0)\,]&&
+	&&
+	\\{}
+	[\,\forall^3 \exists^{∗} , (0, 1), (0)\,] &&
+	&&
+	\\{}
+	[\,\forall\exists^{∗} \forall, (0, 1), (0)\,] &&
+	&&
+	\\{}
+	[\,\exists^{∗} \forall\exists\forall, (0, 1), (0)\,]&&
+	&&
+	\\{}
+	[\,\exists^{∗} \forall^3 \exists, (0, 1), (0)\,] &&
+	&&
+\\{}
+\\[0.5em]
+	[\,\forall, (0), ({\colLo 2})\,]_{=} &\supsetneq&
+	[\,\forall, (0), ({\colHi 1})\,]_{=} &\subseteq&[\,all, (\omega), (1)\,]_{=}
+	\\{}
+	[\,\forall, (0), (0, {\colLo 1})\,]_{=} &\supsetneq&
+	[\,\forall, (0), (0, {\colHi 0})\,]_{=}	&\subseteq&[\,all, (\omega), (1)\,]_{=}
+	\\[0.5em]
+	[\,\forall^2 , (0, {\colN 1}), ({\colLo 1})\,]_{\color{white}=} &\supsetneq&
+	[\,\forall^2 , (0, {\colN 1}), ({\colHi 0})\,]_{\color{white}=} &\subseteq&[\,\exists^{∗}\forall^2\exists^{∗} , all, (0)\,]_{\color{white}=}
+	\\{}
+	%
+	{[\,\forall^2 , ({\colN 1}), (0, {\colLo 1})\,]_{\color{white}=}}&\supsetneq&
+	[\,\forall^2 , ({\colN 1}), (0, {\colHi 0})\,]_{\color{white}=}&\subseteq&[\,\exists^{∗}\forall^2\exists^{∗} , all, (0)\,]_{\color{white}=}
+	\\[0.5em]
+	[\,\forall^2\exists, (\omega, {\colLo 1}), (0)\,]_{=} &\subseteq&
+	[\,\forall^2\exists, (\omega, {\colHi 0}), (0)\,]_{=} &\subseteq&[\,all, (\omega), (1)\,]_{=}
+	\\{}
+	%
+	[\,\exists^{∗}\forall^2\exists, (0, {\colLo 1}), (0)\,]_{=}&\supsetneq&
+		[\,\exists^{∗}\forall^2\exists, (0, {\colHi 0}), (0)\,]_{=}&\subseteq&[\,all, (\omega), (1)\,]_{=}
+	\\{}
+	[\,\forall^2\exists^{∗}, (0, {\colLo 1}), (0)\,]_{=}&\supsetneq&
+	[\,\forall^2\exists^{∗}, (0, {\colHi 0}), (0)\,]_{=}&\subseteq& [\,all, (\omega), (1)\,]_{=}
+	\end{array}
+	\end{gather*}
+\end{table}
 
 

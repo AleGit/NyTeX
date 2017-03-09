@@ -3,49 +3,18 @@
 % !TeX spellcheck = en_US
 
 \begin{definition}[\CNF]\label{def:literals}\label{def:syntax:CNF}
-A (first order) {\myem literal} $L$ is either an atom $A$ or the negation\footnote{
-	We usually abbreviate $\lnot(s\mEQ t)$ with $s\mNE t$.
-} 
-$(\lnot A)$ of an atom.
+A (first order) {\myem literal} $L$ is either an atom $A$ or the negation
+$(\lnot A)$ of an atom. We usually abbreviate $\lnot(s\mEQ t)$ with $s\mNE t$.
 %
 The {\myem complement} $L^\mcc$ of an atom (positive literal) is the negation of the atom.
 The complement of a negated atom (negative literal) is the atom itself. 
-%\DEFINE{
-%	L^\mcc 
-%}{
-%	\lnot L & \text{if } L \text{ is an atom} \\
-%	A 		& \text{if } L = \lnot A, \text{ the negation of an atom } A
-%}
-%
-A {\myem clause}\ \ $\mcC = L_1\lor\ldots\lor L_n$  is a possible empty multiset of literals 
-and is equivalent to an universally quantified disjunction of its literals.
-%The {\myem empty clause} $\emptyclause$ expresses a contradiction. 
-%
-A finite {\myem set of clauses} $S=\{ \mcC_1,\ldots,\mcC_n \}$ is equivalent to a conjunction of all its clauses.
-%
-%Two literals are complementary if one is an atom, i.e. a positive literal and the other is the negation of this atom.
-We call this quantifier-free representation {\myem clausal normal form}.
+A (first order) {\myem clause}\ \ $\mcC = L_1\lor\ldots\lor L_n$  is a possible empty multiset of literals. 
+A finite {\myem set of clauses} $S=\{ \mcC_1,\ldots,\mcC_n \}$ is in {\myem clausal normal form}.
 \end{definition}
 
-\begin{example}A set of clauses is equivalent to a universally quantified formula in conjunctive prenex normal form.
-	\begin{align*}
-		\{\, \mP(x)\lor\mR(x,y), \lnot \mE(z,\mf(z)) \, \}
-		&\equiv
-		\forall x \forall y\, (\mP(x)\lor\mR(x,y))
-		\land \forall x\, (\lnot \mE(x,\mf(x))) 
-		\\
-		&\equiv
-		\forall x \forall y\left( 
-		(\mP(x)\lor\mR(x,y))
-		\land \lnot \mE(x,\mf(x))
-		\right)
-	\end{align*}
-\end{example}
-
 \begin{definition}
-	We denote
-	terms, atoms, and literals as first order expressions.
-	We call a first order expression without variables {\myem ground} or {\myem closed}, 
-	i.e.~we build our ground first order expressions over an empty set of variables.
+	First order terms, atoms, literals, clauses, and formulae are first order expressions.
+	We call a first order expression without variables {\myem ground},
+	i.e.~we build our ground expressions over an empty set of variables.
 \end{definition}
 

@@ -6,11 +6,12 @@
 
 \input{epigraphs/syllogism}
 
-In this chapter we demonstrate instance-based proving procedures.
-We look at the impact of undecidability in first order logic for proving procedures.
-We highlight if the presented procedures are in fact decision procedures for decidable fragments of first order logic.
-It seems natural to expect decision procedures for decidable fragments of first order logic,
-but that does not automatically follow from refutational completeness of these procedures.
+In this chapter we demonstrate refutation complete proving procedures.
+It seems natural to expect decision procedures for decidable fragments 
+(Section \ref{sec:decidable:fol:fragments})
+or decidable theories (Section \ref{sec:decidable:fol:theories}),
+but we will see in simplest examples that this does not follow 
+from refutation completeness.
 
 
 %An we judge the procedures by there theoretical performance on decidable fragments. 
@@ -36,7 +37,7 @@ In theory we have no bound on the size of the smallest set of unsatisfiable grou
 
 To actually prove a theorem 
 we first make use of the fact that a first-order formula is valid if and only if its negation is unsatisfiable.
-Second we efficiently trormansform the negated formula into an {\myem equisatisfiable} set of clauses,
+Second we efficiently transform the negated formula into an {\myem equisatisfiable} set of clauses,
 i.e.~the formula is satisfiable if and only if the set of clauses is satisfiable.
 %This can be done efficiently with Skolemization \cite{books/el/RV01/Hahnle01} and Tseitin-transformation \cite{tseitin70, PLAISTED1986293} as shown in \cite{Nonnengart01computingsmall}.
 
@@ -61,7 +62,23 @@ eventually.
 %
 %There are some optimization to this transformation, e.g.~by Plaisted and Greenbaum in 1986 \cite{PLAISTED1986293}.
 
+\section{Clausal form}
 
+\begin{table}[hbt]	
+	\begin{gather*}
+	x+1 \mNE 0
+	\\
+	x + 0 \mEQ x
+	\\
+	x + 1 \mNE y + 1 \lor x \mEQ y
+	\\
+	x+(y+1) \mEQ (x+y)+1
+	\\
+	\lnot G(0) \lor G(k) \lor G(x), \lnot G(0) \lor \lnot G(k+1) \lor G(x)
+	\end{gather*}
+	\caption{Clauses for Presburger arithmetic}
+	\label{tab:presburger:axioms:clauses}
+\end{table}
 
 
 \section{Gilmore's Prover}
@@ -70,7 +87,7 @@ In 1960 Paul Gilmore presented a first {\myem implementation} of an automated
 theorem prover \cite{5392528} for first order logic (without equality),
 which happened to use an instantiation-based approach. 
 The procedure is theoretically complete, i.e.~for every valid formula 
-a proof can be found eventually.
+a refutation proof can be found eventually.
 
 In practice this prover ran into memory issues or time outs more often than not.
 We will discuss reasons for this inefficiency after we have described and demonstrated the procedure.

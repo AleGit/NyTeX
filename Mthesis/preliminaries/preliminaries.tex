@@ -45,8 +45,7 @@ We will loosely relate it to formulae in prenex normal form (see Definition \ref
 \section{Semantics}\label{sec:semantics}
 
 In this section we recall some basic aspects and definitions of semantics in first order logic. 
-We state satisfiability of clauses. For brevity we ignore arbitrary formulas in first order logic
-in this rehearsal of definitions. See the appendix for more details and mathematics.
+We state satisfiability of clauses. See the appendix for more details and mathematics.
 
 \begin{definition}\label{def:interpretation}
 	An {\myem interpretation} $\mcI$ over a signature $\mcF$ consists of a
@@ -55,7 +54,7 @@ in this rehearsal of definitions. See the appendix for more details and mathemat
 	and definitions of (possibly empty) n-ary relations 
 	 ${\mP_\mcI}\subseteq A^n$ for every predicate symbol $\mP\in\mcFP$
 	 and the definition of a binary relation ${\mEQ_\mcI}\subseteq A^2$ for the equality symbol.
-	 A (variable) {\myem assignment} is a mapping from variables to the used domain.
+	 A (variable) {\myem assignment} is a mapping from variables to elements of the domain.
 	 We define the {\myem evaluation} $\alpha_\mcI$ of a term $t$ 
 	 for assingment $\alpha$ and interpretation $\mcI$:
 	 \DEFINE{\alpha_\mcI(t)}{ 
@@ -67,69 +66,54 @@ in this rehearsal of definitions. See the appendix for more details and mathemat
 	 	\mf_\mcI (\alpha_\mcI(t_1),\ldots,\alpha_\mcI(t_n)) 
 	 	&\text{if }t=\mf(t_1,\ldots,t_n), \mf\in\mcFfn[n>0], t_i\in\mcTf 
  }
-The evaluation of ground terms does not depend on variable assignments.
+\begin{remark}
+	The evaluation of ground terms does not depend on variable assignments.
+\end{remark}
 \end{definition}
-\begin{definition}\label{def:model}
+
+\begin{definition}\label{def:semantics:atoms}
 	A predicate $\mP(t_1,\ldots,t_n)$ 
 	{\myem holds} for an assignment $\alpha_\mcI$ 
-	in an interpretation $\mcI$  
 	if and only if the evaluation of its n-tuple $
 	(\alpha_\mcI({t_1}),\ldots,\alpha_\mcI({t_n}))$
 	is an element of the relation $\mP_\mcI\subseteq A^n$.
 	Similar an equation $s\mEQ t$ 
 	holds if $\alpha_\mcI(s) \mEQ_\mcI \alpha_\mcI(t)$.
-	If an atom holds for all possible assignments 
-	then the atom holds in the interpretation. 
+\end{definition}
+
+\begin{definition}[Semantics of \FOF]\label{def:semantics:FOF}
+	A universally quantified formula $\forall x F$ holds in an interpretation if its subformula $F$ holds for all assignments for $x$.
+	An existential quantified formula $\exists xF$ holds if its subformula $F$ holds for at least one assignment for $x$.
+	A negation $\lnot F$ holds if its subformula $F$ does not hold, 
+	a disjunction $F\lor G$ holds if one or both of its subformulae $F$ or $G$ hold,
+	a conjunction $F\land G$ holds, if both of its subformualae $F$ and $G$ hold, 
+	an implication $F\limp G$ holds if its first subformula $F$ does not hold or its second subformula $F'$ holds (or both).
+	\begin{remark}Usually we us precedences on connectives to omit parentheses 
+		and some heuristics to structure the formulae for readability 
+		without introducing semantic ambiguity.
+	\end{remark}
+\end{definition}
+
+\begin{definition}[Semantics of \CNF]\label{def:semantics:CNF}
+	An atom holds in an interpretation if and only if it 
+	holds with all possible assignments. 
 	A literal holds if and only if its complement does not hold.
-	A clause holds if at least one of its literals holds.
-	The empty clause $\square$ can not hold in any interpretation. 
-	A set of clauses holds if every clause in it holds.
-	Then the interpretation is a model for the set of clauses and 
-	we write $\mcI\models S$. 
+	A clause holds if at least one of its literals holds,
+	hence the empty clause $\square$ does not hold in any interpretation.
+	A set of clauses holds if and only if every clause in the set holds.
 \end{definition}
 
-\begin{remark}
-	A proposition, i.e.~a constant or nullary predicate) $\mpp$ holds if $\mpp_\mcI = \{ () \} = A^0$.
-\end{remark}
+\begin{definition}
+	A {\myem model} $\mcM$ for a set of clauses (a formula) is an interpretation that 
+	{\myem satisfies} the set of clauses (the formula),
+	i.e.~the set of clauses (the formula) holds in this interpretation.
+	A set of clauses (a formula) is {\myem satisfiable} if and only if there is at least one model for it. 
+	A set of clauses (a formula) is {\myem valid} if and only if every interpretation is a model.
+\end{definition}
 
-\begin{lemma}[Instantiation]\label{lem:instantiation}
-	Let $S$ be a set of clauses and $\mcM$ a model for $S$.
-	Then $\mcM\models S\sigma$ holds for any substitution $\sigma$.
-\end{lemma}
-%\begin{proof}
-%	By induction of the finite cardinality $n = | \domain(\sigma)|$. Let $\mcM\models S$.
-%	\begin{enumerate}
-%		\item $n = 0$ then $S\sigma = S$
-%		\item $n = 1$ Show that if $\mcM\models S$ then $\mcM\models S\{x\mapsto t\}$
-%		(By induction on S)
-%		\begin{enumerate}
-%			\item If $P(c)$ holds, then $P(\mc)\sigma = P(\mc)$ holds
-%			\item If $P(y)$ holds, then $P(y)\sigma = P(y)$ holds.
-%			\item If $P(x)$ holds, then 
-%			then $P(x)\sigma = P(t)$ holds.
-%		\end{enumerate}
-%		\item $S(\sigma\{x_0\mapsto t_0\} = (S\sigma)\{x_0\mapsto t_0\}$
-%	\end{enumerate}
-%\end{proof}
-
-\begin{example}The definitions \ref{def:interpretation} and \ref{def:model} 
-	allow undesirable models, 
-	e.g.~an interpretation $\mcI$ satisfies $\{ \ma\mNE\ma \}$ 
-		whenever ${\mEQ_\mcI} = \emptyset$.
-	Usually we expect at least that $\ma\mEQ_\mcI\ma$ holds in any interpretation.
+\begin{example}
+	The set of clauses $\{\,\lnot\mE(\mzero, \mf(x))\,\}$ is equisatisfiable to quantified first order formula $\exists x \forall y\,(\lnot \mE(x,y))$ without free variables.
 \end{example}
-
-\begin{definition}
-	An {\myem normal} interpretation defines $\mEQ_\mcI$ as equality on its domain,
-	e.g.~the equation of terms $s \mEQ_\mcI t$ holds if and only 
-	if any evaluation of its terms are equal $\alpha_\mcI(s) = \alpha_\mcI(t)$ 
-	for all assignments $\alpha$.
-\end{definition}
-
-\begin{definition}
-	A set of clauses $S$ is {\myem satisfiable} if and only if there is at least one model $\mcM$ for $S$. 
-	A set of clauses is  {\myem valid} if and only if all clauses hold in every interpretation.
-\end{definition}
 
 \begin{definition}\label{def:hk}
 	An {\myem Herbrand universe} is the smallest set of terms that contains all $H_{i\geq 0}$ of
@@ -159,46 +143,79 @@ The evaluation of ground terms does not depend on variable assignments.
 	and the interpretation of each ground term $t_\mcH := t$ is the term itself.
 \end{definition}
 
-%\begin{example}
-%	Consider the satisfiable set of clauses 
-%	$S = \{  
-%		\mP(\mf(x)) 
-%	\}$. 
-%	Let $H_S = \{ 
-%		\mc, \mf(\mc), \mf(\mc), \ldots, \mf^i(\mc), \ldots
-%	\}$ be the Hebrand universe for $S$.
-%	We define $\mf_I$ by mapping $\mc_I := \mc$,
-%	$\mf_I^{i+1}(x) := \mf (\mf_I^i(x))$
-%\end{example}
+\section{Equality and normal interpretations}
+
+In Definition \ref{def:semantics:atoms} we interpreted equality as binary relation without restrictions.
+This of course allows undesirable models as in Example \ref{ex:a:neq:a}.
+
+\begin{example}
+	\label{ex:a:neq:a}
+	Any interpretation $\mcI$ satisfies $\ma\mNE\ma$ 
+	whenever ${\mEQ_\mcI} = \emptyset$.
+\end{example}
 
 \begin{definition}
-	An {\myem term interpretation} 
+	An {\myem normal} interpretation defines $\mEQ_\mcI$ as equality on its domain,
+	e.g.~the equation of terms $s \mEQ_\mcI t$ holds if and only 
+	if any evaluation of its terms are equal $\alpha_\mcI(s) = \alpha_\mcI(t)$ 
+	for all assignments $\alpha$.
+\end{definition}
+
+\begin{definition}
+	A {\myem term interpretation} 
 	$\mcI_t$ 
 	is an interpretation 
 	where the elements of its domain $A = \mcTFf/_\sim$ 
-		are equivalence classes of ground terms
-		and the interpretation of each ground term $t^{\mcI_t} := [t]_\sim$ is its equivalence class.
-%		An equation $s\mEQ t$ of ground terms holds in if $[s]_\sim=[t]_\sim$.
-	 A ground predicate $\mP(t_1,\ldots,t_n)$ holds if 
-	 $([t_1]_\sim,\ldots,[t_n]_\sim) \in \mP^{\mcI_t} \subseteq A^n$.
-%	A ground literal does not hold if and only if its complementary literal holds.
-%	In an {\myem equational} term interpretation an equation $s\mEQ t$ holds if an only if $s\sim t$.
-	
+	are equivalence classes of ground terms
+	and the interpretation of each ground term $t^{\mcI_t} := [t]_\sim$ is its equivalence class.
+	%		An equation $s\mEQ t$ of ground terms holds in if $[s]_\sim=[t]_\sim$.
+	A ground predicate $\mP(t_1,\ldots,t_n)$ holds if 
+	$([t_1]_\sim,\ldots,[t_n]_\sim) \in \mP^{\mcI_t} \subseteq A^n$.
+	%	A ground literal does not hold if and only if its complementary literal holds.
+	%	In an {\myem equational} term interpretation an equation $s\mEQ t$ holds if an only if $s\sim t$.
 \end{definition}
+
+\begin{lemma}
+	A set of clauses (a formula) has a \emph{normal} model 
+	if it has a model that satisfies the 
+	{\myem equality axioms}
+	for all function and predicate symbols in the signature.
+	\begin{align*}
+		\forall x\, 
+		&\left(x \mEQ x\right) 
+		\tag*{reflexivity}
+		\\
+		\forall x \forall y\, 
+		&\left(x \mEQ y \limp y \mEQ x \right)
+		\tag*{symmetry} 
+		\\
+		\forall x \forall y \forall z\,
+		&\left(\vec x \mEQ y \land y\mEQ z \limp x\mEQ z\right) 
+		\tag*{transitiviy}
+		\\
+		\forall\vec{x}\,\forall\vec{y}\,
+		&\left(\vec{x}\mEQ\vec{y} \limp \mf(\vec{x}) \mEQ \mf(\vec{y}) \right)
+		\tag*{function congruence}
+		\\
+		\forall\vec{x}\,\forall\vec{y}\, 
+		&\left(\vec{x}\mEQ\vec{y} \limp (\mP(\vec{x}) \limp \mP(\vec{y}))\right)
+		\tag*{predicate congruence}
+	\end{align*}
+\end{lemma}
 
 \begin{example}
 	Consider the satisfiable set of clauses $S = \{ x \mEQ \mf(x) \}$. 
-%	
+	%	
 	We easily find a Herbrand model $\mcH$ with
 	predicate definition $\mEQ_\mcH = \{ (\mf^{i}(\ma)), \mf^{i+1}(\ma)) \mid i\geq 0  \} $. 
 	However $\mcH$ is not an normal model because obviously $\ma\neq\mf(\ma)$ in its domain.
-%	
+	%	
 	Further on we easily find an normal model $\mcM$ 
 	with domain $\{ \mc \}$, function definition $\mf_\mcM(\mc) \mapsto \mc$, 
 	and the relation ${\mEQ_\mcM} = \{ (\mc,\mc)\}$ coincides with equality in its domain.
 	Certainly this model $\mcM$ is not an Hebrand model 
 	because the interpretation of ground term ${\mf(\mc)}_\mcM \neq \mf(\mc)$ is not the term itself.
-%	
+	%	
 	On the other hand we easily get a normal term model $\mcM_t$ with domain $\{ [\ma]_\sim\}$, 
 	a plain function definition
 	$\mf_{\mcM_t}([\ma]_\sim) \mapsto [\ma]_\sim$ 
@@ -206,6 +223,8 @@ The evaluation of ground terms does not depend on variable assignments.
 	$\ma \sim \mf(\ma)$.
 	Hence $\mEQ_{\mcM_t}$ agrees to equality in its domain.	
 \end{example}
+
+
 
 
 \section{Term Rewriting}\label{sec:termrewriting}

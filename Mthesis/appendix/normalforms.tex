@@ -3,6 +3,10 @@
 % !TeX spellcheck = en_US
 
 \noindent We can assume that each variable of a formula is quantified exactly once. 
+\begin{enumerate}
+	\item For every subformula $\forall x\, G$ or $\exists x\, G$ of $F$ follows that $x\in\fvar(G)$.
+	\item A quantified variable does not appear outside the quantified subformula.
+\end{enumerate}
 We can achieve this by carefully renaming variables to unused variable names.
 
 \begin{example}We replace the formulae at the left hand side with an equivalent one.
@@ -10,12 +14,12 @@ We can achieve this by carefully renaming variables to unused variable names.
 	\forall x (\boxed{\mP(x) \land \forall {\colLo x} \mQ({\colLo x}, {\colG y})}) 
 	&\equiv 
 	\forall x (\mP(x) \land \forall {\colHi z}{\colN \forall y} \mQ({\colHi z}, {\colN y}))
-	\colG \equiv (\forall x\, \mP(x)) \land (\forall z \forall y\, \mQ(z,y))
+%	\colG \equiv (\forall x\, \mP(x)) \land (\forall z \forall y\, \mQ(z,y))
 	\\
 	\boxed{\forall x \mP(x)} \land \boxed{\forall {\colLo x} \mQ({\colLo x}, {\colG y})} 
 	&\equiv 
 	\forall x \mP(x) \land \forall {\colHi z}{\colN \forall y} \mQ({\colHi z}, {\colN y}) 
-	\colG\equiv \forall x \forall y (\mP(x) \land \mQ(x,y))
+%	\colG\equiv \forall x \forall y (\mP(x) \land \mQ(x,y))
 	)\\
 	\end{align*}
 \end{example}
@@ -35,7 +39,7 @@ We can achieve this by carefully renaming variables to unused variable names.
 	{\myem conjunctive prenex normal form}.
 \end{definition}
 
-\begin{lemma}
+\begin{lemma}\label{lem:transformation:PNF}
 	Any first order formula can be transformed 
 	into an equivalent prenex normal form 
 	by exhaustively using the following equivalences from left to right.
@@ -55,7 +59,7 @@ We can achieve this by carefully renaming variables to unused variable names.
 	whenever $x\not\in\var(G)$.
 \end{lemma}
 
-\begin{lemma}
+\begin{lemma}\label{lem:quantifier:equivalences}
 	\begin{align*}
 		(\forall x F) \land (\forall y G) &\equiv \forall x (F\land G\{y\mapsto x\})
 		&
@@ -75,6 +79,7 @@ We can achieve this by carefully renaming variables to unused variable names.
 		&
 		(\forall x F) \lor (\exists y G) &\equiv \exists y \forall x (F\lor G)
 	\end{align*}
+	whenever $x\not\in\fvar(G)$ and $y\not\in\fvar(F)$.
 \end{lemma}
 
 \begin{remark}

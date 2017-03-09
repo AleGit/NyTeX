@@ -7,45 +7,27 @@ In Section \ref{sec:syntax} we have already defined atomic formulae in Definitio
 but we can only build formulae in clausal normal form (\CNF) with Definition \vref{def:syntax:CNF}.
 Now we will define arbitrary first order formulae (\FOF).
 
-\begin{definition}[\FOF]\label{def:syntax:FOF}
-	Predicates and equations are (atomic) first order formulae. 
-	The negation $(\lnot F)$, 
-	the universal quantification $(\forall x F)$, 
-	and the existential quantification $(\exists x F)$ 
-	of a given formula $F$ are (composite) first order formulae.
-	Further, the disjunction $(F \lor F')$, 
-	the conjunction $(F \land F') $, 
-	and the implication $(F \limp F') \equiv (\lnot F) \lor F'$ 
-	of two given formulae $F$ and $F'$ 
-	are (composite) first order formulae.
-\end{definition}
+\CNF-Syntax Definition \vref{def:syntax:CNF},
+\CNF-Semantics Definition \vref{def:semantics:CNF},
+\FOF-Syntax Definition \vref{def:syntax:FOF}, and
+\FOF-Semantics Definition \vref{def:semantics:FOF}
+
+
 
 We've already defined when an atom holds for an assignment $\alpha_\mcI$ 
 in an interpretation $\mcI$ within Definition \vref{def:model}.
 Now we extend these definitions to first order formulae.
 
-\begin{definition}[Semantics of \FOF]\label{def:semantics:FOF}
-	
-	A universally quantified formula $\forall x F$ holds in $\mcI$ if its subformula $F$ holds for all assignments for $x$.
-	An existential quantified formula $\exists xF$ holds if its subformula $F$ holds for at least one assignment for $x$.
-	A negation $\lnot F$ holds if its subformula $F$ does not hold, 
-	a disjunction $F\lor F'$ holds if one or both of its subformulae $F$ or $F'$ hold,
-	a conjunction $F\land F'$ holds, if both of its subformualae $F$ and $F'$ hold, 
-	an implication $F\limp F'$ holds if its first subformula $F$ does not hold or its second subformula $F'$ holds (or both).
-\end{definition}
 
-
-\begin{remark}Usually we us precedences on connectives to omit parentheses 
-	and some heuristics to structure the formulae for readability 
-	without introducing semantic ambiguity.
 %
 	Beside the obvious semantically indistinguishable formulae with double negations, conjunctions, and disjunctions 
 	we have introduced new ones.
 	\begin{enumerate}
-		\item $\forall x F$, $\exists x F$, and $F$ are equivalent if $x\not\in\var(F)$. 
-		We usually omit quantifiers with variables that do occur free in the subformulae.
-		\item In general $\exists x F$ is different from $F$ if $x\in\var(F)$, e.g. $\exists x(x\mNE\ma)$ is satisfiable and $x\mNE\ma$ isn't.
-		\item $\forall x F$ and $F$ are equivalent even if $x\in\var(F)$, 
+		\item $\forall x F$, $\exists x F$, and $F$ are equivalent if $x\not\in\fvar(F)$. 
+		We usually omit quantifiers with variables that do not occur free in the subformula.
+		\item $\exists x F$ and $F$ are not equivalent if $x\in\fvar(F)$, 
+		e.g. $\exists x(x\mNE\ma)$ is satisfiable and $x\mNE\ma$ isn't.
+		\item $\forall x F$ and $F$ are equivalent even if $x\in\fvar(F)$, 
 		because in both cases we demand that $F$ holds in all assignments in our model.
 		Usually we keep these universal quantifiers in \FOF.
 		
@@ -55,5 +37,3 @@ Now we extend these definitions to first order formulae.
 		and $\exists a (\forall x ((x\mEQ a)\limp (a\mEQ x))$. 
 		\item A proposition $p$, i.e.~a nullary predicate symbol holds if $()\in p_\mcI \subseteq A^0$.
 	\end{enumerate}
-
-\end{remark}
