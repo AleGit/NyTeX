@@ -42,10 +42,14 @@ We will loosely relate it to formulae in prenex normal form (see Definition \ref
 
 \input{preliminaries/unifier}
 
+\input{preliminaries/positions}
+
 \section{Semantics}\label{sec:semantics}
 
 In this section we recall some basic aspects and definitions of semantics in first order logic. 
 We state satisfiability of clauses. See the appendix for more details and mathematics.
+
+\subsection{Models}
 
 \begin{definition}\label{def:interpretation}
 	An {\myem interpretation} $\mcI$ over a signature $\mcF$ consists of a
@@ -143,7 +147,7 @@ We state satisfiability of clauses. See the appendix for more details and mathem
 	and the interpretation of each ground term $t_\mcH := t$ is the term itself.
 \end{definition}
 
-\section{Equality and normal interpretations}
+\subsection{Equality}
 
 In Definition \ref{def:semantics:atoms} we interpreted equality as binary relation without restrictions.
 This of course allows undesirable models as in Example \ref{ex:a:neq:a}.
@@ -227,6 +231,7 @@ This of course allows undesirable models as in Example \ref{ex:a:neq:a}.
 
 
 
+
 \section{Term Rewriting}\label{sec:termrewriting}
 
 
@@ -240,42 +245,6 @@ This of course allows undesirable models as in Example \ref{ex:a:neq:a}.
 	such that 
 	$(\ell\rightarrow r)\varrho := \ell\varrho\rightarrow r\varrho = l'\rightarrow r'$.
 	A {\myem term rewrite system} is a set of rewrite rules without variants.
-\end{definition}
-
-\begin{definition}\label{def:position}
-	A {\myem position} is a finite sequence of positive integers.
-	The root position is the empty sequence $\epsilon$.
-	The position $pq$ is obtained by concatenation of positions $p$ and $q$.
-	%
-	The set of all positions of an term $t$ is defined as 
-	\DEFINE{ 
-		\pos(t) }
-	{
-		\{ \epsilon \} 		
-		& \text{if }t = x \in \mcV \\
-%		
-		\{ \epsilon \} \cup \bigcup_{i=1}^{n} \{ iq\mid q\in\pos(t_i) \}	
-		& \text{if }t=\mf(t_1,\ldots,t_n)\text{ where } \mf\in\mcFfn.
-	}
-The~{\myem subterm} $t|_p$ of an term $t$ {\myem at position} $p\in\pos(t)$ is defined as
-%
-\DEFINE{
-	t|_p
-}{
-	t 		& \text{if }p=\epsilon \\
-	t_i|_q	& \text{if }t=\mf(t_1,\ldots,t_n), p=iq, \mf\in\mcFfn, 0 < i \leq n
-}
-%
-With terms $s,t$ and position $p\in\pos(t)$ 
-the term $t[s]_p$ is gained by replacing the subterm in $t$ at position $p$ with term $s$.
-\DEFINE{
-	t[s]_p}
-{
-	s 		& \text{if }p=\epsilon \\
-	\mf(t_1,\ldots,t_i[s]_q,\ldots,t_n)	& \text{if }t=\mf(t_1,\ldots,t_n), p=iq, \mf\in\mcFfn, 0 < i \leq n
-}
-%A {\myem hole} denotes a special constant symbol $\ctxhole\in\mcFf^{(0)}$. 
-%A {\myem context} is a term $t$ with exactly one hole, i.e.~one occurrence $|t|_{\ctxhole}=1$.
 \end{definition}
 %
 \begin{definition}

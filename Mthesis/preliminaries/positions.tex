@@ -1,0 +1,47 @@
+% !TeX root = ../mthesis.tex
+% !TeX encoding = UTF-8
+% !TeX spellcheck = en_US
+
+\begin{definition}\label{def:position}
+	A {\myem position} is a finite sequence of positive integers.
+	The root position is the empty sequence $\epsilon$.
+	The position $pq$ is obtained by concatenation of positions $p$ and $q$.
+	%
+	A position $p$ is above a position $q$ if $p$ is a prefix of $q$, 
+	i.e.~there exists a unique position $r$ such that $pr = q$, 
+	we write $p\leq q$ and $q\backslash r = p$.
+	We write $p<q$ if $p$ is a proper prefix of $q$, i.e.~$p\leq q$ but $p\neq q$.
+	Two positions are parallel if none is above the other.
+	
+\end{definition}
+\begin{definition}
+	
+%	We define the set of positions of a term $t$,
+%	\DEFINE{ 
+%		\pos(t) }
+%	{
+%		\{ \epsilon \} 		
+%		& \text{if }t = x \in \mcV\\
+%		%		
+%		\{ \epsilon \} \cup \bigcup_{i=1}^{n} \{ iq\mid q\in\pos(t_i) \}	
+%		&	\text{if }t=\mf(t_1,\ldots,t_n)\text{ where } \mf\in\mcFfn.\\
+%	}
+	%
+	
+	\DEFINE{
+		t|_p
+	}{
+		t 		& \text{if }p=\epsilon \\
+		t_i|_q	& \text{if }t=\mf(t_1,\ldots,t_n), p=iq, \mf\in\mcFfn, 0 < i \leq n
+	}
+	%
+	and the insertion of a term at a position
+	\DEFINE{
+		t[s]_p}
+	{
+		s 		& \text{if }p=\epsilon \\
+		\mf(t_1,\ldots,t_i[s]_q,\ldots,t_n)	& \text{if }t=\mf(t_1,\ldots,t_n), p=iq, \mf\in\mcFfn, 0 < i \leq n
+	}
+	%A {\myem hole} denotes a special constant symbol $\ctxhole\in\mcFf^{(0)}$. 
+	%A {\myem context} is a term $t$ with exactly one hole, i.e.~one occurrence $|t|_{\ctxhole}=1$.
+\end{definition}

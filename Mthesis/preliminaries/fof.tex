@@ -10,7 +10,7 @@
 	of a given formula $F$ are (quantified) first order formulae.
 	Further, the disjunction $(F \lor F')$, 
 	the conjunction $(F \land F') $, 
-	and the implication $(F \limp F') \equiv (\lnot F) \lor F'$ 
+	and the imposlication $(F \limp F') \equiv (\lnot F) \lor F'$ 
 	of two given formulae $F$ and $F'$ 
 	are (composite) first order formulae.
 \end{definition}
@@ -23,13 +23,13 @@
 and the set of {\myem free} variables of a first order formula $F$.
 \DEFINE{\fvar(F)}{
 		\bigcup_{i=1}^n \var(t_i) &\text{if }F = P(t_1,\ldots,t_n)\text{ or }t_1\mEQ t_2 
+		\\
+		\fvar (G) \setminus \{ x\} &\text{if } F = \forall x\, G \text{ or } \exists x\, G
+		\\
+		\fvar(G) \cup \fvar(H)&\text{if }F = G\land H, G\lor H\text{ or } G\limp H
 %		\\
 %		\var(s) \cup \var(t) &\text{if }F = s\mEQ t
 		\\
 		\fvar(G)&\text{if }F = \lnot G
-		\\
-		\fvar(G) \cup \fvar(H)&\text{if }F = G\land H, G\lor H\text{ or } G\limp H
-		\\
-		\fvar (G) \setminus \{ x\} &\text{if } F = \forall x\, G \text{ or } \exists x\, G
 	}
 \end{definition}

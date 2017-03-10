@@ -22,20 +22,9 @@
 			\\
 			y					& \text{if }\mct=y\in\mcV\,\backslash\domain(\sigma)
 			\\
-			\mcf(\mct_1\sigma,\ldots,\mct_n\sigma)	&\text{if }\mct=\mcf(\mct_1,\ldots,\mct_n) 
+			\mysymbol(\mct_1\sigma,\ldots,\mct_n\sigma)	&\text{if }\mct=\mysymbol(\mct_1,\ldots,\mct_n) 
 			\text{ where  }
-			 \mcf\in\mcFn 
-%			 \tag*{\footnotemark}
-			\\
-%			P(t_1\sigma,\ldots,t_n\sigma)	&\text{if }\mct=P(t_1,\ldots,t_n), P\in\mcFPn \\
-%			s\sigma\mEQ t\sigma			&\text{if }\mct=s\mEQ t \\[0.5em]
-			\lnot(A\sigma)					&\text{if }\mct=\lnot A
-			\text{ where $A$ is an atom}
-%			\in\mcPT\disjointunion\mcET  
-			\\
-%			L_1\sigma\lor\ldots\lor L_n\sigma	&\text{if }\mct=L_1\lor\ldots\lor L_n 
-%			\text{ where $L_1,\ldots,L_n$ are literals}
-%			\\	
+			 \mysymbol\text{ is not a quantifier}
 }
 
 \noindent We define the instance of a clause as the multiset of the instances of its literals.
@@ -52,18 +41,16 @@ We define the {\myem composition} of two substitutions $\sigma$ and $\tau$ as fo
 	\end{align*}
 \end{definition}
 
-\begin{definition}
-	We write $F(x)$ for a clause or formula to express that $\fvar(F) = \{ x \}$
-	and we abbreviate $F(x)\{x\mapsto t\}$ with $F(t)$, i.e.~the only free variable in $F$ is substituted with term $t$.
-\end{definition}
-
-
-
 \begin{lemma}\label{lem:substitution}
 	With the definitions in \ref{def:substitution} and \ref{def:substcomp} the equation
 	$(\mct\sigma)\tau = \mct(\sigma\tau)$ holds for
 	arbitrary first order expressions and substitutions.
 \end{lemma}
+
+\begin{definition}
+	We write $F(x)$ for a clause or formula to express that $\fvar(F) = \{ x \}$
+	and we abbreviate $F(x)\{x\mapsto t\}$ with $F(t)$, i.e.~all occurrences of the only free variable in $F$ is substituted with term $t$.
+\end{definition}
 
 \begin{proof}
 	Assume $\sigma$ and $\tau$ are substitutions. 
