@@ -14,18 +14,26 @@
 	A {\myem renaming} is a bijective variable substitution.
 	A {\myem proper instantiator} is a substitution that is not a variable substitution.
 	We define the instance $\mct\sigma$ of a first order expression
-	respectively the application of a substitution $\sigma$ to a first order expression $\mct$ as follows
+	respectively the application of a substitution $\sigma$ to a first order expression $\foxt$ as follows
 	\DEFINE{
-		\mct\sigma
+		\foxt\sigma
 	}{
-			s_i 				& \text{if }\mct=x_i\in\domain(\sigma)
+			s_i 				& \text{if }\foxt=x_i\in\domain(\sigma)
 			\\
-			y					& \text{if }\mct=y\in\mcV\,\backslash\domain(\sigma)
+			y					& \text{if }\foxt=y\in\mcV\,\backslash\domain(\sigma)
 			\\
-			\mysymbol(\mct_1\sigma,\ldots,\mct_n\sigma)	&\text{if }\mct=\mysymbol(\mct_1,\ldots,\mct_n) 
+			\foxf(\foxt_1\sigma,\ldots,\foxt_n\sigma)	&\text{if }\foxt=\foxf(\foxt_1,\ldots,\foxt_n) 
 			\text{ where  }
-			 \mysymbol\text{ is not a quantifier}
+			 \foxf\text{ is not a quantifier}
+			 \\
+			 \mathtt{nil} & \text{otherwise}
 }
+
+\begin{remark}
+	We write $F(x)$ for a clause or formula to express that $\fvar(F) = \{ x \}$
+	and we abbreviate $F(x)\{x\mapsto t\}$ with $F(t)$, i.e.~all occurrences 
+	of the first and only free variable in $F$ is substituted with term $t$.
+\end{remark}
 
 \noindent We define the instance of a clause as the multiset of the instances of its literals.
 \end{definition}
@@ -46,11 +54,6 @@ We define the {\myem composition} of two substitutions $\sigma$ and $\tau$ as fo
 	$(\mct\sigma)\tau = \mct(\sigma\tau)$ holds for
 	arbitrary first order expressions and substitutions.
 \end{lemma}
-
-\begin{definition}
-	We write $F(x)$ for a clause or formula to express that $\fvar(F) = \{ x \}$
-	and we abbreviate $F(x)\{x\mapsto t\}$ with $F(t)$, i.e.~all occurrences of the only free variable in $F$ is substituted with term $t$.
-\end{definition}
 
 \begin{proof}
 	Assume $\sigma$ and $\tau$ are substitutions. 

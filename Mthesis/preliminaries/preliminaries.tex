@@ -92,7 +92,7 @@ We state satisfiability of clauses. See the appendix for more details and mathem
 	a disjunction $F\lor G$ holds if one or both of its subformulae $F$ or $G$ hold,
 	a conjunction $F\land G$ holds, if both of its subformualae $F$ and $G$ hold, 
 	an implication $F\limp G$ holds if its first subformula $F$ does not hold or its second subformula $F'$ holds (or both).
-	\begin{remark}Usually we us precedences on connectives to omit parentheses 
+	\begin{remark}Usually we use precedences on connectives to omit parentheses 
 		and some heuristics to structure the formulae for readability 
 		without introducing semantic ambiguity.
 	\end{remark}
@@ -116,7 +116,7 @@ We state satisfiability of clauses. See the appendix for more details and mathem
 \end{definition}
 
 \begin{example}
-	The set of clauses $\{\,\lnot\mE(\mzero, \mf(x))\,\}$ is equisatisfiable to quantified first order formula $\exists x \forall y\,(\lnot \mE(x,y))$ without free variables.
+	The set of clauses $\{\,\lnot\mE(\mzero, \mf(x))\,\}$ is satisfiable if and only if the quantified first order formula $\exists x \forall y\,(\lnot \mE(x,y))$ without free variables is satisfiable.
 \end{example}
 
 \begin{definition}\label{def:hk}
@@ -181,7 +181,7 @@ This of course allows undesirable models as in Example \ref{ex:a:neq:a}.
 
 \begin{lemma}
 	A set of clauses (a formula) has a \emph{normal} model 
-	if it has a model that satisfies the 
+	if and only if it has a model that satisfies the 
 	{\myem equality axioms}
 	for all function and predicate symbols in the signature.
 	\begin{align*}

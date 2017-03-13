@@ -11,37 +11,50 @@
 	i.e.~there exists a unique position $r$ such that $pr = q$, 
 	we write $p\leq q$ and $q\backslash r = p$.
 	We write $p<q$ if $p$ is a proper prefix of $q$, i.e.~$p\leq q$ but $p\neq q$.
-	Two positions are parallel if none is above the other.
+%	
+	Two positions $p\parallel q$ are parallel if none is above the other,
+	i.e.~for any common prefix $r$ both remaining tails
+	$p\backslash r$ and $q\backslash r$ are different and not root positions.
+	A position $p$ is left of position $q$ if $\mathtt{head}\ p\backslash r < \mathtt{head}\ p\backslash r$ 
+	for maximal common prefix $r$. 
 	
 \end{definition}
 \begin{definition}
 	
-%	We define the set of positions of a term $t$,
-%	\DEFINE{ 
-%		\pos(t) }
-%	{
-%		\{ \epsilon \} 		
-%		& \text{if }t = x \in \mcV\\
-%		%		
-%		\{ \epsilon \} \cup \bigcup_{i=1}^{n} \{ iq\mid q\in\pos(t_i) \}	
-%		&	\text{if }t=\mf(t_1,\ldots,t_n)\text{ where } \mf\in\mcFfn.\\
-%	}
-	%
-	
+	We define the set of term positions in term or atom $\foxt$,
+	\DEFINE{ 
+		\pos(\foxt) }
+	{
+		\{ \epsilon \} 		
+		& \text{if }\foxt = x \in \mcV\\
+		%		
+		\{ \epsilon \} \cup \bigcup_{i=1}^{n} \{ iq\mid q\in\pos(t_i) \}	
+		&	\text{if }\foxt=\mf(t_1,\ldots,t_n), \mf\in\mcFfn\\
+		%		
+		\bigcup_{i=1}^{n} \{ iq\mid q\in\pos(t_i) \}	
+		&	\text{if }\foxt=\mP(t_1,\ldots,t_n), \mP\in\mcFPn\\
+		%		
+		\{ 1q \mid q\in\pos(t_1) \} \cup \{ 2q \mid q\in\pos(t_2) \}	
+		&	\text{if }\foxt=t_1\mEQ t_2
+	}
+	the extraction of a subterm from a term or atom $\foxt$ at term position $p\in\pos(\foxt)$
+%	
 	\DEFINE{
-		t|_p
+		\foxt|_p
 	}{
-		t 		& \text{if }p=\epsilon \\
-		t_i|_q	& \text{if }t=\mf(t_1,\ldots,t_n), p=iq, \mf\in\mcFfn, 0 < i \leq n
+		\foxt 		& \text{if }p=\epsilon \\
+		\foxt_i|_q	& \text{if }t=\foxf(t_1,\ldots,t_n), p=iq, \foxf\in\mcFn
 	}
 	%
-	and the insertion of a term at a position
+	and the insertion of a term $s$ at a term position $p\in\pos(\foxt)$
 	\DEFINE{
-		t[s]_p}
+		\foxt[s]_p}
 	{
 		s 		& \text{if }p=\epsilon \\
-		\mf(t_1,\ldots,t_i[s]_q,\ldots,t_n)	& \text{if }t=\mf(t_1,\ldots,t_n), p=iq, \mf\in\mcFfn, 0 < i \leq n
+		\foxf(\foxt_1,\ldots,\foxt_i[s]_q,\ldots,\foxt_n)	& \text{if }t=\foxf(\foxt_1,\ldots,\foxt_n), p=iq, 
+		\foxf\in\mcFn, 0 < i \leq n
 	}
+where $p\neq\epsilon$ if $\foxt$ is an atom.
 	%A {\myem hole} denotes a special constant symbol $\ctxhole\in\mcFf^{(0)}$. 
 	%A {\myem context} is a term $t$ with exactly one hole, i.e.~one occurrence $|t|_{\ctxhole}=1$.
 \end{definition}
