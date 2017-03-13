@@ -11,6 +11,8 @@
 	i.e.~there exists a unique position $r$ such that $pr = q$, 
 	we write $p\leq q$ and $q\backslash r = p$.
 	We write $p<q$ if $p$ is a proper prefix of $q$, i.e.~$p\leq q$ but $p\neq q$.
+	$(head, tail)(iq) = (i,q)$ for $i\in\mathbb{N}, q\in\mathbb{N}^*$.
+	$length(\epsilon)=0, length(iq) = 1 + length(q)$
 %	
 	Two positions $p\parallel q$ are parallel if none is above the other,
 	i.e.~for any common prefix $r$ both remaining tails
@@ -21,7 +23,7 @@
 \end{definition}
 \begin{definition}
 	
-	We define the set of term positions in term or atom $\foxt$,
+	We define the set of {\myem term positions} of a term or atom,
 	\DEFINE{ 
 		\pos(\foxt) }
 	{
@@ -37,7 +39,7 @@
 		\{ 1q \mid q\in\pos(t_1) \} \cup \{ 2q \mid q\in\pos(t_2) \}	
 		&	\text{if }\foxt=t_1\mEQ t_2
 	}
-	the extraction of a subterm from a term or atom $\foxt$ at term position $p\in\pos(\foxt)$
+	the extraction of a subterm from a term or atom at a term position,
 %	
 	\DEFINE{
 		\foxt|_p
@@ -46,7 +48,7 @@
 		\foxt_i|_q	& \text{if }t=\foxf(t_1,\ldots,t_n), p=iq, \foxf\in\mcFn
 	}
 	%
-	and the insertion of a term $s$ at a term position $p\in\pos(\foxt)$
+	and the insertion of a term $s$ into a term or atom at a term position.
 	\DEFINE{
 		\foxt[s]_p}
 	{
