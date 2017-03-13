@@ -11,35 +11,46 @@
 	i.e.~there exists a unique position $r$ such that $pr = q$, 
 	we write $p\leq q$ and $q\backslash r = p$.
 	We write $p<q$ if $p$ is a proper prefix of $q$, i.e.~$p\leq q$ but $p\neq q$.
-	$(head, tail)(iq) = (i,q)$ for $i\in\mathbb{N}, q\in\mathbb{N}^*$.
-	$length(\epsilon)=0, length(iq) = 1 + length(q)$
+	$\head(iq)=i$, $\tail(iq) = q)$ for $i\in\mathbb{N}$, $q\in\mathbb{N}^*$.
+	$length(\epsilon)=0$, $\length(iq) = 1 + \length(q)$.
 %	
 	Two positions $p\parallel q$ are parallel if none is above the other,
 	i.e.~for any common prefix $r$ both remaining tails
 	$p\backslash r$ and $q\backslash r$ are different and not root positions.
-	A position $p$ is left of position $q$ if $\mathtt{head}\ p\backslash r < \mathtt{head}\ p\backslash r$ 
+	A position $p$ is left of position $q$ if $\head(p\backslash r) < \head(p\backslash r)$ 
 	for maximal common prefix $r$. 
 	
 \end{definition}
 \begin{definition}
 	
-	We define the set of {\myem term positions} of a term or atom,
+	We define the set of {\myem term positions} of an atom or a term,
 	\DEFINE{ 
 		\pos(\foxt) }
 	{
 		\{ \epsilon \} 		
 		& \text{if }\foxt = x \in \mcV\\
 		%		
-		\{ \epsilon \} \cup \bigcup_{i=1}^{n} \{ iq\mid q\in\pos(t_i) \}	
+		\{ \epsilon \} \cup\, \bigcup_{i=1}^{n} \{ iq\mid q\in\pos(t_i) \}	
 		&	\text{if }\foxt=\mf(t_1,\ldots,t_n), \mf\in\mcFfn\\
 		%		
-		\bigcup_{i=1}^{n} \{ iq\mid q\in\pos(t_i) \}	
+%		{\colG\xcancel{\{ \epsilon \}\, \cup }}
+%		\bigcup_{i=1}^{n} \{ iq\mid q\in\pos(t_i) \}	
+%		&	\text{if }\foxt=\mP(t_1,\ldots,t_n), \mP\in\mcFPn\\
+		%		
+		{\colG\pdfmarkupcomment[markup=StrikeOut,color=red,author=ALM]{
+			\{ \epsilon \} \cup}{}}
+		\bigcup_{i=1}^{n} \{ iq\mid q\in\pos(t_i) \}
 		&	\text{if }\foxt=\mP(t_1,\ldots,t_n), \mP\in\mcFPn\\
 		%		
+%		{\colG\xcancel{\{ \epsilon \}\, \cup }}\{ 1q \mid q\in\pos(t_1) \} \cup \{ 2q \mid q\in\pos(t_2) \}	
+%		&	\text{if }\foxt=t_1\mEQ t_2\\
+		%		
+		{\colG\pdfmarkupcomment[markup=StrikeOut,color=red,author=ALM]{
+			\{ \epsilon \} \cup}{}}
 		\{ 1q \mid q\in\pos(t_1) \} \cup \{ 2q \mid q\in\pos(t_2) \}	
 		&	\text{if }\foxt=t_1\mEQ t_2
 	}
-	the extraction of a subterm from a term or atom at a term position,
+	the extraction of a subterm from a term position in an atom or a term,
 %	
 	\DEFINE{
 		\foxt|_p
@@ -48,7 +59,7 @@
 		\foxt_i|_q	& \text{if }t=\foxf(t_1,\ldots,t_n), p=iq, \foxf\in\mcFn
 	}
 	%
-	and the insertion of a term $s$ into a term or atom at a term position.
+	and the insertion of a term $s$ at a term position in an atom or a term.
 	\DEFINE{
 		\foxt[s]_p}
 	{

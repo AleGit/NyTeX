@@ -13,8 +13,8 @@
 	A {\myem variable substitution} is a mapping from $\mcV$ to $\mcV\subseteq\mcTFfV$.
 	A {\myem renaming} is a bijective variable substitution.
 	A {\myem proper instantiator} is a substitution that is not a variable substitution.
-	We define the instance $\mct\sigma$ of a first order expression
-	respectively the application of a substitution $\sigma$ to a first order expression $\foxt$ as follows
+	We define the instance $\mct\sigma$ 
+	respectively the application of a substitution $\sigma$ to a literal or term $\foxt$ as follows
 	\DEFINE{
 		\foxt\sigma
 	}{
@@ -24,10 +24,10 @@
 			\\
 			\foxf(\foxt_1\sigma,\ldots,\foxt_n\sigma)	&\text{if }\foxt=\foxf(\foxt_1,\ldots,\foxt_n) 
 			\text{ where  }
-			 \foxf\text{ is not a quantifier}
-			 \\
-			 \mathtt{nil} & \text{otherwise}
-}
+			 \foxf\in\mcFn \\
+			 \lnot (A\sigma) &\text{if }\foxt = \lnot A, \text{ where } A\text{ is an atom}
+			 }
+We define the instance of a clause as the multiset of the instances of its literals.
 
 \begin{remark}
 	We write $F(x)$ for a clause or formula to express that $\fvar(F) = \{ x \}$
@@ -35,7 +35,7 @@
 	of the first and only free variable in $F$ is substituted with term $t$.
 \end{remark}
 
-\noindent We define the instance of a clause as the multiset of the instances of its literals.
+
 \end{definition}
 %\footnotetext{We use prefix and infix notation interchangable, e.g.
 %${\mEQ}(s,t)$ represents the same equation as $s\mEQ t$.}
