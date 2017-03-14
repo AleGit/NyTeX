@@ -179,33 +179,6 @@ This of course allows undesirable models as in Example \ref{ex:a:neq:a}.
 	%	In an {\myem equational} term interpretation an equation $s\mEQ t$ holds if an only if $s\sim t$.
 \end{definition}
 
-\begin{lemma}
-	A set of clauses (a formula) has a \emph{normal} model 
-	if and only if it has a model that satisfies the 
-	{\myem equality axioms}
-	for all function and predicate symbols in the signature.
-	\begin{align*}
-		\forall x\, 
-		&\left(x \mEQ x\right) 
-		\tag*{reflexivity}
-		\\
-		\forall x \forall y\, 
-		&\left(x \mEQ y \limp y \mEQ x \right)
-		\tag*{symmetry} 
-		\\
-		\forall x \forall y \forall z\,
-		&\left(\vec x \mEQ y \land y\mEQ z \limp x\mEQ z\right) 
-		\tag*{transitiviy}
-		\\
-		\forall\vec{x}\,\forall\vec{y}\,
-		&\left(\vec{x}\mEQ\vec{y} \limp \mf(\vec{x}) \mEQ \mf(\vec{y}) \right)
-		\tag*{function congruence}
-		\\
-		\forall\vec{x}\,\forall\vec{y}\, 
-		&\left(\vec{x}\mEQ\vec{y} \limp (\mP(\vec{x}) \limp \mP(\vec{y}))\right)
-		\tag*{predicate congruence}
-	\end{align*}
-\end{lemma}
 
 \begin{example}
 	Consider the satisfiable set of clauses $S = \{ x \mEQ \mf(x) \}$. 
@@ -228,7 +201,7 @@ This of course allows undesirable models as in Example \ref{ex:a:neq:a}.
 	Hence $\mEQ_{\mcM_t}$ agrees to equality in its domain.	
 \end{example}
 
-
+How we find a normal model or justify its existence we will discuss in Section \vref{sec:automation} about Automation.
 
 
 

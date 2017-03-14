@@ -18,7 +18,7 @@
 \end{lemma}
 
 \begin{theorem}[Completeness, Gödel 1929]
-	Natural deduction, a sound formal system, is complete.
+	Natural deduction (see subsection \vref{sec:natural:deduction}), a sound formal system, is complete.
 \end{theorem}
 
 \begin{theorem}
@@ -164,8 +164,25 @@ of first order logic where satisfiability is decidable.\footnote{
 \section{Theories in first oder logic}\label{sec:decidable:fol:theories}
 
 \begin{definition}(Theory)
-	
+	A theory is the possible infinite conjunction $\bigwedge A_i$ of universally quantified formulae, i.e. the axioms over the theory's signature. A theorem $\mathsf{th}$ is a closed (no free variables) formula over this signature
+	that holds in any model for the axioms and we write
+	\[
+		\bigwedge A_i \models \mathsf{th} 
+		\quad\text{ or }\quad
+		\bigwedge A_i \limp \mathsf{th} 
+	\]
 \end{definition}
+
+In refuational theorem proving we just negate the statement.
+\[
+	\lnot\left(\bigwedge A_i) \limp \mathsf{th}\right) \equiv
+	\lnot\left(\lnot\bigwedge A_i \lor \mathsf{(th)}\right) \equiv
+	\bigwedge A_i \land \lnot \mathsf{th}
+\]
+
+
+
+
 
 \subsection{Presburger arithmetic}
 
@@ -173,47 +190,40 @@ The signature of Presburger arithmetic contains two constant symbols $0,1$,
 one binary function symbol $+$ and the equality symbol $\mEQ$.
 %Let $G$ be an arbitrary first order expression over this signature.
 Then Table \ref{tab:presburger:axioms} states the axioms for Presburger arithmetic. 
-The last line states infinitely many induction axioms for arbitrary formulae $G$.
+The last line states the induction schema for any formulae $G$ where $\fvar(G) = \{ x \}$.
 
-\begin{table}[hbt]	
-\begin{gather*}
-\forall x\,\left(
-0 \mNE x + 1
-\right)
-\\
-\forall x\,\left(
-x + 0 \mEQ x
-\right)
-\\
-\forall x\forall y\,\left(
-x + 1 \mEQ y + 1 \limp x \mEQ y
-\right)
-\\
-\forall x\forall y\,\left(
-x+(y+1) \mEQ (x+y)+1
-\right)\\
-\underbrace{G(0)}_{\text{base}} 
-\land\, \forall x\,\underbrace{
-\left(G(x) \limp G(x+1)\right)
-}_{\text{step case}}
-\,\limp\, \forall y\,G(y)
-\tag{induction}
-\end{gather*}
-\caption{(Infinite) axiomisation of Presburger arithmetic}
-\label{tab:presburger:axioms}
+\begin{table}[hbt]
+	% ===================================
+	\input{AXIOMS/PresburgerArithmeticFOF}
+	% ===================================	
+	\caption{(Infinite) axiomisation of Presburger arithmetic}
+	\label{tab:presburger:axioms}
 \end{table}
+
+\begin{proof}[Natural deduction proof:] $0\mNE 1$ in Presburger arithmetic.
+	\begin{align*}
+	1 & &\forall x\,( 0 \mNE x + 1 ) \tag*{premise}\\
+	2 & &\forall x\,(x + 0 \mEQ x ) \tag*{premise}\\
+	3 & & 0 \mNE 0 + 1\tag*{$\forall$ e 1} \\
+	4 & & 1 + 0 \mEQ 1\tag*{$\forall$ e 2}
+	\end{align*}
+\end{proof}
 
 \begin{remark}
 	The axioms of Presburger arithmetic 
 cannot be stated in any decidable prenex class of first order logic,
-because the signature contains a binary function and the equality symbol.
-The induction axiom translates to the following prenex normal form.
-\[
+because the signature contains a binary function symbol \emph{and} the equality symbol.
+The induction axiom easily translates into the prenex normal form and clausal normal form.
+\begin{gather*}
 	\exists x \forall y \left(
-	\lnot G(0) \lor (G(x) \land \lnot G(x+1) \lor G(y)
-	\right)
-	\tag*{\PNF}
-\]
+	\lnot G(0) \lor ({\colG G(x)\land{}} \lnot G(x+1) \lor G(y)
+	\right)\tag*{\PNF}
+%	\\
+%	\equiv
+	\\
+	\lnot G(0) \lor \lnot G(\mc+1) \lor G(y)
+	\tag*{\CNF}
+\end{gather*}
 \end{remark}
 
 \begin{example}\label{ex:presburger:G}

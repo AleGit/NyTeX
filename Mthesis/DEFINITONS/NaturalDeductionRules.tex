@@ -1,0 +1,61 @@
+\begin{table}[hbt]
+\begin{gather*}
+	\infer[\land i]{F\land G}{F & G} \qquad
+	\infer[\land e_1]{G}{F \land G} \qquad
+	\infer[\land e_2]{F}{F \land G} 
+	\\
+	\infer[\lnot\lnot i]{\lnot\lnot F}{F} \qquad
+	\infer[\lnot\lnot e]{F}{\lnot\lnot F} \qquad
+	\\
+	\infer[\text{modus ponens}]{\lnot G}{F & F\limp G}
+		\qquad
+	\infer[\text{modus tollens}]{\lnot F}{F\limp G & \lnot G}
+	\\
+	\infer[\limp i]{F\limp G}{
+	\boxed{\begin{array}{c}F\\\vdots\\G\end{array}
+	}}
+\qquad
+\infer[\lor e]{H}{
+	F\lor G &
+	\boxed{\begin{array}{c}F\\\vdots\\H\end{array}} &
+	\boxed{\begin{array}{c}G\\\vdots\\H\end{array}}
+}
+\\
+\infer[\lor i_1]{F\lor G}{F}
+	\qquad
+\infer[\lor i_2]{F\lor G}{G}
+\\
+\infer[\bot e]{F}{\bot}
+\qquad
+\infer[\lnot e]{\bot}{F & \lnot F}
+\qquad
+\infer[\lnot i]{F}{
+	\boxed{\begin{array}{c}F\\\vdots\\\bot\end{array}}}
+\\
+\infer[PBC]{F}{
+	\boxed{\begin{array}{c}\lnot F\\\vdots\\\bot\end{array}}}
+\qquad
+\infer[LEM]{F\lor\lnot F}{}
+\\
+\infer[=i]{t=t}{}
+\qquad
+\infer[=e]{F\{x\mapsto t\}}{s=t & F\{x\mapsto s\}}
+\\
+\infer[\forall e]{F\{x\to t\}}{
+	\forall x F
+}
+\qquad
+\infer[\forall i]{\forall F}{
+	\boxed{\begin{array}{cc}x_0\\&\vdots\\&F\{x\mapsto x_0\}\end{array}}
+}
+\\
+\infer[\exists i]{\exists x F}{
+	F\{x\mapsto x_0 \}
+}
+\qquad
+\infer[\exists e]{H}{
+	\exists x F &
+	\boxed{\begin{array}{cc}x_0&F\{x\mapsto x_0 \}\\&\vdots\\&H\end{array}}
+}
+\end{gather*}
+\end{table}

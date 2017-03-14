@@ -62,6 +62,8 @@ eventually.
 %
 %There are some optimization to this transformation, e.g.~by Plaisted and Greenbaum in 1986 \cite{PLAISTED1986293}.
 
+
+
 \section{Clausal form}
 
 \begin{table}[hbt]	
@@ -832,7 +834,41 @@ S_0 \disjointunion
 
 \section{Equality}
 
-The equality axioms only matches the conditions in \vref{lem:schoenfinkel}.
+So far we has treated the equaltiy symbol like an predicate symbol.
+
+\begin{lemma}
+	A set of clauses (a formula) has a \emph{normal} model 
+	if and only if it has a model that satisfies the 
+	{\myem equality axioms}
+	for all function and predicate symbols in the signature.
+	\begin{align*}
+	\forall x\, 
+	&\left(x \mEQ x\right) 
+	\tag*{reflexivity}
+	\\
+	\forall x \forall y\, 
+	&\left(x \mEQ y \limp y \mEQ x \right)
+	\tag*{symmetry} 
+	\\
+	\forall x \forall y \forall z\,
+	&\left(\vec x \mEQ y \land y\mEQ z \limp x\mEQ z\right) 
+	\tag*{transitiviy}
+	\\
+	\forall\vec{x}\,\forall\vec{y}\,
+	&\left(\vec{x}\mEQ\vec{y} \limp \mf(\vec{x}) \mEQ \mf(\vec{y}) \right)
+	\tag*{function congruence}
+	\\
+	\forall\vec{x}\,\forall\vec{y}\, 
+	&\left(\vec{x}\mEQ\vec{y} \limp (\mP(\vec{x}) \limp \mP(\vec{y}))\right)
+	\tag*{predicate congruence}
+	\end{align*}
+\end{lemma}
+
+We add add the equaltiy axioms to our set of clauses and see what happens.
+
+\begin{remark}
+	The only decidable fragment of first order logic where we can state the equality axioms is the Schönfinkel-Bernays-Ramsey class.
+\end{remark}
 
 \begin{example} The ordered resolution inference rule yields one tautology from congruence and injectivity,
 	which we can ignore.
@@ -850,15 +886,15 @@ The equality axioms only matches the conditions in \vref{lem:schoenfinkel}.
 	{\colN 0 \mNE \msucc(x)}
 	\tag*{$0\not\in\img(\msucc)$}
 	\end{align*}
-%	\begin{align*}
-%	\infer[]
-%	{ x\mNE y\lor x\mEQ y}
-%	{
-%		{\colN \msucc(x) \mEQ \msucc(y)} \lor x\mNE y 
-%		&
-%		x \mEQ y \lor {\colN \msucc(x) \mNE \msucc(y)}
-%	}
-%	\end{align*}
+	\begin{align*}
+	\infer[]
+	{ x\mNE y\lor x\mEQ y}
+	{
+		{\colN \msucc(x) \mEQ \msucc(y)} \lor x\mNE y 
+		&
+		x \mEQ y \lor {\colN \msucc(x) \mNE \msucc(y)}
+	}
+	\end{align*}
 \end{example}
 
 \begin{example} When we look at the grounding we notice that selection process is unfortunate,
@@ -872,7 +908,7 @@ The equality axioms only matches the conditions in \vref{lem:schoenfinkel}.
 	\lor {\colLo \consbot \mNE \consbot} 
 	\lor {\colLo \consbot\mNE \consbot}
 	\tag*{transitivity}\\
-	{\colHi \msucc(x) \mEQ \msucc(y)} \lor {\colLo \consbot \mNE \consbot}
+	{\colHi \msucc(\consbot) \mEQ \msucc(\consbot)} \lor {\colLo \consbot \mNE \consbot}
 	\tag*{congruence}\\[0.5em]
 	{ \consbot \mEQ \consbot} \lor {\colLo \msucc(x) \mNE \msucc(y)}
 	\tag*{injectivity}\\
