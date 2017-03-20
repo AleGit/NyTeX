@@ -163,22 +163,26 @@ of first order logic where satisfiability is decidable.\footnote{
 
 \section{Theories in first oder logic}\label{sec:decidable:fol:theories}
 
-\begin{definition}(Theory)
-	A theory is the possible infinite conjunction $\bigwedge A_i$ of universally quantified formulae, i.e. the axioms over the theory's signature. A theorem $\mathsf{th}$ is a closed (no free variables) formula over this signature
-	that holds in any model for the axioms and we write
+\begin{definition}
+	A {\myem first order theory} is a pair of a first order signature and the possible infinite conjunction $\bigwedge A_i$ of first order formulae, i.e.~the axioms, over the theory's signature. A {\myem theorem} is a closed formula, i.e.~it has no free variables, over this signature that holds in any model for the axioms.
 	\[
-		\bigwedge A_i \models \mathsf{th} 
+		\bigwedge A_i \models \mathsf{theorem} 
 		\quad\text{ or }\quad
-		\bigwedge A_i \limp \mathsf{th} 
+		\bigwedge A_i \limp \mathsf{theorem} 
 	\]
 \end{definition}
-
-In refuational theorem proving we just negate the statement.
+%
+\noindent 
+In refuational theorem proving
+we just have to show the unsatisfiabilty 
+of the negated conjecture in conjunction with the axioms
+to prove that a conjecture is indeed a theorem.
 \[
-	\lnot\left(\bigwedge A_i) \limp \mathsf{th}\right) \equiv
-	\lnot\left(\lnot\bigwedge A_i \lor \mathsf{(th)}\right) \equiv
-	\bigwedge A_i \land \lnot \mathsf{th}
+	\lnot\left(\bigwedge A_i) \limp \mathsf{conj}\right) \equiv
+	\lnot\left(\lnot\bigwedge A_i \lor \mathsf{(conj)}\right) \equiv
+	\bigwedge A_i \land \lnot \mathsf{conj}
 \]
+
 
 
 
