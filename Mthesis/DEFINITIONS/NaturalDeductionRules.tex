@@ -1,3 +1,7 @@
+% !TeX root = ../extras.tex
+% !TeX encoding = UTF-8
+% !TeX spellcheck = en_US
+
 \begin{table}[hbt]
 \begin{gather*}
 	\infer[\land i]{F\land G}{F & G} \qquad
@@ -29,7 +33,7 @@
 \qquad
 \infer[\lnot e]{\bot}{F & \lnot F}
 \qquad
-\infer[\lnot i]{F}{
+\infer[\lnot i]{\lnot F}{
 	\boxed{\begin{array}{c}F\\\vdots\\\bot\end{array}}}
 \\
 \infer[PBC]{F}{
@@ -58,4 +62,6 @@
 	\boxed{\begin{array}{cc}x_0&F\{x\mapsto x_0 \}\\&\vdots\\&H\end{array}}
 }
 \end{gather*}
+\caption{Natural Deduction Rules}
+\label{tab:natural:deduction:rules}
 \end{table}

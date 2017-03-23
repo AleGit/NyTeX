@@ -1,69 +1,38 @@
 % !TeX encoding = UTF-8
 % !TeX spellcheck = en_UK
 
-%% https://en.wikibooks.org/wiki/LaTeX/Document_Structure
-\documentclass[]{clmthesis}
+\documentclass[]{clseminar}
 
 %% https://en.wikibooks.org/wiki/LaTeX/Modular_Documents
 \input{mystyle/Packages.tex}	% \usepackage{mystyle}	
 
-%\includeonly{
-%%	introduction/introduction,
-%	preliminaries/preliminaries,
-%%	proving/proving,
-%%	epr/epr,
-%%	flea/flea,
-%%	conclusion/conclusion,
-%%	appendix/main
-%}
-
 \begin{document}
-% \nocite{*}
+ \nocite{*}
 
 % BEGIN: titlepage setup -------------------------------------------
 \title{Yet another first order theorem prover with equality}
-\plaintitle{Theorem prover with equality}
+\plaintitle{Extras}
 \mailaddress{alexander.maringele@uibk.ac.at}
 \matriculationnumber{8517725}
 \author{Alexander~Maringele}
 \plainauthor{Alexander~Maringele}
 \date{\today}
 \supervisor{Assoc.~Prof.~Dr.~Georg~Moser}
-\institute{Institute of Computer Science}
+%\institute{Institute of Computer Science}
 
-\abstract{Instantiation-based ...}
+%\abstract{Instantiation-based ...}
 % END: titlepage setup ----------------------------------------------
 
 
 %\acknowledgments{Thanks.}
 %\maketitle
-\tableofcontents
+%\tableofcontents
 
 %====================================================================
 % BEGIN: CONTENT ----------------------------------------------------
 %====================================================================
 
-\include{introduction/introduction}
-\include{preliminaries/preliminaries}
-\include{content/decidability}
-\include{proving/proving}
-
-
-\include{epr/epr}
-\include{flea/flea}
-\include{other/other}
-\include{flea/conclusion}
-\include{conclusion/conclusion}
-\include{future/future}
-
-%\section{Theorem proving without equality}
-%\subsection{Resolution}
-%\subsection{Instantiation-based}
-%\section{Theorem proving with equality}
-%\subsection{Superposition}
-%\subsection{Instantiation-based}
-%\section{iProver-Eq}
-%\section{Conclusion}
+\input{DEFINITIONS/NaturalDeductionRules}
 
 
 %===================================================================
@@ -72,17 +41,17 @@
 
 %\cleardoublepage
 %\phantomsection
-\addcontentsline{toc}{chapter}{\listfigurename}\listoffigures
+%\addcontentsline{toc}{chapter}{\listfigurename}\listoffigures
 
-\addcontentsline{toc}{chapter}{\listtablename}\listoftables
+%\addcontentsline{toc}{chapter}{\listtablename}\listoftables
 
 %\Glasnadel
 %\printglossaries
 
 % BEGIN: appendix ----------------------------------------------------
 \appendix
+%\bibliographystyle{plain}
 
-\include{appendix/appendix}
 
 % END: appendix ------------------------------------------------------
 

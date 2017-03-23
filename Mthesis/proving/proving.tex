@@ -64,22 +64,66 @@ eventually.
 
 
 
-\section{Clausal form}
+\section{Prenex CNF and clausal form}
+
+In the previous chapter we stated theories in \FOF. 
+Table \ref{tab:presburger:axioms:clauses} shows all the axioms translated into clausal normal form.
+
+\begin{table}[hbt]	
+	\begin{align*}
+	x\mEQ x,\ 
+	x\mNE y\lor y\mEQ x,\ 
+	x\mNE y\lor y\mNE z\lor x\mEQ z
+	\tag*{equivalence}
+	\\
+	x\mNE y\lor \msucc(x)\mEQ\msucc(y) 
+	\tag*{congruence of $\msucc$}
+	\\
+	\msucc(x) \mNE 0,\ 
+	\msucc(x) \mNE \msucc(y) \lor x \mEQ y
+	\tag*{natural numbers}
+	\\
+	x_1\mNE y_1\lor x_2\mNE y_2\lor x_1+y_1 \mEQ x_2+y_2
+	\tag*{congruence of $+$}
+	\\
+	x + 0 \mEQ x,\ 
+	x+\msucc(x) \mEQ \msucc(x+y)
+	\tag*{addition}
+	\\[0.5em]
+	\lnot G_i(0) \lor \boxed{G(\mc_i)} \lor G_i(y),\ 
+	\lnot G_i(0) \lor \boxed{\lnot G_i(\msucc(\mc_i))} \lor G_i(z)
+	\tag*{induction schema}
+	\end{align*}
+	\caption{Clausal axioms and induction schema for Presburger arithmetic}
+	\label{tab:presburger:axioms:clauses}
+\end{table}
 
 \begin{table}[hbt]	
 	\begin{gather*}
-	x+1 \mNE 0
+	0+0\mNE 0
+	\lor\boxed{0+\mc_1\mEQ \mc_1}
+	\lor 0+z\mEQ z
 	\\
-	x + 0 \mEQ x
-	\\
-	x + 1 \mNE y + 1 \lor x \mEQ y
-	\\
-	x+(y+1) \mEQ (x+y)+1
-	\\
-	\lnot G(0) \lor G(k) \lor G(x), \lnot G(0) \lor \lnot G(k+1) \lor G(x)
+	0+0\mNE 0
+	\lor\boxed{0+\msucc(\mc_1)\mNE \msucc(\mc_1)} 
+	\lor 0+z\mEQ z
 	\end{gather*}
-	\caption{Clauses for Presburger arithmetic}
-	\label{tab:presburger:axioms:clauses}
+	\caption{Induction axioms for neutral element}
+	\label{tab:presburger:induction:clauses}
+\end{table}
+
+\begin{table}[hbt]	
+	\begin{gather*}
+	{0+y\mNE y+0} 
+	\lor\boxed{\mc_2+y\mEQ y+\mc_2} 
+	\lor{z+y\mEQ y+z} 
+	\\
+	0+y\mNE y+0 \lor 
+	\boxed{\msucc(\mc_2)+y\mNE y+\msucc(\mc_2)} 
+	\lor z+y\mEQ y+z
+	\end{gather*}
+	\caption{Induction axioms for commutativity}
+	\label{tab:presburger:induction:commutativity}
 \end{table}
 
 
@@ -507,6 +551,18 @@ which was the starting point for the development of efficient propositionally sa
 		&{\colLo \lnot\mE(\msucc^i(\mzero),\msucc^{i+1}(x))}
 	}
 	\tag{$i\geq 0$}
+	\\
+	\infer[y\mapsto\msucc(\msucc(0)),y'\mapsto\msucc(\msucc(\msucc(x)))]{
+		\msucc(\msucc(\msucc(0)))\mNE\msucc(\msucc(\msucc(\msucc(x))))
+	}{\circ &
+	\infer[y\mapsto\msucc(0),y'\mapsto(\msucc\msucc(x))]{
+		\msucc(\msucc(0))\mNE\msucc(\msucc(\msucc(0)))
+	}{\circ&
+	\infer[y\mapsto 0, y'\mapsto\msucc(0)]
+	{ \msucc(0)\mNE\msucc(\msucc(0))}
+	{ y\mEQ y' \lor \msucc(y)\mNE\msucc(y') & 0 \mNE \msucc(x)}
+}
+}
 	\end{gather*}
 \end{example}
 
@@ -834,44 +890,25 @@ S_0 \disjointunion
 
 \section{Equality}
 
-So far we has treated the equaltiy symbol like an predicate symbol.
+So far we have treated the equaltiy symbol like a binary predicate symbol, 
+which can yield models where $\ma\mNE\ma$ holds. 
+Understandably, we are only interested in normal models or 
+at least in models that implies the existence of a normal model.
 
 \begin{lemma}
 	A set of clauses (a formula) has a \emph{normal} model 
 	if and only if it has a model that satisfies the 
-	{\myem equality axioms}
-	for all function and predicate symbols in the signature.
-	\begin{align*}
-	\forall x\, 
-	&\left(x \mEQ x\right) 
-	\tag*{reflexivity}
-	\\
-	\forall x \forall y\, 
-	&\left(x \mEQ y \limp y \mEQ x \right)
-	\tag*{symmetry} 
-	\\
-	\forall x \forall y \forall z\,
-	&\left(\vec x \mEQ y \land y\mEQ z \limp x\mEQ z\right) 
-	\tag*{transitiviy}
-	\\
-	\forall\vec{x}\,\forall\vec{y}\,
-	&\left(\vec{x}\mEQ\vec{y} \limp \mf(\vec{x}) \mEQ \mf(\vec{y}) \right)
-	\tag*{function congruence}
-	\\
-	\forall\vec{x}\,\forall\vec{y}\, 
-	&\left(\vec{x}\mEQ\vec{y} \limp (\mP(\vec{x}) \limp \mP(\vec{y}))\right)
-	\tag*{predicate congruence}
-	\end{align*}
+	{\myem equality axioms}, i.e.~reflexivity, symmetry, transitivity, 
+	and congruence for all function symbols $\mf\in\mcFf$
+	and all predicate symbols $\mP\in\mcFP$.
 \end{lemma}
-
-We add add the equaltiy axioms to our set of clauses and see what happens.
 
 \begin{remark}
 	The only decidable fragment of first order logic where we can state the equality axioms is the Schönfinkel-Bernays-Ramsey class.
 \end{remark}
 
 \begin{example} The ordered resolution inference rule yields one tautology from congruence and injectivity,
-	which we can ignore.
+	which we will ignore.
 	\begin{align*}
 	\colN x \mEQ x
 	\tag*{$\mEQ$-reflexivity}\\
@@ -888,7 +925,7 @@ We add add the equaltiy axioms to our set of clauses and see what happens.
 	\end{align*}
 	\begin{align*}
 	\infer[]
-	{ x\mNE y\lor x\mEQ y}
+	{\colHi x\mNE y\lor x\mEQ y}
 	{
 		{\colN \msucc(x) \mEQ \msucc(y)} \lor x\mNE y 
 		&
@@ -913,6 +950,24 @@ We add add the equaltiy axioms to our set of clauses and see what happens.
 	{ \consbot \mEQ \consbot} \lor {\colLo \msucc(x) \mNE \msucc(y)}
 	\tag*{injectivity}\\
 	{\colHi 0 \mNE \msucc(x)}
+	\end{align*}
+	\begin{align*}
+	\infer[x\mapsto 0, y\mapsto \msucc(x') ]
+	{ 0\mEQ\msucc(x')\lor \msucc(x')\mEQ 0}
+	{
+		0 \mNE\msucc(x')
+		&
+		x\mEQ y\lor y\mNE x
+	}
+\\
+%
+\infer[x\mapsto 0, y\mapsto \msucc(x') ]
+{ 0\mEQ\msucc(x')\lor \msucc(x')\mEQ 0}
+{
+	0 \mNE \msucc(x')
+	&
+	x \mEQ y \lor \msucc(x)\mNE \msucc(y)	
+}
 	\end{align*}
 \end{example}
 
@@ -968,43 +1023,43 @@ We add add the equaltiy axioms to our set of clauses and see what happens.
 	Consider the set of clauses $\{ \mc \mEQ \mb \}$. Here we don't find a Hebrand model where the equality symbol is interpreted as equality on its domain.
 \end{example}
 
-\begin{align*}
-	 x \mEQ x & \tag*{reflexivity} \\
-	x \mNE y \lor y \mEQ x & \tag*{symmetry}\\
-	x\mNE y\lor y\mNE z\lor x\mEQ z & \tag*{transitivity} \\
-	x_1 \mNE y_1\lor\ldots\lor x_n \mNE y_n\lor f(x_1,\ldots,x_n)\mEQ f(y_1,\ldots,y_n) &\quad f\in\mcFfn
-	\tag*{f-congruence}
-	\\
-	x_1\mNE y_1\lor\ldots\lor x_n\mNE y_n\lor\lnot P_i(x_1,\ldots,x_n)\lor P(y_i,\ldots,y_n) &\quad P\in\mcFPn
-	\tag*{P-congruence}
-	\\[0.7em]
-	x_1\mNE y_1\lor x_2\mNE y_2
-	\lor x_1\mNE x_2
-	\lor y_1\mEQ y_2
-	\tag*{$\mEQ$-congruence}
-\end{align*}
+%\begin{align*}
+%	 x \mEQ x & \tag*{reflexivity} \\
+%	x \mNE y \lor y \mEQ x & \tag*{symmetry}\\
+%	x\mNE y\lor y\mNE z\lor x\mEQ z & \tag*{transitivity} \\
+%	x_1 \mNE y_1\lor\ldots\lor x_n \mNE y_n\lor f(x_1,\ldots,x_n)\mEQ f(y_1,\ldots,y_n) &\quad f\in\mcFfn
+%	\tag*{f-congruence}
+%	\\
+%	x_1\mNE y_1\lor\ldots\lor x_n\mNE y_n\lor\lnot P_i(x_1,\ldots,x_n)\lor P(y_i,\ldots,y_n) &\quad P\in\mcFPn
+%	\tag*{P-congruence}
+%	\\[0.7em]
+%	x_1\mNE y_1\lor x_2\mNE y_2
+%	\lor x_1\mNE x_2
+%	\lor y_1\mEQ y_2
+%	\tag*{$\mEQ$-congruence}
+%\end{align*}
 
-\begin{align*}
-	x \mEQ x & \tag*{reflexivity} 
-	\\
-	x \mEQ y \limp y \mEQ x & \tag*{symmetry}
-	\\
-	(x\mEQ y\land y\mEQ z)\limp x\mEQ z & \tag*{transitivity} 
-	\\
-	(x_1 \mEQ y_1\land\ldots\land x_n \mEQ y_n)\limp f(x_1,\ldots,x_n)\mEQ f(y_1,\ldots,y_n) &\quad f\in\mcFfn
-	\tag*{f-congruence}
-	\\
-	x_1\mEQ y_1\land\ldots\land x_n\mNE y_n\land P_i(x_1,\ldots,x_n)
-	\limp P(y_i,\ldots,y_n) &\quad P\in\mcFPn
-	\tag*{P-congruence}
-	\\[0.7em]
-	(x_1\mEQ y_1
-	\land x_2\mEQ y_2
-	\land x_1\mEQ x_2)
-	\limp y_1\mEQ y_2
-	& \quad P\in\mcFPn[2]
-		\tag*{$\mEQ$-congruence}
-\end{align*}
+%\begin{align*}
+%	x \mEQ x & \tag*{reflexivity} 
+%	\\
+%	x \mEQ y \limp y \mEQ x & \tag*{symmetry}
+%	\\
+%	(x\mEQ y\land y\mEQ z)\limp x\mEQ z & \tag*{transitivity} 
+%	\\
+%	(x_1 \mEQ y_1\land\ldots\land x_n \mEQ y_n)\limp f(x_1,\ldots,x_n)\mEQ f(y_1,\ldots,y_n) &\quad f\in\mcFfn
+%	\tag*{f-congruence}
+%	\\
+%	x_1\mEQ y_1\land\ldots\land x_n\mNE y_n\land P_i(x_1,\ldots,x_n)
+%	\limp P(y_i,\ldots,y_n) &\quad P\in\mcFPn
+%	\tag*{P-congruence}
+%	\\[0.7em]
+%	(x_1\mEQ y_1
+%	\land x_2\mEQ y_2
+%	\land x_1\mEQ x_2)
+%	\limp y_1\mEQ y_2
+%	& \quad P\in\mcFPn[2]
+%		\tag*{$\mEQ$-congruence}
+%\end{align*}
 	
 	
 
