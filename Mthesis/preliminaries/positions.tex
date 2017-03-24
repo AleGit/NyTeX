@@ -7,12 +7,12 @@
 	The root position is the empty sequence $\epsilon$.
 	The position $pq$ is obtained by concatenation of positions $p$ and $q$.
 	%
-	A position $p$ is above a position $q$ if $p$ is a prefix of $q$, 
+	A position $p$ is {\myem above} a position $q$ if $p$ is a prefix of $q$, 
 	i.e.~there exists a unique position $r$ such that $pr = q$, 
 	we write $p\leq q$ and $q\backslash r = p$.
 	We write $p<q$ if $p$ is a proper prefix of $q$, i.e.~$p\leq q$ but $p\neq q$.
-	$\head(iq)=i$, $\tail(iq) = q)$ for $i\in\mathbb{N}$, $q\in\mathbb{N}^*$.
-	$length(\epsilon)=0$, $\length(iq) = 1 + \length(q)$.
+	We define $\head(iq)=i$ and $\tail(iq) = q)$ for $i\in\mathbb{N}$, $q\in\mathbb{N}^*$,
+	further $\length(\epsilon)=0$, $\length(iq) = 1 + \length(q)$.
 %	
 	Two positions $p\parallel q$ are parallel if none is above the other,
 	i.e.~for any common prefix $r$ both remaining tails
@@ -63,11 +63,11 @@
 	\DEFINE{
 		\foxt[s]_p}
 	{
-		s 		& \text{if }p=\epsilon \\
+		s 		& \text{if }p=\epsilon, \colG(\mct\text{ is a term}) \\
 		\foxf(\foxt_1,\ldots,\foxt_i[s]_q,\ldots,\foxt_n)	& \text{if }t=\foxf(\foxt_1,\ldots,\foxt_n), p=iq, 
 		\foxf\in\mcFn, 0 < i \leq n
 	}
-where $p\neq\epsilon$ if $\foxt$ is an atom.
+%where $p\neq\epsilon$ if $\foxt$ is an atom.
 	%A {\myem hole} denotes a special constant symbol $\ctxhole\in\mcFf^{(0)}$. 
 	%A {\myem context} is a term $t$ with exactly one hole, i.e.~one occurrence $|t|_{\ctxhole}=1$.
 \end{definition}

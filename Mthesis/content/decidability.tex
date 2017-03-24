@@ -169,40 +169,38 @@ We follow definitions and examples in \cite{AM2015L}.
 
 \begin{definition}[Theory]
 	A {\myem first order theory} is a pair of a first order signature 
-	and the possible infinite conjunction $\bigwedge A_i$ of first order formulae, 
+	and the possible infinite conjunction $\bigwedge_i A_i$ of first order formulae, 
 	i.e.~the axioms, over the theory's signature. 
-	
-	A sentence $\Phi$, i.e.~a closed formula with no free variables, 
-	over a theory's signature
-	holds in that theory 
-	if it holds in any model for the theory's axioms.
+	A theory is satisfiable if there exists a model for the its axioms.
+%	
+	A sentence over a theory's signature is a {\myem theorem} in the theory 
+	if and only if it holds in any model for the theory's axioms.
 	\[
 		\bigwedge_i A_i \models \mathsf{theorem} 
 		\quad\text{ or }\quad
 		\bigwedge_i A_i \limp \mathsf{theorem} 
 	\]
-	A theory is satisfiable if $\mcM\models\bigwedge A_i$ for some model $\mcM$.
-	A theory is decidable if $\bigwedge_i A_i \stackrel{\Large ?}{\models} \Phi$ for arbitrary $\Phi$
-	is decidable.
+	A theory is decidable if it is decidable whether an arbitrary sentence holds in the theory.
 \end{definition}
+
+\begin{example}
+A theory with axioms $\forall x\,\mP(x)$ and $\exists x\,\lnot\mP(x)$ is not satisfiable,
+but every sentence is a theorem.
+\end{example}
 %
 \begin{remark} 
 In refuational theorem proving
 we show the unsatisfiabilty 
-of the negated conjecture, 
-i.e.~a candidate formula for a theorem,
+of a negated sentence, 
+i.e.~a {\myem conjecture},
 in conjunction with the axioms
-to conclude that a conjecture is indeed a theorem.
+to conclude that the conjecture is indeed a theorem.
 \[
 	\lnot\left(\bigwedge_i A_i \limp \mathsf{conj}\right) \equiv
 	\lnot\left(\lnot\bigwedge_i A_i \lor \mathsf{conj}\right) \equiv
 	\bigwedge_i A_i \land \lnot \mathsf{conj}
 \]
 \end{remark}
-
-\begin{example}
-	A theory with axioms $\forall x\,\mP(x)$ and $\exists x\,\lnot\mP(x)$ is not satisfiable.
-\end{example}
 
 \begin{definition}
 	[Equivalence]
@@ -231,10 +229,42 @@ to conclude that a conjecture is indeed a theorem.
 	\tag*{$\mf\in\mcFfn$}
 	\\
 	\forall\vec{x}\,\forall\vec{y}\, 
-	&\left(\vec{x}\mEQ\vec{y} \limp (\mP(\vec{x}) \lbic \mP(\vec{y}))\right)
+	&\left(\vec{x}\mEQ\vec{y} \limp (\mP(\vec{x}) \limp \mP(\vec{y}))\right)
 	\tag*{$\mP\in\mcFPn$}
 	\end{align*}
 \end{definition}
+
+\begin{lemma}In natural deduction these axiom a provable properties of equality.\end{lemma}
+\begin{proof}
+	\begin{gather*}
+	\begin{BMAT}{lcllllc}{cc}
+	1 & x_0 & x_0 = x_0      && {=}i  
+	\\
+	2 &     & \forall x\,x=x && \forall i
+	\addpath{(1,1,1)rrulld}
+	\end{BMAT}
+	\end{gather*}
+\end{proof}
+
+\begin{remark}We have ommited the biconditionals in symmetry and congruene for implications.
+%	because $\forall x\forall y\,G(y,x)\equiv\forall x\forall y\,G(x,y)$, hence
+%	$\forall x\forall y\,(G(x,y)\land G(y,x))
+%	\equiv\forall x\forall y\,G(x,y)\land \forall x\forall y\,G(y,x))
+%	\equiv\forall x\forall y\,G(x,y)$.
+	\begin{align*}
+	\forall x \forall y\,
+	\left(x \mEQ y \lbic y \mEQ x \right) 
+	&
+	\equiv\forall x \forall y\,
+	\left(x \mEQ y \limp y \mEQ x \right)
+	\\
+	\forall\vec{x}\,\forall\vec{y}\, 
+	\left(\vec{x}\mEQ\vec{y} \limp (\mP(\vec{x}) \lbic \mP(\vec{y}))\right)
+	&\equiv
+	\forall\vec{x}\,\forall\vec{y}\,
+	\left(\vec{x}\mEQ\vec{y} \limp (\mP(\vec{x}) \limp \mP(\vec{y}))\right)
+	\end{align*}
+\end{remark}
 
 \begin{definition}
 	[Natural Numbers]
