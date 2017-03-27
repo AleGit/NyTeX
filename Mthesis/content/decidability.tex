@@ -221,21 +221,34 @@ to conclude that the conjecture is indeed a theorem.
 \end{definition}
 
 \begin{definition}
+	With $n\in\mathbb{N}$ and arbitrary function or predicate symbol 
+	$\mcf\in\mcFn$ 
+	we abbreviate first order expression
+	$\mcf(x_1,\ldots,x_n)$ with $\mcf(\vecn{x})$,
+	the conjunction of $n$ equations 
+	$x_1\mEQ y_1\land\ldots\land x_n\mEQ y_n$ 
+	with single equation $\vecn{x}\mEQ\vecn{y}$,
+	and the sequence of quantified variables $\forall x_1\ldots\forall x_n$
+	with $\forall\vecn{x}$.
+\end{definition}
+
+\begin{definition}
 	[Congruence schemata]
 	\label{def:congruence:schemata}
 	\begin{align*}
-	\forall\vec{x}\,\forall\vec{y}\,
-	&\left(\vec{x}\mEQ\vec{y} \limp \mf(\vec{x}) \mEQ \mf(\vec{y}) \right)
+	\forall\vecn{x}\,\forall\vecn{y}\,
+	&\left(\vecn{x}\mEQ\vecn{y} \limp \mf(\vecn{x}) \mEQ \mf(\vecn{y}) \right)
 	\tag*{$\mf\in\mcFfn$}
 	\\
-	\forall\vec{x}\,\forall\vec{y}\, 
-	&\left(\vec{x}\mEQ\vec{y} \limp (\mP(\vec{x}) \limp \mP(\vec{y}))\right)
+	\forall\vecn{x}\,\forall\vecn{y}\, 
+	&\left(\vecn{x}\mEQ\vecn{y} \limp (\mP(\vecn{x}) \limp \mP(\vecn{y}))\right)
 	\tag*{$\mP\in\mcFPn$}
 	\end{align*}
+	
 \end{definition}
 %
-\begin{lemma}With natural deduction equivalence and congruence are  provable properties of equality.\end{lemma}
-\begin{proof}
+\begin{lemma}Equivalence and congruence are  provable by Natural Deduction (see Table \vref{tab:natural:deduction:rules}).\end{lemma}
+\begin{proof}Without loss of generality we limit the proof to unary function and predicate symbols.
 	\begin{gather*}
 \begin{BMAT}{rcrclccl}{cc}
 1 && x_0 && x_0=x_0 	& && {=}i\\

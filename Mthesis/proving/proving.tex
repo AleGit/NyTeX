@@ -230,7 +230,7 @@ Otherwise we increase $k$ by one and continue with step 1.
 	
 \end{procedure}
 
-Gilmore's procedure will always terminate for an unsatisfiable set of clauses.
+Gilmore's procedure will eventually terminate for an unsatisfiable set of clauses.
 It enumerates all possible sets of ground instances iteratively
 and one of them must be unsatisfiable for an unsatisfiable set of clauses. 
 However the number of iterations has no general upper bound. 
@@ -566,7 +566,7 @@ which was the starting point for the development of efficient propositionally sa
 	\end{gather*}
 \end{example}
 
-We have observed disadvantages in resolution. 
+We can deduce or observe disadvantages in resolution. 
 
 \begin{enumerate}
 	\item If clauses contain more than two literals the resolution inference rule yields clauses with more literals than the sources.
