@@ -233,17 +233,59 @@ to conclude that the conjecture is indeed a theorem.
 	\tag*{$\mP\in\mcFPn$}
 	\end{align*}
 \end{definition}
-
-\begin{lemma}In natural deduction these axiom a provable properties of equality.\end{lemma}
+%
+\begin{lemma}With natural deduction equivalence and congruence are  provable properties of equality.\end{lemma}
 \begin{proof}
 	\begin{gather*}
-	\begin{BMAT}{lcllllc}{cc}
-	1 & x_0 & x_0 = x_0      && {=}i  
-	\\
-	2 &     & \forall x\,x=x && \forall i
-	\addpath{(1,1,1)rrulld}
-	\end{BMAT}
-	\end{gather*}
+\begin{BMAT}{rcrclccl}{cc}
+1 && x_0 && x_0=x_0 	& && {=}i\\
+2 && 	 &&	\forall x\,(x=x)	& && \forall{}i,1
+\addpath{(2,1,1)rrrrulllld}
+\end{BMAT}
+\\
+\begin{BMAT}{rcrclccl}{ccccccc}
+1 && && y = y   & && {=}i\\
+2 && && x = y	& && \texttt{assume}\\
+3 && &&	y\neq x	& && \texttt{assume}\\
+4 && && y\neq y & && {=}e,2,3\\
+5 && && \bot    & && {\lnot}e,1,4 \\
+6 && && y = x   & && \texttt{PBC}, 3{-} 5\\
+7 && && x = y \limp y = x & && {\limp}i, 1{-} 5
+\addpath{(2,1,1)rrrruuuuullllddddd}
+\addpath{(3,2,1)rruuullddd}
+\end{BMAT}
+\qquad
+\begin{BMAT}{rcrclccl}{ccccc}
+1 &&     && x=y\land y=z 	& && \texttt{assume}\\
+2 && 	 &&	y=z	& && \land{}e_2 \\
+3 && 	 &&	x=y	& && \land{}e_1, 2 \\
+4 && 	 &&	x=z	& && {=}e,2,3 \\
+5 && 	 &&	x=y\land y=z\limp x=z	& && {\limp}i,2{-}4 
+\addpath{(2,1,1)rrrruuuulllldddd}
+\end{BMAT}
+\\
+\begin{BMAT}{rcrclccl}{ccccccc}
+1 && && \mf(y) = \mf(y)   & && {=}i\\
+2 && && x = y	& && \texttt{assume}\\
+3 && &&	\mf(x) \neq \mf(y)	& && \texttt{assume}\\
+4 && && \mf(y) \neq \mf(y) & && {=}e,2,3\\
+5 && && \bot    & && {\lnot}e,1,4 \\
+6 && && \mf(x) = \mf(y)   & && \texttt{PBC}, 3{-} 5\\
+7 && && x = y \limp \mf(x) = \mf(y) & && {\limp}i, 1{-} 5
+\addpath{(2,1,1)rrrruuuuullllddddd}
+\addpath{(3,2,1)rruuullddd}
+\end{BMAT}
+\qquad
+\begin{BMAT}{rcrclccl}{ccccc}
+1 && && x = y	& && \texttt{assume}\\
+2 && &&	\mP(x)	& && \texttt{assume}\\
+3 && && \mP(y) & && {=}e,1,2\\
+4 && && \mP(x) \limp \mP(y)   & && {\limp}i, 2{-} 3\\
+5 && && x = y \limp (\mP(x)\limp\mP(y)) & && {\limp}i, 1{-} 4
+\addpath{(2,1,1)rrrruuuulllldddd}
+\addpath{(3,2,1)rruulldd}
+\end{BMAT}
+\end{gather*}
 \end{proof}
 
 \begin{remark}We have ommited the biconditionals in symmetry and congruene for implications.
