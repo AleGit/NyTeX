@@ -76,19 +76,20 @@ First we substitute existentially quantified leading variables with Skolem const
 	\item[\ref{tab:decidable:CNF:7}]
 \end{itemize}
 
+\begin{lemma}\label{lem:unary:equals}
+??? A formula in $[\,all, (\omega), (1)\,]_=$ is equivalent / equisatisfiable 
+to a formula in $[\,\exists^*\forall^*, (\omega), (1)\,]_=$ ???
+\end{lemma}
+
 \begin{lemma}\label{lem:unary}
 	A formula in $[\,all, (\omega), (\omega)\,]$ is equivalent / equisatisfiable 
 	to a formula in $[\,\exists^*\forall^*, (\omega), (\omega)\,]$.
 \end{lemma}
 
-\begin{lemma}\label{lem:unary:equals}
-	??? A formula in $[\,all, (\omega), (1)\,]_=$ is equivalent / equisatisfiable 
-	to a formula in $[\,\exists^*\forall^*, (\omega), (1)\,]_=$ ???
-\end{lemma}
-
-\begin{proof} It is sufficient to show for unary predicate and function symbols 
+\begin{proof} It is sufficient to show  
 	that $\forall x\exists y\,F\equiv\exists y\forall y\,F$
-	where $x,y\in\fvar(F)$. 
+%	where $\fvar(F)\subseteq\{x,y\}$
+	for unary predicate and function symbols
 	We use induction on the structure of $F$.
 	\begin{enumerate}
 		\item (base) $F$ is a literal,
@@ -106,10 +107,10 @@ First we substitute existentially quantified leading variables with Skolem const
 		\defEV[IH] \lnot (\forall y\exists x \, G) 
 		\equiv \exists y \forall x\, (\lnot G)
 		\end{gather*}
-		\item (step) $F$ is the junction $\landlor\in\{\land,\lor\}$ of a “free” literal and a formula.
+		\item (step) $F$ is the junction $\landlor\in\{\land,\lor\}$ of a “free” literal, i.e.~$x,y\not\in\var(L)$, and a formula.
 		\begin{gather*}
-		\forall x\exists y\,( L(z) \landlor G) 
-		\equiv L(z) \landlor \forall x\exists y\, G
+		\forall x\exists y\,( L \landlor G) 
+		\equiv L \landlor \forall x\exists y\, G
 		\defEV[IH]L(z) \landlor \exists y\forall x\, G
 		\equiv\exists y\forall x\,( L(z) \landlor G )
 		\end{gather*}

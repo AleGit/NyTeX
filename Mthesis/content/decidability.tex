@@ -97,7 +97,7 @@ of first order logic where satisfiability is decidable.\footnote{
 	[\, \Pi, (p_1,p_2,\ldots), (f_1,f_2,\ldots)\,]_{(\mEQ)}
 	\]
 	where $\Pi = \quantify_1 \ldots \quantify_n$ describes the quantifier prefix 
-	$\quantify_1 x_1 \ldots \quantify_n x_n$ without variables,
+	$\quantify_1 x_1 \ldots \quantify_n x_n, \quantify_i\in\{\forall,\exists\}, x_i\in\mcV$ without variables,
 	the value $p_i$ the maximal number of predicate symbols
 	and the value $f_i$ the maximal number of function symbols with arity $i$.
 	The equality symbol is not counted as binary predicate symbol.
@@ -324,16 +324,18 @@ to conclude that the conjecture is indeed a theorem.
 \begin{definition}
 	[Natural Numbers]
 	\label{def:natural:numbers:axioms}
-	$0\in\mcFn[0], \msucc\in\mcFn[1]$	
+	We introduce a fresh constant $0\in\mcFn[0]$, 
+	a unary successor symbol $\msucc\in\mcFn[1]$,
+	and restrict their models with two axioms. 
 \begin{align*}
 \forall x\, &(\msucc(x) \mNE 0)
-\tag*{zero} 
+\tag*{zero is smallest} 
 \\ %–––––––––––––––––––––––––––
 \forall x \forall y\, &(\msucc(x) \mEQ \msucc(y) \limp x \mEQ y)
-\tag*{injectivity}
+\tag*{injectivity of $\msucc$}
 \\
 \colG\forall x\forall y\,&\colG(x\mEQ y \limp \msucc(x)\mEQ\msucc(y))
-\tag*{congruence}
+\tag*{congruence of $\msucc$}
 \\ 
 \underbrace{G(0)}_{\text{base}} 
 \land\, \forall x\,&
@@ -348,7 +350,7 @@ to conclude that the conjecture is indeed a theorem.
 \begin{definition}
 	[Addition]
 	\label{def:addition:axioms}
-	$+\in\mcFfn[2]$
+	We introduce binary addition symbol $+\in\mcFfn[2]$ and two axioms to define the sum of two numbers.
 \begin{align*}
 \forall x\,
 &(x+0 \mEQ x) 
@@ -362,6 +364,17 @@ to conclude that the conjecture is indeed a theorem.
 \tag*{congruence of $+$}
 \end{align*}
 \end{definition}
+
+\begin{example}
+	\begin{gather*}
+	{\colG \msucc(\msucc(\msucc(0)))} + \msucc(\msucc(0))
+	\mEQ\msucc({\colG \msucc(\msucc(\msucc(0)))} + \msucc(0)) 
+	\mEQ \msucc(\msucc(
+	{\colG \msucc(\msucc(\msucc(0)))} + 0))
+	\mEQ \msucc(\msucc(
+	{\colG \msucc(\msucc(\msucc(0)))}))
+	\end{gather*}
+	\end{example}
 
 \begin{lemma}[Neutral element, commutativity and associativity of addition]
 	\begin{align*}
