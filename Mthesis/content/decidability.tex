@@ -238,17 +238,35 @@ to conclude that the conjecture is indeed a theorem.
 	\begin{align*}
 	\forall\vecn{x}\,\forall\vecn{y}\,
 	&\left(\vecn{x}\mEQ\vecn{y} \limp \mf(\vecn{x}) \mEQ \mf(\vecn{y}) \right)
-	\tag*{$\mf\in\mcFfn$}
+	\tag*{for all $\mf\in\mcFfn$}
 	\\
 	\forall\vecn{x}\,\forall\vecn{y}\, 
 	&\left(\vecn{x}\mEQ\vecn{y} \limp (\mP(\vecn{x}) \limp \mP(\vecn{y}))\right)
-	\tag*{$\mP\in\mcFPn$}
+	\tag*{for all $\mP\in\mcFPn$}
 	\end{align*}
 	
+	
 \end{definition}
+
+%\begin{remark}For simplicity we have replaced biconditionals in symmetry and predicate congruence with implications.
+%	\begin{align*}
+%	\forall x \forall y\,
+%	\left(x \mEQ y \lbic y \mEQ x \right) 
+%	&
+%	\equiv\forall x \forall y\,
+%	\left(x \mEQ y \limp y \mEQ x \right)
+%	\\
+%	\forall\vec{x}\,\forall\vec{y}\, 
+%	\left(\vec{x}\mEQ\vec{y} \limp (\mP(\vec{x}) \lbic \mP(\vec{y}))\right)
+%	&\equiv
+%	\forall\vec{x}\,\forall\vec{y}\,
+%	\left(\vec{x}\mEQ\vec{y} \limp (\mP(\vec{x}) \limp \mP(\vec{y}))\right)
+%	\end{align*}
+%\end{remark}
 %
 \begin{lemma}Equivalence and congruence are  provable by Natural Deduction (see Table \vref{tab:natural:deduction:rules}).\end{lemma}
-\begin{proof}Without loss of generality we limit the proof to unary function and predicate symbols.
+\begin{proof}
+	For brevity we restrict our signature to unary function and predicate symbols.
 	\begin{gather*}
 \begin{BMAT}{rcrclccl}{cc}
 1 && x_0 && x_0=x_0 	& && {=}i\\
@@ -300,26 +318,6 @@ to conclude that the conjecture is indeed a theorem.
 \end{BMAT}
 \end{gather*}
 \end{proof}
-
-\begin{remark}We have ommited the biconditionals in symmetry and congruene for implications.
-%	because $\forall x\forall y\,G(y,x)\equiv\forall x\forall y\,G(x,y)$, hence
-%	$\forall x\forall y\,(G(x,y)\land G(y,x))
-%	\equiv\forall x\forall y\,G(x,y)\land \forall x\forall y\,G(y,x))
-%	\equiv\forall x\forall y\,G(x,y)$.
-	\begin{align*}
-	\forall x \forall y\,
-	\left(x \mEQ y \lbic y \mEQ x \right) 
-	&
-	\equiv\forall x \forall y\,
-	\left(x \mEQ y \limp y \mEQ x \right)
-	\\
-	\forall\vec{x}\,\forall\vec{y}\, 
-	\left(\vec{x}\mEQ\vec{y} \limp (\mP(\vec{x}) \lbic \mP(\vec{y}))\right)
-	&\equiv
-	\forall\vec{x}\,\forall\vec{y}\,
-	\left(\vec{x}\mEQ\vec{y} \limp (\mP(\vec{x}) \limp \mP(\vec{y}))\right)
-	\end{align*}
-\end{remark}
 
 \begin{definition}
 	[Natural Numbers]
@@ -404,7 +402,7 @@ to conclude that the conjecture is indeed a theorem.
 	\forall x\forall y\,&(x\circ y \mEQ y\circ x)
 	\tag*{commutativity}
 	\\
-	\forall x\exists e_\circ\,&(x\circ e_\circ\mEQ x \land e_\circ \circ x \mEQ x )
+	\exists e_\circ\forall x\,&(x\circ e_\circ\mEQ x \land e_\circ \circ x \mEQ x )
 	\tag*{neutral element}
 	\end{align*}
 	

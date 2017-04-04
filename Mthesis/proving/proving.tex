@@ -66,8 +66,9 @@ eventually.
 
 \section{Prenex CNF and clausal form}
 
-In the previous chapter we stated theories in \FOF. 
-Table \ref{tab:presburger:axioms:clauses} shows all the axioms translated into clausal normal form.
+In the previous chapter we stated the axioms and conjectures of theories in \FOF. 
+Since Gilmore's prover, resolution and \InstGen work on set of clauses we present
+the clausal forms of axioms in Table \ref{tab:presburger:axioms:clauses} .
 
 \begin{table}[hbt]	
 	\begin{align*}
@@ -89,24 +90,40 @@ Table \ref{tab:presburger:axioms:clauses} shows all the axioms translated into c
 	x + 0 \mEQ x,\ 
 	x+\msucc(x) \mEQ \msucc(x+y)
 	\tag*{addition}
+	\\
+	x_1\mNE y_1\lor x_2\mNE y_2\lor x_1\times y_1 \mEQ x_2\times y_2
+	\tag*{congruence of $\times$}
+	\\
+	x \times 0 \mEQ 0,\ 
+	x \times\msucc(y) \mEQ (x\times y) + x
+	\tag*{multiplication}
 	\\[0.5em]
 	\lnot G_i(0) \lor \boxed{G(\mc_i)} \lor G_i(y),\ 
 	\lnot G_i(0) \lor \boxed{\lnot G_i(\msucc(\mc_i))} \lor G_i(z)
 	\tag*{induction schema}
+	\\[0.5em]
+	x\circ (y\circ z) \mEQ (x\circ y) \circ z,\ 
+	x\circ y \mEQ y\circ x,\ 
+	x\circ e_\circ \mEQ x
+	\tag*{ACN}
 	\end{align*}
-	\caption{Clausal axioms and induction schema for Presburger arithmetic}
+	\caption{Clausal representation}
 	\label{tab:presburger:axioms:clauses}
 \end{table}
 
 \begin{table}[hbt]	
 	\begin{gather*}
-	0+0\mNE 0
-	\lor\boxed{0+\mc_1\mEQ \mc_1}
-	\lor 0+z\mEQ z
+	0\circ e_\circ\mNE 0
+	\lor\boxed{
+		c_\circ \circ e_\circ \mEQ c_\circ
+	}
+	\lor z\circ e_\circ \mEQ z
 	\\
-	0+0\mNE 0
-	\lor\boxed{0+\msucc(\mc_1)\mNE \msucc(\mc_1)} 
-	\lor 0+z\mEQ z
+	0\circ e_\circ\mNE 0
+	\lor\boxed{
+		\msucc(c_\circ) \circ e_\circ \mNE \msucc(c_\circ)
+	}
+	\lor z\circ e_\circ \mEQ z
 	\end{gather*}
 	\caption{Induction axioms for neutral element}
 	\label{tab:presburger:induction:clauses}
@@ -895,13 +912,13 @@ which can yield models where $\ma\mNE\ma$ holds.
 Understandably, we are only interested in normal models or 
 at least in models that implies the existence of a normal model.
 
-\begin{lemma}
-	A set of clauses (a formula) has a \emph{normal} model 
+\begin{theorem}\cite{Harrison:2009:HPL:1540610}
+	Any set of clauses (a formula) has a \emph{normal} model 
 	if and only if it has a model that satisfies the 
 	{\myem equality axioms}, i.e.~reflexivity, symmetry, transitivity, 
 	and congruence for all function symbols $\mf\in\mcFf$
 	and all predicate symbols $\mP\in\mcFP$.
-\end{lemma}
+\end{theorem}
 
 \begin{remark}
 	The only decidable fragment of first order logic where we can state the equality axioms is the Schönfinkel-Bernays-Ramsey class.
@@ -947,9 +964,9 @@ at least in models that implies the existence of a normal model.
 	\tag*{transitivity}\\
 	{\colHi \msucc(\consbot) \mEQ \msucc(\consbot)} \lor {\colLo \consbot \mNE \consbot}
 	\tag*{congruence}\\[0.5em]
-	{ \consbot \mEQ \consbot} \lor {\colLo \msucc(x) \mNE \msucc(y)}
+	{ \consbot \mEQ \consbot} \lor {\colLo \msucc(\consbot) \mNE \msucc(\consbot)}
 	\tag*{injectivity}\\
-	{\colHi 0 \mNE \msucc(x)}
+	{\colHi \msucc(x) \mNE 0}
 	\end{align*}
 	\begin{align*}
 	\infer[x\mapsto 0, y\mapsto \msucc(x') ]
