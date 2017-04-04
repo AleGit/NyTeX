@@ -350,13 +350,13 @@ to conclude that the conjecture is indeed a theorem.
 \begin{definition}
 	[Addition]
 	\label{def:addition:axioms}
-	We introduce binary addition symbol $+\in\mcFfn[2]$ and two axioms to define the sum of two numbers.
+	We introduce the binary addition symbol $+\in\mcFfn[2]$ with two axioms about defining equalities of sums.
 \begin{align*}
 \forall x\,
 &(x+0 \mEQ x) 
 \tag*{addition of zero}\\
 \forall x\forall y\,
-&(x+\msucc(y) \mEQ \msucc(x+y)
+&(x+\msucc(y)) \mEQ \msucc(x+y)
 \tag*{addition of non-zero}
 \\
 \colG\forall x_1\forall x_2\forall y_1\forall y_2\,
@@ -376,12 +376,42 @@ to conclude that the conjecture is indeed a theorem.
 	\end{gather*}
 	\end{example}
 
-\begin{lemma}[Neutral element, commutativity and associativity of addition]
+\begin{definition}
+	[Multiplikation]
+	\label{tab:addition:axioms}
+	We introduce the binary multiplication symbol $\times\in\mcFfn[2]$
+	with two axioms about defining equalities of products.
 	\begin{align*}
-	\forall x\,&(0+x \mEQ x)\\
-	\forall x\forall y\,&(x+y \mEQ y+x)\\
-	\forall x\forall y\forall z\,&(x+(y+z) \mEQ (x+y)+z)
+	\forall x\,
+	&(x\times 0 \mEQ 0) 
+	\tag*{multiplication by zero}\\
+	\forall x\forall y\,
+	&(x\times\msucc(y) \mEQ (x\times y) + x)
+	\tag*{multiplication by non-zero}
+	\\
+	\colG\forall x_1\forall x_2\forall y_1\forall y_2\,
+	&\colG (x_1\mEQ y_1\land x_2\mEQ y_2 \limp x_1\times y_1\mEQ x_2 \times y_2)
+	\tag*{congruence of $\times$}
 	\end{align*}
+\end{definition}
+
+\begin{definition}[x]
+	We define for an arbitrary binary function symbol $\circ$.
+	\begin{align*}
+	\forall x\forall y\forall z\,&(x\circ(y\circ z) \mEQ (x\circ y)\circ z 
+	\tag*{associativity}
+	\\
+	\forall x\forall y\,&(x\circ y \mEQ y\circ x)
+	\tag*{commutativity}
+	\\
+	\forall x\exists e_\circ\,&(x\circ e_\circ\mEQ x \land e_\circ \circ x \mEQ x )
+	\tag*{neutral element}
+	\end{align*}
+	
+\end{definition}
+
+\begin{lemma}
+	Addition and Multiplication are associative, commutative, and with neutral elements in all models.
 \end{lemma}
 
 %\begin{proof}by induction
@@ -401,24 +431,6 @@ to conclude that the conjecture is indeed a theorem.
 %	\tag*{induction}
 %	\end{align*}
 %\end{proof}
-
-\begin{definition}
-	[Multiplikation]
-	\label{tab:addition:axioms}
-	$\times\in\mcFfn[2]$
-	\begin{align*}
-	\forall x\,
-	&(x\times 0 \mEQ 0) 
-	\tag*{multiplication by zero}\\
-	\forall x\forall y\,
-	&(x\times\msucc(y) \mEQ (x\times y) + x)
-	\tag*{multiplication by non-zero}
-	\\
-	\colG\forall x_1\forall x_2\forall y_1\forall y_2\,
-	&\colG (x_1\mEQ y_1\land x_2\mEQ y_2 \limp x_1\times y_1\mEQ x_2 \times y_2)
-	\tag*{congruence of $\times$}
-	\end{align*}
-\end{definition}
 
 
 

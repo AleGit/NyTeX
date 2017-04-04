@@ -1088,5 +1088,111 @@ then at least we expect a congruence relation.
 	\end{align*}
 \end{example}
 
+\section{Unit Superposition}
+
+\begin{example}
+	Let $S = \{\, \msucc(x') \mNE \msucc (y') \lor x' \mEQ y', \, \msucc(x)\mNE x \, \}$.
+	
+	\begin{gather*}
+	\infer[\{x'\mapsto \msucc (x), y'\mapsto x\}]{
+		\boxed{\msucc (\msucc (x)) \mNE \msucc (x)} \lor\colLo \msucc (x)\mEQ x
+	}{
+		\msucc (x') \mNE \msucc (y') \lor x'\mEQ y' & \colHi\msucc (x) \mNE x
+	}
+	\end{gather*}
+	\begin{gather*}
+	\infer[\{x'\mapsto \msucc^{i+2} (x), y'\mapsto \msucc^{i+1} (x)\}]{
+		\msucc (\msucc^{i+2} (x)) \mNE \msucc (\msucc^{i+1} (x)) \lor \msucc^{i+2} (x)\mEQ\msucc^{i+1} (x)
+	}{
+		\msucc (x') \mNE \msucc (y') \lor x'\mEQ y' & \boxed{\msucc^{i+2} (x) \mNE \msucc^{i+1} (x)}\colG \lor \msucc^{i+1} (x)\mEQ\msucc^{i}(x)
+	}
+	\end{gather*}
+	for $i\geq 0$.
+\end{example}
+
+
+\begin{align*}
+	S_0 &= \{\, \boxed{\msucc(x') \mNE \msucc (y') \lor x' \mEQ y'}, \, \msucc(x)\mNE x \, \} 
+	\\
+	S_{0\!_\bot} &= \{\, \msucc(\consbot) \mNE \msucc (\consbot) \lor{\colHi\consbot \mEQ \consbot}, \, {\colHi \msucc(\consbot)\mNE \consbot} \, \}
+	\\
+	&\infer[x'\mapsto \msucc(x)
+	]{ 
+		\infer[y'\mapsto x]{\emptyclause}{ y'\mNE x }
+	}
+	{x' \mEQ y' & \msucc(x)\mNE x}
+	\\
+	S_1 &= S_0\disjointunion \{\,
+	\boxed{\msucc(\msucc(x)) \mNE \msucc(x) \lor \msucc(x) \mEQ x} \,
+	\} 
+	\\
+	S_{i+1} &= S_i\disjointunion \{\,
+		\msucc^{i+2}(x)) \mNE \msucc^{i+1} (x) \lor \msucc^{i+1}(x) \mEQ \msucc^i(x) \,
+	\} 
+	\\
+	S_{(i+1)\!_\bot} &= S_i\disjointunion \{\,
+	{\colHi \msucc^{i+2}(\consbot)) \mNE \msucc^{i+1} (\consbot)} \lor {\colG\msucc^{i+1}(\consbot) \mEQ \msucc^i(\consbot)} \,
+	\} 
+	\\
+	&\infer[x'\mapsto \msucc^{i+2}(x)
+	]{ 
+		\infer[y'\mapsto \msucc^{i+1}(x)]{\emptyclause}{ y'\mNE \msucc^{i+1}(x) }
+	}
+	{x' \mEQ y' & \msucc^{i+2}(x)\mNE \msucc^{i+1}(x)}
+	\\
+	S_{i+2} &= S_{i+1}\disjointunion \{\,
+	\boxed{\msucc^{i+3}(x) \mNE \msucc^{i+2}(x) \lor \msucc^{i+2}(x) \mEQ \msucc^{i+1}(x)} \,
+	\} 
+\end{align*}
+
+\begin{definition}
+	\begin{align*}
+	\infer[\sigma]{(s[r]\mEQ t)\sigma}{\ell\mEQ r & s[\ell'] \mEQ t} & &
+	\infer[\sigma]{(s[r]\mNE t)\sigma}{\ell\mEQ r & s[\ell'] \mNE t}\tag*{unit superposition}\\
+	& \infer[\sigma]{\emptyclause}{\ell \mNE r}\tag*{equality resolution} \\
+	\end{align*}
+	where $\sigma = \mgu(\ell,\ell')$, 
+	$\ell'$ is not a variable, 
+	$\ell\sigma\tau >_{gr} r\sigma\tau$,
+	$s[\ell']\sigma\tau >_{gr} t\sigma\tau$,
+	$\var({\ell, r}) \cup \var(\{ s[l'],t \}) ) = \emptyset$
+\end{definition}
+
+
+\begin{align*}
+S_0 &= \{\, \boxed{\msucc(x') \mNE \msucc (y') \lor x' \mEQ y'}, \, \msucc(x)\mNE 0 \, \} 
+\\
+S_{0\!_\bot} &= \{\, \msucc(\consbot) \mNE \msucc (\consbot) \lor{\colHi\consbot \mEQ \consbot}, \, {\colHi \msucc(\consbot)\mNE 0} \, \}
+\\
+&\infer[x'\mapsto \msucc(x)
+]{ 
+	\infer[y'\mapsto 0]{\emptyclause}{ y'\mNE x }
+}
+{x' \mEQ y' & \msucc(x)\mNE x}
+\\
+S_1 &= S_0\disjointunion \{\,
+\boxed{\msucc(\msucc(x)) \mNE \msucc(0) \lor \msucc(x) \mEQ 0} \,
+\} 
+\\
+S_{i+1} &= S_i\disjointunion \{\,
+\msucc^{i+2}(x)) \mNE \msucc^{i+1} (0) \lor \msucc^{i+1}(x) \mEQ \msucc^i(0) \,
+\} 
+\\
+S_{(i+1)\!_\bot} &= S_i\disjointunion \{\,
+{\colHi \msucc^{i+2}(\consbot)) \mNE \msucc^{i+1} (0)} \lor {\colG\msucc^{i+1}(\consbot) \mEQ \msucc^i(0)} \,
+\} 
+\\
+&\infer[x'\mapsto \msucc^{i+2}(x)
+]{ 
+	\infer[y'\mapsto \msucc^{i+1}(0)]{\emptyclause}{ y'\mNE \msucc^{i+1}(0) }
+}
+{x' \mEQ y' & \left[\msucc^{i+2}(x)\right]\mNE \msucc^{i+1}(0)}
+\\
+S_{i+2} &= S_{i+1}\disjointunion \{\,
+\boxed{\msucc^{i+3}(x) \mNE \msucc^{i+2}(0) \lor \msucc^{i+2}(x) \mEQ \msucc^{i+1}(0)} \,
+\} 
+\end{align*}
+
+
 
 
