@@ -255,12 +255,16 @@ Otherwise it would be a decision procedure for satisfiability in first order log
 which does not exist because of undecidability of satisfiability in first order logic.
 
 \begin{lemma}
-	Gilmore's procedure is a decison procedure for monadic first order logic and the Schönfinkel-Bernays fragment. 
+	Gilmore's procedure is a decison procedure for monadic first order logic 
+	(Examples \ref{ex:monadic:ackermann} and \ref{ex:fosca:is:mortal})
+	and the Schönfinkel-Bernays fragment (see Table \ref{tab:decidedable:FiniteModelProperty}) 
+	of First Order Logic. 
 \end{lemma}
 
 \begin{proof}
-	In the absence of non-constant function symbols 
-	the procedure can stop after the first iteration because $H_i = H_0$ and $S_i = S_0$ for all $i\geq0$,
+	In the absence of non-constant function symbols $H'_{i+1} = \emptyset$ and
+	the procedure can stop after the first iteration because 
+	$H_i = H_0$ and $S_i = S_0$ for all $i\geq0$,
 	i.e.~after the first iteration 
 	no new terms are added to the Hebrand universe 
 	and no new ground instances can be generated.
@@ -289,19 +293,19 @@ which does not exist because of undecidability of satisfiability in first order 
 	{ \lnot\mE(x, \msucc(x)))},\, 
 	{ \mE(\msucc^{k}(y), \msucc(\msucc^{k}(y)))}
 	\,\}$.
-	The sets of instances $S_{i}$ are satisfiable for all $i<k$.
+	The sets of instances $S_{i+1}$ are satisfiable for all $i+1<k$.
 	The set of instances $S_{k}$ is clearly unsatisfiable.
 	%	
 	\begin{align*}
-	H_{0} :=&\ \{\,\mzero\,\} 
+	H'_{0} =&\ \{\,\mzero\,\} 
 	&
-	S_{0} :=&\ \{\, 
+	S_{0} =&\ \{\, 
 	{\colG \lnot\mE(\mzero,\msucc(\mzero))},\,
 	{\colHi \mE(\msucc^k(\mzero),\,\msucc(\msucc^k(\mzero)))}
 	\,\}
 	\subsetneq S_k
 	\\
-	H_{i+1} =&\ H_i\disjointunion\{\,\msucc(\msucc^{i}(\mzero))\,\}
+	H'_{i+1} =&\ \{\,\msucc(\msucc^{i}(\mzero))\,\}
 	&
 	S_{i+1} \supsetneq&\
 	\{\,
@@ -309,7 +313,7 @@ which does not exist because of undecidability of satisfiability in first order 
 	\mE(\msucc^k(\msucc^{i+1}(\mzero)), \msucc(\msucc^k(\msucc^{i+1}(\mzero))))}
 	\,\}
 	\\
-	H_{k} \supsetneq&\ \{\,\msucc^{k}(\mzero)\,\} 
+	H'_{k} =&\ \{\,\msucc^{k}(\mzero)\,\} 
 	&
 	S_{k} \supsetneq&\
 	\{\,
@@ -333,13 +337,13 @@ which does not exist because of undecidability of satisfiability in first order 
 	This set is clearly in the decidable Ackermann fragment of first order logic.
 	But the procedure yields an infinite sequence of distinct and satisfiable sets $S_{k\geq0}$:
 	\begin{align*}
-	H_{0} :=&\  \{ \mzero \} 
+	H'_{0} :=&\  \{ \mzero \} 
 	&
 	S_{0} :=&\ \{ \lnot\mE(\mzero,\msucc(\mzero))
 	\}
 	\tag*{satisfiable}
 	\\
-	H_{i+1} :=&\ H_i \disjointunion \{ \msucc(\msucc^{i}(\mzero)) \} 
+	H'_{i+1} :=&\ \{ \msucc(\msucc^{i}(\mzero)) \} 
 	&
 	S_{i+1} :=&\ S_i \disjointunion 
 	\{
@@ -494,13 +498,15 @@ which was the starting point for the development of efficient propositionally sa
 	[\text{Resolution}] 
 	{(\mcC\lor\mcD)\sigma}
 	{A\lor\mcC&\lnot B\lor\mcD}
-	\qquad
+	\qquad\qquad
 	\infer
 	[\text{Factoring}] 
 	{(A\lor\mcC)\sigma}
 	{A\lor B\lor\mcC}
 	\end{gather*}
-	\begin{center}$\sigma=\mgu(A,B)$
+	\begin{center}
+		where
+		$\sigma=\mgu(A,B)$
 		%		, $\sigma$ is proper
 	\end{center}
 	%	The rule looks very similar to the resolution rule in Definition \ref{def:res}.
@@ -543,7 +549,7 @@ which was the starting point for the development of efficient propositionally sa
 
 \begin{example}\label{ex:sat:nezsx}
 	With satisfiable set $S_{\ref{ex:sat:nezsx}} = \{\, 
-		\lnot\mE(\mzero,\msucc(x)), \mE(y,y') \lor \lnot \mE(\msucc(y),\msucc(y')
+		\lnot\mE(\mzero,\msucc(x)),\, \mE(y,y') \lor \lnot \mE(\msucc(y),\msucc(y')
 		\,\}$
 		we observe an infinite sequence of resolutions,
 		hence the set does not saturate.
@@ -560,26 +566,26 @@ which was the starting point for the development of efficient propositionally sa
 %	\tag{$i=0$}
 %	\\[1em]
 	\infer
-	[\{y\mapsto\msucc^i(\mzero), y'\mapsto\msucc^{i+1}(x)\}]
+	[\{y\mapsto{\colN\msucc^i(\mzero)}, y'\mapsto{\colN\msucc^{i+1}(x)}\}]
 	{
 		\lnot \mE(\msucc({\colN\msucc^{i}(\mzero)}),\msucc({\colN\msucc^{i+1}(x)})) 
 	}{
-		{\colHi\mE(y,y')} \lor \lnot \mE(\msucc(y),\msucc(y')) 
-		&{\colLo \lnot\mE(\msucc^i(\mzero),\msucc^{i+1}(x))}
+		{\mE(y,y')} \lor \lnot \mE(\msucc(y),\msucc(y')) 
+		&{ \lnot\mE(\msucc^i(\mzero),\msucc^{i+1}(x))}
 	}
 	\tag{$i\geq 0$}
 	\\
-	\infer[y\mapsto\msucc(\msucc(0)),y'\mapsto\msucc(\msucc(\msucc(x)))]{
-		\msucc(\msucc(\msucc(0)))\mNE\msucc(\msucc(\msucc(\msucc(x))))
-	}{\circ &
-	\infer[y\mapsto\msucc(0),y'\mapsto(\msucc\msucc(x))]{
-		\msucc(\msucc(0))\mNE\msucc(\msucc(\msucc(0)))
-	}{\circ&
-	\infer[y\mapsto 0, y'\mapsto\msucc(0)]
-	{ \msucc(0)\mNE\msucc(\msucc(0))}
-	{ y\mEQ y' \lor \msucc(y)\mNE\msucc(y') & 0 \mNE \msucc(x)}
-}
-}
+%	\infer[y\mapsto\msucc(\msucc(0)),y'\mapsto\msucc(\msucc(\msucc(x)))]{
+%		\msucc(\msucc(\msucc(0)))\mNE\msucc(\msucc(\msucc(\msucc(x))))
+%	}{\circ &
+%	\infer[y\mapsto\msucc(0),y'\mapsto(\msucc\msucc(x))]{
+%		\msucc(\msucc(0))\mNE\msucc(\msucc(\msucc(0)))
+%	}{\circ&
+%	\infer[y\mapsto 0, y'\mapsto\msucc(0)]
+%	{ \msucc(0)\mNE\msucc(\msucc(0))}
+%	{ y\mEQ y' \lor \msucc(y)\mNE\msucc(y') & 0 \mNE \msucc(x)}
+%}
+%}
 	\end{gather*}
 \end{example}
 
@@ -589,7 +595,8 @@ We can deduce or observe disadvantages in resolution.
 	\item If clauses contain more than two literals the resolution inference rule yields clauses with more literals than the sources.
 	\item We have to check all pairings 
 	of all positive literals with all negative literals for clashing.
-	$n_{\mcC\lor\mcD} = n_{(A\lor\mcC)} -1 + n_{(\lnot B\lor\mcD)}-1$
+	$n_{\mcC\lor\mcD} = n_{(A\lor\mcC)} -1 + n_{(\lnot B\lor\mcD)}-1$,
+	which was addressed in Ordered Resolution.
 \end{enumerate}
 
 \begin{definition}[Ordered Resolution] Let $A, B$ be atoms and $\mcC,\mcD$ be clauses.
@@ -598,10 +605,16 @@ We can deduce or observe disadvantages in resolution.
 	[\text{Ordered}\atop\text{Resolution}] 
 	{(\mcC\lor\mcD)\sigma}
 	{A\lor\mcC&\lnot B\lor\mcD}
+	\qquad\qquad
+	\infer
+	[\text{Ordered}\atop\text{Factoring}] 
+	{(A\lor\mcC)\sigma}
+	{A\lor B\lor\mcC}
 	\end{gather*}
-	\begin{center}$\sigma=\mgu(A,B)$, 
+	\begin{center}
+		where $\sigma=\mgu(A,B)$, 
 		$A\sigma$ is strictly maximal in $\mcC\sigma$, 
-		$B\sigma$ is maximal in $\mcD\sigma$.
+		$\lnot B\sigma$ is maximal in $\mcD\sigma$.
 	\end{center}
 	%	The rule looks very similar to the resolution rule in Definition \ref{def:res}.
 	%	But there is an important difference. 

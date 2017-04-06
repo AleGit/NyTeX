@@ -122,7 +122,7 @@ We state satisfiability of clauses. See the appendix for more details and mathem
 \begin{definition}\label{def:hk}
 	An {\myem Herbrand universe} is the smallest set of terms that contains all $H_{i\geq 0}$ of
 	\begin{align*}
-	H_0 &:= \left\{ 
+	H'_0 &= \left\{ 
 	\begin{array}{ll}
 	\{\,\mc \mid \mc\in\mcFfn[0]\,\} 
 	&\text{if } \mcFfn[0]\not=\emptyset\\
@@ -130,13 +130,17 @@ We state satisfiability of clauses. See the appendix for more details and mathem
 	&\text{if } \mcFfn[0]=\emptyset, \mc_0\not\in\mcF
 	\end{array}
 	\right. 
+	&
+	H_0 &= H'_0
 	\\
-	H_{k+1} &:= H_k \cup \bigcup_{n> 0} 
+	H'_{k+1} &= \bigcup_{n> 0} 
 	\{\,  
 	\mf(t_1,\ldots,t_n) \mid
 	\mf\in\mcFfn[n],
 	t_1,\ldots,t_n \in H_k
 	\,\}
+	&
+	H_{k+1} &= H_k \cup H'_{k+1}
 	\end{align*}
 	
 \end{definition}
