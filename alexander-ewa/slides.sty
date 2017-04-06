@@ -1,0 +1,81 @@
+% style file für EWA Folien
+%
+% tex-spielereien
+\newcommand*{\tpkt}{\rlap{$\;$.}}
+\newcommand*{\tkom}{\rlap{$\;$,}}
+\newcommand{\reference}[2]{\structure{#1}\quad{#2}}
+\newcommand*{\cOne}{\text{\ding{192}}}
+\newcommand*{\cTwo}{\text{\ding{193}}}
+\newcommand*{\cThree}{\text{\ding{194}}}
+\newcommand*{\cFour}{\text{\ding{195}}}
+\newcommand*{\cFive}{\text{\ding{196}}}
+\newcommand*{\cSix}{\text{\ding{197}}}
+\newcommand*{\Rckmark}{\RED{\checkmark}}
+\newcommand*{\m}[1]{\mathsf{#1}}
+
+% bubbles
+\newcommand{\bubble}[3]{%
+  \begin{tikzpicture}
+    \node[rectangle callout, rounded corners, minimum size=0cm, callout relative pointer={(#1,#2)}, draw=black, fill=black!10!white] (bubble)
+    {#3};
+  \end{tikzpicture}
+}
+ 
+\newcommand{\overlayed}[4]{%
+  \begin{tikzpicture}
+    \node at (0,0) (text) {%
+      \begin{minipage}[t]{\linewidth}
+        {#3}
+      \end{minipage}
+    };
+    \node at (#1,#2) (overlay) {%
+      \begin{minipage}[t]{\linewidth}
+        {#4}\end{minipage}
+    };
+   \end{tikzpicture}
+}
+
+%%Natuerliche Zahlen
+\newcommand{\B}{{\mathbb{B}}}
+\newcommand{\T}{{\mathbb{T}}}
+\newcommand{\N}{{\mathbb{N}}}
+\newcommand{\Z}{{\mathbb{Z}}}
+\newcommand{\Q}{{\mathbb{Q}}}
+\newcommand{\R}{{\mathbb{R}}}
+\newcommand{\C}{{\mathbb{C}}}
+\newcommand{\Sumkl}{\sum_{k,l\geq 0}^{\text{\raisebox{0.5ex}{\;$k+l\leq n$}}}}
+\newcommand{\Sumij}{\sum_{i,j\geq 0}^{\text{\raisebox{0.5ex}{\;$i+j\leq n$}}}}
+
+% formale Beweise
+\newcommand*{\card}[1]{\ensuremath{\lvert{#1}\rvert}}
+
+% definitions
+\newcommand{\defsym}{\mathrel{:=}}
+
+% latex
+\newcommand{\fldtwothree}{\uflda{\text{\tiny{2}}}{\text{\tiny{3}}}}
+\newcommand{\fldfourfive}{\flda{\text{\tiny{4}}}{\text{\tiny{5}}}}
+\tikzstyle{nid}=[xshift=3mm,yshift=-1mm]
+\newcommand{\tnode}[4][]{%
+  \node[#1] (#2) {#3};
+  \node[nid] at (#2) {\tiny{\textbf{#4}}};
+}
+\newcommand*{\mMinus}{\mathrel{\m{-}}}
+\newcommand*{\mPlus}{\mathrel{\m{+}}}
+\newcommand*{\mTimes}{\mathrel{\m{\times}}}
+\newcommand*{\mZ}{\m{0}}
+
+\newcommand{\flda}[2]{\sqsupset^{#1}_{#2}} % fold approximation strict
+\newcommand{\uflda}[2]{\sqsubset^{#1}_{#2}} % fold approximation strict
+
+\newcommand*{\POPSTARS}{\ensuremath{\text{sPOP}^{\ast}}}
+\newcommand*{\LMPO}{\ensuremath{\text{LMPO}}}
+\newcommand*{\POPSTAR}{\ensuremath{\text{POP}^{\ast}}}
+\newcommand{\TOP}{\rule{0pt}{3ex}} % TOP SPACE IN TABLE
+\newcommand*{\BOT}{\rule[-1.8ex]{0pt}{0pt}} % BOTTOM SPACE IN TABLE 
+\newcommand*{\MPO}{\ensuremath{\text{MPO}}}
+\DeclareMathOperator{\bigO}{\mathsf{O}}
+
+\newcommand{\tm}[1]{\bf{\tiny{$\backslash$#1}}}
+\renewcommand{\c}[2]{{\small{#2}}}
+\newcommand{\spc}{@{\hspace{1.8mm}}}

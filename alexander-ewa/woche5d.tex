@@ -1,0 +1,377 @@
+\lecture{Thema analysieren und in Form bringen}{woche 5}
+
+\section{Zusammenfassung}
+\begin{frame}
+\frametitle{Zusammenfassung der letzten LVA}  
+
+\onslide<2->  
+\begin{Definition}
+  \begin{itemize}
+  \item<3-> Ein \RED{Zitat} ist die wortwörtliche Wiederholung
+  \item<4-> Eine \RED{Paraphrase} bezeichnet die Darstellung des Gedanken eines 
+    anderen in eigenen Worten
+  \end{itemize}
+\end{Definition}
+\onslide<5->
+\medskip
+\begin{mybox}{Verweis auf Webseiten}
+\begin{itemize}
+\item<6-> Quellen die nur online verfügbar sind können unter der Angabe
+des Links zitiert werden
+\item<7-> Einzelne Webseiten nur dann zitieren, wenn diese stabil sind (und dann
+als Fußnote)
+\item<8-> Wenn auf den Inhalt von fluktuierenden Seiten verwiesen wird, muss
+das Datum des  Zugriffs beigefügt werden
+\item<9-> Es gibt keine verbindlichen Regeln, ob einzelne Webseiten auch im
+Literaturverzeichnis aufgenommen werden können
+\end{itemize}
+\end{mybox}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Proseminaraufgaben (für den 7.~April)}    
+
+\begin{itemize}
+\item<2-> Plagiatsfälle:
+\begin{enumerate}
+\item<3-> \href{http://de.wikipedia.org/w/index.php?title=Annette_Schavan}{Annette Schavan, Deutsche Ministerin für Bildung und Forschung.}
+\item<4-> \href{https://de.wikipedia.org/wiki/Christian_Buchmann}{Christian Buchmann, Steirischer Landesrat für Wirtschaft.}
+\end{enumerate}
+\end{itemize}
+
+\uncover<5->{%
+\begin{quote}
+  \GREEN{„{Im Gegensatz zu Österreich hat das wissenschaftliche Plagiat in Amerika stärkere Konsequenzen: 
+%  		„In den USA werden solche Fälle in der Regel von „Honor Boards“, deren Mitglieder Studenten sind behandelt. 
+%  		Auf Basis des an der jeweiligen Hochschule geltenden „Code of Honor“ schlagen diese geeignete Strafen 
+[\ldots] (bis hin zur Exmatrikulation) [\ldots].“
+%vor.“ 
+  		(vgl. Schlonsok, Bernadette (9.~2005): Zur Problematik der Plagiate.}}%
+\only<6->{\footnote{Nach~\url{http://www.unet.univie.ac.at/~a0301287/Strafrecht.htm}, 2.~April, 2014; Orginallink existiert nicht mehr. (eventuell im Google Cache)}}
+\end{quote}
+}
+
+
+\begin{itemize}
+\item<7-> Nennen Sie zumindest 3 Schreibhürden
+  \begin{enumerate}
+  \item<8-> Schreiben kann man oder nicht
+  \item<9-> Perfekt oder gar nicht
+  \item<10-> Ich kann nicht Englisch
+  \end{enumerate}
+\end{itemize}
+
+\end{frame}
+
+\section{Inhalte}
+\begin{frame}
+\frametitle{Inhalte der Lehrveranstaltung}
+
+\begin{mybox}{Erarbeiten und Verstehen von Texten}
+Texte verstehen bzw.\ in eigenen Worten zusammenfassen,
+Literaturrecherche, Recherchen im Internet, richtig zitieren
+\end{mybox}
+
+\bigskip
+
+\begin{mybox}{Form und Struktur einer Arbeit} 
+\alert<2->{Textsorten: Seminar-, Bachelor- und Masterarbeiten, Thema analysieren und in Form bringen}
+\end{mybox}
+
+\bigskip
+
+\begin{mybox}{\LaTeX}
+Eingabefile, Setzen von Text, bzw. von Bildern, 
+Setzen von mathematischen Formeln,  Seitenaufbau,
+Schriften, Spezialfälle
+\end{mybox}
+
+\bigskip
+
+\begin{mybox}{Bewertung, Prüfung und Präsentation von Arbeiten}
+Bewerten von anderen Arbeiten, Das review System in der Informatik,
+Präsentieren: eine Einführung
+\end{mybox}
+\end{frame}
+
+\section{Form und Struktur einer Arbeit}
+\begin{frame}
+\frametitle{Textsorte: Seminararbeit}
+
+\bigskip
+\begin{tabular}{c@{\hspace{5mm}}l}
+  \begin{minipage}[b]{.35\linewidth}
+    \fbox{\includegraphics[height=6cm,width=4cm]{cls-template}}
+  \end{minipage}
+
+&
+\begin{minipage}[b]{.6\linewidth}
+  \begin{itemize}
+  \item<2-> 15--30 Seiten
+  \item<3-> Zusammenfassung/Erläuterung bestehender wissenschaftlicher Arbeiten
+  \item<4-> Kein Anspruch auf Originalität, aber Vollständigkeit
+  \item<5-> Eigener Beitrag besteht meist in der Aufbereitung (= gefälliger Darstellung) der Arbeiten
+  \end{itemize}
+\end{minipage}
+\end{tabular}
+\end{frame}
+
+\begin{frame}
+\frametitle{Textsorte: Bachelorarbeit}
+
+\begin{tabular}{c@{\hspace{5mm}}l}
+  \begin{minipage}[b]{.35\linewidth}
+    \fbox{\includegraphics[height=6cm,width=4cm]{clb-template}}
+  \end{minipage}
+
+&
+\begin{minipage}[b]{.6\linewidth}
+  \begin{itemize}
+  \item<2-> 30--60 Seiten
+  \item<3-> Im Rahmen der Bachelorarbeit wird ein Projekt mit einem Arbeitsaufwand
+    von 500 Stunden abgewickelt, die Bachelorarbeit beschreibt dieses Projekt
+  \item<4-> Üblicherweise ist das Bachelorprojekt ein Programmierprojekt
+  \item<5-> Kein Anspruch auf Originalität, aber Darstellung der erzielten Ergebnisse
+  \item<6-> Der Übergang von einer Seminararbeit zur Bachelorarbeit kann, je nach Thema, fließend sein
+  \end{itemize}
+\end{minipage}
+\end{tabular}
+\end{frame}
+
+\begin{frame}
+\frametitle{Textsorte: Masterarbeit}
+
+\begin{tabular}{c@{\hspace{5mm}}l}
+  \begin{minipage}[b]{.35\linewidth}
+    \fbox{\includegraphics[height=6cm,width=4cm]{clm-template}}
+  \end{minipage}
+
+&
+\begin{minipage}[b]{.6\linewidth}
+  \begin{itemize}
+  \item<2-> 60--100 Seiten
+  \item<3-> Zusammenfassung, Erläuterung, und eventuell Implementierung bestehender 
+    wissenschaftlicher Arbeiten
+  \item<4-> Im Gegensatz zu einer Seminarabeit wird in der Masterarbeit erwartet, dass
+    neue Erkenntnisse eingebracht werden
+  \item<5-> Eigener Beitrag besteht meist in der Aufbereitung, aber auch
+    Verallgemeinerung der Arbeiten
+  \item<6-> Idealerweise führen Masterarbeiten direkt zu (wissenschaftlichen) Veröffentlichungen
+  \end{itemize}
+\end{minipage}
+\end{tabular}
+\end{frame}
+
+\section{Thema analysieren und in Form bringen}
+\begin{frame}[fragile]
+\frametitle{\enquote{Dem Inhalt eine Struktur geben}}
+
+%\uncover<2->{
+%\begin{mybox}{Inhaltsverzeichnis}
+%  \small
+%  \color{green!30!black}
+%  \begin{verbatim}
+%    \tableofcontents
+%  \end{verbatim}
+%\vspace{-8mm}
+%\end{mybox}
+%}
+%
+%\bigskip
+%\begin{mybox}<2->{Einleitung}
+%Hier wird die Arbeit in Kurzform vorgestellt und motiviert 
+%\end{mybox}
+%
+%\bigskip
+%\begin{mybox}{Hauptteil}
+%Beschreibung und Analyse des Themas  
+%\end{mybox}
+%
+%\bigskip
+%\begin{mybox}{Schlussfolgerung}
+%Wiederholung des Themas und Analyse in Bezug auf die Motivation  
+%\end{mybox}
+%
+%\bigskip
+%\begin{mybox}{Literaturverzeichnis}
+%  \small
+%  \color{green!30!black}
+%  \begin{verbatim}
+%    \bibliographystyle{plain}
+%    \bibliography{references}
+%  \end{verbatim}
+%\vspace{-8mm}
+%\end{mybox}
+
+\begin{mybox}{}
+	\onslide<2->
+	\begin{itemize}
+		\item<2-> Titelseite
+		\item<3-> Abstract
+		\item<4-> Inhaltsverzeichnis
+		\item<5-> Einleitung
+		\item<6-> \textbf{Hauptteil}
+		\item<7-> Schlussfolgerung
+		\item<8-> Literaturverzeichnis
+		\item<9-> Anhang
+	\end{itemize}
+\end{mybox}
+\textbf{}
+\onslide<10->
+	\begin{mybox}{}
+	Nach dem (teilweisen) Lesen und Verstehen der für Ihre Arbeit relevanten Literatur 
+	beginnen Sie mit dem Verfassen des Hauptteils.
+\end{mybox}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Titelseite, Abstract und Inhaltsverzeichnis}
+	\framesubtitle{Der erste Eindruck zählt}
+
+\onslide<2->	
+	\begin{mybox}{}
+		\begin{itemize}
+			\item Die Titelseite enhält zumindest den Titel, 
+			das Datum und die Namen der AutorInnen und BetreuerInnen der Arbeit.
+			\item<3-> \texttt{\textbackslash title\{...\} 
+				\textbackslash date\{...\} 
+				\textbackslash author\{...\}
+				\textbackslash supervisor\{...\}
+				\textbackslash maketitle}
+		\end{itemize}
+		
+		
+	
+	\end{mybox}
+\bigskip
+\onslide<4->
+\begin{mybox}{}
+	\begin{itemize}
+		\item Das Abstract ist ein kurze und prägnante Zusammenfassung der Arbeit ohne Wertung oder Referenzen.
+		\item <5-> Schreiben Sie das Abstract \empf{nach} dem fertigestellten Hauptteil und auch
+		nach Einleitung und Zusammenfassung.
+		\item <6-> \texttt{\textbackslash begin\{abstract\} ... \textbackslash end\{abstract\}}
+	\end{itemize}
+	
+\end{mybox}
+\bigskip
+\onslide<7->
+\begin{mybox}{}
+	\begin{itemize}
+		\item Das Inhalstverzeichnis verweist auf (Unter-) Kapitel und Abschnitte.
+		\item<8> \texttt{\textbackslash tableofcontents}
+	\end{itemize}
+\end{mybox}
+\end{frame}
+
+\begin{frame}
+\frametitle{Einleitung}  
+\framesubtitle{Hier wird die Arbeit in Kurzform vorgestellt und motiviert}
+
+\begin{itemize}
+\item<2-> Seien Sie sehr präzise, wenn Sie die Einleitung schreiben
+\item<3-> Die Leserin muss eine Idee dafür bekommen, welche Themen die Arbeit behandelt
+\item<4-> Die Einleitung endet mit einer detaillierten Beschreibung der Struktur
+der Arbeit
+\item<5-> Schreiben Sie die Einleitung nach dem fertiggestellten Hauptteil
+\end{itemize}
+
+\medskip
+\onslide<7->
+\begin{Beispiel}  
+\GREEN{% 
+This  document gives some  hints on  how to  structure and  organize a
+thesis.   It does  not contain  explicit help  on \LaTeX.   For that
+issue please refer to a short introduction in German~\cite{LAT01} or a
+not  so  short  introduction  in English~\cite{LAT02}.   To  ensure  a
+uniform  layout   this  note  further  fixes   some  conventions  when
+typesetting in \LaTeX\ and lists some useful packages.%
+}
+\end{Beispiel}
+\end{frame}
+
+\begin{frame}
+\frametitle{Hauptteil}  
+\framesubtitle{Beschreibung und Analyse des Themas}
+
+\onslide<2->
+\begin{mybox}{Strukturierung}
+\begin{itemize}
+\item<3-> Strukturieren Sie die Arbeit in Kapitel und Unterkapitel, sodass ein Kapitel
+  eine logische Einheit beschreibt
+\item<4-> Beginnen Sie Sektionen mit einem kurzen Absatz, der den Inhalt
+  beschreibt
+\item<5-> Vermeiden Sie zu lange beziehungsweise zu kurze Kapitel
+\end{itemize}
+\end{mybox}
+
+\onslide<6->
+\bigskip
+\begin{mybox}{Formatierung}
+  \begin{itemize}
+  \item<7-> Auch im Englischen werden die Worte in Überschriften 
+groß geschrieben
+  \item<8-> Verwenden Sie dedizierte Umgebungen für Programmlistings, Tabellen, Grafiken, etc.
+  \end{itemize}
+\end{mybox}
+\end{frame}
+
+\begin{frame}
+\frametitle{Schlussfolgerung}
+\framesubtitle{Wiederholung des Themas und Analyse in Bezug auf die Motivation}
+
+\begin{itemize}
+\item<2-> Die Themen der Arbeit werden noch einmal vorgestellt
+\item<3-> Die Ergebnisse der Arbeit werden mit der Motivation in der Einleitung
+  verglichen
+\item<4-> Beschreiben Sie die eigenen Arbeit
+\item<5-> Eventuell gehen Sie auf zukünftige Arbeit und ähnliche Arbeiten ein
+\item<6-> Schreiben Sie die Schlussfolgerung nach dem fertiggestellten Hauptteil
+\end{itemize}
+
+\onslide<7->
+\bigskip
+\begin{Beispiel}
+\GREEN{
+This note gives a comprehensive guide for computational logic students on
+how to organize their scientific documents. In order to get started
+with \LaTeX\ some useful packages are mentioned.
+}  
+\end{Beispiel}
+\end{frame}
+
+\begin{frame}
+\frametitle{Literaturverzeichnis}
+\small
+% \bibliographystyle{plain}
+% \bibliography{biblio}
+\begin{thebibliography}{1}
+
+\bibitem<2->{LAT02}
+T.~Oetiker, H.~Partl, I.~Hyna, and E.~Schlegl.
+\newblock The not so short introduction to {L}a{T}e{X}, 2015.
+\newblock \url{http://ctan.org/tex-archive/info/lshort/english}.
+
+\bibitem<3->{LAT01}
+M.~Daniel, P.~Gundlach, W.~Schmidt, J.~Knappen, H.~Partl, and I.~Hyna.
+\newblock {L}a{T}e{X}-{K}urzbeschreibung, 2016.
+\newblock \url{http://ctan.org/tex-archive/info/german/LaTeX2e-Kurzbeschreibung}.
+
+\end{thebibliography}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Proseminaraufgaben (für den 28.~April)}    
+
+\begin{enumerate}
+\item<2-> Lesen Sie das Kapitel \enquote{Lust statt Last: Wissenschaftliche Texte schreiben}
+von Norbert Frank, Sektion 4
+\item<3-> Lesen Sie \enquote{How to Write a Thesis} von Harald Zankl
+\end{enumerate}
+\end{frame}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "slides"
+%%% End:
+

@@ -1,0 +1,112 @@
+\documentclass[%
+%handout,
+%draft
+]{beamer}
+
+\usetheme[shadow]{ComputationalLogic}
+
+% \usepackage{pgfpages}
+% \pgfpagesuselayout{4 on 1}[a4paper,landscape,border shrink=5mm]
+
+\usepackage{amsmath,amssymb,alltt}
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{colortbl}
+%\usepackage{ngerman}
+%\usepackage[ngerman]{babel}
+%\selectlanguage{naustrian}
+\usepackage{stmaryrd}
+\usepackage{wasysym}
+\usepackage{pifont}
+\usepackage{manfnt}
+\usepackage{textcomp}
+\RequirePackage{etex}
+\usepackage{proof}
+\usepackage{bussproofs}
+\usepackage{boxproof}
+\usepackage{tikz}
+\usetikzlibrary{positioning,decorations,shapes.callouts,mindmap,backgrounds,fit,arrows}
+\usepackage{listings}
+\usepackage[babel]{csquotes}
+\usepackage{url}
+\usepackage{wrapfig}
+\usepackage{slashed}
+\usepackage{slides}
+
+\setbeamertemplate{sidebar right}{}
+\setbeamertemplate{sections/subsections in toc}[ball unnumbered]
+\setbeamersize{text margin left=5mm,text margin right=5mm}
+\setbeamertemplate{itemize items}[circle]
+\setbeamertemplate{enumerate items}[square]
+\setbeamertemplate{qed symbol}{\vrule width 1.5ex height 1.5ex depth 0pt}
+\setbeamertemplate{blocks}[rounded][shadow=true]
+\setbeamertemplate{boxes}
+
+\newcommand{\GREEN}[1]{{\color{green!30!black}#1}}
+\newcommand{\BLACK}[1]{{\color{black}#1}}
+\newcommand{\RED}[1]{{\alert{#1}}}
+\newcommand{\DARKRED}[1]{{\color{red!50!black}#1}}
+\newcommand{\DARKBLUE}[1]{{\color{blue!50!black}#1}}
+\newcommand{\BLUE}[1]{{\color{cl@darkblue}#1}}
+\newcommand{\MAGENTA}[1]{{\color{magenta}#1}}
+\newcommand{\GRAY}[1]{{\color{gray}#1}}
+\newcommand{\YELLOW}[1]{{\color{yellow}#1}}
+\newcommand{\WHITE}[1]{{\color{white}#1}}
+
+\setbeamertemplate{navigation symbols}{%
+  \hbox{%
+    \hbox{\insertslidenavigationsymbol}
+    \hbox{\insertframenavigationsymbol}
+    \hbox{\insertsectionnavigationsymbol}
+    \hbox{\insertbackfindforwardnavigationsymbol}%
+  }%
+}
+\setbeamertemplate{seal opacity}{0}
+
+\newenvironment{mybox}[1]{\begin{beamerboxesrounded}[shadow=true]{\large #1}}{\end{beamerboxesrounded}}
+\newenvironment{Question}[1]{\begin{beamerboxesrounded}[shadow=true]{\MAGENTA{\large Question~{\large #1}}}}{\end{beamerboxesrounded}}
+\newenvironment{Questions}{\begin{beamerboxesrounded}[shadow=true]{\MAGENTA{\large Questions}}}{\end{beamerboxesrounded}}
+\newenvironment{Answer}{\begin{beamerboxesrounded}[shadow=true]{\MAGENTA{\large Answer}}}{\end{beamerboxesrounded}}
+\newenvironment{Idea}{\begin{beamerboxesrounded}[shadow=true]{\MAGENTA{\large Idea}}}{\end{beamerboxesrounded}}
+\newenvironment{Quiz}{\begin{beamerboxesrounded}[shadow=true]{\MAGENTA{\large Quiz}}}{\end{beamerboxesrounded}}
+\newenvironment{aufgabe}{\begin{beamerboxesrounded}[shadow=true]{\GREEN{\large Aufgabe}}}{\end{beamerboxesrounded}}
+\newenvironment{loesung}{\begin{beamerboxesrounded}[shadow=true]{\BLUE{\large Lösung}}}{\end{beamerboxesrounded}}
+
+%\selectlanguage{ngerman}
+
+\begin{document}
+\title{Introduction to Scientific Working}
+\author[AxM]{Alexander Maringele\and et al.}
+\institute{CL @ UIBK}
+\date{SS 2017}
+
+\titleframe
+
+% select appropriate lecture for slides
+%
+%\includeonlylecture{woche 0}
+%\includeonlylecture{woche 1}
+%\lecture{Organisation}{woche 0} % nach 1. woche
+
+
+% main 
+
+% \input{woche1} 
+% \input{woche2}
+% \input{woche3}
+% \input{woche4}
+\input{woche5d}
+% \input{woche6}
+% \input{woche7}
+% \input{woche8}
+% \input{woche9}
+% \input{woche10}
+% \input{woche11}
+% \input{woche12}
+% \input{woche13}
+% \input{woche14}
+
+
+% \bibliographystyle{plain}
+% \bibliography{references}
+\end{document}

@@ -1,0 +1,353 @@
+%%
+%% This is file `boxproof.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% boxproof.dtx  (with options: `package')
+%% 
+\NeedsTeXFormat{LaTeX2e}[1999/12/01]
+\ProvidesPackage{boxproof}
+  [2006/03/21 v1.0 package for setting boxproofs]
+\RequirePackage{ifthen,arydshln}
+
+\DeclareOption{abbrev}{%
+  \newcommand{\pline}{\BPLine}
+  \newcommand{\psline}{\BPScopeLine}
+  \newcommand{\pdots}{\BPDots}
+  \newcommand{\pnline}{\BPNumberedLine}
+  \newcommand{\psnline}{\BPScopeNumberedLine}
+  \newcommand{\pref}{\BPRef}
+  \newcommand{\ob}{\BPOpenBox}
+  \newcommand{\odashb}{\BPOpenDashBox{1.25mm/0.5mm}}
+  \newcommand{\odotb}{\BPOpenDashBox{0.25mm/0.5mm}}
+  \newcommand{\cb}{\BPCloseBox}
+  \newcommand{\cdashb}{\BPCloseDashBox{1.25mm/0.5mm}}
+  \newcommand{\cdotb}{\BPCloseDashBox{0.25mm/0.5mm}}
+  \newcommand{\cob}{\BPCloseOpenBox}
+}%
+
+\DeclareOption*{%
+  \PackageWarning{boxproof}{Unknown option `\CurrentOption'}%
+}%
+
+\newcounter{BPLineNumber}
+\newcounter{BPBoxes}
+\newcounter{BPStart}
+\newcounter{BPStop}
+\newcounter{BPProofs}
+
+\newtoks\BPProofPrefix
+\newtoks\BPBoxA
+\newtoks\BPBoxB
+\newtoks\BPBoxC
+\newtoks\BPBoxD
+\newtoks\BPBoxE
+
+\setcounter{BPBoxes}{0}
+\setcounter{BPProofs}{0}
+\setcounter{BPLineNumber}{0}
+\BPProofPrefix = {}
+\setcounter{BPStart}{2}
+\setcounter{BPStop}{13}
+
+\newboolean{BPNewLine}
+\newboolean{BPWithinProof}
+\newboolean{BPFirstIsOpenBox}
+\setboolean{BPNewLine}{false}
+\setboolean{BPWithinProof}{false}
+\setboolean{BPFirstIsOpenBox}{true}
+
+\newcommand{\BPSetProofPrefix}[1]{\BPProofPrefix = {#1}}
+
+\newcommand{\BPSetLineStyle}[1]{%
+  \ifthenelse{\value{BPBoxes} = 0}{}{%
+  \ifthenelse{\value{BPBoxes} = 1}{%
+    \global\BPBoxA = {#1}%
+  }{\ifthenelse{\value{BPBoxes} = 2}{%
+    \global\BPBoxB = {#1}%
+  }{\ifthenelse{\value{BPBoxes} = 3}{%
+    \global\BPBoxC = {#1}%
+  }{\ifthenelse{\value{BPBoxes} = 4}{%
+    \global\BPBoxD = {#1}%
+  }{\ifthenelse{\value{BPBoxes} = 5}{%
+    \global\BPBoxE = {#1}%
+  }{}}}}}}%
+}%
+
+\newenvironment{boxproof}[1][]{%
+  \stepcounter{BPProofs}%
+  \ifthenelse{\equal{#1}{}}{% then
+    \def\BPTMPProofNum{\theBPProofs}%
+  }{% else
+    \def\BPTMPProofNum{#1}%
+  }%
+  \let\BPTMPPrefix=\BPTMPProofNum%
+  \BPSetProofPrefix{\BPTMPPrefix}%
+  \setboolean{BPFirstIsOpenBox}{true}%
+  \setboolean{BPNewLine}{false}%
+  \setcounter{BPLineNumber}{0}%
+  \setcounter{BPBoxes}{0}%
+  \setboolean{BPWithinProof}{true}%
+  $\begin{array}[t]%
+    {r@{}l@{}l@{}l@{}l@{}l@{}l@{}l@{\quad}l@{}l@{}l@{}l@{}l@{}l}%
+}{%
+  \end{array}$%
+  \setboolean{BPWithinProof}{false}%
+}
+
+\newcommand{\mc}[2]{%
+  \multicolumn{#1}{#2}{}%
+}%
+
+\newcommand{\formatLn}[1]{%
+  \arabic{#1}%
+}%
+
+\newcommand{\BPRef}[1]{%
+  \ifthenelse{\boolean{BPWithinProof}}{%
+    \ref{\the\BPProofPrefix:#1}%
+  }{%
+    \ref{#1}%
+  }%
+}
+
+\newcommand{\BPStartLine}[2][]{%
+  \refstepcounter{BPLineNumber}%
+  \label{\BPTMPPrefix:#1}%
+  \ifthenelse{\boolean{BPNewLine}}{\\}{}% add new line if necessary
+  \ifthenelse{\equal{#2}{}}{%
+    \formatLn{BPLineNumber}\qquad%
+  }{% else
+    \ifthenelse{\equal{#2}{nonum}}{}{% else
+      #2\qquad%
+    }
+  }%
+  \ifthenelse{\value{BPBoxes} = 0}{%
+    &%
+    \mc{5}{l@{}} &%
+  }{% else
+    \ifthenelse{\value{BPBoxes} = 1}{%
+      &%
+      \mc{1}{\the\BPBoxA l@{}} &%
+      \mc{4}{l@{}} &%
+    }{% else
+      \ifthenelse{\value{BPBoxes} = 2}{%
+      &%
+      \mc{1}{\the\BPBoxA l@{}} &%
+      \mc{1}{\the\BPBoxB l@{}} &%
+      \mc{3}{l@{}} &%
+    }{% else
+      \ifthenelse{\value{BPBoxes} = 3}{%
+        &%
+        \mc{1}{\the\BPBoxA l@{}} &%
+        \mc{1}{\the\BPBoxB l@{}} &%
+        \mc{1}{\the\BPBoxC l@{}} &%
+        \mc{2}{l@{}} &%
+      }{% else
+        \ifthenelse{\value{BPBoxes} = 4}{%
+          &%
+          \mc{1}{\the\BPBoxA l@{}} &%
+          \mc{1}{\the\BPBoxB l@{}} &%
+          \mc{1}{\the\BPBoxC l@{}} &%
+          \mc{1}{\the\BPBoxD l@{}} &%
+          \mc{1}{l@{}} &%
+        }{% else
+          \ifthenelse{\value{BPBoxes} = 5}{%
+            &%
+            \mc{1}{\the\BPBoxA l@{}} &%
+            \mc{1}{\the\BPBoxB l@{}} &%
+            \mc{1}{\the\BPBoxC l@{}} &%
+            \mc{1}{\the\BPBoxD l@{}} &%
+            \mc{1}{\the\BPBoxE l@{}} &%
+          }{}%
+  }}}}}%
+}
+
+\newcommand{\BPEndLine}{
+  \ifthenelse{\value{BPBoxes} = 0}{%
+    & \mc{5}{l@{}}%
+  }{% else
+    \ifthenelse{\value{BPBoxes} = 1}{%
+      & \mc{4}{l@{}}%
+      & \mc{1}{\the\BPBoxA l@{}}%
+    }{% else
+      \ifthenelse{\value{BPBoxes} = 2}{%
+        & \mc{3}{l@{}}%
+        & \mc{1}{\the\BPBoxB l@{}}%
+        & \mc{1}{\the\BPBoxA l@{}}%
+      }{% else
+        \ifthenelse{\value{BPBoxes} = 3}{%
+          & \mc{1}{l@{}}%
+          & \mc{1}{l@{}}%
+          & \mc{1}{\the\BPBoxC l@{}}%
+          & \mc{1}{\the\BPBoxB l@{}}%
+          & \mc{1}{\the\BPBoxA l@{}}%
+        }{% else
+          \ifthenelse{\value{BPBoxes} = 4}{%
+            & \mc{1}{l@{}}%
+            & \mc{1}{\the\BPBoxD l@{}}%
+            & \mc{1}{\the\BPBoxC l@{}}%
+            & \mc{1}{\the\BPBoxB l@{}}%
+            & \mc{1}{\the\BPBoxA l@{}}%
+          }{% else
+            \ifthenelse{\value{BPBoxes} = 5}{%
+              & \mc{1}{\the\BPBoxE l@{}}%
+              & \mc{1}{\the\BPBoxD l@{}}%
+              & \mc{1}{\the\BPBoxC l@{}}%
+              & \mc{1}{\the\BPBoxB l@{}}%
+              & \mc{1}{\the\BPBoxA l@{}}%
+            }{}%
+  }}}}}%
+  \BPSetProofPrefix{}%
+  \setboolean{BPNewLine}{true}%
+  \setboolean{BPFirstIsOpenBox}{false}%
+}
+
+\newcommand{\BPOpenBox}{%
+  \ifthenelse{\boolean{BPFirstIsOpenBox}}{%
+    \\[-3ex]%
+  }{% else
+    \\%
+  }%
+  \cline{\value{BPStart}-\value{BPStop}}%
+  \setboolean{BPNewLine}{false}%
+  \setboolean{BPFirstIsOpenBox}{false}%
+  \addtocounter{BPBoxes}{1}%
+  \addtocounter{BPStart}{1}%
+  \addtocounter{BPStop}{-1}%
+  \BPSetLineStyle{|}%
+}
+
+\newcommand{\BPOpenDashBox}[1]{%
+  \ifthenelse{\boolean{BPFirstIsOpenBox}}{%
+    \\[-3ex]%
+  }{% else
+    \\%
+  }%
+  \cdashline{\value{BPStart}-\value{BPStop}}[#1]%
+  \setboolean{BPNewLine}{false}%
+  \setboolean{BPFirstIsOpenBox}{false}%
+  \addtocounter{BPBoxes}{1}%
+  \addtocounter{BPStart}{1}%
+  \addtocounter{BPStop}{-1}%
+  \BPSetLineStyle{;{#1}}%
+}
+
+\newcommand{\BPCloseBox}{%
+  \addtocounter{BPBoxes}{-1}%
+  \addtocounter{BPStart}{-1}%
+  \addtocounter{BPStop}{1}%
+  \setboolean{BPNewLine}{false}%
+  \\ \cline{\value{BPStart}-\value{BPStop}}%
+}
+
+\newcommand{\BPCloseDashBox}[1]{%
+  \addtocounter{BPBoxes}{-1}%
+  \addtocounter{BPStart}{-1}%
+  \addtocounter{BPStop}{1}%
+  \setboolean{BPNewLine}{false}%
+  \\ \cdashline{\value{BPStart}-\value{BPStop}}[#1]%
+}
+
+\newcommand{\BPCloseOpenBox}{%
+  \addtocounter{BPBoxes}{-1}%
+  \addtocounter{BPStart}{-1}%
+  \addtocounter{BPStop}{1}%
+  \\ \cline{\value{BPStart}-\value{BPStop}}%
+  \ifthenelse{\value{BPBoxes} = 0}{%
+                  &%
+    \mc{5}{l@{}}  &%
+                  & &%
+    & \mc{5}{l@{}} \\[-2.5ex]%
+  }{%
+    \ifthenelse{\value{BPBoxes} = 1}{%
+                    &%
+      \mc{1}{|l@{}} &%
+      \mc{4}{l@{}}  &%
+                    & &%
+      & \mc{4}{l@{}}%
+      & \mc{1}{|l@{}} \\[-2.5ex]%
+    }{%
+      \ifthenelse{\value{BPBoxes} = 2}{%
+                      &%
+        \mc{1}{|l@{}} &%
+        \mc{1}{|l@{}} &%
+        \mc{3}{l@{}}  &%
+                      & &%
+        & \mc{3}{l@{}}%
+        & \mc{1}{|l@{}}%
+        & \mc{1}{|l@{}} \\[-2.5ex]%
+      }{%
+        \ifthenelse{\value{BPBoxes} = 3}{%
+                        &%
+          \mc{1}{|l@{}} &%
+          \mc{1}{|l@{}} &%
+          \mc{1}{|l@{}} &%
+          \mc{2}{l@{}}  &%
+                        & &%
+          & \mc{2}{l@{}}%
+          & \mc{1}{|l@{}}%
+          & \mc{1}{|l@{}}%
+          & \mc{1}{|l@{}} \\[-2.5ex]%
+        }{%
+          \ifthenelse{\value{BPBoxes} = 4}{%
+                          &%
+            \mc{1}{|l@{}} &%
+            \mc{1}{|l@{}} &%
+            \mc{1}{|l@{}} &%
+            \mc{1}{|l@{}} &%
+            \mc{1}{l@{}}  &%
+                          & &%
+            & \mc{1}{l@{}}%
+            & \mc{1}{|l@{}}%
+            & \mc{1}{|l@{}}%
+            & \mc{1}{|l@{}}%
+            & \mc{1}{|l@{}} \\[-2.5ex]%
+          }{%
+            \ifthenelse{\value{BPBoxes} = 5}{%
+                            &%
+              \mc{1}{|l@{}} &%
+              \mc{1}{|l@{}} &%
+              \mc{1}{|l@{}} &%
+              \mc{1}{|l@{}} &%
+              \mc{1}{|l@{}} &%
+                            & &%
+              & \mc{1}{|l@{}}%
+              & \mc{1}{|l@{}}%
+              & \mc{1}{|l@{}}%
+              & \mc{1}{|l@{}}%
+              & \mc{1}{|l@{}} \\[-2.5ex]%
+            }{}%
+          }%
+        }%
+      }%
+    }%
+  }%
+  \cline{\value{BPStart}-\value{BPStop}}%
+  \setboolean{BPNewLine}{false}%
+  \addtocounter{BPBoxes}{1}
+  \addtocounter{BPStart}{1}
+  \addtocounter{BPStop}{-1}
+}
+
+\newcommand{\BPLine}[3][]{%
+  \BPStartLine[#1]{} & #2 & #3 \BPEndLine{}}
+
+\newcommand{\BPScopeLine}[4][]{%
+  \BPStartLine[#1]{} #2{\quad} & #3 & #4 \BPEndLine{}}
+
+\newcommand{\BPDots}{%
+  \BPStartLine[]{nonum} & \multicolumn{1}{c}{\vdots} & \BPEndLine{}}
+
+\newcommand{\BPNumberedLine}[4][]{%
+  \BPStartLine[#1]{#2} & #3 & #4 \BPEndLine{}}
+
+\newcommand{\BPScopeNumberedLine}[5][]{%
+  \BPStartLine[#1]{#2} #3{\quad} & #4 & #5 \BPEndLine{}}
+
+\ExecuteOptions{abbrev}
+\ProcessOptions{}
+\endinput
+%%
+%% End of file `boxproof.sty'.
