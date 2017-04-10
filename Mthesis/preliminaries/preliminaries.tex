@@ -23,8 +23,8 @@ Figure \vref{fig:conventions} in the appendix lists typographical conventions.
 
 \section{Syntax}\label{sec:syntax}
 
-In this section we introduce the syntax of first order logic with equality in clause normal form.
-We will loosely relate it to formulae in prenex normal form (see Definition \ref{def:PNF} for details).
+In this section we introduce the syntax of arbitrary first order formualae (\FOF) 
+and clausal normal form (\CNF).
 
 \input{preliminaries/signature}
 
@@ -120,9 +120,9 @@ We state satisfiability of clauses. See the appendix for more details and mathem
 \end{example}
 
 \begin{definition}\label{def:hk}
-	An {\myem Herbrand universe} is the smallest set of terms that contains all $H_{i\geq 0}$ of
+	An {\myem Herbrand universe} is the smallest set of terms that contains all $H_{i\geq 0}$ defined inductively as
 	\begin{align*}
-	H'_0 &= \left\{ 
+	H_0 &= \left\{ 
 	\begin{array}{ll}
 	\{\,\mc \mid \mc\in\mcFfn[0]\,\} 
 	&\text{if } \mcFfn[0]\not=\emptyset\\
@@ -131,9 +131,9 @@ We state satisfiability of clauses. See the appendix for more details and mathem
 	\end{array}
 	\right. 
 	&
-	H_0 &= H'_0
+	H'_0 &= H_0
 	\\
-	H'_{k+1} &= \bigcup_{n> 0} 
+	H_{k+1} &= \bigcup_{n> 0} 
 	\{\,  
 	\mf(t_1,\ldots,t_n) \mid
 	\mf\in\mcFfn[n],
