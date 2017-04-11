@@ -17,24 +17,23 @@
 \end{definition}
 
 \begin{definition}\label{def:term:vars}\label{def:fof:fvars}\label{def:fof:sentence}
-	We define the set of variables of a first order term $t$
-	\DEFINE{\var(t)} {
+	We define the set of variables of a first order term $t$ and the set of {\myem free} variables of a first order formula $F$ as follows:
+\DEFINE{\var(t)} {
 		\{ x \} & \text{if } t = x \in \mcV \\
 		\bigcup_{i=1}^n \var(t_i) & \text{if }  t = \mf(t_1, \ldots t_n), \mf \in \mcFfn
 	}
-and the set of {\myem free} variables of a first order formula $F$.
 \DEFINE{\fvar(F)}{
 		\bigcup_{i=1}^n \var(t_i) &\text{if }F = P(t_1,\ldots,t_n)\text{ or }t_1\mEQ t_2 
 		\\
-		\fvar (G) \setminus \{ x\} &\text{if } F = \forall x\, G \text{ or } \exists x\, G
+		\fvar (G) \setminus \{ x\} &\text{if } F \in\{\, \forall x\,G, \exists x\,G\,\}
 		\\
-		\fvar(G) \cup \fvar(H)&\text{if }F = G\land H, G\lor H\text{ or } G\limp H
+		\fvar(G) \cup \fvar(H)&\text{if }F \in\{\,G\land H,G\lor H,G\limp H\,\}
 %		\\
 %		\var(s) \cup \var(t) &\text{if }F = s\mEQ t
 		\\
 		\fvar(G)&\text{if }F = \lnot G
 	}
 A first order {\myem sentence} is a closed formula, 
-i.e.~it has no free variables, 
+i.e.~without free variables, 
 over a signature.
 \end{definition}

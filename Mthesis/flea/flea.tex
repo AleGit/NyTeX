@@ -6,14 +6,71 @@
 
 \input{epigraphs/faust}
 
-In this chapter we introduce \verb|FLEA| --
-our {\textbf F}irst Order {\textbf L}ogic with {\textbf E}quality Theorem {\textbf A}ttester. 
+In this chapter we introduce \FLEA --
+our \textbf{F}irst Order \textbf{L}ogic with \textbf{E}quality Theorem \textbf{A}ttester. 
 It is 
 -- as the reader may allready suspect --
 a modest implementation of an instantiation based theorem prover for first order clauses with equality.
 
 %We disucss its general architecture and elaborate on some implementation details.
 
+\section{Installation}
+
+\FLEA is open source (but still without license) and available on GitHub\footnote{
+	\href{https://github.com/AleGit/FLEA}{github.com/AleGit/FLEA}
+}. It depends on a working \Swift\footnote{
+	Instructions and binaries available on \href{https://swift.org}{swift.org}
+} toolchain at build time and the local installation of 
+\Yices\footnote{
+	Instruction and binary available on \href{http://yices.csl.sri.com}{yices.csl.sri.com}
+}
+and \Ziii\footnote{
+	Instructions and source code available on \href{https://github.com/Z3Prover/z3}{github.com/Z3Prover/z3}
+} at build and run time. After installation of these three prerequisites you may check the success with commands and results from Listing \ref{lst:check:Swyz}. 
+
+Not a strict prerequisite but we recommend to download, to unpack \href{http://www.cs.miami.edu/~tptp/TPTP/Distribution/TPTP-v6.4.0.tgz}{TPTP-v6.4.0.tgz} (or newer)
+from the \TPTP website\footnote{
+	\href{http://www.cs.miami.edu/~tptp/}{www.cs.miami.edu/\textasciitilde tptp}
+}, and to create a symbolic link to the unpacked library in your home directory.
+\begin{lstlisting}[
+	label=lst:check:Swyz,
+	caption={Check toolchain and libraries},
+	language=bash]
+$\prompt$ yices - V
+Yices 2.5.1          # or newer
+$\prompt$ z3 --version
+Z3 version 4.5.1     # or newer
+$\prompt$ swift -version
+Swift version 3.1    # or newer
+$\prompt$ ls $\text{\textasciitilde}$/TPTP
+Axioms    Documents    Generators    Problems    README    Scripts
+\end{lstlisting}
+
+After we have downloaded and installed external tool chain and libraries we clone \FLEA and install the parsing lib as in Listing \ref{lst:install:parsing}.
+
+\begin{lstlisting}[
+label=lst:install:parsing,
+caption={Download \FLEA and install parsing lib},
+language=bash]
+$\prompt$ git clone https://github.com/AleGit/FLEA # download sources
+$\prompt$ cd FLEA
+$\prompt$ swift build                              # downloads dependencies, but fails
+$\prompt$ pushd Packages/CTptpParsing-1.0.0        # or 1.0.1 or ...
+$\prompt$ sudo make install                        # install parsing lib
+$\prompt$ popd
+\end{lstlisting}
+
+\begin{lstlisting}[
+label=lst:test:all,
+caption={Build and and run all \FLEA tests.},
+language=bash]
+$\prompt$ Scripts/z3headers.sh                     # workaround for headers
+$\prompt$ Scripts/ctests.sh                        # build and run all tests
+\end{lstlisting}
+
+
+
+\section{Usage}
 
 \section{Data struture}
 
@@ -27,13 +84,14 @@ protocol Node: Hashable {
 
 \section{Encodings}
 
-\begin{figure}
-	test
-\end{figure}
+%\begin{figure}
+%	test
+%\end{figure}
 
 We can simply encode first order atoms purely propositional 
 when we construct the name for the propositional atom 
 from a predicate or equation recursively as concatination of symbols.
+After installation of these prerequisites you may check if everything went well.
 
 
 

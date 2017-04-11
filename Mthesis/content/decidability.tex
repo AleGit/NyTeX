@@ -171,10 +171,11 @@ We follow definitions and examples in \cite{AM2015L}.
 	A {\myem first order theory} is a pair of a first order signature 
 	and the possible infinite conjunction $\bigwedge_i A_i$ of first order formulae, 
 	i.e.~the axioms, over the theory's signature. 
-	A theory is satisfiable if there exists a model for the its axioms.
+	A theory is satisfiable if there exists a model for its axioms.
+	A theory is consistent when the contradiction is not derivable.
 %	
-	A sentence over a theory's signature is a {\myem theorem} in the theory 
-	if and only if it holds in any model for the theory's axioms.
+	A {\myem theorem} is a sentence over the theory's signature, 
+	i.e. a closed formula, that holds in any model for the theory's axioms.
 	\[
 		\bigwedge_i A_i \models \mathsf{theorem} 
 		\quad\text{ or }\quad
@@ -185,7 +186,7 @@ We follow definitions and examples in \cite{AM2015L}.
 
 \begin{example}
 A theory with axioms $\forall x\,\mP(x)$ and $\exists x\,\lnot\mP(x)$ is not satisfiable,
-but every sentence is a theorem.
+but every sentence is a theorem. Hence it is not consistent, too.
 \end{example}
 %
 \begin{remark} 
@@ -201,6 +202,8 @@ to conclude that the conjecture is indeed a theorem.
 	\bigwedge_i A_i \land \lnot \mathsf{conj}
 \]
 \end{remark}
+
+In the following we define equivalence and congruence as usual. Together these axioms form the theory of equality.
 
 \begin{definition}
 	[Equivalence]
@@ -221,15 +224,16 @@ to conclude that the conjecture is indeed a theorem.
 \end{definition}
 
 \begin{definition}
-	With $n\in\mathbb{N}$ and arbitrary function or predicate symbol 
-	$\mcf\in\mcFn$ 
-	we abbreviate first order expression
-	$\mcf(x_1,\ldots,x_n)$ with $\mcf(\vecn{x})$,
+	We sometimes abbreviate a sequence of variables $x_i$ by $\vec{x}$.
+	With $n\in\mathbb{N}$ we may write $\mcf(\vecn{x})$ 
+	for first order expression $\mcf(x_1,\ldots,x_n)$
+	for an n-ary function or predicate symbol,
+%	 $\mcf\in\mcFn$,
+	a single equation $\vecn{x}\mEQ\vecn{y}$ for
 	the conjunction of $n$ equations 
-	$x_1\mEQ y_1\land\ldots\land x_n\mEQ y_n$ 
-	with single equation $\vecn{x}\mEQ\vecn{y}$,
-	and the sequence of quantified variables $\forall x_1\ldots\forall x_n$
-	with $\forall\vecn{x}$.
+	$x_1\mEQ y_1\land\ldots\land x_n\mEQ y_n$,
+	and $\forall\vecn{x}$ for 
+	the sequence of quantified variables $\forall x_1\ldots\forall x_n$.
 \end{definition}
 
 \begin{definition}
