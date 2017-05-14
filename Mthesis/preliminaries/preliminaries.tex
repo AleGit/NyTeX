@@ -23,8 +23,8 @@ Figure \vref{fig:conventions} in the appendix lists typographical conventions.
 
 \section{Syntax}\label{sec:syntax}
 
-In this section we introduce the syntax of first order logic with equality in clause normal form.
-We will loosely relate it to formulae in prenex normal form (see Definition \ref{def:PNF} for details).
+In this section we introduce the syntax of arbitrary first order formualae (\FOF) 
+and clausal normal form (\CNF).
 
 \input{preliminaries/signature}
 
@@ -120,9 +120,9 @@ We state satisfiability of clauses. See the appendix for more details and mathem
 \end{example}
 
 \begin{definition}\label{def:hk}
-	An {\myem Herbrand universe} is the smallest set of terms that contains all $H_{i\geq 0}$ of
+	An {\myem Herbrand universe} is the smallest set of terms that contains all $H_{i\geq 0}$ defined inductively as
 	\begin{align*}
-	H'_0 &= \left\{ 
+	H_0 &= \left\{ 
 	\begin{array}{ll}
 	\{\,\mc \mid \mc\in\mcFfn[0]\,\} 
 	&\text{if } \mcFfn[0]\not=\emptyset\\
@@ -131,16 +131,16 @@ We state satisfiability of clauses. See the appendix for more details and mathem
 	\end{array}
 	\right. 
 	&
-	H_0 &= H'_0
+	H'_0 &= H_0
 	\\
-	H'_{k+1} &= \bigcup_{n> 0} 
+	H_{k+1} &= \bigcup_{n> 0} 
 	\{\,  
 	\mf(t_1,\ldots,t_n) \mid
 	\mf\in\mcFfn[n],
-	t_1,\ldots,t_n \in H_k
+	t_1,\ldots,t_n \in H_k'
 	\,\}
 	&
-	H_{k+1} &= H_k \cup H'_{k+1}
+	H'_{k+1} &= H_k \cup H'_{k+1}
 	\end{align*}
 	
 \end{definition}
@@ -153,20 +153,23 @@ We state satisfiability of clauses. See the appendix for more details and mathem
 
 \subsection{Equality}
 
-In Definition \ref{def:semantics:atoms} we interpreted equality as binary relation without restrictions.
+In Definition \ref{def:semantics:atoms} we have interpreted the equality symbol as binary relation without restrictions.
 This of course allows undesirable models as in Example \ref{ex:a:neq:a}.
+We state 
 
 \begin{example}
 	\label{ex:a:neq:a}
-	Any interpretation $\mcI$ satisfies $\ma\mNE\ma$ 
-	whenever ${\mEQ_\mcI} = \emptyset$.
+	Any interpretation $\mcI$  
+	with ${\mEQ_\mcI} = \emptyset$ satisfies $\ma\mNE\ma$.
 \end{example}
 
 \begin{definition}
-	An {\myem normal} interpretation defines $\mEQ_\mcI$ as equality on its domain,
+	An {\myem normal} interpretation defines $\mEQ_\mcI$ as identity on its domain,
 	e.g.~the equation of terms $s \mEQ_\mcI t$ holds if and only 
 	if any evaluation of its terms are equal $\alpha_\mcI(s) = \alpha_\mcI(t)$ 
-	for all assignments $\alpha$.
+	for all assignments $\alpha$. 
+	In other words a normal interpretation yields different elements 
+	for ground terms $s'$ and $t'$ if and only if $s'\mNE_\mcI t'$.
 \end{definition}
 
 \begin{definition}
@@ -185,17 +188,17 @@ This of course allows undesirable models as in Example \ref{ex:a:neq:a}.
 
 
 \begin{example}
-	Consider the satisfiable set of clauses $S = \{ x \mEQ \mf(x) \}$. 
+	Consider the satisfiable set of clauses $S = \{ \mf(x) \mEQ x \}$. 
 	%	
 	We easily find a Herbrand model $\mcH$ with
-	predicate definition $\mEQ_\mcH = \{ (\mf^{i}(\ma)), \mf^{i+1}(\ma)) \mid i\geq 0  \} $. 
-	However $\mcH$ is not an normal model because obviously $\ma\neq\mf(\ma)$ in its domain.
+	predicate definition $\mEQ_\mcH = \{ (\mf^{i+1}(\ma)), \mf^{i}(\ma)) \mid i\geq 0  \} $. 
+	However $\mcH$ is not an normal model because obviously $\mf(\ma)\neq\ma$ in its domain.
 	%	
 	Further on we easily find an normal model $\mcM$ 
 	with domain $\{ \mc \}$, function definition $\mf_\mcM(\mc) \mapsto \mc$, 
-	and the relation ${\mEQ_\mcM} = \{ (\mc,\mc)\}$ coincides with equality in its domain.
+	and the relation ${\mEQ_\mcM} = \{ (\mc,\mc)\}$ coincides with identity in its domain.
 	Certainly this model $\mcM$ is not an Hebrand model 
-	because the interpretation of ground term ${\mf(\mc)}_\mcM \neq \mf(\mc)$ is not the term itself.
+	because the interpretation of ground term ${\mf(\mc)}_\mcM = \mc \neq \mf(\mc)$ is not the term itself.
 	%	
 	On the other hand we easily get a normal term model $\mcM_t$ with domain $\{ [\ma]_\sim\}$, 
 	a plain function definition
