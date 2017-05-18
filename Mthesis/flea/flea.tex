@@ -16,7 +16,7 @@ a modest implementation of an instantiation based theorem prover for first order
 
 \section{Installation}
 
-\FLEA is open source (but still without license) and available on GitHub\footnote{
+\FLEA is open source (but still without license) and available on \GitHub\footnote{
 	\href{https://github.com/AleGit/FLEA}{github.com/AleGit/FLEA}
 }. It depends on a working \Swift\footnote{
 	Instructions and binaries available on \href{https://swift.org}{swift.org}
@@ -107,13 +107,15 @@ where $\bot, \encsep\not\in\mcF$ are distinct symbols that do not occur in the s
 \end{definition}
 
 \begin{example}
-	We encode a simple predicate and an simple equation as follows.
+	We encode a simple predicate and a simple equation as follows.
 	\begin{align*}
 	\xi(\mpp(\mf(x,y),g(y)) &= \mpp\encsep\mf\encsep\bot\encsep\bot\encsep\mg\encsep\bot\\
 	\xi(\mf(x,y)\mEQ \mg(y)) &= {\mEQ}\encsep\mf\encsep\bot\encsep\bot\encsep\mg\encsep\bot\\
 	\end{align*}
 \end{example}
 
+\begin{definition}
+	We define den \SMT-Encoding as follows
 \DEFINE{\Xi(\mct)}{
 	\mc_0 : U &\text{if } \mct=x\in\mcV, \mc_0\not\in\mcFn[0]  
 	\\
@@ -129,6 +131,7 @@ where $\bot, \encsep\not\in\mcF$ are distinct symbols that do not occur in the s
 	: (U^n\rightarrow \mathsf{Bool})\ \Xi(t_1)\ \ldots\ \Xi(t_n)
 	&\text{if }\mct=\mP(t_1,\ldots,t_n), \mP\in\mcFPn 
 }
+\end{definition}
 
 \begin{lstlisting}[language=FLEA]
 struct Yices {
