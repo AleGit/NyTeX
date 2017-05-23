@@ -13,6 +13,15 @@
 	i.e.~it holds in all interpretations.
 %\end{definition}
 
+In this chapter we first recall that satisfiability in first order logic is undecidable in general 
+and other famous theorems of first order logic in \ref{sec:decidable:fol:theorems}.
+We describe all decidable fragments with purely syntactical descriptions 
+in \ref{sec:decidable:fol:fragments}.
+Then in \ref{sec:decidable:fol:theories} we look at decidable first order theories 
+which may not be contained in one of the syntactically described decidable fragments of first order logic.
+
+\section{Theorems of First Order Logic}\label{sec:decidable:fol:theorems}
+
 \begin{lemma}[Refutation]
 	By definition of the semantics of negation a formula is valid if and only if its negation is not satisfiable.
 \end{lemma}
@@ -30,8 +39,9 @@
 	The satisfiability problem for first order logic on {\myem finite} structures (domains) is undecidable.
 \end{theorem}
 
-\begin{theorem}[Finite model property]
-\end{theorem}
+\begin{definition}[Finite model property]
+	A logic has the finite model property if each theorem is falsified by some finite model.
+\end{definition}
 
 
 
@@ -68,12 +78,11 @@ With Skolemization and Tseitin transformation we can effectively transform a arb
 \end{lemma}
 
 
+\section{Decidable fragments of First Order Logic}\label{sec:decidable:fol:fragments}
 
-\section{Decidable fragments}\label{sec:decidable:fol:fragments}
-
-This subsection presents purely syntactical defined fragments
+This section presents purely syntactical defined fragments
 of first order logic where satisfiability is decidable.\footnote{
-	Definition and compact overview from presentation
+	\,Definitions and compact overviews follow the presentation
 	“\href{http://logic.rwth-aachen.de/~graedel/kalmar.pdf}{Decidable fragments of first-order and fixed-point logic}”
 	by E.~Grädel (\url{http://logic.rwth-aachen.de/~graedel/}).	
 }  
@@ -96,32 +105,39 @@ of first order logic where satisfiability is decidable.\footnote{
 	\[
 	[\, \Pi, (p_1,p_2,\ldots), (f_1,f_2,\ldots)\,]_{(\mEQ)}
 	\]
-	where $\Pi = \quantify_1 \ldots \quantify_n$ describes the quantifier prefix 
-	$\quantify_1 x_1 \ldots \quantify_n x_n, \quantify_i\in\{\forall,\exists\}, x_i\in\mcV$ without variables,
-	the value $p_i$ the maximal number of predicate symbols
+	where $\Pi = \quantify_1 \ldots \quantify_n$, $\quantify_i\in\{\forall,\exists\}$ 
+	describes the structure of the quantifier prefix (without variables),
+	the value $p_i$ is the maximal number of predicate symbols with arity $i$,
 	and the value $f_i$ the maximal number of function symbols with arity $i$.
-	The equality symbol is not counted as binary predicate symbol.
-	The subscript indicates its presence of the equality symbol in the signature. 
+	The equality symbol is not counted as binary predicate symbol. Instead,
+	the absence or presence of subscript $(\mEQ)$ indicates whether the equality symbol is in the signature. 
 	
 \end{definition}
 
-\begin{example}\label{ex:monadic:ackermann}
+\begin{example}\label{ex:monadic}
 	The monadic predicate calculus includes formulae with arbitrary quantifier prefixes, 
 	arbitrary many unary predicate symbols, the equality symbol, but no function symbols.
-	\begin{align*}
-	\colG [\,all, (\omega), (1)\,]_= 
-	\quad\supsetneq& &
-	[\,all, (\omega), (0 )&\,]_=
+	\begin{gather*}
+	{\colG [\,all, (\omega), (1)\,]_= 
+	\quad\supsetneq}\qquad 
+	[\,all, (\omega), (0 ) \,]_=
 	\tag{Löwenheim 1925, Kalmár 1929}
-	\\
-	\colG [\,\exists^*\forall\exists^*,all,(1)\,]_=
-	\quad\supsetneq& &
-	[\,\exists^*\forall\exists^*,all,(0)&\,]_{=} \tag{Ackermann 1928}
-	\end{align*}
+	\end{gather*}
+\end{example}
+
+\begin{example}\label{ex:ackermann}
 	The Ackermann prefix class contains formulae with arbitrary many existential quantifiers, 
 	but just one universal quantifier. It contains arbitrary many predicate symbols
 	with arbitrary arities, the equality symbol, but no function symbols. 
+	\begin{gather*}
+	{\colG [\,\exists^*\forall\exists^*,all,(1)\,]_=
+	\quad\supsetneq}\qquad
+	[\,\exists^*\forall\exists^*,all,(0) \,]_{=}\qquad\qquad\qquad 
+	\tag{Ackermann 1928}
+	\end{gather*}
 \end{example}
+
+Both classes are contained in decidable fragments from Table \ref{tab:decidable:InfinityAxioms}.
 
 %Goldfarb, Gurevich, Rabin, Shelah completly characterized decidable and undecidable prefix classes.
 
@@ -163,7 +179,7 @@ of first order logic where satisfiability is decidable.\footnote{
 
 
 
-\section{Theories}\label{sec:decidable:fol:theories}
+\section{Theories in First Order Logic}\label{sec:decidable:fol:theories}
 
 We follow definitions and examples in \cite{AM2015L}.
 
@@ -175,7 +191,7 @@ We follow definitions and examples in \cite{AM2015L}.
 	A theory is consistent when the contradiction is not derivable.
 %	
 	A {\myem theorem} is a sentence over the theory's signature, 
-	i.e. a closed formula, that holds in any model for the theory's axioms.
+	i.e.~a closed formula, that holds in any model for the theory's axioms.
 	\[
 		\bigwedge_i A_i \models \mathsf{theorem} 
 		\quad\text{ or }\quad
@@ -268,7 +284,7 @@ In the following we define equivalence and congruence as usual. Together these a
 %	\end{align*}
 %\end{remark}
 %
-\begin{lemma}Equivalence and congruence are  provable by Natural Deduction (see Table \vref{tab:natural:deduction:rules}).\end{lemma}
+\begin{lemma}Equivalence and congruence of equality are provable by Natural Deduction (see Table \vref{tab:natural:deduction:rules}).\end{lemma}
 \begin{proof}
 	For brevity we restrict our signature to unary function and predicate symbols.
 	\begin{gather*}
@@ -378,6 +394,9 @@ In the following we define equivalence and congruence as usual. Together these a
 	\end{gather*}
 	\end{example}
 
+\begin{theorem}Presburger Artihmetic (Moj\'{z}esz Presburger, 1929), i.e.~the first order theory with natural numbers, induction schemata, and addition, is consistent, complete and decidable. The computational complexity of the decision problem is at least doubly exponential $2^{2^{cn}}$(Fischer and Rabin, 1974), but less than triple exponential (Oppen, 1978. Berman, 1980).
+\end{theorem}
+
 \begin{definition}
 	[Multiplikation]
 	\label{tab:addition:axioms}
@@ -397,23 +416,30 @@ In the following we define equivalence and congruence as usual. Together these a
 	\end{align*}
 \end{definition}
 
-\begin{definition}[x]
-	We define for an arbitrary binary function symbol $\circ$.
+\begin{theorem}Peano Artihmetic (Guiseppe Peano, 19th century), 
+	i.e.~the first order theory with natural numbers, induction schemata, addition, and multiplication, is incomplete (Gödel) and undecidable. 
+\end{theorem}
+
+\begin{theorem}
+	The axioms of Peano Artihmetic appear consistent (Gentzen, 1936).
+\end{theorem}
+
+\begin{lemma}[ACN]\label{lem:acn}
+	Addition and Multiplication on natural numbers are associative, commutative, 
+	and determine neutral elements.
 	\begin{align*}
-	\forall x\forall y\forall z\,&(x\circ(y\circ z) \mEQ (x\circ y)\circ z 
-	\tag*{associativity}
+	\forall x\forall y\forall z\,&(x\circ(y\circ z) \mEQ (x\circ y)\circ z) 
+	\tag*{associativity of $\circ\in\{+,\times\}$}
 	\\
 	\forall x\forall y\,&(x\circ y \mEQ y\circ x)
-	\tag*{commutativity}
+	\tag*{commutativity of $\circ\in\{+,\times\}$}
 	\\
-	\exists e_\circ\forall x\,&(x\circ e_\circ\mEQ x \land e_\circ \circ x \mEQ x )
-	\tag*{neutral element}
+	\forall x\,&(x + 0\mEQ x \land 0 + x \mEQ x )
+	\tag*{neutral element for $+$}
+	\\
+	\forall x\,&(x \times \msucc(0)\mEQ x \land \msucc(0) \times x \mEQ x )
+	\tag*{neutral element for $\times$}
 	\end{align*}
-	
-\end{definition}
-
-\begin{lemma}
-	Addition and Multiplication are associative, commutative, and with neutral elements in all models.
 \end{lemma}
 
 %\begin{proof}by induction
