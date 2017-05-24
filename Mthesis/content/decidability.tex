@@ -13,18 +13,16 @@
 	i.e.~it holds in all interpretations.
 %\end{definition}
 
-In this chapter we first recall that satisfiability in first order logic is undecidable in general 
-and other famous theorems of first order logic in \ref{sec:decidable:fol:theorems}.
-We describe all decidable fragments with purely syntactical descriptions 
-in \ref{sec:decidable:fol:fragments}.
-Then in \ref{sec:decidable:fol:theories} we look at decidable first order theories 
-which may not be contained in one of the syntactically described decidable fragments of first order logic.
+In \ref{sec:decidable:fol:theorems} we recall completeness and undecidability 
+together with other useful theorems about first order logic.
+Then we enumerate decidable fragments of first order logic
+which can be described purely syntactically in \ref{sec:decidable:fol:fragments} .
+After that we look at decidable first order theories in \ref{sec:decidable:fol:theories}, 
+which may not be contained in one of the syntactically describable and decidable fragments of first order logic.
 
 \section{Theorems of First Order Logic}\label{sec:decidable:fol:theorems}
 
-\begin{lemma}[Refutation]
-	By definition of the semantics of negation a formula is valid if and only if its negation is not satisfiable.
-\end{lemma}
+The purpose of this section is to state useful theorems about first order logic.
 
 \begin{theorem}[Completeness, Gödel 1929]
 	Natural deduction (see \vref{sec:natural:deduction}), a sound formal system, is complete.
@@ -43,22 +41,19 @@ which may not be contained in one of the syntactically described decidable fragm
 	A logic has the finite model property if each theorem is falsified by some finite model.
 \end{definition}
 
+\begin{lemma}[Refutation]
+	By definition of the semantics of negation a formula is valid if and only if its negation is not satisfiable.
+\end{lemma}
 
-
-
-
-
-
-
-\begin{theorem}[Compactness]\label{the:compactness}
+\begin{theorem}[Compactness, Gödel 1930, Maltsev 1936]\label{the:compactness}
 	If every finite subset of a set of formulas $S$ has a model then $S$ has a model. 
 \end{theorem}
 
-\begin{theorem}[Löwenheim Skolem]\label{the:loewenheim}
+\begin{theorem}[Löwenheim Skolem, 1915, 1920]\label{the:loewenheim}
 	If a set of formulas $S$ has a model then $S$ has a countable model.
 \end{theorem}
 
-\begin{theorem}[Herbrand]\label{the:herbrand}
+\begin{theorem}[Herbrand, 1930]\label{the:herbrand}
 	Let $S$ be a set of clauses without equality. Then the following statements are equivalent.
 	\begin{itemize}
 		\item $S$ is satisfiable.
@@ -78,7 +73,7 @@ With Skolemization and Tseitin transformation we can effectively transform a arb
 \end{lemma}
 
 
-\section{Decidable fragments of First Order Logic}\label{sec:decidable:fol:fragments}
+\section{Decidable Fragments of First Order Logic}\label{sec:decidable:fol:fragments}
 
 This section presents purely syntactical defined fragments
 of first order logic where satisfiability is decidable.\footnote{
