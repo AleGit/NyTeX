@@ -1180,7 +1180,7 @@ We ignore $\mcC_2$ which would just yield a variant of itself.
 	\mcC_3 &= \msucc(\msucc(x_3)) \mNE \msucc(y_3) \lor \msucc(x_3) \mEQ y_3
 	\\
 	\mcC_{i+3} &= \msucc^{i+2}(x_{i+3})\mEQ \msucc(y_{i+3}) \lor \msucc^{i+1}(x_{i+3})\mEQ y_{i+3}
-	\tag*{$i=0$ (base)}
+	\tag*{$i=0$ (base case)}
 	\end{align*}
 	We now show by induction that \InstGenEQ yields an infinite sequence of distinct clauses $\mcC_{i+3}$ for $i\in\mathbb{N}$.
 	The base case $i=0$ is already covered. We assume for simplicity and without loss of generality that the literal $\msucc^{i+1}(x_{i+3})\mEQ y_{i+3}$ will never\footnote{
@@ -1213,7 +1213,7 @@ We ignore $\mcC_2$ which would just yield a variant of itself.
 	\\
 	\mcC_{(i+1)+3} &= 
 	\msucc^{(i+1)+2}(x_{i+4}) \mNE \msucc(y_{i+4}) \lor \msucc^{(i+1)+1}(x_{i+4}) \mEQ y_{i+4}
-	\tag{step}
+	\tag{step case}
 \end{align*}
 
 %\begin{align*}
