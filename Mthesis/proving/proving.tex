@@ -486,7 +486,7 @@ and refined in 1962 \cite{Davis:1962:MPT:368273.368557}
 by Davis, Putnam, Longeman, and Loveland, 
 which was the starting point for the development of efficient propositionally satisfiability checkers, i.e.~efficient modern SAT solvers.
 
-\section{Resolution and the Given Clause Algorithm}
+\section{Resolution}
 
 \begin{definition}[Resolution] Let $A, B$ be atoms and $\mcC,\mcD$ be clauses.
 	\begin{gather*}
@@ -632,6 +632,18 @@ We can deduce or observe disadvantages in resolution.
 	and $\lnot\mE(\mzero,\msucc(x))$
 	in the two clauses do not clash.
 \end{example}
+
+\section{Saturation and the Given Clause Algorithm}
+
+In the previous section we just randomly applied resolution 
+on pairs of clauses from the set of clause 
+to derive and add new clauses 
+until we could derive the empty clause.
+In this section we will discuss the given clause algorithm 
+as a saturation process that eventually determines all possible derivate clauses
+with respect to a given calculus, e.g. resolution.
+
+
 
 \section{InstGen}
 
@@ -960,7 +972,8 @@ at least in models that implies the existence of a normal model.
 	\end{align*}
 \end{example}
 
-\begin{example} When we look at the grounding we notice that selection process is unfortunate,
+\begin{example}\label{ex:nat:instgen}
+	 When we look at the grounding we notice that selection process is unfortunate,
 	because the selected literals of any clause but congruence clashes with $0\mNE\msucc(x)$.
 	\begin{align*}
 	\colHi \consbot \mEQ \consbot
@@ -996,6 +1009,22 @@ at least in models that implies the existence of a normal model.
 }
 	\end{align*}
 \end{example}
+
+	\begin{gather*}
+	\infer[\{x'\mapsto \msucc (x), y'\mapsto x\}]{
+		\boxed{\msucc (\msucc (x)) \mNE \msucc (x)} \lor\colLo \msucc (x)\mEQ x
+	}{
+		\msucc (x') \mNE \msucc (y') \lor x'\mEQ y' & \colHi\msucc (x) \mNE x
+	}
+	\end{gather*}
+	\begin{gather*}
+	\infer[\{x'\mapsto \msucc^{i+2} (x), y'\mapsto \msucc^{i+1} (x)\}]{
+		\msucc (\msucc^{i+2} (x)) \mNE \msucc (\msucc^{i+1} (x)) \lor \msucc^{i+2} (x)\mEQ\msucc^{i+1} (x)
+	}{
+		\msucc (x') \mNE \msucc (y') \lor x'\mEQ y' & \boxed{\msucc^{i+2} (x) \mNE \msucc^{i+1} (x)}\colG \lor \msucc^{i+1} (x)\mEQ\msucc^{i}(x)
+	}
+	\end{gather*}
+	for all $i\geq 0$.
 
 
 
@@ -1091,7 +1120,7 @@ at least in models that implies the existence of a normal model.
 
 
 
-\section{Inst-Gen}
+\section{Inst-Gen-Eq}
 
 \section{Equality predicate}
 
@@ -1102,52 +1131,81 @@ then at least we expect a congruence relation.
 
 \section{Examples}
 
-\begin{example}
-	\begin{align*}
-	\ack(\mzero,y) &\mEQ \msucc(y) \\
-	\ack(\msucc(x),\mzero) &\mEQ \ack(x, \msucc(\mzero)) \\
-	\ack(\msucc(x),\msucc(y)) &\mEQ \ack(x, \ack(\msucc(x),y)) \\
+%\begin{example}
+%	\begin{align*}
+%	\ack(\mzero,y) &\mEQ \msucc(y) \\
+%	\ack(\msucc(x),\mzero) &\mEQ \ack(x, \msucc(\mzero)) \\
+%	\ack(\msucc(x),\msucc(y)) &\mEQ \ack(x, \ack(\msucc(x),y)) \\
+%	\\
+%%	x &\mNE \msucc(x)\\
+%	x &\mNE y \lor \msucc(x) \mEQ \msucc(y)\\
+%	\mzero &\mNE \msucc(x)\\
+%	\end{align*}
+%\end{example}
+
+\section{Inst-Gen-Eq}
+
+At a first glance \InstGenEQ is expected to behave similar to the application of Superposition. 
+But actually it shares a disadvantage with \InstGen (see Example \ref{ex:nat:instgen}) as we can see in the following example.
+
+
+\begin{example}\label{ex:nat:instgeneq}
+	Let $S = \{\, \msucc(x_1) \mNE \msucc (y_1) \lor x_1 \mEQ y_1, \, \msucc(x_2)\mNE x_2 \, \}$. 
+	We start with $S_0 = S$, construct the \SMT-encoding for $S_{0\!_\bot}$
+	and select one literal per clause from $S_0$ into $L_1$. 
+	The selection is unambiguous by any model.
+	We easily derive the empty clause from the set of selected literals $L_0$ 
+	by first applying unit superposition first and unit equality resolution afterwards.
+\begin{align*}
+	S_0 &= \{\, {\msucc(x_1) \mNE \msucc (y_1) \lor x_1 \mEQ y_1}, \, \msucc(x_2)\mNE x_2 \, \} 
 	\\
-%	x &\mNE \msucc(x)\\
-	x &\mNE y \lor \msucc(x) \mEQ \msucc(y)\\
-	\mzero &\mNE \msucc(x)\\
-	\end{align*}
-\end{example}
-
-\section{Unit Superposition}
-
-\begin{example}
-	Let $S = \{\, \msucc(x') \mNE \msucc (y') \lor x' \mEQ y', \, \msucc(x)\mNE x \, \}$.
-	
-	\begin{gather*}
-	\infer[\{x'\mapsto \msucc (x), y'\mapsto x\}]{
-		\boxed{\msucc (\msucc (x)) \mNE \msucc (x)} \lor\colLo \msucc (x)\mEQ x
-	}{
-		\msucc (x') \mNE \msucc (y') \lor x'\mEQ y' & \colHi\msucc (x) \mNE x
+	S_{0\!_\bot} &= \{\, \msucc(\consbot) \mNE \msucc (\consbot) \lor{\colHi\consbot \mEQ \consbot}, \, 
+	{\colHi \msucc(\consbot)\mNE \consbot} \, \}
+	\\
+	L_0 &= \{ x_1\mEQ y_1, \msucc(x_2)\mNE x_2  \}
+	\\[0.7em]
+	&\infer[x_1\mapsto \msucc(x_2)
+	]{ 
+		\infer[y_1\mapsto x_2]{\emptyclause}{ [{y_1}]\mNE x_2 }
 	}
-	\end{gather*}
-	\begin{gather*}
-	\infer[\{x'\mapsto \msucc^{i+2} (x), y'\mapsto \msucc^{i+1} (x)\}]{
-		\msucc (\msucc^{i+2} (x)) \mNE \msucc (\msucc^{i+1} (x)) \lor \msucc^{i+2} (x)\mEQ\msucc^{i+1} (x)
-	}{
-		\msucc (x') \mNE \msucc (y') \lor x'\mEQ y' & \boxed{\msucc^{i+2} (x) \mNE \msucc^{i+1} (x)}\colG \lor \msucc^{i+1} (x)\mEQ\msucc^{i}(x)
-	}
-	\end{gather*}
-	for $i\geq 0$.
-\end{example}
+	{x_1 \mEQ y_1 & [{\msucc(x_2)}]\mNE x_2}
+	\\[0.7em]
+\end{align*}
 
+Since the clauses just contribute to the first step we instantiate $\mcC_1$ with unifier $\{ x_1\mapsto\msucc(x_2)\}$ 
+and rename the variables with $\{ x_2\mapsto x_3, y_1\mapsto y_3 \}$ to $\mcC_3$. 
+We ignore $\mcC_2$ which would just yield a variant of itself.
+\begin{align*}
+	\mcC_3 &= \msucc(\msucc(x_3)) \mNE \msucc(y_3) \lor \msucc(x_3) \mEQ y_3
+	\\
+	\mcC_{i+3} &= \msucc^{i+2}(x_{i+3})\mEQ \msucc(y_{i+3}) \lor \msucc^{i+1}(x_{i+3})\mEQ y_{i+3}
+	\tag*{with $i=0$}
+	\\[0.7em]
+	S_{i+1} &= S_i\disjointunion \{\,
+	\msucc^{i+2}(x_{i+3}) \mNE \msucc(y_{i+3}) \lor \msucc^{i+1}(x_{i+3}) \mEQ y_{i+3} \,
+	\}
+	\tag*{with $i\geq 0$}
+	\\
+	S_{(i+1)\!_\bot} &= S_{0\!_\bot}\disjointunion \{\,
+	{\colHi\msucc^{i+2}(\consbot) \mNE \msucc(\consbot) \lor {\msucc^{i+1}(\consbot) \mEQ \consbot}} \,
+	\}
+	\\
+	L_{i+1} &= L_i \disjointunion \{\, 
+		\msucc^{i+2}(x_{i+3})) \mNE \msucc(y_{i+3})
+	\,\}
+	\\[0.7em]
+	&\infer[x'\mapsto \msucc^{i+2}(x)
+	]{ 
+		\infer[y'\mapsto \msucc^{i+1}(x)]{\emptyclause}{ y'\mNE \msucc^{i+1}(x) }
+	}
+	{x' \mEQ y' & \msucc^{i+2}(x)\mNE \msucc^{i+1}(x)}
+	\\
+	S_{i+2} &= S_{i+1}\disjointunion \{\,
+	\boxed{\msucc^{i+3}(x) \mNE \msucc^{i+2}(x) \lor \msucc^{i+2}(x) \mEQ \msucc^{i+1}(x)} \,
+	\} 
+\end{align*}
 
 \begin{align*}
-	S_0 &= \{\, \boxed{\msucc(x') \mNE \msucc (y') \lor x' \mEQ y'}, \, \msucc(x)\mNE x \, \} 
-	\\
-	S_{0\!_\bot} &= \{\, \msucc(\consbot) \mNE \msucc (\consbot) \lor{\colHi\consbot \mEQ \consbot}, \, {\colHi \msucc(\consbot)\mNE \consbot} \, \}
-	\\
-	&\infer[x'\mapsto \msucc(x)
-	]{ 
-		\infer[y'\mapsto x]{\emptyclause}{ y'\mNE x }
-	}
-	{x' \mEQ y' & \msucc(x)\mNE x}
-	\\
 	S_1 &= S_0\disjointunion \{\,
 	\boxed{\msucc(\msucc(x)) \mNE \msucc(x) \lor \msucc(x) \mEQ x} \,
 	\} 
@@ -1170,8 +1228,9 @@ then at least we expect a congruence relation.
 	\boxed{\msucc^{i+3}(x) \mNE \msucc^{i+2}(x) \lor \msucc^{i+2}(x) \mEQ \msucc^{i+1}(x)} \,
 	\} 
 \end{align*}
+\end{example}
 
-\begin{definition}
+\begin{definition}\label{def:unit:superposition}
 	\begin{align*}
 	\infer[\sigma]{(s[r]\mEQ t)\sigma}{\ell\mEQ r & s[\ell'] \mEQ t} & &
 	\infer[\sigma]{(s[r]\mNE t)\sigma}{\ell\mEQ r & s[\ell'] \mNE t}\tag*{unit superposition}\\
