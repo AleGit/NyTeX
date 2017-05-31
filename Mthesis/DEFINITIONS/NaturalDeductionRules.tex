@@ -1,67 +1,94 @@
-% !TeX root = ../extras.tex
+% !TeX root = ../mthesis.tex
 % !TeX encoding = UTF-8
 % !TeX spellcheck = en_US
 
+see Table \ref{tab:natural:deduction:connectives}, \ref{tab:natural:deduction:equality}, and \ref{tab:natural:deduction:quantifiers}
+
 \begin{table}[hbt]
 \begin{gather*}
-	\infer[\land i]{F\land G}{F & G} \qquad
-	\infer[\land e_1]{G}{F \land G} \qquad
-	\infer[\land e_2]{F}{F \land G} 
-	\\
-	\infer[\lnot\lnot i]{\lnot\lnot F}{F} \qquad
-	\infer[\lnot\lnot e]{F}{\lnot\lnot F} \qquad
-	\\
-	\infer[\text{modus ponens}]{\lnot G}{F & F\limp G}
-		\qquad
-	\infer[\text{modus tollens}]{\lnot F}{F\limp G & \lnot G}
-	\\
-	\infer[\limp i]{F\limp G}{
-	\boxed{\begin{array}{c}F\\\vdots\\G\end{array}
-	}}
-\qquad
-\infer[\lor e]{H}{
-	F\lor G &
-	\boxed{\begin{array}{c}F\\\vdots\\H\end{array}} &
-	\boxed{\begin{array}{c}G\\\vdots\\H\end{array}}
-}
-\\
-\infer[\lor i_1]{F\lor G}{F}
-	\qquad
-\infer[\lor i_2]{F\lor G}{G}
-\\
-\infer[\bot e]{F}{\bot}
-\qquad
-\infer[\lnot e]{\bot}{F & \lnot F}
-\qquad
-\infer[\lnot i]{\lnot F}{
+\begin{array}{ccccc}
+\infer[(\land i)]{F\land G}{F & G} 
+&
+\infer[(\land e_1)]{G}{F \land G} 
+&
+\infer[(\land e_2)]{F}{F \land G}
+&
+\infer[(\lnot\lnot i)]{\lnot\lnot F}{F} 
+&
+\infer[(\lnot\lnot e)]{F}{\lnot\lnot F}
+\\[0.7em]
+\infer[(\bot e)]{F}{\bot}
+&
+\infer[(\lnot e)]{\bot}{F & \lnot F}
+&
+\infer[\text{LEM}]{F\lor\lnot F}{}
+&
+\infer[(\lor i_1)]{F\lor G}{F}
+&
+\infer[(\lor i_2)]{F\lor G}{G}
+\\[0.7em]
+\infer[(\lnot i)]{\lnot F}{
 	\boxed{\begin{array}{c}F\\\vdots\\\bot\end{array}}}
-\\
-\infer[PBC]{F}{
+&
+\infer[\text{PBC}]{F}{
 	\boxed{\begin{array}{c}\lnot F\\\vdots\\\bot\end{array}}}
-\qquad
-\infer[LEM]{F\lor\lnot F}{}
-\\
-\infer[=i]{t=t}{}
-\qquad
-\infer[=e]{F\{x\mapsto t\}}{s=t & F\{x\mapsto s\}}
-\\
-\infer[\forall e]{F\{x\to t\}}{
-	\forall x F
+&
+\infer[({\limp} i)]{F\limp G}{
+	\boxed{\begin{array}{c}F\\\vdots\\G\end{array}
+}}
+&
+\multicolumn{2}{l}{
+	\infer[(\lor e)]{H}{
+		F\lor G &
+		\boxed{\begin{array}{c}F\\\vdots\\H\end{array}} &
+		\boxed{\begin{array}{c}G\\\vdots\\H\end{array}}
+	}	
 }
+\\[0.7em]
+&
+\multicolumn{3}{r}{
+\infer[\text{modus}\atop\text{ponens}]{G}{F & F\limp G}
 \qquad
-\infer[\forall i]{\forall F}{
-	\boxed{\begin{array}{cc}x_0\\&\vdots\\&F\{x\mapsto x_0\}\end{array}}
+\infer[\text{modus}\atop\text{tollens}]{\lnot F}{F\limp G & \lnot G}
 }
-\\
-\infer[\exists i]{\exists x F}{
-	F\{x\mapsto x_0 \}
-}
-\qquad
-\infer[\exists e]{H}{
-	\exists x F &
-	\boxed{\begin{array}{cc}x_0&F\{x\mapsto x_0 \}\\&\vdots\\&H\end{array}}
-}
+&
+\end{array}
 \end{gather*}
-\caption{Natural Deduction Rules}
-\label{tab:natural:deduction:rules}
+\caption{Natural Deduction Rules for Connectives}
+\label{tab:natural:deduction:connectives}
+\end{table}
+
+\begin{table}[hbt]
+	\begin{gather*}
+	\infer[({=}i)]{t=t}{}
+	\qquad
+	\infer[({=}e)]{F\{x\mapsto t\}}{s=t & F\{x\mapsto s\}}
+	\end{gather*}
+	\caption{Natural Deduction Rules for Equality}
+	\label{tab:natural:deduction:equality}
+\end{table}
+
+\begin{table}[hbt]
+	\begin{gather*}
+	\begin{array}{ccc}
+	\infer[(\forall e)]{F\{x\to t\}}{
+		\forall x F
+	}
+	&&
+		\infer[(\exists i)]{\exists x F}{
+		F\{x\mapsto x_0 \}
+	}
+	\\[1em]
+	\infer[(\forall i)]{\forall x F}{
+		\boxed{\begin{array}{cc}x_0\\&\vdots\\&F\{x\mapsto x_0\}\end{array}}
+	}
+	&&
+	\infer[(\exists e)]{H}{
+		\exists x F &
+		\boxed{\begin{array}{cc}x_0&F\{x\mapsto x_0 \}\\&\vdots\\&H\end{array}}
+	}
+	\end{array}
+	\end{gather*}
+	\caption{Natural Deduction Rules for Quantifiers}
+	\label{tab:natural:deduction:quantifiers}
 \end{table}

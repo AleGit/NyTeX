@@ -64,11 +64,11 @@ eventually.
 
 
 
-\section{Prenex CNF and clausal form}
+\section{Clausal Normal Form}
 
-In the previous chapter we stated the axioms and conjectures of theories in \FOF. 
-Since Gilmore's prover, resolution and \InstGen work on set of clauses we present
-the same axioms in clausal form within Table 
+In the previous chapter we expressed axioms and lemmas of theories in \FOF. 
+Since Gilmore's prover, resolution and \InstGen work on sets of clauses we present
+the same axioms in clausal normal form within Table 
 \ref{tab:presburger:axioms:clauses} .
 
 \begin{table}[hbt]	
@@ -263,17 +263,17 @@ which does not exist because of undecidability of satisfiability in first order 
 
 \begin{lemma}
 	Gilmore's procedure is a decison procedure for monadic first order logic 
-	(Examples \ref{ex:monadic:ackermann} and \ref{ex:fosca:is:mortal})
+	(Examples \ref{ex:monadic}  and \ref{ex:fosca:is:mortal})
 	and the Schönfinkel-Bernays fragment (see Table \ref{tab:decidedable:FiniteModelProperty}) 
 	of First Order Logic. 
 \end{lemma}
 
 \begin{proof}
-	In the absence of non-constant function symbols $H'_{i+1} = \emptyset$ and
-	the procedure can stop after the first iteration because 
+	In the absence of non-constant function symbols the set $H'_{i+1} = \emptyset$ is empty.
+	The procedure can stop after the first iteration because 
 	$H_i = H_0$ and $S_i = S_0$ for all $i\geq0$,
 	i.e.~after the first iteration 
-	no new terms are added to the Hebrand universe 
+	no new terms are added to the Hebrand model 
 	and no new ground instances can be generated.
 \end{proof}
 %
@@ -482,6 +482,7 @@ We have observed three main disadvantages in Gilmore's procedure.
 
 Issue \ref{enum:gilmore:transformation} was already implicitly 
 addressed in 1960 \cite{Davis:1960:CPQ:321033.321034}
+(which also incorporated the basic idea of resolution -- on ground instances of terms)
 and refined in 1962 \cite{Davis:1962:MPT:368273.368557}
 by Davis, Putnam, Longeman, and Loveland, 
 which was the starting point for the development of efficient propositionally satisfiability checkers, i.e.~efficient modern SAT solvers.
@@ -1131,17 +1132,17 @@ then at least we expect a congruence relation.
 
 \section{Examples}
 
-%\begin{example}
-%	\begin{align*}
-%	\ack(\mzero,y) &\mEQ \msucc(y) \\
-%	\ack(\msucc(x),\mzero) &\mEQ \ack(x, \msucc(\mzero)) \\
-%	\ack(\msucc(x),\msucc(y)) &\mEQ \ack(x, \ack(\msucc(x),y)) \\
-%	\\
-%%	x &\mNE \msucc(x)\\
-%	x &\mNE y \lor \msucc(x) \mEQ \msucc(y)\\
-%	\mzero &\mNE \msucc(x)\\
-%	\end{align*}
-%\end{example}
+\begin{example}
+	\begin{align*}
+	\ack(\mzero,y) &\mEQ \msucc(y) \\
+	\ack(\msucc(x),\mzero) &\mEQ \ack(x, \msucc(\mzero)) \\
+	\ack(\msucc(x),\msucc(y)) &\mEQ \ack(x, \ack(\msucc(x),y)) \\
+	\\
+%	x &\mNE \msucc(x)\\
+	x &\mNE y \lor \msucc(x) \mEQ \msucc(y)\\
+	\mzero &\mNE \msucc(x)\\
+	\end{align*}
+\end{example}
 
 \section{Inst-Gen-Eq}
 

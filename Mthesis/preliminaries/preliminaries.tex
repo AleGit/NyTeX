@@ -120,7 +120,8 @@ We state satisfiability of clauses. See the appendix for more details and mathem
 \end{example}
 
 \begin{definition}\label{def:hk}
-	An {\myem Herbrand universe} is the smallest set of terms that contains all $H_{i\geq 0}$ defined inductively as
+	The {\myem Herbrand universe} for a first order signature $\mcF$ 
+	is the smallest set of terms that contains all $H_{i\geq 0}$ defined inductively as
 	\begin{align*}
 	H_0 &= \left\{ 
 	\begin{array}{ll}
@@ -192,7 +193,7 @@ We state
 	%	
 	We easily find a Herbrand model $\mcH$ with
 	predicate definition $\mEQ_\mcH = \{ (\mf^{i+1}(\ma)), \mf^{i}(\ma)) \mid i\geq 0  \} $. 
-	However $\mcH$ is not an normal model because obviously $\mf(\ma)\neq\ma$ in its domain.
+	However $\mcH$ is not a normal model because obviously $\mf(\ma)\neq\ma$ in its domain.
 	%	
 	Further on we easily find an normal model $\mcM$ 
 	with domain $\{ \mc \}$, function definition $\mf_\mcM(\mc) \mapsto \mc$, 
@@ -209,7 +210,6 @@ We state
 \end{example}
 
 How we find a normal model or justify its existence we will discuss in Section \vref{sec:automation} about Automation.
-
 
 
 \section{Term Rewriting}\label{sec:termrewriting}

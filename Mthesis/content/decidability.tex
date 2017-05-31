@@ -20,12 +20,22 @@ which can be described purely syntactically in \ref{sec:decidable:fol:fragments}
 After that we look at decidable first order theories in \ref{sec:decidable:fol:theories}, 
 which may not be contained in one of the syntactically describable and decidable fragments of first order logic.
 
+\section{Natural Deduction}
+\label{sec:natural:deduction}
+
+Natural Deduction is a sound formal proof system.
+
+See natural deduction proof to Lemma \vref{lemma:equivalence:congruence}.
+
+
+\input{DEFINITIONS/NaturalDeductionRules}
+
 \section{Theorems of First Order Logic}\label{sec:decidable:fol:theorems}
 
 The purpose of this section is to state useful theorems about first order logic.
 
 \begin{theorem}[Completeness, Gödel 1929]
-	Natural deduction (see \vref{sec:natural:deduction}), a sound formal system, is complete.
+	Natural deduction (see above), a sound formal system, is complete.
 \end{theorem}
 
 \begin{theorem}
@@ -279,7 +289,8 @@ In the following we define equivalence and congruence as usual. Together these a
 %	\end{align*}
 %\end{remark}
 %
-\begin{lemma}Equivalence and congruence of equality are provable by Natural Deduction (see Table \vref{tab:natural:deduction:rules}).\end{lemma}
+\begin{lemma}\label{lemma:equivalence:congruence}
+Equivalence and congruence of equality are provable by Natural Deduction (see Section \vref{sec:natural:deduction}).\end{lemma}
 \begin{proof}
 	For brevity we restrict our signature to unary function and predicate symbols.
 	\begin{gather*}
