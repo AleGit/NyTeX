@@ -28,8 +28,8 @@ The satisfiability of ground instances is decidable as we have seen in the previ
 So the central idea of instantiation-based first order theorem proving 
 is to find an unsatisfiable and finite set of ground instances for a given set of clauses.
 In general a failure in this search does not show satisfiability of the given set of clauses.
-In practice we make many detours in the search and we experience very finite resources of space and time. 
-In theory we have no bound on the size of the smallest set of unsatisfiable ground instances.
+In practice we make many detours in the search and we experience very finite resources of space and time, 
+while there is no bound on the size of a smallest set of unsatisfiable ground instances.
 
 %So the central idea of instantiation-based first order theorem proving is the
 %translation of an undecidable problem into a (potentially infinite) sequence of decidable problems.
@@ -42,11 +42,11 @@ i.e.~the formula is satisfiable if and only if the set of clauses is satisfiable
 %This can be done efficiently with Skolemization \cite{books/el/RV01/Hahnle01} and Tseitin-transformation \cite{tseitin70, PLAISTED1986293} as shown in \cite{Nonnengart01computingsmall}.
 
 It would sufficient to just luckily guess an unsatisfiable set of ground instances. 
-But usually a sequence of systematically growing sets of ground instances is generated 
+But usually a sequence of growing sets of ground instances 
+is generated systematically 
 such that an unsatisfiable one will be found 
 for an arbitrary unsatisfiable set of clauses
 eventually.
-
 
 
 %
@@ -57,14 +57,12 @@ eventually.
 %%	then we call $F$ and $S$ are equisatisfiable.
 %\end{definition}
 %
-%Tseitin's transformation \cite{tseitin70} -- 
+Tseitin's transformation \cite{tseitin70} -- 
 %
 %
 %There are some optimization to this transformation, e.g.~by Plaisted and Greenbaum in 1986 \cite{PLAISTED1986293}.
 
-
-
-\section{Clausal Normal Form}
+\subsection{Clausal Normal Form}\label{sec:clausal:normal:form}
 
 In the previous chapter we expressed axioms and lemmas of theories in \FOF. 
 Since Gilmore's prover, resolution and \InstGen work on sets of clauses we present
@@ -149,8 +147,7 @@ the same axioms in clausal normal form within Table
 	\label{tab:presburger:induction:commutativity}
 \end{table}
 
-
-\section{Gilmore's Prover}
+\section{Gilmore's Prover}\label{sec:gilmore:prover}
 
 In 1960 Paul Gilmore presented a first {\myem implementation} of an automated 
 theorem prover \cite{5392528} for first order logic (without equality),
@@ -171,55 +168,6 @@ from definition \ref{def:hk} of the Hebrand universe.
 Each $S_k$ is then transformed into a disjunctive normal form where satisfiability is obvious.
 The procedure is aborted when an unsatisfiable $S_k$ is encountered.
 
-Following Gilmore's prover we can easily prove the syllogism from above.
-
-\begin{example}\label{ex:fosca:is:mortal}
-	First we translate the syllogism into a formula $F$ in first order logic.
-	\begin{align*}
-		F &= A \limp (B \limp C) \equiv \lnot(A\land B) \lor C \equiv (A\land B)\limp C  
-		\tag*{formula}
-		\\[0.5em]
-		A &= \forall x\, ( \human(x) \limp \mortal(x) 
-		\tag*{theory}
-		\\
-		B &= \human(\fosca) 
-		\tag*{fact}
-		\\
-		C &= \mortal(\fosca)
-		\tag*{conjecture}
-	\end{align*}
- 
-%We easily find a satisfying interpretation $\mcI$ with domain $\{ \fosca \}$ with 
-%$\fosca^\mcI = \fosca$,
-%$\human^\mcI = \{ (\fosca) \}$,
-%$\mortal^\mcI = \{ (\fosca) \}$.
-
-
-	Then we negate the formula to clausal normal form $S_{(\ref{ex:fosca:is:mortal})} = A\land B \land\lnot C \equiv \lnot F$.
-	Since there is exactly one constant we get
-	$H_0 = \{ \fosca \}$ and 
-	$S_0 = 
-	\{
-	(\lnot\human(\fosca)\lor\mortal(\fosca))\land\human(\fosca)\land\lnot\mortal(\fosca)
-	\}$ in our first iteration. 
-	As last step we transform the single formula in 
-	the set of ground instances $S_0$ into a disjunctive normal form 
-	for easy satisfiability checking.
-%
-\begin{gather*}
-%S^{\ref{ex:fosca:is:mortal},0} \equiv \begin{array}{c}
-(\lnot\human(\fosca)\land\human(\fosca)\land\lnot\mortal(\fosca))
-\\ 
-\lor
-\\ 
-(\mortal(\fosca)\land\human(\fosca)\land\lnot\mortal(\fosca))
-%\end{array}
-\end{gather*}
-Both conjunctions contain complementary literals and we conclude the negated formula is unsatisfiable
- and the given syllogism holds.
- 
-\end{example}
-
 \begin{procedure}[Gilmore's Prover]\label{proc:gilmore's:prover}
 	We translate the negation of our formula $F$ into an equisatisfiable set of clauses 
 	$\lnot F \approx S = \bigcup_{i=1}^{n} \mcC_i$ with an efficient algorithm \cite{tseitin70}, \cite{PLAISTED1986293}.
@@ -233,7 +181,7 @@ Both conjunctions contain complementary literals and we conclude the negated for
 		in each clause by terms from $H_k$ in any possible permutation.
 		\[ S_k = \bigcup_{i=1}^{n} 
 		\{\,
-			\mcC_i\sigma \mid \mcC_i \in S,\,\sigma: \mcV\to H_k
+		\mcC_i\sigma \mid \mcC_i \in S,\,\sigma: \mcV\to H_k
 		\,\}
 		\]
 		
@@ -242,16 +190,13 @@ Both conjunctions contain complementary literals and we conclude the negated for
 		where satisfiability is easily checked.
 		
 		
-
+		
 		\item When every conjunction contains a pair of complementary literals 
 		then we exit the procedure and report unsatisfiability of $S$, 
 		hence validity of $F$.
-
-Otherwise we increase $k$ by one and continue with step 1.
 		
-		
+		Otherwise we increase $k$ by one and continue with step 1.
 	\end{enumerate}
-	
 \end{procedure}
 
 Gilmore's procedure will eventually terminate for an unsatisfiable set of clauses.
@@ -276,6 +221,56 @@ which does not exist because of undecidability of satisfiability in first order 
 	no new terms are added to the Hebrand model 
 	and no new ground instances can be generated.
 \end{proof}
+
+Following Gilmore's prover we can easily prove the syllogism from above.
+
+\begin{example}\label{ex:fosca:is:mortal}
+	First we translate the syllogism into a formula $F$ in first order logic.
+	\begin{align*}
+	F &= A \limp (B \limp C) \equiv \lnot(A\land B) \lor C \equiv (A\land B)\limp C  
+	\tag*{formula}
+	\\[0.5em]
+	A &= \forall x\, ( \human(x) \limp \mortal(x) 
+	\tag*{theory}
+	\\
+	B &= \human(\fosca) 
+	\tag*{fact}
+	\\
+	C &= \mortal(\fosca)
+	\tag*{conjecture}
+	\end{align*}
+	
+	%We easily find a satisfying interpretation $\mcI$ with domain $\{ \fosca \}$ with 
+	%$\fosca^\mcI = \fosca$,
+	%$\human^\mcI = \{ (\fosca) \}$,
+	%$\mortal^\mcI = \{ (\fosca) \}$.
+	
+	
+	Then we negate the formula to clausal normal form $S_{(\ref{ex:fosca:is:mortal})} = A\land B \land\lnot C \equiv \lnot F$.
+	Since there is exactly one constant we get
+	$H_0 = \{ \fosca \}$ and 
+	$S_0 = 
+	\{
+	(\lnot\human(\fosca)\lor\mortal(\fosca))\land\human(\fosca)\land\lnot\mortal(\fosca)
+	\}$ in our first iteration. 
+	As last step we transform the single formula in 
+	the set of ground instances $S_0$ into a disjunctive normal form 
+	for easy satisfiability checking.
+	%
+	\begin{gather*}
+	%S^{\ref{ex:fosca:is:mortal},0} \equiv \begin{array}{c}
+	(\lnot\human(\fosca)\land\human(\fosca)\land\lnot\mortal(\fosca))
+	\\ 
+	\lor
+	\\ 
+	(\mortal(\fosca)\land\human(\fosca)\land\lnot\mortal(\fosca))
+	%\end{array}
+	\end{gather*}
+	Both conjunctions contain complementary literals and we conclude the negated formula is unsatisfiable
+	and the given syllogism holds.
+	
+\end{example}
+
 %
 %On the other hand the procedure will never terminate 
 %even for very simple satisfiable sets where the Herbrand universe is infinite, 
@@ -306,7 +301,7 @@ which does not exist because of undecidability of satisfiability in first order 
 	S_{i+1} \supsetneq&\
 	\{\,
 	{\colG \lnot\mE(\msucc^{i+1}(\mzero),\msucc(\msucc^{i+1}(\mzero))),\,
-	\mE(\msucc^k(\msucc^{i+1}(\mzero)), \msucc(\msucc^k(\msucc^{i+1}(\mzero))))}
+		\mE(\msucc^k(\msucc^{i+1}(\mzero)), \msucc(\msucc^k(\msucc^{i+1}(\mzero))))}
 	\,\}
 	\\
 	H'_{k} =&\ \{\,\msucc^{k}(\mzero)\,\} 
@@ -315,7 +310,7 @@ which does not exist because of undecidability of satisfiability in first order 
 	\{\,
 	{\colLo \lnot\mE(\msucc^{k}(\mzero),\msucc(\msucc^{k}(\mzero)))},\,
 	{\colG\mE(\msucc^k(\msucc^{k}(\mzero)), \msucc(\msucc^k(\msucc^{k}(\mzero))))}
-%	{\ldots}
+	%	{\ldots}
 	\,\}
 	\end{align*}
 	We've produced $2\cdot k$ {\myem irrelevant} instances, i.e. these clauses did not cause any conflict in 
@@ -355,50 +350,50 @@ which does not exist because of undecidability of satisfiability in first order 
 We have observed three main disadvantages in Gilmore's procedure.
 \begin{enumerate}
 	\item\label{enum:gilmore:generation}
-	 The generation of instances is unguided. 
+	The generation of instances is unguided. 
 	With each iteration exponentially many (mostly useless)
 	instances are created
 	-- depending on the number and the arities of used symbols.
-%	\begin{align*}
-%		H'_0 &= \{\,\mc \,\}  
-%		&H_0 = H'_0
-%		\\
-%		H'_1 &= \{\,\mf(\mc), \mg(\mc,\mc) \,\} 
-%		&H_1 = H_0 \cup H'_1
-%		\\
-%		H'_2 &= 
-%		\{\, 
-%			\mf(\mf(\mc)), \mf(\mg(\mc,\mc)), 
-%			\mg(\mc, \mf(\mc)), \mg(\mc, \mg(\mc,\mc)), \\
-%			&\qquad \mg(\mf(\mc), \mc), \mg(\mf(\mc), \mf(\mc)), \mg(\mf(\mc), \mg(\mc,\mc)), \\
-%			&\qquad \mg(\mg(\mc,\mc),\mc), \mg(\mg(\mc,\mc),\mf(\mc)), \mg(\mg(\mc,\mc), \mg(\mc,\mc)) 
-%		\,\} 
-%		&H_2 = H_1 \cup H'_2	
-%		\\
-%		H'_{i+1} &= 
-%			\{\, \mf(a), \mg(a,b), \mg(b,a) \mid a\in H'_i, b\in H_i \, 
-%			\}
-%			&H_i = \bigcup_{j=1}^{i} H'_j
-%		\end{align*}\\[-1.0em]	
-\begin{align*}
+	%	\begin{align*}
+	%		H'_0 &= \{\,\mc \,\}  
+	%		&H_0 = H'_0
+	%		\\
+	%		H'_1 &= \{\,\mf(\mc), \mg(\mc,\mc) \,\} 
+	%		&H_1 = H_0 \cup H'_1
+	%		\\
+	%		H'_2 &= 
+	%		\{\, 
+	%			\mf(\mf(\mc)), \mf(\mg(\mc,\mc)), 
+	%			\mg(\mc, \mf(\mc)), \mg(\mc, \mg(\mc,\mc)), \\
+	%			&\qquad \mg(\mf(\mc), \mc), \mg(\mf(\mc), \mf(\mc)), \mg(\mf(\mc), \mg(\mc,\mc)), \\
+	%			&\qquad \mg(\mg(\mc,\mc),\mc), \mg(\mg(\mc,\mc),\mf(\mc)), \mg(\mg(\mc,\mc), \mg(\mc,\mc)) 
+	%		\,\} 
+	%		&H_2 = H_1 \cup H'_2	
+	%		\\
+	%		H'_{i+1} &= 
+	%			\{\, \mf(a), \mg(a,b), \mg(b,a) \mid a\in H'_i, b\in H_i \, 
+	%			\}
+	%			&H_i = \bigcup_{j=1}^{i} H'_j
+	%		\end{align*}\\[-1.0em]	
+	\begin{align*}
 	\lvert S_{i} \rvert &= \sum_n \left( \lvert \mcFPn \rvert\cdot \lvert H_{i}\rvert^n \right)
 	&
 	\lvert H_0 \rvert &\geq 1	
 	\\
 	\lvert S_{i+1} \rvert &= \sum_n \left( \lvert \mcFPn \rvert\cdot \lvert H_{i+1}\rvert^n \right)
-%	\geq \lvert S_i \rvert^n
+	%	\geq \lvert S_i \rvert^n
 	&
 	\lvert H_{i+1}\rvert &\geq 
 	\sum_{n>0}\left(
 	\lvert\mcFfn\rvert\cdot\lvert H_i \rvert^n
 	\right) 
-%	\\
-%	&\geq \sum_n \left( \lvert \mcFPn \rvert\cdot 
-%	\left( 
-%	\sum_{n>0}\left(\lvert \mcFPn \rvert\cdot \lvert H_{i}\rvert^n \right)\right)^n\ \right) \geq \lvert S_i \rvert^n
-\end{align*}
-		This makes disadvantage No.~\ref{enum:gilmore:transformation} 
-		which is invoked at every iteration even worse.
+	%	\\
+	%	&\geq \sum_n \left( \lvert \mcFPn \rvert\cdot 
+	%	\left( 
+	%	\sum_{n>0}\left(\lvert \mcFPn \rvert\cdot \lvert H_{i}\rvert^n \right)\right)^n\ \right) \geq \lvert S_i \rvert^n
+	\end{align*}
+	This makes disadvantage No.~\ref{enum:gilmore:transformation} 
+	which is invoked at every iteration even worse.
 	\item\label{enum:gilmore:transformation} 
 	The check for unsatisfiability is far from efficient.
 	The transformation from a set of clauses 
@@ -410,9 +405,9 @@ We have observed three main disadvantages in Gilmore's procedure.
 		for the transformation of 
 		an arbitrary propositional formula into 
 		an equi\allowbreak{}satisfiable formula in {\em disjunctive normal 
-		form} (where satisfiability is a linear check) 
+			form} (where satisfiability is a linear check) 
 		would show that $\mathsf{SAT}$ in $\mcP$
-%		$\mathsf{SAT}\in\mcP$  
+		%		$\mathsf{SAT}\in\mcP$  
 		and $\mcP = \mcN\mcP$, which is still unknown.
 	}  
 	blow up in the size of the formula 
@@ -421,17 +416,17 @@ We have observed three main disadvantages in Gilmore's procedure.
 	we get the disjunction of
 	$\prod_{1}^{n} c_i$ 
 	conjunctions of $n$ literals.
-	  \begin{align*}
-	  \bigwedge_{i=1}^{n} 
-	  \left(
-	  	\bigvee_{j_i=1}^{c_i} p_{(i,j_i)} 
-	  \right)
-	  \ &\equiv
-	  \bigvee_{(j_1,\ldots,j_n)}
-	  \left(
-	  	\bigwedge_{i=1}^{n} p_{(i,j_i)}
-	  \right)
-	  &\text{with }(j_1,\ldots,j_n)\in\prod_{i=1}^{n}\{ 1,\ldots,c_i \}
+	\begin{align*}
+	\bigwedge_{i=1}^{n} 
+	\left(
+	\bigvee_{j_i=1}^{c_i} p_{(i,j_i)} 
+	\right)
+	\ &\equiv
+	\bigvee_{(j_1,\ldots,j_n)}
+	\left(
+	\bigwedge_{i=1}^{n} p_{(i,j_i)}
+	\right)
+	&\text{with }(j_1,\ldots,j_n)\in\prod_{i=1}^{n}\{ 1,\ldots,c_i \}
 	\end{align*}
 	In total the number of literals in the set of clauses is 
 	$n\cdot \bar{c}_{arith}$, 
@@ -442,22 +437,22 @@ We have observed three main disadvantages in Gilmore's procedure.
 		Geometric mean $\bar{c}_{geom} := \left(\prod_{1}^{n}c_i\right)^{\frac{1}{n}}$, 
 		arithmetic mean $\bar{c}_{arith} := \left(\sum_{1}^{n}c_i\right)\cdot\frac{1}{n}$, and
 		%		where
-				$\bar{c}_{geom} 
-				\leq 
-				\bar{c}_{arith}$.
+		$\bar{c}_{geom} 
+		\leq 
+		\bar{c}_{arith}$.
 	}.
 	\begin{gather*}
-%	a∧(b∨c)∧(d∨e∨f)
-%	\\
-%	\equiv
-%	\\
-%	(a∧b∧d)∨(a∧b∧e)∨(a∧b∧f)∨(a∧c∧d)∨(a∧c∧e)∨(a∧c∧f)
-%\\
-		\{ 1 \}\times\{1,2\}\times\{1,2,3\} = 
-		\{
-			(1,1,1),(1,1,2),(1,1,3),
-			(1,2,1),(1,2,2),(1,2,3)
-		\}
+	%	a∧(b∨c)∧(d∨e∨f)
+	%	\\
+	%	\equiv
+	%	\\
+	%	(a∧b∧d)∨(a∧b∧e)∨(a∧b∧f)∨(a∧c∧d)∨(a∧c∧e)∨(a∧c∧f)
+	%\\
+	\{ 1 \}\times\{1,2\}\times\{1,2,3\} = 
+	\{
+	(1,1,1),(1,1,2),(1,1,3),
+	(1,2,1),(1,2,2),(1,2,3)
+	\}
 	\end{gather*}
 	
 	\item\label{enum:gilmore:termination}
@@ -472,13 +467,11 @@ We have observed three main disadvantages in Gilmore's procedure.
 	S_{i+1} &= \{\, \mP(\mf(t)) \mid t\in H_{i+1}
 	\,\}
 	\\
-	 \mf^{i+1}(\mc) &\in H_{i+1}\setminus H_i
-	 &
-	 \mP(\mf(\mf^{i+1}(\mc))) &\in S_{i+1} \setminus S_i
+	\mf^{i+1}(\mc) &\in H_{i+1}\setminus H_i
+	&
+	\mP(\mf(\mf^{i+1}(\mc))) &\in S_{i+1} \setminus S_i
 	\end{align*}
 \end{enumerate}
-
-
 
 Issue \ref{enum:gilmore:transformation} was already implicitly 
 addressed in 1960 \cite{Davis:1960:CPQ:321033.321034}
@@ -487,7 +480,21 @@ and refined in 1962 \cite{Davis:1962:MPT:368273.368557}
 by Davis, Putnam, Longeman, and Loveland, 
 which was the starting point for the development of efficient propositionally satisfiability checkers, i.e.~efficient modern SAT solvers.
 
-\section{Resolution}
+
+\section{Proving without Equality}
+
+Guided (not necessarily ground) instantiation.
+
+\subsection{Resolution}
+
+
+%\begin{example}
+%	\begin{gather*}
+%	\infer[]{b\lor c}{a\lor b & \lnot a\lor c}
+%	\qquad
+%	\infer[]{\mcC\lor \mcD}{\mP(t)\lor \mcC & \lnot \mP(t)\lor \mcD}
+%	\end{gather*}
+%\end{example}
 
 \begin{definition}[Resolution] Let $A, B$ be atoms and $\mcC,\mcD$ be clauses.
 	\begin{gather*}
@@ -518,6 +525,14 @@ which was the starting point for the development of efficient propositionally sa
 	%the most general unifier $\sigma$ is used to derive two new clauses.}
 \end{definition}
 
+\begin{example}Modus tollens is a special case of resolution.
+	\begin{gather*}
+	\infer[\text{modus}\atop\text{tollens}]{\lnot F}{F\limp G & \lnot G}
+	\qquad
+	\infer[]{\lnot F}{\lnot F\lor G & \lnot G}
+	\end{gather*}
+\end{example}
+
 \begin{example}
 	With Resolution we can derive the empty clause, i.e.~the unsatisfiability of set
 	$S_{(\ref{ex:unsat:nexsx})} =
@@ -546,22 +561,22 @@ which was the starting point for the development of efficient propositionally sa
 
 \begin{example}\label{ex:sat:nezsx}
 	With satisfiable set $S_{\ref{ex:sat:nezsx}} = \{\, 
-		\lnot\mE(\mzero,\msucc(x)),\, \mE(y,y') \lor \lnot \mE(\msucc(y),\msucc(y')
-		\,\}$
-		we observe an infinite sequence of resolutions,
-		hence the set does not saturate.
-		
+	\lnot\mE(\mzero,\msucc(x)),\, \mE(y,y') \lor \lnot \mE(\msucc(y),\msucc(y')
+	\,\}$
+	we observe an infinite sequence of resolutions,
+	hence the set does not saturate.
+	
 	\begin{gather*}
-%	\infer
-%	[\{y\mapsto\mzero, y'\mapsto\msucc(x)\}]
-%	{ 
-%		\lnot \mE(\ms({\colN\mzero}),\ms({\colN\msucc(x)}) 
-%	}{
-%		{\colHi\mE(y,y')} \lor \lnot \mE(\ms(y),\ms(y')) 
-%		&{\colLo \lnot\mE(\mzero,\ms(x))}
-%	}
-%	\tag{$i=0$}
-%	\\[1em]
+	%	\infer
+	%	[\{y\mapsto\mzero, y'\mapsto\msucc(x)\}]
+	%	{ 
+	%		\lnot \mE(\ms({\colN\mzero}),\ms({\colN\msucc(x)}) 
+	%	}{
+	%		{\colHi\mE(y,y')} \lor \lnot \mE(\ms(y),\ms(y')) 
+	%		&{\colLo \lnot\mE(\mzero,\ms(x))}
+	%	}
+	%	\tag{$i=0$}
+	%	\\[1em]
 	\infer
 	[\{y\mapsto{\colN\msucc^i(\mzero)}, y'\mapsto{\colN\msucc^{i+1}(x)}\}]
 	{
@@ -572,17 +587,17 @@ which was the starting point for the development of efficient propositionally sa
 	}
 	\tag{$i\geq 0$}
 	\\
-%	\infer[y\mapsto\msucc(\msucc(0)),y'\mapsto\msucc(\msucc(\msucc(x)))]{
-%		\msucc(\msucc(\msucc(0)))\mNE\msucc(\msucc(\msucc(\msucc(x))))
-%	}{\circ &
-%	\infer[y\mapsto\msucc(0),y'\mapsto(\msucc\msucc(x))]{
-%		\msucc(\msucc(0))\mNE\msucc(\msucc(\msucc(0)))
-%	}{\circ&
-%	\infer[y\mapsto 0, y'\mapsto\msucc(0)]
-%	{ \msucc(0)\mNE\msucc(\msucc(0))}
-%	{ y\mEQ y' \lor \msucc(y)\mNE\msucc(y') & 0 \mNE \msucc(x)}
-%}
-%}
+	%	\infer[y\mapsto\msucc(\msucc(0)),y'\mapsto\msucc(\msucc(\msucc(x)))]{
+	%		\msucc(\msucc(\msucc(0)))\mNE\msucc(\msucc(\msucc(\msucc(x))))
+	%	}{\circ &
+	%	\infer[y\mapsto\msucc(0),y'\mapsto(\msucc\msucc(x))]{
+	%		\msucc(\msucc(0))\mNE\msucc(\msucc(\msucc(0)))
+	%	}{\circ&
+	%	\infer[y\mapsto 0, y'\mapsto\msucc(0)]
+	%	{ \msucc(0)\mNE\msucc(\msucc(0))}
+	%	{ y\mEQ y' \lor \msucc(y)\mNE\msucc(y') & 0 \mNE \msucc(x)}
+	%}
+	%}
 	\end{gather*}
 \end{example}
 
@@ -634,19 +649,17 @@ We can deduce or observe disadvantages in resolution.
 	in the two clauses do not clash.
 \end{example}
 
-\section{Saturation and the Given Clause Algorithm}
-
-In the previous section we just randomly applied resolution 
-on pairs of clauses from the set of clause 
-to derive and add new clauses 
-until we could derive the empty clause.
-In this section we will discuss the given clause algorithm 
-as a saturation process that eventually determines all possible derivate clauses
-with respect to a given calculus, e.g. resolution.
 
 
 
-\section{InstGen}
+
+
+
+
+
+
+
+\subsection{InstGen}
 
 Gilmore's prover blindly constructs new ground instances. 
 
@@ -927,12 +940,13 @@ S_0 \disjointunion
 
 
 
-\section{Equality}
+\section{Proving with Equality}
 
-So far we have treated the equaltiy symbol like a binary predicate symbol, 
+So far we have treated the equality symbol like any other binary predicate symbol, 
 which can yield models where $\ma\mNE\ma$ holds. 
 Understandably, we are only interested in normal models or 
 at least in models that implies the existence of a normal model.
+We have allready seen that a normal Herbrand model might not exist.
 
 \begin{theorem}\cite{Harrison:2009:HPL:1540610}
 	Any set of clauses (a formula) has a \emph{normal} model 
@@ -1076,7 +1090,8 @@ at least in models that implies the existence of a normal model.
 %	\]
 
 \begin{example}
-	Consider the set of clauses $\{ \mc \mEQ \mb \}$. Here we don't find a Hebrand model where the equality symbol is interpreted as equality on its domain.
+	Consider the set of clauses $\{ \mc \mEQ \mb \}$. 
+	Here we don't find a Hebrand model where the equality symbol is interpreted as equality on its domain.
 \end{example}
 
 %\begin{align*}
@@ -1121,16 +1136,10 @@ at least in models that implies the existence of a normal model.
 
 
 
-\section{Inst-Gen-Eq}
+\subsection{Inst-Gen-Eq}
 
-\section{Equality predicate}
 
-Consider the satisfiable set of clauses $S = \{a \relation b, b \relation c, \mP(\ma), \lnot \mP(\mc) \}$
-
-When we use the equality symbol as a predicate symbol 
-then at least we expect a congruence relation.
-
-\section{Examples}
+\subsection{Examples}
 
 \begin{example}
 	\begin{align*}
@@ -1144,7 +1153,10 @@ then at least we expect a congruence relation.
 	\end{align*}
 \end{example}
 
-\section{Inst-Gen-Eq}
+
+\subsection{Paramodulation and Superposition}
+
+\subsection{Inst-Gen-Eq}
 
 At a first glance \InstGenEQ is expected to behave similar to the application of Superposition. 
 But actually it shares a disadvantage with \InstGen (see Example \ref{ex:nat:instgen}) as we can see in the following example.

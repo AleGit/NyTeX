@@ -142,7 +142,10 @@ of first order logic where satisfiability is decidable.\footnote{
 	\end{gather*}
 \end{example}
 
-Both classes are contained in decidable fragments from Table \ref{tab:decidable:InfinityAxioms}.
+\begin{remark}
+	One unary function symbol can be added to the classes above 
+	without loosing decidability (see Table \ref{tab:decidable:InfinityAxioms}).
+\end{remark}
 
 %Goldfarb, Gurevich, Rabin, Shelah completly characterized decidable and undecidable prefix classes.
 
@@ -244,11 +247,11 @@ In the following we define equivalence and congruence as usual. Together these a
 \end{align*}
 \end{definition}
 
-\begin{definition}
-	We sometimes abbreviate a sequence of variables $x_i$ by $\vec{x}$.
-	With $n\in\mathbb{N}$ we may write $\mcf(\vecn{x})$ 
+\begin{definition}[$\vec{x}$-Notation]
+	Occasionally we may abbreviate a sequence of $n$ variables by $\vec{x}$.
+	Then we write $\mcf(\vecn{x})$ 
 	for first order expression $\mcf(x_1,\ldots,x_n)$
-	for an n-ary function or predicate symbol,
+	with n-ary function or predicate symbol $\mcf$,
 %	 $\mcf\in\mcFn$,
 	a single equation $\vecn{x}\mEQ\vecn{y}$ for
 	the conjunction of $n$ equations 
@@ -292,7 +295,8 @@ In the following we define equivalence and congruence as usual. Together these a
 \begin{lemma}\label{lemma:equivalence:congruence}
 Equivalence and congruence of equality are provable by Natural Deduction (see Section \vref{sec:natural:deduction}).\end{lemma}
 \begin{proof}
-	For brevity we restrict our signature to unary function and predicate symbols.
+	For brevity we skip the quantifier introductions for symmetry, transitivity, and congruence.
+	Additionally we just show congruence for a unary function and a unary predicate symbol.
 	\begin{gather*}
 \begin{BMAT}{rcrclccl}{cc}
 1 && x_0 && x_0=x_0 	& && {=}i\\
