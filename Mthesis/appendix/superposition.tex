@@ -2,17 +2,6 @@
 % !TeX encoding = UTF-8
 % !TeX spellcheck = en_US
 
-\begin{definition}\label{def:orders-on-literals}
-	We extend a well-founded and total order $\gtpre$ on general ground terms, i.e. general atoms 
-	to a well-founded proper order $\gtpre_\mL$ on literals such that for all atoms $A$ and $B$ with $A\gtpre B$ 
-	the relations $A\gtpre_\mL B$ , 
-	$\lnot A\gtpre_\mL\lnot B$ and 
-	$\lnot A\gtpre_\mL A$ hold. 
-	%
-	A (non-ground) literal $L$ is {\myem (strictly) maximal} if there exists a ground substitution $\tau$ 
-	such for no other literal $L'$ the relation $L'\tau\gtpre L\tau$ (strictly: $\succcurlyeq$) holds.
-	We write $\gtpre_{gr}$ to suggest the existence of such a ground substitution $\tau$.
-\end{definition}
 %%%
 \begin{definition}\label{def:superposition-calculus}
 	The {\myem superposition calculus} includes
@@ -94,51 +83,4 @@
 		$(s=s')\sigma\not\succcurlyeq(u\mEQ v)$.
 	\end{itemize}
 	%
-\end{definition}
-
-\begin{definition}\label{def:unit-superpositin-calculus}
-	The {\myem unit superposition calculus} includes 
-	\begin{itemize}
-		\item unit paramodulation $(U\!P)$
-		\begin{gather*}
-		\infer
-		[(U\!P)]
-		{(L[t])\,\sigma}
-		{s\mEQ t&L[s']}
-		\end{gather*}
-		where $\sigma=\mgu(s,s')$ is defined,
-		$s'\not\in\mcV$,
-		$t\sigma\not\succcurlyeq s\sigma$;
-		%
-		\item unit superposition $(U\!S_-,U\!S_+)$
-		\begin{gather*}
-		\infer
-		[(U\!S_-)]
-		{(u[t]\mNE v)\,\sigma}
-		{s\mEQ t&u[s']\mNE v}
-		\qquad\qquad
-		\infer
-		[(U\!S_+)]
-		{(u[t]\mEQ v)\,\sigma}
-		{s\mEQ t&u[s']\mEQ v}
-		\end{gather*}
-		where $\sigma=\mgu(s,s')$ is defined,
-		$s'\not\in\mathcal{V},$
-		$t\sigma\not\succcurlyeq s\sigma,$
-		$v\sigma\not\succcurlyeq u[s']\sigma$;
-		%
-		\item unit equality resolution $(U\!R_\mEQ)$, and unit resolution $(U\!R)$
-		\begin{gather*}
-		\infer
-		[(U\!R_\mEQ)]
-		{\emptyclause}
-		{s\mNE t}
-		\quad\quad\quad\qquad
-		\infer
-		[(U\!R)]
-		{\emptyclause}
-		{A&\lnot B}
-		\end{gather*}
-		where $s$ and $t$ ($A$ and $B$ respectively) are unifiable.
-	\end{itemize}
 \end{definition}

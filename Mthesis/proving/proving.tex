@@ -496,7 +496,7 @@ Guided (not necessarily ground) instantiation.
 %	\end{gather*}
 %\end{example}
 
-\begin{definition}[Resolution] Let $A, B$ be atoms and $\mcC,\mcD$ be clauses.
+\begin{definition}[Resolution calculus]\label{def:resolution} Let $A, B$ be atoms and $\mcC,\mcD$ be clauses.
 	\begin{gather*}
 	\infer
 	[\text{Resolution}] 
@@ -611,7 +611,23 @@ We can deduce or observe disadvantages in resolution.
 	which was addressed in Ordered Resolution.
 \end{enumerate}
 
-\begin{definition}[Ordered Resolution] Let $A, B$ be atoms and $\mcC,\mcD$ be clauses.
+\subsection{Ordered resolution}
+
+\begin{definition}[Order on literals]\label{def:orders-on-literals}
+	We extend a well-founded and total order $\gtpre$ on general ground terms, 
+	i.e~general atoms to a well-founded proper order $\gtpre_\mL$ 
+	on literals such that for all atoms $A$ and $B$ with $A\gtpre B$ 
+	the relations $A\gtpre_\mL B$ , 
+	$\lnot A\gtpre_\mL\lnot B$ and 
+	$\lnot A\gtpre_\mL A$ hold. 
+	%
+	A (non-ground) literal $L$ is {\myem (strictly) maximal} if there exists a ground substitution $\tau$ 
+	such for no other literal $L'$ the relation $L'\tau\gtpre L\tau$ (strictly: $\succcurlyeq$) holds.
+	We write $\gtpre_{gr}$ to suggest the existence of such a ground substitution $\tau$.
+\end{definition}
+
+\begin{definition}[Ordered Resolution]\label{def:ordered:resolution} 
+	Let $A, B$ be atoms and $\mcC,\mcD$ be clauses.
 	\begin{gather*}
 	\infer
 	[\text{Ordered}\atop\text{Resolution}] 
@@ -650,7 +666,21 @@ We can deduce or observe disadvantages in resolution.
 \end{example}
 
 
+\begin{definition}[Order on clauses]
+	multiset order
+\end{definition}
 
+\begin{lemma}
+	Ordered resolution is refutation complete.
+\end{lemma}
+
+\begin{proof}
+	If no new resolvant can be derived and the empty clause is not in the set of clauses we have a model.
+	
+	The resolvant is smaller than its two predecessors. (???)
+	
+	$\lnot B \gtpre_\mL A$ because $A\sigma=B\sigma=C$ and $\lnot C\gtpre_\mL C$.
+\end{proof}
 
 
 
@@ -1134,10 +1164,13 @@ We have allready seen that a normal Herbrand model might not exist.
 	
 	
 
+\subsection{Paramodulation and Superposition}
 
+\input{appendix/superposition}
 
 \subsection{Inst-Gen-Eq}
 
+\input{appendix/unitsuperposition}
 
 \subsection{Examples}
 
@@ -1154,7 +1187,7 @@ We have allready seen that a normal Herbrand model might not exist.
 \end{example}
 
 
-\subsection{Paramodulation and Superposition}
+
 
 \subsection{Inst-Gen-Eq}
 
