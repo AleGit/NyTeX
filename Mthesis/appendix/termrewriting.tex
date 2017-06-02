@@ -8,20 +8,20 @@
 \end{definition}
 
 \begin{definition}\label{def:prec}
-	A {\myem precedence} $\gtpre$ is a proper order 
+	A {\myem precedence} $\succ$ is a proper order 
 	on a signature.
 \end{definition}
 
 \begin{definition}[LPO]\label{def:lpo}
-	Let $\gtpre$ be a precedence. In a {\myem lexicographic path order} $\gtpre_{lpo}$ on (general) terms the relation $s\gtpre_{lpo} t$ holds,
+	Let $\succ$ be a precedence. In a {\myem lexicographic path order} $\succ_{lpo}$ on (general) terms the relation $s\succ_{lpo} t$ holds,
 	if one of these three cases holds:
 	\begin{enumerate}
 		\item $s=\mcf(s_1,\ldots,s_n)$, $t=\mcf(t_1,\ldots,t_n)$ and for some $1\leq i\leq n$:
 		\[
-		(s_j=t_j\lor j\geq i) \land (s_i\gtpre_{lpo} t_i) \land (s\gtpre_{lpo} t_i \lor j\leq i)
+		(s_j=t_j\lor j\geq i) \land (s_i\succ_{lpo} t_i) \land (s\succ_{lpo} t_i \lor j\leq i)
 		\]
-		\item $s=\mcf(s_1,\ldots,s_n)$, $t=\mcg(t_1,\ldots,t_m)$, $\mcf\gtpre\mcg$, and $s\gtpre_{lpo} t_i$ for all $1\leq i\leq m$.
-		\item $s=\mcf(s_1,\ldots,s_n)$ and $(s_i=t \lor s_i\gtpre_{lpo} t)$ for some $1\leq i\leq m$.
+		\item $s=\mcf(s_1,\ldots,s_n)$, $t=\mcg(t_1,\ldots,t_m)$, $\mcf\succ_\mcg$, and $s\succ_{lpo} t_i$ for all $1\leq i\leq m$.
+		\item $s=\mcf(s_1,\ldots,s_n)$ and $(s_i=t \lor s_i\succ_{lpo} t)$ for some $1\leq i\leq m$.
 	\end{enumerate}
 \end{definition}
 
@@ -40,19 +40,19 @@
 \end{definition}
 
 \begin{definition}[KBO]\label{def:kbo}
-	Let $\gtpre$ be a precedence and $(w,w_0)$ a weight function.
-	In a Knuth-Bendix order $\gtpre_{kbo}$ on (general) terms the relation $s\gtpre_{kbo} t$ holds if
+	Let $\succ$ be a precedence and $(w,w_0)$ a weight function.
+	In a Knuth-Bendix order $\succ_{kbo}$ on (general) terms the relation $s\succ_{kbo} t$ holds if
 	$|s|_x\geq|t|_x$ for all $x\in\mcV$ and one of these two cases holds:
 	\begin{enumerate}
 		\item $w(s) > w(t)$
 		\item $w(s) = w(t)$ and one of these three sub cases holds:
 		\begin{enumerate}
-			\item $t\in\mcV$ and $s=\mcf^n(t)$ for some unary symbol $\mcf$ and $n\gtpre0$,
+			\item $t\in\mcV$ and $s=\mcf^n(t)$ for some unary symbol $\mcf$ and $n\succ0$,
 			\item $s=\mcf(s_1,\ldots,s_n)$, $t=\mcf(t_1,\ldots,t_n)$, and for some $1\leq i\leq n$:
 			\[
-			(s_j=t_j \lor j\geq i) \land s_i\gtpre_{kbo} t_i
+			(s_j=t_j \lor j\geq i) \land s_i\succ_{kbo} t_i
 			\]
-			\item $s=\mcf(s_1,\ldots,s_n)$, $t=\mcg(t_1,\ldots,t_n)$, and $\mcf\gtpre_{kbo}\mcg$.
+			\item $s=\mcf(s_1,\ldots,s_n)$, $t=\mcg(t_1,\ldots,t_n)$, and $\mcf\succ_{kbo}\mcg$.
 		\end{enumerate}
 	\end{enumerate}
 \end{definition}

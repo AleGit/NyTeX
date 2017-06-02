@@ -1,0 +1,52 @@
+% !TeX root = ../mthesis.tex
+% !TeX encoding = UTF-8
+% !TeX spellcheck = en_US
+
+\section{Implementation}
+
+\chapter{Algorithms and Data Structures}
+
+\section{Terms, Literals and Clauses}
+
+\section{Strategies}
+
+
+\subsection{Given Claus Algorithm}
+
+In the previous section we just randomly applied resolution 
+on pairs of clauses from the set of clause 
+to derive and add new clauses 
+until we could derive the empty clause.
+In this section we will discuss the given clause algorithm 
+as a saturation process that eventually determines all possible derivate clauses
+with respect to a given calculus, e.g. resolution.
+
+
+Let $S=\{\, \mP(\ma)\lor\mQ(a), \mP(\ma)\lor\lnot\mQ(y), \lnot\mP(x) \,\}$.
+
+\subsubsection{Ordered Resolution}
+
+\begin{example}
+	$\mP(\ma)\succ\mQ(\ma)$
+	\begin{gather*}
+	\begin{array}{lll}
+	\text{active} & & \text{passive} \\
+	&& ^{1:}\mP(\ma)\lor\mQ(a), ^{2:}\mP(\ma)\lor\lnot\mQ(y), ^{3:}\lnot\mP(x) \\
+	^{1:}\mP(\ma)\lor\mQ(a), ^{2:}\mP(\ma)\lor\lnot\mQ(y)& & ^{3:}\lnot\mP(x) \\
+	^{1:}\mP(\ma)\lor\mQ(a), ^{2:}\mP(\ma)\lor\lnot\mQ(y), ^{3:}\lnot\mP(x)&  & ^{1,3:}\mQ(\ma), ^{2,3:}\lnot\mQ(\ma) \\
+	^{1:}\mP(\ma)\lor\mQ(a), ^{2:}\mP(\ma)\lor\lnot\mQ(y), ^{3:}\lnot\mP(x), ^{1,3:}\mQ(\ma)&  & ^{2,3:}\lnot\mQ(\ma), \mP(\ma) \\
+	^{1:}\mP(\ma)\lor\mQ(a), ^{2:}\mP(\ma)\lor\lnot\mQ(y), ^{3:}\lnot\mP(x), ^{1,3:}\mQ(\ma), ^{2,3:}\lnot\mQ(\ma), &  & \mP(\ma), \emptyclause \\
+	\end{array}
+	\end{gather*}
+\end{example}
+
+\subsubsection{InstGen}
+
+\section{Term Indexing}
+
+\subsection{Clashing literals}
+
+\subsection{Variants}
+
+
+
