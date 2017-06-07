@@ -11,7 +11,7 @@
 %% -- 2.4 Colors -------------------------------------------------------- %%
 %% https://en.wikibooks.org/wiki/LaTeX/Colors
 \usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
-\input{mystyle/Colors.tex}
+\input{PREAMBLE/Colors.tex}
 %% ---------------------------------------------------------------------- %%
 
 
@@ -33,6 +33,9 @@
 % https://en.wikibooks.org/wiki/LaTeX/Hyperlinks
 % https://en.wikibooks.org/wiki/LaTeX/Labels_and_Cross-referencing
 \usepackage{hyperref}
+%\usepackage[xindy,toc]{glossaries}
+\usepackage[toc]{glossaries}
+\usepackage[]{index}
 %% ---------------------------------------------------------------------- %%
 
 
@@ -59,7 +62,7 @@
 %\usepackage{calrsfs}
 %\DeclareMathAlphabet{\pazocal}{OMS}{zplm}{m}{n}
 
-\input{mystyle/Operators.tex}
+\input{PREAMBLE/Operators.tex}
 %% ---------------------------------------------------------------------- %%
 
 
@@ -77,22 +80,22 @@
 %% -- 4.6 Listings ------------------------------------------------------ %%
 % https://en.wikibooks.org/wiki/LaTeX/Source_Code_Listings
 \usepackage{listings} 
-\input{mystyle/Listings.tex}	% definitions
+\input{PREAMBLE/Listings.tex}	% definitions
 %% ---------------------------------------------------------------------- %%
 
 
 %% -- Graphics ---------------------------------------------------------- %%
 % https://en.wikibooks.org/wiki/LaTeX/PGF/TikZ
 \usepackage{tikz}
-\input{mystyle/Drawings}		% definitions and tikz macros
+\input{PREAMBLE/Drawings}		% definitions and tikz macros
 \usepackage[thinlines,thiklines]{easybmat}
 %% ---------------------------------------------------------------------- %%
 
 %% -- Macros ------------------------------------------------------------ %%
 %% https://en.wikibooks.org/wiki/LaTeX/Macros
 \usepackage{xspace}
-\input{mystyle/Commands}		% complex macros
-\input{mystyle/Symbols}			% simple macros
+\input{PREAMBLE/Commands}		% complex macros
+\input{PREAMBLE/Symbols}			% simple macros
 %% ---------------------------------------------------------------------- %%
 
 

@@ -5,7 +5,8 @@
 \documentclass[]{clmthesis}
 
 %% https://en.wikibooks.org/wiki/LaTeX/Modular_Documents
-\input{mystyle/Packages.tex}	% \usepackage{mystyle}	
+\input{PREAMBLE/Packages.tex}	% \usepackage{mystyle}	
+\input{PREAMBLE/GloIdx.tex}
 
 %\includeonly{
 %%	introduction/introduction,
@@ -43,26 +44,15 @@
 % BEGIN: CONTENT ----------------------------------------------------
 %====================================================================
 
-\include{introduction/introduction}
-\include{preliminaries/preliminaries}
-\include{content/decidability}
-\include{proving/proving}
-\include{algorithms/algorithms}
-\include{epr/epr}
-\include{flea/flea}
-\include{other/other}
-\include{flea/conclusion}
-\include{conclusion/conclusion}
-\include{future/future}
-
-%\section{Theorem proving without equality}
-%\subsection{Resolution}
-%\subsection{Instantiation-based}
-%\section{Theorem proving with equality}
-%\subsection{Superposition}
-%\subsection{Instantiation-based}
-%\section{iProver-Eq}
-%\section{Conclusion}
+\include{CONTENT/introduction} 		% ε
+\include{CONTENT/preliminaries}		% almost
+\include{CONTENT/decidability}		% almost
+\include{CONTENT/automation}		% in progress
+\include{CONTENT/algorithms}		% in progress
+\include{CONTENT/flea}				% basics
+\include{CONTENT/related}			% basics
+\include{CONTENT/conclusion}		% ε
+\include{CONTENT/future}			% ε
 
 
 %===================================================================
@@ -72,16 +62,18 @@
 %\cleardoublepage
 %\phantomsection
 \addcontentsline{toc}{chapter}{\listfigurename}\listoffigures
-
 \addcontentsline{toc}{chapter}{\listtablename}\listoftables
 
-%\Glasnadel
-%\printglossaries
 
 % BEGIN: appendix ----------------------------------------------------
 \appendix
 
-\include{appendix/appendix}
+\include{appendix/appendix}			% basics
+
+
+
+\printglossaries
+\printindex
 
 % END: appendix ------------------------------------------------------
 

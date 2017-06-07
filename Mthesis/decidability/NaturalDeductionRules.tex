@@ -2,7 +2,8 @@
 % !TeX encoding = UTF-8
 % !TeX spellcheck = en_US
 
-see Table \ref{tab:natural:deduction:connectives}, \ref{tab:natural:deduction:equality}, and \ref{tab:natural:deduction:quantifiers}
+In Tables \ref{tab:natural:deduction:connectives}, \ref{tab:natural:deduction:equality}, and \ref{tab:natural:deduction:quantifiers} 
+the symbols $F$ and $G$ represent arbitrary first order formula as defined in Definition \vref{def:syntax:FOF}.  
 
 \begin{table}[hbt]
 \begin{gather*}
@@ -57,6 +58,16 @@ see Table \ref{tab:natural:deduction:connectives}, \ref{tab:natural:deduction:eq
 \caption{Natural Deduction Rules for Connectives}
 \label{tab:natural:deduction:connectives}
 \end{table}
+\begin{itemize}
+	\item[($\land i$)] If $F$ and $G$ hold we may introduce the conjunction $F\land G$.
+	\item[($\land e$)] If $F \land G$ holds we may eliminate the conjunction.
+	\item[($\lnot\lnot$)] We may introduce or eliminate double negation at any time.
+	\item[($\bot e$)] Ex falso sequitur quodlibet. 
+	\item[($\lnot e$)] 
+	\item[LEM] Tertium non datur. Law of excluded middle.
+	\item[($\lor i$)] If $F$ or $G$ hold we may introduce the disjunction $F\lor G$.
+	\item[($\lnot i$)] 
+\end{itemize}
 
 \begin{table}[hbt]
 	\begin{gather*}

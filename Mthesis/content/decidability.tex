@@ -20,15 +20,17 @@ which can be described purely syntactically in \ref{sec:decidable:fol:fragments}
 After that we look at decidable first order theories in \ref{sec:decidable:fol:theories}, 
 which may not be contained in one of the syntactically describable and decidable fragments of first order logic.
 
-\section{Natural Deduction}
+\section{\gls{Natural Deduction}}
 \label{sec:natural:deduction}
 
-Natural Deduction is a sound formal proof system.
+In Natural Deduction we start 
+with a (possible empty) set of formulas -- the premises -- and infer other formulae -- the conclusions --
+by using proof rules \cite{Huth:2004:LCS:975331}.
+With $F_1,\ldots,F_n \proves G$ we claim that $G$ 
+is in the transitive closure of inferable formulae of $\{ F_1,\ldots,F_n\}$.
+(e.g.natural deduction proof to Lemma \vref{lemma:equivalence:congruence}).
 
-See natural deduction proof to Lemma \vref{lemma:equivalence:congruence}.
-
-
-\input{DEFINITIONS/NaturalDeductionRules}
+\input{decidability/NaturalDeductionRules}
 
 \section{Theorems of First Order Logic}\label{sec:decidable:fol:theorems}
 
