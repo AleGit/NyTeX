@@ -62,7 +62,7 @@ Tseitin's transformation \cite{tseitin70} --
 %
 %There are some optimization to this transformation, e.g.~by Plaisted and Greenbaum in 1986 \cite{PLAISTED1986293}.
 
-\subsection{Clausal Normal Form}\label{sec:clausal:normal:form}
+\section{Clausal Normal Form}\label{sec:clausal:normal:form}
 
 In the previous chapter we expressed axioms and lemmas of theories in \FOF. 
 Since Gilmore's prover, resolution and \InstGen work on sets of clauses we present
@@ -483,18 +483,9 @@ which was the starting point for the development of efficient propositionally sa
 
 \section{Proving without Equality}
 
-Guided (not necessarily ground) instantiation.
+In this section we look at signatures without equality symbol.
 
 \subsection{Resolution}
-
-
-%\begin{example}
-%	\begin{gather*}
-%	\infer[]{b\lor c}{a\lor b & \lnot a\lor c}
-%	\qquad
-%	\infer[]{\mcC\lor \mcD}{\mP(t)\lor \mcC & \lnot \mP(t)\lor \mcD}
-%	\end{gather*}
-%\end{example}
 
 \begin{definition}[Resolution calculus]\label{def:resolution} Let $A, B$ be atoms and $\mcC,\mcD$ be clauses.
 	\begin{gather*}
@@ -513,16 +504,6 @@ Guided (not necessarily ground) instantiation.
 		$\sigma=\mgu(A,B)$
 		%		, $\sigma$ is proper
 	\end{center}
-	%	The rule looks very similar to the resolution rule in Definition \ref{def:res}.
-	%	But there is an important difference. 
-	%	Instead of combining two clauses to one single clause,
-	%	the most general unifier $\sigma$ is used to derive two instances.
-	%	At least one is different from its origin, because the substitution must be proper.
-	%	In contrast to the recombination of clauses  the maximal size of clauses, i.e.~the number of literals in a clause, 
-	%	obviously does not increase in any case.
-	%The maximal number of literals in any clause of $S$ does no grow.
-	%{\small This rule looks very similar to resolution. But instead of combining two clauses to one single new clause,
-	%the most general unifier $\sigma$ is used to derive two new clauses.}
 \end{definition}
 
 \begin{example}Modus tollens is a special case of resolution.
@@ -534,14 +515,12 @@ Guided (not necessarily ground) instantiation.
 \end{example}
 
 \begin{example}
-	With Resolution we can derive the empty clause, i.e.~the unsatisfiability of set
-	$S_{(\ref{ex:unsat:nexsx})} =
-	\{\,
+	We conclude unsatisfiability of
+	$\{\,
 	{ \lnot\mE(x, \msucc(x)))},\, 
 	{ \mE(\msucc^k(y), \msucc(\msucc^k(y)))}
 	\,\}$ 
-	introduced in Example \ref{ex:unsat:nexsx} 
-	in one step. 
+	because we can infer the empty clause in one resolution step. 
 	\begin{gather*}
 	\infer[\{x\mapsto\msucc^k(y)\}]{
 		\square
@@ -553,18 +532,15 @@ Guided (not necessarily ground) instantiation.
 \end{example}
 
 \begin{example}
-	With Resolution we cannot derive any new clause from satisfiable set 
-	$S_{(\ref{ex:sat:exy})  } = \{\,\mE(\mzero,y)\,\}$ 
-	introduced in Example \ref{ex:sat:exy} and we conclude satisfiability 
-	of the Resolution-saturated set $S_{(\ref{ex:sat:exy})  }$ from the absence of the empty clause.
+	We conclude satisfiability of saturated set
+	$\{\,\mE(\mzero,y)\,\}$ 
+	from the absence of an empty clause.
 \end{example}
 
 \begin{example}\label{ex:sat:nezsx}
-	With satisfiable set $S_{\ref{ex:sat:nezsx}} = \{\, 
+	With observe an infinite sequence of resolution steps from satisfiable set $\{\, 
 	\lnot\mE(\mzero,\msucc(x)),\, \mE(y,y') \lor \lnot \mE(\msucc(y),\msucc(y')
-	\,\}$
-	we observe an infinite sequence of resolutions,
-	hence the set does not saturate.
+	\,\}$.
 	
 	\begin{gather*}
 	%	\infer
