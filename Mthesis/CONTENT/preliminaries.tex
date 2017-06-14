@@ -18,7 +18,7 @@ introduce basic concepts of first order semantics in section \ref{sec:semantics}
 and describe basic term rewriting terminology in section \ref{sec:termrewriting}. 
 %This section is an extension of the same section in our seminar report \cite{axm:SR2}
 These notions and notations largely follow those in lecture notes \cite{AM2015tr} and \cite{GM2013ar}.
-Figure \vref{fig:conventions} in the appendix lists typographical conventions.
+% Figure \vref{fig:conventions} in the appendix lists typographical conventions.
 
 
 \section{Syntax}\label{sec:syntax}
@@ -155,8 +155,8 @@ We state satisfiability of clauses. See the appendix for more details and mathem
 \subsection{Equality}
 
 In Definition \ref{def:semantics:atoms} we have interpreted the equality symbol as binary relation without restrictions.
-This of course allows undesirable models as in Example \ref{ex:a:neq:a}.
-We state 
+This of course allows undesirable models as in the following Example \ref{ex:a:neq:a}.
+Hence we introduce useful definitions to deal with this situation and demonstrate their usage in an example. 
 
 \begin{example}
 	\label{ex:a:neq:a}
@@ -164,7 +164,7 @@ We state
 	with ${\mEQ_\mcI} = \emptyset$ satisfies $\ma\mNE\ma$.
 \end{example}
 
-\begin{definition}
+\begin{definition}\label{def:normal:interpreation}
 	An {\myem normal} interpretation defines $\mEQ_\mcI$ as identity on its domain,
 	e.g.~the equation of terms $s \mEQ_\mcI t$ holds if and only 
 	if any evaluation of its terms are equal $\alpha_\mcI(s) = \alpha_\mcI(t)$ 
