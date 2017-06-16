@@ -3,7 +3,8 @@
 % !TeX spellcheck = en_US
 
 In Tables \ref{tab:natural:deduction:connectives}, \ref{tab:natural:deduction:equality}, and \ref{tab:natural:deduction:quantifiers} 
-the symbols $F$ and $G$ represent arbitrary first order formula as defined in Definition \vref{def:syntax:FOF}.  
+the symbols $F$ and $G$ represent arbitrary first order formula as defined in Definition \vref{def:syntax:FOF}. 
+We open a box when we assume something, e.g.~that $F$ holds. We close the box when we discard the assumption. 
 
 \begin{table}[hbt]
 \begin{gather*}
@@ -63,10 +64,16 @@ the symbols $F$ and $G$ represent arbitrary first order formula as defined in De
 	\item[($\land e$)] If $F \land G$ holds we may eliminate the conjunction and keep $F$ or $G$.
 	\item[($\lnot\lnot$)] We may introduce or eliminate double negation at any time.
 	\item[($\bot e$)] Ex falso sequitur quodlibet. 
-	\item[($\lnot e$)] 
-	\item[LEM] Tertium non datur. Law of excluded middle.
+	\item[($\lnot e$)] Whenever $F$ and $\lnot F$ hold then we can introduce the contradiction.
+	\item[(LEM)] Tertium non datur. Law of excluded middle.
 	\item[($\lor i$)] If $F$ or $G$ hold we may introduce the disjunction $F\lor G$.
-	\item[($\lnot i$)] 
+	\item[($\lnot i$)] If we assume $F$ and conclude the contradiction, then we can introduce $\lnot F$.
+	\item[(PBC)] Proof by contradiction. If we assume $\lnot F$ and conclude the contradiction, then we can introduce $F$.
+	$(\lnot i,\lnot\lnot e)$. 
+	\item[($\limp i$)] If we assume $F$ and conclude $G$, then we can introduce the implication $F\limp G$.
+	\item[($\lor e$)] If $F\lor G$ holds and H is a conclusion of F, and H is a conclusion of G, then we can introduce $H$.
+	\item[(MP)] If $F$ and the implication $F\limp G$ hold, then we can introduce $G$.
+	\item[(MT)] If $\lnot G$ and the implication $F\limp G$ hold, then we can introduce $\lnot F$.
 \end{itemize}
 
 \begin{table}[hbt]

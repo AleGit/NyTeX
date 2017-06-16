@@ -782,47 +782,6 @@ and we conclude unsatisfiability because of propositional unsatisfiability of
 		\item We increase $k$ by $1$ and continue with step \ref{step:igl:skbot}. 
 		
 	\end{enumerate}
-	
-
-\begin{figure}[hbt]
-	\begin{center}
-		\begin{tikzpicture}[scale=0.95, transform shape]
-		\node[rectangle] (start) at (0,-4em) {};
-		\node (nc) [myrect] at (0,0) {new\\clauses};
-		\node (pc) [myrect] at (0,8em) {passive clauses};
-		\node (ab) [myrect] at (-8em,3.5em) {instantiation};
-		\node (gs) [myrect] at (-8em,8em) { \SMT};
-		\node (un) [mycircle] at (-15em,8em) {un\-satis\-fiable};
-		\node (se) [myrect] at (-8em,12.5em) {selection};
-		\node (gc) [myrect] at (0em,16em) {given clause};
-		\node (ac) [myrect,dashed] at (-13em,16.5em) {active clauses};
-		
-		\node (sl) [myrect, thick] at (8.5em,12.5em) {selected literal};
-		\node (us) [myrect,very thick, 
-%		minimum width=8em, minimum height=3.5em, text width=7em
-		] at (8.5em,8em) { \InstGen};
-		\node (sa) [mycircle] at (16em,8em) {satis\-fiable};
-		\node (su) [myrect] at (8.5em,3.5em) {substitution};
-		
-		\draw[myarrow] (start) to (nc);
-		\draw[myarrow] (nc) to (pc);
-		\draw[myarrow] (nc.west)  to [bend left=10] (ab);
-		\draw[myarrow] (ab) to (gs);
-		\draw[myarrow] (gs) to (un);
-		\draw[myarrow] (gs) to (se);
-		\draw[myarrow] (pc) to (gc);
-		\draw[myarrow] (se.north) to [bend left=10] (gc.west);
-		\draw[myarrow] (us) to (sa);
-		\draw[myarrow] (us) to (su);
-		\draw[myarrow] (su) to [bend left=10] (nc.east);
-		\draw[myarrow] (sl) to (us);
-		\draw[myarrow] (gc.east) to [bend left=10] (sl.north);
-		\draw[myarrow,dashed] (gc.north) to [bend right=15](ac);
-		\end{tikzpicture}
-		\caption{Proving loop with \SMT and \InstGen}
-		\label{fig:inst-gen-maxcomp}
-	\end{center}
-\end{figure}
 \end{procedure}
 
 \begin{example} The selected literals of the first and the second clause change between iterations.
