@@ -11,7 +11,7 @@
 
 
 
-\section{Given Clause Algorithm}ssa
+\section{Given Clause Algorithm}
 
 In the previous chapter we just randomly applied derivation rules
 on pairs of clauses from the set of clauses 
@@ -20,19 +20,41 @@ until we could conclude unsatisfiability of the set of clauses.
 
 In this section we will discuss the given clause algorithm 
 as a saturation process that eventually determines all possible derivate clauses
-with respect to a given calculus, e.g. resolution.
+with respect to a given calculus, e.g. ordered resolution.
 
 
-Let $S=\{\, \mP(\ma)\lor\mQ(a), \mP(\ma)\lor\lnot\mQ(y), \lnot\mP(x) \,\}$.
+
+
+\begin{procedure}[Basic Given Clause Algorithm]
+	We start with a set of clauses $S = P \disjointunion U$, 
+	where $P$ is the set of {\myem passive} clauses 
+	and $U$ is the initially empty set of {\myem active} (or used) clauses.
+	\begin{enumerate}
+		\item[0.] Whenever we can conclude unsatisfiability of $S$ we exit the procedure.
+		\setcounter{enumi}{0}
+		\item If $P$ is empty we exit and return \SAT.
+		\item We select a passive clause, i.e.~the given clause.
+		\item We combine each active clause with the given clause to derive new clauses into $P$
+		\item We move the given clause from passive to active and continue with step 1.
+	\end{enumerate}
+\end{procedure}
+
 
 In the following examples the given clause is boxed, 
 the active clauses are on the left of the given clause, 
-and the passive clauses are on the right.
+and the passive clauses are on the right. 
+Each line represents one iteration of our procedure 3.
+
+Let $S=\{\, \mP(\ma)\lor\mQ(a), \mP(\ma)\lor\lnot\mQ(y), \lnot\mP(x) \,\}$.
+
+\subsection{Ordered Resolution}
+
+We conclude unsatisfiability of $S$ whenever the empty clause is present (or derived).
 
 \begin{example}[Ordered Resolution] $\mP(\ma)\succ\mQ(\ma)$
 	
 	\begin{align*}
-	^{1:}&\boxed{\mP(\ma)\lor\mQ(a)} & ^{2:}&\mP(\ma)\lor\lnot\mQ(y) & ^{3:}&\lnot\mP(x) 
+	(1)\ ^{1:}&\boxed{\mP(\ma)\lor\mQ(a)} & ^{2:}&\mP(\ma)\lor\lnot\mQ(y) & ^{3:}&\lnot\mP(x) 
 	\\
 	^{1:}&\mP(\ma)\lor\mQ(a) & ^{2:}&\boxed{\mP(\ma)\lor\lnot\mQ(y)} & ^{3:}&\lnot\mP(x) 
 	\\
@@ -47,6 +69,51 @@ and the passive clauses are on the right.
 	& ^{(1,3),(2,3):}&\emptyclause
 	\\
 	\end{align*}
+\end{example}
+
+\subsection{InstGen}
+
+We conclude unsatisfiability of $S$ whenever $S\bot$ is unsatisfiable. 
+
+
+\begin{example}[InstGen]The active and given clauses are already encoded and given to a \SAT solver.
+	The basic given clause algorithm would stop and fail after $(4')$
+	since $S\bot$ is still satisfiable and there is no conflict between the selected literal of the given clause 
+	and any selected literal of any active clauses.
+	
+	
+	\begin{align*}
+	(1)\quad^{1:}&\boxed{\mP(\ma)\lor\mQ(a)} & ^{2:}&\mP(\ma)\lor\lnot\mQ(y) & ^{3:}&\lnot\mP(x)
+	\\
+	(2)\quad^{1:}&{\colHi\mP(\ma)}\lor\mQ(a) & ^{2:}&\boxed{\mP(\ma)\lor\lnot\mQ(y)} & ^{3:}&\lnot\mP(x) 
+	\\
+	(3)\quad^{1:}&{\colHi\mP(\ma)}\lor\mQ(a) & ^{2:}&{\colHi\mP(\ma)}\lor\lnot\mQ(y) & ^{3:}&\boxed{\lnot\mP(x)} 
+	& ^{1,3:}_{2,3:}&\lnot\mP(\ma)
+	\\
+	(4')\quad
+	^{1:}&{\colLo\mP(\ma)}\lor\colHi\mQ(a) & ^{2:}&{\colLo\mP(\ma)}\lor\colHi\lnot\mQ(y) & ^{3:}&{\colHi\lnot\mP(x)} 
+	& ^{1,3:}_{2,3:}&\boxed{\lnot\mP(\ma)}
+	\\
+	(4)\quad^{3:}&{\colHi\lnot\mP(x)} 
+	& ^{1,3:}_{2,3:}&\boxed{\lnot\mP(\ma)}
+	& ^{1:}&{\colLo\mP(\ma)}\lor\colHi\mQ(a) & ^{2:}&{\colLo\mP(\ma)}\lor\colHi\lnot\mQ(y)
+	\\
+	(5)\quad^{3:}&{\colHi\lnot\mP(x)} 
+	& ^{1,3:}_{2,3:}&\colHi\lnot\mP(\ma)
+	& ^{1:}&\boxed{{\colLo\mP(\ma)}\lor\colHi\mQ(a)} & ^{2:}&{\colLo\mP(\ma)}\lor\colHi\lnot\mQ(y)
+	\\
+	(6)\quad^{3:}&{\colHi\lnot\mP(x)} 
+	& ^{1,3:}_{2,3:}&\colHi\lnot\mP(\ma)
+	& ^{1:}&{\colLo\mP(\ma)}\lor\colHi\mQ(a) & ^{2:}&\boxed{{\colLo\mP(\ma)}\lor\colHi\lnot\mQ(y)}
+	& ^{2(1):}&\mP(\ma)\lor\lnot\mQ(\ma)
+	\\
+	(7)\quad^{3:}&{\colHi\lnot\mP(x)} 
+	& ^{1,3:}_{2,3:}&\colHi\lnot\mP(\ma)
+	& ^{1:}&{\colLo\mP(\ma)}\lor\colHi\mQ(a) & ^{2:}&{\colLo\mP(\ma)\lor\colHi\lnot\mQ(y)}
+	& ^{2(1):}&\boxed{\mP(\ma)\lor\lnot\mQ(\ma)}
+	\end{align*}
+	But the model must change in (4) and the selected literals of two of the active clauses must change too.
+	Active clauses with changed selected literals have to be moved back to the set passive clauses.
 \end{example}
 
 \begin{figure}[hbt]
@@ -84,6 +151,7 @@ and the passive clauses are on the right.
 		\draw[myarrow] (gc.east) to [bend left=10] (sl.north);
 		\draw[myarrow,dashed] (gc.north) to [bend right=15](ac);
 		
+		\draw[myarrow,dotted] (ac.east) to [bend left=25](pc);
 		
 		\end{tikzpicture}
 		\caption{Proving loop with \SAT and \InstGen}
@@ -91,48 +159,13 @@ and the passive clauses are on the right.
 	\end{center}
 \end{figure}
 
-
-\begin{example}[InstGen]The active and given clauses are already encoded and given to a \SAT solver.
-	The basic given clause algorithm would fail because step four changes the model, 
-	but the clash is between newly selected literals of already active clauses.
-	
-	\begin{align*}
-	(1)\quad^{1:}&\boxed{\mP(\ma)\lor\mQ(a)} & ^{2:}&\mP(\ma)\lor\lnot\mQ(y) & ^{3:}&\lnot\mP(x)
-	\\
-	(2)\quad^{1:}&{\colHi\mP(\ma)}\lor\mQ(a) & ^{2:}&\boxed{\mP(\ma)\lor\lnot\mQ(y)} & ^{3:}&\lnot\mP(x) 
-	\\
-	(3)\quad^{1:}&{\colHi\mP(\ma)}\lor\mQ(a) & ^{2:}&{\colHi\mP(\ma)}\lor\lnot\mQ(y) & ^{3:}&\boxed{\lnot\mP(x)} 
-	& ^{1,3:}_{2,3:}&\lnot\mP(\ma)
-	\\
-	(4')\quad
-	^{1:}&{\colLo\mP(\ma)}\lor\colHi\mQ(a) & ^{2:}&{\colLo\mP(\ma)}\lor\colHi\lnot\mQ(y) & ^{3:}&{\colHi\lnot\mP(x)} 
-	& ^{1,3:}_{2,3:}&\boxed{\lnot\mP(\ma)}
-	\\
-	(4)\quad^{3:}&{\colHi\lnot\mP(x)} 
-	& ^{1,3:}_{2,3:}&\boxed{\lnot\mP(\ma)}
-	& ^{1:}&{\colLo\mP(\ma)}\lor\colHi\mQ(a) & ^{2:}&{\colLo\mP(\ma)}\lor\colHi\lnot\mQ(y)
-	\\
-	(5)\quad^{3:}&{\colHi\lnot\mP(x)} 
-	& ^{1,3:}_{2,3:}&\colHi\lnot\mP(\ma)
-	& ^{1:}&\boxed{{\colLo\mP(\ma)}\lor\colHi\mQ(a)} & ^{2:}&{\colLo\mP(\ma)}\lor\colHi\lnot\mQ(y)
-	\\
-	(6)\quad^{3:}&{\colHi\lnot\mP(x)} 
-	& ^{1,3:}_{2,3:}&\colHi\lnot\mP(\ma)
-	& ^{1:}&{\colLo\mP(\ma)}\lor\colHi\mQ(a) & ^{2:}&\boxed{{\colLo\mP(\ma)}\lor\colHi\lnot\mQ(y)}
-	& ^{2(1):}&\mP(\ma)\lor\lnot\mQ(\ma)
-	\\
-	(7)\quad^{3:}&{\colHi\lnot\mP(x)} 
-	& ^{1,3:}_{2,3:}&\colHi\lnot\mP(\ma)
-	& ^{1:}&{\colLo\mP(\ma)}\lor\colHi\mQ(a) & ^{2:}&{\colLo\mP(\ma)\lor\colHi\lnot\mQ(y)}
-	& ^{2(1):}&\boxed{\mP(\ma)\lor\lnot\mQ(\ma)}
-	\end{align*}
-\end{example}
-
 \section{Term Indexing}
 
 \subsection{Clashing literals}
 
 \subsection{Variants}
+
+\subsection{Instances}
 
 
 

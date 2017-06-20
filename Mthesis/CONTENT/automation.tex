@@ -1107,24 +1107,21 @@ We have allready seen that a normal Herbrand model might not exist.
 
 \input{appendix/unitsuperposition}
 
-\subsection{Examples}
-
-\begin{example}
-	\begin{align*}
-	\ack(\mzero,y) &\mEQ \msucc(y) \\
-	\ack(\msucc(x),\mzero) &\mEQ \ack(x, \msucc(\mzero)) \\
-	\ack(\msucc(x),\msucc(y)) &\mEQ \ack(x, \ack(\msucc(x),y)) \\
-	\\
-%	x &\mNE \msucc(x)\\
-	x &\mNE y \lor \msucc(x) \mEQ \msucc(y)\\
-	\mzero &\mNE \msucc(x)\\
-	\end{align*}
-\end{example}
-
-
+%\subsection{Examples}
+%
+%\begin{example}
+%	\begin{align*}
+%	\ack(\mzero,y) &\mEQ \msucc(y) \\
+%	\ack(\msucc(x),\mzero) &\mEQ \ack(x, \msucc(\mzero)) \\
+%	\ack(\msucc(x),\msucc(y)) &\mEQ \ack(x, \ack(\msucc(x),y)) \\
+%	\\
+%%	x &\mNE \msucc(x)\\
+%	x &\mNE y \lor \msucc(x) \mEQ \msucc(y)\\
+%	\mzero &\mNE \msucc(x)\\
+%	\end{align*}
+%\end{example}
 
 
-\subsection{Inst-Gen-Eq}
 
 At a first glance \InstGenEQ is expected to behave similar to the application of Superposition. 
 But actually it shares a disadvantage with \InstGen (see Example \ref{ex:nat:instgen}) as we can see in the following example.
@@ -1164,9 +1161,8 @@ We ignore $\mcC_2$ which would just yield a variant of itself.
 	\tag*{$i=0$ (base case)}
 	\end{align*}
 	We now show by induction that \InstGenEQ yields an infinite sequence of distinct clauses $\mcC_{i+3}$ for $i\in\mathbb{N}$.
-	The base case $i=0$ is already covered. We assume for simplicity and without loss of generality that the literal $\msucc^{i+1}(x_{i+3})\mEQ y_{i+3}$ will never\footnote{
-		Otherwise we quickly derive the unit clause $\msucc^{i+1}(x_{i+3})\mNE x_2$ that prohibits the selection.} 
-	be selected.
+	The base case $i=0$ is already covered. We assume for simplicity and without loss of generality that the literal $\msucc^{i+1}(x_{i+3})\mEQ y_{i+3}$ will never be selected.\footnote{
+		Otherwise we quickly derive the unit clause $\msucc^{i+1}(x_{i+3})\mNE x_2$ that prohibits the selection.}
 	We then can derive the contradiction from the selected literals of the first and the newest clause 
 	and instantiate the first clause with the new unifier $\sigma_{i+2}$.
 	\begin{align*}
@@ -1222,18 +1218,18 @@ We ignore $\mcC_2$ which would just yield a variant of itself.
 %\end{align*}
 \end{example}
 
-\begin{definition}\label{def:unit:superposition}
-	\begin{align*}
-	\infer[\sigma]{(s[r]\mEQ t)\sigma}{\ell\mEQ r & s[\ell'] \mEQ t} & &
-	\infer[\sigma]{(s[r]\mNE t)\sigma}{\ell\mEQ r & s[\ell'] \mNE t}\tag*{unit superposition}\\
-	& \infer[\sigma]{\emptyclause}{\ell \mNE r}\tag*{equality resolution} \\
-	\end{align*}
-	where $\sigma = \mgu(\ell,\ell')$, 
-	$\ell'$ is not a variable, 
-	$\ell\sigma\tau >_{gr} r\sigma\tau$,
-	$s[\ell']\sigma\tau >_{gr} t\sigma\tau$,
-	$\var({\ell, r}) \cup \var(\{ s[l'],t \}) ) = \emptyset$
-\end{definition}
+%\begin{definition}\label{def:unit:superposition}
+%	\begin{align*}
+%	\infer[\sigma]{(s[r]\mEQ t)\sigma}{\ell\mEQ r & s[\ell'] \mEQ t} & &
+%	\infer[\sigma]{(s[r]\mNE t)\sigma}{\ell\mEQ r & s[\ell'] \mNE t}\tag*{unit superposition}\\
+%	& \infer[\sigma]{\emptyclause}{\ell \mNE r}\tag*{equality resolution} \\
+%	\end{align*}
+%	where $\sigma = \mgu(\ell,\ell')$, 
+%	$\ell'$ is not a variable, 
+%	$\ell\sigma\tau >_{gr} r\sigma\tau$,
+%	$s[\ell']\sigma\tau >_{gr} t\sigma\tau$,
+%	$\var({\ell, r}) \cup \var(\{ s[l'],t \}) ) = \emptyset$
+%\end{definition}
 
 
 \begin{align*}
