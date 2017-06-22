@@ -5,36 +5,51 @@
 
 \chapter{Completeness and Undecidability}
 
-%\begin{definition}
-	We call a logical calculus, i.e.~a formal proof system, {\myem complete} if every valid formula is provable.
-	In other words any expression that is satisfied by all interpretations 
-	is deducible or justifiable by applying rules of the formal system only.
-	We expect a useful calculus to be {\myem sound}, that is, every proven formula is valid, 
-	i.e.~it holds in all interpretations.
-%\end{definition}
+We call a logical calculus, i.e.~a formal proof system for an underlying logic, 
+{\myem complete} if every valid formula is provable.
+In other words, any expression that is satisfied by all possible interpretations 
+is deducible or justifiable by applying rules of the formal system only.
+We expect a useful calculus to be {\myem sound}, that is, every proven formula is valid, 
+i.e.~it holds in any interpretation.
+We call a logical system {\myem decidable} 
+if and only if a purely syntactical algorithm exists that determines 
+the validity or non-validity for any arbitrary formula in the given logical system.
+%A standard example for a decidable logic is propositional logic.
 
-In \ref{sec:decidable:fol:theorems} we recall completeness and undecidability 
-together with other useful theorems about first order logic.
-Then we enumerate decidable fragments of first order logic
+We first look at a sound and complete calculus for first-order logic in \ref{sec:natural:deduction}.
+After that we recall undecidability of first-order logic in \ref{sec:decidable:fol:theorems} 
+together with other useful theorems about first-order logic.
+Then we enumerate decidable fragments of first-order logic
 which can be described purely syntactically in \ref{sec:decidable:fol:fragments} .
-After that we look at decidable first order theories in \ref{sec:decidable:fol:theories}, 
-which may not be contained in one of the syntactically describable and decidable fragments of first order logic.
+After that we look at decidable first-order theories in \ref{sec:decidable:fol:theories}, 
+which are not necessarily expressible 
+in one of the syntactically describable and decidable fragments of first-order logic.
 
 \section{\gls{Natural Deduction}}
 \label{sec:natural:deduction}
 
-We start 
-with a (possible empty) set of formulas -- the premises -- and infer other formulae -- the conclusions --
-by using proof rules \cite{Huth:2004:LCS:975331}.
+In Natural Deduction \cite{Huth:2004:LCS:975331}
+we start with a (possible empty) set of formulae -- the premises -- 
+and infer other formulae -- the conclusions -- by using syntactic proof rules from Tables 
+\ref{tab:natural:deduction:connectives}, \ref{tab:natural:deduction:equality}, 
+and \ref{tab:natural:deduction:quantifiers}.
+The symbols $F$ and $G$ in these rules represent arbitrary first-order formula 
+as defined in Definition \vref{def:syntax:FOF}. 
+We open a box when we assume something, e.g.~that $F$ holds. 
+We close the box when we discard the assumption. 
 With $F_1,\ldots,F_n \proves H$ we claim that formula $H$ 
-is in the transitive closure of inferable formulae of $\{ F_1,\ldots,F_n\}$.
+is in the transitive closure of inferable formulae from $\{ F_1,\ldots,F_n\}$.
 (e.g.~the natural deduction proof to Lemma \vref{lemma:equivalence:congruence}).
 
 \input{decidability/NaturalDeductionRules}
 
+\begin{theorem}[Soundness]
+	The inference rules of natural deduction are sound.
+\end{theorem}
+
 \section{Theorems of First Order Logic}\label{sec:decidable:fol:theorems}
 
-The purpose of this section is to state useful theorems about first order logic.
+The purpose of this section is to state useful theorems about first-order logic.
 
 \begin{theorem}[Completeness, Gödel 1929]
 	Natural deduction (see above), a sound formal system, is complete.
@@ -42,15 +57,15 @@ The purpose of this section is to state useful theorems about first order logic.
 
 \begin{theorem}
 	[Undecidability, Church 1936, Turing 1937]
-	The satisfiability problem for first order logic is undecidable.
+	The satisfiability problem for first-order logic is undecidable.
 \end{theorem}
 
 \begin{theorem}[Trakhtenbort 1950, Craig 1950]
-	The satisfiability problem for first order logic on {\myem finite} structures (domains) is undecidable.
+	The satisfiability problem for first-order logic on {\myem finite} structures (domains) is undecidable.
 \end{theorem}
 
 \begin{definition}[Finite model property]
-	A logic has the finite model property if each theorem is falsified by some finite model.
+	A logic has the finite model property if each non-theorem is falsified by some finite model.
 \end{definition}
 
 \begin{lemma}[Refutation]
@@ -81,14 +96,14 @@ The purpose of this section is to state useful theorems about first order logic.
 \end{corollary}
 
 \begin{lemma}
-With Skolemization and Tseitin transformation we can effectively transform a arbitrary first order formula into an equisatisfiable set of clauses.	
+With Skolemization and Tseitin transformation we can effectively transform a arbitrary first-order formula into an equisatisfiable set of clauses.	
 \end{lemma}
 
 
 \section{Decidable Fragments of First Order Logic}\label{sec:decidable:fol:fragments}
 
 This section presents purely syntactical defined fragments
-of first order logic where satisfiability is decidable.\footnote{
+of first-order logic where satisfiability is decidable.\footnote{
 	\,Definitions and compact overviews follow the presentation
 	“\href{http://logic.rwth-aachen.de/~graedel/kalmar.pdf}{Decidable fragments of first-order and fixed-point logic}”
 	by E.~Grädel (\url{http://logic.rwth-aachen.de/~graedel/}).	
@@ -97,7 +112,7 @@ of first order logic where satisfiability is decidable.\footnote{
 
 
 \begin{definition}[\PNF]
-	A first order formula $F = \quantify_1 x_1 \ldots \quantify_n x_n\, G$ 
+	A first-order formula $F = \quantify_1 x_1 \ldots \quantify_n x_n\, G$ 
 	where $\quantify_i \in \{\exists,\forall\}$ are quantifiers
 	for $1 < i \leq n$,
 	the subformula $G$ is quantifier free, and 
@@ -108,7 +123,7 @@ of first order logic where satisfiability is decidable.\footnote{
 
 
 \begin{definition}[\cite{MR1482227}]\label{def:prefix:class}
-	We describe classes of first order formulae in \PNF with triples
+	We describe classes of first-order formulae in \PNF with triples
 	\[
 	[\, \Pi, (p_1,p_2,\ldots), (f_1,f_2,\ldots)\,]_{(\mEQ)}
 	\]
@@ -165,7 +180,7 @@ of first order logic where satisfiability is decidable.\footnote{
 	\\
 	[\,\exists^{∗}, all, all&\,]_{=} \tag{Gurevich 1976}
 	\end{align*}
-	%\caption[Decidable prefix classes]{Decidable prefix classes in first order logic}
+	%\caption[Decidable prefix classes]{Decidable prefix classes in first-order logic}
 	\caption[Decidable prefix classes]{Decidable prefix classes with final model property }
 	\label{tab:decidedable:FiniteModelProperty}
 \end{table}
@@ -176,7 +191,7 @@ of first order logic where satisfiability is decidable.\footnote{
 	\\
 	[\,\exists^{∗}\forall\exists^{∗}, all, (1)&\,]_{=} \tag{Shelah 1977}
 	\end{align*}
-	%\caption[Decidable prefix classes]{Decidable prefix classes in first order logic}
+	%\caption[Decidable prefix classes]{Decidable prefix classes in first-order logic}
 	\caption[Decidable prefix classes]{Decidable prefix classes with infinity axioms. }
 	\label{tab:decidable:InfinityAxioms}
 \end{table}
@@ -194,8 +209,8 @@ of first order logic where satisfiability is decidable.\footnote{
 We follow definitions and examples in \cite{AM2015L}.
 
 \begin{definition}[Theory]
-	A {\myem first order theory} is a pair of a first order signature 
-	and the possible infinite conjunction $\bigwedge_i A_i$ of first order formulae, 
+	A {\myem first-order theory} is a pair of a first-order signature 
+	and the possible infinite conjunction $\bigwedge_i A_i$ of first-order formulae, 
 	i.e.~the axioms, over the theory's signature. 
 	A theory is satisfiable if there exists a model for its axioms.
 	A theory is consistent when the contradiction is not derivable.
@@ -252,7 +267,7 @@ In the following we define equivalence and congruence as usual. Together these a
 \begin{definition}[$\vec{x}$-Notation]
 	Occasionally we may abbreviate a sequence of $n$ variables by $\vec{x}$.
 	Then we write $\mcf(\vecn{x})$ 
-	for first order expression $\mcf(x_1,\ldots,x_n)$
+	for first-order expression $\mcf(x_1,\ldots,x_n)$
 	with n-ary function or predicate symbol $\mcf$,
 %	 $\mcf\in\mcFn$,
 	a single equation $\vecn{x}\mEQ\vecn{y}$ for
@@ -406,7 +421,7 @@ Equivalence and congruence of equality are provable by Natural Deduction (see Se
 	\end{gather*}
 	\end{example}
 
-\begin{theorem}Presburger Artihmetic (Moj\'{z}esz Presburger, 1929), i.e.~the first order theory with natural numbers, induction schemata, and addition, is consistent, complete and decidable. The computational complexity of the decision problem is at least doubly exponential $2^{2^{cn}}$(Fischer and Rabin, 1974), but less than triple exponential (Oppen, 1978. Berman, 1980).
+\begin{theorem}Presburger Artihmetic (Moj\'{z}esz Presburger, 1929), i.e.~the first-order theory with natural numbers, induction schemata, and addition, is consistent, complete and decidable. The computational complexity of the decision problem is at least doubly exponential $2^{2^{cn}}$(Fischer and Rabin, 1974), but less than triple exponential (Oppen, 1978. Berman, 1980).
 \end{theorem}
 
 \begin{definition}
@@ -429,7 +444,7 @@ Equivalence and congruence of equality are provable by Natural Deduction (see Se
 \end{definition}
 
 \begin{theorem}Peano Artihmetic (Guiseppe Peano, 19th century), 
-	i.e.~the first order theory with natural numbers, induction schemata, addition, and multiplication, is incomplete (Gödel) and undecidable. 
+	i.e.~the first-order theory with natural numbers, induction schemata, addition, and multiplication, is incomplete (Gödel) and undecidable. 
 \end{theorem}
 
 \begin{theorem}
