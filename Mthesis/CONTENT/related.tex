@@ -8,15 +8,15 @@
 
 \section{Purely equational logic}
 
-We can transform a set of selected literals into a equational system 
-when we introduce one new constant symbol $\bullet$,
+We can transform predicates into equations
+by introducing one new and distinct constant symbol $\bullet$,
 and a new function symbol $f\!_P$ for every predicate symbol $P$:
 \begin{align*}
 	P(t_1,\ldots,t_n) \quad\Rightarrow&\quad f\!_P(t_1,\ldots,t_n) \mEQ \bullet \\ 
 	\lnot P(t_1,\ldots,t_n) \quad\Rightarrow&\quad f\!_P(t_1,\ldots,t_n) \mNE \bullet
 \end{align*}
 
-\section{Term Rewrite System}
+\section{Term Rewrite Systems}
 
 We can transform a set of selected literals into a term rewrite system 
 when we introduce two new constant symbols -- $\mathsf{true}$ and $\mathsf{false}$ --
