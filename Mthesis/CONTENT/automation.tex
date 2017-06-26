@@ -483,7 +483,7 @@ which was the starting point for the development of efficient propositionally sa
 
 \section{Proving without Equality}
 
-In this section we look at signatures without equality symbol.
+In this section we treat the equality symbol $\mEQ$ as a binary infix predicate symbol. 
 
 \subsection{Resolution}
 
@@ -514,66 +514,85 @@ In this section we look at signatures without equality symbol.
 	\end{gather*}
 \end{example}
 
+%\begin{example}
+%	We conclude unsatisfiability of
+%	$\{\,
+%	{ \lnot\mE(x, \msucc(x)))},\, 
+%	{ \mE(\msucc^k(y), \msucc(\msucc^k(y)))}
+%	\,\}$ 
+%	because we can infer the empty clause in one resolution step. 
+%	\begin{gather*}
+%	\infer[\{x\mapsto\msucc^k(y)\}]{
+%		\square
+%	}{
+%		{ \mE(\msucc^k(y), \msucc(\msucc^k(y)))} &
+%		{ \lnot\mE(x, \msucc(x)))} &
+%	}
+%	\end{gather*}
+%\end{example}
+
 \begin{example}
-	We conclude unsatisfiability of
+	We conclude unsatisfiability of the set of clauses
 	$\{\,
-	{ \lnot\mE(x, \msucc(x)))},\, 
-	{ \mE(\msucc^k(y), \msucc(\msucc^k(y)))}
+	{ x\mNE \msucc(x)},\, 
+	{ \msucc^k(y)\mEQ \msucc(\msucc^k(y))}
 	\,\}$ 
 	because we can infer the empty clause in one resolution step. 
 	\begin{gather*}
 	\infer[\{x\mapsto\msucc^k(y)\}]{
 		\square
 	}{
-		{ \mE(\msucc^k(y), \msucc(\msucc^k(y)))} &
-		{ \lnot\mE(x, \msucc(x)))} &
+		{ \msucc^k(y)\mEQ \msucc(\msucc^k(y))} &
+		{ x\mNE \msucc(x)} &
 	}
 	\end{gather*}
 \end{example}
 
+%\begin{example}
+%	We conclude satisfiability of saturated set
+%	$\{\,\mE(\mzero,y\,\}$ 
+%	from the absence of the empty clause.
+%\end{example}
+
 \begin{example}
-	We conclude satisfiability of saturated set
-	$\{\,\mE(\mzero,y)\,\}$ 
-	from the absence of an empty clause.
+	We conclude satisfiability of saturated set of clauses
+	$\{\,\mzero \mEQ y\,\}$ 
+	from the absence of the empty clause.
 \end{example}
+
+%\begin{example}\label{ex:sat:nezsx}
+%	With observe an infinite sequence of resolution steps from satisfiable set $\{\, 
+%	\lnot\mE(\mzero,\msucc(x)),\, \mE(y,y') \lor \lnot \mE(\msucc(y),\msucc(y')
+%	\,\}$.
+%	
+%	\begin{gather*}
+%	\infer
+%	[\{y\mapsto{\colN\msucc^i(\mzero)}, y'\mapsto{\colN\msucc^{i+1}(x)}\}]
+%	{
+%		\lnot \mE(\msucc({\colN\msucc^{i}(\mzero)}),\msucc({\colN\msucc^{i+1}(x)})) 
+%	}{
+%		{\mE(y,y')} \lor \lnot \mE(\msucc(y),\msucc(y')) 
+%		&{ \lnot\mE(\msucc^i(\mzero),\msucc^{i+1}(x))}
+%	}
+%	\tag{$i\geq 0$}
+%	\end{gather*}
+%\end{example}
 
 \begin{example}\label{ex:sat:nezsx}
 	With observe an infinite sequence of resolution steps from satisfiable set $\{\, 
-	\lnot\mE(\mzero,\msucc(x)),\, \mE(y,y') \lor \lnot \mE(\msucc(y),\msucc(y')
+	\mzero\mNE\msucc(x),\, y\mEQ y' \lor \msucc(y)\mNE\msucc(y')
 	\,\}$.
 	
 	\begin{gather*}
-	%	\infer
-	%	[\{y\mapsto\mzero, y'\mapsto\msucc(x)\}]
-	%	{ 
-	%		\lnot \mE(\ms({\colN\mzero}),\ms({\colN\msucc(x)}) 
-	%	}{
-	%		{\colHi\mE(y,y')} \lor \lnot \mE(\ms(y),\ms(y')) 
-	%		&{\colLo \lnot\mE(\mzero,\ms(x))}
-	%	}
-	%	\tag{$i=0$}
-	%	\\[1em]
 	\infer
 	[\{y\mapsto{\colN\msucc^i(\mzero)}, y'\mapsto{\colN\msucc^{i+1}(x)}\}]
 	{
-		\lnot \mE(\msucc({\colN\msucc^{i}(\mzero)}),\msucc({\colN\msucc^{i+1}(x)})) 
+		\msucc({\colN\msucc^{i}(\mzero)})\mNE\msucc({\colN\msucc^{i+1}(x)}) 
 	}{
-		{\mE(y,y')} \lor \lnot \mE(\msucc(y),\msucc(y')) 
-		&{ \lnot\mE(\msucc^i(\mzero),\msucc^{i+1}(x))}
+		{y\mEQ y' \lor \msucc(y)\mNE\msucc(y')}
+		&{ \msucc^i(\mzero)\mNE\msucc^{i+1}(x)}
 	}
 	\tag{$i\geq 0$}
-	\\
-	%	\infer[y\mapsto\msucc(\msucc(0)),y'\mapsto\msucc(\msucc(\msucc(x)))]{
-	%		\msucc(\msucc(\msucc(0)))\mNE\msucc(\msucc(\msucc(\msucc(x))))
-	%	}{\circ &
-	%	\infer[y\mapsto\msucc(0),y'\mapsto(\msucc\msucc(x))]{
-	%		\msucc(\msucc(0))\mNE\msucc(\msucc(\msucc(0)))
-	%	}{\circ&
-	%	\infer[y\mapsto 0, y'\mapsto\msucc(0)]
-	%	{ \msucc(0)\mNE\msucc(\msucc(0))}
-	%	{ y\mEQ y' \lor \msucc(y)\mNE\msucc(y') & 0 \mNE \msucc(x)}
-	%}
-	%}
 	\end{gather*}
 \end{example}
 
