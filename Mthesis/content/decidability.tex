@@ -128,11 +128,11 @@ of first-order logic where satisfiability is decidable.\footnote{
 	[\, \Pi, (p_1,p_2,\ldots), (f_1,f_2,\ldots)\,]_{(\mEQ)}
 	\]
 	where $\Pi = \quantify_1 \ldots \quantify_n$, $\quantify_i\in\{\forall,\exists\}$ 
-	describes the structure of the quantifier prefix (without variables),
+	describes the structure of the quantifier prefix (without variables) of the formulae,
 	the value $p_i$ is the maximal number of predicate symbols with arity $i$,
-	and the value $f_i$ the maximal number of function symbols with arity $i$.
+	and the value $f_i$ the maximal number of function symbols with arity $i$ in the signature.
 	The equality symbol is not counted as binary predicate symbol. Instead,
-	the absence or presence of subscript $(\mEQ)$ indicates whether the equality symbol is in the signature. 
+	the absence or presence of subscript $(=)$ indicates whether the equality symbol is in the signature. 
 	
 \end{definition}
 
@@ -145,6 +145,7 @@ of first-order logic where satisfiability is decidable.\footnote{
 	[\,all, (\omega), (0 ) \,]_=
 	\tag{Löwenheim 1925, Kalmár 1929}
 	\end{gather*}
+	The quantifier prefix $\Pi = all$ denotes an arbitrary sequence of quantifiers. 
 \end{example}
 
 \begin{example}\label{ex:ackermann}
@@ -157,11 +158,12 @@ of first-order logic where satisfiability is decidable.\footnote{
 	[\,\exists^*\forall\exists^*,all,(0) \,]_{=}\qquad\qquad\qquad 
 	\tag{Ackermann 1928}
 	\end{gather*}
+	The expression $all$ for $(p_1,p_2,\ldots)$ denotes $p_i=\omega$ for all $i\in\mathbb{N}$
 \end{example}
 
 \begin{remark}
-	One unary function symbol can be added to the classes above 
-	without loosing decidability (see Table \ref{tab:decidable:InfinityAxioms}).
+	One unary function symbol can be added to these fragments of first order logic above 
+	without loosing decidability (see Table \vref{tab:decidable:InfinityAxioms}).
 \end{remark}
 
 %Goldfarb, Gurevich, Rabin, Shelah completly characterized decidable and undecidable prefix classes.
