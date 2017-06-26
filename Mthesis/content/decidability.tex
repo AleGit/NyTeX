@@ -125,15 +125,14 @@ of first-order logic where satisfiability is decidable.\footnote{
 \begin{definition}[\cite{MR1482227}]\label{def:prefix:class}
 	We describe classes of first-order formulae in \PNF with triples
 	\[
-	[\, \Pi, (p_1,p_2,\ldots), (f_1,f_2,\ldots)\,]_{(\mEQ)}
+	[\, \Pi, (p_1,p_2,\ldots), (f_1,f_2,\ldots)\,]_{(\mEQ)} \subseteq [\, all, all, all\,]_{\mEQ}
 	\]
 	where $\Pi = \quantify_1 \ldots \quantify_n$, $\quantify_i\in\{\forall,\exists\}$ 
 	describes the structure of the quantifier prefix (without variables) of the formulae,
 	the value $p_i$ is the maximal number of predicate symbols with arity $i$,
 	and the value $f_i$ the maximal number of function symbols with arity $i$ in the signature.
 	The equality symbol is not counted as binary predicate symbol. Instead,
-	the absence or presence of subscript $(=)$ indicates whether the equality symbol is in the signature. 
-	
+	the absence or presence of subscript $(\mEQ)$ indicates whether the equality symbol is in the signature. 
 \end{definition}
 
 \begin{example}\label{ex:monadic}
@@ -145,7 +144,6 @@ of first-order logic where satisfiability is decidable.\footnote{
 	[\,all, (\omega), (0 ) \,]_=
 	\tag{Löwenheim 1925, Kalmár 1929}
 	\end{gather*}
-	The quantifier prefix $\Pi = all$ denotes an arbitrary sequence of quantifiers. 
 \end{example}
 
 \begin{example}\label{ex:ackermann}
@@ -158,7 +156,6 @@ of first-order logic where satisfiability is decidable.\footnote{
 	[\,\exists^*\forall\exists^*,all,(0) \,]_{=}\qquad\qquad\qquad 
 	\tag{Ackermann 1928}
 	\end{gather*}
-	The expression $all$ for $(p_1,p_2,\ldots)$ denotes $p_i=\omega$ for all $i\in\mathbb{N}$
 \end{example}
 
 \begin{remark}
