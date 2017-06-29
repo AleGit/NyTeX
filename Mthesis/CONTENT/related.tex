@@ -22,13 +22,13 @@ We can transform a set of selected literals into a term rewrite system
 when we introduce two new constant symbols -- $\mathsf{true}$ and $\mathsf{false}$ --
 to transform each literal into a rewrite rule.
 \begin{align*}
-P(t_1,\ldots,t_n) \quad\Rightarrow &\quad P(t_1,\ldots,t_n) \rwEQ \mathsf{true} 
+P(t_1,\ldots,t_n) \quad\Rightarrow &\quad P(t_1,\ldots,t_n) \rwStep \mathsf{true} 
 \\ 
-\lnot P(t_1,\ldots,t_n) \quad\Rightarrow &\quad P(t_1,\ldots,t_n) \rwEQ \mathsf{false} 
+\lnot P(t_1,\ldots,t_n) \quad\Rightarrow &\quad P(t_1,\ldots,t_n) \rwStep \mathsf{false} 
 \\
-s \mEQ t \quad\Rightarrow&\quad s \mEQ t\rwEQ \mathsf{true} 
+s \mEQ t \quad\Rightarrow&\quad s \mEQ t\rwStep \mathsf{true} 
 \\ 
-r \mNE u \quad\Rightarrow&\quad r \mEQ u\rwEQ  \mathsf{false}
+r \mNE u \quad\Rightarrow&\quad r \mEQ u\rwStep  \mathsf{false}
 \end{align*}
 When we find a not unifiable critical peek, then the set of literals is inconsistent.
 
@@ -37,12 +37,12 @@ When we find a not unifiable critical peek, then the set of literals is inconsis
 	We derive the term rewrite system 
 	\begin{align*}
 	(1)&&
-		\mP(x) &\rwEQ \mathsf{true}
-		\tag*{$\ell_1 \rwEQ r_1$}
+		\mP(x) &\rwStep \mathsf{true}
+		\tag*{$\ell_1 \rwStep r_1$}
 		\\
 	(2)&&
-		\mP(\mf(y)) &\rwEQ \mathsf{false}
-		\tag*{$\ell_2 \rwEQ r_2$}
+		\mP(\mf(y)) &\rwStep \mathsf{false}
+		\tag*{$\ell_2 \rwStep r_2$}
 	\end{align*}
 	with overlap $\left<(1),p,(2)\right>$ with $p=\epsilon$, 
 	$\sigma = \mgu(l_1, l_2|_\epsilon) = \{ x\mapsto \mf(y)\}$.

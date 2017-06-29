@@ -5,7 +5,7 @@
 %% ==============================================================
 %% ### MISC ###
 
-\newcommand{\disjointunion}{\uplus}
+
 
 %\newcommand\TOP[2]{\genfrac{}{}{0pt}{}{#1}{#2}}
 %\newcommand\TOPTEXT[2]{\TOP{\text{#1}}{\text{#2}}}
@@ -22,6 +22,10 @@
 
 %\newcommand{\NGTPREQ}{\not\succcurlyeq}
 
+\newcommand{\disjointunion}{\uplus}
+\newcommand{\limp}{\rightarrow}		% logical implication, see lor, land, lnot
+\newcommand{\lbic}{\leftrightarrow} % logical biconditional
+
 % constant (function, predicate) symbols
 
 \newcommand{\ma}{{\mathsf a}}
@@ -33,38 +37,30 @@
 \newcommand{\mg}{{\mathsf g}}
 \newcommand{\mh}{{\mathsf h}}
 
-\newcommand{\mpp}{{\mathsf p}}
-\newcommand{\mpq}{{\mathsf q}}
-%\newcommand{\mpr}{{\mathsf r}}
-%\newcommand{\mps}{{\mathsf s}}
-%\newcommand{\mpt}{{\mathsf t}}
-
-\newcommand{\msucc}{{\mathsf s}}
-\newcommand{\mpred}{{\mathsf p}}
-
-\newcommand{\mzero}{{\mathsf z}}
-
 \newcommand{\mA}{{\mathsf A}}
 \newcommand{\mB}{{\mathsf B}}
-
+\newcommand{\mE}{{\mathsf E}}
 \newcommand{\mL}{{\mathsf L}}
 \newcommand{\mN}{{\mathsf N}}
-
 \newcommand{\mP}{{\mathsf P}}
 \newcommand{\mQ}{{\mathsf Q}}
 \newcommand{\mR}{{\mathsf R}}
-\newcommand{\mE}{{\mathsf{E}}}
+
+\newcommand{\mpp}{{\mathsf p}}
+\newcommand{\mpq}{{\mathsf q}}
+
+\newcommand{\msucc}{{\mathsf s}}
+\newcommand{\mpred}{{\mathsf p}}
+\newcommand{\mzero}{{\mathsf z}}
 
 \newcommand{\mEQ}{\approx}			% \simeq
 \newcommand{\mNE}{\not\approx}		% \not\simeq
-\newcommand{\limp}{\rightarrow}		% logical implication, see lor, land, lnot
-\newcommand{\lbic}{\leftrightarrow} % logical biconditional
+
+%\newcommand{\rwEQ}{\rightarrow}			% rewrite equation
+\newcommand{\rwStep}[1][]{\xrightarrow[{}]{#1}}	% rewrite step
 
 \newcommand{\defEQ}[1][def]{\stackrel{\text{#1}}{=}}
 \newcommand{\defEV}[1][def]{\stackrel{\text{#1}}{\equiv}}
-
-\newcommand{\rwEQ}{\rightarrow}			% rewrite equation
-\newcommand{\rwStep}[1]{\xrightarrow[{}]{#1}}	% rewrite step
 
 %\newcommand{\dis}{{\wr}}
 \newcommand{\encsep}{\cdot} % encoding separator
@@ -73,16 +69,20 @@
 % general terms or symbols
 
 \newcommand{\mkf}{{\mathfrak f}}
-\newcommand{\mkt}{{\mathfrak t}}
+\newcommand{\mkg}{{\mathfrak g}}
 \newcommand{\mkr}{{\mathfrak r}}
+\newcommand{\mks}{{\mathfrak s}}
+\newcommand{\mkt}{{\mathfrak t}}
 
-% caligraphic symbols
+% caligraphic symbol
 
 \newcommand{\mcA}{{\mathcal A}}
+\newcommand{\mcB}{{\mathcal B}}
 \newcommand{\mcC}{{\mathcal C}}
 \newcommand{\mcD}{{\mathcal D}}
 \newcommand{\mcE}{{\mathcal E}}
 \newcommand{\mcF}{{\mathcal F}}		% signature
+\newcommand{\mcG}{{\mathcal F}}
 \newcommand{\mcH}{{\mathcal H}}
 \newcommand{\mcI}{{\mathcal I}}
 \newcommand{\mcL}{{\mathcal L}}
@@ -105,7 +105,6 @@
 \newcommand{\mcp}{{\mathpzc p}}
 \newcommand{\mcq}{{\mathpzc p}}
 \newcommand{\mcr}{{\mathpzc r}}
-
 \newcommand{\mcs}{{\mathpzc s}}
 \newcommand{\mct}{{\mathpzc t}}
 \newcommand{\mcu}{{\mathpzc u}}
@@ -135,7 +134,6 @@
 \newcommand{\mcFfn}[1][n]{{\mcFn[#1]_\mf}} 
 \newcommand{\mcFPn}[1][n]{{\mcFn[#1]_\mP}}
 
-%\newcommand{\vecn}[1]{\,{}^{^n}\!\!\vec{#1}}
 \newcommand{\vecn}[1]{\vec{#1}}
 
 
@@ -214,8 +212,6 @@
 \newcommand{\ctxhole}{\boxdot}	
 \newcommand{\emptyclause}{\square}
 \newcommand\relation{\mathrel{\circledast}}	% \currency
-%\newcommand{\curlygt}{\succ}
-%\newcommand{\curlygeq}{\preccurlyeq}
 
 \newcommand{\cmark}{\ding{51}}
 \newcommand{\xmark}{\ding{55}}
@@ -255,4 +251,6 @@
 
 \newcommand{\prompt}{\$}
 \newcommand{\proves}{\vdash}
+
+
 

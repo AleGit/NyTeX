@@ -221,7 +221,7 @@ How we find a normal model or justify its existence we will discuss in Section \
 	%	\[
 	%		\ell\rwEQ r \text{ is rewrite rule }\quad :\Longleftrightarrow\quad\ell\not\in\mcV\text{ and }\var(r)\subseteq\var(l)
 	%	\] 
-	A rewrite rule $\ell'\rwEQ r'$ is a {\myem variant} of $\ell\rwEQ r$ if there is a renaming $\varrho$
+	A rewrite rule $\ell'\rwStep r'$ is a {\myem variant} of $\ell\rwStep r$ if there is a renaming $\varrho$
 	such that 
 	$(\ell\rightarrow r)\varrho := \ell\varrho\rightarrow r\varrho = l'\rightarrow r'$.
 	A {\myem term rewrite system} is a set of rewrite rules without variants.
@@ -232,7 +232,7 @@ How we find a normal model or justify its existence we will discuss in Section \
 	{\myem rewrite step} 
 	 with respect to TRS $\mcR$ 
 	when there is a position $p \in \pos(s)$, 
-	a rewrite rule $\ell\rwEQ r\in\mcR$, 
+	a rewrite rule $\ell\rwStep r\in\mcR$, 
 	and a substitution $\sigma$ such that
 	$s|_p=\ell\sigma$ and $s[r\sigma]_p = t$.
 		The subterm $\ell\sigma$ is called {\myem redex} and
@@ -269,14 +269,14 @@ How we find a normal model or justify its existence we will discuss in Section \
 \end{definition}
 %
 \begin{definition}\label{def:closed-under}
-	A {\myem rewrite relation} is a binary relation $\relation$ on terms that is {\myem closed under contexts},
-	i.e.~$u[s]_p\relation u[t]_p$ %holds 
-	for all positions $p\in\pos(u)$ and
-	for all terms $s,t,u$ whenever $s\relation t$
-	and {\myem closed under substitutions}, 
-	i.e.~$s\sigma\relation t\sigma$ %holds
-	for all substitutions $\sigma$
-	and all terms $s,t$ whenever $s\relation t$.
+	A {\myem rewrite relation} is a binary relation 
+	$\relation$ on arbitrary terms $s$ and $t$, 
+	which additionally is {\myem closed under contexts} 
+	(whenever $s\relation t$ then $u[s]_p\relation u[t]_p$ 
+	for an arbitrary term $u$ and any position $p\in\pos(u)$)
+	and {\myem closed under substitutions} 
+	(whenever $s\relation t$ then $s\sigma\relation t\sigma$
+	for an arbitrary substitution $\sigma$).
 \end{definition}
 \begin{lemma}
 	The relations $\rightarrow^*_\mcR$, 
@@ -284,19 +284,19 @@ How we find a normal model or justify its existence we will discuss in Section \
 	$\downarrow_\mcR$, $\uparrow_\mcR$ are rewrite relations on every TRS $\mcR$.
 \end{lemma}
 %%
-%\begin{definition}
-%	A proper (i.e.~irreflexive and transitive) order on terms is called {\myem rewrite order} if it is a rewrite relation.
-%	A {\myem reduction order} is a well-founded rewrite order,
-%	i.e.~there is no infinite sequence 
-%	$(a_i)_{i\in\mathbb{N}}$
-%	where $a_i\gtpre a_{i+1}$ for all $i$.
-%	% with $i\in\mathbb{N}$.
-%	A {\myem simplification order} is a rewrite order with the {\myem subterm property},
-%	i.e.~$u[t]_p \gtpre t$ for all terms $u$, $t$ and positions $p\neq\epsilon$.
-%\end{definition}
-%\begin{lemma}
-%	Every simplification order is well-founded, i.e.~it is a reduction order.
-%\end{lemma}
+\begin{definition}
+	A proper (i.e.~irreflexive and transitive) order on terms is called {\myem rewrite order} if it is a rewrite relation.
+	A {\myem reduction order} is a well-founded rewrite order,
+	i.e.~there is no infinite sequence 
+	$(a_i)_{i\in\mathbb{N}}$
+	where $a_i\succ a_{i+1}$ for all $i$.
+	% with $i\in\mathbb{N}$.
+	A {\myem simplification order} is a rewrite order with the {\myem subterm property},
+	i.e.~$u[t]_p \succ t$ for all terms $u$, $t$ and positions $p\neq\epsilon$.
+\end{definition}
+\begin{lemma}
+	Every simplification order is well-founded, hence it is a reduction order.
+\end{lemma}
 %%% DEF %%
 %%
 %\begin{theorem}

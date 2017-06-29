@@ -1,0 +1,37 @@
+% !TeX encoding = UTF-8
+% !TeX spellcheck = en_UK
+
+%% https://en.wikibooks.org/wiki/LaTeX/Document_Structure
+\documentclass[]{clmthesis}
+
+%% https://en.wikibooks.org/wiki/LaTeX/Modular_Documents
+\input{PREAMBLE/Packages.tex}	% \usepackage{mystyle}	
+
+\begin{document}
+
+%====================================================================
+% BEGIN: CONTENT ----------------------------------------------------
+%====================================================================
+
+\include{SHEETS/symbols}
+
+
+%===================================================================
+% END: CONTENT -----------------------------------------------------
+%===================================================================
+
+%\cleardoublepage
+%\phantomsection
+\addcontentsline{toc}{chapter}{\listfigurename}\listoffigures
+\addcontentsline{toc}{chapter}{\listtablename}\listoftables
+
+
+% BEGIN: appendix ----------------------------------------------------
+\appendix
+
+
+
+% END: appendix ------------------------------------------------------
+
+
+\end{document}
