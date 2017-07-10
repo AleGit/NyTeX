@@ -29,7 +29,7 @@ So the central idea of instantiation-based first order theorem proving
 is to find an unsatisfiable and finite set of ground instances for a given set of clauses.
 In general a failure in this search does not show satisfiability of the given set of clauses.
 In practice we make many detours in the search and we experience very finite resources of space and time, 
-while there is no bound on the size of a smallest set of unsatisfiable ground instances.
+while in general there is no bound on the size of a smallest set of unsatisfiable ground instances.
 
 %So the central idea of instantiation-based first order theorem proving is the
 %translation of an undecidable problem into a (potentially infinite) sequence of decidable problems.
@@ -37,13 +37,13 @@ while there is no bound on the size of a smallest set of unsatisfiable ground in
 
 To actually prove a theorem 
 we first make use of the fact that a first-order formula is valid if and only if its negation is unsatisfiable.
-Second we efficiently transform the negated formula into an {\myem equisatisfiable} set of clauses,
+Second we efficiently (Tseitin's transformation \cite{tseitin70}, \ldots) transform the negated formula into an {\myem equisatisfiable} set of clauses,
 i.e.~the formula is satisfiable if and only if the set of clauses is satisfiable.
+
 %This can be done efficiently with Skolemization \cite{books/el/RV01/Hahnle01} and Tseitin-transformation \cite{tseitin70, PLAISTED1986293} as shown in \cite{Nonnengart01computingsmall}.
 
 It would sufficient to just luckily guess an unsatisfiable set of ground instances. 
-But usually a sequence of growing sets of ground instances 
-is generated systematically 
+But usually instantiation based automated provers generate a sequence of growing sets ground instances 
 such that an unsatisfiable one will be found 
 for an arbitrary unsatisfiable set of clauses
 eventually.
@@ -57,7 +57,7 @@ eventually.
 %%	then we call $F$ and $S$ are equisatisfiable.
 %\end{definition}
 %
-Tseitin's transformation \cite{tseitin70} -- 
+
 %
 %
 %There are some optimization to this transformation, e.g.~by Plaisted and Greenbaum in 1986 \cite{PLAISTED1986293}.
@@ -930,7 +930,8 @@ So far we have treated the equality symbol like any other binary predicate symbo
 which can yield models where $\ma\mNE\ma$ holds. 
 Understandably, we are only interested in normal models or 
 at least in models that implies the existence of a normal model.
-We have allready seen that a normal Herbrand model might not exist.
+We have allready seen that a normal Herbrand model might not exist,
+but we can ensure that we find only desired models.
 
 \begin{theorem}\cite{Harrison:2009:HPL:1540610}
 	Any set of clauses (a formula) has a \emph{normal} model 
@@ -944,8 +945,9 @@ We have allready seen that a normal Herbrand model might not exist.
 %	The only decidable fragment of first order logic where we can state the equality axioms is the Schönfinkel-Bernays-Ramsey class.
 %\end{remark}
 
-\begin{example} The ordered resolution inference rule yields one tautology from congruence and injectivity,
-	which we will ignore.
+\begin{example} 
+	We add the equality axioms to our small set of clauses
+	$S = \{\  \msucc(x)\mNE\msucc(y)\lor x\,\ \mzero\mNE \msucc(x) \ \}$ and mark the maximal literals.
 	\begin{align*}
 	\colN x \mEQ x
 	\tag*{$\mEQ$-reflexivity}\\
@@ -960,6 +962,8 @@ We have allready seen that a normal Herbrand model might not exist.
 	{\colN 0 \mNE \msucc(x)}
 	\tag*{$0\not\in\img(\msucc)$}
 	\end{align*}
+	The Ordered resolution inference rule yields one tautology from congruence and injectivity,
+	which we can ignore. 
 	\begin{align*}
 	\infer[]
 	{\colHi x\mNE y\lor x\mEQ y}
@@ -969,6 +973,9 @@ We have allready seen that a normal Herbrand model might not exist.
 		x \mEQ y \lor {\colN \msucc(x) \mNE \msucc(y)}
 	}
 	\end{align*}
+	In Example \vref{ex:sat:nezsx} with resolution an infinite sequence of inferences could be drawn,
+	even without the equality axioms.
+	This shows one clear advantage of ordered resolution.
 \end{example}
 
 \begin{example}\label{ex:nat:instgen}
