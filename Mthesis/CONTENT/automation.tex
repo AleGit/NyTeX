@@ -10,7 +10,7 @@ In this chapter, we demonstrate refutation complete proving procedures.
 It seems natural to expect decision procedures for decidable fragments 
 (Section \ref{sec:decidable:fol:fragments})
 or decidable theories (Section \ref{sec:decidable:fol:theories}),
-but we will see in simplest examples that this does not follow 
+but we will see in simple examples that this does not follow 
 from refutation completeness.
 
 
@@ -62,7 +62,7 @@ eventually.
 %
 %There are some optimization to this transformation, e.g.~by Plaisted and Greenbaum in 1986 \cite{PLAISTED1986293}.
 
-\section{Clausal Normal Form}\label{sec:clausal:normal:form}
+\section{Theory axioms in \CNF}\label{sec:clausal:normal:form}
 
 In the previous chapter we expressed axioms and lemmas of theories in \FOF. 
 Since Gilmore's prover, resolution and \InstGen work on sets of clauses we present
@@ -933,6 +933,8 @@ at least in models that implies the existence of a normal model.
 We have allready seen that a normal Herbrand model might not exist,
 but we can ensure that we find only desired models.
 
+\subsection{Equality axioms}
+
 \begin{theorem}\cite{Harrison:2009:HPL:1540610}
 	Any set of clauses (a formula) has a \emph{normal} model 
 	if and only if it has a model that satisfies the 
@@ -945,9 +947,9 @@ but we can ensure that we find only desired models.
 %	The only decidable fragment of first order logic where we can state the equality axioms is the Schönfinkel-Bernays-Ramsey class.
 %\end{remark}
 
-\begin{example} 
-	We add the equality axioms to our small set of clauses
-	$S = \{\  \msucc(x)\mNE\msucc(y)\lor x\,\ \mzero\mNE \msucc(x) \ \}$ and mark the maximal literals.
+\begin{example}[Ordered resolution with equality axioms] 
+	We add the equality axioms to a small set of clauses
+	$S = \{\  \msucc(x)\mNE\msucc(y)\lor x\mEQ y\ ,\ 0\mNE \msucc(x) \ \}$ and mark the maximal literals.
 	\begin{align*}
 	\colN x \mEQ x
 	\tag*{$\mEQ$-reflexivity}\\
@@ -961,17 +963,22 @@ but we can ensure that we find only desired models.
 	\tag*{$\msucc$-injectivity}\\
 	{\colN 0 \mNE \msucc(x)}
 	\tag*{$0\not\in\img(\msucc)$}
-	\end{align*}
-	The Ordered resolution inference rule yields one tautology from congruence and injectivity,
+	\end{align*} 
+	The ordered resolution inference rule yields one tautology from congruence and injectivity,
 	which we can ignore. 
 	\begin{align*}
-	\infer[]
+	1.\quad&x\mEQ x\tag*{reflexivity vs. symmetry}
+	\\
+	2.\quad&x\mEQ z\lor x\mNE z\tag*{reflexivity vs. transitivity}
+	\\
+	3.\quad&\infer[]
 	{\colHi x\mNE y\lor x\mEQ y}
 	{
 		{\colN \msucc(x) \mEQ \msucc(y)} \lor x\mNE y 
 		&
-		x \mEQ y \lor {\colN \msucc(x) \mNE \msucc(y)}
+		x' \mEQ y' \lor {\colN \msucc(x') \mNE \msucc(y')}
 	}
+\tag*{congruence vs. injectivity}
 	\end{align*}
 	In Example \vref{ex:sat:nezsx} with resolution an infinite sequence of inferences could be drawn,
 	even without the equality axioms.
@@ -979,7 +986,7 @@ but we can ensure that we find only desired models.
 \end{example}
 
 \begin{example}\label{ex:nat:instgen}
-	 When we look at the grounding we notice that selection process is unfortunate,
+	When we look at the grounding we notice that selection process is unfortunate,
 	because the selected literals of any clause but congruence clashes with $0\mNE\msucc(x)$.
 	\begin{align*}
 	\colHi \consbot \mEQ \consbot
