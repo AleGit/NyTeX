@@ -952,33 +952,68 @@ but we can ensure that we find only desired models.
 	$S = \{\  \msucc(x)\mNE\msucc(y)\lor x\mEQ y\ ,\ 0\mNE \msucc(x) \ \}$ and mark the maximal literals.
 	\begin{align*}
 	\colN x \mEQ x
-	\tag*{$\mEQ$-reflexivity}\\
+	\tag*{$\mEQ$-reflexivity}
+	\\
 	x \mEQ y \lor {\colN y \mNE x}
-	\tag*{$\mEQ$-symmetry}\\
+	\tag*{$\mEQ$-symmetry}
+	\\
 	x \mEQ z \lor {\colN x \mNE y} \lor {\colN y\mNE z}
-	\tag*{$\mEQ$-transitivity}\\
+	\tag*{$\mEQ$-transitivity}
+	\\
 	{\colN \msucc(x) \mEQ \msucc(y)} \lor x\mNE y
-	\tag*{$\msucc$-congruence}\\[0.5em]
+	\tag*{$\msucc$-congruence}
+	\\[0.5em]
 	x \mEQ y \lor {\colN \msucc(x) \mNE \msucc(y)}
-	\tag*{$\msucc$-injectivity}\\
+	\tag*{$\msucc$-injectivity}
+	\\
 	{\colN 0 \mNE \msucc(x)}
 	\tag*{$0\not\in\img(\msucc)$}
 	\end{align*} 
 	The ordered resolution inference rule yields one tautology from congruence and injectivity,
 	which we can ignore. 
 	\begin{align*}
-	1.\quad&x\mEQ x\tag*{reflexivity vs. symmetry}
-	\\
-	2.\quad&x\mEQ z\lor x\mNE z\tag*{reflexivity vs. transitivity}
-	\\
-	3.\quad&\infer[]
-	{\colHi x\mNE y\lor x\mEQ y}
-	{
-		{\colN \msucc(x) \mEQ \msucc(y)} \lor x\mNE y 
-		&
-		x' \mEQ y' \lor {\colN \msucc(x') \mNE \msucc(y')}
-	}
-\tag*{congruence vs. injectivity}
+.\quad&
+\infer[\{x'\mapsto x, y'\mapsto x\}]
+{x \mEQ x}
+{{\colN x \mEQ x} & x' \mEQ y' \lor {\colN y' \mNE x'}}
+\tag*{$R,S\proves R$}
+\\
+.\quad&
+\infer[\{x'\mapsto x,y'\mapsto x \}]
+{x\mEQ z'\lor x\mNE z'  }
+{{\colN x \mEQ x} & x' \mEQ z' \lor {\colN x' \mNE y'} \lor {y'\mNE z'}}
+\tag*{$R,T\proves\true$}
+\\
+.\quad&
+\infer[\{y'\mapsto x, z'\mapsto x \}]
+{x'\mEQ x\lor x'\mNE x  }
+{{\colN x \mEQ x} & x' \mEQ z' \lor {x' \mNE y'} \lor {\colN y'\mNE z'}}
+\tag*{$R,T\proves\true$}
+\\
+.\quad&
+\infer[\{y\mapsto \msucc(x'), x\mapsto\msucc(y')\}]
+{\msucc(y')\mEQ\msucc(x')\lor x'\mNE y'}
+{x \mEQ y \lor {\colN y \mNE x} & {\colN \msucc(x') \mEQ \msucc(y')} \lor x'\mNE y'} 
+\tag*{$S,C\proves C_S$}
+\\
+.\quad&
+\infer[\{x\mapsto\msucc(x'),y\mapsto\msucc(y')\}]
+{\msucc(x')\mEQ z\lor \msucc(y')\mNE z \lor x'\mNE y'}
+{x \mEQ z \lor {\colN x \mNE y} \lor {y\mNE z} & {\colN \msucc(x') \mEQ \msucc(y')} \lor x'\mNE y'} 
+\tag*{T-C}
+\\
+.\quad&
+\infer[\{y\mapsto\msucc(x'),z\mapsto\msucc(y')\}]
+{x\mEQ\msucc(y')\lor x\mNE\msucc(x')\lor x'\mNE y'}
+{x \mEQ z \lor {x \mNE y} \lor {\colN y\mNE z} & {\colN \msucc(x') \mEQ \msucc(y')} \lor x'\mNE y'} 
+\tag*{T-C}
+\\
+.\quad&
+\infer[\{x'\mapsto x, y'\mapsto y\}]
+{x\mNE y\lor x\mEQ y}
+{{\colN \msucc(x) \mEQ \msucc(y)} \lor x\mNE y & x' \mEQ y' \lor {\colN \msucc(x') \mNE \msucc(y')}} 
+\tag*{$C,I\proves\true$}
+\\
 	\end{align*}
 	In Example \vref{ex:sat:nezsx} with resolution an infinite sequence of inferences could be drawn,
 	even without the equality axioms.
