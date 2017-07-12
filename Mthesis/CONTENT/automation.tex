@@ -324,7 +324,7 @@ Following Gilmore's prover we can easily prove the syllogism from above.
 \end{example}
 
 \begin{example}\label{ex:sat:exy}
-	Consider the satisfiable set of clauses $\{\lnot\mE(\mzero,\msucc(x)\}$.
+	Consider the satisfiable set of clauses $S_{\ref{ex:sat:exy}}=\{\lnot\mE(\mzero,\msucc(x)\}$.
 	This set is clearly in the decidable Ackermann fragment of first order logic.
 	But the procedure yields an infinite sequence of distinct and satisfiable sets $S_{k\geq0}$:
 	\begin{align*}
@@ -483,7 +483,8 @@ which was the starting point for the development of efficient propositionally sa
 
 \section{Proving without Equality}
 
-In this section we treat the equality symbol $\mEQ$ as a binary infix predicate symbol. 
+In this section we introduce the equality symbol $\mEQ$ into our formulae, 
+but we treat it not different from an arbitrary binary predicate symbol with infix notation. 
 
 \subsection{Resolution}
 
@@ -531,66 +532,47 @@ In this section we treat the equality symbol $\mEQ$ as a binary infix predicate 
 %	\end{gather*}
 %\end{example}
 
-\begin{example}
-	We conclude unsatisfiability of the set of clauses
-	$\{\,
-	{ x\mNE \msucc(x)},\, 
-	{ \msucc^k(y)\mEQ \msucc(\msucc^k(y))}
-	\,\}$ 
-	because we can infer the empty clause in one resolution step. 
+\begin{example}\label{ex:xsx:skyssky}
+	We easily infer the empty clause and 
+	conclude unsatisfiability of the set of clauses
+	$S_{\ref{ex:xsx:skyssky}} = \{\,
+	{ \msucc(x)\mNE x},\, 
+	{ \msucc(\msucc^k(y))\mEQ\msucc^k(y) }
+	\,\}$.
 	\begin{gather*}
-	\infer[\{x\mapsto\msucc^k(y)\}]{
+	\infer[\{ x\mapsto\msucc^k(y) \}]
+	{
 		\square
-	}{
-		{ \msucc^k(y)\mEQ \msucc(\msucc^k(y))} &
-		{ x\mNE \msucc(x)} &
+	}
+	{
+		\msucc(x)\mNE x & \msucc(\msucc^k(y))\mEQ\msucc^k(y)
 	}
 	\end{gather*}
 \end{example}
 
-%\begin{example}
-%	We conclude satisfiability of saturated set
-%	$\{\,\mE(\mzero,y\,\}$ 
-%	from the absence of the empty clause.
-%\end{example}
-
-\begin{example}
-	We conclude satisfiability of saturated set of clauses
-	$\{\,\mzero \mEQ y\,\}$ 
-	from the absence of the empty clause.
-\end{example}
-
-%\begin{example}\label{ex:sat:nezsx}
-%	With observe an infinite sequence of resolution steps from satisfiable set $\{\, 
-%	\lnot\mE(\mzero,\msucc(x)),\, \mE(y,y') \lor \lnot \mE(\msucc(y),\msucc(y')
-%	\,\}$.
-%	
-%	\begin{gather*}
-%	\infer
-%	[\{y\mapsto{\colN\msucc^i(\mzero)}, y'\mapsto{\colN\msucc^{i+1}(x)}\}]
-%	{
-%		\lnot \mE(\msucc({\colN\msucc^{i}(\mzero)}),\msucc({\colN\msucc^{i+1}(x)})) 
-%	}{
-%		{\mE(y,y')} \lor \lnot \mE(\msucc(y),\msucc(y')) 
-%		&{ \lnot\mE(\msucc^i(\mzero),\msucc^{i+1}(x))}
-%	}
-%	\tag{$i\geq 0$}
-%	\end{gather*}
-%\end{example}
-
-\begin{example}\label{ex:sat:nezsx}
-	With observe an infinite sequence of resolution steps from satisfiable set $\{\, 
-	\mzero\mNE\msucc(x),\, y\mEQ y' \lor \msucc(y)\mNE\msucc(y')
+\begin{example}\label{ex:sat:msxx:mymzyz}
+	With observe an infinite sequence of resolution steps from satisfiable set 
+	$S_{\ref{ex:sat:msxx:mymzyz}} = \{\, \msucc(x)\mNE x,\, \msucc(y)\mNE\msucc(z) \lor y\mEQ z
 	\,\}$.
 	
 	\begin{gather*}
+%	\infer
+%	[\{ x'\mapsto\msucc(x), y'\mapsto x\}]
+%	{
+%		\msucc^{2}(x) \mNE\msucc^{1}(x)  
+%	}{
+%		\msucc(x)\mNE x & \msucc(x')\mNE\msucc(y')\lor x'\mEQ y'
+%		&
+%	}
+%	\tag{$i = 0$}
+%	\\
 	\infer
-	[\{y\mapsto{\colN\msucc^i(\mzero)}, y'\mapsto{\colN\msucc^{i+1}(x)}\}]
+	[\{ x'\mapsto\msucc^{i+1}(x), y'\mapsto\msucc^{i}(x)\}]
 	{
-		\msucc({\colN\msucc^{i}(\mzero)})\mNE\msucc({\colN\msucc^{i+1}(x)}) 
+		\msucc^{i+2}(x) \mNE\msucc^{i+1}(x)  
 	}{
-		{y\mEQ y' \lor \msucc(y)\mNE\msucc(y')}
-		&{ \msucc^i(\mzero)\mNE\msucc^{i+1}(x)}
+		\msucc^{i+1}(x)\mNE \msucc^i(x) & \msucc(x')\mNE\msucc(y')\lor x'\mEQ y'
+		&
 	}
 	\tag{$i\geq 0$}
 	\end{gather*}
@@ -608,6 +590,8 @@ We can deduce or observe disadvantages in resolution.
 
 \subsection{Ordered resolution}
 
+\begin{lemma}A well-founded and total order on general ground terms always exists.\end{lemma}
+
 \begin{definition}[Order on literals]\label{def:orders-on-literals}
 	We extend a well-founded and total order $\succ$ on general ground terms, 
 	i.e~general atoms to a well-founded proper order $\succ_\mL$ 
@@ -618,7 +602,7 @@ We can deduce or observe disadvantages in resolution.
 	%
 	A (non-ground) literal $L$ is {\myem (strictly) maximal} if there exists a ground substitution $\tau$ 
 	such for no other literal $L'$ the relation $L'\tau\succ L\tau$ (strictly: $\succcurlyeq$) holds.
-	We write $\succ{gr}$ to suggest the existence of such a ground substitution $\tau$.
+	We write $\succ_{gr}$ to suggest the existence of such a ground substitution $\tau$.
 \end{definition}
 
 \begin{definition}[Ordered Resolution]\label{def:ordered:resolution} 
@@ -652,12 +636,12 @@ We can deduce or observe disadvantages in resolution.
 \end{definition}
 
 \begin{example}
-	With an ordering such that $\mE(\msucc(y),\msucc(y')) \succ \mE(y,y')$ on atoms and ${\lnot A} \succ A$
-	the satisfiable set $S_{\ref{ex:sat:nezsx}}$ saturates with ordered resolution,
-	because the (strictly) maximal literals 
-	$\lnot \mE(\msucc(y),\msucc(y') \colG\not\preccurlyeq \mE(y,y') $
-	and $\lnot\mE(\mzero,\msucc(x))$
-	in the two clauses do not clash.
+	With an ordering such that $\msucc(y)\mEQ\msucc(z)) \succ y\mEQ z$ on atoms and ${\lnot A} \succ A$
+	the satisfiable set $S_{\ref{ex:sat:msxx:mymzyz}}$ saturates with ordered resolution,
+	because the strictly maximal literals 
+	$\msucc(x)\mNE x$ and
+	$\msucc(y)\mNE\msucc(z)$
+	do not clash and the ordered resolution rule is not applicable.
 \end{example}
 
 
@@ -672,9 +656,9 @@ We can deduce or observe disadvantages in resolution.
 \begin{proof}
 	If no new resolvant can be derived and the empty clause is not in the set of clauses we have a model.
 	
-	The resolvant is smaller than its two predecessors. (???)
+	The resolvant $(\mcC\lor\mcD)\sigma$ is smaller than $(A\lor\mcC)\sigma$ and $(\lnot B\lor\mcD)\sigma$
 	
-	$\lnot B \succ_\mL A$ because $A\sigma=B\sigma=C$ and $\lnot C\succ_\mL C$.
+	$\lnot B \succ_\mL A$ because $A\sigma=B\sigma=C$ and $\lnot X\succ_\mL X$.
 \end{proof}
 
 
