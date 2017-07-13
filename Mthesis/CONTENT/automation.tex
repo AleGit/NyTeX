@@ -70,9 +70,9 @@ without equality in Section \ref{sec:proving:without:equaltiy} and with equality
 \section{Theory axioms in \CNF}\label{sec:clausal:normal:form}
 
 In the previous chapter we expressed axioms and lemmas of theories in \FOF. 
-Since Gilmore's prover, resolution and \InstGen work on sets of clauses we present
-the same axioms in clausal normal as in Table 
-\ref{tab:presburger:axioms:clauses} for the natural numbers.
+Since Gilmore's prover, resolution and \InstGen work on sets of clauses we transform
+the those axioms in clausal normal form as in Tables 
+\ref{tab:natural:numbers} and \ref{tab:addition:multiplication} for the natural numbers, additions, and multiplication.
 
 \begin{table}[hbt]	
 	\begin{align*}
@@ -88,42 +88,50 @@ the same axioms in clausal normal as in Table
 	\msucc(x) \mNE \msucc(y) \lor x \mEQ y
 	\tag*{natural numbers}
 	\\
-%	x_1\mNE y_1\lor x_2\mNE y_2\lor x_1+y_1 \mEQ x_2+y_2
-%	\tag*{congruence of $+$}
-%	\\
-%	x + 0 \mEQ x,\ 
-%	x+\msucc(x) \mEQ \msucc(x+y)
-%	\tag*{addition}
-%	\\
-%	x_1\mNE y_1\lor x_2\mNE y_2\lor x_1\times y_1 \mEQ x_2\times y_2
-%	\tag*{congruence of $\times$}
-%	\\
-%	x \times 0 \mEQ 0,\ 
-%	x \times\msucc(y) \mEQ (x\times y) + x
-%	\tag*{multiplication}
-%	\\[0.5em]
 	\lnot G(0) \lor \boxed{G(\mc_{_G})} \lor G(x),\ 
 	\lnot G(0) \lor \boxed{\lnot G(\msucc(\mc_{_G}))} \lor G(x)
 	\tag*{induction schema}
-%	\\
-%	\overbrace{x+ (y+ z) \mEQ (x+ y) + z}^{A},\,
-%	\overbrace{x+ y \mEQ y+ x}^{C},\, 
-%	\overbrace{x+ 0 \mEQ x,\, 0+ x\mEQ x}^N
-%	\tag*{ACN of $+$}
-%	\\
-%	\underbrace{x\times (y\times z) \mEQ (x\times y) \times z}_A,\,
-%	\underbrace{x\times y \mEQ y\times x}_C,\, 
-%	\underbrace{x\times \msucc(0) \mEQ x,\, \msucc(0)\times x\mEQ x}_N
-%	\tag*{ACN of $\times$}
 	\end{align*}
 	\caption{The theory of natural numbers in \CNF}
-	\label{tab:presburger:axioms:clauses}
+	\label{tab:natural:numbers}
 \end{table}
 
-\begin{example} For the formula $G(x)=\msucc(x)\mNE x$ we state the induction axioms in \CNF over the theory of natural numbers.
+\begin{table}[hbt]	
+	\begin{align*}
+		x_1\mNE y_1\lor x_2\mNE y_2\lor x_1+y_1 \mEQ x_2+y_2
+		\tag*{congruence of $+$}
+		\\
+		x + 0 \mEQ x,\ 
+		x+\msucc(x) \mEQ \msucc(x+y)
+		\tag*{addition}
+		\\
+		x_1\mNE y_1\lor x_2\mNE y_2\lor x_1\times y_1 \mEQ x_2\times y_2
+		\tag*{congruence of $\times$}
+		\\
+		x \times 0 \mEQ 0,\ 
+		x \times\msucc(y) \mEQ (x\times y) + x
+		\tag*{multiplication}
+%		\\[0.5em]
+%		\\
+%		\overbrace{x+ (y+ z) \mEQ (x+ y) + z}^{A},\,
+%		\overbrace{x+ y \mEQ y+ x}^{C},\, 
+%		\overbrace{x+ 0 \mEQ x,\, 0+ x\mEQ x}^N
+%		\tag*{ACN of $+$}
+%		\\
+%		\underbrace{x\times (y\times z) \mEQ (x\times y) \times z}_A,\,
+%		\underbrace{x\times y \mEQ y\times x}_C,\, 
+%		\underbrace{x\times \msucc(0) \mEQ x,\, \msucc(0)\times x\mEQ x}_N
+%		\tag*{ACN of $\times$}
+	\end{align*}
+	\caption{Addition and multiplication in \CNF}
+	\label{tab:addition:multiplication}
+\end{table}
+
+\begin{example} For the formula $G(x)=\msucc(x)\mNE x$ we state the induction axioms in \CNF in the theory of natural numbers.
+	We had to introduce a fresh constant $\mc_{\msucc}$ in this equivalence transformation process.
 	\begin{gather*}
-	\msucc(0)\mEQ 0 \lor \boxed{\msucc(\mc_{_\msucc})\mNE \mc_{_\msucc}} \lor \msucc(x)\mNE x \\
-	\msucc(0)\mEQ 0 \lor \boxed{\msucc(\msucc(\mc_{_\msucc}))\mEQ \msucc(\mc_{_\msucc})} \lor \msucc(x)\mNE x
+	\msucc(0)\mEQ 0 \lor \boxed{\msucc(\mc_{\msucc})\mNE \mc_{\msucc}} \lor \msucc(x)\mNE x \\
+	\msucc(0)\mEQ 0 \lor \boxed{\msucc(\msucc(\mc_{\msucc}))\mEQ \msucc(\mc_{\msucc})} \lor \msucc(x)\mNE x
 	\end{gather*}
 \end{example}
 
@@ -145,19 +153,19 @@ the same axioms in clausal normal as in Table
 %	\label{tab:presburger:induction:clauses}
 %\end{table}
 
-\begin{table}[hbt]	
-	\begin{gather*}
-	{0+y\mNE y+0} 
-	\lor\boxed{\mc_2+y\mEQ y+\mc_2} 
-	\lor{z+y\mEQ y+z} 
-	\\
-	0+y\mNE y+0 \lor 
-	\boxed{\msucc(\mc_2)+y\mNE y+\msucc(\mc_2)} 
-	\lor z+y\mEQ y+z
-	\end{gather*}
-	\caption{Induction axioms for commutativity}
-	\label{tab:presburger:induction:commutativity}
-\end{table}
+%\begin{table}[hbt]	
+%	\begin{gather*}
+%	{0+y\mNE y+0} 
+%	\lor\boxed{\mc_2+y\mEQ y+\mc_2} 
+%	\lor{z+y\mEQ y+z} 
+%	\\
+%	0+y\mNE y+0 \lor 
+%	\boxed{\msucc(\mc_2)+y\mNE y+\msucc(\mc_2)} 
+%	\lor z+y\mEQ y+z
+%	\end{gather*}
+%	\caption{Induction axioms for commutativity}
+%	\label{tab:presburger:induction:commutativity}
+%\end{table}
 
 \section{Gilmore's Prover}\label{sec:gilmore:prover}
 
