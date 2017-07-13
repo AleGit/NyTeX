@@ -48,6 +48,11 @@ such that an unsatisfiable one will be found
 for an arbitrary unsatisfiable set of clauses
 eventually.
 
+First we translate axioms and lemmata into clausal normal form in Sections \ref{sec:clausal:normal:form},
+then we look at Gilmore's Prover from 1960 in Section \ref{sec:gilmore:prover}. 
+After that we look at more modern calculi for refutations based first order theorem proving 
+without equality in Section \ref{sec:proving:without:equaltiy} and with equality in Section \ref{sec:proving:with:equality}.
+
 
 %
 %\section{Equisatisfiability}
@@ -488,12 +493,12 @@ by Davis, Putnam, Longeman, and Loveland,
 which was the starting point for the development of efficient propositionally satisfiability checkers, i.e.~efficient modern SAT solvers.
 
 
-\section{Proving without Equality}
+\section{Proving without Equality}\label{sec:proving:without:equaltiy}
 
 In this section we introduce the equality symbol $\mEQ$ into our formulae, 
 but we treat it not different from an arbitrary binary predicate symbol with infix notation. 
 
-\subsection{Resolution}
+\subsection{Resolution}\label{sec:resolution}
 
 \begin{definition}[Resolution calculus]\label{def:resolution} Let $A, B$ be atoms and $\mcC,\mcD$ be clauses.
 	\begin{gather*}
@@ -595,7 +600,7 @@ We can deduce or observe disadvantages in resolution.
 	which was addressed in Ordered Resolution.
 \end{enumerate}
 
-\subsection{Ordered resolution}
+\subsection{Ordered resolution}\label{sec:ordered:resolution}
 
 \begin{lemma}A well-founded and total order on general ground terms always exists.\end{lemma}
 
@@ -675,7 +680,7 @@ We can deduce or observe disadvantages in resolution.
 
 
 
-\subsection{InstGen}
+\subsection{InstGen}\label{sec:inst:gen}
 
 Gilmore's prover blindly constructs new ground instances. 
 
@@ -915,7 +920,7 @@ S_0 \disjointunion
 
 
 
-\section{Proving with Equality}
+\section{Proving with Equality}\label{sec:proving:with:equality}
 
 So far we have treated the equality symbol like any other binary predicate symbol, 
 which can yield models where $\ma\mNE\ma$ holds. 
@@ -924,7 +929,7 @@ at least in models that implies the existence of a normal model.
 We have allready seen that a normal Herbrand model might not exist,
 but we can ensure that we find only desired models.
 
-\subsection{Equality axioms}
+\subsection{Equality axioms}\label{sec:equality:axioms}
 
 \begin{theorem}\cite{Harrison:2009:HPL:1540610}
 	Any set of clauses (a formula) has a \emph{normal} model 
@@ -940,7 +945,7 @@ but we can ensure that we find only desired models.
 
 \begin{example}[Ordered resolution with equality axioms] 
 	We add the equality axioms to a small set of clauses
-	$S = \{\  \msucc(x)\mNE\msucc(y)\lor x\mEQ y\ ,\ 0\mNE \msucc(x) \ \}$ and mark the maximal literals.
+	$S = \{ \msucc(x)\mNE 0,\ \msucc(x)\mNE\msucc(y)\lor x\mEQ y \}$ and mark the maximal literals.
 	\begin{align*}
 	\colN x \mEQ x
 	\tag*{$\mEQ$-reflexivity}
@@ -954,14 +959,14 @@ but we can ensure that we find only desired models.
 	{\colN \msucc(x) \mEQ \msucc(y)} \lor x\mNE y
 	\tag*{$\msucc$-congruence}
 	\\[0.5em]
-	x \mEQ y \lor {\colN \msucc(x) \mNE \msucc(y)}
-	\tag*{$\msucc$-injectivity}
-	\\
-	{\colN 0 \mNE \msucc(x)}
+	{\colN \msucc(x)\mNE 0}
 	\tag*{$0\not\in\img(\msucc)$}
+	\\
+	{\colN \msucc(x) \mNE \msucc(y)} \lor x \mEQ y
+	\tag*{$\msucc$-injectivity}
 	\end{align*} 
-	The ordered resolution inference rule yields one tautology from congruence and injectivity,
-	which we can ignore. 
+	With ordered resolution we cannot infer new clauses from clauses in $S$.
+	We only get a tautology from congruence and injectivity of $\msucc$.
 	\begin{align*}
 .\quad&
 \infer[\{x'\mapsto x, y'\mapsto x\}]
@@ -991,13 +996,13 @@ but we can ensure that we find only desired models.
 \infer[\{x\mapsto\msucc(x'),y\mapsto\msucc(y')\}]
 {\msucc(x')\mEQ z\lor \msucc(y')\mNE z \lor x'\mNE y'}
 {x \mEQ z \lor {\colN x \mNE y} \lor {y\mNE z} & {\colN \msucc(x') \mEQ \msucc(y')} \lor x'\mNE y'} 
-\tag*{T-C}
+\tag*{$T,C\proves$}
 \\
 .\quad&
 \infer[\{y\mapsto\msucc(x'),z\mapsto\msucc(y')\}]
 {x\mEQ\msucc(y')\lor x\mNE\msucc(x')\lor x'\mNE y'}
 {x \mEQ z \lor {x \mNE y} \lor {\colN y\mNE z} & {\colN \msucc(x') \mEQ \msucc(y')} \lor x'\mNE y'} 
-\tag*{T-C}
+\tag*{$T,C\proves$}
 \\
 .\quad&
 \infer[\{x'\mapsto x, y'\mapsto y\}]
@@ -1006,14 +1011,11 @@ but we can ensure that we find only desired models.
 \tag*{$C,I\proves\true$}
 \\
 	\end{align*}
-	In Example \vref{ex:sat:nezsx} with resolution an infinite sequence of inferences could be drawn,
-	even without the equality axioms.
-	This shows one clear advantage of ordered resolution.
 \end{example}
 
 \begin{example}\label{ex:nat:instgen}
-	When we look at the grounding we notice that selection process is unfortunate,
-	because the selected literals of any clause but congruence clashes with $0\mNE\msucc(x)$.
+	When we look at the grounding for \InstGen we notice that the selection process is unfortunate,
+	because the selected literals of any clause but congruence clash with $\msucc(x)\mNE 0$.
 	\begin{align*}
 	\colHi \consbot \mEQ \consbot
 	\tag*{reflexivity}\\
@@ -1027,7 +1029,7 @@ but we can ensure that we find only desired models.
 	\tag*{congruence}\\[0.5em]
 	{ \consbot \mEQ \consbot} \lor {\colLo \msucc(\consbot) \mNE \msucc(\consbot)}
 	\tag*{injectivity}\\
-	{\colHi \msucc(x) \mNE 0}
+	{\colHi \msucc(\consbot) \mNE 0}
 	\end{align*}
 	\begin{align*}
 	\infer[x\mapsto 0, y\mapsto \msucc(x') ]
@@ -1065,7 +1067,25 @@ but we can ensure that we find only desired models.
 	\end{gather*}
 	for all $i\geq 0$.
 
-
+	\begin{align*}
+\colN \mc_{x_0} \mEQ \mc_{x_0}
+\tag*{$\mEQ$-reflexivity}
+\\
+{\mc_{x_1} \mEQ \mc_{y_1}} \lor {\colN \mc_{y_1} \mNE \mc_{x_1}}
+\tag*{$\mEQ$-symmetry}
+\\
+{\mc_{x_2} \mEQ \mc_{z_2}} \lor {\colN \mc_{x_2} \mNE \mc_{y_2}} \lor {\colN \mc_{y_2}\mNE \mc_{z_2}}
+\tag*{$\mEQ$-transitivity}
+\\
+{ \msucc(\mc_{x_3}) \mEQ \msucc(\mc_{y_3})} \lor {\colN \mc_{x_3}\mNE \mc_{y_3}}
+\tag*{$\msucc$-congruence}
+\\[0.5em]
+{\colN \msucc(\mc_{x_4})\mNE 0}
+\tag*{$0\not\in\img(\msucc)$}
+\\
+{\colN \msucc(\mc_{x_5}) \mNE \msucc(\mc_{y_5})} \lor \mc_{x_5 }\mEQ \mc_{y_5}
+\tag*{$\msucc$-injectivity}
+\end{align*} 
 
 \begin{example} With Superposition no derivation rule is applicable.
 	\begin{align*}
@@ -1158,11 +1178,11 @@ but we can ensure that we find only desired models.
 	
 	
 
-\subsection{Paramodulation and Superposition}
+\subsection{Paramodulation and Superposition}\label{sec:superposition}
 
 \input{appendix/superposition}
 
-\subsection{Inst-Gen-Eq}
+\subsection{Inst-Gen-Eq}\label{sec:inst:gen:eq}
 
 \input{appendix/unitsuperposition}
 
@@ -1327,15 +1347,16 @@ S_{i+2} &= S_{i+1}\disjointunion \{\,
 
 \section{Roundup}
 
-\begin{tabular}{llll}
-	Calculus & Equality & Exit condition \\
+\begin{tabular}{llllll}
+	Calculus & Equality & Exit condition & Implementations\\
 	\hline
-	Gilmore & axioms & DNF \\
+	Gilmore & axioms & DNF & Gilmore\\
 	Resolution & axioms & $\emptyclause\in S$\\
-	\InstGen & axioms & $\lnot\SAT(S\bot)$ \\
-	Superposition & rules & $\emptyclause\in S$ \\
-	\InstGenEQ & rules & $\lnot\SMT(S\bot$)
+	\InstGen & axioms & $\lnot\SAT(S\bot)$ & iProver\\
+	Superposition & rules & $\emptyclause\in S$ & Vampire \\
+	\InstGenEQ & rules & $\lnot\SMT(S\bot$) & iProverEq
 \end{tabular}
+
 
 
 
