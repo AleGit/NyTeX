@@ -31,15 +31,17 @@ in one of the syntactically describable and decidable fragments of first-order l
 In Natural Deduction \cite{Huth:2004:LCS:975331}
 we start with a (possible empty) set of formulae -- the premises -- 
 and infer other formulae -- the conclusions -- by using syntactic proof rules from Tables 
-\ref{tab:natural:deduction:connectives}, \ref{tab:natural:deduction:equality}, 
-and \ref{tab:natural:deduction:quantifiers}.
-The symbols $F$ and $G$ in these rules represent arbitrary first-order formula 
+%\ref{tab:natural:deduction:connectives}, 
+%\ref{tab:natural:deduction:equality}, 
+%and \ref{tab:natural:deduction:quantifiers}.
+\ref{tab:natural:deduction:connectives}$-$\ref{tab:natural:deduction:quantifiers}.
+The letters $F$ and $G$ in these rules represent arbitrary first-order formulae 
 as defined in Definition \vref{def:syntax:FOF}. 
 We open a box when we assume something, e.g.~that $F$ holds. 
 We close the box when we discard the assumption. 
 With $F_1,\ldots,F_n \proves H$ we claim that formula $H$ 
 is in the transitive closure of inferable formulae from $\{ F_1,\ldots,F_n\}$.
-(e.g.~the natural deduction proof to Lemma \vref{lemma:equivalence:congruence}).
+(you find examples to the natural deduction proofs to Lemma \vref{lemma:equivalence:congruence}).
 
 \input{decidability/NaturalDeductionRules}
 
@@ -243,10 +245,11 @@ to conclude that the conjecture is indeed a theorem.
 \]
 \end{remark}
 
-In the following we define equivalence and congruence as usual. Together these axioms form the theory of equality.
+The following equivalence and congruence axioms form the theory of equality over a first order signature.
 
 \begin{definition}
-	[Equivalence]
+	[Equivalence] A binary relation $\mEQ$ over a domain 
+	is an equivalence relation if and only if the following axioms hold over the given domain. 
 	\label{def:equivalence:axioms}
 \begin{align*}
 \forall x\, 
@@ -277,7 +280,8 @@ In the following we define equivalence and congruence as usual. Together these a
 \end{definition}
 
 \begin{definition}
-	[Congruence schemata]
+	[Congruence schemata] An equivalence relation $\mEQ$ is a congruence relation if and only if
+	the following formulae hold 
 	\label{def:congruence:schemata}
 	\begin{align*}
 	\forall\vecn{x}\,\forall\vecn{y}\,
@@ -382,14 +386,26 @@ Equivalence and congruence of equality are provable by Natural Deduction (see Se
 \tag*{congruence of $\msucc$}
 \\ 
 \underbrace{G(0)}_{\text{base}} 
-\land\, \forall x\,&
+\land\, \forall x'\,&
 \underbrace{
-	\left(G(x) \limp G(\msucc(x))\right)
+	\left(G(x') \limp G(\msucc(x'))\right)
 }_{\text{step case}}
-\,\limp\, \forall y\,G(y)
+\,\limp\, \forall x\,G(x)
 \tag*{induction schema}
 \end{align*}
 \end{definition}
+
+\begin{example}
+	We may prove $\forall x\, (\msucc(x) \mNE x)$ with $G(x) = \msucc(x) \mNE x$ by induction.
+	\begin{align*}
+		\underbrace{\msucc(0)\mNE 0}_{\text{base}} 
+		\land\, \forall x'\,&
+		\underbrace{
+			\left(\msucc(x')\mNE x' \limp \msucc(\msucc(x'))\mNE \msucc(x'))\right)
+		}_{\text{step case}}
+		\,\limp\, \forall x\,\msucc(x)\mNE x
+		\end{align*}
+\end{example}
 
 \begin{definition}
 	[Addition]
@@ -443,7 +459,7 @@ Equivalence and congruence of equality are provable by Natural Deduction (see Se
 \end{definition}
 
 \begin{theorem}Peano Artihmetic (Guiseppe Peano, 19th century), 
-	i.e.~the first-order theory extends Presburger Arithmetic with multiplication, is incomplete (Gödel) and undecidable. 
+	i.e.~the first-order theory that extends Presburger Arithmetic with multiplication, is incomplete (Gödel) and undecidable. 
 \end{theorem}
 
 \begin{theorem}

@@ -66,8 +66,8 @@ eventually.
 
 In the previous chapter we expressed axioms and lemmas of theories in \FOF. 
 Since Gilmore's prover, resolution and \InstGen work on sets of clauses we present
-the same axioms in clausal normal form within Table 
-\ref{tab:presburger:axioms:clauses} .
+the same axioms in clausal normal as in Table 
+\ref{tab:presburger:axioms:clauses} for the natural numbers.
 
 \begin{table}[hbt]	
 	\begin{align*}
@@ -83,55 +83,62 @@ the same axioms in clausal normal form within Table
 	\msucc(x) \mNE \msucc(y) \lor x \mEQ y
 	\tag*{natural numbers}
 	\\
-	x_1\mNE y_1\lor x_2\mNE y_2\lor x_1+y_1 \mEQ x_2+y_2
-	\tag*{congruence of $+$}
-	\\
-	x + 0 \mEQ x,\ 
-	x+\msucc(x) \mEQ \msucc(x+y)
-	\tag*{addition}
-	\\
-	x_1\mNE y_1\lor x_2\mNE y_2\lor x_1\times y_1 \mEQ x_2\times y_2
-	\tag*{congruence of $\times$}
-	\\
-	x \times 0 \mEQ 0,\ 
-	x \times\msucc(y) \mEQ (x\times y) + x
-	\tag*{multiplication}
-	\\[0.5em]
-	\lnot G_i(0) \lor \boxed{G(\mc_i)} \lor G_i(y),\ 
-	\lnot G_i(0) \lor \boxed{\lnot G_i(\msucc(\mc_i))} \lor G_i(z)
-	\tag*{induction}
-	\\
-	\overbrace{x+ (y+ z) \mEQ (x+ y) + z}^{A},\,
-	\overbrace{x+ y \mEQ y+ x}^{C},\, 
-	\overbrace{x+ 0 \mEQ x,\, 0+ x\mEQ x}^N
-	\tag*{ACN of $+$}
-	\\
-	\underbrace{x\times (y\times z) \mEQ (x\times y) \times z}_A,\,
-	\underbrace{x\times y \mEQ y\times x}_C,\, 
-	\underbrace{x\times \msucc(0) \mEQ x,\, \msucc(0)\times x\mEQ x}_N
-	\tag*{ACN of $\times$}
+%	x_1\mNE y_1\lor x_2\mNE y_2\lor x_1+y_1 \mEQ x_2+y_2
+%	\tag*{congruence of $+$}
+%	\\
+%	x + 0 \mEQ x,\ 
+%	x+\msucc(x) \mEQ \msucc(x+y)
+%	\tag*{addition}
+%	\\
+%	x_1\mNE y_1\lor x_2\mNE y_2\lor x_1\times y_1 \mEQ x_2\times y_2
+%	\tag*{congruence of $\times$}
+%	\\
+%	x \times 0 \mEQ 0,\ 
+%	x \times\msucc(y) \mEQ (x\times y) + x
+%	\tag*{multiplication}
+%	\\[0.5em]
+	\lnot G(0) \lor \boxed{G(\mc_{_G})} \lor G(x),\ 
+	\lnot G(0) \lor \boxed{\lnot G(\msucc(\mc_{_G}))} \lor G(x)
+	\tag*{induction schema}
+%	\\
+%	\overbrace{x+ (y+ z) \mEQ (x+ y) + z}^{A},\,
+%	\overbrace{x+ y \mEQ y+ x}^{C},\, 
+%	\overbrace{x+ 0 \mEQ x,\, 0+ x\mEQ x}^N
+%	\tag*{ACN of $+$}
+%	\\
+%	\underbrace{x\times (y\times z) \mEQ (x\times y) \times z}_A,\,
+%	\underbrace{x\times y \mEQ y\times x}_C,\, 
+%	\underbrace{x\times \msucc(0) \mEQ x,\, \msucc(0)\times x\mEQ x}_N
+%	\tag*{ACN of $\times$}
 	\end{align*}
-	\caption{Clausal representation of theory axioms and lemmas}
+	\caption{The theory of natural numbers in \CNF}
 	\label{tab:presburger:axioms:clauses}
 \end{table}
 
-\begin{table}[hbt]	
+\begin{example} For the formula $G(x)=\msucc(x)\mNE x$ we state the induction axioms in \CNF over the theory of natural numbers.
 	\begin{gather*}
-	0\circ e_\circ\mNE 0
-	\lor\boxed{
-		c_\circ \circ e_\circ \mEQ c_\circ
-	}
-	\lor z\circ e_\circ \mEQ z
-	\\
-	0\circ e_\circ\mNE 0
-	\lor\boxed{
-		\msucc(c_\circ) \circ e_\circ \mNE \msucc(c_\circ)
-	}
-	\lor z\circ e_\circ \mEQ z
+	\msucc(0)\mEQ 0 \lor \boxed{\msucc(\mc_{_\msucc})\mNE \mc_{_\msucc}} \lor \msucc(x)\mNE x \\
+	\msucc(0)\mEQ 0 \lor \boxed{\msucc(\msucc(\mc_{_\msucc}))\mEQ \msucc(\mc_{_\msucc})} \lor \msucc(x)\mNE x
 	\end{gather*}
-	\caption{Induction axioms for neutral element}
-	\label{tab:presburger:induction:clauses}
-\end{table}
+\end{example}
+
+%\begin{table}[hbt]	
+%	\begin{gather*}
+%	0\circ e_\circ\mNE 0
+%	\lor\boxed{
+%		c_\circ \circ e_\circ \mEQ c_\circ
+%	}
+%	\lor z\circ e_\circ \mEQ z
+%	\\
+%	0\circ e_\circ\mNE 0
+%	\lor\boxed{
+%		\msucc(c_\circ) \circ e_\circ \mNE \msucc(c_\circ)
+%	}
+%	\lor z\circ e_\circ \mEQ z
+%	\end{gather*}
+%	\caption{Induction axioms for neutral element}
+%	\label{tab:presburger:induction:clauses}
+%\end{table}
 
 \begin{table}[hbt]	
 	\begin{gather*}
