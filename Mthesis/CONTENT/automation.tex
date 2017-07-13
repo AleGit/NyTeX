@@ -1014,8 +1014,9 @@ but we can ensure that we find only desired models.
 \end{example}
 
 \begin{example}\label{ex:nat:instgen}
-	When we look at the grounding for \InstGen we notice that the selection process is unfortunate,
-	because the selected literals of any clause but congruence clash with $\msucc(x)\mNE 0$.
+	The default grounding for \InstGen substitutes \emph{all} variables with one constant function symbol. 
+	We notice that the selection process is unfortunate,
+	because the selected {\myem positive} literals of each axiom but congruence clash with $\msucc(x)\mNE 0$.
 	\begin{align*}
 	\colHi \consbot \mEQ \consbot
 	\tag*{reflexivity}\\
