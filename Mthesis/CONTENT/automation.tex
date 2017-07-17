@@ -7,11 +7,12 @@
 \input{epigraphs/syllogism}
 
 In this chapter, we demonstrate refutation complete proving procedures.
-It seems natural to expect decision procedures for decidable fragments 
+It seems natural to expect decision procedures 
+for decidable fragments of first order logic 
 (Section \ref{sec:decidable:fol:fragments})
-or decidable theories (Section \ref{sec:decidable:fol:theories}),
-but we will see in simple examples that this does not follow 
-from refutation completeness.
+and decidable first order theories (Section \ref{sec:decidable:fol:theories}),
+but we will see in simple examples that decision procedures automatically fall out 
+from refutational completeness.
 
 
 %An we judge the procedures by there theoretical performance on decidable fragments. 
@@ -50,7 +51,7 @@ eventually.
 
 First we translate axioms and lemmata into clausal normal form in Sections \ref{sec:clausal:normal:form},
 then we look at Gilmore's Prover from 1960 in Section \ref{sec:gilmore:prover}. 
-After that we look at more modern calculi for refutations based first order theorem proving 
+After that we look at more modern calculi for refutation based first order theorem proving 
 without equality in Section \ref{sec:proving:without:equaltiy} and with equality in Section \ref{sec:proving:with:equality}.
 
 
@@ -69,10 +70,11 @@ without equality in Section \ref{sec:proving:without:equaltiy} and with equality
 
 \section{Theory axioms in \CNF}\label{sec:clausal:normal:form}
 
-In the previous chapter we expressed axioms and lemmas of theories in \FOF. 
+In the previous chapter we expressed axioms and lemmas of first order theories in \FOF syntax. 
 Since Gilmore's prover, resolution and \InstGen work on sets of clauses we transform
-the those axioms in clausal normal form as in Tables 
-\ref{tab:natural:numbers} and \ref{tab:addition:multiplication} for the natural numbers, additions, and multiplication.
+those axioms into (at least) equi-satisfiable representations in \CNF syntax 
+as summarized for equivalence, congruence, natural numbers, and induction in Table \ref{tab:natural:numbers}, 
+for addition and multiplication in Table \ref{tab:addition:multiplication}.
 
 \begin{table}[hbt]	
 	\begin{align*}
@@ -937,7 +939,7 @@ at least in models that implies the existence of a normal model.
 We have allready seen that a normal Herbrand model might not exist,
 but we can ensure that we find only desired models.
 
-\subsection{Equality axioms}\label{sec:equality:axioms}
+\subsection{Adding equality axioms}\label{sec:equality:axioms}
 
 \begin{theorem}\cite{Harrison:2009:HPL:1540610}
 	Any set of clauses (a formula) has a \emph{normal} model 
@@ -953,28 +955,22 @@ but we can ensure that we find only desired models.
 
 \begin{example}[Ordered resolution with equality axioms] 
 	We add the equality axioms to a small set of clauses
-	$S = \{ \msucc(x)\mNE 0,\ \msucc(x)\mNE\msucc(y)\lor x\mEQ y \}$ and mark the maximal literals.
+	$S = \{ \msucc(x)\mNE 0,\ \msucc(x)\mNE\msucc(y)\lor x\mEQ y \}$ and mark maximal literals.
 	\begin{align*}
-	\colN x \mEQ x
-	\tag*{$\mEQ$-reflexivity}
-	\\
-	x \mEQ y \lor {\colN y \mNE x}
-	\tag*{$\mEQ$-symmetry}
-	\\
+	{\colN x \mEQ x},\
+	x \mEQ y \lor {\colN y \mNE x},\
 	x \mEQ z \lor {\colN x \mNE y} \lor {\colN y\mNE z}
-	\tag*{$\mEQ$-transitivity}
-	\\
+\tag*{$\mEQ$-equivalence}
+\\
 	{\colN \msucc(x) \mEQ \msucc(y)} \lor x\mNE y
 	\tag*{$\msucc$-congruence}
-	\\[0.5em]
-	{\colN \msucc(x)\mNE 0}
-	\tag*{$0\not\in\img(\msucc)$}
-	\\
+\\
+	{\colN \msucc(x)\mNE 0},\
 	{\colN \msucc(x) \mNE \msucc(y)} \lor x \mEQ y
-	\tag*{$\msucc$-injectivity}
+\tag*{$S$}
 	\end{align*} 
 	With ordered resolution we cannot infer new clauses from clauses in $S$.
-	We only get a tautology from congruence and injectivity of $\msucc$.
+	But we can apply rules of ordered resolution to pairs of equality axioms and clauses.
 	\begin{align*}
 .\quad&
 \infer[\{x'\mapsto x, y'\mapsto x\}]
@@ -1021,7 +1017,25 @@ but we can ensure that we find only desired models.
 	\end{align*}
 \end{example}
 
-\begin{example}\label{ex:nat:instgen}
+\begin{example} We extend our set with clause $\msucc(\msucc(x))\mEQ\msucc(0)$ 
+	that clashes with injectivity of $\msucc$.
+	\begin{gather*}
+	\infer[\{\,x'\mapsto x\,\}]
+	{\square}
+	{s(x')\mNE 0 &
+		\infer[
+		\{\, x'\mapsto \msucc(x), y'\mapsto 0 \,\}
+		]{
+			\msucc(x)\mEQ 0	
+		}{
+			x' \mEQ y' \lor {\colN \msucc(x') \mNE \msucc(y')} 
+			& {\msucc(\msucc(x))\mEQ\msucc(0)}
+		}
+	}
+	\end{gather*}
+\end{example}
+
+\begin{example}[\InstGen with equality axioms]\label{ex:nat:instgen}
 	The default grounding for \InstGen substitutes \emph{all} variables with one constant function symbol. 
 	We notice that the selection process is unfortunate,
 	because the selected {\myem positive} literals of each axiom but congruence clash with $\msucc(x)\mNE 0$.
@@ -1096,36 +1110,10 @@ but we can ensure that we find only desired models.
 \tag*{$\msucc$-injectivity}
 \end{align*} 
 
-\begin{example} With Superposition no derivation rule is applicable.
-	\begin{align*}
-	x \mEQ y \lor {\colN \msucc(x) \mNE \msucc(y)}
-	\tag*{injectivity}\\
-	{\colN 0 \mNE \msucc(x)}
-	\end{align*}
-\end{example}
 
-\begin{example} We extend our set with clause $\msucc(0) \mEQ \msucc(\msucc(x))$ 
-	that clashes with injectivity of $\msucc$.
-	\begin{gather*}
-	\infer[\{\,x'\mapsto x\,\}]
-	{\square}
-	{0\mNE s(x') &
-	\infer[
-	\{\, x'\mapsto 0, y'\mapsto\msucc(x) \,\}
-	]{
-		0 \mEQ \msucc(x)	
-	}{
-		x' \mEQ y' \lor {\colN \msucc(x')) \mNE \msucc(y')} 
-		& {\msucc(0) \mEQ \msucc(\msucc(x))}
-	}
-}
-	\end{gather*}
-\end{example}
-
-
-	An equational interpretation must satisfy the formulas for reflexivity, symmetry, transitivity, 
-	function congruence for every function symbol $f\in\mcFf$, 
-	and predicate congruence for every predicate symbol $P\in\mcFP$.
+%	An equational interpretation must satisfy the formulas for reflexivity, symmetry, transitivity, 
+%	function congruence for every function symbol $f\in\mcFf$, 
+%	and predicate congruence for every predicate symbol $P\in\mcFP$.
 %	\[
 
 %		\begin{array}[t]{c}
@@ -1142,10 +1130,10 @@ but we can ensure that we find only desired models.
 %		\end{array}
 %	\]
 
-\begin{example}
-	Consider the set of clauses $\{ \mc \mEQ \mb \}$. 
-	Here we don't find a Hebrand model where the equality symbol is interpreted as equality on its domain.
-\end{example}
+%\begin{example}
+%	Consider the set of clauses $\{ \mc \mEQ \mb \}$. 
+%	Here we don't find a Hebrand model where the equality symbol is interpreted as equality on its domain.
+%\end{example}
 
 %\begin{align*}
 %	 x \mEQ x & \tag*{reflexivity} \\
@@ -1187,9 +1175,20 @@ but we can ensure that we find only desired models.
 	
 	
 
-\subsection{Paramodulation and Superposition}\label{sec:superposition}
+\subsection{Applying equality rules}\label{sec:superposition}
+
+Instead of adding equality axioms, complete calculi with additional derivation rules for the equality symbol were developed.
 
 \input{appendix/superposition}
+
+\begin{example} With Superposition calculus no derivation rule is applicable 
+	to clauses of the set $S = \{ \msucc(x)\mNE 0, \msucc{x}\mNE\msucc{y} \lor x\mEQ y  \}$ 
+	because the maximal literals are both negations. 
+	\begin{align*}
+	{\colN \msucc(x_1) \mNE 0}\qquad{\colN \msucc(x_2) \mNE \msucc(y_2)} \lor x_2\mEQ y_2
+	\end{align*}
+	The saturated set does not contain the empty clause, hence we conclude it's satisfiability.
+\end{example}
 
 \subsection{Inst-Gen-Eq}\label{sec:inst:gen:eq}
 
