@@ -7,36 +7,38 @@
 \section{Terms, Literals and Clauses}
 
 
+\section{Saturation}
 
-
-\section{Given Clause Algorithm}
-
-In the previous chapter we just randomly applied derivation rules
-on pairs of clauses from the set of clauses 
+In the previous chapter we just applied derivation rules
+on pairs of clauses chosen haphazardly from the set of clauses 
 to derive and add new clauses 
 until we could conclude unsatisfiability of the set of clauses.
 
-In this section we will discuss the given clause algorithm 
+In practice such a human approach may fail for an unsatisfiable set of clauses 
+just because an important clause pairing has been overlooked 
+and infinite inferences can be drawn from a satisfiable subset of the set of clauses.
+%For an automated procedure we need a process that guarantees that eventually all possible inferences were drawn. 
+In any case an automated procedure has to notice when all derivations have already been processed.
+
+First will discuss the given clause algorithm in this section
 as a saturation process that eventually determines all possible derivate clauses
 with respect to a given calculus, e.g. ordered resolution.
 
+\subsection{Given Clause Algorithm}
 
-
-
-\begin{procedure}[Basic Given Clause Algorithm]
+\begin{procedure}[Given Clause Algorithm]
 	We start with a set of clauses $S = P \disjointunion U$, 
 	where $P$ is a set of {\myem passive} clauses 
 	and $U$ is the initially empty set of {\myem active} (or used) clauses.
 	\begin{enumerate}
-		\item[(\Lightning?)] Whenever we can conclude unsatisfiability of $S$ 
+		\item[\jek] Whenever we can conclude unsatisfiability of $S$ 
 		we exit the procedure with $\lnot\SAT$.
 		\setcounter{enumi}{0}
 		\item If $P$ is empty we exit and return \SAT.
-		\item We select a passive clause, i.e.~the given clause. (\Lightning?)
+		\item We select a passive clause, i.e.~the given clause. \jek
 		\item We iterate over the active clauses and check for applicable inference rule
 		for each pair of an active and the given clause
-		to derive additional clauses which we add to the set of passive clauses.
-		(\Lightning?)
+		to derive additional clauses which we add to the set of passive clauses. \jek
 		\item We move the given clause from passive to active and continue with step 1.
 	\end{enumerate}
 \end{procedure}
@@ -49,10 +51,18 @@ Each line represents one iteration of our procedure 3.
 %
 In both examples we start with the unsatisfiable set of clauses $S=\{\, \mP(\ma)\lor\mQ(a), \mP(\ma)\lor\lnot\mQ(y), \lnot\mP(x) \,\}$.
 
-\subsection{Ordered Resolution}
+\subsubsection{Ordered Resolution}
 
-(\Lightning?) We conclude unsatisfiability of $S$ whenever the empty clause is derived (or already present).
-New clauses are disjunctions of an active and the given clause where conflicting literals were removed.
+\jek : We conclude unsatisfiability of $S$ whenever the empty clause is found (already present or derived).
+New clauses are disjunctions of instances of an active and the given clause where conflicting literals were removed, 
+in other words the union of the two instances without the contradicting literals.
+\begin{gather*}
+\infer[\sigma=\{ x'\mapsto\mf(x), y\mapsto\mg(y') \}]{
+	(\mcC \lor \mcD)\sigma
+}{
+	\mP(\mf(x), y) \lor \mcC & \lnot\mP(x',\mg(y')) \lor \mcD
+}
+\end{gather*}
 
 \begin{example}[Ordered Resolution] We assume $\mP(\ma)\succ\mQ(\ma)$,
 	underline the maximal literal the given clauses,
@@ -90,10 +100,17 @@ New clauses are disjunctions of an active and the given clause where conflicting
 	\end{align*}
 \end{example}
 
-\subsection{InstGen}
+\subsubsection{InstGen}
 
-(\Lightning?) We conclude unsatisfiability of $S$ whenever a subset of $S_i\bot$ is unsatisfiable. 
-New clauses are proper instances of an active or the given clause.
+\jek : We conclude unsatisfiability of $S$ whenever a subset of $S_i\bot$ -- a set of ground instances -- is unsatisfiable. 
+New clauses are the proper instances of an active and the given clause.
+\begin{gather*}
+	\infer[\sigma=\{ x'\mapsto\mf(x), y\mapsto\mg(y') \}]{
+		\mcC\sigma \qquad \mcD\sigma
+	}{
+		\mP(\mf(x), y) \lor \mcC & \lnot\mP(x',\mg(y')) \lor \mcD
+	}
+\end{gather*}
 
 
 \begin{example}[InstGen]The active and given clauses are already encoded and given to a \SAT solver.
@@ -122,7 +139,7 @@ New clauses are proper instances of an active or the given clause.
 	& ^{3:}&{\colHi\underline{\lnot\mP(\consbot/x)}} 
 	& ^{1,3:}_{2,3:}&\boxed{\underline{\lnot\mP(\ma)}}
 	\end{align*}
-	But the model did change in (4) and the selected literals of two of the active clauses changed too.
+	But the model did change in (4) and the selected literals of two of the active clauses had to be changed too.
 	Active clauses with changed selected literals have to be moved back to the passive clauses.
 	Then we hit a contradiction of ground instances in (7').
 	\begin{align*}
@@ -200,6 +217,10 @@ New clauses are proper instances of an active or the given clause.
 		\label{fig:inst-gen-maxcomp}
 	\end{center}
 \end{figure}
+
+\subsection{Bookkeeping}
+
+
 
 \section{Term Indexing}
 
