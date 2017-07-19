@@ -41,8 +41,8 @@ We define the instance of a clause as the multiset of the instances of its liter
 %${\mEQ}(s,t)$ represents the same equation as $s\mEQ t$.}
 
 \begin{definition}
-	A clause $\mcC$ {\myem subsumes} a clause $\mcD$ if their exists a substitution $\theta$ such that $\mcC\theta \subseteq \mcD$,
-	i.e.~clause $\mcD = \mcC\theta \lor \mcD'$ is a weakened instance of clause $\mcC$.
+	A clause $\mcC$ {\myem strictly subsumes} a clause $\mcD$ if their exists a substitution $\theta$ such that $\mcC\theta \subsetneq \mcD$,
+	e.g.~when clause $\mcD = \mcC\theta \lor \mcD'$ is a weakened instance of clause $\mcC$.
 \end{definition}
 %\begin{example}
 %	Trivially any clause $\mcC$ subsumes all its instances $\mcC\sigma$ or weakenings $\mcC\lor\mcD$. 
