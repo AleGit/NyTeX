@@ -605,23 +605,27 @@ but we treat it not different from an arbitrary binary predicate symbol with inf
 We can deduce or observe disadvantages in resolution. 
 
 \begin{enumerate}
-	\item If clauses contain more than two literals the resolution inference rule yields clauses with more literals than the sources.
+	\item If clauses contain more than two literals the resolution inference rule yields clauses with more literals than the sources, e.g.
 	\begin{gather*}
 		\infer[\{ x\mapsto\mf(y'), y\mapsto\mg(x') \}]
 		{\mA(\mf(y'))\lor\mB(\mg(x')) \lor \mQ(x')\lor\mR(y'))}
 		{\mP(x,y)\lor\mA(x)\lor\mB(y) & \lnot\mP(\mf(y'),\mg(x'))\lor\mQ(x')\lor\mR(y'))}
 	\end{gather*}
 	
-	\item We have to check all pairings 
-	of all positive literals with all negative literals for clashing
-	$n_{\mcC\lor\mcD} = n_{(A\lor\mcC)} -1 + n_{(\lnot B\lor\mcD)}-1$.
-	That has been already addressed with ordered resolution, which we will present below.
+	\item For two clauses $\mcC$ with $c$ literals and $\mcD$ with $d$ literals
+	we have to check all pairings 
+	of positive literals in $\mcC$ 
+	with negative literals in $\mcD$ 
+	and all pairing of negative literals in $\mcC$ 
+	with positive literals in $\mcD$ for clashing,
+	i.e.~in the worst case we have $c\times d$ pairs to check.
+	This workload can be reduced with ordered resolution, which we will present below.
 	
 	\item Resolution is sound but not complete in the presence of equality,
-	e.g.~we expect the set of clauses $S = \{ 
+	e.g.~we expect the set of clauses $\{ 
 		\mf(\ma) \mEQ \mc, \mP(\mc), \lnot\mP(\mf(\ma))
-	\}$ to be unsatisfiable, but we cannot apply resolution or factoring
-	to derive the empty clause.
+	\}$ or even simpler the set with one clause $\{ \ma\mNE\ma \}$ to be unsatisfiable, but neither resolution nor factoring
+	are applicable.
 \end{enumerate}
 
 \subsection{Ordered resolution}\label{sec:ordered:resolution}
@@ -1014,13 +1018,13 @@ but we can ensure that we find only desired models.
 \infer[\{x\mapsto\msucc(x'),y\mapsto\msucc(y')\}]
 {\msucc(x')\mEQ z\lor \msucc(y')\mNE z \lor x'\mNE y'}
 {x \mEQ z \lor {\colN x \mNE y} \lor {y\mNE z} & {\colN \msucc(x') \mEQ \msucc(y')} \lor x'\mNE y'} 
-\tag*{$T,C\proves$}
+\tag*{$T,C\proves ?$}
 \\
 .\quad&
 \infer[\{y\mapsto\msucc(x'),z\mapsto\msucc(y')\}]
 {x\mEQ\msucc(y')\lor x\mNE\msucc(x')\lor x'\mNE y'}
 {x \mEQ z \lor {x \mNE y} \lor {\colN y\mNE z} & {\colN \msucc(x') \mEQ \msucc(y')} \lor x'\mNE y'} 
-\tag*{$T,C\proves$}
+\tag*{$T,C\proves ?$}
 \\
 .\quad&
 \infer[\{x'\mapsto x, y'\mapsto y\}]
