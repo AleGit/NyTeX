@@ -600,14 +600,28 @@ but we treat it not different from an arbitrary binary predicate symbol with inf
 	\end{gather*}
 \end{example}
 
+
+
 We can deduce or observe disadvantages in resolution. 
 
 \begin{enumerate}
 	\item If clauses contain more than two literals the resolution inference rule yields clauses with more literals than the sources.
+	\begin{gather*}
+		\infer[\{ x\mapsto\mf(y'), y\mapsto\mg(x') \}]
+		{\mA(\mf(y'))\lor\mB(\mg(x')) \lor \mQ(x')\lor\mR(y'))}
+		{\mP(x,y)\lor\mA(x)\lor\mB(y) & \lnot\mP(\mf(y'),\mg(x'))\lor\mQ(x')\lor\mR(y'))}
+	\end{gather*}
+	
 	\item We have to check all pairings 
-	of all positive literals with all negative literals for clashing.
-	$n_{\mcC\lor\mcD} = n_{(A\lor\mcC)} -1 + n_{(\lnot B\lor\mcD)}-1$,
-	which was addressed in Ordered Resolution.
+	of all positive literals with all negative literals for clashing
+	$n_{\mcC\lor\mcD} = n_{(A\lor\mcC)} -1 + n_{(\lnot B\lor\mcD)}-1$.
+	That has been already addressed with ordered resolution, which we will present below.
+	
+	\item Resolution is sound but not complete in the presence of equality,
+	e.g.~we expect the set of clauses $S = \{ 
+		\mf(\ma) \mEQ \mc, \mP(\mc), \lnot\mP(\mf(\ma))
+	\}$ to be unsatisfiable, but we cannot apply resolution or factoring
+	to derive the empty clause.
 \end{enumerate}
 
 \subsection{Ordered resolution}\label{sec:ordered:resolution}
@@ -1172,12 +1186,17 @@ but we can ensure that we find only desired models.
 %	& \quad P\in\mcFPn[2]
 %		\tag*{$\mEQ$-congruence}
 %\end{align*}
-	
-	
 
-\subsection{Applying equality rules}\label{sec:superposition}
+\subsection{Equality inference rules}	
 
-Instead of adding equality axioms, complete calculi with additional derivation rules for the equality symbol were developed.
+Instead of adding equality axioms for an equality predciate symbol, 
+we add specific equality inference rules for completeness.
+
+
+\subsubsection{Superposition}\label{sec:superposition}
+
+As in ordered resolution the unsatisfiability of a set of clauses in proven if and only if the empty clause can be derived.
+
 
 \input{appendix/superposition}
 
@@ -1190,7 +1209,16 @@ Instead of adding equality axioms, complete calculi with additional derivation r
 	The saturated set does not contain the empty clause, hence we conclude it's satisfiability.
 \end{example}
 
-\subsection{Inst-Gen-Eq}\label{sec:inst:gen:eq}
+\subsubsection{Inst-Gen-Eq}\label{sec:inst:gen:eq}
+
+Here the general approach for proving unsatisfiability of a set of clauses is the same as with \InstGen. 
+We approximate the satisfiability of the set of clauses with a \SAT or \SMT Solver and in the case
+of satisfiability we use the propositional model for selecting literals. 
+Then we searched for clashing selected literals to derive instances of contained clauses, 
+that would refine the propositional approximation.
+
+
+
 
 \input{appendix/unitsuperposition}
 

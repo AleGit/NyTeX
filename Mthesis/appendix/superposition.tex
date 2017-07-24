@@ -4,52 +4,49 @@
 
 %%%
 \begin{definition}\label{def:superposition-calculus}
-	The {\myem superposition calculus} includes
+	Let $A,B$ be predicates (i.e. no equations),
+	$\mcC,\mcC',\mcD$ clauses, and $s,s', t,u,v$ terms.
+	The {\myem superposition calculus} includes the following inference rules
 	\begin{itemize}
 		%
-		\item ordered resolution $(R)$,
-		ordered factoring $(F)$
+		\item ordered resolution and ordered factoring
 		%
 		\begin{gather*}
 		\infer
-		[(R)]
+		[\mathsf{(oR)}]
 		{(\mcC \lor \mcD)\sigma}
 		{{ A} \lor\mcC & { \lnot B} \lor\mcD}
 		\hspace{3cm}
 		\infer
-		[(F)]
-		{(A \lor \mcC)\sigma}
-		{{ A}\lor B'\lor\mcC}
+		[\mathsf{(oF)}]
+		{(A \lor \mcC')\sigma}
+		{{ A}\lor B\lor\mcC}
 		\end{gather*}
-		%
-		where
-		$\sigma=\mgu(A,B)$ is defined, 
-		$A\sigma$ { is strictly maximal} in $\mcC\sigma$,
-		$\lnot B\sigma$ { is maximal} in $\mcD\sigma$, 
-		$A\sigma$ is maximal in $\mcD\sigma$;
-		%
-		\item ordered paramodulation $(P_-,P_+)$
-		\[
+		where unifier $\sigma=\mgu(A,B)$ exists, 
+		instance $A\sigma$ is \txtSTRICTLY in $\mcC\sigma$,
+		and	instance $\lnot B\sigma$ is \txtMAXIMAL in $\mcD\sigma$.
+			%
+		\item paramodulation
+		\begin{gather*}
 		\infer
-		[(P_-)]
+		[\mathsf{()}]
 		{(\mcC\lor \lnot A[t]\lor\mcD)\,\sigma}
 		{{ s\mEQ t} \lor\mcC\quad { \lnot A[s']}\lor\mcD}
 		\hspace{3cm}
 		\infer
-		[(P_+)]
-		{(\mcC\lor A[t]\lor\mcD)\,\sigma}
-		{{ s\mEQ t} \lor\mcC\quad { A[s']}\lor\mcD}
-		\]
+		[\mathsf{()}]
+		{(\mcC\lor A[t]\lor\mcD')\,\sigma}
+		{{ s\mEQ t} \lor\mcC\quad { A[s']}\lor\mcD'}
 		%
-		where $\sigma=\mgu(s,s')$ is defined, 
-		$(s\mEQ t)\sigma$ { is strictly maximal} in $\mcC\sigma$, 
-		$\lnot A[s']$ { is maximal} in $\mcD\sigma$,
-		$A[s']$ { is strictly maximal} in $\mcD\sigma$;
-		%
-		\item superposition $(S_-,S_+)$
-		\[
+%		where unifier $\sigma=\mgu(s,s')$ exists, 
+%		$(s\mEQ t)\sigma$ {is strictly maximal} in $\mcC\sigma$, 
+%		$\lnot A[s']$ { is maximal} in $\mcD\sigma$,
+%		$A[s']$ {is strictly maximal} in $\mcD'\sigma$;
+\end{gather*}
+\item superposition
+\begin{gather*}
 		\infer
-		[(S_-)]
+		[()]
 		{(\mcC\lor u[t]\mNE v\lor\mcD)\,\sigma}
 		{{ s\mEQ t}\lor\mcC\quad { u[s']\mNE v}\lor\mcD}
 		\hspace{3cm}
@@ -57,30 +54,34 @@
 		[(S_+)]
 		{(\mcC\lor u[t]\mEQ v\lor\mcD)\,\sigma}
 		{{ s\mEQ t}\lor\mcC\quad { u[s']\mEQ v}\lor\mcD}
-		\]
+		\end{gather*}
 		%
-		where $\sigma=\mgu(s,s')$ is defined,
-		$s'\not\in\mcV$, 
+		where unifier $\sigma=\mgu(s,s')$ exists,
+		$s'\not\in\mcV$,
 		$t\sigma\not\succcurlyeq s\sigma$,
-		$v\sigma\not\succcurlyeq u[s']\sigma$;
-		%
+		$v\sigma\not\succcurlyeq u[s']\sigma$,
+		$(s\mEQ t)\sigma$ is \txtSTRICTLY in $\mcC\sigma$,
+		$\lnot A[s']$ and $u[s']\mNE v$ are \txtMAXIMAL in $\mcC\sigma$,
+		$A[s']$ and $u[s']\mEQ v$ are \txtSTRICTLY in $\mcD\sigma$,
+		$(s\mEQ t)\sigma\not\succcurlyeq(u[s']\mEQ v)\sigma$. 
 		\item 
-		equality resolution $(R_\mEQ )$,
-		and equality factoring $(F_\mEQ )$
+		equality resolution and equality factoring
 		\[
 		\infer
-		[(R_\mEQ)]
+		[\mathsf{(R_\mEQ)}]
 		{\mcC\sigma}
-		{{ s\mNE s'}\lor\mcC}
+		{{s\mNE s'}\lor\mcC}
 		\hspace{3cm}
 		\infer
-		[(F_\mEQ)]
-		{(v\mNE s'\lor u\mEQ s'\lor\mcC)\sigma}
-		{{s\mEQ s'}\lor { u\mEQ v}\lor\mcC}
+		[\mathsf{(F_\mEQ)}]
+		{(v\mNE s'\lor u\mEQ s'\lor\mcC')\sigma}
+		{{ u\mEQ v}\lor{s\mEQ s'}\lor\mcC'}
 		\]
 		where 
-		$\sigma=\mgu(s,s')$ is defined,
-		$(s=s')\sigma\not\succcurlyeq(u\mEQ v)$.
+		$\sigma=\mgu(s,s')$ exists,
+		$(s\mNE s')\sigma$ is \txtMAXIMAL in $\mcC$,
+		$(s\mEQ s')\sigma$ is \txtSTRICTLY in $\mcC'$,
+		$(s\mEQ s')\sigma\not\succcurlyeq(u\mEQ v)$. (????) 
 	\end{itemize}
 	%
 \end{definition}
