@@ -1390,11 +1390,11 @@ S_{i+2} &= S_{i+1}\disjointunion \{\,
 \begin{tabular}{llllll}
 	Calculus & Equality & Exit condition & Implementations\\
 	\hline
-	Gilmore & axioms & DNF & Gilmore\\
-	Resolution & axioms & $\emptyclause\in S$\\
-	\InstGen & axioms & $\lnot\SAT(S\bot)$ & iProver\\
-	Superposition & rules & $\emptyclause\in S$ & Vampire \\
-	\InstGenEQ & rules & $\lnot\SMT(S\bot$) & iProverEq
+	Gilmore & axioms & $S_i \equiv \bigvee\emptyclause$  & Gilmore\\
+	Resolution & axioms & $\emptyclause\in S_i$\\
+	\InstGen & axioms & $\lnot\SAT(S_i\bot)$ & iProver\\
+	Superposition & rules & $\emptyclause\in S_i$ & Vampire \\
+	\InstGenEQ & rules & $\lnot\SMT(S_i\bot$) & iProverEq
 \end{tabular}
 
 

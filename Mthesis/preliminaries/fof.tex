@@ -6,7 +6,8 @@
 	Atoms from the previous definition are {\myem first order formulae}.  
 	The universal quantification $(\forall x F)$ 
 	and the existential quantification $(\exists x F)$ 
-	of a first order formula are (quantified) first order formulae.
+	of a first order formula are (quantified) first order formulae
+	with {\myem bound} variable $x\in\mcV$.
 	The negation $(\lnot F)$ of a first order formula
 	is a (composite) first order formula.
 	Further, the disjunction $(F \lor F')$, 
@@ -23,7 +24,7 @@
 		\bigcup_{i=1}^n \var(t_i) & \text{if }  t = \mf(t_1, \ldots t_n), \mf \in \mcFfn
 	}
 \DEFINE{\fvar(F)}{
-		\bigcup_{i=1}^n \var(t_i) &\text{if }F = P(t_1,\ldots,t_n)\text{ or }t_1\mEQ t_2 
+		\bigcup_{i=1}^n \var(t_i) &\text{if }F = P(t_1,\ldots,t_n)\text{ or }t_1\mEQ t_{n=2} 
 		\\
 		\fvar (G) \setminus \{ x\} &\text{if } F \in\{\, \forall x\,G, \exists x\,G\,\}
 		\\
@@ -33,7 +34,16 @@
 		\\
 		\fvar(G)&\text{if }F = \lnot G
 	}
-A first order {\myem sentence} is a closed formula, 
-i.e.~without free variables, 
-over a signature.
+
+\noindent A first order {\myem sentence} is a closed formula, 
+i.e.~a formula without free variables, 
+over an implicit or given signature.
 \end{definition}
+
+\begin{remark} We often will write formulae without a given signature.
+The reader can easily deduce the underlying {\myem implicit} signature with arities and the set of variables
+by applying the definitions of the syntax for first order formulae.
+In the presence of free variables we follow the convention to use $x,y,z$ for variables 
+and $\ma,\mb,\mc$ for constant function symbols to avoid ambiguity. 
+For easier readability we will use uppercase for predicate symbols and lowercase for function symbols .
+\end{remark}

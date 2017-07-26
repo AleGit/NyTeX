@@ -4,7 +4,39 @@
 
 \chapter{Algorithms and Data Structures}
 
-\section{Terms, Literals and Clauses}
+\section{Sets of Clauses}
+
+\subsection{Terms, Atoms, and Literals}
+
+The recursive definition of the syntax of terms, atoms and literal suggest a tree structure.
+
+\begin{tikzpicture}[->,>=stealth',level/.style={sibling distance = 2cm/#1,
+	level distance = 0.8cm}] 
+
+\node { $\lnot$ }
+	child { 
+		node { $\mP$ }
+		child { node {$x$} }
+		child { node {$\mf$} 
+			child { node {$x$} }
+		}
+	}
+;
+
+
+
+\end{tikzpicture}
+
+\begin{tikzpicture}
+\draw (0,0) rectangle (1,1);
+\draw (0.1,0.1) rectangle (1cm,1cm);
+
+\draw (0,0) to (1,1);
+\end{tikzpicture}
+
+\subsection{Sets}
+
+Clauses are multiset of literals.
 
 
 \section{Saturation}
@@ -53,7 +85,7 @@ In both examples we start with the unsatisfiable set of clauses $S=\{\, \mP(\ma)
 
 \subsubsection{Ordered Resolution}
 
-\jek : We conclude unsatisfiability of $S$ whenever the empty clause is found (already present or derived).
+\jek$\ \Leftarrow\emptyclause\in S_i$. We conclude unsatisfiability of $S$ whenever the empty clause is found (already present or derived).
 New clauses are disjunctions of instances of an active and the given clause where conflicting literals were removed, 
 in other words the union of the two instances without the contradicting literals.
 \begin{gather*}
@@ -102,11 +134,13 @@ in other words the union of the two instances without the contradicting literals
 
 \subsubsection{InstGen}
 
-\jek : We conclude unsatisfiability of $S$ whenever a subset of $S_i\bot$ -- a set of ground instances -- is unsatisfiable. 
-New clauses are the proper instances of an active and the given clause.
+\jek$\ \Leftarrow \lnot\SAT(S_i\bot)$. We conclude unsatisfiability of $S$ whenever (a subset of) $S_i\bot$ -- a set of ground instances -- is unsatisfiable. 
+We consider only proper instances of an active and the given clause as probable new clauses to extend the set of clauses.
 \begin{gather*}
 	\infer[\sigma=\{ x'\mapsto\mf(x), y\mapsto\mg(y') \}]{
-		\mcC\sigma \qquad \mcD\sigma
+		\mP(\mf(x),\mg(y')) \lor\mcC\sigma 
+		\qquad 
+		\lnot\mP(\mf(x),\mg(y'))\lor\mcD\sigma
 	}{
 		\mP(\mf(x), y) \lor \mcC & \lnot\mP(x',\mg(y')) \lor \mcD
 	}
@@ -224,11 +258,47 @@ New clauses are the proper instances of an active and the given clause.
 
 \section{Term Indexing}
 
+
+
+
+
+%“Implementations of theorem provers that use generative procedures like resolution (Robinson, 1965b; Chang and Lee, 1973) or Knuth-Bendix completion (Knuth and Bendix, 1970) face the problem of program degradation: The theorem prover’s rate of drawing conclusions falls off sharply with time due to an increasing amount of retained information (Wos, 1992). \cite{Graf1998}
+
+
+
+The resolution based proving procedures generate (a lot of) clauses. 
+For each generated clause $\mcC_\mathtt{gen}$ we may have to find 
+existing variants, generalizations, or instances of $\mcC_\mathtt{gen}$ or in a more general view
+we want to find existing clauses that subsume $\mcC_\mathtt{gen}$ or are subsumed by $\mcC_\mathtt{gen}$ 
+to avoid logical redundancies in our set\footnote{
+	At least we might expect that by adding clauses 
+	that are syntactical identical to clauses already in the set 
+	we do not increase the cardinality of the set. 
+} of clauses.
+Last but not least we search for existing clauses that contain clashing literals to a literal in $\mcC_\mathtt{gen}$.
+This search may be restricted by a given order (e.g.~Superposition) or a propositional model (e.g.~\InstGenEQ).
+
+Naively we can just scan through all existing clauses and check each clause for the desired qualities. 
+	The workload for processing a generated clause is proportional to the number of existing clauses and 
+	the workload for checking a pair of clauses. 
+	The latter includes unification, which is at least linear to the size of clauses \cite{ALBERT19933},
+	while Robinson's unification algorithm \cite{Robinson:1965:MLB:321250.321253} is exponential in the worst case. 
+	The complexity for this direct approach of processing $n$ clauses of fixed size (i.e.~constant unification costs per pair) is $\mcO(n^2)$.
+
+
+\
+
+
+
+
+
 \subsection{Clashing literals}
 
 \subsection{Variants}
 
 \subsection{Instances}
+
+\subsection{Subsumption}
 
 
 
