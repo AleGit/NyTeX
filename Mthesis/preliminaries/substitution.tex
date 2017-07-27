@@ -32,17 +32,21 @@
 
 \begin{definition}
 	Let $F$ be a formula and $\sigma$ a substitution
-	where $\bvar(F)\cap\dom(\sigma) = \emptyset$.
+	where $\bvar(F)\cap\domain(\sigma) = \emptyset$. Then the application of the substitution to the formula is well defined.
 	\DEFINE{
 		F\sigma
 	}
 {
 		\lnot(G\sigma) & \text{if }F = \lnot G\\
-		(G\sigma) \land (H\sigma) & \text{if }F = G \land H\\
-		(G\sigma) \lor (H\sigma) & \text{if }F = G \lor H\\
-		(G\sigma) \limp (H\sigma) & \text{if }F = G \limp H\\
+		(G\sigma) * (H\sigma) & \text{if }F = G * H, *\in \{ \land, \lor, \limp \}\\
+		\quantify x(G\sigma) &\text{if }F = \quantify x G, \quantify\in\{ \forall,\exists \}\colG, x\not\in\domain(\sigma)
 	}
 \end{definition}
+
+
+%\begin{definition}
+%	Let $F = \quantify x G$ and $x \in\fvar(G)$ with $\quantify\in\{ \forall,\exists \}$ 
+%\end{definition}
 
 %%% F(x) formula with free variable x
 \begin{remark}[\OBSOLETE] 
@@ -77,12 +81,12 @@ We define the {\myem composition} of two substitutions $\sigma$ and $\tau$ as fo
 \begin{lemma}\label{lem:substitution}
 	With the definitions in \ref{def:substitution} and \ref{def:substcomp} the equation
 	$(\mct\sigma)\tau = \mct(\sigma\tau)$ holds for
-	arbitrary first order expressions and substitutions.
+	term, atoms, and literals.
 \end{lemma}
 
 \begin{proof}
 	Assume $\sigma$ and $\tau$ are substitutions. 
-	Then we use induction on the structure of an arbitrary expression $\mct$
+	Then we use induction on the structure of the expression $\mct$
 	that the equation $(\mct\sigma)\tau =  \mct(\tau\sigma)$ holds in all possible cases.
 	\begin{itemize}
 		\item (base case) Let $\mct = x_i \in\domain(\sigma)$ then
