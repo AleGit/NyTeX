@@ -27,10 +27,26 @@
 			 \foxf\in\mcFn \\
 			 \lnot (A\sigma) &\text{if }\foxt = \lnot A, \text{ where } A\text{ is an atom}
 			 }
-We define the instance of a clause as the multiset of the instances of its literals.
 
-\begin{remark}
-	We write $F(x)$ for a clause or formula to express that $\fvar(F) = \{ x \}$
+\noindent Further we define the instance of a clause as the multiset of the instances of its literals.
+
+\begin{definition}
+	Let $F$ be a formula and $\sigma$ a substitution
+	where $\bvar(F)\cap\dom(\sigma) = \emptyset$.
+	\DEFINE{
+		F\sigma
+	}
+{
+		\lnot(G\sigma) & \text{if }F = \lnot G\\
+		(G\sigma) \land (H\sigma) & \text{if }F = G \land H\\
+		(G\sigma) \lor (H\sigma) & \text{if }F = G \lor H\\
+		(G\sigma) \limp (H\sigma) & \text{if }F = G \limp H\\
+	}
+\end{definition}
+
+%%% F(x) formula with free variable x
+\begin{remark}[\OBSOLETE] 
+	We write $F(x)$ for a clause or formula to express that $\fvar(F) \supseteq \{ x \}$
 	and we abbreviate $F(x)\{x\mapsto t\}$ with $F(t)$, i.e.~all occurrences 
 	of the first and only free variable in $F$ is substituted with term $t$.
 \end{remark}

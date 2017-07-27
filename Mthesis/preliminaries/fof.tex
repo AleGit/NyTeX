@@ -34,16 +34,33 @@
 		\\
 		\fvar(G)&\text{if }F = \lnot G
 	}
-
-\noindent A first order {\myem sentence} is a closed formula, 
-i.e.~a formula without free variables, 
-over an implicit or given signature.
 \end{definition}
 
-\begin{remark} We often will write formulae without a given signature.
-The reader can easily deduce the underlying {\myem implicit} signature with arities and the set of variables
-by applying the definitions of the syntax for first order formulae.
-In the presence of free variables we follow the convention to use $x,y,z$ for variables 
-and $\ma,\mb,\mc$ for constant function symbols to avoid ambiguity. 
-For easier readability we will use uppercase for predicate symbols and lowercase for function symbols .
-\end{remark}
+\begin{definition}\label{def:fof:closed}
+	A closed first order formula or in other words
+	a first order {\myem sentence} 
+	is a first order formula without free variables,
+	i.e.~all occurring variables are bound.
+	\DEFINE{\bvar(F)}{
+		\emptyset &\text{if }F = P(t_1,\ldots,t_n)\text{ or }t_1\mEQ t_{n=2} 
+		\\
+		\bvar (G) \cup \{ x\} &\text{if } F \in\{\, \forall x\,G, \exists x\,G\,\}
+		\\
+		\bvar(G) \cup \bvar(H)&\text{if }F \in\{\,G\land H,G\lor H,G\limp H\,\}
+		%		\\
+		%		\var(s) \cup \var(t) &\text{if }F = s\mEQ t
+		\\
+		\bvar(G)&\text{if }F = \lnot G
+	}
+\end{definition}
+
+%\begin{remark} 
+	We often will write formulae or sentences 
+	without stating the first order signature.
+The reader can easily deduce the underlying {\myem implicit} signature with arities 
+and the set of variables by applying the definitions of the syntax for first order formulae.
+We follow the convention to use $x,y,z$ for variables 
+and $\ma,\mb,\mc$ for constant function symbols 
+(which avoids ambiguity in the presence of free variables). 
+For easier readability we will use uppercase predicate symbols and lowercase function symbols.
+%\end{remark}

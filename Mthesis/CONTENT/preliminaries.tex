@@ -44,10 +44,14 @@ and clausal normal form (\CNF).
 
 \input{preliminaries/positions}
 
+
+
+
+
 \section{Semantics}\label{sec:semantics}
 
 In this section we recall some basic aspects and definitions of semantics in first order logic. 
-We state satisfiability for arbitrary first order formulae and sets of clauses. 
+We state satisfiability and validity of arbitrary first order formulae or sets of clauses. 
 %See the appendix for more details and mathematics.
 
 \subsection{Models}
@@ -87,9 +91,11 @@ We state satisfiability for arbitrary first order formulae and sets of clauses.
 \end{definition}
 
 \begin{definition}[\index*{Semantics} of \index{FOF}\FOF]\label{def:semantics:FOF}
-	A universally quantified formula $\forall x F$ holds in an interpretation if its subformula $F$ holds for all assignments for $x$.
-	An existential quantified formula $\exists xF$ holds if its subformula $F$ holds for at least one assignment for $x$.
-	A negation $\lnot F$ holds if its subformula $F$ does not hold, 
+	A universally quantified sentence $\forall x F$  
+	holds in an interpretation if its subformula $F$ holds for all assignments for $x$.
+	An existential quantified sentence $\exists xF$ holds if its subformula $F$ holds for at least one assignment for $x$.
+	For a given interpretation and predefined assignments for all occurring free variables
+	a negation $\lnot F$ holds if its subformula $F$ does not hold, 
 	a disjunction $F\lor G$ holds if one or both of its subformulae $F$ or $G$ hold,
 	a conjunction $F\land G$ holds, if both of its subformualae $F$ and $G$ hold, 
 	an implication $F\limp G$ holds if its first subformula $F$ does not hold or its second subformula $F'$ holds (or both).
@@ -109,16 +115,12 @@ We state satisfiability for arbitrary first order formulae and sets of clauses.
 \end{definition}
 
 \begin{definition}
-	A {\myem model} $\mcM$ for a set of clauses (a formula) is an interpretation that 
-	{\myem satisfies} the set of clauses (the formula),
-	i.e.~the set of clauses (the formula) holds in this interpretation.
-	A set of clauses (a formula) is {\myem satisfiable} if and only if there is at least one model for it. 
-	A set of clauses (a formula) is {\myem valid} if and only if every interpretation is a model.
+	A {\myem model} $\mcM$ for a set of clauses (a sentence) is an interpretation that 
+	{\myem satisfies} the set of clauses (the sentence),
+	i.e.~the set of clauses (the sentence) holds in this interpretation.
+	A set of clauses (a sentence) is {\myem satisfiable} if and only if there is at least one model for it. 
+	A set of clauses (a sentence) is {\myem valid} if and only if every interpretation is a model.
 \end{definition}
-
-\begin{example}
-	The set of clauses $\{\,\lnot\mE(\mzero, \mf(x))\,\}$ is satisfiable if and only if the quantified first order formula $\exists x \forall y\,(\lnot \mE(x,y))$ without free variables is satisfiable.
-\end{example}
 
 \begin{definition}\label{def:hk}
 	The {\myem Herbrand universe} for a first order signature $\mcF$ 
@@ -153,11 +155,31 @@ We state satisfiability for arbitrary first order formulae and sets of clauses.
 	and the interpretation of each ground term $t_\mcH := t$ is the term itself.
 \end{definition}
 
+\subsection{Equivalence and Equisatisfiability}
+
+\begin{definition}[Entailment]
+	
+\end{definition}
+
+\begin{definition}[Equivalence]
+\end{definition}
+
+\begin{definition}[Equisatisfiability]
+\end{definition}
+
+
+\begin{example}
+	The set of clauses $\{\,\mP(x, \mf(x))\,\}$ is equisatisfiable 
+	to the sentence $\forall x\exists y(\mP(x,y))$.
+\end{example}
+
+
+
 \subsection{Equality}
 
 In Definition \ref{def:semantics:atoms} we have interpreted the equality symbol as binary relation without restrictions.
 This of course allows undesirable models as in the following Example \ref{ex:a:neq:a}.
-Hence we introduce useful definitions to deal with this situation and demonstrate their usage in an example. 
+Hence we state useful definitions to deal with this situation and demonstrate their usage in an example. 
 
 \begin{example}
 	\label{ex:a:neq:a}
