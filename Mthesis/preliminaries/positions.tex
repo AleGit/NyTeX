@@ -83,4 +83,8 @@
 %where $p\neq\epsilon$ if $\foxt$ is an atom.
 	%A {\myem hole} denotes a special constant symbol $\ctxhole\in\mcFf^{(0)}$. 
 	%A {\myem context} is a term $t$ with exactly one hole, i.e.~one occurrence $|t|_{\ctxhole}=1$.
+	We may write $\foxt[s]$ if $s$ is a subterm of $\foxt$ 
+	(at some term position $p\in\posT(\foxt)$, such that $\foxt|_p = s$).
+	With a follow up statement $\foxt[s']$ in the same scope we express
+	the replacement of subterm $s$ with term $s'$ in $\foxt$, i.e.~the application of $\foxt[s']_p$. 
 \end{definition}
