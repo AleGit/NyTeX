@@ -23,7 +23,7 @@
 \end{definition}
 \begin{definition}
 	
-	We define the set of {\myem term positions} in an atom or a term recursively,
+	We define the set of {\myem positions} in an atom or a term recursively,
 	\DEFINE{ 
 		\pos(\foxt) }
 	{
@@ -39,8 +39,8 @@
 		%		
 %		{\colG\pdfmarkupcomment[markup=StrikeOut,color=red,author=ALM]{
 %			\{ \epsilon \} \cup}{}}
-		\bigcup_{i=1}^{n} \{ iq\mid q\in\pos(t_i) \}
-		&	\text{if }\foxt=\mP(t_1,\ldots,t_n), \mP\in\mcFPn
+		\{ \epsilon \} \cup\, \bigcup_{i=1}^{n} \{ iq\mid q\in\pos(t_i) \}
+		&	\text{if }\foxt=\mP(t_1,\ldots,t_n), \mP\in\mcFPn\text{ or }\foxt=t_1\mEQ t_2
 		\\[0.5em]
 		%		
 %		{\colG\xcancel{\{ \epsilon \}\, \cup }}\{ 1q \mid q\in\pos(t_1) \} \cup \{ 2q \mid q\in\pos(t_2) \}	
@@ -49,10 +49,20 @@
 %		{\colG\pdfmarkupcomment[markup=StrikeOut,color=red,author=ALM]{
 %			\{ \epsilon \} \cup}{}}
 %		\{ 1q \mid q\in\pos(t_1) \} \cup \{ 2q \mid q\in\pos(t_2) \}	
-		\bigcup_{i=1}^{2} \{ iq\mid q\in\pos(t_i) \}
-		&	\text{if }\foxt=t_1\mEQ t_2
+%		\{ \epsilon \} \cup\, \bigcup_{i=1}^{2} \{ iq\mid q\in\pos(t_i) \}
+%		&	\text{if }\foxt=t_1\mEQ t_2
 	}
-	the extraction of a subterm at a term position $p\in\pos(\foxt)$ from an atom or a term,
+	the set of {\myem term positions} in an atom or a term,
+	\DEFINE{
+		\posT(\foxt)
+	}{ 
+		\pos(\foxt) 
+		& \text{if }\foxt\text{ is a term}
+		\\
+		\pos(\foxt) \setminus \{ \epsilon \}
+		& \text{if }\foxt\text{ is an atom}
+	} 
+	the extraction of a subterm at a term position $p\in\posT(\foxt)$ from an atom or a term,
 %	
 	\DEFINE{
 		\foxt|_p
@@ -61,7 +71,7 @@
 		\foxt_i|_q	& \text{if }t=\foxf(t_1,\ldots,t_n), p=iq, \foxf\in\mcFn
 	}
 	%
-	and the insertion of a term $s$ at a term position $p\in\pos(\foxt)$ into an atom or a term
+	and the insertion of a term $s$ at a term position $p\in\posT(\foxt)$ into an atom or a term
 	by replacing the subterm at that term position.
 	\DEFINE{
 		\foxt[s]_p}

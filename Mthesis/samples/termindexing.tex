@@ -121,15 +121,15 @@ node[pos=0.85, above] {maybe} (10.5,0.15) ;
 
 %%
 
-\begin{definition}{Term Indexing}
-	Data structures and algorithms for fast retrieval of matching terms.
+\begin{definition}[Term Indexing]
+	Term indexing is about data structures and algorithms for fast retrieval of matching terms.
 \end{definition}
 
 
 \subsection{Position}
 
 %+ POSITION/Normalization
-\begin{example}{Variables (Normaalization)}
+\begin{example}{Variable normalisation}
 	Variants of terms generate the same position strings
 	\begin{itemize}
 		\item if variable names are ignored 
@@ -157,13 +157,13 @@ node[pos=0.85, above] {maybe} (10.5,0.15) ;
 
 
 %+ POSITION/PositionStrings + Term traversals
-\begin{definition}[Position Strings]
+\begin{definition} We define the set of {\myem position strings}
 	\begin{gather*}
-	\PosStr(t) =  
+	\posS(t) =  
 	\begin{cases}
 	\{ \ANGLES{\epsilon,x} \} 
 	& \text{if }t=x\in\SIGV \\
-	\{ \ANGLES{\epsilon, f} \} \cup \{ \ANGLES{ip,s}\mid \ANGLES{p,s} \in\PosStr(t_i)\} 
+	\{ \ANGLES{\epsilon, f} \} \cup \{ \ANGLES{ip,s}\mid \ANGLES{p,s} \in\posS(t_i)\} 
 	&\text{if }t=f(t_1,\ldots,t_n)
 	\end{cases}
 	\end{gather*}
