@@ -160,8 +160,24 @@ We state satisfiability and validity of arbitrary first order formulae or sets o
 \subsection{Equivalence and Equisatisfiability}
 
 \begin{definition}[Entailment]
+	A finite sequence of formulae $\Delta = F_1, \ldots F_n$ entail a formula $G$
+	if this formula holds in any interpretation (and in the presence of free variables for any assignment) 
+	where each formula of the sequence holds. 
+	\begin{gather*}
+	\Delta \entails G
+	\end{gather*}
 	
 \end{definition}
+
+\begin{lemma}
+	We can easily see that not satisfiable $F\land\lnot F$ entails every formula,
+	that valid $F\lor\lnot F$ is entailed by every sequence, further that
+	\begin{align*}
+	\Delta, F&\entails G  &\text{if an only if} && \Delta &\entails \lnot F\lor G \\
+	F_1,\ldots,F_n&\entails G  &\text{if an only if} && F_1\land\ldots\land F_n&\entails G
+	\end{align*} 
+	by the defintions for semantics and entailment.\hfill$\Box$
+\end{lemma}
 
 \begin{definition}[Equivalence]
 \end{definition}
@@ -240,6 +256,8 @@ Hence we state useful definitions to deal with this situation and demonstrate th
 \section{Term Rewriting}\label{sec:termrewriting}
 
 
+
+
 \begin{definition}\label{def:rewriterule}
 	A {\myem rewrite rule} is an equation of terms where the left-hand side is not a variable
 	and the variables occuring in the right-hand side occur also in the left-hand side.
@@ -251,6 +269,11 @@ Hence we state useful definitions to deal with this situation and demonstrate th
 	$(\ell\rightarrow r)\varrho := \ell\varrho\rightarrow r\varrho = l'\rightarrow r'$.
 	A {\myem term rewrite system} is a set of rewrite rules without variants.
 \end{definition}
+
+Although we use the the same symbol for implications $F\limp G$ between first order formulae 
+and rewrite rules $s\rwStep t$ or rewrite steps $s'\rwStep_\mcR t$ between first order terms,
+there will not arise any ambiguity for the reader about the role of the symbol.
+
 %
 \begin{definition}
 	We say $s\rightarrow_\mcR t$ is a 
