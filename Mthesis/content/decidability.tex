@@ -320,17 +320,18 @@ The following equivalence and congruence axioms form the theory of equality over
 %\end{remark}
 %
 \begin{lemma}\label{lemma:equivalence:congruence}
-Equivalence and congruence of equality are provable by Natural Deduction (see Section \vref{sec:natural:deduction}).\end{lemma}
+The equivalence and congruence axioms of equality are provable with natural deduction (see Section \vref{sec:natural:deduction}).\end{lemma}
 \begin{proof}
-	For brevity we skip the quantifier introductions for symmetry, transitivity, and congruence.
+	For brevity we skip the quantifier introductions (and handle variables like constants) 
+	for symmetry, transitivity, and congruence.
 	Additionally we just show congruence for a unary function and a unary predicate symbol.
 	\begin{gather*}
 \begin{BMAT}{rcrclccl}{cc}
-1 && x_0 && x_0=x_0 	& && {=}i\\
-2 && 	 &&	\forall x\,(x=x)	& && \forall{}i,1
+1 && \mc_0 && \mc_0=\mc_0 	& && {=}i\\
+2 && 	 &&	\forall x\,(x=x)	& && \forall{}i,1,\{x\mapsto\mc_0\}
 \addpath{(2,1,1)rrrrulllld}
 \end{BMAT}
-\\
+\\[0.7em]
 \begin{BMAT}{rcrclccl}{ccccccc}
 1 && && y = y   & && {=}i\\
 2 && && x = y	& && \texttt{assume}\\
@@ -342,16 +343,7 @@ Equivalence and congruence of equality are provable by Natural Deduction (see Se
 \addpath{(2,1,1)rrrruuuuullllddddd}
 \addpath{(3,2,1)rruuullddd}
 \end{BMAT}
-\qquad
-\begin{BMAT}{rcrclccl}{ccccc}
-1 &&     && x=y\land y=z 	& && \texttt{assume}\\
-2 && 	 &&	y=z	& && \land{}e_2 \\
-3 && 	 &&	x=y	& && \land{}e_1, 2 \\
-4 && 	 &&	x=z	& && {=}e,2,3 \\
-5 && 	 &&	x=y\land y=z\limp x=z	& && {\limp}i,2{-}4 
-\addpath{(2,1,1)rrrruuuulllldddd}
-\end{BMAT}
-\\
+\hspace{5em}
 \begin{BMAT}{rcrclccl}{ccccccc}
 1 && && \mf(y) = \mf(y)   & && {=}i\\
 2 && && x = y	& && \texttt{assume}\\
@@ -363,7 +355,16 @@ Equivalence and congruence of equality are provable by Natural Deduction (see Se
 \addpath{(2,1,1)rrrruuuuullllddddd}
 \addpath{(3,2,1)rruuullddd}
 \end{BMAT}
-\qquad
+\\[0.7em]
+\begin{BMAT}{rcrclccl}{ccccc}
+1 &&     && x=y\land y=z 	& && \texttt{assume}\\
+2 && 	 &&	y=z	& && \land{}e_2 \\
+3 && 	 &&	x=y	& && \land{}e_1, 2 \\
+4 && 	 &&	x=z	& && {=}e,2,3 \\
+5 && 	 &&	x=y\land y=z\limp x=z	& && {\limp}i,2{-}4 
+\addpath{(2,1,1)rrrruuuulllldddd}
+\end{BMAT}
+\hspace{3em}
 \begin{BMAT}{rcrclccl}{ccccc}
 1 && && x = y	& && \texttt{assume}\\
 2 && &&	\mP(x)	& && \texttt{assume}\\

@@ -3,9 +3,16 @@
 % !TeX spellcheck = en_US
 
 \begin{definition}\label{def:natural:deduction}
-	The rules of {\myem natural deduction} as n Tables 
+	We recall the rules of {\myem natural deduction} in Tables 
 	\ref{tab:natural:deduction:connectives}, \ref{tab:natural:deduction:equality}, 
-	and \ref{tab:natural:deduction:quantifiers} describe are a formal proof system or logical calculus for first order logic.
+	and \ref{tab:natural:deduction:quantifiers} which provide a logical calculus, 
+	i.e.~a formal proof system for first order logic. 
+	With conditions
+	$\fvar(F)\cup\fvar(G) = \emptyset$, 
+	$\fvar(F') = \{ x \}$,
+	$\var(s) \cup \var(t)\subseteq \bvar(F')$, and 
+	$\var(u) = \emptyset$
+	for occurring variables we ensure that we only can prove sentences, i.e.~formulae without free variables.
 
 \begin{table}[hbt]
 \begin{gather*}
@@ -60,28 +67,12 @@
 \caption{Natural Deduction Rules for Connectives}
 \label{tab:natural:deduction:connectives}
 \end{table}
-%\begin{itemize}
-%	\item[($\land i$)] If $F$ and $G$ hold we may introduce the conjunction $F\land G$.
-%	\item[($\land e$)] If $F \land G$ holds we may eliminate the conjunction and keep $F$ or $G$.
-%	\item[($\lnot\lnot$)] We may introduce or eliminate double negation at any time.
-%	\item[($\bot e$)] Ex falso sequitur quodlibet. 
-%	\item[($\lnot e$)] Whenever $F$ and $\lnot F$ hold then we can introduce the contradiction.
-%	\item[(LEM)] Tertium non datur. Law of excluded middle.
-%	\item[($\lor i$)] If $F$ or $G$ hold we may introduce the disjunction $F\lor G$.
-%	\item[($\lnot i$)] If we assume $F$ and conclude the contradiction, then we can introduce $\lnot F$.
-%	\item[(PBC)] Proof by contradiction. If we assume $\lnot F$ and conclude the contradiction, then we can introduce $F$.
-%	$(\lnot i,\lnot\lnot e)$. 
-%	\item[($\limp i$)] If we assume $F$ and conclude $G$, then we can introduce the implication $F\limp G$.
-%	\item[($\lor e$)] If $F\lor G$ holds and H is a conclusion of F, and H is a conclusion of G, then we can introduce $H$.
-%	\item[(MP)] If $F$ and the implication $F\limp G$ hold, then we can introduce $G$.
-%	\item[(MT)] If $\lnot G$ and the implication $F\limp G$ hold, then we can introduce $\lnot F$.
-%\end{itemize}
 
 \begin{table}[hbt]
 	\begin{gather*}
-	\infer[({=}i)]{t=t}{}
+	\infer[({=}e)]{F'\{x\mapsto t\}}{s=t & F'\{x\mapsto s\}}
 	\qquad
-	\infer[({=}e)]{F\{x\mapsto t\}}{s=t & F\{x\mapsto s\}}
+	\infer[({=}i)]{u=u}{}
 	\end{gather*}
 	\caption{Natural Deduction Rules for Equality}
 	\label{tab:natural:deduction:equality}
@@ -90,21 +81,21 @@
 \begin{table}[hbt]
 	\begin{gather*}
 	\begin{array}{ccc}
-	\infer[(\forall e)]{F\{x\to t\}}{
-		\forall x F
+	\infer[(\forall e)]{F'\{x\to t\}}{
+		\forall x F'
 	}
 	&&
-		\infer[(\exists i)]{\exists x F}{
-		F\{x\mapsto x_0 \}
+		\infer[(\exists i)]{\exists x F'}{
+		F'\{x\mapsto t \}
 	}
 	\\[1em]
-	\infer[(\forall i)]{\forall x F}{
-		\boxed{\begin{array}{cc}x_0\\&\vdots\\&F\{x\mapsto x_0\}\end{array}}
+	\infer[(\forall i)]{\forall x F'}{
+		\boxed{\begin{array}{cc}t\\&\vdots\\&F'\{x\mapsto t\}\end{array}}
 	}
 	&&
 	\infer[(\exists e)]{H}{
-		\exists x F &
-		\boxed{\begin{array}{cc}x_0&F\{x\mapsto x_0 \}\\&\vdots\\&H\end{array}}
+		\exists x F' &
+		\boxed{\begin{array}{cc}t&F'\{x\mapsto t \}\\&\vdots\\&H\end{array}}
 	}
 	\end{array}
 	\end{gather*}

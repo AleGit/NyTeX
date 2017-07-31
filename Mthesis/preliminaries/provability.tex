@@ -4,14 +4,68 @@
 
 \subsection{Provability}
 
-In general a proof may be a finite sequence of proof steps from premises via intermediate statements to a final, i.e.~the proven statement. 
-A formal proof system is a collection of rules, that describes permissible proof steps  mostly in the same terminology as the to be proven statements.
-\IMPROVE
+In general a proof may be a finite sequence of proof steps 
+from none or some premises via intermediate statements 
+to a final, the then proven statement. 
+A formal proof system or logical calculus describes admissible basic proof steps 
+in the underlying logic of the statements, in our case first order logic.
+A formal proof comprises only proof steps confirmed by rules of the applied logical calculus.
 
 
 \input{definitions/NaturalDeduction}
 
 
 
-\begin{definition}\IMPROVE A sentence in first order logic is provable if their exists a proof in a formal proof system for first order logic.
+\begin{definition}A sentence in first order logic is provable 
+	if their exists a proof in a formal proof system for first order logic, e.g. natural deduction.
+	We write
+	$F_1, \ldots, F_n \proves G$
+	when we can prove G from premisis $F_1,\ldots,F_n$.
 \end{definition}
+
+
+\begin{example}We prove $\forall x (\mP(x)\land\lnot\mQ(x)) \proves \forall x(\lnot\mQ(x)\land\mP(x))$ with natural deduction.
+	\begin{gather*}
+%	\infer[\forall i]
+%	{
+%		\forall x( \lnot\mQ(x) \land \mP(y))
+%	}
+%	{
+%		\infer[\land i]
+%		{ \lnot\mQ(\mc) \land \mP(\mc) }
+%		{
+%			\infer[\land e_1]
+%			{\mQ(\mc)} 
+%			{ 
+%				\infer[\forall e]
+%				{ \mP(\mc)\land\lnot\mQ(\mc)}
+%				{ \forall x (\mP(x)\land\lnot\mQ(x)) }
+%			}
+%			&
+%			\infer[\land e_2]
+%			{\mP(\mc)}
+%			{ \colG
+%				\infer[\forall e]
+%				{ \mP(\mc)\land\lnot\mQ(\mc)}
+%				{ \forall x (\mP(x)\land\lnot\mQ(x)) }
+%			}
+%		}
+%	}
+%\\
+%
+\begin{BMAT}{rcrclccl}{cc}
+1 && 		&& \forall x(\mP(x)\land\lnot\mQ(x)) 	& && \text{premise}\\
+2 && \mc_0 	&& 										& && 1, {\forall}e\\
+3 && 	 	&& \mP(\mc)\land\lnot\mQ(\mc)			& && 1, {\forall}e\\
+4 && 		&& \lnot\mQ(\mc) 						& && 3, \land e_1\\
+5 && 		&& \mP(\mc) 							& && 3, \land e_2\\
+6 &&		&& \lnot\mQ(\mc)\land\mP(\mc) 			& && 4-5, \land i\\
+7 && 	 	&&	\forall x(\lnot\mQ(x)\land\mP(x))	& && 2-6, \forall i
+\addpath{(2,1,1)rrrruuuuullllddddd}	
+%
+\end{BMAT}
+%
+%
+\end{gather*}
+%
+\end{example}
