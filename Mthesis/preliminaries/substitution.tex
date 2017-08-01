@@ -7,18 +7,22 @@
 
 \begin{definition}\label{def:substitution}
 	A {\myem substitution} $\sigma$ is a mapping from variables $x\in\mcV$ to terms in $\mcTFfV$
-	where the {\myem domain }$\domain(\sigma) = \{ x\in\mcV\mid\sigma(x) \neq x \}$ is finite.
+	where {\myem domain }$\domain(\sigma) = \{ x\in\mcV\mid\sigma(x) \neq x \}$ 
+	and image $\image(\sigma) =\{ \sigma(x) \mid x\in V, \sigma(x)\neq x \}$ are finite.
 	We write substitutions as bindings, e.g.~$\sigma=\{ x_1\mapsto s_1,\ldots,x_n\mapsto s_n \}$
 	where $\domain(\sigma)=\{ x_1,\ldots,x_n \}$ and $\sigma(x_i)=s_i$.
 	A {\myem variable substitution} is a mapping from $\mcV$ to $\mcV\subseteq\mcTFfV$.
 	A {\myem renaming} is a bijective variable substitution.
-	A {\myem proper instantiator} is a substitution that is not a variable substitution.
+	A {\myem proper instantiator} is a substitution that is not a variable substitution 
+	(at least one variable is mapped to a non-variable term).
+\end{definition}
+\begin{definition}
 	We define the instance $\mct\sigma$ 
 	respectively the application of a substitution $\sigma$ to a literal or term $\foxt$ as follows
 	\DEFINE{
 		\foxt\sigma
 	}{
-			s_i 				& \text{if }\foxt=x_i\in\domain(\sigma)
+			s_i 				& \text{if }\foxt=x_i\in\domain(\sigma), \sigma(x_i) = s_i
 			\\
 			y					& \text{if }\foxt=y\in\mcV\,\backslash\domain(\sigma)
 			\\
@@ -29,18 +33,28 @@
 			 }
 
 \noindent Further we define the instance of a clause as the multiset of the instances of its literals.
+\end{definition}
 
 \begin{definition}
-	Let $F$ be a formula and $\sigma$ a substitution
-	where $\bvar(F)\cap\domain(\sigma) = \emptyset$. Then the application of the substitution to the formula is well defined.
+	We partially define the instance $F\sigma$ for a sentences $F$ and a substitution $\sigma$ as follows.
 	\DEFINE{
 		F\sigma
 	}
 {
-		\lnot(G\sigma) & \text{if }F = \lnot G\\
+		\lnot(G\sigma) & \text{if }F = \lnot G,\ \colG\domain(\sigma)\cap\fvar(G)=\emptyset\\
 		(G\sigma) * (H\sigma) & \text{if }F = G * H, *\in \{ \land, \lor, \limp \}\\
-		\quantify x(G\sigma) &\text{if }F = \quantify x G, \quantify\in\{ \forall,\exists \}\colG, x\not\in\domain(\sigma)
+		(G\sigma) &\text{if }F = \quantify x G, \quantify\in\{ \forall,\exists \}, x\not\in\bvar(G)
 	}
+\end{definition}
+
+\begin{definition}
+	Let $\quantify x G$ be a formula, $\sigma = \{ x\mapsto x'\}$, i.e~a variable renaming where $\domain(\sigma) = \{ x \}$, 
+	then the renaming of a quantified or bound variable is well defined.
+	\DEFINE{
+	}{
+		\quantify x'\, G\{ x\mapsto x'\}.
+}
+	
 \end{definition}
 
 
@@ -56,7 +70,7 @@
 \end{remark}
 
 
-\end{definition}
+
 %\footnotetext{We use prefix and infix notation interchangable, e.g.
 %${\mEQ}(s,t)$ represents the same equation as $s\mEQ t$.}
 

@@ -53,19 +53,24 @@ A formal proof comprises only proof steps confirmed by rules of the applied logi
 %	}
 %\\
 %
-\begin{BMAT}{rcrclccl}{cc}
-1 && 		&& \forall x(\mP(x)\land\lnot\mQ(x)) 	& && \text{premise}\\
-2 && \mc_0 	&& 										& && 1, {\forall}e\\
-3 && 	 	&& \mP(\mc)\land\lnot\mQ(\mc)			& && 1, {\forall}e\\
-4 && 		&& \lnot\mQ(\mc) 						& && 3, \land e_1\\
-5 && 		&& \mP(\mc) 							& && 3, \land e_2\\
-6 &&		&& \lnot\mQ(\mc)\land\mP(\mc) 			& && 4-5, \land i\\
-7 && 	 	&&	\forall x(\lnot\mQ(x)\land\mP(x))	& && 2-6, \forall i
+\begin{BMAT}{rcrclccl}{ccccccccc}
+1 && 		&& \forall x(\mP(x)\land\lnot\mQ(x)) 	& && \texttt{premise}\\
+2 && \mc 	&& 										& && \\
+3 && 	 	&& \mP(\mc)\land\lnot\mQ(\mc)			& && 1: {\forall}e\\
+4 && 		&& \lnot\mQ(\mc) 						& && 3: \land e_1\\
+5 && 		&& \mP(\mc) 							& && 3: \land e_2\\
+6 &&		&& \lnot\mQ(\mc)\land\mP(\mc) 			& && 4+5: \land i\\
+7 && 	 	&&	\forall x(\lnot\mQ(x)\land\mP(x))	& && 2-6: \forall i
 \addpath{(2,1,1)rrrruuuuullllddddd}	
-%
 \end{BMAT}
-%
-%
 \end{gather*}
+We note our premise (1), we open a box and assume an arbitrary constant (2), 
+we create a ground instance of our premise with quantifier elimination and the constant (3),
+we extract the literals with both variants of conjunction elimination (4, 5),
+we introduce a conjunction of the ground literals (6),
+and close the box to introduce the universal quantified conjunction (7).
+
+
+
 %
 \end{example}

@@ -13,6 +13,15 @@
 	and arbitrary terms $t_1,\ldots,t_n$.
 \end{definition}
 
+\begin{definition}\label{def:term:vars}\label{def:term:ground}
+	We define the set of variables of a first order term $t$ as follows:
+	\DEFINE{\var(t)} {
+		\{ x \} & \text{if } t = x \in \mcV \\
+		\bigcup_{i=1}^n \var(t_i) & \text{if }  t = \mf(t_1, \ldots t_n)
+	}
+	The term is {\myem ground} if it does not contain any variables, i.e.~$\var(t) = \emptyset$.
+\end{definition}
+
 \begin{definition}
 	For an unary function symbol $\mg\in\mcFfn[1]$, a natural number
 	$i\in\mathbb{N}$, and an arbitrary term $t\in\mcTf$ we introduce the notation $\mg^i(t)$ defined as follows:
