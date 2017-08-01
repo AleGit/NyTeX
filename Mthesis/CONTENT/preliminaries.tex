@@ -179,16 +179,17 @@ We state satisfiability and validity of arbitrary first order formulae or sets o
 	by the defintions for semantics and entailment.\hfill$\Box$
 \end{lemma}
 
-\begin{definition}[Equivalence]
+\begin{definition}[Equivalence] $F \equival G$
 \end{definition}
 
-\begin{definition}[Equisatisfiability]
+\begin{definition}[Equisatisfiability] $F \equisat G$
 \end{definition}
 
 
-\begin{example}
-	The set of clauses $\{\,\mP(x, \mf(x))\,\}$ is equisatisfiable 
-	to the sentence $\forall x\exists y(\mP(x,y))$.
+\begin{example}We can relate sets of clauses to sentences
+	\[
+	\{\,\mP(x, \mf(x)),\,\mQ(y,\ma)\,\} \equisat \forall x\exists y(\mP(x,y)) \land \exists a\forall y(\mQ(y,a)) .
+	\]
 \end{example}
 
 
