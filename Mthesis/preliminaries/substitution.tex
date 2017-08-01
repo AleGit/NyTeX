@@ -36,12 +36,12 @@
 \end{definition}
 
 \begin{definition}
-	We partially define the instance $F\sigma$ for a sentences $F$ and a substitution $\sigma$ as follows.
+	We partially define the instance $F\sigma$ for a sentence $F$ and a substitution $\sigma$ as follows.
 	\DEFINE{
 		F\sigma
 	}
 {
-		\lnot(G\sigma) & \text{if }F = \lnot G,\ \colG\domain(\sigma)\cap\fvar(G)=\emptyset\\
+		\lnot(G\sigma) & \text{if }F = \lnot G\\
 		(G\sigma) * (H\sigma) & \text{if }F = G * H, *\in \{ \land, \lor, \limp \}\\
 		(G\sigma) &\text{if }F = \quantify x G, \quantify\in\{ \forall,\exists \}, x\not\in\bvar(G)
 	}

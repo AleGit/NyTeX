@@ -60,8 +60,27 @@ We may denote $\mcF(F)$ for the implicit signature of an formula $F$.
 \begin{definition}\label{def:fof:closed}\label{def:fof:sentence}
 	A first order formula is closed, i.e.~a first order {\myem sentence}, 
 	if it does not contain free variables -- all occurring variables are bound.
-	A quantifier free sentence is ground.
+%	A quantifier free sentence is ground. 
+	Additionally we assume for any sentence 
+	that each variable is bound exactly once, 
+	but occurs as free variable in a subformula, 
+	or more formally
+	\begin{align*}
+	&x\in\fvar(G), x\not\in\bvar(G)& \text{if }&F \in\{\, \forall x\,G, \exists x\,G\,\}
+	 \\
+	&\bvar(G)\cap\bvar(H)=\emptyset& \text{if }&F \in\{\,G\land H,G\lor H,G\limp H\,\}
+	\end{align*}
 \end{definition}
+
+\begin{example}
+	\[
+	\begin{array}{clcl}
+		\forall x ({\mP(x) \lor \forall x {\mQ(x)}}) && \forall x ({\mP(x) \lor \forall y {\mQ(y)}}) &  \checkmark\\
+		(\forall x {\mP(x)}) \lor (\forall x {\mQ(x)}) & & (\forall x {\mP(x)}) \lor (\forall y {\mQ(y)}) & \checkmark
+	\end{array}
+	\]
+	
+\end{example}
 
 \begin{definition}[\PNF]
 	A first order sentence $F = \quantify_1 x_1 \ldots \quantify_n x_n\, G$ 
