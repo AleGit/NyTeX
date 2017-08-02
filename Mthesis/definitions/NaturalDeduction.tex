@@ -2,17 +2,14 @@
 % !TeX encoding = UTF-8
 % !TeX spellcheck = en_US
 
-\begin{definition}\label{def:natural:deduction}
-	We recall the rules of {\myem natural deduction} in Tables 
+\begin{definition}[\cite{Huth:2004:LCS:975331}]\label{def:natural:deduction}
+	We recall the rules of {\myem natural deduction}  in Tables 
 	\ref{tab:natural:deduction:connectives}, \ref{tab:natural:deduction:equality}, 
 	and \ref{tab:natural:deduction:quantifiers} which provide a logical calculus, 
 	i.e.~a formal proof system for first order logic. 
-	With conditions
-	$\fvar(F)\cup\fvar(G) = \emptyset$, 
-	$\fvar(F') = \{ x \}$,
-	$\var(s) \cup \var(t)\subseteq \bvar(F')$, and 
-	$\var(u) = \emptyset$
-	for occurring variables we ensure that we only can prove sentences, i.e.~formulae without free variables.
+	The formulae $F$ and $G$ in these rules are sentences, 
+	the bound variable in  $\forall x F'$ occurs free in $F'$, 
+	and terms $s$ and $t$ are ground.
 
 \begin{table}[hbt]
 \begin{gather*}
@@ -72,7 +69,7 @@
 	\begin{gather*}
 	\infer[({=}e)]{F'\{x\mapsto t\}}{s=t & F'\{x\mapsto s\}}
 	\qquad
-	\infer[({=}i)]{u=u}{}
+	\infer[({=}i)]{t=t}{}
 	\end{gather*}
 	\caption{Natural Deduction Rules for Equality}
 	\label{tab:natural:deduction:equality}

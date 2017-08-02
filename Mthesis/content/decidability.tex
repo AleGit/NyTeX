@@ -26,22 +26,10 @@ After that we look at decidable first-order theories in Section \ref{sec:decidab
 which are not necessarily expressible 
 in one of the syntactically describable and decidable fragments of first-order logic.
 
-\section{\gls{Natural Deduction}}
-\label{sec:natural:deduction}
 
-In natural deduction \cite{Huth:2004:LCS:975331}
-we start with a (possible empty) set of formulae -- the premises -- 
-and infer other formulae -- the conclusions -- by using syntactic proof rules from Tables 
-\ref{tab:natural:deduction:connectives}, 
-\ref{tab:natural:deduction:equality}, 
-and \ref{tab:natural:deduction:quantifiers} in the appendix.
-The letters $F$ and $G$ in these rules represent arbitrary first-order formulae 
-as defined in Definition \vref{def:syntax:FOF}. 
-We open a box when we assume something, e.g.~that $F$ holds. 
-We close the box when we discard the assumption. 
-With $F_1,\ldots,F_n \proves H$ we claim that formula $H$ 
-is in the transitive closure of inferable formulae from $\{ F_1,\ldots,F_n\}$.
-(you find examples to the natural deduction proofs to Lemma \vref{lemma:equivalence:congruence}).
+\section{Theorems of First Order Logic}\label{sec:decidable:fol:theorems}
+
+The purpose of this section is to state useful theorems about first-order logic.
 
 \begin{theorem}[Soundness]
 	The inference rules of natural deduction are sound.
@@ -51,12 +39,8 @@ is in the transitive closure of inferable formulae from $\{ F_1,\ldots,F_n\}$.
 	We proove the soundness of each inference rule by case distinction and the use of the semantic definition of validity.
 \end{proof}
 
-\section{Theorems of First Order Logic}\label{sec:decidable:fol:theorems}
-
-The purpose of this section is to state useful theorems about first-order logic.
-
 \begin{theorem}[Completeness, Gödel 1929]
-	Natural deduction (see above), a sound formal system, is complete.
+	Natural deduction as a sound formal proof system for first order logic is complete.
 \end{theorem}
 
 \begin{theorem}

@@ -157,30 +157,29 @@ We state satisfiability and validity of arbitrary first order formulae or sets o
 	and the interpretation of each ground term $t_\mcH := t$ is the term itself.
 \end{definition}
 
-\subsection{Equivalence and Equisatisfiability}
+\subsection{Transformations}
 
-\begin{definition}[Entailment]
-	A finite sequence of formulae $\Delta = F_1, \ldots F_n$ entail a formula $G$
-	if this formula holds in any interpretation (and in the presence of free variables for any assignment) 
-	where each formula of the sequence holds. 
-	\begin{gather*}
-	\Delta \entails G
-	\end{gather*}
-	
+\IMPROVE
+We now provide the basic defintions to transform sentences in suitable set of clauses.
+
+\begin{definition}[Equivalence]
+	A finite sequence of sentences $F_1, \ldots F_n \entails G$ entails a sentence
+	if $G$ holds in any shared model for all sentences in the sequence. 
+	Two sentences $F \equival G$ are equivalent  
+	if an only if the first sentence entails the second and vice versa.
 \end{definition}
 
 \begin{lemma}
 	We can easily see that not satisfiable $F\land\lnot F$ entails every formula,
 	that valid $F\lor\lnot F$ is entailed by every sequence, further that
 	\begin{align*}
-	\Delta, F&\entails G  &\text{if an only if} && \Delta &\entails \lnot F\lor G \\
-	F_1,\ldots,F_n&\entails G  &\text{if an only if} && F_1\land\ldots\land F_n&\entails G
+	\Delta, F&\entails G  &\text{if and only if} && \Delta &\entails \lnot F\lor G \\
+	F_1,\ldots,F_n&\entails G  &\text{if and only if} && F_1\land\ldots\land F_n&\entails G\\
+	F\land G&\equival G\land F &F\lor G\equival G\lor F && F\limp G &\equival \lnot F\lor \lnot G
 	\end{align*} 
-	by the defintions for semantics and entailment.\hfill$\Box$
+	by the defintions for semantics, entailment, and equivalence.\hfill$\Box$
 \end{lemma}
 
-\begin{definition}[Equivalence] $F \equival G$
-\end{definition}
 
 \begin{definition}[Equisatisfiability] $F \equisat G$
 \end{definition}

@@ -256,6 +256,8 @@ We consider only proper instances of an active and the given clause as probable 
 
 
 
+
+
 \section{Term Indexing}
 
 
@@ -266,17 +268,19 @@ We consider only proper instances of an active and the given clause as probable 
 
 
 
-The resolution based proving procedures generate (a lot of) clauses. 
-For each generated clause $\mcC_\mathtt{gen}$ we may have to find 
-existing variants, generalizations, or instances of $\mcC_\mathtt{gen}$ or in a more general view
-we want to find existing clauses that subsume $\mcC_\mathtt{gen}$ or are subsumed by $\mcC_\mathtt{gen}$ 
+In refutation theorem proving (a lot of) clauses are produced. 
+For each generated clause we may have to find 
+existing variants, generalizations, or instances of it. 
+In a more general view we want to find existing clauses 
+that subsume our clause or are subsumed by a our clause 
 to avoid logical redundancies in our set\footnote{
 	At least we might expect that by adding clauses 
 	that are syntactical identical to clauses already in the set 
 	we do not increase the cardinality of the set. 
 } of clauses.
-Last but not least we search for existing clauses that contain clashing literals to a literal in $\mcC_\mathtt{gen}$.
+Further we search for existing clauses that contain clashing literals to a literal in our clause.
 This search may be restricted by a given order (e.g.~Superposition) or a propositional model (e.g.~\InstGenEQ).
+Last but not least we may search for subterms in literals of existing clauses that matches a term in an equation.
 
 Naively we can just scan through all existing clauses and check each clause for the desired qualities. 
 	The workload for processing a generated clause is proportional to the number of existing clauses and 
