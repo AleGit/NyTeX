@@ -1,0 +1,56 @@
+% !TeX root = ../mthesis.tex
+% !TeX encoding = UTF-8
+% !TeX spellcheck = en_US
+
+\chapter{Theory}
+
+In the last chapter we have only enumerated some complete calculi but did not show any proofs.
+
+In this chapter we will present the proofs that InstGen-Eq is refuational complete.
+
+% \IMPROVE
+
+\section{Unit Paramodulation calculus}
+
+\cite{GK2004csl}
+
+\begin{definition}
+    A closure is a pair $(C,\sigma)$ of a clause $C$ and a substitution $\sigma$,
+    conveniently written as $C\cdot\sigma$. Two closures $C\cdot\sigma = D\cdot\tau$
+    are the same if $C$ is a variant of $D$ and $C\sigma$ is a variant of $D\tau$.
+    Note the different meaning of a closure $C\cdot\sigma$ representing a clause $C\sigma$.
+    A ground closure represents a ground clause.
+\end{definition}
+
+\begin{gather*}
+        \infer[\theta=\mgu(l,l')]
+        {L[r]\theta\cdot\rho}
+        {(l\mEQ r)\cdot\sigma & L[l']\cdot\sigma'}
+        \hspace{3cm}
+        \infer[\mu=\mgu(s,t)]
+        {\emptyclause}
+        {(s\mNE t)\cdot\tau}
+\end{gather*}
+where
+    $l\sigma\succ_{gr} r\sigma$,
+    $l\sigma = l'\sigma' = l'\theta\rho$,
+    $l'\notin\mcV$,
+    and
+    $s\tau = t\tau$.
+
+
+
+\begin{definition}
+    A set of clauses is Inst-saturated w.r.t a selection function if
+    $\emptyclause\notin\mcL_S^{sat}$.
+\end{definition}
+
+\begin{theorem}
+    If for a given set of clauses $S$
+    the set of ground instances $S\bot$ is satisfiable
+    and $S$ is Inst-saturated
+    with selection function $\sel_\bot$ based
+    on model $I_\bot$ for $S\bot$
+    then S is satisfiable.
+\end{theorem}
+
