@@ -11,8 +11,8 @@ It seems natural to expect decision procedures
 for decidable fragments of first order logic
 (Section \ref{sec:decidable:fol:fragments})
 and decidable first order theories (Section \ref{sec:decidable:fol:theories}),
-but we will see in simple examples that decision procedures automatically fall out
-from refutational completeness.
+but we will see in simple examples that decision procedures do not automatically
+fall out from refutational completeness.
 
 
 %An we judge the procedures by there theoretical performance on decidable fragments.
@@ -38,13 +38,15 @@ while in general there is no bound on the size of a smallest set of unsatisfiabl
 
 To actually prove a theorem
 we first make use of the fact that a first-order formula is valid if and only if its negation is unsatisfiable.
-Second we efficiently (Tseitin's transformation \cite{tseitin70}, \ldots) transform the negated formula into an {\myem equisatisfiable} set of clauses,
+Second we efficiently transform the negated formula into an {\myem equisatisfiable} set of clauses
+(e.g.~with Tseitin's transformation \cite{tseitin70}),
 i.e.~the formula is satisfiable if and only if the set of clauses is satisfiable.
 
 %This can be done efficiently with Skolemization \cite{books/el/RV01/Hahnle01} and Tseitin-transformation \cite{tseitin70, PLAISTED1986293} as shown in \cite{Nonnengart01computingsmall}.
 
-It would sufficient to just luckily guess an unsatisfiable set of ground instances.
-But usually instantiation based automated provers generate a sequence of growing sets ground instances
+It would be sufficient to just luckily guess an unsatisfiable set of ground instances.
+Usually instantiation based automated provers generate
+a sequence of growing sets of ground instances
 such that an unsatisfiable one will be found
 for an arbitrary unsatisfiable set of clauses
 eventually.
@@ -430,7 +432,7 @@ We have observed three main disadvantages in Gilmore's procedure.
 			form} (where satisfiability is a linear check)
 		would show that $\mathsf{SAT}$ in $\mcP$
 		%		$\mathsf{SAT}\in\mcP$
-		and $\mcP = \mcN\mcP$, which is still unknown.
+		and would prove $\mcP = \mcN\mcP$, which remains unknown.
 	}
 	blow up in the size of the formula
 	-- depending on the number of clauses $n$ in the set
@@ -529,7 +531,7 @@ but we treat it not different from an arbitrary binary predicate symbol with inf
 	\end{center}
 \end{definition}
 
-\begin{example}Modus tollens is a special case of resolution.
+\begin{example}Modus tollens is a special case of resolution ($F\limp G\equiv \lnot F\lor G$).
 	\begin{gather*}
 	\infer[\text{modus}\atop\text{tollens}]{\lnot F}{F\limp G & \lnot G}
 	\qquad
@@ -605,29 +607,29 @@ but we treat it not different from an arbitrary binary predicate symbol with inf
 We can easily notice disadvantages in resolution.
 
 \begin{enumerate}
-	\item If clauses contain more than two literals the resolution inference rule yields clauses with more literals than the sources,
-%	e.g.
-%	\begin{gather*}
-%		\infer[\{ x\mapsto\mf(y'), y\mapsto\mg(x') \}]
-%		{\mA(\mf(y'))\lor\mB(\mg(x')) \lor \mQ(x')\lor\mR(y'))}
-%		{\mP(x,y)\lor\mA(x)\lor\mB(y) & \lnot\mP(\mf(y'),\mg(x'))\lor\mQ(x')\lor\mR(y'))}
-%	\end{gather*}
-	which makes the next point even worser.
+	\item\label{enum:resolution:clauses:longer}
+	If clauses contain more than two literals the resolution inference rule
+	yields clauses with more literals than the sources.
 
-	\item For two clauses $\mcC$ with $c$ literals and $\mcD$ with $d$ literals
+	\item\label{enum:resolution:clauses:multiple}
+	For two clauses $\mcC$ with $c$ literals and $\mcD$ with $d$ literals
 	we have to check all pairings
 	of positive literals in $\mcC$
 	with negative literals in $\mcD$
 	and all pairing of negative literals in $\mcC$
 	with positive literals in $\mcD$ for clashing,
-	i.e.~in the worst case we have $c\times d$ pairs to check, see example \ref{ex:resolution:9a4}.
-	This workload can be reduced with ordered resolution, which we will present in Section \vref{sec:ordered:resolution}.
+	i.e.~in the worst case we have $c\times d$ pairs to check,
+	which makes disadvantage No.~\ref{enum:resolution:clauses:longer} even worse
+	(see example \ref{ex:resolution:9a4}).
+	This workload can be reduced with ordered resolution as presented in Section
+	\ref{sec:ordered:resolution}.
 
 	\item Resolution is sound but not complete in the presence of equality,
 	e.g.~we expect the set of clauses $\{
 		\mf(\ma) \mEQ \mc, \mP(\mc), \lnot\mP(\mf(\ma))
 	\}$ or even simpler the set with one clause $\{ \ma\mNE\ma \}$ to be unsatisfiable, but neither resolution nor factoring
-	are applicable. This can be addressed with equality axioms or equality inference rules as we will see in Section \vref{sec:proving:with:equality}.
+	are applicable. This can be addressed with equality axioms or equality inference rules
+	as presented in Section \ref{sec:proving:with:equality}.
 \end{enumerate}
 
 \begin{example}\label{ex:resolution:9a4}
@@ -1009,45 +1011,39 @@ but we can ensure that we find only desired models.
 \tag*{$S$}
 	\end{align*}
 	With ordered resolution we cannot infer new clauses from clauses in $S$.
-	But we can apply rules of ordered resolution to pairs of equality axioms and clauses.
+	But we can apply rules of ordered resolution to pairs of equality axioms and clauses,
+	although most derivations are ignorable.
 	\begin{align*}
-.\quad&
 \infer[\{x'\mapsto x, y'\mapsto x\}]
 {x \mEQ x}
 {{\colN x \mEQ x} & x' \mEQ y' \lor {\colN y' \mNE x'}}
 \tag*{$R,S\proves R$}
 \\
-.\quad&
 \infer[\{x'\mapsto x,y'\mapsto x \}]
 {x\mEQ z'\lor x\mNE z'  }
 {{\colN x \mEQ x} & x' \mEQ z' \lor {\colN x' \mNE y'} \lor {y'\mNE z'}}
 \tag*{$R,T\proves\true$}
 \\
-.\quad&
 \infer[\{y'\mapsto x, z'\mapsto x \}]
 {x'\mEQ x\lor x'\mNE x  }
 {{\colN x \mEQ x} & x' \mEQ z' \lor {x' \mNE y'} \lor {\colN y'\mNE z'}}
 \tag*{$R,T\proves\true$}
 \\
-.\quad&
 \infer[\{y\mapsto \msucc(x'), x\mapsto\msucc(y')\}]
 {\msucc(y')\mEQ\msucc(x')\lor x'\mNE y'}
 {x \mEQ y \lor {\colN y \mNE x} & {\colN \msucc(x') \mEQ \msucc(y')} \lor x'\mNE y'}
 \tag*{$S,C\proves C_S$}
 \\
-.\quad&
 \infer[\{x\mapsto\msucc(x'),y\mapsto\msucc(y')\}]
 {\msucc(x')\mEQ z\lor \msucc(y')\mNE z \lor x'\mNE y'}
 {x \mEQ z \lor {\colN x \mNE y} \lor {y\mNE z} & {\colN \msucc(x') \mEQ \msucc(y')} \lor x'\mNE y'}
 \tag*{$T,C\proves ?$}
 \\
-.\quad&
 \infer[\{y\mapsto\msucc(x'),z\mapsto\msucc(y')\}]
 {x\mEQ\msucc(y')\lor x\mNE\msucc(x')\lor x'\mNE y'}
 {x \mEQ z \lor {x \mNE y} \lor {\colN y\mNE z} & {\colN \msucc(x') \mEQ \msucc(y')} \lor x'\mNE y'}
 \tag*{$T,C\proves ?$}
 \\
-.\quad&
 \infer[\{x'\mapsto x, y'\mapsto y\}]
 {x\mNE y\lor x\mEQ y}
 {{\colN \msucc(x) \mEQ \msucc(y)} \lor x\mNE y & x' \mEQ y' \lor {\colN \msucc(x') \mNE \msucc(y')}}
@@ -1220,7 +1216,8 @@ we add specific equality inference rules for completeness.
 
 \subsubsection{Superposition}\label{sec:superposition}
 
-As in ordered resolution the unsatisfiability of a set of clauses in proven if and only if the empty clause can be derived.
+As in ordered resolution the unsatisfiability of a set of clauses is shown
+if and only if the empty clause can be derived. \MISSING{Proof of completeness Reference}
 
 
 \input{appendix/superposition}
@@ -1409,7 +1406,7 @@ S_{i+2} &= S_{i+1}\disjointunion \{\,
 \section{Roundup}
 
 \begin{tabular}{llllll}
-	Calculus & Equality & Exit condition & Implementations\\
+	Calculus & Equality & Exit condition & Implementation(s)\\
 	\hline
 	Gilmore & axioms & $S_i \equiv \bigvee\emptyclause$  & Gilmore\\
 	Resolution & axioms & $\emptyclause\in S_i$\\

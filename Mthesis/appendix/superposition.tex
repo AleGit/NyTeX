@@ -4,7 +4,7 @@
 
 %%%
 \begin{definition}\label{def:superposition-calculus}
-	Let $A,B$ be predicates (i.e. no equations),
+	Let $A,B$ be predicates (not equations),
 	$\mcC,\mcC',\mcD$ clauses, and $s,s', t,u,v$ terms.
 	The {\myem superposition calculus} includes the following inference rules
 	\begin{itemize}
@@ -22,11 +22,11 @@
 		{(A \lor \mcC')\sigma}
 		{{ A}\lor B\lor\mcC}
 		\end{gather*}
-		where unifier $\sigma=\mgu(A,B)$ exists, 
+		where unifier $\sigma=\mgu(A,B)$ exists,
 		instance $A\sigma$ is \txtSTRICTLY in $\mcC\sigma$,
 		and	instance $\lnot B\sigma$ is \txtMAXIMAL in $\mcD\sigma$.
 			%
-		\item paramodulation
+		\item ordered paramodulation
 		\begin{gather*}
 		\infer
 		[\mathsf{()}]
@@ -38,8 +38,8 @@
 		{(\mcC\lor A[t]\lor\mcD')\,\sigma}
 		{{ s\mEQ t} \lor\mcC\quad { A[s']}\lor\mcD'}
 		%
-%		where unifier $\sigma=\mgu(s,s')$ exists, 
-%		$(s\mEQ t)\sigma$ {is strictly maximal} in $\mcC\sigma$, 
+%		where unifier $\sigma=\mgu(s,s')$ exists,
+%		$(s\mEQ t)\sigma$ {is strictly maximal} in $\mcC\sigma$,
 %		$\lnot A[s']$ { is maximal} in $\mcD\sigma$,
 %		$A[s']$ {is strictly maximal} in $\mcD'\sigma$;
 \end{gather*}
@@ -63,8 +63,8 @@
 		$(s\mEQ t)\sigma$ is \txtSTRICTLY in $\mcC\sigma$,
 		$\lnot A[s']$ and $u[s']\mNE v$ are \txtMAXIMAL in $\mcC\sigma$,
 		$A[s']$ and $u[s']\mEQ v$ are \txtSTRICTLY in $\mcD\sigma$,
-		$(s\mEQ t)\sigma\not\succcurlyeq(u[s']\mEQ v)\sigma$. 
-		\item 
+		$(s\mEQ t)\sigma\not\succcurlyeq(u[s']\mEQ v)\sigma$.
+		\item
 		equality resolution and equality factoring
 		\[
 		\infer
@@ -77,11 +77,11 @@
 		{(v\mNE s'\lor u\mEQ s'\lor\mcC')\sigma}
 		{{ u\mEQ v}\lor{s\mEQ s'}\lor\mcC'}
 		\]
-		where 
+		where
 		$\sigma=\mgu(s,s')$ exists,
 		$(s\mNE s')\sigma$ is \txtMAXIMAL in $\mcC$,
 		$(s\mEQ s')\sigma$ is \txtSTRICTLY in $\mcC'$,
-		$(s\mEQ s')\sigma\not\succcurlyeq(u\mEQ v)$. (????) 
+		$(s\mEQ s')\sigma\not\succcurlyeq(u\mEQ v)$. (????)
 	\end{itemize}
 	%
 \end{definition}
