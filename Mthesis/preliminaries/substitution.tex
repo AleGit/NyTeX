@@ -7,17 +7,17 @@
 
 \begin{definition}\label{def:substitution}
 	A {\myem substitution} $\sigma$ is a mapping from variables $x\in\mcV$ to terms in $\mcTFfV$
-	where {\myem domain }$\domain(\sigma) = \{ x\in\mcV\mid\sigma(x) \neq x \}$ 
+	where {\myem domain }$\domain(\sigma) = \{ x\in\mcV\mid\sigma(x) \neq x \}$
 	and image $\image(\sigma) =\{ \sigma(x) \mid x\in V, \sigma(x)\neq x \}$ are finite.
 	We write substitutions as bindings, e.g.~$\sigma=\{ x_1\mapsto s_1,\ldots,x_n\mapsto s_n \}$
 	where $\domain(\sigma)=\{ x_1,\ldots,x_n \}$ and $\sigma(x_i)=s_i$.
 	A {\myem variable substitution} is a mapping from $\mcV$ to $\mcV\subseteq\mcTFfV$.
 	A {\myem renaming} is a bijective variable substitution.
-	A {\myem proper instantiator} is a substitution that is not a variable substitution 
+	A {\myem proper instantiator} is a substitution that is not a variable substitution
 	(at least one variable is mapped to a non-variable term).
 \end{definition}
 \begin{definition}
-	We define the instance $\mct\sigma$ 
+	We define the instance $\mct\sigma$
 	respectively the application of a substitution $\sigma$ to a literal or term $\foxt$ as follows
 	\DEFINE{
 		\foxt\sigma
@@ -26,7 +26,7 @@
 			\\
 			y					& \text{if }\foxt=y\in\mcV\,\backslash\domain(\sigma)
 			\\
-			\foxf(\foxt_1\sigma,\ldots,\foxt_n\sigma)	&\text{if }\foxt=\foxf(\foxt_1,\ldots,\foxt_n) 
+			\foxf(\foxt_1\sigma,\ldots,\foxt_n\sigma)	&\text{if }\foxt=\foxf(\foxt_1,\ldots,\foxt_n)
 			\text{ where  }
 			 \foxf\in\mcFn \\
 			 \lnot (A\sigma) &\text{if }\foxt = \lnot A, \text{ where } A\text{ is an atom}
@@ -43,29 +43,33 @@
 {
 		\lnot(G\sigma) & \text{if }F = \lnot G\\
 		(G\sigma) * (H\sigma) & \text{if }F = G * H, *\in \{ \land, \lor, \limp \}\\
-		(G\sigma) &\text{if }F = \quantify x G, \quantify\in\{ \forall,\exists \}, x\not\in\bvar(G)
+		\quantify x(G\sigma) &\text{if }F = \quantify x G,
+		\quantify\in\{ \forall,\exists \},
+		x\not\in\domain(\sigma)\tag{\IMPROVE}
+		% x\not\in\bvar(G)
 	}
 \end{definition}
 
 \begin{definition}
-	Let $\quantify x G$ be a formula, $\sigma = \{ x\mapsto x'\}$, i.e~a variable renaming where $\domain(\sigma) = \{ x \}$, 
+	Let $\quantify x G$ be a formula, $\sigma = \{ x\mapsto x'\}$, i.e~a variable renaming where $\domain(\sigma) = \{ x \}$,
 	then the renaming of a quantified or bound variable is well defined.
 	\DEFINE{
+		(\quantify x G)
 	}{
-		\quantify x'\, G\{ x\mapsto x'\}.
+		\quantify x'\, G\{ x\mapsto x'\}
 }
-	
+
 \end{definition}
 
 
 %\begin{definition}
-%	Let $F = \quantify x G$ and $x \in\fvar(G)$ with $\quantify\in\{ \forall,\exists \}$ 
+%	Let $F = \quantify x G$ and $x \in\fvar(G)$ with $\quantify\in\{ \forall,\exists \}$
 %\end{definition}
 
 %%% F(x) formula with free variable x
-\begin{remark}[\OBSOLETE] 
+\begin{remark}[\OBSOLETE]
 	We write $F(x)$ for a clause or formula to express that $\fvar(F) \supseteq \{ x \}$
-	and we abbreviate $F(x)\{x\mapsto t\}$ with $F(t)$, i.e.~all occurrences 
+	and we abbreviate $F(x)\{x\mapsto t\}$ with $F(t)$, i.e.~all occurrences
 	of the first and only free variable in $F$ is substituted with term $t$.
 \end{remark}
 
@@ -79,7 +83,7 @@
 	e.g.~when clause $\mcD = \mcC\theta \lor \mcD'$ is a weakened instance of clause $\mcC$.
 \end{definition}
 %\begin{example}
-%	Trivially any clause $\mcC$ subsumes all its instances $\mcC\sigma$ or weakenings $\mcC\lor\mcD$. 
+%	Trivially any clause $\mcC$ subsumes all its instances $\mcC\sigma$ or weakenings $\mcC\lor\mcD$.
 %	Further $x\mEQ y$ subsumes $x\mEQ x \lor \mP(y)$.
 %\end{example}
 
@@ -99,38 +103,38 @@ We define the {\myem composition} of two substitutions $\sigma$ and $\tau$ as fo
 \end{lemma}
 
 \begin{proof}
-	Assume $\sigma$ and $\tau$ are substitutions. 
+	Assume $\sigma$ and $\tau$ are substitutions.
 	Then we use induction on the structure of the 	expression $\mct$
 	that the equation $(\mct\sigma)\tau =  \mct(\tau\sigma)$ holds in all possible cases.
 	\begin{itemize}
 		\item (base case) Let $\mct = x_i \in\domain(\sigma)$ then
 		$((x_i)\sigma)\tau\defEQ s_i\tau\defEQ x_i(\sigma\tau)$ holds.
-		
+
 		\item (base case) Let $\mct = y \not\in\domain(\sigma)$ then
-		$(y\sigma)\tau \defEQ y\tau \defEQ y(\sigma\tau)$ holds. 
-		
-		\item (step case) Let $\mct = \mcf(t_1,\ldots,t_n)$ 
+		$(y\sigma)\tau \defEQ y\tau \defEQ y(\sigma\tau)$ holds.
+
+		\item (step case) Let $\mct = \mcf(t_1,\ldots,t_n)$
 		then
 		$((\mcf(t_1,\ldots,t_n))\sigma)\tau
-		\defEQ 
+		\defEQ
 		(\mcf(t_1\sigma,\ldots,t_n\sigma))\tau
-		\defEQ 
+		\defEQ
 		\mcf((t_1\sigma)\tau,\ldots,(t_n\sigma)\tau)
 		\defEQ[IH]
 		\mcf(t_1(\sigma\tau),\ldots,t_n(\sigma\tau))
 		\defEQ
 		(\mcf(t_1,\ldots,t_n))(\sigma\tau)
 		$ holds.
-		
+
 		\item (step case) Let $\mct = \lnot A$ then
-		$((\lnot A)\sigma)\tau 
-		\defEQ 
-		(\lnot(A\sigma))\tau 
-		\defEQ 
+		$((\lnot A)\sigma)\tau
+		\defEQ
+		(\lnot(A\sigma))\tau
+		\defEQ
 		\lnot((A\sigma)\tau)
 		\defEQ[IH]
 		\lnot(A(\sigma\tau))
-		\defEQ 
+		\defEQ
 		(\lnot A)(\sigma\tau)
 		$ holds.
 	\end{itemize}

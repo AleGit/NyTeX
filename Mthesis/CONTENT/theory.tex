@@ -12,15 +12,58 @@ In this chapter we will present the proofs that InstGen-Eq is refuational comple
 
 \section{Unit Paramodulation calculus}
 
-\cite{GK2004csl}
+\cite{GK2004csl, NR2001}
+
 
 \begin{definition}
     A closure is a pair $(C,\sigma)$ of a clause $C$ and a substitution $\sigma$,
     conveniently written as $C\cdot\sigma$. Two closures $C\cdot\sigma = D\cdot\tau$
     are the same if $C$ is a variant of $D$ and $C\sigma$ is a variant of $D\tau$.
-    Note the different meaning of a closure $C\cdot\sigma$ representing a clause $C\sigma$.
+    Note the different meaning of a closure $C\cdot\sigma$ representing a clause $C\sigma$
+    -- the result of applying substitution $\sigma$ to $C$.
     A ground closure represents a ground clause.
 \end{definition}
+
+\begin{definition}
+    A substitution $\sigma$ is irreducible w.r.t.~TRS $R$
+    iff
+    $\image(\sigma)\subseteq\mNFR$,
+    i.e.~all terms $\sigma(x)$ with $x\in\domain(\sigma)$ are irreducible.
+\end{definition}
+
+\begin{definition}
+    Let $R$ be an arbitrary ground rewrite system and
+    let $\mcL$ be as set of literal closures.
+    We denote the set of literal closures with irreducible substitutions.
+    \begin{gather*}
+        \irred_R(\mcL)
+        =
+        \{
+            L\cdot\sigma \mid
+            L\cdot\sigma\in\mcL,
+            \sigma\text{ is irreducible w.r.t.~}R
+        \}
+    \end{gather*}
+\end{definition}
+
+\begin{definition}
+    Let $\succG$ a total simplification ordering on general ground terms.
+
+    We define an order $\succL$ on ground closures of literals
+    as an arbitrary total well-founded extension of $\succG$
+    such that
+    $L\cdot\sigma\succL L'\cdot\sigma'$ whenever
+    $L\sigma\succG L'\sigma'$.
+
+    We define an order $\succC$ on ground closures
+    as an arbitrary total well-founded extension of
+    $\succC'$ -- an inherently well-founded order defined as extension of $\succG$
+    such that
+    $C\cdot\succC' D\cdot\rho$ whenever
+    $C\sigma\succG D\rho'$ or $C\theta = D$ for an proper instantiater $\theta$.
+\end{definition}
+
+
 
 \begin{gather*}
         \infer[\theta=\mgu(l,l')]
@@ -32,7 +75,7 @@ In this chapter we will present the proofs that InstGen-Eq is refuational comple
         {(s\mNE t)\cdot\tau}
 \end{gather*}
 where
-    $l\sigma\succ_{gr} r\sigma$,
+    $l\sigma\succG r\sigma$,
     $l\sigma = l'\sigma' = l'\theta\rho$,
     $l'\notin\mcV$,
     and

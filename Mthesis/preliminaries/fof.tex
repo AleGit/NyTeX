@@ -3,25 +3,25 @@
 % !TeX spellcheck = en_US
 
 \begin{definition}[\index{FOF}\FOF]\label{def:syntax:FOF}
-	Atoms from the previous definition are {\myem first order formulae}.  
-	The universal quantification $(\forall x F)$ 
-	and the existential quantification $(\exists x F)$ 
+	Atoms from the previous definition are {\myem first order formulae}.
+	The universal quantification $(\forall x F)$
+	and the existential quantification $(\exists x F)$
 	of a first order formula are (quantified) first order formulae
 	with {\myem bound} variable $x\in\mcV$.
 	The negation $(\lnot F)$ of a first order formula
 	is a (composite) first order formula.
-	Further, the disjunction $(F \lor F')$, 
-	the conjunction $(F \land F') $, 
-	and the implication $(F \limp F')$ 
+	Further, the disjunction $(F \lor F')$,
+	the conjunction $(F \land F') $,
+	and the implication $(F \limp F')$
 	of two first order formulae
 	are (composite) first order formulae.
 \end{definition}
 
 \begin{definition}\label{def:fof:fvars}\label{def:fof:bvars}
-	We define the set of {\myem free} variables and the set of {\myem bound} variables 
+	We define the set of {\myem free} variables and the set of {\myem bound} variables
 	of a first order formula $F$ as follows:
 \DEFINE{\fvar(F)}{
-		\bigcup_{i=1}^n \var(t_i) &\text{if }F = \mP(t_1,\ldots,t_n)\text{ or }t_1\mEQ t_{n=2} 
+		\bigcup_{i=1}^n \var(t_i) &\text{if }F = \mP(t_1,\ldots,t_n)\text{ or }t_1\mEQ t_{n=2}
 		\\
 		\fvar(G)&\text{if }F = \lnot G
 		\\
@@ -30,13 +30,13 @@
 		\fvar (G) \setminus \{ x\} &\text{if } F \in\{\, \forall x\,G, \exists x\,G\,\}
 	}
 \DEFINE{\bvar(F)}{
-	\emptyset &\text{if }F = \mP(t_1,\ldots,t_n)\text{ or }t_1\mEQ t_{n=2} 
+	\emptyset &\text{if }F = \mP(t_1,\ldots,t_n)\text{ or }t_1\mEQ t_{n=2}
 	\\
 	\bvar(G)&\text{if }F = \lnot G
 	\\
 	\bvar(G) \cup \bvar(H)&\text{if }F \in\{\,G\land H,G\lor H,G\limp H\,\}
 	\\
-	\bvar (G) \cup \{ x\} &\text{if } F \in\{\, \forall x\,G, \exists x\,G\,\}
+	\{ x\} \cup \bvar (G) &\text{if } F \in\{\, \forall x\,G, \exists x\,G\,\}
 }
 \end{definition}
 
@@ -45,48 +45,57 @@
 	%	 = \{ x, y\}$.
 \end{example}
 
-%\begin{remark} 
-We often will write formulae or sentences 
+%\begin{remark}
+We often will write formulae or sentences
 without stating the signature.
-The reader can easily deduce the underlying {\myem implicit} signature with arities 
+The reader can easily deduce the underlying {\myem implicit} signature with arities
 and the set of variables by applying the definitions of the syntax for first order formulae.
-We follow the convention to use $x,y,z$ for variables 
-and $\ma,\mb,\mc$ for constant function symbols 
-(which avoids ambiguity in the presence of free variables). 
+We follow the convention to use $x,y,z$ for variables
+and $\ma,\mb,\mc$ for constant function symbols
+(which avoids ambiguity in the presence of free variables).
 For easier readability we will use uppercase predicate symbols and lowercase function symbols.
 We may denote $\mcF(F)$ for the implicit signature of an formula $F$.
 %\end{remark}
 
 \begin{definition}\label{def:fof:closed}\label{def:fof:sentence}
-	A first order formula is closed, i.e.~a first order {\myem sentence}, 
+	A first order formula is closed, i.e.~a first order {\myem sentence},
 	if it does not contain free variables -- all occurring variables are bound.
-%	A quantifier free sentence is ground. 
-	Additionally we assume for any sentence 
-	that each variable is bound exactly once, 
-	but occurs as free variable in a subformula, 
-	or more formally
+%	A quantifier free sentence is ground.
+	Additionally we assume for any sentence
+	that each variable is bound exactly once,
+	but occurs as free variable in a subformula,
+	or formally
 	\begin{align*}
-	&x\in\fvar(G), x\not\in\bvar(G)& \text{if }&F \in\{\, \forall x\,G, \exists x\,G\,\}
-	 \\
-	&\bvar(G)\cap\bvar(H)=\emptyset& \text{if }&F \in\{\,G\land H,G\lor H,G\limp H\,\}
-	\end{align*}
+	\bvar(F) &= \bvar(G)\disjointunion\bvar(H)
+	 &&\text{if } F \in\{\,G\land H,G\lor H,G\limp H\,\}
+	\\
+	\bvar(F) &= \{x\}\disjointunion\bvar(G)\text{ and } x\in\fvar(G)
+	&&\text{if }F \in\{\, \forall x\,G, \exists x\,G\,\}
+\end{align*}
 \end{definition}
 
 \begin{example}
 	\[
 	\begin{array}{clcl}
-		\forall x ({\mP(x) \lor \forall x {\mQ(x)}}) && \forall x ({\mP(x) \lor \forall y {\mQ(y)}}) &  \checkmark\\
-		(\forall x {\mP(x)}) \lor (\forall x {\mQ(x)}) & & (\forall x {\mP(x)}) \lor (\forall y {\mQ(y)}) & \checkmark
+		\forall x ({\mP(x) \lor \forall x {\mQ(x)}}) &
+		&
+		\forall x ({\mP(x) \lor \forall y {\mQ(y)}}) &
+		\checkmark
+		\\
+		(\forall x {\mP(x)}) \lor (\forall x {\mQ(x)}) &
+		&
+		(\forall x {\mP(x)}) \lor (\forall y {\mQ(y)}) &
+		\checkmark
 	\end{array}
 	\]
-	
+
 \end{example}
 
 \begin{definition}[\PNF]
-	A first order sentence $F = \quantify_1 x_1 \ldots \quantify_n x_n\, G$ 
+	A first order sentence $F = \quantify_1 x_1 \ldots \quantify_n x_n\, G$
 	with $n$ quantifiers $\quantify_i \in \{\exists,\forall\}$,
-	$n$ bound and distinct variables $x_i$, 
-	and quantifier free subformula $G$ with 
+	$n$ bound and distinct variables $x_i$,
+	and quantifier free subformula $G$ with
 	a matching set of free variables, i.e.~$\fvar(G) = \bvar(F)$,
 	is in {\myem prenex normal form}.
 \end{definition}
