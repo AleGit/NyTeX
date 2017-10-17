@@ -10,11 +10,18 @@ In this chapter we will present the proofs that InstGen-Eq is refuational comple
 
 % \IMPROVE
 
-\section{Unit Paramodulation calculus}
+% -- \cite{GK2004csl} 1 Introduction
 
-\cite{GK2004csl, NR2001}
+% -- \cite{GK2004csl} 2 Preliminaries
 
+\begin{definition}
+    A substitution $\sigma$ is irreducible w.r.t.~TRS $R$
+    iff
+    $\image(\sigma)\subseteq\mNFR$,
+    i.e.~all terms $\sigma(x)$ with $x\in\domain(\sigma)$ are irreducible.
+\end{definition}
 
+% % -- \cite{GK2004csl} 2.3
 \begin{definition}
     A closure is a pair $(C,\sigma)$ of a clause $C$ and a substitution $\sigma$,
     conveniently written as $C\cdot\sigma$. Two closures $C\cdot\sigma = D\cdot\tau$
@@ -25,29 +32,13 @@ In this chapter we will present the proofs that InstGen-Eq is refuational comple
 \end{definition}
 
 \begin{definition}
-    A substitution $\sigma$ is irreducible w.r.t.~TRS $R$
-    iff
-    $\image(\sigma)\subseteq\mNFR$,
-    i.e.~all terms $\sigma(x)$ with $x\in\domain(\sigma)$ are irreducible.
+    \cite{NR2001}
+    \MISSING{from orderings on ground terms to orderings of ground literals and ground clauses}
 \end{definition}
 
+% 2.4 + 4.3 + 5.y
 \begin{definition}
-    Let $R$ be an arbitrary ground rewrite system and
-    let $\mcL$ be as set of literal closures.
-    We denote the set of literal closures with irreducible substitutions.
-    \begin{gather*}
-        \irred_R(\mcL)
-        =
-        \{
-            L\cdot\sigma \mid
-            L\cdot\sigma\in\mcL,
-            \sigma\text{ is irreducible w.r.t.~}R
-        \}
-    \end{gather*}
-\end{definition}
-
-\begin{definition}
-    Let $\succG$ a total simplification ordering on general ground terms.
+    Let $\succG$ a total simplification ordering on ground terms, literals and clauses.
 
     We define an order $\succL$ on ground closures of literals
     as an arbitrary total well-founded extension of $\succG$
@@ -65,6 +56,16 @@ In this chapter we will present the proofs that InstGen-Eq is refuational comple
 
 
 
+
+
+
+% \cite{GK2004csl, NR2001}
+
+
+
+
+% 4.1
+\begin{definition}[Unit paramodulation \cite{GK2004csl}]
 \begin{gather*}
         \infer[\theta=\mgu(l,l')]
         {L[r]\theta\cdot\rho}
@@ -80,8 +81,23 @@ where
     $l'\notin\mcV$,
     and
     $s\tau = t\tau$.
+\end{definition}
 
+% 4.4 %
+\begin{definition}
+    A literal closure $L\cdot\sigma$ is {\myem UP-redundant} in a set of literal closures $\mcL$
+    if
+    \[
+        R \cup \irred_R(\mcL_{L\cdot\sigma\succL}) \entails L\sigma
+    \]
+    for every ground rewrite system $R$ oriented by $\succG$
+    where $\sigma$ is irreducible w.r.t.\,$R$.
 
+    $\mcL_{L\cdot\sigma\succL} = \{
+        L'\cdot\sigma'\mid L'\cdot\sigma'\in\mcL, L\cdot\sigma\succL L'\cdot\sigma'
+    \}$
+    % denotes the set of all closures in $\mcL$ less than
+\end{definition}
 
 \begin{definition}
     A set of clauses is Inst-saturated w.r.t a selection function if
