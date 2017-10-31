@@ -9,8 +9,8 @@
 In this chapter, we demonstrate refutation complete proving procedures.
 It seems natural to expect decision procedures
 for decidable fragments of first order logic
-(Section \ref{sec:decidable:fol:fragments})
-and decidable first order theories (Section \ref{sec:decidable:fol:theories}),
+(Section~\ref{sec:decidable:fol:fragments})
+and decidable first order theories (Section~\ref{sec:decidable:fol:theories}),
 but we will see in simple examples that decision procedures do not automatically
 fall out from refutational completeness.
 
@@ -38,8 +38,8 @@ while in general there is no bound on the size of a smallest set of unsatisfiabl
 
 To actually prove a theorem
 we first make use of the fact that a first-order formula is valid if and only if its negation is unsatisfiable.
-Second we efficiently transform the negated formula into an {\myem equisatisfiable} set of clauses
-(e.g.~with Tseitin's transformation \cite{tseitin70}),
+Second we efficiently transform the negated formula into an {\myem{equisatisfiable}} set of clauses
+(e.g.~with Tseitin's transformation~\cite{tseitin70}),
 i.e.~the formula is satisfiable if and only if the set of clauses is satisfiable.
 
 %This can be done efficiently with Skolemization \cite{books/el/RV01/Hahnle01} and Tseitin-transformation \cite{tseitin70, PLAISTED1986293} as shown in \cite{Nonnengart01computingsmall}.
@@ -1303,16 +1303,16 @@ We ignore $\mcC_2$ which would just yield a variant of itself.
 	We then can derive the contradiction from the selected literals of the first and the newest clause
 	and instantiate the first clause with the new unifier $\sigma_{i+2}$.
 	\begin{align*}
-	S_{i+1} &= S_i\disjointunion \{\,
+	S_{i+1} &= S_i\disjointunion\, \{\,
 	\msucc^{i+2}(x_{i+3}) \mNE \msucc(y_{i+3}) \lor \msucc^{i+1}(x_{i+3}) \mEQ y_{i+3} \,
 	\}
 	\tag*{$i\geq 0$ (IH)}
 	\\
-	S_{(i+1)\!_\bot} &= S_{0\!_\bot}\disjointunion \{\,
+	S_{(i+1)\!_\bot} &= S_{0\!_\bot}\disjointunion\, \{\,
 	{\colHi\msucc^{i+2}(\consbot) \mNE \msucc(\consbot)} \lor {\msucc^{i+1}(\consbot) \mEQ \consbot} \,
 	\}
 	\\
-	L_{i+1} &= L_i \disjointunion \{\,
+	L_{i+1} &= L_i \disjointunion\, \{\,
 		\msucc^{i+2}(x_{i+3})) \mNE \msucc(y_{i+3})
 	\,\}
 	\\[0.7em]
