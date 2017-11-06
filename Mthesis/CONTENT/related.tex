@@ -9,32 +9,32 @@
 \section{Purely equational logic}
 
 We can transform predicates into equations
-by introducing one new and distinct constant symbol $\bullet$,
+by introducing one new and distinct constant symbol $\bullet$ (smaller than any other term),
 and a new function symbol $f\!_P$ for every predicate symbol $P$:
 \begin{align*}
-	P(t_1,\ldots,t_n) \quad\Rightarrow&\quad f\!_P(t_1,\ldots,t_n) \mEQ \bullet \\ 
+	P(t_1,\ldots,t_n) \quad\Rightarrow&\quad f\!_P(t_1,\ldots,t_n) \mEQ \bullet \\
 	\lnot P(t_1,\ldots,t_n) \quad\Rightarrow&\quad f\!_P(t_1,\ldots,t_n) \mNE \bullet
 \end{align*}
 
 \section{Term Rewrite Systems}
 
-We can transform a set of selected literals into a term rewrite system 
+We can transform a set of selected literals into a term rewrite system
 when we introduce two new constant symbols -- $\mathsf{true}$ and $\mathsf{false}$ --
 to transform each literal into a rewrite rule.
 \begin{align*}
-P(t_1,\ldots,t_n) \quad\Rightarrow &\quad P(t_1,\ldots,t_n) \rwStep \mathsf{true} 
-\\ 
-\lnot P(t_1,\ldots,t_n) \quad\Rightarrow &\quad P(t_1,\ldots,t_n) \rwStep \mathsf{false} 
+P(t_1,\ldots,t_n) \quad\Rightarrow &\quad P(t_1,\ldots,t_n) \rwStep \mathsf{true}
 \\
-s \mEQ t \quad\Rightarrow&\quad s \mEQ t\rwStep \mathsf{true} 
-\\ 
+\lnot P(t_1,\ldots,t_n) \quad\Rightarrow &\quad P(t_1,\ldots,t_n) \rwStep \mathsf{false}
+\\
+s \mEQ t \quad\Rightarrow&\quad s \mEQ t\rwStep \mathsf{true}
+\\
 r \mNE u \quad\Rightarrow&\quad r \mEQ u\rwStep  \mathsf{false}
 \end{align*}
 When we find a not unifiable critical peek, then the set of literals is inconsistent.
 
 \begin{example}
-	Consider the unsatisfiable set $S = \{ \mP(x), \lnot \mP(\mf(y)) \}$. 
-	We derive the term rewrite system 
+	Consider the unsatisfiable set $S = \{ \mP(x), \lnot \mP(\mf(y)) \}$.
+	We derive the term rewrite system
 	\begin{align*}
 	(1)&&
 		\mP(x) &\rwStep \mathsf{true}
@@ -44,13 +44,13 @@ When we find a not unifiable critical peek, then the set of literals is inconsis
 		\mP(\mf(y)) &\rwStep \mathsf{false}
 		\tag*{$\ell_2 \rwStep r_2$}
 	\end{align*}
-	with overlap $\left<(1),p,(2)\right>$ with $p=\epsilon$, 
+	with overlap $\left<(1),p,(2)\right>$ with $p=\epsilon$,
 	$\sigma = \mgu(l_1, l_2|_\epsilon) = \{ x\mapsto \mf(y)\}$.
 	From overlap $\left(\ell_2\sigma[r_1\sigma]_\epsilon, \epsilon, \ell_2\sigma, r_2\sigma\right)
 	= (\mathsf{true}, \epsilon, \mP(\mf(y)), \mathsf{false})$
 %	we obtain critical pair $\mathsf{false} \leftarrow P(x) \rightarrow \mathsf{true}$
 	we obtain critical pair $\mathsf{true} \mEQ \mathsf{false}$.
-	
+
 \end{example}
 
 

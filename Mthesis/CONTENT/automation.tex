@@ -6,13 +6,13 @@
 
 \input{epigraphs/syllogism}
 
-In this chapter, we demonstrate refutation complete proving procedures.
-It seems natural to expect decision procedures
+In this chapter we will demonstrate refutational complete proving procedures.
+It seems natural to hope for decision procedures
 for decidable fragments of first order logic
 (Section~\ref{sec:decidable:fol:fragments})
-and decidable first order theories (Section~\ref{sec:decidable:fol:theories}),
-but we will see in simple examples that decision procedures do not automatically
-fall out from refutational completeness.
+or decidable first order theories (Section~\ref{sec:decidable:fol:theories}).
+We will demonstrate with simple examples that decision procedures do not automatically
+fall out from refutational complete procedures.
 
 
 %An we judge the procedures by there theoretical performance on decidable fragments.
@@ -25,7 +25,9 @@ has a Hebrand model.
 And we know by compactness
 %(\ref{the:compactness}, p.~\pageref{the:compactness})
 that if every finite subset of a set of clauses is satisfiable then this set is satisfiable.
-The satisfiability of ground instances is decidable as we have seen in the previous chapter.
+The satisfiability of a set of ground instances is decidable
+as we have already implicitly stated in Table \vref{tab:decidedable:FiniteModelProperty}
+with decidable class \([\,\exists^{∗}, all, all\,]_{=}\).
 So the central idea of instantiation-based first order theorem proving
 is to find an unsatisfiable and finite set of ground instances for a given set of clauses.
 In general a failure in this search does not show satisfiability of the given set of clauses.
@@ -51,10 +53,10 @@ such that an unsatisfiable one will be found
 for an arbitrary unsatisfiable set of clauses
 eventually.
 
-First we translate axioms and lemmata into clausal normal form in Sections \ref{sec:clausal:normal:form},
-then we look at Gilmore's Prover from 1960 in Section \ref{sec:gilmore:prover}.
+First we translate axioms and lemmata into clausal normal form in Sections~\ref{sec:clausal:normal:form},
+then we look at Gilmore's Prover from 1960 in Section~\ref{sec:gilmore:prover}.
 After that we look at more modern calculi for refutation based first order theorem proving
-without equality in Section \ref{sec:proving:without:equaltiy} and with equality in Section \ref{sec:proving:with:equality}.
+without equality in Section~\ref{sec:proving:without:equaltiy} and with equality in Section~\ref{sec:proving:with:equality}.
 
 
 %
@@ -132,7 +134,7 @@ for addition and multiplication in Table \ref{tab:addition:multiplication}.
 \end{table}
 
 \begin{example} For the formula $G(x)=\msucc(x)\mNE x$ we state the induction axioms in \CNF in the theory of natural numbers.
-	We had to introduce a fresh constant $\mc_{\msucc}$ in this equivalence transformation process.
+	We had to introduce a fresh constant $\mc_{\msucc}$ in this satisfiability transformation process.
 	\begin{gather*}
 	\msucc(0)\mEQ 0 \lor \boxed{\msucc(\mc_{\msucc})\mNE \mc_{\msucc}} \lor \msucc(x)\mNE x \\
 	\msucc(0)\mEQ 0 \lor \boxed{\msucc(\msucc(\mc_{\msucc}))\mEQ \msucc(\mc_{\msucc})} \lor \msucc(x)\mNE x
@@ -1411,8 +1413,8 @@ S_{i+2} &= S_{i+1}\disjointunion \{\,
 	Gilmore & axioms & $S_i \equiv \bigvee\emptyclause$  & Gilmore\\
 	Resolution & axioms & $\emptyclause\in S_i$\\
 	\InstGen & axioms & $\lnot\SAT(S_i\bot)$ & iProver\\
-	Superposition & rules & $\emptyclause\in S_i$ & Vampire \\
-	\InstGenEQ & rules & $\lnot\SMT(S_i\bot$) & iProverEq
+	Superposition & derivation rules & $\emptyclause\in S_i$ & Vampire \\
+	\InstGenEQ & derivation rules & $\lnot\SMT(S_i\bot$) & iProverEq
 \end{tabular}
 
 

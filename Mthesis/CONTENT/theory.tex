@@ -2,7 +2,20 @@
 % !TeX encoding = UTF-8
 % !TeX spellcheck = en_US
 
-\chapter{Theory}
+\chapter{Completeness (Theory)}
+
+In the last chapter with introduced \InstGenEQ.
+Soundness appears obvious because the procedure
+only adds instances of already present clauses to the set of clauses.
+
+It is not so easy to see that the procedure is complete,
+i.e.~for a unsatisfiable set of clauses an unsatisfiable
+set of ground clauses will eventually fall out.
+
+If this holds then we can argue in reverse the set of clauses is satisfiable
+if no further instances can be generated although the grounded set of clauses is still satisfiable.
+
+
 
 \IMPROVE{
 In the last chapter we have only enumerated some complete calculi but did not show any proofs.
@@ -17,14 +30,6 @@ In this chapter we will present the proofs that InstGen-Eq is sound and refutati
 
 % -- \cite{GK2004csl} 2 Preliminaries
 
-\begin{definition}
-    A substitution \( \sigma \) is irreducible w.r.t.~TRS \( R \)
-    iff
-    \( \image(\sigma)\subseteq\mNFR \),
-    i.e.~all terms \(\sigma(x)\) with
-    \( x\in\domain(\sigma) \) are irreducible.
-\end{definition}
-
 % % -- \cite{GK2004csl} 2.3
 \begin{definition}
     A closure is a pair $(C,\sigma)$ of a clause $C$ and a substitution $\sigma$,
@@ -35,28 +40,8 @@ In this chapter we will present the proofs that InstGen-Eq is sound and refutati
     A ground closure represents a ground clause.
 \end{definition}
 
-\begin{definition}
-    \cite{NR2001}
-    \MISSING{from orderings on ground terms to orderings of ground literals and ground clauses}
-\end{definition}
 
-% 2.4 + 4.3 + 5.y
-\begin{definition}
-    Let $\succG$ a total simplification ordering on ground terms, literals and clauses.
 
-    We define an order $\succL$ on ground closures of literals
-    as an arbitrary total well-founded extension of $\succG$
-    such that
-    $L\cdot\sigma\succL L'\cdot\sigma'$ whenever
-    $L\sigma\succG L'\sigma'$.
-
-    We define an order \( \succC \) on ground closures
-    as an arbitrary total well-founded extension of
-    $\succC'$ -- an inherently well-founded order defined as extension of $\succG$
-    such that
-    $C\cdot\succC' D\cdot\rho$ whenever
-    $C\sigma\succG D\rho'$ or $C\theta = D$ for an proper instantiater $\theta$.
-\end{definition}
 
 
 
@@ -64,9 +49,6 @@ In this chapter we will present the proofs that InstGen-Eq is sound and refutati
 
 
 % \cite{GK2004csl, NR2001}
-
-
-
 
 % 4.1
 \begin{definition}[Unit paramodulation \cite{GK2004csl}]
@@ -87,19 +69,35 @@ where
     $s\tau = t\tau$.
 \end{definition}
 
-% 4.4 %
 \begin{definition}
-    A literal closure $L\cdot\sigma$ is {\myem UP-redundant} in a set of literal closures $\mcL$
+    A substitution \( \sigma \) is irreducible w.r.t.~TRS \( R \)
+    if
+    \( \image(\sigma)\subseteq\mNFR \),
+    i.e.~all terms \(\sigma(x)\) with
+    \( x\in\domain(\sigma) \) are irreducible (normal forms) w.r.t.~TRS \(R\).
+    % 4.2
+    Let $R$ be an arbitrary ground rewrite system
+    and $\mcL$ a set of literals closures.
+    With
+    \begin{align*}
+        \irred_R(\mcL) &= \{ L\cdot\sigma \mid L\cdot\sigma\in\mcL,
+        \sigma\textsf{ irreducible w.r.t.~}R \}
+    \\
+        \mcL_{L\cdot\sigma\succL} &= \{
+            L'\cdot\sigma'\mid L'\cdot\sigma'\in\mcL, L\cdot\sigma\succL L'\cdot\sigma'
+            \}
+    \end{align*}
+    % 4.4 %
+    we call a literal closure $L\cdot\sigma$ {\myem UP-redundant}
+    in set of literal closures $\mcL$
     if
     \[
         R \cup \irred_R(\mcL_{L\cdot\sigma\succL}) \entails L\sigma
     \]
-    for every ground rewrite system $R$ oriented by $\succG$
+    holds for every ground rewrite system $R$ oriented by $\succG$
     where $\sigma$ is irreducible w.r.t.\,$R$.
 
-    $\mcL_{L\cdot\sigma\succL} = \{
-        L'\cdot\sigma'\mid L'\cdot\sigma'\in\mcL, L\cdot\sigma\succL L'\cdot\sigma'
-    \}$
+
     % denotes the set of all closures in $\mcL$ less than
 \end{definition}
 

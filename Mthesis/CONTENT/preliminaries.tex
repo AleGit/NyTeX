@@ -253,7 +253,7 @@ Hence we state useful definitions to deal with this situation and demonstrate th
 %How we find a normal model or justify its existence we will discuss in Section \vref{sec:automation} about Automation.
 
 
-\section{Term Rewriting}\label{sec:termrewriting}
+\section{Term Rewriting and Orderings}\label{sec:termrewriting}
 
 
 
@@ -357,6 +357,46 @@ there will not arise any ambiguity for the reader about the role of the symbol.
 % \begin{lemma}
 % 	A simplification order $\succ_{\mathsf{gr}}$ on ground terms always exists.
 % \end{lemma}
+
+\section{Literal and Clause Orderings}
+
+\IMPROVE{ DEFINITIONS of ORDERINGS }
+
+% \begin{definiton}
+% 	Multiset. $\{x,x \}$ is mutliset $M$ with $M(x)=2$
+% \end{definiton}
+
+\begin{lemma}
+	Any ordering $\succ$ on a set $S$ can be extended to an ordering on multisets over $S$
+	as follows $N \succ M$ if $N \neq M$
+	and whenever there is $x\in S$ with $N(x) < M(x)$
+	then there is $y \succ x$ with $N(y) > M(y)$.
+
+	An ordering $\succ$ on terms can be extended to orderings on literals and clauses.
+\end{lemma}
+
+% 2.4
+For the following definition we assume
+$\succG$ as a a total, well-founded and monotone extension
+from a total simplification ordering on ground terms
+to ground clauses \cite{NR2001}.
+
+\begin{definition}
+	% 4.3
+    We define an order $\succL$ on ground closures of literals
+    as an arbitrary total well-founded extension of $\succG$
+    such that
+    $L\cdot\sigma\succL L'\cdot\sigma'$ whenever
+    $L\sigma\succG L'\sigma'$.
+
+	% 5.1
+    We define an order \( \succC \) on ground closures
+    as an arbitrary total well-founded extension of
+    $\succC'$ -- an inherently well-founded order defined as extension of $\succG$
+    such that
+    $C\cdot\tau\succC' D\cdot\rho$ whenever
+    $C\tau\succG D\rho$ or $C\theta = D$ for an proper instantiater $\theta$.
+\end{definition}
 
 
 
