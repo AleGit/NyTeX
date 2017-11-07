@@ -644,21 +644,6 @@ We can easily notice disadvantages in resolution.
 
 \subsection{Ordered resolution}\label{sec:ordered:resolution}
 
-\begin{lemma}A well-founded and total order on general ground terms always exists.\end{lemma}
-
-\begin{definition}[Order on literals]\label{def:orders-on-literals}
-	We extend a well-founded and total order $\succ$ on general ground terms,
-	i.e~general atoms to a well-founded proper order $\succ_\mL$
-	on literals such that for all atoms $A$ and $B$ with $A\succ B$
-	the relations $A\succ_\mL B$ ,
-	$\lnot A\succ_\mL\lnot B$ and
-	$\lnot A\succ_\mL A$ hold.
-	%
-	A (non-ground) literal $L$ is {\myem (strictly) maximal} if there exists a ground substitution $\tau$
-	such for no other literal $L'$ the relation $L'\tau\succ L\tau$ (strictly: $\succcurlyeq$) holds.
-	We write $\succ_{gr}$ to suggest the existence of such a ground substitution $\tau$.
-\end{definition}
-
 \begin{definition}[Ordered Resolution]\label{def:ordered:resolution}
 	Let $A, B$ be atoms and $\mcC,\mcD$ be clauses.
 	\begin{gather*}

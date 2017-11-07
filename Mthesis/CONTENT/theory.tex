@@ -2,35 +2,61 @@
 % !TeX encoding = UTF-8
 % !TeX spellcheck = en_US
 
-\chapter{Completeness (Theory)}
+\chapter{Soundness and Completeness}
 
 In the last chapter with introduced \InstGenEQ.
-Soundness appears obvious because the procedure
-only adds instances of already present clauses to the set of clauses.
+We can/could easily deduce soundness of this approach
+from the definition of satisfiability of a set of clauses.
+The set is satisfiable
+if all possible ground instances of all its clauses
+hold in at least one model.
+We add proper instances of already present clauses to the set of clauses.
+Hence the set of all possible ground instances does not change
+the growing sets of clauses are all equisatisfiable.
+Additionally the procedure stays sound when we remove clauses that are
+entailed by other clauses still in the set.
 
-It is not so easy to see that the procedure is complete,
-i.e.~for a unsatisfiable set of clauses an unsatisfiable
+But proper instances of clauses
+are entailed by there origins. So a carless removal of entailed clauses
+can neutralize our effort towards an unsatisfiable set of ground instances.
+%
+But even when we carefully craft our redundancy criteria for the removal of clauses
+it is not easily seen that the procedure is complete,
+i.e.~that for any unsatisfiable set of clauses an unsatisfiable
 set of ground clauses will eventually fall out.
 
-If this holds then we can argue in reverse the set of clauses is satisfiable
-if no further instances can be generated although the grounded set of clauses is still satisfiable.
+For that we are going to show
+that any saturated -- no more non-redundant instances are derivable --
+set of clauses is satisfiable if the set of grounded clauses is satisfiable.
 
+First we discuss a calculus for sets of literal closures.
+and state redundancy criteria.
+After that we show that if no more steps are applicable
+the set of literals is satisfiable
+if the set of grounded literals is satisfiable.
+At the end of this chapter we lift the result to predicates and clauses.
 
 
 \IMPROVE{
-In the last chapter we have only enumerated some complete calculi but did not show any proofs.
-
-In this chapter we will present the proofs that InstGen-Eq is sound and refutational complete.
-}
-
-
-% \IMPROVE
-
+For example we must not remove the derived proper instance
+\(
+    \mP(x)\{x\mapsto\mf(z)\}
+\) from
+\(
+    \{\, \mP(\mf(x'))\lor\mQ(y'), \mP(x), \lnot\mP(\mf(y))\, \}
+    \disjointunion\,
+    \{\, \mP(\mf(z))\, \}
+\) but there is no need to keep
+\(
+    \mP(\mf(x'))\lor\mQ(y')
+\).}
 % -- \cite{GK2004csl} 1 Introduction
 
 % -- \cite{GK2004csl} 2 Preliminaries
 
 % % -- \cite{GK2004csl} 2.3
+
+\section{Unit Paramodulation}
 \begin{definition}
     A closure is a pair $(C,\sigma)$ of a clause $C$ and a substitution $\sigma$,
     conveniently written as $C\cdot\sigma$. Two closures $C\cdot\sigma = D\cdot\tau$
@@ -40,34 +66,36 @@ In this chapter we will present the proofs that InstGen-Eq is sound and refutati
     A ground closure represents a ground clause.
 \end{definition}
 
-
-
-
-
-
-
-
-
 % \cite{GK2004csl, NR2001}
 
 % 4.1
 \begin{definition}[Unit paramodulation \cite{GK2004csl}]
 \begin{gather*}
-        \infer[\theta=\mgu(l,l')]
+    \begin{array}{ccl}
+        \infer[\theta]
         {L[r]\theta\cdot\rho}
         {(l\mEQ r)\cdot\sigma & L[l']\cdot\sigma'}
-        \hspace{3cm}
-        \infer[\mu=\mgu(s,t)]
+        &\text{if}&
+        l\sigma\succG r\sigma,
+        \theta=\mgu(l,s),
+        l\sigma = l'\sigma' = l'\theta\rho,
+        l'\notin\mcV
+        \\[0.7em]
+        \infer[\mu]
         {\emptyclause}
         {(s\mNE t)\cdot\tau}
+        &\text{if}&
+        s\tau = t\tau,
+        \mu=\mgu(s,t)
+    \end{array}
 \end{gather*}
-where
-    $l\sigma\succG r\sigma$,
-    $l\sigma = l'\sigma' = l'\theta\rho$,
-    $l'\notin\mcV$,
-    and
-    $s\tau = t\tau$.
 \end{definition}
+
+\section{Redundancy and Saturation}
+    We assume $\succ, \succG, \succL, \succC, \succ_\mL$
+    as used and defined in
+    Section \vref{sec:literal:clause:orderings}.
+    \IMPROVE{use consolidated ordering symbols}
 
 \begin{definition}
     A substitution \( \sigma \) is irreducible w.r.t.~TRS \( R \)
@@ -96,10 +124,125 @@ where
     \]
     holds for every ground rewrite system $R$ oriented by $\succG$
     where $\sigma$ is irreducible w.r.t.\,$R$.
-
+    We distill all UP-redundant closures in \( \mcL \) to the set
+    \( \mcR_{UP}(\mcL) \).
+    \[
+        \mcR_{UP}(\mcL) = \{
+            L\cdot\sigma
+            \mid
+            L\cdot\sigma \in \mcL,
+            R \cup \irred_R(\mcL_{L\cdot\sigma\succL}) \entails L\sigma
+        \}
+    \]
 
     % denotes the set of all closures in $\mcL$ less than
 \end{definition}
+
+\begin{definition}[Non proper demodulation \cite{GK2004csl}]
+    \begin{gather*}
+            \infer[\theta\text{ non-proper instantiator}]
+            {L[r]\theta\cdot\sigma'}
+            {(l\mEQ r)\cdot\sigma & L[l']\cdot\sigma'}
+    \end{gather*}
+    where
+        $l'=l\theta$,
+        $l\sigma\succG r\sigma$,
+        $l\sigma = l'\sigma$,
+        $\var(r)\subseteq\var(l)$,
+        $L[l']\sigma'\succG(l\mEQ r)\sigma$.
+    \end{definition}
+
+\begin{example}
+    Let $g\succ f$,
+    $\sigma = \{ x\mapsto \ma, y\mapsto \mb \}$,
+    $\sigma' = \{ x'\mapsto \ma, y'\mapsto \mb \}$
+    \begin{align*}
+    \infer[
+        \theta = \{ x\mapsto x', y\mapsto y'\}
+    ]{
+        \mf(x') \mEQ y'\cdot\sigma'
+    }{
+        \mg(x,y)\mEQ \mf(x)\cdot\sigma & \mg(x',y')\mEQ y'\cdot\sigma'
+    }
+    \end{align*}
+\end{example}
+
+\begin{lemma}Non-proper demodulation is a simplification rule.\end{lemma}
+    \begin{proof}
+        ...
+    \end{proof}
+
+\begin{definition}
+    A UP-{\myem saturation process} is
+    a sequence \( \{ \mcL_i \}_{i=0}^\infty \)
+    of sets of literal closures where
+    \( \mcL_{i+1} \) can be obtained from
+    \( \mcL_i \)
+    by {\myem adding} a conclusion of an UP-inference with premises in $\mcL_i$
+    or by {\myem removing} a UP-redundant w.r.t.~\(\mcL_i\) closure:
+    \begin{gather*}
+        \mcL_{i+1} = \left\{
+            \begin{array}{lclc}
+                \mcL_i \cup\,\emptyclause
+                &\text{if}
+                &
+                    \mcL_i\ni(s\mNE t)\cdot\tau,\ {}
+                    s\tau = t\tau,\ {}
+                    \mu=\mgu(s,t)
+                \\
+                \mcL_i \backslash L\cdot\sigma
+                &\text{if}
+                &R \cup \irred_R(\mcL_{L\cdot\sigma\succL}) \entails L\sigma
+                \\
+                \mcL_i \cup\, L[r]\theta\cdot\rho
+                &\text{if}
+                &\left\{\begin{array}{l}
+                    \mcL_i\ni(l\mEQ r)\cdot\sigma,\ {}
+                    l\sigma\succG r\sigma,\ {}
+                    \theta=\mgu(l,l'),
+                    \\
+                    \mcL_i\ni L[l']\cdot\sigma',\ {}
+                    l'\notin\mcV,\ {}
+                    l\sigma = l'\sigma' = l'\theta\rho,
+                \end{array}\right.
+                % \text{ and }
+                % \infer[\theta]
+                % {L[r]\theta\cdot\rho}
+                % {(l\mEQ r)\cdot\sigma & L[l']\cdot\sigma'}
+                \\
+                \mcL_i &\text{if}&\text{saturated}
+            \end{array}
+        \right.
+    \end{gather*}
+
+    Let \( \mcL^\infty \) be the set of persistent closures,
+    i.e.~the lower limit of the sequence.
+    The process is {\myem fair} if for every UP-inference
+    with premesis in \( \mcL^\infty \) the conclusion is UP-redundant
+    w.r.t.~\(\mcL_j\) for some \(j\).
+
+    For a set of literals \( \mcL \) we define
+    the saturated set of literal closures
+    \( \mcL^{sat} = \mcL^\infty\backslash\mcR_{UP}(\mcL^\infty) \)
+    for some UP-saturation process
+    \( \{ \mcL_i\}_{i=0}^\infty \)
+    with $\mcL_0 = \mcL$.
+\end{definition}
+
+\begin{lemma}
+    The set \( \mcL^{sat} \) is unique because
+    for any two UP-fair saturation processes
+    \(\{ \mcL_i
+        \}_{i=0}^\infty\) and
+        \(\{ \mcL'_i
+        \}_{i=0}^\infty\)
+        with $\mcL_0 = \mcL'_0$ we have
+        \begin{gather*}
+            \mcL^\infty \backslash \mcR_{UP}(\mcL^\infty)
+            =
+            \mcL'^\infty \backslash \mcR_{UP}(\mcL'^\infty)
+        \end{gather*}
+\end{lemma}
 
 \begin{definition}
     A set of clauses is Inst-saturated w.r.t a selection function if

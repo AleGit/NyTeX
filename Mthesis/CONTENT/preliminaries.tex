@@ -358,9 +358,9 @@ there will not arise any ambiguity for the reader about the role of the symbol.
 % 	A simplification order $\succ_{\mathsf{gr}}$ on ground terms always exists.
 % \end{lemma}
 
-\section{Literal and Clause Orderings}
+\subsection{Literal and Clause Orderings}\label{sec:literal:clause:orderings}
 
-\IMPROVE{ DEFINITIONS of ORDERINGS }
+\IMPROVE{ DEFINITIONS of ORDERINGS, merge definitions }
 
 % \begin{definiton}
 % 	Multiset. $\{x,x \}$ is mutliset $M$ with $M(x)=2$
@@ -397,6 +397,21 @@ to ground clauses \cite{NR2001}.
     $C\cdot\tau\succC' D\cdot\rho$ whenever
     $C\tau\succG D\rho$ or $C\theta = D$ for an proper instantiater $\theta$.
 \end{definition}
+
+\begin{lemma}A well-founded and total order on general ground terms always exists.\end{lemma}
+
+	\begin{definition}[Order on literals]\label{def:orders-on-literals}
+		We extend a well-founded and total order $\succ$ on general ground terms,
+		i.e~general atoms to a well-founded proper order $\succ_\mL$
+		on literals such that for all atoms $A$ and $B$ with $A\succ B$
+		the relations $A\succ_\mL B$ ,
+		$\lnot A\succ_\mL\lnot B$ and
+		$\lnot A\succ_\mL A$ hold.
+		%
+		A (non-ground) literal $L$ is {\myem (strictly) maximal} if there exists a ground substitution $\tau$
+		such for no other literal $L'$ the relation $L'\tau\succ L\tau$ (strictly: $\succcurlyeq$) holds.
+		We write $\succ_{gr}$ to suggest the existence of such a ground substitution $\tau$.
+	\end{definition}
 
 
 
