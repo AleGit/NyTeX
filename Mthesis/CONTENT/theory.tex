@@ -205,12 +205,9 @@ For example we must not remove the derived proper instance
                     l'\notin\mcV,\ {}
                     l\sigma = l'\sigma' = l'\theta\rho,
                 \end{array}\right.
-                % \text{ and }
-                % \infer[\theta]
-                % {L[r]\theta\cdot\rho}
-                % {(l\mEQ r)\cdot\sigma & L[l']\cdot\sigma'}
                 \\
-                \mcL_i &\text{if}&\text{saturated}
+                \mcL_i
+                &&\text{otherwise}
             \end{array}
         \right.
     \end{gather*}
@@ -244,17 +241,57 @@ For example we must not remove the derived proper instance
         \end{gather*}
 \end{lemma}
 
+% 5.2
 \begin{definition}
-    A set of clauses is Inst-saturated w.r.t a selection function if
-    $\emptyclause\notin\mcL_S^{sat}$.
+    Let $S$ be a set of clauses.
+    A ground closure $C$ is {\myem Inst-redundant} in $S$
+    if there exist closures $C_1,\ldots,C_k$
+    that are ground instances of $S$ such that
+    \begin{align*}
+        C \succC C_i \tag*{for all $i=1,\ldots,k$} \\
+        C_1,\ldots,C_k\entails C
+    \end{align*}
+
+    A (possibly non-ground) clause $C'$ is called Inst-redundant
+    if each ground closure $C\cdot\sigma$ is Inst-redundant in S.
+    The set $\mcR_{Inst}(S)$ denotes the set of all Inst-redundant clauses/closures in S.
 \end{definition}
 
+\begin{definition}
+    Consider a set of clauses $S$, a model $I_\bot$ of $S_\bot$,
+    and a {\myem selection funtion} $\sel$ based on $I_\bot$
+    that maps clauses to literals such that for all $C\in S$
+    \begin{gather*}
+        \sel(C) \in C
+        \qquad
+        \text{and}
+        \qquad
+        I_\bot \entails \sel(C)\bot
+    \end{gather*}
+    % 5.4
+    We define a set of {\myem S-relevant} instances of literals $\mcL_S$
+    as the set of all literal closures $L\cdot\sigma$ such that
+    \begin{gather*}
+        L\lor C\in S
+        \qquad
+        (L\lor C)\cdot\sigma\text{ is not Inst-redundant in }S
+        \qquad
+        L = \sel(L\lor C)
+    \end{gather*}
+    Then let $\mcL_S^{sat}$ denote the UP-saturation process of $\mcL_S$.
+    % 5.5
+    A set of clauses is {\myem Inst-saturated} w.r.t.~a selection function $\sel$
+    if $\emptyclause\not\in\mcL_S^{sat}$.
+\end{definition}
+
+% 5.7
 \begin{theorem}
-    If for a given set of clauses $S$
-    the set of ground instances $S\bot$ is satisfiable
-    and $S$ is Inst-saturated
-    with selection function $\sel_\bot$ based
-    on model $I_\bot$ for $S\bot$
-    then S is satisfiable.
+    An Inst-saturated set of clauses $S$ is satisfiable if $S\bot$ is satisfiable.
+    % If for a given set of clauses $S$
+    % the set of ground instances $S\bot$ is satisfiable
+    % and $S$ is Inst-saturated
+    % with selection function $\sel_\bot$ based
+    % on model $I_\bot$ for $S\bot$
+    % then S is satisfiable.
 \end{theorem}
 
