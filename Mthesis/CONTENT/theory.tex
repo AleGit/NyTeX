@@ -138,6 +138,18 @@ For example we must not remove the derived proper instance
     % denotes the set of all closures in $\mcL$ less than
 \end{definition}
 
+% 5.3
+\begin{lemma}
+    Let $R$ be a ground rewrite system and UP is applicable to
+    \( (l\mEQ r)\cdot\sigma, L[l']\cdot\sigma' \)
+    with conclusion
+    \( L[r]\theta\cdot\rho \).
+    If $\sigma,\sigma'$ are irreducible w.r.t.~R then $\rho$ is irreducible w.r.t.~R.
+\end{lemma}
+
+\begin{proof}
+\end{proof}
+
 \begin{definition}[Non proper demodulation \cite{GK2004csl}]
     \begin{gather*}
             \infer[\theta\text{ non-proper instantiator}]
@@ -262,11 +274,11 @@ For example we must not remove the derived proper instance
     and a {\myem selection funtion} $\sel$ based on $I_\bot$
     that maps clauses to literals such that for all $C\in S$
     \begin{gather*}
-        \sel(C) \in C
+        \sel(C)=L \in C
         \qquad
         \text{and}
         \qquad
-        I_\bot \entails \sel(C)\bot
+        I_\bot \entails L\bot
     \end{gather*}
     % 5.4
     We define a set of {\myem S-relevant} instances of literals $\mcL_S$
