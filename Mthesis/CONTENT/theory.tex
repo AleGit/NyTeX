@@ -307,3 +307,19 @@ For example we must not remove the derived proper instance
     % then S is satisfiable.
 \end{theorem}
 
+\begin{proof}
+    We assume an Inst-saturated set of clauses $S$,
+    where $S\bot$ is satisfiable with a model $I_\bot$,
+    a function $\sel$ from clauses to literals is based on $I_\bot$,
+    $\mcL_S$ contains the S-relevant instances of (selected) literals,
+    and $\mcL_S^{sat}\bot$ does not contain the empty clause.
+
+    \begin{enumerate}
+        \item By induction on $\succL$
+        a candidate model for $S$ is constructed
+        based on $\mcL_S^{sat}$.
+
+        \item
+    \end{enumerate}
+\end{proof}
+
