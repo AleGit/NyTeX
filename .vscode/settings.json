@@ -7,5 +7,9 @@
         "**/**.out":true,
         "**/**.snm":true,
         "**/**.toc/":true,
-    }
+    },
+    "cSpell.words": [
+        "satisfiability",
+        "equisatisfiable"
+    ]
 }

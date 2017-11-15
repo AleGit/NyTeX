@@ -70,25 +70,28 @@ For example we must not remove the derived proper instance
 
 % 4.1
 \begin{definition}[Unit paramodulation \cite{GK2004csl}]
-\begin{gather*}
-    \begin{array}{ccl}
-        \infer[\theta]
-        {L[r]\theta\cdot\rho}
-        {(l\mEQ r)\cdot\sigma & L[l']\cdot\sigma'}
-        &\text{if}&
-        l\sigma\succG r\sigma,
-        \theta=\mgu(l,s),
-        l\sigma = l'\sigma' = l'\theta\rho,
-        l'\notin\mcV
-        \\[0.7em]
-        \infer[\mu]
-        {\emptyclause}
-        {(s\mNE t)\cdot\tau}
-        &\text{if}&
-        s\tau = t\tau,
-        \mu=\mgu(s,t)
-    \end{array}
-\end{gather*}
+% \begin{gather*}
+%     \begin{array}{ccl}
+%         \infer[\theta]
+%         {L[r]\theta\cdot\rho}
+%         {(l\mEQ r)\cdot\sigma & L[l']\cdot\sigma'}
+%         &\text{if}&
+%         l\sigma\succG r\sigma,
+%         \theta=\mgu(l,s),
+%         l\sigma = l'\sigma' = l'\theta\rho,
+%         l'\notin\mcV
+%         \\[0.7em]
+%         \infer[\mu]
+%         {\emptyclause}
+%         {(s\mNE t)\cdot\tau}
+%         &\text{if}&
+%         s\tau = t\tau,
+%         \mu=\mgu(s,t)
+%     \end{array}
+% \end{gather*}
+\input{SNIPPETS/UPI}
+where
+\input{SNIPPETS/UPC}
 \end{definition}
 
 \section{Redundancy and Saturation}
@@ -296,6 +299,25 @@ For example we must not remove the derived proper instance
     if $\emptyclause\not\in\mcL_S^{sat}$.
 \end{definition}
 
+% 5.7 b
+\begin{definition}[model construction]
+    By induction on $\succL$
+    a candidate model for $S$ is constructed
+    based on $\mcL_S^{sat}$.
+
+    \begin{align*}
+        \mcL_S^{sat} &=
+        \\
+        I_L &= \bigcup_{L \succL M}
+            \epsilon_M
+        \\
+        R_L &=  \{
+            s\mEQ t \mid s\succL t
+        \} \subseteq I_L
+    \end{align*}
+
+\end{definition}
+
 % 5.7
 \begin{theorem}
     An Inst-saturated set of clauses $S$ is satisfiable if $S\bot$ is satisfiable.
@@ -307,31 +329,39 @@ For example we must not remove the derived proper instance
     % then S is satisfiable.
 \end{theorem}
 
+
+
 \begin{proof}
     We assume an Inst-saturated set of clauses $S$,
     where $S\bot$ is satisfiable with a model $I_\bot$,
     a function $\sel$ from clauses to literals is based on $I_\bot$,
     $\mcL_S$ contains the S-relevant instances of (selected) literals,
-    and $\mcL_S^{sat}\bot$ does not contain the empty clause.
+    and $\mcL_S^{sat}$ does not contain the empty clause.
 
-    \begin{enumerate}
-        \item By induction on $\succL$
-        a candidate model for $S$ is constructed
-        based on $\mcL_S^{sat}$.
 
-        \begin{align*}
-            \mcL_S^{sat} &=
-            \\
-            I_L &= \bigcup \{
-                \epsilon_M \mid
-                L \succL M, M\in \mcL_S^{sat}
-            \}
-            \\
-            R_L &= \{
-                s\mEQ t, t\mEQ s \mid s\succL t
-            \} \subseteq I_L
-        \end{align*}
-        \item g
-    \end{enumerate}
+
 \end{proof}
+
+\begin{align*}
+    I_S &= \bigcup_{L\in\mcL_S^{sat}} \epsilon_L
+    \\
+    R_S &= \bigcup_{L\in\mcL_S^{sat}} R_L
+\end{align*}
+
+% 5.7k
+\begin{lemma}
+    If $M\cdot\tau \in \mcL_S^{sat}$,
+    $M\cdot\tau$ is irreducible by $R_s$,
+    and $M\cdot$ is not productive, then
+    \begin{gather}
+        I_{M\cdot\tau} \models (\lnot M)\tau
+    \end{gather}
+\end{lemma}
+
+% \begin{proof}[by case analysis]
+%     \begin{enumerate}
+%         \item[M = (s\mEQ t)]
+
+%         \item[M = (s\mNE t)]
+% \end{proof}
 
