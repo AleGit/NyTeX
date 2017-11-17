@@ -27,12 +27,126 @@ handout,
     \bibliography{biblio.bib}
 \end{frame}
 
+
+\section{Preliminaries}
+\begin{frame}
+    \begin{align*}
+        &\succG \tag*{total simplification ordering on grounund terms}\\
+        &\succL \tag{}\\
+        &\succC \tag{}
+    \end{align*}
+\end{frame}
+
+\section{Unit Paramodulation}
 \begin{frame}{Unit Paramodulation}
-    \begin{definition}[Unit Paramodulation]
+
+
+
+
+
+    \begin{definition}
     \input{SNIPPETS/UPI}
     where
     \input{SNIPPETS/UPC}
     \end{definition}
+\end{frame}
+
+\section{Saturation}
+\begin{frame}
+    saturation process
+\end{frame}
+
+\subsection{Inst-Redundancy}
+
+\begin{frame}
+    $\mcR_{Inst}(S)$
+
+    selection function,
+
+    S-relevant
+\end{frame}
+
+\begin{frame}
+    \begin{Lemma}
+        Let $\mcI$ be an arbitrary total consistant extension of $\mcI_S$.
+
+        Then for every $C\in S$ and $\sigma:\mcV\to\mcTFf$.
+        \begin{align*}
+            \mcI &\models C\cdot\sigma
+        \end{align*}
+    \end{Lemma}
+
+    \begin{proof}
+        Assume minimal w.r.t.~$\succC$
+        ground instance $D'\cdot\sigma'$ of S with $\mcI\not\models D'\cdot\sigma'$.
+    \end{proof}
+\end{frame}
+
+\begin{frame}[allowframebreaks]
+    % \begin{align*}
+    %     irred_R(\mcL) &= \{
+    %         L\cdot\sigma \mid
+    %         L\cdot\sigma\in\mcL,
+    %         \sigma\text{ is irreducible by }R
+    %     \}
+    %     \text{Let }
+    % \end{align*}
+
+    % \begin{lemma}
+    %     $M\cdot\tau$ is irreducible by $R_S$
+    % \end{lemma}
+
+    \begin{lemma}
+        Let $M\cdot\tau = \min_{\succL}
+         \left\{
+             M'\cdot\tau' \mid
+             M'\cdot\tau' \in irred_{R_S}(\mcL_S^{sat}),
+             \mcI \not\models M'\tau'
+         \right\}$
+
+        Then, $M\cdot\tau$ is irreducible by $R_S$.
+    \end{lemma}
+
+
+    % \end{frame}
+    % \begin{frame}
+
+    \begin{proof}
+        Assume $M\cdot\tau$ is reducible by $(\ell\to r)\in R_S$
+        and $(\ell\to r)$ is produced by $(\ell'\mEQ r')\cdot\rho\in\mcL_S^{sat}$.
+        Bei construction $\tau$ is irreducible by $R_S$.
+
+        Hence UP-inference is applicable:
+        % and we derive $M[r']\theta\cdot\mu$
+        % from $(\ell'\mEQ r')\cdot\rho$ and $M[\ell'']\cdot\tau$
+        % with $\ell'\rho = \ell''\tau = \ell''\theta\mu$,
+        % $\theta=\mgu(\ell',\ell'')$, and $\mcI\not\models M[r']\theta\mu$
+        \begin{gather*}
+            \infer[UP]
+            {M[r']\theta\cdot\mu}
+            {(\ell'\mEQ r)\cdot\rho & M[\ell'']\cdot\tau}
+            \\
+            \ell'\rho = \ell''\tau = \ell''\theta\mu,\,
+            \theta=\mgu(\ell',\ell''),\,
+            \mcI\not\models M[r']\theta\mu
+        \end{gather*}
+        % % Since both
+
+        \begin{itemize}
+            \item Assume $M[r']\theta\cdot\mu$ is UP-redundant in $\mcL_S^{sat}$.
+
+            $\alpha$ is irreducible (lemma ..) by $R_S$. From definiton:
+            % \begin{gather}
+            %     R_S \cup irred_{R_S}(
+            %     \{
+            %         M'\cdot\tau'\mid
+            %         M[r']\theta\cdot\mu \succL M'\tau'
+            %         \} \models M[r']\theta\muu
+            % \end{gather}
+            \item Assume $M[r']\theta\cdot\mu$ is not UP-redundant in $\mcL_S^{sat}$.
+        \end{itemize}
+        % % Since both lead to a contradiction, we must ommit our assumption.
+    \end{proof}
 \end{frame}
 
 \end{document}
