@@ -5,25 +5,25 @@
 
 \chapter{Undecidability}
 
-A logical calculus, i.e.~a formal (purely syntactical) proof system for an underlying logic, 
+A logical calculus, i.e.~a formal (purely syntactical) proof system for an underlying logic,
 is {\myem complete} if every (semantically) valid formula is (syntactically) provable in the calculus.
-In other words, any expression that is valid, i.e.~satisfied in all possible interpretations, 
+In other words, any expression that is valid, i.e.~satisfied in all possible interpretations,
 is derivable by applying rules of the formal system only.
-Additional we expect a useful calculus to be {\myem sound}, that is, 
-every (syntactically) provable formula is (semantically) valid, 
+Additional we expect a useful calculus to be {\myem sound}, that is,
+every (syntactically) provable formula is (semantically) valid,
 i.e.~it holds in any interpretation.
 
 
 %A standard example for a decidable logic is propositional logic.
 
-We first look at natural deduction as a sound and complete calculus 
+We first look at natural deduction as a sound and complete calculus
 for first-order logic in Section \ref{sec:natural:deduction}.
-After that we recall undecidability of first-order logic in Section \ref{sec:decidable:fol:theorems} 
+After that we recall undecidability of first-order logic in Section \ref{sec:decidable:fol:theorems}
 together with other useful theorems about first-order logic.
 Then we enumerate decidable fragments of first-order logic
 which can be described purely syntactically in Section \ref{sec:decidable:fol:fragments} .
-After that we look at decidable first-order theories in Section \ref{sec:decidable:fol:theories}, 
-which are not necessarily expressible 
+After that we look at decidable first-order theories in Section \ref{sec:decidable:fol:theories},
+which are not necessarily expressible
 in one of the syntactically describable and decidable fragments of first-order logic.
 
 
@@ -61,7 +61,7 @@ The purpose of this section is to state useful theorems about first-order logic.
 \end{lemma}
 
 \begin{theorem}[Compactness, Gödel 1930, Maltsev 1936]\label{the:compactness}
-	If every finite subset of a set of formulas $S$ has a model then $S$ has a model. 
+	If every finite subset of a set of formulas $S$ has a model then $S$ has a model.
 \end{theorem}
 
 \begin{theorem}[Löwenheim Skolem, 1915, 1920]\label{the:loewenheim}
@@ -74,17 +74,17 @@ The purpose of this section is to state useful theorems about first-order logic.
 		\item $S$ is satisfiable.
 		\item $S$ has a Herbrand model.
 		\item Every finite subset of all ground instances of $S$ has a Herbrand model.
-	\end{itemize} 
+	\end{itemize}
 \end{theorem}
 
 \begin{corollary}
-	Let $S$ be a set of clauses without equality. 
-	Then $S$ is unsatisfiable if and only if there exists 
+	Let $S$ be a set of clauses without equality.
+	Then $S$ is unsatisfiable if and only if there exists
 	an unsatisfiable finite set of ground instances of $S$.
 \end{corollary}
 
 \begin{lemma}
-With Skolemization and Tseitin transformation we can effectively transform a arbitrary first-order formula into an equisatisfiable set of clauses.	
+With Skolemization and Tseitin transformation we can effectively transform a arbitrary first-order formula into an equisatisfiable set of clauses.
 \end{lemma}
 
 
@@ -94,8 +94,8 @@ This section presents purely syntactical defined fragments
 of first-order logic where satisfiability is decidable.\footnote{
 	\,Definitions and compact overviews follow the presentation
 	“\href{http://logic.rwth-aachen.de/~graedel/kalmar.pdf}{Decidable fragments of first-order and fixed-point logic}”
-	by E.~Grädel (\url{http://logic.rwth-aachen.de/~graedel/}).	
-}  
+	by E.~Grädel (\url{http://logic.rwth-aachen.de/~graedel/}).
+}
 
 
 
@@ -106,39 +106,40 @@ of first-order logic where satisfiability is decidable.\footnote{
 	\[
 	[\, \Pi, (p_1,p_2,\ldots), (f_1,f_2,\ldots)\,]_{(\mEQ)} \subseteq [\, all, all, all\,]_{\mEQ}
 	\]
-	where $\Pi = \quantify_1 \ldots \quantify_n$, $\quantify_i\in\{\forall,\exists\}$ 
+	where $\Pi = \quantify_1 \ldots \quantify_n$, $\quantify_i\in\{\forall,\exists\}$
 	describes the structure of the quantifier prefix (without variables) of the formulae,
 	the value $p_i$ is the maximal number of predicate symbols with arity $i$,
 	and the value $f_i$ the maximal number of function symbols with arity $i$ in the signature.
 	The equality symbol is not counted as binary predicate symbol. Instead,
-	the absence or presence of subscript $(\mEQ)$ indicates whether the equality symbol is in the signature. 
+	the absence or presence of equality in the forulae
+	is indicated by the absence or presence of a subscript $=$.
 \end{definition}
 
 \begin{example}\label{ex:monadic}
-	The monadic predicate calculus includes formulae with arbitrary quantifier prefixes, 
+	The monadic predicate calculus includes formulae with arbitrary quantifier prefixes,
 	arbitrary many unary predicate symbols, the equality symbol, but no function symbols.
 	\begin{gather*}
-	{\colG [\,all, (\omega), (1)\,]_= 
-	\quad\supsetneq}\qquad 
+	{\colG [\,all, (\omega), (1)\,]_=
+	\quad\supsetneq}\qquad
 	[\,all, (\omega), (0 ) \,]_=
 	\tag{Löwenheim 1925, Kalmár 1929}
 	\end{gather*}
 \end{example}
 
 \begin{example}\label{ex:ackermann}
-	The Ackermann prefix class contains formulae with arbitrary many existential quantifiers, 
+	The Ackermann prefix class contains formulae with arbitrary many existential quantifiers,
 	but just one universal quantifier. It contains arbitrary many predicate symbols
-	with arbitrary arities, the equality symbol, but no function symbols. 
+	with arbitrary arities, the equality symbol, but no function symbols.
 	\begin{gather*}
 	{\colG [\,\exists^*\forall\exists^*,all,(1)\,]_=
 	\quad\supsetneq}\qquad
-	[\,\exists^*\forall\exists^*,all,(0) \,]_{=}\qquad\qquad\qquad 
+	[\,\exists^*\forall\exists^*,all,(0) \,]_{=}\qquad\qquad\qquad
 	\tag{Ackermann 1928}
 	\end{gather*}
 \end{example}
 
 \begin{remark}
-	One unary function symbol can be added to these fragments of first order logic above 
+	One unary function symbol can be added to these fragments of first order logic above
 	without loosing decidability (see Table \vref{tab:decidable:InfinityAxioms}).
 \end{remark}
 
@@ -165,7 +166,7 @@ of first-order logic where satisfiability is decidable.\footnote{
 
 \begin{table}[hbt]
 	\begin{align*}
-	[\,all, (\omega), (1)&\,]_{=} \tag{Rabin 1969} 
+	[\,all, (\omega), (1)&\,]_{=} \tag{Rabin 1969}
 	\\
 	[\,\exists^{∗}\forall\exists^{∗}, all, (1)&\,]_{=} \tag{Shelah 1977}
 	\end{align*}
@@ -175,7 +176,7 @@ of first-order logic where satisfiability is decidable.\footnote{
 \end{table}
 
 \begin{lemma}
-	Satisfiability is decidable \cite{MR1482227} in all prefix classes from Tables 
+	Satisfiability is decidable \cite{MR1482227} in all prefix classes from Tables
 	\ref{tab:decidedable:FiniteModelProperty} and \ref{tab:decidable:InfinityAxioms}.
 	Each of theses classes is closed under conjunction with respect to satisfiability.
 \end{lemma}
@@ -187,18 +188,18 @@ of first-order logic where satisfiability is decidable.\footnote{
 We follow definitions and examples in \cite{AM2015L}.
 
 \begin{definition}[Theory]
-	A {\myem first-order theory} is a pair of a first-order signature 
-	and the possible infinite conjunction $\bigwedge_i A_i$ of first-order formulae, 
-	i.e.~the axioms, over the theory's signature. 
+	A {\myem first-order theory} is a pair of a first-order signature
+	and the possible infinite conjunction $\bigwedge_i A_i$ of first-order formulae,
+	i.e.~the axioms, over the theory's signature.
 	A theory is {\myem consistent} if the contradiction is not derivable.
 	A theory is satisfiable if there exists a model for its axioms.
-%	
-	A {\myem theorem} is a sentence over the theory's signature, 
+%
+	A {\myem theorem} is a sentence over the theory's signature,
 	i.e.~a closed formula, that holds in any model for the theory's axioms.
 	\[
-		\bigwedge_i A_i \models \mathsf{theorem} 
+		\bigwedge_i A_i \models \mathsf{theorem}
 		\quad\text{ or }\quad
-		\bigwedge_i A_i \limp \mathsf{theorem} 
+		\bigwedge_i A_i \limp \mathsf{theorem}
 	\]
 	A theory is decidable if it is decidable whether an arbitrary sentence holds in the theory.
 \end{definition}
@@ -211,10 +212,10 @@ A theory with axioms $\forall x\,\mP(x)$ and $\exists x\,\lnot\mP(x)$ is neither
 	A first order theory is consistent if and only if it is satisfiable.
 \end{lemma}
 %
-\begin{remark} 
+\begin{remark}
 In refuational theorem proving
-we show the unsatisfiabilty 
-of a negated sentence, 
+we show the unsatisfiabilty
+of a negated sentence,
 i.e.~a {\myem conjecture},
 in conjunction with the axioms
 to conclude that the conjecture is indeed a theorem.
@@ -230,63 +231,63 @@ to conclude that the conjecture is indeed a theorem.
 The following equivalence and congruence axioms form the theory of equality over a first order signature.
 
 \begin{definition}
-	[Equivalence] A binary relation $\mEQ$ over a domain 
-	is an equivalence relation if and only if the following axioms hold over the given domain. 
+	[Equivalence] A binary relation $\mEQ$ over a domain
+	is an equivalence relation if and only if the following axioms hold over the given domain.
 	\label{def:equivalence:axioms}
 \begin{align*}
-\forall x\, 
-&\left(x \mEQ x\right) 
+\forall x\,
+&\left(x \mEQ x\right)
 \tag*{reflexivity}
 \\
-\forall x \forall y\, 
+\forall x \forall y\,
 &\left(x \mEQ y \limp y \mEQ x \right)
-\tag*{symmetry} 
+\tag*{symmetry}
 \\
 \forall x \forall y \forall z\,
-&\left(x \mEQ y \land y\mEQ z \limp x\mEQ z\right) 
+&\left(x \mEQ y \land y\mEQ z \limp x\mEQ z\right)
 \tag*{transitiviy}
 \end{align*}
 \end{definition}
 
 \begin{definition}[$\vec{x}$-Notation]
 	Occasionally we may abbreviate a sequence of $n$ variables by $\vec{x}$.
-	Then we write $\mcf(\vecn{x})$ 
+	Then we write $\mcf(\vecn{x})$
 	for first-order expression $\mcf(x_1,\ldots,x_n)$
 	with n-ary function or predicate symbol $\mcf$,
 %	 $\mcf\in\mcFn$,
 	a single equation $\vecn{x}\mEQ\vecn{y}$ for
-	the conjunction of $n$ equations 
+	the conjunction of $n$ equations
 	$x_1\mEQ y_1\land\ldots\land x_n\mEQ y_n$,
-	and $\forall\vecn{x}$ for 
+	and $\forall\vecn{x}$ for
 	the sequence of quantified variables $\forall x_1\ldots\forall x_n$.
 \end{definition}
 
 \begin{definition}
 	[Congruence schemata] An equivalence relation $\mEQ$ is a congruence relation if and only if
-	the following formulae hold 
+	the following formulae hold
 	\label{def:congruence:schemata}
 	\begin{align*}
 	\forall\vecn{x}\,\forall\vecn{y}\,
 	&\left(\vecn{x}\mEQ\vecn{y} \limp \mf(\vecn{x}) \mEQ \mf(\vecn{y}) \right)
 	\tag*{for all $\mf\in\mcFfn$}
 	\\
-	\forall\vecn{x}\,\forall\vecn{y}\, 
+	\forall\vecn{x}\,\forall\vecn{y}\,
 	&\left(\vecn{x}\mEQ\vecn{y} \limp (\mP(\vecn{x}) \limp \mP(\vecn{y}))\right)
 	\tag*{for all $\mP\in\mcFPn$}
 	\end{align*}
-	
-	
+
+
 \end{definition}
 
 %\begin{remark}For simplicity we have replaced biconditionals in symmetry and predicate congruence with implications.
 %	\begin{align*}
 %	\forall x \forall y\,
-%	\left(x \mEQ y \lbic y \mEQ x \right) 
+%	\left(x \mEQ y \lbic y \mEQ x \right)
 %	&
 %	\equiv\forall x \forall y\,
 %	\left(x \mEQ y \limp y \mEQ x \right)
 %	\\
-%	\forall\vec{x}\,\forall\vec{y}\, 
+%	\forall\vec{x}\,\forall\vec{y}\,
 %	\left(\vec{x}\mEQ\vec{y} \limp (\mP(\vec{x}) \lbic \mP(\vec{y}))\right)
 %	&\equiv
 %	\forall\vec{x}\,\forall\vec{y}\,
@@ -297,7 +298,7 @@ The following equivalence and congruence axioms form the theory of equality over
 \begin{lemma}\label{lemma:equivalence:congruence}
 The equivalence and congruence axioms of equality are provable with natural deduction (see Section \vref{sec:natural:deduction}).\end{lemma}
 \begin{proof}
-	For brevity we skip the quantifier introductions (and handle variables like constants) 
+	For brevity we skip the quantifier introductions (and handle variables like constants)
 	for symmetry, transitivity, and congruence.
 	Additionally we just show congruence for a unary function and a unary predicate symbol.
 	\begin{gather*}
@@ -336,7 +337,7 @@ The equivalence and congruence axioms of equality are provable with natural dedu
 2 && 	 &&	y=z	& && \land{}e_2 \\
 3 && 	 &&	x=y	& && \land{}e_1, 2 \\
 4 && 	 &&	x=z	& && {=}e,2,3 \\
-5 && 	 &&	x=y\land y=z\limp x=z	& && {\limp}i,2{-}4 
+5 && 	 &&	x=y\land y=z\limp x=z	& && {\limp}i,2{-}4
 \addpath{(2,1,1)rrrruuuulllldddd}
 \end{BMAT}
 \hspace{3em}
@@ -359,20 +360,20 @@ The following axioms characterize natural numbers, addition, and multiplication.
 \begin{definition}
 	[Natural Numbers]
 	\label{def:natural:numbers:axioms}
-	We introduce a fresh constant $0\in\mcFn[0]$, 
+	We introduce a fresh constant $0\in\mcFn[0]$,
 	a unary successor symbol $\msucc\in\mcFn[1]$
-	and restrict their models with two axioms. 
+	and restrict their models with two axioms.
 \begin{align*}
 \forall x\, &(\msucc(x) \mNE 0)
-\tag*{zero is smallest} 
+\tag*{zero is smallest}
 \\ %–––––––––––––––––––––––––––
 \forall x \forall y\, &(\msucc(x) \mEQ \msucc(y) \limp x \mEQ y)
 \tag*{injectivity of $\msucc$}
 \\
 \colG\forall x\forall y\,&\colG(x\mEQ y \limp \msucc(x)\mEQ\msucc(y))
 \tag*{congruence of $\msucc$}
-\\ 
-\underbrace{G(0)}_{\text{base}} 
+\\
+\underbrace{G(0)}_{\text{base}}
 \land\, \forall x'\,&
 \underbrace{
 	\left(G(x') \limp G(\msucc(x'))\right)
@@ -385,7 +386,7 @@ The following axioms characterize natural numbers, addition, and multiplication.
 \begin{example}
 	We may prove $\forall x\, (\msucc(x) \mNE x)$ with $G(x) = \msucc(x) \mNE x$ by induction.
 	\begin{align*}
-		\underbrace{\msucc(0)\mNE 0}_{\text{base}} 
+		\underbrace{\msucc(0)\mNE 0}_{\text{base}}
 		\land\, \forall x'\,&
 		\underbrace{
 			\left(\msucc(x')\mNE x' \limp \msucc(\msucc(x'))\mNE \msucc(x'))\right)
@@ -400,7 +401,7 @@ The following axioms characterize natural numbers, addition, and multiplication.
 	We introduce the binary addition symbol $+\in\mcFfn[2]$ with two axioms about defining equalities of sums.
 \begin{align*}
 \forall x\,
-&(x+0 \mEQ x) 
+&(x+0 \mEQ x)
 \tag*{addition of zero}\\
 \forall x\forall y\,
 &(x+\msucc(y)) \mEQ \msucc(x+y)
@@ -415,7 +416,7 @@ The following axioms characterize natural numbers, addition, and multiplication.
 \begin{example}
 	\begin{gather*}
 	{\colG \msucc(\msucc(\msucc(0)))} + \msucc(\msucc(0))
-	\mEQ\msucc({\colG \msucc(\msucc(\msucc(0)))} + \msucc(0)) 
+	\mEQ\msucc({\colG \msucc(\msucc(\msucc(0)))} + \msucc(0))
 	\mEQ \msucc(\msucc(
 	{\colG \msucc(\msucc(\msucc(0)))} + 0))
 	\mEQ \msucc(\msucc(
@@ -433,7 +434,7 @@ The following axioms characterize natural numbers, addition, and multiplication.
 	with two axioms about defining equalities of products.
 	\begin{align*}
 	\forall x\,
-	&(x\times 0 \mEQ 0) 
+	&(x\times 0 \mEQ 0)
 	\tag*{multiplication by zero}\\
 	\forall x\forall y\,
 	&(x\times\msucc(y) \mEQ (x\times y) + x)
@@ -445,8 +446,8 @@ The following axioms characterize natural numbers, addition, and multiplication.
 	\end{align*}
 \end{definition}
 
-\begin{theorem}Peano Artihmetic (Guiseppe Peano, 1889), 
-	i.e.~the first-order theory that extends Presburger Arithmetic with multiplication, is incomplete (Gödel) and undecidable. 
+\begin{theorem}Peano Artihmetic (Guiseppe Peano, 1889),
+	i.e.~the first-order theory that extends Presburger Arithmetic with multiplication, is incomplete (Gödel) and undecidable.
 \end{theorem}
 
 \begin{theorem}
@@ -454,10 +455,10 @@ The following axioms characterize natural numbers, addition, and multiplication.
 \end{theorem}
 
 \begin{lemma}[ACN]\label{lem:acn}
-	Addition and Multiplication on natural numbers are associative, commutative, 
+	Addition and Multiplication on natural numbers are associative, commutative,
 	and determine neutral elements.
 	\begin{align*}
-	\forall x\forall y\forall z\,&(x\circ(y\circ z) \mEQ (x\circ y)\circ z) 
+	\forall x\forall y\forall z\,&(x\circ(y\circ z) \mEQ (x\circ y)\circ z)
 	\tag*{associativity of $\circ\in\{+,\times\}$}
 	\\
 	\forall x\forall y\,&(x\circ y \mEQ y\circ x)
