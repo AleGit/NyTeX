@@ -29,20 +29,41 @@ handout,
 
 
 \section{Preliminaries}
-\begin{frame}
+
+
+\begin{frame}{Clauses and Closures}
+
+\end{frame}
+
+\subsection{Orderings}
+\begin{frame}{Orderings}
     \begin{align*}
-        &\succG \tag*{total simplification ordering on grounund terms}\\
-        &\succL \tag{}\\
-        &\succC \tag{}
+        &\succG
+        \tag*{order on ground terms, literals, and clauses defined by}
+        \\
+        \tag*{a total, well-founded, and monotone extension of}
+        \\
+        \tag*{a total simplification ordering $\succG'$ on ground terms}
+        \\
+        \\
+        &\succL
+        \tag*{an arbitrary total well-founded extension of $\succG$ such that}
+        \\
+        && L\sigma\succG L'\sigma' &\Rightarrow L\cdot\sigma\succL L'\cdot\sigma'\tag*{}
+        \\
+        \\
+        &\succC \tag*{an arbitrary total well-founded extension of $\succG$ such that }
+        \\
+        && C\tau\succG D\rho\text)
+        &\Rightarrow C\cdot\tau\succC D\cdot\rho   \tag*{}
+        \\
+        && (C\tau=D\rho\text{ and }C\theta = D)
+        &\Rightarrow C\cdot\tau\succC D\cdot\rho   \tag*{}
     \end{align*}
 \end{frame}
 
 \section{Unit Paramodulation}
 \begin{frame}{Unit Paramodulation}
-
-
-
-
 
     \begin{definition}
     \input{SNIPPETS/UPI}
@@ -51,9 +72,125 @@ handout,
     \end{definition}
 \end{frame}
 
+\subsection{Redundancy}
+\begin{frame}%{Redundancy}
+    \begin{definition}
+        Let $L\cdot\sigma$ be a literal closure,
+        $\mcL$ be a set of literal closures\\
+        and $R$ a ground rewrite system.
+        \begin{align*}
+            irred_R(\mcL) &= \{
+                L'\cdot\sigma' \mid
+                L'\cdot\sigma'\in\mcL,
+                \sigma'\text{ is irreducible w.r.t.~}R
+            \}
+            \\
+            \mcL_{L\cdot\sigma\succL} &= \{
+                L'\cdot\sigma' \mid
+                L'\cdot\sigma'\in\mcL,
+                L\cdot\sigma\succL L'\cdot\sigma'
+            \}
+        \end{align*}
+    \end{definition}
+\begin{definition}
+    A literal closure $L\cdot\sigma$ is UP-redundant
+    in a set of literal closures $\mcL$ if
+    \begin{align*}
+        % R \cup irred_R(\mcL) &\models L\sigma \\
+        R \cup irred_R(\mcL_{L\cdot\sigma\succL}) &\vDash L\sigma
+        % R \cup irred_R(\mcL) &\proves L\sigma \\
+    \end{align*}
+    for any ground rewrite System $R$
+
+    oriented by $\succG$ where $\sigma$ is irreducible w.r.t.~$R$.
+
+    $\mcR_{UP}$ denotes the set of all UP-redundant closures in $\mcL$.
+
+
+
+
+
+
+\end{definition}
+\end{frame}
+
 \section{Saturation}
-\begin{frame}
-    saturation process
+\subsection{Satuaration}
+\begin{frame}[allowframebreaks]{Saturation}
+    \begin{definition}
+        A UP-{ saturation process} is
+        a sequence \( \{ \mcL_i \}_{i=0}^\infty \)
+        of sets of literal closures where
+        \( \mcL_{i+1} \) can be obtained from
+        \( \mcL_i \)
+        by { adding} a conclusion of an UP-inference with premises in $\mcL_i$
+        or by { removing} a UP-redundant w.r.t.~\(\mcL_i\) closure:
+        \begin{gather*}
+            \mcL_{i+1} = \left\{
+                \begin{array}{lclc}
+                    \mcL_i \cup\,\emptyclause
+                    &\text{if}
+                    &
+                        \mcL_i\ni(s\mNE t)\cdot\tau,\ {}
+                        s\tau = t\tau,\ {}
+                        \mu=\mgu(s,t)
+                    \\
+                    \mcL_i \backslash L\cdot\sigma
+                    &\text{if}
+                    &R \cup \irred_R(\mcL_{L\cdot\sigma\succL}) \entails L\sigma
+                    \\
+                    \mcL_i \cup\, L[r]\theta\cdot\rho
+                    &\text{if}
+                    &\left\{\begin{array}{l}
+                        (\ell\mEQ r)\cdot\sigma\in\mcL_i,\ {}
+                        L[\ell']\cdot\sigma'\in\mcL_i
+                        \\
+                        % \mcL_i\ni(l\mEQ r)\cdot\sigma,\ {}
+                        \ell\sigma\succG r\sigma,\ {}
+                        \theta=\mgu(\ell,\ell'),
+                        \\
+                        % \mcL_i\ni L[l']\cdot\sigma',\ {}
+                        \ell'\notin\mcV,\ {}
+                        \ell\sigma = \ell'\sigma' = \ell'\theta\rho,
+                    \end{array}\right.
+                    \\
+                    \mcL_i
+                    &&\text{otherwise}
+                \end{array}
+            \right.
+        \end{gather*}
+    \end{definition}
+    \newpage
+
+    \begin{definition}
+        Let \( \mcL^\infty \) be the set of persistent closures,
+        i.e.~the lower limit of the sequence.
+        The process is { fair} if for every UP-inference
+        with premesis in \( \mcL^\infty \) the conclusion is UP-redundant
+        w.r.t.~\(\mcL_j\) for some \(j\).
+
+        For a set of literals \( \mcL \) we define
+        the saturated set of literal closures
+        \( \mcL^{sat} = \mcL^\infty\backslash\mcR_{UP}(\mcL^\infty) \)
+        for some UP-saturation process
+        \( \{ \mcL_i\}_{i=0}^\infty \)
+        with $\mcL_0 = \mcL$.
+    \end{definition}
+
+    \begin{lemma}
+        The set \( \mcL^{sat} \) is unique because
+        for any two UP-fair saturation processes
+        \(\{ \mcL_i
+            \}_{i=0}^\infty\) and
+            \(\{ \mcL'_i
+            \}_{i=0}^\infty\)
+            with $\mcL_0 = \mcL'_0$ we have
+            \begin{gather*}
+                \mcL^\infty \backslash \mcR_{UP}(\mcL^\infty)
+                =
+                \mcL'^\infty \backslash \mcR_{UP}(\mcL'^\infty)
+            \end{gather*}
+    \end{lemma}
 \end{frame}
 
 \subsection{Inst-Redundancy}
