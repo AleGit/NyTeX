@@ -1,5 +1,5 @@
 \documentclass[%
-handout,
+% handout,
 %draft
 ]{beamer}
 \usetheme[shadow]{ComputationalLogic}
@@ -195,28 +195,60 @@ handout,
 
 \subsection{Inst-Redundancy}
 
+% \begin{frame}
+%     $\mcR_{Inst}(S)$
+
+%     selection function,
+
+%     S-relevant
+% \end{frame}
+
+% \begin{frame}
+%     \begin{Lemma}
+%         Let $\mcI$ be an arbitrary total consistant extension of $\mcI_S$.
+
+%         Then for every $C\in S$ and $\sigma:\mcV\to\mcTFf$.
+%         \begin{align*}
+%             \mcI &\models C\cdot\sigma
+%         \end{align*}
+%     \end{Lemma}
+
+%     \begin{proof}
+%         Assume minimal w.r.t.~$\succC$
+%         ground instance $D'\cdot\sigma'$ of S with $\mcI\not\models D'\cdot\sigma'$.
+%     \end{proof}
+% \end{frame}
+
+\subsection{Construction}
 \begin{frame}
-    $\mcR_{Inst}(S)$
+    Assume $\mcL\bot$ is satisfiable and
+    $\emptyclause\not\in\mcL^{sat}$.
 
-    selection function,
-
-    S-relevant
-\end{frame}
-
-\begin{frame}
-    \begin{Lemma}
-        Let $\mcI$ be an arbitrary total consistant extension of $\mcI_S$.
-
-        Then for every $C\in S$ and $\sigma:\mcV\to\mcTFf$.
-        \begin{align*}
-            \mcI &\models C\cdot\sigma
-        \end{align*}
-    \end{Lemma}
-
-    \begin{proof}
-        Assume minimal w.r.t.~$\succC$
-        ground instance $D'\cdot\sigma'$ of S with $\mcI\not\models D'\cdot\sigma'$.
-    \end{proof}
+    We define by induction on $\succL$.
+    Assume $L = L'\cdot\sigma \in\mcL^{sat}$
+    \begin{align*}
+        I_L &= \bigcup_{L\succL M}\epsilon_M
+        \\
+        R_L &= \{ s \to t \mid s\mEQ t\in I_L, s\succG t \}
+        \\
+        \epsilon_L &= \left\{
+            \begin{array}{cl}
+                \emptyset &\text{if }
+                L'\sigma\text{ reducible by }R_L
+                \\
+                \emptyset &\text{if }
+                I_L\vDash L'\sigma
+                \text{ or }
+                I_L\vDash \overline{L'}\sigma
+                \\
+                \{ L'\sigma \}
+                &L'\sigma\text{ irreducible by }R_L\text{ and undefined in }I_L
+            \end{array}
+        \right.\\
+        I_S &= \bigcup_{L\in\mcL^{sat}} \epsilon_L
+        \qquad\qquad
+        R_S = \bigcup_{L\in\mcL^{sat}} R_L
+    \end{align*}
 \end{frame}
 
 \begin{frame}[allowframebreaks]
