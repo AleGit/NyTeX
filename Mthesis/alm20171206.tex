@@ -1,5 +1,5 @@
 \documentclass[%
-% handout,
+handout,
 %draft
 ]{beamer}
 \usetheme[shadow]{ComputationalLogic}
@@ -25,6 +25,10 @@
     \nocite{GK2004csl}
     \bibliographystyle{plain}
     \bibliography{biblio.bib}
+\end{frame}
+
+\begin{frame}
+    \input{T/refutation.tex}
 \end{frame}
 
 
@@ -66,15 +70,16 @@
 \end{frame}
 
 \section{Unit Paramodulation}
+\subsection{Inferences}
 \begin{frame}{Unit Paramodulation}
 
-    \begin{definition}
+    % \begin{definition}
     \input{SNIPPETS/UPI}
     where
     \input{SNIPPETS/UPC}
-    \end{definition}
+    % \end{definition}
 
-    \vspace{0.7em}
+    \vspace{1.4em}
     \begin{remark}
     The set of literal closures
     $\{\,
@@ -82,67 +87,65 @@
     \ma\mEQ \mb,\,
     \mf(\mb)\mNE\mb\,
     \}$ is inconsistent,
-    but 
-    with $\ma\succG\mb$ 
-    the empty clause is not derivable.
+    but the empty clause is not derivable
+    if $\ma\succG\mb$.
     \end{remark}
-    
     
 \end{frame}
 
 
-
+\subsection{UP-Redundancy}
 \begin{frame}[allowframebreaks]
-    
-    \begin{definition}
+    % \begin{definition}
         
-        For a set of literal closures $\mcL$ and 
-        arbitrary ground term rewrite system $R$ we define
+        We define for a set of literal closures $\mcL$ 
+        
+        and an
+        arbitrary ground rewrite system $R$
         \begin{gather*}
             irred_R(\mcL) = \{
-                L'\cdot\sigma' \mid
-                L'\cdot\sigma'\in\mcL,
-                \sigma'\text{ is irreducible w.r.t.~}R
+                L\cdot\sigma \mid
+                L\cdot\sigma\in\mcL,
+                \sigma\text{ is irreducible w.r.t.~}R
             \}
         \end{gather*}
     
-    A literal closure $L\cdot\sigma$ is UP-redundant $\mcL$ if
+    A literal closure $L\cdot\sigma$ is UP-redundant in $\mcL$ if
+    for every ground rewrite system $R$ 
+    oriented by $\succG$ 
+    where $\sigma$ is irreducible w.r.t.~$R$
     \begin{gather*}
     R \cup irred_R(\mcL_{L\cdot\sigma\succL}) \vDash L\sigma
     \end{gather*}
-    for any ground term rewrite system $R$ and 
-    \begin{gather*}
-        \mcL_{L\cdot\sigma\succL} = \{
-            L'\cdot\sigma' \mid
-            L'\cdot\sigma'\in\mcL,
+    with 
+    $
+        \mcL_{L\cdot\sigma\succL} = \{\,
+            L'\!\cdot\sigma' \mid
+            L'\!\cdot\sigma'\in\mcL,\,
             L\cdot\sigma\succL L'\cdot\sigma'
-        \}
-    \end{gather*}
+        \,\}
+    $
 
-    oriented by $\succG$ where $\sigma$ is irreducible w.r.t.~$R$.
-    \vspace{0.7em}
+    \vspace{1.4em}
+    Then $\mcR_{UP}(\mcL)$ denotes the set of all UP-redundant closures in $\mcL$.
 
-    $\mcR_{UP}$ denotes the set of all UP-redundant closures in $\mcL$.
-
-
-
-
-
-
-\end{definition}
+    % \end{definition}
 \end{frame}
 
 \section{Saturation}
 \subsection{Satuaration}
 \begin{frame}[allowframebreaks]{Saturation}
-    \begin{definition}
-        A UP-{ saturation process} is
+    % \begin{definition}
+        A UP-{saturation process} is
+
         a sequence \( \{ \mcL_i \}_{i=0}^\infty \)
-        of sets of literal closures where
-        \( \mcL_{i+1} \) can be obtained from
-        \( \mcL_i \)
-        by { adding} a conclusion of an UP-inference with premises in $\mcL_i$
-        or by { removing} a UP-redundant w.r.t.~\(\mcL_i\) closure:
+        of sets of literal closures 
+        
+        where \( \mcL_{i+1} \) is obtained from \( \mcL_i \)
+        
+        by {adding} a conclusion of an UP-inference with premises in $\mcL_i$
+
+        or by {removing} a UP-redundant closure w.r.t.~\(\mcL_i\).
         \begin{gather*}
             \mcL_{i+1} = \left\{
                 \begin{array}{lclc}
@@ -155,7 +158,7 @@
                     \\
                     \mcL_i \backslash L\cdot\sigma
                     &\text{if}
-                    &R \cup \irred_R(\mcL_{L\cdot\sigma\succL}) \entails L\sigma
+                    &R \cup \irred_R(\mcL_{i,L\cdot\sigma\succL}) \entails L\sigma
                     \\
                     \mcL_i \cup\, L[r]\theta\cdot\rho
                     &\text{if}
@@ -163,11 +166,9 @@
                         (\ell\mEQ r)\cdot\sigma\in\mcL_i,\ {}
                         L[\ell']\cdot\sigma'\in\mcL_i
                         \\
-                        % \mcL_i\ni(l\mEQ r)\cdot\sigma,\ {}
                         \ell\sigma\succG r\sigma,\ {}
                         \theta=\mgu(\ell,\ell'),
                         \\
-                        % \mcL_i\ni L[l']\cdot\sigma',\ {}
                         \ell'\notin\mcV,\ {}
                         \ell\sigma = \ell'\sigma' = \ell'\theta\rho,
                     \end{array}\right.
@@ -177,14 +178,14 @@
                 \end{array}
             \right.
         \end{gather*}
-    \end{definition}
+    % \end{definition}
     \newpage
 
     \begin{definition}
         Let \( \mcL^\infty \) be the set of persistent closures,
         i.e.~the lower limit of the sequence.
-        The process is { fair} if for every UP-inference
-        with premesis in \( \mcL^\infty \) the conclusion is UP-redundant
+        The process is {UP-fair} if for every UP-inference
+        with premises in \( \mcL^\infty \) the conclusion is UP-redundant
         w.r.t.~\(\mcL_j\) for some \(j\).
 
         For a set of literals \( \mcL \) we define
@@ -213,41 +214,92 @@
 
 \subsection{Inst-Redundancy}
 
-% \begin{frame}
+\begin{frame}
 %     $\mcR_{Inst}(S)$
 
 %     selection function,
 
 %     S-relevant
-% \end{frame}
+Let $S$ be a set of clauses.
 
-% \begin{frame}
-%     \begin{Lemma}
-%         Let $\mcI$ be an arbitrary total consistant extension of $\mcI_S$.
+A (possible non-ground) clause $C$ is called Inst-redundant in $S$
 
-%         Then for every $C\in S$ and $\sigma:\mcV\to\mcTFf$.
-%         \begin{align*}
-%             \mcI &\models C\cdot\sigma
-%         \end{align*}
-%     \end{Lemma}
+if each ground closure $C\cdot\sigma$ is Inst-redundant in $S$, i.e.
 
-%     \begin{proof}
-%         Assume minimal w.r.t.~$\succC$
-%         ground instance $D'\cdot\sigma'$ of S with $\mcI\not\models D'\cdot\sigma'$.
-%     \end{proof}
-% \end{frame}
+there are ground closures $C_1\cdot\sigma_1,\ldots,C_k\cdot\sigma_k$ of clauses in $S$ such that
+\begin{gather*}
+    C_1\cdot\sigma_1,\ldots,C_k\cdot\sigma_k\models C'\cdot\sigma'
+\end{gather*}
+
+\vspace{1.4em}
+Then $R_{Inst}(S)$ denotes the set of all Inst-redundant clauses in $S$.
+
+\end{frame}
+
+\subsection{Selection}
+\begin{frame}
+    Consider a set of clauses $S$, let $I_\bot$ be a model of $S\bot$.
+
+    A selection funciton $\sel$ maps clauses to literals such that
+    \begin{align*}
+        \sel(C)&\in C
+        \\
+        I_\bot&\models\sel(C)\bot
+    \end{align*}
+    
+    
+
+    The set of $S$-relevant instances of literals
+    \begin{align*}
+        \mcL_S &= \left\{\, L\cdot\sigma \mid
+        \begin{array}{l}
+            L\lor C\in S,\,L = \sel(L\lor C)\\
+            (L\lor C)\cdot\sigma\text{ is not Inst-redundant in S},\\
+        \end{array}
+        \,\right\}
+    \end{align*}
+
+    \vspace{1.4em}
+    $\mcL_S^{sat}$ denotes the satuarion process of $\mcL_S$.
+
+    \vspace{0.7em}
+    
+
+\end{frame}
+
+\subsection{Completeness}
+\begin{frame}
+    A set of clauses $S$ is Inst-saturated w.r.t.~a selection function,
+
+    if $\mcL_S^{sat}$ does not contain the empty clause.
+    \vspace{1.4em}
+
+    \begin{theorem}
+    If a set of clauses $S$ is Inst-saturated, 
+    and $S\bot$ is satisfiable,
+
+    then $S$ is also satisfiable.
+    \end{theorem}
+    \vspace{1.4em}
+
+    \begin{proof}
+        \begin{enumerate}
+            \item model candidate construction
+            \item proof by contradiction of counterexample 
+        \end{enumerate}
+        \end{proof}
+\end{frame}
 
 \subsection{Construction}
 \begin{frame}
-    Let $\mcL$ be a set of literal closures.
-    
-    Assume $\mcL\bot$ is satisfiable and
-    $\emptyclause\not\in\mcL^{sat}$.
+    Assume $S\bot$ is satisfiable and
+    $\emptyclause\not\in\mcL_S^{sat}$.
 
     We define by induction on $\succL$.
-    Assume $L = L'\cdot\sigma \in\mcL^{sat}$
+    Assume $L = L'\cdot\sigma \in\mcL_S^{sat}$
     \begin{align*}
         I_L &= \bigcup_{L\succL M}\epsilon_M
+        \tag*{$\epsilon_M$ allready defined for all $M$ with $L\succL M$}
         \\
         R_L &= \{ s \to t \mid s\mEQ t\in I_L, s\succG t \}
         \\
@@ -260,15 +312,33 @@
                 I_L\vDash L'\sigma
                 \text{ or }
                 I_L\vDash \overline{L'}\sigma
+                \text{ (defined)}
                 \\
                 \{ L'\sigma \}
-                &L'\sigma\text{ irreducible by }R_L\text{ and undefined in }I_L
+                &\text{if }L'\sigma \text{ is productive (i.e.~irreducible and undefined)}
             \end{array}
-        \right.\\
-        I_S &= \bigcup_{L\in\mcL^{sat}} \epsilon_L
-        \qquad\qquad
-        R_S = \bigcup_{L\in\mcL^{sat}} R_L
+        \right.\\[1.4em]
+        R_S &= \bigcup_{L\in\mcL_S^{sat}} R_L \tag*{$R_S$ is convergent interreduced rewrite system}
+        \\
+        I_S &= \bigcup_{L\in\mcL_S^{sat}} \epsilon_L \tag*{$I_S$ is consistent, $L\sigma\in L_S$ is irreducible by $R_S$}
     \end{align*}
+\end{frame}
+
+\subsection{Counterexample}
+\begin{frame}
+    Let $\mcI$ be an arbitrary total consistent extension of $I_S$.
+    \vspace{1.4em}
+
+    Assume $\mcI$ is not a model of $S$.
+    \begin{align*}
+        \text{Let }
+        D &= \min_{\succC}\{\,
+        D'\cdot\sigma \mid D'\in S,\,
+        \mcI\not\models D'\sigma\,
+        \}
+    \end{align*}
+
+    
 \end{frame}
 
 
