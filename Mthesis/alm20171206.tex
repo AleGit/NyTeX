@@ -30,13 +30,16 @@
 
 \section{Preliminaries}
 
+\subsection{Clauses, closures and orderings}
 
-\begin{frame}{Clauses and Closures}
+\begin{frame}
 
-\end{frame}
-
-\subsection{Orderings}
-\begin{frame}{Orderings}
+    \begin{itemize}
+        \item a clause $C$ is a multiset of literals
+        \item literals are (in)equations of first order terms
+        \item a closure $C\cdot\sigma$ is a pair of clause $C$ and substitution $\sigma$
+        \item orderings
+    \end{itemize}
     \begin{align*}
         &\succG
         \tag*{order on ground terms, literals, and clauses defined by}
@@ -70,39 +73,54 @@
     where
     \input{SNIPPETS/UPC}
     \end{definition}
+
+    \vspace{0.7em}
+    \begin{remark}
+    The set of literal closures
+    $\{\,
+    (\mf(x)\mEQ\mb)\cdot\{x\to\ma\},\, 
+    \ma\mEQ \mb,\,
+    \mf(\mb)\mNE\mb\,
+    \}$ is inconsistent,
+    but 
+    with $\ma\succG\mb$ 
+    the empty clause is not derivable.
+    \end{remark}
+    
+    
 \end{frame}
 
-\subsection{Redundancy}
-\begin{frame}%{Redundancy}
+
+
+\begin{frame}[allowframebreaks]
+    
     \begin{definition}
-        Let $L\cdot\sigma$ be a literal closure,
-        $\mcL$ be a set of literal closures\\
-        and $R$ a ground rewrite system.
-        \begin{align*}
-            irred_R(\mcL) &= \{
+        
+        For a set of literal closures $\mcL$ and 
+        arbitrary ground term rewrite system $R$ we define
+        \begin{gather*}
+            irred_R(\mcL) = \{
                 L'\cdot\sigma' \mid
                 L'\cdot\sigma'\in\mcL,
                 \sigma'\text{ is irreducible w.r.t.~}R
             \}
-            \\
-            \mcL_{L\cdot\sigma\succL} &= \{
-                L'\cdot\sigma' \mid
-                L'\cdot\sigma'\in\mcL,
-                L\cdot\sigma\succL L'\cdot\sigma'
-            \}
-        \end{align*}
-    \end{definition}
-\begin{definition}
-    A literal closure $L\cdot\sigma$ is UP-redundant
-    in a set of literal closures $\mcL$ if
-    \begin{align*}
-        % R \cup irred_R(\mcL) &\models L\sigma \\
-        R \cup irred_R(\mcL_{L\cdot\sigma\succL}) &\vDash L\sigma
-        % R \cup irred_R(\mcL) &\proves L\sigma \\
-    \end{align*}
-    for any ground rewrite System $R$
+        \end{gather*}
+    
+    A literal closure $L\cdot\sigma$ is UP-redundant $\mcL$ if
+    \begin{gather*}
+    R \cup irred_R(\mcL_{L\cdot\sigma\succL}) \vDash L\sigma
+    \end{gather*}
+    for any ground term rewrite system $R$ and 
+    \begin{gather*}
+        \mcL_{L\cdot\sigma\succL} = \{
+            L'\cdot\sigma' \mid
+            L'\cdot\sigma'\in\mcL,
+            L\cdot\sigma\succL L'\cdot\sigma'
+        \}
+    \end{gather*}
 
     oriented by $\succG$ where $\sigma$ is irreducible w.r.t.~$R$.
+    \vspace{0.7em}
 
     $\mcR_{UP}$ denotes the set of all UP-redundant closures in $\mcL$.
 
@@ -221,6 +239,8 @@
 
 \subsection{Construction}
 \begin{frame}
+    Let $\mcL$ be a set of literal closures.
+    
     Assume $\mcL\bot$ is satisfiable and
     $\emptyclause\not\in\mcL^{sat}$.
 
@@ -251,71 +271,146 @@
     \end{align*}
 \end{frame}
 
-\begin{frame}[allowframebreaks]
-    % \begin{align*}
-    %     irred_R(\mcL) &= \{
-    %         L\cdot\sigma \mid
-    %         L\cdot\sigma\in\mcL,
-    %         \sigma\text{ is irreducible by }R
-    %     \}
-    %     \text{Let }
-    % \end{align*}
-
-    % \begin{lemma}
-    %     $M\cdot\tau$ is irreducible by $R_S$
-    % \end{lemma}
-
-    \begin{lemma}
-        Let $M\cdot\tau = \min_{\succL}
-         \left\{
-             M'\cdot\tau' \mid
-             M'\cdot\tau' \in irred_{R_S}(\mcL_S^{sat}),
-             \mcI \not\models M'\tau'
-         \right\}$
-
-        Then, $M\cdot\tau$ is irreducible by $R_S$.
-    \end{lemma}
 
 
-    % \end{frame}
-    % \begin{frame}
+% \subsection{$M\cdot\tau$ is irreducible by $R_S$}
+% \begin{frame}[allowframebreaks]{$M\cdot\tau$ is irreducible}
+%     % \begin{lemma}
+%     %     Let $M\cdot\tau = \min_{\succL}
+%     %      \left\{
+%     %          M'\cdot\tau' \mid
+%     %          M'\cdot\tau' \in irred_{R_S}(\mcL_S^{sat}),
+%     %          \mcI \not\models M'\tau'
+%     %      \right\}$
 
-    \begin{proof}
-        Assume $M\cdot\tau$ is reducible by $(\ell\to r)\in R_S$
-        and $(\ell\to r)$ is produced by $(\ell'\mEQ r')\cdot\rho\in\mcL_S^{sat}$.
-        Bei construction $\tau$ is irreducible by $R_S$.
+%     %     Then, $M\cdot\tau$ is irreducible by $R_S$.
+%     % \end{lemma}
 
-        Hence UP-inference is applicable:
-        % and we derive $M[r']\theta\cdot\mu$
-        % from $(\ell'\mEQ r')\cdot\rho$ and $M[\ell'']\cdot\tau$
-        % with $\ell'\rho = \ell''\tau = \ell''\theta\mu$,
-        % $\theta=\mgu(\ell',\ell'')$, and $\mcI\not\models M[r']\theta\mu$
-        \begin{gather*}
-            \infer[UP]
-            {M[r']\theta\cdot\mu}
-            {(\ell'\mEQ r)\cdot\rho & M[\ell'']\cdot\tau}
-            \\
-            \ell'\rho = \ell''\tau = \ell''\theta\mu,\,
-            \theta=\mgu(\ell',\ell''),\,
-            \mcI\not\models M[r']\theta\mu
-        \end{gather*}
-        % % Since both
+%         Let
+%             $M\cdot\tau = \min_{\succL}\!
+%         \left\{\, 
+%             L'\cdot\tau' \mid
+%             L'\cdot\sigma' \in irred_{R_S}(\mcL_S^{sat}),\,
+%             \mcI \not\models M'\tau'\, 
+%         \right\}$
+        
+%         \textcolor{gray}{(There is at least one $L'\cdot\sigma'\in irred_{R_S}(\mcL_S^{sat})$ false in $\mcI$)}
+        
+%         \vspace{0.7em}
+%         Assume 
+%         \begin{itemize}
+%             \item $M\cdot\tau$ is reducible by $(\ell\to r)\in R_S$
+%             \item $(\ell\to r)$ is produced by $(\ell'\mEQ r')\cdot\rho\in\mcL_S^{sat}$
+%         \end{itemize}
 
+%         Bei construction $\tau$ is irreducible by $R_S$.
+
+%         Hence UP-inference is applicable:
+%         % and we derive $M[r']\theta\cdot\mu$
+%         % from $(\ell'\mEQ r')\cdot\rho$ and $M[\ell'']\cdot\tau$
+%         % with $\ell'\rho = \ell''\tau = \ell''\theta\mu$,
+%         % $\theta=\mgu(\ell',\ell'')$, and $\mcI\not\models M[r']\theta\mu$
+%         \begin{gather*}
+%             \infer[UP]
+%             {M[r']\theta\cdot\mu}
+%             {(\ell'\mEQ r)\cdot\rho & M[\ell'']\cdot\tau}
+%             \\
+%             \ell'\rho = \ell''\tau = \ell''\theta\mu,\,
+%             \theta=\mgu(\ell',\ell''),\,
+%             \mcI\not\models M[r']\theta\mu
+%         \end{gather*}
+%         % % Since both
+
+%         \begin{itemize}
+%             \item Assume $M[r']\theta\cdot\mu$ is UP-redundant in $\mcL_S^{sat}$.
+
+%             $\alpha$ is irreducible (lemma ..) by $R_S$. From definiton:
+%             % \begin{gather}
+%             %     R_S \cup irred_{R_S}(
+%             %     \{
+%             %         M'\cdot\tau'\mid
+%             %         M[r']\theta\cdot\mu \succL M'\tau'
+%             %         \} \models M[r']\theta\muu
+%             % \end{gather}
+%             \item Assume $M[r']\theta\cdot\mu$ is not UP-redundant in $\mcL_S^{sat}$.
+%         \end{itemize}
+%         % % Since both lead to a contradiction, we must ommit our assumption.
+% \end{frame}
+
+%%% FINAL STEP =======================================================================
+
+\subsection{Final step}
+\begin{frame}[allowframebreaks]{Final Step}
+    \textcolor{gray}{
+        $M\cdot\tau = \min_{\succL}\!
+        \left\{\, 
+            M'\cdot\tau' \mid
+            L'\cdot\sigma' \in irred_{R_S}(\mcL_S^{sat}),\,
+            \mcI \not\models M'\tau'\, 
+        \right\}$}
+    \vspace{0.7em}
+
+        We have that $M\cdot\tau$
+    \begin{itemize}
+        \item is false in $\mcI$
+        \item is in $\mcL_S^{sat}$
+        \item is irreducible by $R_S$
+        \item is not productive.
+    \end{itemize}
+    \vspace{1em}
+
+    Hence $I_{M\cdot\tau}\models\overline{M}\tau$ 
+    with two possible cases:
+
+    \begin{enumerate}
+        \item $M\cdot\tau$ is equation $(s\mEQ t)\cdot\tau$  \hfill $I_{M\cdot\tau}\models (s\mNE t)\tau$ 
+        \item $M\cdot\tau$ is inequation $(s\mNE t)\cdot\tau$ \hfill $I_{M\cdot\tau}\models (s\mEQ t)\tau$
+    \end{enumerate}
+
+\pagebreak
+\textcolor{gray}{
+    $M\cdot\tau = \min_{\succL}\!
+    \left\{\, 
+        M'\cdot\tau' \mid
+        L'\cdot\sigma' \in irred_{R_S}(\mcL_S^{sat}),\,
+        \mcI \not\models M'\tau'\, 
+    \right\}$
+    \\
+    $M\cdot\tau$ is false in $\mcI$, 
+    in $\mcL_S^{sat}$, 
+    irreducible in $R_S$,
+    not productive.}
+    \vspace{0.5em}
+
+    \begin{enumerate}
+        \item Assume $M\cdot\tau$ is equation $(s\mEQ t)\cdot\tau$:
         \begin{itemize}
-            \item Assume $M[r']\theta\cdot\mu$ is UP-redundant in $\mcL_S^{sat}$.
-
-            $\alpha$ is irreducible (lemma ..) by $R_S$. From definiton:
-            % \begin{gather}
-            %     R_S \cup irred_{R_S}(
-            %     \{
-            %         M'\cdot\tau'\mid
-            %         M[r']\theta\cdot\mu \succL M'\tau'
-            %         \} \models M[r']\theta\muu
-            % \end{gather}
-            \item Assume $M[r']\theta\cdot\mu$ is not UP-redundant in $\mcL_S^{sat}$.
+            \item $I_{M\cdot\tau}\models (s\mNE t)\tau$
+            \item All literals in $I_{M\cdot\tau}$ are irreducible by $R_{M\cdot\tau}$ 
+            \item $s\tau$ and $t\tau$ are irreducible by $R_{M\cdot\tau}$
+            \item $R_{M\cdot\tau}$ is a convergent term rewrite system
         \end{itemize}
-        % % Since both lead to a contradiction, we must ommit our assumption.
-    \end{proof}
+        Hence $(s\mNE t)\tau\in I_{M\cdot\tau}$ and
+        produced to $I_{M\cdot\tau}$ by a $(s'\mNE t')\cdot\tau'$.
+
+        Contradicts the minimality of $M\cdot\tau$.
+        \vspace{0.5em}
+        
+        \item Assume $M\cdot\tau$ is inequation $(s\mNE t)\cdot\tau$:
+        \begin{itemize}
+            \item $I_{M\cdot\tau}\models (s\mEQ t)\tau$
+            \item $s\tau$ and $t\tau$ are irreducible by $R_{M\cdot\tau}$
+        \end{itemize}
+        Hence $s\tau = t\tau$ and equality resolution is applicable.
+
+        Contradicts that the empty clause is not in $\mcL_S^{sat}$.
+    \end{enumerate}
+
+
+
+
+       
+
 \end{frame}
 
 \end{document}
