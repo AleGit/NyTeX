@@ -333,10 +333,21 @@ Then $R_{Inst}(S)$ denotes the set of all Inst-redundant clauses in $S$.
     \begin{align*}
         \text{Let }
         D &= \min_{\succC}\{\,
-        D'\cdot\sigma \mid D'\in S,\,
-        \mcI\not\models D'\sigma\,
+        C'\cdot\sigma \mid C'\in S,\,
+        \mcI\not\models C'\sigma\,
         \}
     \end{align*}
+
+    Then 
+    \begin{itemize}
+        \item $D = D'\cdot\sigma$ is not Inst-redundant. Otherwise
+        $D_1,\ldots,D_n\models D$, $D\succC D_i$ for all $i$,
+        and $\mcI\not\models D_j$ for one $j$ contradicts minimality.
+        \item $x\sigma$ irreducible by $R_S$ for every variable $x$ in $D'$.
+        Otherwise let $(\ell\to r)\tau\in R_L$ and $x\sigma = x\sigma[l\tau]_p$ for some variable x in D'.
+        We define substitution $\sigma'$ with $x\sigma' = x\sigma[r\tau]_p$ and $y\sigma' = y\sigma$ for $y\neq x$.
+        $\mcI\not\models D'\sigma'$ and $D\succC D'\cdot\sigma'$ contradicts minimality.
+    \end{itemize}
 
     
 \end{frame}
