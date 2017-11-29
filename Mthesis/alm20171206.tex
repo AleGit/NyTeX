@@ -81,11 +81,11 @@ handout,
 \subsection{Inferences}
 \begin{frame}{Unit Paramodulation}
 
-    % \begin{definition}
+    \begin{definition}
     \input{SNIPPETS/UPI}
     where
     \input{SNIPPETS/UPC}
-    % \end{definition}
+    \end{definition}
 
     \vspace{1.4em}
     \begin{remark}
@@ -102,47 +102,49 @@ handout,
 \end{frame}
 
 
-\subsection{UP-Redundancy}
-\begin{frame}[allowframebreaks]
-    % \begin{definition}
-
-        We define for a set of literal closures $\mcL$
-
-        and an
-        arbitrary ground rewrite system $R$
-        \begin{gather*}
-            irred_R(\mcL) =
-            \{\,
-                L\cdot\sigma\in\mcL \mid
-                \sigma\text{ is irreducible w.r.t.~}R
-            \,\}
-        \end{gather*}
-
-    A literal closure $L\cdot\sigma$ is UP-redundant in $\mcL$ if
-    for every ground rewrite system $R$
-    oriented by $\succG$
-    where $\sigma$ is irreducible w.r.t.~$R$
+\subsection{Redundancy}
+\begin{frame}{UP-Redundancy}
+    \begin{itemize}
+        \item
+    We define the set
     \begin{gather*}
-    R \cup irred_R(\mcL_{L\cdot\sigma\succL}) \vDash L\sigma
-    \end{gather*}
-    with
-    $
-        \mcL_{L\cdot\sigma\succL} =
+        irred_R(\mcL) =
         \{\,
-            L'\!\cdot\sigma'\in\mcL \mid
-            L\cdot\sigma\succL L'\cdot\sigma'
+        L\cdot\sigma\in\mcL \mid
+        \sigma\text{ is irreducible w.r.t.~}R
         \,\}
+    \end{gather*}
+    for a set of literal closures $\mcL$
+    and a ground rewrite system $R$.
+    
+    \vspace{0.7em}
+    \item Let 
     $
+    \mcL_{L\cdot\sigma\succL} =
+    \{\,
+    L'\!\cdot\sigma'\in\mcL \mid
+    L\cdot\sigma\succL L'\cdot\sigma'
+    \,\}
+    $.
 
-    \vspace{1.4em}
-    Then $\mcR_{UP}(\mcL)$ denotes the set of all UP-redundant closures in $\mcL$.
+    \vspace{0.7em}
+    \item A literal closure $L\cdot\sigma$ is UP-redundant in $\mcL$ if
+    \begin{gather*}
+        R \cup irred_R(\mcL_{L\cdot\sigma\succL}) \vDash L\sigma
+    \end{gather*}
+    for every ground rewrite system $R$
 
-    % \end{definition}
+    oriented by $\succG$
+    where $\sigma$ is irreducible w.r.t.~$R$.
+
+    \vspace{0.7em}
+    \item
+    $\mcR_{UP}(\mcL)$ denotes the set of all UP-redundant closures in $\mcL$.
+\end{itemize}
 \end{frame}
 
-\section{Saturation}
 \subsection{Satuaration}
-\begin{frame}[allowframebreaks]{Saturation}
+\begin{frame}[allowframebreaks]{UP-Saturation}
     % \begin{definition}
         A UP-{saturation process} is
 
@@ -220,44 +222,50 @@ handout,
     \end{lemma}
 \end{frame}
 
-\subsection{Inst-Redundancy}
+\section{Instantiation}
+\subsection{Redundancy}
 
-\begin{frame}
-%     $\mcR_{Inst}(S)$
+\begin{frame}{Inst-Redundancy}
 
-%     selection function,
-
-%     S-relevant
 Let $S$ be a set of clauses.
 
-A (possible non-ground) clause $C$ is called Inst-redundant in $S$
+\begin{itemize}
+    \item A ground closure $C$ is called Inst-redundant
 
-if each ground closure $C\cdot\sigma$ is Inst-redundant in $S$, i.e.
+    if there exist ground instances $C_1,\ldots,C_k$ of $S$ such that
+    \begin{itemize}
+        \item $C\succC C_i$ for all $i$
+        \item $C_1,\ldots,C_k\models C$
+    \end{itemize}
+    \vspace{0.7em}
+    \item 
+    A (possible non-ground) clause $C$ is called Inst-redundant in $S$
 
-there are ground closures $C_1\cdot\sigma_1,\ldots,C_k\cdot\sigma_k$ of clauses in $S$ such that
-\begin{gather*}
-    C_1\cdot\sigma_1,\ldots,C_k\cdot\sigma_k\models C'\cdot\sigma'
-\end{gather*}
+if each ground closure $C\cdot\sigma$ is Inst-redundant in $S$
 
-\vspace{1.4em}
-Then $R_{Inst}(S)$ denotes the set of all Inst-redundant clauses in $S$.
+\vspace{0.7em}
+\item
+$R_{Inst}(S)$ denotes the set of all Inst-redundant clauses in $S$.
 
+\end{itemize}
 \end{frame}
 
 \subsection{Selection}
-\begin{frame}
-    Consider a set of clauses $S$, let $I_\bot$ be a model of $S\bot$.
+\begin{frame}{Selection}
+    Let $S$ be a set of clauses $S$, let $I_\bot$ be a model of $S\bot$.
 
-    A selection funciton $\sel$ maps clauses to literals such that
+    \vspace{0.7em}
+    \begin{itemize}
+        \item
+    A selection function $\sel$ maps clauses to literals such that
     \begin{align*}
         \sel(C)&\in C
-        \\
+        &&&
         I_\bot&\models\sel(C)\bot
     \end{align*}
 
-
-
-    The set of $S$-relevant instances of literals
+    \item
+    The set of $S$-relevant literal closures
     \begin{align*}
         \mcL_S &= \left\{\, L\cdot\sigma \mid
         \begin{array}{l}
@@ -267,19 +275,22 @@ Then $R_{Inst}(S)$ denotes the set of all Inst-redundant clauses in $S$.
         \,\right\}
     \end{align*}
 
-    \vspace{1.4em}
+    \item
     $\mcL_S^{sat}$ denotes the satuarion process of $\mcL_S$.
 
-    \vspace{0.7em}
+    \item A set of clauses $S$ is Inst-saturated w.r.t.~a selection function,
+    
+    if $\mcL_S^{sat}$ does not contain the empty clause.
 
+    
+
+\end{itemize}
 
 \end{frame}
 
 \subsection{Completeness}
-\begin{frame}
-    A set of clauses $S$ is Inst-saturated w.r.t.~a selection function,
-
-    if $\mcL_S^{sat}$ does not contain the empty clause.
+\begin{frame}{Completeness}
+    
     \vspace{1.4em}
 
     \begin{theorem}
@@ -292,51 +303,75 @@ Then $R_{Inst}(S)$ denotes the set of all Inst-redundant clauses in $S$.
 
     \begin{proof}
         \begin{enumerate}
-            \item model candidate construction
-            \item proof by contradiction of counterexample
+            \item construct candidate model
+            \item assume candidate is not a model
+            \item reach contradiction in all cases
         \end{enumerate}
         \end{proof}
 \end{frame}
 
 \subsection{Construction}
-\begin{frame}
-    Assume $S\bot$ is satisfiable and
-    $\emptyclause\not\in\mcL_S^{sat}$.
+\begin{frame}[allowframebreaks]{Model Construction}
+    Let $S$ be an Inst-saturated set of clauses.
+    \begin{itemize}
+        \item $S\bot$ is satisfiable 
+        \item $\emptyclause\not\in\mcL_S^{sat}$
+        
+\end{itemize}
 
-    We define by induction on $\succL$.
-    Assume $L = L'\cdot\sigma \in\mcL_S^{sat}$
-    \begin{align*}
-        I_L &= \bigcup_{L\succL M}\epsilon_M
-        \tag*{$\epsilon_M$ allready defined for all $M$ with $L\succL M$}
-        \\
-        R_L &= \{ s \to t \mid s\mEQ t\in I_L, s\succG t \}
-        \\
-        \epsilon_L &= \left\{
-            \begin{array}{cl}
-                \emptyset &\text{if }
-                L'\sigma\text{ reducible by }R_L
-                \\
-                \emptyset &\text{if }
-                I_L\vDash L'\sigma
-                \text{ or }
-                I_L\vDash \overline{L'}\sigma
-                \text{ (i.e.~}L'\sigma\text{ is defined)}
-                \\
-                \{ L'\sigma \}
-                &\text{if }L'\sigma \text{ is productive (i.e.~irreducible and undefined)}
-            \end{array}
-        \right.\\[1.4em]
-        R_S &= \bigcup_{L\in\mcL_S^{sat}} R_L \tag*{$R_S$ is convergent interreduced rewrite system}
-        \\
-        I_S &= \bigcup_{L\in\mcL_S^{sat}} \epsilon_L \tag*{$I_S$ is consistent, $L\sigma\in L_S$ is irreducible by $R_S$}
-    \end{align*}
+\vspace{1.4em}
+    Let $L = L'\cdot\sigma \in\mcL_S^{sat}$.
+    We define by induction on $\succL$
+        \begin{itemize}
+            \item $I_L = \bigcup_{L\succL M}\epsilon_M$
+            \hfill $\epsilon_M$ allready defined for all $M$ with $L\succL M$
+
+            \item $R_L = \{ s \to t \mid s\mEQ t\in I_L, s\succG t \}$
+            
+                \item $\epsilon_L = \left\{
+                    \begin{array}{cl}
+                        \emptyset &\text{if }
+                        L'\sigma\text{ reducible by }R_L
+                        \\
+                        \emptyset &\text{if }
+                        I_L\vDash L'\sigma
+                        \text{ or }
+                        I_L\vDash \overline{L'}\sigma
+                        \text{ (defined)}
+                        \\
+                        \{ L'\sigma \}
+                        &\text{if }L'\sigma \text{ is productive (irreducible, undefined)}
+                    \end{array}
+                \right.$
+
+                \framebreak
+            \item 
+            $R_S = \bigcup_{L\in\mcL_S^{sat}} R_L$
+            \hfill 
+            $R_S$ is convergent and interreduced
+
+            \item
+            $I_S = \bigcup_{L\in\mcL_S^{sat}} \epsilon_L$
+            \hfill
+            $I_S$ is consistent, 
+            
+            \hfill
+            $L\sigma\in L_S$ is irreducible by $R_S$
+
+            \item Let $\mcI$ be an arbitrary total consistent extension of $I_S$.
+        \end{itemize}
+
+        \vspace{1.4em}
+
+        \begin{lemma}
+            $\mcI$ is a model for all ground instances of clauses in $S$.
+            % $\mcI\models C\cdot\sigma$ for all $C\in S$ and $\sigma$ ground substitution.
+        \end{lemma}
 \end{frame}
 
 \subsection{Counterexample}
 \begin{frame}
-    Let $\mcI$ be an arbitrary total consistent extension of $I_S$.
-    \vspace{1.4em}
-
+    
     Assume $\mcI$ is not a model of $S$.
     \begin{align*}
         \text{Let }
