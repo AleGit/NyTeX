@@ -83,45 +83,45 @@ handout,
     \begin{remark}
     The set of literal closures
     $\{\,
-    (\mf(x)\mEQ\mb)\cdot\{x\to\ma\},\, 
+    (\mf(x)\mEQ\mb)\cdot\{x\to\ma\},\,
     \ma\mEQ \mb,\,
     \mf(\mb)\mNE\mb\,
     \}$ is inconsistent,
     but the empty clause is not derivable
     if $\ma\succG\mb$.
     \end{remark}
-    
+
 \end{frame}
 
 
 \subsection{UP-Redundancy}
 \begin{frame}[allowframebreaks]
     % \begin{definition}
-        
-        We define for a set of literal closures $\mcL$ 
-        
+
+        We define for a set of literal closures $\mcL$
+
         and an
         arbitrary ground rewrite system $R$
         \begin{gather*}
-            irred_R(\mcL) = \{
-                L\cdot\sigma \mid
-                L\cdot\sigma\in\mcL,
+            irred_R(\mcL) =
+            \{\,
+                L\cdot\sigma\in\mcL \mid
                 \sigma\text{ is irreducible w.r.t.~}R
-            \}
+            \,\}
         \end{gather*}
-    
+
     A literal closure $L\cdot\sigma$ is UP-redundant in $\mcL$ if
-    for every ground rewrite system $R$ 
-    oriented by $\succG$ 
+    for every ground rewrite system $R$
+    oriented by $\succG$
     where $\sigma$ is irreducible w.r.t.~$R$
     \begin{gather*}
     R \cup irred_R(\mcL_{L\cdot\sigma\succL}) \vDash L\sigma
     \end{gather*}
-    with 
+    with
     $
-        \mcL_{L\cdot\sigma\succL} = \{\,
-            L'\!\cdot\sigma' \mid
-            L'\!\cdot\sigma'\in\mcL,\,
+        \mcL_{L\cdot\sigma\succL} =
+        \{\,
+            L'\!\cdot\sigma'\in\mcL \mid
             L\cdot\sigma\succL L'\cdot\sigma'
         \,\}
     $
@@ -139,10 +139,10 @@ handout,
         A UP-{saturation process} is
 
         a sequence \( \{ \mcL_i \}_{i=0}^\infty \)
-        of sets of literal closures 
-        
+        of sets of literal closures
+
         where \( \mcL_{i+1} \) is obtained from \( \mcL_i \)
-        
+
         by {adding} a conclusion of an UP-inference with premises in $\mcL_i$
 
         or by {removing} a UP-redundant closure w.r.t.~\(\mcL_i\).
@@ -246,8 +246,8 @@ Then $R_{Inst}(S)$ denotes the set of all Inst-redundant clauses in $S$.
         \\
         I_\bot&\models\sel(C)\bot
     \end{align*}
-    
-    
+
+
 
     The set of $S$-relevant instances of literals
     \begin{align*}
@@ -263,7 +263,7 @@ Then $R_{Inst}(S)$ denotes the set of all Inst-redundant clauses in $S$.
     $\mcL_S^{sat}$ denotes the satuarion process of $\mcL_S$.
 
     \vspace{0.7em}
-    
+
 
 \end{frame}
 
@@ -275,7 +275,7 @@ Then $R_{Inst}(S)$ denotes the set of all Inst-redundant clauses in $S$.
     \vspace{1.4em}
 
     \begin{theorem}
-    If a set of clauses $S$ is Inst-saturated, 
+    If a set of clauses $S$ is Inst-saturated,
     and $S\bot$ is satisfiable,
 
     then $S$ is also satisfiable.
@@ -285,7 +285,7 @@ Then $R_{Inst}(S)$ denotes the set of all Inst-redundant clauses in $S$.
     \begin{proof}
         \begin{enumerate}
             \item model candidate construction
-            \item proof by contradiction of counterexample 
+            \item proof by contradiction of counterexample
         \end{enumerate}
         \end{proof}
 \end{frame}
@@ -312,7 +312,7 @@ Then $R_{Inst}(S)$ denotes the set of all Inst-redundant clauses in $S$.
                 I_L\vDash L'\sigma
                 \text{ or }
                 I_L\vDash \overline{L'}\sigma
-                \text{ (defined)}
+                \text{ (i.e.~}L'\sigma\text{ is defined)}
                 \\
                 \{ L'\sigma \}
                 &\text{if }L'\sigma \text{ is productive (i.e.~irreducible and undefined)}
@@ -338,7 +338,7 @@ Then $R_{Inst}(S)$ denotes the set of all Inst-redundant clauses in $S$.
         \}
     \end{align*}
 
-    Then 
+    Then
     \begin{itemize}
         \item $D = D'\cdot\sigma$ is not Inst-redundant. Otherwise
         $D_1,\ldots,D_n\models D$, $D\succC D_i$ for all $i$,
@@ -349,74 +349,106 @@ Then $R_{Inst}(S)$ denotes the set of all Inst-redundant clauses in $S$.
         $\mcI\not\models D'\sigma'$ and $D\succC D'\cdot\sigma'$ contradicts minimality.
     \end{itemize}
 
-    
+
+\end{frame}
+
+\begin{frame}
+    Since $D$ is not Inst-redundant in $S$,
+    we have for some literal $L$,
+    that $D' = L\lor D''$, $\sel(D') = L$, $L\cdot\sigma\in\mcL_S$,
+    $L\sigma$ is false in $\mcI$
+
+    Assume $L\cdot\sigma$ is UP-redundant in $\mcL_S^{sat}$.
+
+    By construction $\sigma$ is irreducible by $R_S$. Then we have
+    \begin{align*}
+        R_S \cup irred_{R_S}(
+            \{
+            L'\cdot\sigma'\in\mcL_S^{sat}
+            \mid
+            L\cdot\sigma \succL L'\cdot\sigma'
+            \}
+        )
+        \models
+        L\sigma
+    \end{align*}
+    Therefore there is $L'\cdot\sigma'\in irred_{R_S}(\mcL_S^{sat})$ that is false in $I$.
+    \vspace{0.7em}
+
+
+    \begin{gather*}
+        M\cdot\tau = \min_{\succL}\!
+\left\{\,
+    L'\cdot\tau' \mid
+    L'\cdot\sigma' \in irred_{R_S}(\mcL_S^{sat}),\,
+    \mcI \not\models M'\tau'\,
+\right\}
+    \end{gather*}
+    is irreducible by $R_S$.
+
 \end{frame}
 
 
 
-% \subsection{$M\cdot\tau$ is irreducible by $R_S$}
-% \begin{frame}[allowframebreaks]{$M\cdot\tau$ is irreducible}
-%     % \begin{lemma}
-%     %     Let $M\cdot\tau = \min_{\succL}
-%     %      \left\{
-%     %          M'\cdot\tau' \mid
-%     %          M'\cdot\tau' \in irred_{R_S}(\mcL_S^{sat}),
-%     %          \mcI \not\models M'\tau'
-%     %      \right\}$
+\subsection{$M\cdot\tau$ is irreducible by $R_S$}
+\begin{frame}[allowframebreaks]
 
-%     %     Then, $M\cdot\tau$ is irreducible by $R_S$.
-%     % \end{lemma}
+    \textcolor{gray}{$
+    M\cdot\tau = \min_{\succL}\!
+    \left\{\,
+        L'\cdot\tau' \mid
+        L'\cdot\sigma' \in irred_{R_S}(\mcL_S^{sat}),\,
+        \mcI \not\models M'\tau'\,
+    \right\}
+    $}
 
-%         Let
-%             $M\cdot\tau = \min_{\succL}\!
-%         \left\{\, 
-%             L'\cdot\tau' \mid
-%             L'\cdot\sigma' \in irred_{R_S}(\mcL_S^{sat}),\,
-%             \mcI \not\models M'\tau'\, 
-%         \right\}$
-        
-%         \textcolor{gray}{(There is at least one $L'\cdot\sigma'\in irred_{R_S}(\mcL_S^{sat})$ false in $\mcI$)}
-        
-%         \vspace{0.7em}
-%         Assume 
-%         \begin{itemize}
-%             \item $M\cdot\tau$ is reducible by $(\ell\to r)\in R_S$
-%             \item $(\ell\to r)$ is produced by $(\ell'\mEQ r')\cdot\rho\in\mcL_S^{sat}$
-%         \end{itemize}
+        Assume $M\cdot\tau$ is reducible by $(\ell\to r)\in R_S$
 
-%         Bei construction $\tau$ is irreducible by $R_S$.
+        and $(\ell\to r)$ is produced by $(\ell'\mEQ r')\cdot\rho\in\mcL_S^{sat}$
 
-%         Hence UP-inference is applicable:
-%         % and we derive $M[r']\theta\cdot\mu$
-%         % from $(\ell'\mEQ r')\cdot\rho$ and $M[\ell'']\cdot\tau$
-%         % with $\ell'\rho = \ell''\tau = \ell''\theta\mu$,
-%         % $\theta=\mgu(\ell',\ell'')$, and $\mcI\not\models M[r']\theta\mu$
-%         \begin{gather*}
-%             \infer[UP]
-%             {M[r']\theta\cdot\mu}
-%             {(\ell'\mEQ r)\cdot\rho & M[\ell'']\cdot\tau}
-%             \\
-%             \ell'\rho = \ell''\tau = \ell''\theta\mu,\,
-%             \theta=\mgu(\ell',\ell''),\,
-%             \mcI\not\models M[r']\theta\mu
-%         \end{gather*}
-%         % % Since both
+        $\tau$ is irreducible by $R_S$,
+        hence UP-inference is applicable:
+        % and we derive $M[r']\theta\cdot\mu$
+        % from $(\ell'\mEQ r')\cdot\rho$ and $M[\ell'']\cdot\tau$
+        % with $\ell'\rho = \ell''\tau = \ell''\theta\mu$,
+        % $\theta=\mgu(\ell',\ell'')$, and $\mcI\not\models M[r']\theta\mu$
+        \begin{gather*}
+            \infer[UP]
+            {M[r']\theta\cdot\mu}
+            {(\ell'\mEQ r')\cdot\rho & M[\ell'']\cdot\tau}
+            \\
+            \ell'\rho = \ell''\tau = \ell''\theta\mu,\,
+            \theta=\mgu(\ell',\ell''),\,
+            \mcI\not\models M[r']\theta\mu
+        \end{gather*}
+        % % Since both
+        \pagebreak
 
-%         \begin{itemize}
-%             \item Assume $M[r']\theta\cdot\mu$ is UP-redundant in $\mcL_S^{sat}$.
+        \begin{itemize}
+            \item If $M[r']\theta\cdot\mu$ is not UP-redundant in $\mcL_S^{sat}$
+            then $M[r']\theta\cdot\mu\in\mcL_S^{sat}$.
 
-%             $\alpha$ is irreducible (lemma ..) by $R_S$. From definiton:
-%             % \begin{gather}
-%             %     R_S \cup irred_{R_S}(
-%             %     \{
-%             %         M'\cdot\tau'\mid
-%             %         M[r']\theta\cdot\mu \succL M'\tau'
-%             %         \} \models M[r']\theta\muu
-%             % \end{gather}
-%             \item Assume $M[r']\theta\cdot\mu$ is not UP-redundant in $\mcL_S^{sat}$.
-%         \end{itemize}
-%         % % Since both lead to a contradiction, we must ommit our assumption.
-% \end{frame}
+            $M[r']\theta\cdot\mu\in irred_{R_S}(\mcL_S^{sat})$ because $\mu$ is irreducible.
+
+
+            \item If $M[r']\theta\cdot\mu$ is UP-redundant in $\mcL_S^{sat}$.
+
+             From definiton:
+            \begin{gather*}
+                R_S \cup irred_{R_S}(
+                \{
+                    M'\cdot\tau'\in\mcL_S^{sat}\mid
+                    M[r']\theta\cdot\mu \succL M'\tau'
+                    \} \models M[r']\theta\mu
+            \end{gather*}
+            Hence there is $M'\cdot\tau'\in\mcL_S^{sat},
+            M\cdot\tau\succL M[r']\theta\cdot\mu\succL M'\cdot'\tau'$
+            false in $\mcI$.
+            contradicts minimality of $M\cdot\tau$.
+
+        \end{itemize}
+        % Since both lead to a contradiction, we must ommit our assumption.
+\end{frame}
 
 %%% FINAL STEP =======================================================================
 
@@ -424,10 +456,10 @@ Then $R_{Inst}(S)$ denotes the set of all Inst-redundant clauses in $S$.
 \begin{frame}[allowframebreaks]{Final Step}
     \textcolor{gray}{
         $M\cdot\tau = \min_{\succL}\!
-        \left\{\, 
+        \left\{\,
             M'\cdot\tau' \mid
             L'\cdot\sigma' \in irred_{R_S}(\mcL_S^{sat}),\,
-            \mcI \not\models M'\tau'\, 
+            \mcI \not\models M'\tau'\,
         \right\}$}
     \vspace{0.7em}
 
@@ -440,25 +472,25 @@ Then $R_{Inst}(S)$ denotes the set of all Inst-redundant clauses in $S$.
     \end{itemize}
     \vspace{1em}
 
-    Hence $I_{M\cdot\tau}\models\overline{M}\tau$ 
+    Hence $I_{M\cdot\tau}\models\overline{M}\tau$
     with two possible cases:
 
     \begin{enumerate}
-        \item $M\cdot\tau$ is equation $(s\mEQ t)\cdot\tau$  \hfill $I_{M\cdot\tau}\models (s\mNE t)\tau$ 
+        \item $M\cdot\tau$ is equation $(s\mEQ t)\cdot\tau$  \hfill $I_{M\cdot\tau}\models (s\mNE t)\tau$
         \item $M\cdot\tau$ is inequation $(s\mNE t)\cdot\tau$ \hfill $I_{M\cdot\tau}\models (s\mEQ t)\tau$
     \end{enumerate}
 
 \pagebreak
 \textcolor{gray}{
     $M\cdot\tau = \min_{\succL}\!
-    \left\{\, 
+    \left\{\,
         M'\cdot\tau' \mid
         L'\cdot\sigma' \in irred_{R_S}(\mcL_S^{sat}),\,
-        \mcI \not\models M'\tau'\, 
+        \mcI \not\models M'\tau'\,
     \right\}$
     \\
-    $M\cdot\tau$ is false in $\mcI$, 
-    in $\mcL_S^{sat}$, 
+    $M\cdot\tau$ is false in $\mcI$,
+    in $\mcL_S^{sat}$,
     irreducible in $R_S$,
     not productive.}
     \vspace{0.5em}
@@ -467,7 +499,7 @@ Then $R_{Inst}(S)$ denotes the set of all Inst-redundant clauses in $S$.
         \item Assume $M\cdot\tau$ is equation $(s\mEQ t)\cdot\tau$:
         \begin{itemize}
             \item $I_{M\cdot\tau}\models (s\mNE t)\tau$
-            \item All literals in $I_{M\cdot\tau}$ are irreducible by $R_{M\cdot\tau}$ 
+            \item All literals in $I_{M\cdot\tau}$ are irreducible by $R_{M\cdot\tau}$
             \item $s\tau$ and $t\tau$ are irreducible by $R_{M\cdot\tau}$
             \item $R_{M\cdot\tau}$ is a convergent term rewrite system
         \end{itemize}
@@ -476,7 +508,7 @@ Then $R_{Inst}(S)$ denotes the set of all Inst-redundant clauses in $S$.
 
         Contradicts the minimality of $M\cdot\tau$.
         \vspace{0.5em}
-        
+
         \item Assume $M\cdot\tau$ is inequation $(s\mNE t)\cdot\tau$:
         \begin{itemize}
             \item $I_{M\cdot\tau}\models (s\mEQ t)\tau$
@@ -490,7 +522,7 @@ Then $R_{Inst}(S)$ denotes the set of all Inst-redundant clauses in $S$.
 
 
 
-       
+
 
 \end{frame}
 
