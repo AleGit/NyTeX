@@ -303,10 +303,10 @@ $R_{Inst}(S)$ denotes the set of all Inst-redundant clauses in $S$.
 
     \begin{proof}
         \begin{enumerate}
-            \item construct candidate model
-            \item assume candidate is not a model
-            \item reach contradiction in all cases
+            \item Construct candidate model
+            \item Assumed counterexample fails
         \end{enumerate}
+        Conclude candidate is model
         \end{proof}
 \end{frame}
 
@@ -350,6 +350,7 @@ $R_{Inst}(S)$ denotes the set of all Inst-redundant clauses in $S$.
             \hfill 
             $R_S$ is convergent and interreduced
 
+            \vspace{0.7em}
             \item
             $I_S = \bigcup_{L\in\mcL_S^{sat}} \epsilon_L$
             \hfill
@@ -358,6 +359,7 @@ $R_{Inst}(S)$ denotes the set of all Inst-redundant clauses in $S$.
             \hfill
             $L\sigma\in L_S$ is irreducible by $R_S$
 
+            \vspace{0.7em}
             \item Let $\mcI$ be an arbitrary total consistent extension of $I_S$.
         \end{itemize}
 
@@ -370,7 +372,7 @@ $R_{Inst}(S)$ denotes the set of all Inst-redundant clauses in $S$.
 \end{frame}
 
 \subsection{Counterexample}
-\begin{frame}
+\begin{frame}[allowframebreaks]{Assumed Counterexample}
     
     Assume $\mcI$ is not a model of $S$.
     \begin{align*}
@@ -393,9 +395,9 @@ $R_{Inst}(S)$ denotes the set of all Inst-redundant clauses in $S$.
     \end{itemize}
 
 
-\end{frame}
+% \end{frame}
 
-\begin{frame}
+% \begin{frame}
     Since $D$ is not Inst-redundant in $S$,
     we have for some literal $L$,
     that $D' = L\lor D''$, $\sel(D') = L$, $L\cdot\sigma\in\mcL_S$,
@@ -429,12 +431,12 @@ $R_{Inst}(S)$ denotes the set of all Inst-redundant clauses in $S$.
     \end{gather*}
     is irreducible by $R_S$.
 
-\end{frame}
+% \end{frame}
 
 
 
-\subsection{$M\cdot\tau$ is irreducible by $R_S$}
-\begin{frame}[allowframebreaks]
+% \subsection{$M\cdot\tau$ is irreducible by $R_S$}
+% \begin{frame}[allowframebreaks]
 
     \textcolor{gray}{$
     M\cdot\tau = \min_{\succL}\!
@@ -491,20 +493,21 @@ $R_{Inst}(S)$ denotes the set of all Inst-redundant clauses in $S$.
 
         \end{itemize}
         % Since both lead to a contradiction, we must ommit our assumption.
-\end{frame}
+% \end{frame}
 
-%%% FINAL STEP =======================================================================
+% %%% FINAL STEP =======================================================================
 
-\subsection{Final step}
-\begin{frame}[allowframebreaks]{Final Step}
-    \textcolor{gray}{
-        $M\cdot\tau = \min_{\succL}\!
-        \left\{\,
-            M'\cdot\tau' \mid
-            L'\cdot\sigma' \in irred_{R_S}(\mcL_S^{sat}),\,
-            \mcI \not\models M'\tau'\,
-        \right\}$}
-    \vspace{0.7em}
+% \subsection{Final step}
+% \begin{frame}[allowframebreaks]{Final Step}
+    \framebreak
+    % \textcolor{gray}{
+    %     $M\cdot\tau = \min_{\succL}\!
+    %     \left\{\,
+    %         M'\cdot\tau' \mid
+    %         L'\cdot\sigma' \in irred_{R_S}(\mcL_S^{sat}),\,
+    %         \mcI \not\models M'\tau'\,
+    %     \right\}$}
+    % \vspace{0.7em}
 
         We have that $M\cdot\tau$
     \begin{itemize}
@@ -523,20 +526,20 @@ $R_{Inst}(S)$ denotes the set of all Inst-redundant clauses in $S$.
         \item $M\cdot\tau$ is inequation $(s\mNE t)\cdot\tau$ \hfill $I_{M\cdot\tau}\models (s\mEQ t)\tau$
     \end{enumerate}
 
-\pagebreak
-\textcolor{gray}{
-    $M\cdot\tau = \min_{\succL}\!
-    \left\{\,
-        M'\cdot\tau' \mid
-        L'\cdot\sigma' \in irred_{R_S}(\mcL_S^{sat}),\,
-        \mcI \not\models M'\tau'\,
-    \right\}$
-    \\
-    $M\cdot\tau$ is false in $\mcI$,
-    in $\mcL_S^{sat}$,
-    irreducible in $R_S$,
-    not productive.}
-    \vspace{0.5em}
+\framebreak
+% \textcolor{gray}{
+%     $M\cdot\tau = \min_{\succL}\!
+%     \left\{\,
+%         M'\cdot\tau' \mid
+%         L'\cdot\sigma' \in irred_{R_S}(\mcL_S^{sat}),\,
+%         \mcI \not\models M'\tau'\,
+%     \right\}$
+%     \\
+%     $M\cdot\tau$ is false in $\mcI$,
+%     in $\mcL_S^{sat}$,
+%     irreducible in $R_S$,
+%     not productive.}
+%     \vspace{0.5em}
 
     \begin{enumerate}
         \item Assume $M\cdot\tau$ is equation $(s\mEQ t)\cdot\tau$:
