@@ -6,14 +6,14 @@ handout,
 
 \input{PREAMBLE/BPackages.tex}	% \usepackage{mystyle}
 
-\title[Completeness]{Completeness of }
+\title[Completeness of Inst-Saturation]{Completeness of Inst-saturated\\Sets of Clauses with Equality}
 \author[{A$\ell$M}]{%
 	Alexander Maringele
 }
 \institute[UIBK]{%
 	{alexander.maringele@gmail.com}
 }
-% \date{May 9th, 2017}
+\date{December 6th, 2017}
 
 
 
@@ -22,13 +22,20 @@ handout,
 \titleframe
 
 \begin{frame}
-    \nocite{GK2004csl}
+    \nocite{GK2004csl} %, Ganzinger2004
     \bibliographystyle{plain}
     \bibliography{biblio.bib}
 \end{frame}
 
-\begin{frame}
+\section{ATP}
+\subsection{The big picture}
+\begin{frame}{Instantiation-based first order theorem proving}{The big picture}
+
+    \vspace{0.7em}
     \input{T/refutation.tex}
+
+    \vspace{0.7em}
+    $S_0 = S$, $S_{i+1}$ is inferred from $S_i$ by a sound calculus.
 \end{frame}
 
 
@@ -36,12 +43,13 @@ handout,
 
 \subsection{Clauses, closures and orderings}
 
-\begin{frame}
+\begin{frame}[allowframebreaks]{Preliminaries}
 
     \begin{itemize}
         \item a clause $C$ is a multiset of literals
         \item literals are (in)equations of first order terms
         \item a closure $C\cdot\sigma$ is a pair of clause $C$ and substitution $\sigma$
+        \framebreak
         \item orderings
     \end{itemize}
     \begin{align*}
