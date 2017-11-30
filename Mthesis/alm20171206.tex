@@ -43,15 +43,19 @@ handout,
 
 \subsection{Clauses, closures and orderings}
 
-\begin{frame}[allowframebreaks]{Preliminaries}
+\begin{frame}[allowframebreaks]{Preliminaries}{Equational First Order Logic}
 
     \begin{itemize}
-        \item a clause $C$ is a multiset of literals
-        \item literals are (in)equations of first order terms
-        \item a closure $C\cdot\sigma$ is a pair of clause $C$ and substitution $\sigma$
+        \item first order signature with function \textcolor{gray}{(and predicate)} symbols
+        \item terms $s,t,\ell,r$ \textcolor{gray}{(and predicates $P, Q, \bullet$)}
+        \item atoms are equations of terms $s\mEQ t$ \textcolor{gray}{(or predicates $P\mEQ\bullet$)}
+        \item literals are atoms or negated atoms
+        \item clauses are a multisets of literals
+        \item closures $C\cdot\sigma$ are pairs of clauses and substitutions
         \framebreak
         \item orderings
     \end{itemize}
+    \vspace{-1.4em}
     \begin{align*}
         &\succG
         \tag*{order on ground terms, literals, and clauses defined by}
@@ -60,35 +64,37 @@ handout,
         \\
         \tag*{a total simplification ordering $\succG'$ on ground terms}
         \\
-        \\
+        &&s\mNE t \succG s\mEQ t &,\ L\lor L \succG L
+        \tag{\textcolor{gray}{$P\succG\bullet$}}
+        \\[0.7em]
         &\succL
         \tag*{an arbitrary total well-founded extension of $\succG$ such that}
         \\
         && L\sigma\succG L'\sigma' &\Rightarrow L\cdot\sigma\succL L'\cdot\sigma'\tag*{}
-        \\
-        \\
+        \\[0.7em]
         &\succC \tag*{an arbitrary total well-founded extension of $\succG$ such that }
         \\
-        && C\tau\succG D\rho\text)
-        &\Rightarrow C\cdot\tau\succC D\cdot\rho   \tag*{}
+        && C\tau\succG D\rho
+        &\Rightarrow C\cdot\tau\succC D\cdot\rho 
         \\
         && (C\tau=D\rho\text{ and }C\theta = D)
         &\Rightarrow C\cdot\tau\succC D\cdot\rho   \tag*{}
     \end{align*}
 \end{frame}
 
+
 \section{Unit Paramodulation}
 \subsection{Inferences}
 \begin{frame}{Unit Paramodulation}
 
-    \begin{definition}
+    
     \input{SNIPPETS/UPI}
     where
     \input{SNIPPETS/UPC}
-    \end{definition}
 
-    \vspace{1.4em}
-    \begin{remark}
+    \vspace{0.7em}
+
+        \begin{example}
     The set of literal closures
     $\{\,
     (\mf(x)\mEQ\mb)\cdot\{x\to\ma\},\,
@@ -97,7 +103,13 @@ handout,
     \}$ is inconsistent,
     but the empty clause is not derivable
     if $\ma\succG\mb$.
-    \end{remark}
+        \end{example}
+
+        \vspace{0.7em}
+
+    \begin{lemma}
+        If $\sigma$, $\sigma'$ are irreducible by an TRS R then $\rho$ is irreducible by $R$.
+    \end{lemma}
 
 \end{frame}
 
@@ -146,7 +158,7 @@ handout,
 \subsection{Satuaration}
 \begin{frame}{UP-Saturation}
     
-        The UP-{saturation process} for $\mcL$ is a sequence \( \{ \mcL_i \}_{i=0}^\infty \)
+        The UP-{saturation process} for $\mcL$ is a sequence \( \{ \mcL_i \}_{i=0}^\infty \) where
 
         \begin{itemize}
             \item $\mcL_0 = \mcL$
@@ -155,6 +167,11 @@ handout,
         \item
         $\mcL_{i+1} = \left\{
                 \begin{array}{lclc}
+                    \mcL_i \backslash L\cdot\sigma
+                    &\text{if}
+                    &R \cup \irred_R(\mcL_{i,L\cdot\sigma\succL}) \entails L\sigma
+                    \\
+                    \\
                     \mcL_i \cup\,\emptyclause
                     &\text{if}
                     &\left\{\begin{array}{l}
@@ -163,11 +180,6 @@ handout,
                         s\tau = t\tau,\,
                         \mu=\mgu(s,t)
                     \end{array}\right.
-                    \\
-                    \\
-                    \mcL_i \backslash L\cdot\sigma
-                    &\text{if}
-                    &R \cup \irred_R(\mcL_{i,L\cdot\sigma\succL}) \entails L\sigma
                     \\
                     \\
                     \mcL_i \cup\, L[r]\theta\cdot\rho
@@ -238,13 +250,11 @@ Let $S$ be a set of clauses.
 
 \begin{itemize}
     \item A ground closure $C$ is Inst-redundant in $S$
-    if it is the 
-    
-    consequence of smaller ground instances $C_1,\ldots,C_k$ of $S$, i.e.~
+    if for some $k$
+    % consequence of smaller ground instances $C_1,\ldots,C_k$ of $S$, i.e.~
     \begin{itemize}
-        \item $C_i=C'_i\cdot\sigma'_i, C'_i\in S$ for all $i\in 1\ldots k$
-        \item $C\succC C_i$ for all $i\in 1\ldots k$
-        \item $C_1,\ldots,C_k\models C$
+        \item $C'_i\in S$, $C_i=C'_i\cdot\sigma'_i$, $C\succC C_i$ \hfill for $i\in 1\ldots k$
+        \item such that $C_1,\ldots,C_k\models C$
     \end{itemize}
     \vspace{0.7em}
     \item 
@@ -264,6 +274,8 @@ $S =
     \mf(\ma)\mEQ \ma,\,
     \mf(\mf(x))\mEQ\mf(x)
     \,\}$
+
+$R_{Inst}(S) = \{\, \mf(\mf(x))\mEQ\mf(x) \,\}$
 \end{example}
 \end{itemize}
 \end{frame}
@@ -418,11 +430,14 @@ $S =
 % \begin{frame}
     Since $D$ is not Inst-redundant in $S$,
     we have for some literal $L$,
+
     that $D' = L\lor D''$, $\sel(D') = L$, $L\cdot\sigma\in\mcL_S$,
     $L\sigma$ is false in $\mcI$
 
+    \vspace{0.7em}
     Assume $L\cdot\sigma$ is UP-redundant in $\mcL_S^{sat}$.
 
+    \vspace{0.7em}
     By construction $\sigma$ is irreducible by $R_S$. Then we have
     \begin{align*}
         R_S \cup irred_{R_S}(
@@ -438,7 +453,8 @@ $S =
     Therefore there is $L'\cdot\sigma'\in irred_{R_S}(\mcL_S^{sat})$ that is false in $I$.
     \vspace{0.7em}
 
-
+    \framebreak
+    We define
     \begin{gather*}
         M\cdot\tau = \min_{\succL}\!
 \left\{\,
@@ -447,30 +463,13 @@ $S =
     \mcI \not\models M'\tau'\,
 \right\}
     \end{gather*}
-    is irreducible by $R_S$.
 
-% \end{frame}
-
-
-
-% \subsection{$M\cdot\tau$ is irreducible by $R_S$}
-% \begin{frame}[allowframebreaks]
-
-    \textcolor{gray}{$
-    M\cdot\tau = \min_{\succL}\!
-    \left\{\,
-        L'\cdot\tau' \mid
-        L'\cdot\sigma' \in irred_{R_S}(\mcL_S^{sat}),\,
-        \mcI \not\models M'\tau'\,
-    \right\}
-    $}
-
-        Assume $M\cdot\tau$ is reducible by $(\ell\to r)\in R_S$
+Assume $M\cdot\tau$ is reducible by $(\ell\to r)\in R_S$
 
         and $(\ell\to r)$ is produced by $(\ell'\mEQ r')\cdot\rho\in\mcL_S^{sat}$
 
-        $\tau$ is irreducible by $R_S$,
-        hence UP-inference is applicable:
+        \vspace{0.7em}
+        UP-inference is applicable because $\tau$ is irreducible by $R_S$
         % and we derive $M[r']\theta\cdot\mu$
         % from $(\ell'\mEQ r')\cdot\rho$ and $M[\ell'']\cdot\tau$
         % with $\ell'\rho = \ell''\tau = \ell''\theta\mu$,
@@ -479,24 +478,29 @@ $S =
             \infer[UP]
             {M[r']\theta\cdot\mu}
             {(\ell'\mEQ r')\cdot\rho & M[\ell'']\cdot\tau}
+            % \\
+            % \ell'\rho = \ell''\tau = \ell''\theta\mu,\,
+            % \theta=\mgu(\ell',\ell''),
             \\
-            \ell'\rho = \ell''\tau = \ell''\theta\mu,\,
-            \theta=\mgu(\ell',\ell''),\,
-            \mcI\not\models M[r']\theta\mu
+            \\
+            M[r']\theta\mu\text{ is false in } \mcI.
         \end{gather*}
-        % % Since both
-        \pagebreak
+
+
+        \framebreak
 
         \begin{itemize}
             \item If $M[r']\theta\cdot\mu$ is not UP-redundant in $\mcL_S^{sat}$
             then $M[r']\theta\cdot\mu\in\mcL_S^{sat}$.
 
-            $M[r']\theta\cdot\mu\in irred_{R_S}(\mcL_S^{sat})$ because $\mu$ is irreducible.
+            \vspace{0.7em}
+            $M\cdot\tau\succL 
+            M[r']\theta\cdot\mu\in irred_{R_S}(\mcL_S^{sat})$ ($\mu$ is irreducible by $R_S$)
+            contradicts minimality of $M\cdot\tau$.
 
 
-            \item If $M[r']\theta\cdot\mu$ is UP-redundant in $\mcL_S^{sat}$.
-
-             From definiton:
+            \vspace{0.7em}
+            \item If $M[r']\theta\cdot\mu$ is UP-redundant in $\mcL_S^{sat}$ then 
             \begin{gather*}
                 R_S \cup irred_{R_S}(
                 \{
@@ -504,35 +508,24 @@ $S =
                     M[r']\theta\cdot\mu \succL M'\tau'
                     \} \models M[r']\theta\mu
             \end{gather*}
-            Hence there is $M'\cdot\tau'\in\mcL_S^{sat},
-            M\cdot\tau\succL M[r']\theta\cdot\mu\succL M'\cdot'\tau'$
-            false in $\mcI$.
-            contradicts minimality of $M\cdot\tau$.
+            Hence there is $M'\cdot\tau'\in\mcL_S^{sat}$ false in $\mcI$ such that 
+            $M\cdot\tau\succL M[r']\theta\cdot\mu\succL M'\cdot\tau'$,
+
+            $M'\cdot\tau'$ contradicts minimality of $M\cdot\tau$.
 
         \end{itemize}
-        % Since both lead to a contradiction, we must ommit our assumption.
-% \end{frame}
 
-% %%% FINAL STEP =======================================================================
+        Hence $M\cdot\tau$ is irreducible by $R_S$.
 
-% \subsection{Final step}
-% \begin{frame}[allowframebreaks]{Final Step}
-    \framebreak
-    % \textcolor{gray}{
-    %     $M\cdot\tau = \min_{\succL}\!
-    %     \left\{\,
-    %         M'\cdot\tau' \mid
-    %         L'\cdot\sigma' \in irred_{R_S}(\mcL_S^{sat}),\,
-    %         \mcI \not\models M'\tau'\,
-    %     \right\}$}
-    % \vspace{0.7em}
-
-        We have that $M\cdot\tau$
+\framebreak
+        Under the assumption that $\mcI$ is not a model
+        
+        a minimal ground literal $M\cdot\tau$ exists that is
     \begin{itemize}
-        \item is false in $\mcI$
-        \item is in $\mcL_S^{sat}$
-        \item is irreducible by $R_S$
-        \item is not productive.
+        \item false in $\mcI$
+        \item in $\mcL_S^{sat}$
+        \item irreducible by $R_S$
+        \item not productive.
     \end{itemize}
     \vspace{1em}
 
@@ -544,20 +537,15 @@ $S =
         \item $M\cdot\tau$ is inequation $(s\mNE t)\cdot\tau$ \hfill $I_{M\cdot\tau}\models (s\mEQ t)\tau$
     \end{enumerate}
 
+    \vspace{0.7em}
+    Both cases lead to a contradiction (next slide). 
+
+    We reject the assumption and conclude 
+    
+    that $\mcI$ is a model for all ground instances of $S$.
+
 \framebreak
-% \textcolor{gray}{
-%     $M\cdot\tau = \min_{\succL}\!
-%     \left\{\,
-%         M'\cdot\tau' \mid
-%         L'\cdot\sigma' \in irred_{R_S}(\mcL_S^{sat}),\,
-%         \mcI \not\models M'\tau'\,
-%     \right\}$
-%     \\
-%     $M\cdot\tau$ is false in $\mcI$,
-%     in $\mcL_S^{sat}$,
-%     irreducible in $R_S$,
-%     not productive.}
-%     \vspace{0.5em}
+
 
     \begin{enumerate}
         \item Assume $M\cdot\tau$ is equation $(s\mEQ t)\cdot\tau$:
@@ -570,23 +558,20 @@ $S =
         Hence $(s\mNE t)\tau\in I_{M\cdot\tau}$ and
         produced to $I_{M\cdot\tau}$ by a $(s'\mNE t')\cdot\tau'$.
 
-        Contradicts the minimality of $M\cdot\tau$.
+        Then $(s'\mNE t')\tau'\succG (s\mEQ t)\tau$ and $(s'\mNE t')\cdot\tau'\succL M\cdot\tau$
+
+        Contradiction to minimality of $M\cdot\tau$ w.r.t.~$\succL$.
         \vspace{0.5em}
 
-        \item Assume $M\cdot\tau$ is inequation $(s\mNE t)\cdot\tau$:
+        \item Assume $M\cdot\tau$ is inequation $(s\mNE t)\cdot\tau$. We have
         \begin{itemize}
             \item $I_{M\cdot\tau}\models (s\mEQ t)\tau$
             \item $s\tau$ and $t\tau$ are irreducible by $R_{M\cdot\tau}$
         \end{itemize}
         Hence $s\tau = t\tau$ and equality resolution is applicable.
 
-        Contradicts that the empty clause is not in $\mcL_S^{sat}$.
+        Contradiction to $\emptyclause\not\in\mcL_S^{sat}$.
     \end{enumerate}
-
-
-
-
-
 
 \end{frame}
 
