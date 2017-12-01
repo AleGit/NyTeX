@@ -28,12 +28,11 @@ handout,
 
     \begin{abstract}
         The satisfiability of a set of ground instances of first order clauses is decidable.
-        Instantiation-Based theorem proving uses this fact 
-        by generating new clauses (more or less cleverly) that will eventually 
-        conclude to a set of unsatisfiable ground instances if the clauses were indeed unsatisfiable.
+        Instantiation-based theorem proving eventually finds a set of unsatisfiable ground
+        instances for any unsatisfiable set of first order clauses (at least in theory).
 
         In most satisfiable cases an infinite number of ground instances exist.
-         
+
 
 
     \end{abstract}
@@ -87,7 +86,7 @@ handout,
         &\succC \tag*{an arbitrary total well-founded extension of $\succG$ such that }
         \\
         && C\tau\succG D\rho
-        &\Rightarrow C\cdot\tau\succC D\cdot\rho 
+        &\Rightarrow C\cdot\tau\succC D\cdot\rho
         \\
         && (C\tau=D\rho\text{ and }C\theta = D)
         &\Rightarrow C\cdot\tau\succC D\cdot\rho   \tag*{}
@@ -99,7 +98,7 @@ handout,
 \subsection{Inferences}
 \begin{frame}{Unit Paramodulation}
 
-    
+
     \input{SNIPPETS/UPI}
     where
     \input{SNIPPETS/UPC}
@@ -140,9 +139,9 @@ handout,
     \end{gather*}
     for a set of literal closures $\mcL$
     and a ground rewrite system $R$.
-    
+
     \vspace{0.7em}
-    \item Let 
+    \item Let
     $
     \mcL_{L\cdot\sigma\succL} =
     \{\,
@@ -169,7 +168,7 @@ handout,
 
 \subsection{Satuaration}
 \begin{frame}{UP-Saturation}
-    
+
         The UP-{saturation process} for $\mcL$ is a sequence \( \{ \mcL_i \}_{i=0}^\infty \) where
 
         \begin{itemize}
@@ -213,9 +212,9 @@ handout,
                 \end{array}
             \right.$
     \end{itemize}
-    
+
 \vspace{0.7em}
-    
+
         Let \( \mcL^\infty \) be the set of persistent closures.
 
         % i.e.~the lower limit of the sequence.
@@ -234,7 +233,7 @@ handout,
         for some UP-saturation process
         \( \{ \mcL_i\}_{i=0}^\infty \)
         with $\mcL_0 = \mcL$.
-    
+
         \vspace{1.4em}
 
     \begin{lemma}
@@ -269,7 +268,7 @@ Let $S$ be a set of clauses.
         \item such that $C_1,\ldots,C_k\models C$
     \end{itemize}
     \vspace{0.7em}
-    \item 
+    \item
     A (possible non-ground) clause $C$ is called Inst-redundant in $S$
 
 if each ground closure $C\cdot\sigma$ is Inst-redundant in $S$.
@@ -321,10 +320,10 @@ $R_{Inst}(S) = \{\, \mf(\mf(x))\mEQ\mf(x) \,\}$
     $\mcL_S^{sat}$ denotes the satuarion process of $\mcL_S$.
 
     \item A set of clauses $S$ is Inst-saturated w.r.t.~a selection function,
-    
+
     if $\mcL_S^{sat}$ does not contain the empty clause.
 
-    
+
 
 \end{itemize}
 
@@ -332,7 +331,7 @@ $R_{Inst}(S) = \{\, \mf(\mf(x))\mEQ\mf(x) \,\}$
 
 \subsection{Completeness}
 \begin{frame}{Completeness}
-    
+
     \vspace{1.4em}
 
     \begin{theorem}
@@ -356,9 +355,9 @@ $R_{Inst}(S) = \{\, \mf(\mf(x))\mEQ\mf(x) \,\}$
 \begin{frame}[allowframebreaks]{Model Construction}
     Let $S$ be an Inst-saturated set of clauses.
     \begin{itemize}
-        \item $S\bot$ is satisfiable 
+        \item $S\bot$ is satisfiable
         \item $\emptyclause\not\in\mcL_S^{sat}$
-        
+
 \end{itemize}
 
 \vspace{1.4em}
@@ -369,7 +368,7 @@ $R_{Inst}(S) = \{\, \mf(\mf(x))\mEQ\mf(x) \,\}$
             \hfill $\epsilon_M$ allready defined for all $M$ with $L\succL M$
 
             \item $R_L = \{ s \to t \mid s\mEQ t\in I_L, s\succG t \}$
-            
+
                 \item $\epsilon_L = \left\{
                     \begin{array}{cl}
                         \emptyset &\text{if }
@@ -387,17 +386,17 @@ $R_{Inst}(S) = \{\, \mf(\mf(x))\mEQ\mf(x) \,\}$
                 \right.$
 
                 \framebreak
-            \item 
+            \item
             $R_S = \bigcup_{L\in\mcL_S^{sat}} R_L$
-            \hfill 
+            \hfill
             $R_S$ is convergent and interreduced
 
             \vspace{0.7em}
             \item
             $I_S = \bigcup_{L\in\mcL_S^{sat}} \epsilon_L$
             \hfill
-            $I_S$ is consistent, 
-            
+            $I_S$ is consistent,
+
             \hfill
             $L\sigma\in L_S$ is irreducible by $R_S$
 
@@ -415,7 +414,7 @@ $R_{Inst}(S) = \{\, \mf(\mf(x))\mEQ\mf(x) \,\}$
 
 \subsection{Counterexample}
 \begin{frame}[allowframebreaks]{Assumed Counterexample}
-    
+
     Assume $\mcI$ is not a model of $S$.
     \begin{align*}
         \text{Let }
@@ -506,13 +505,13 @@ Assume $M\cdot\tau$ is reducible by $(\ell\to r)\in R_S$
             then $M[r']\theta\cdot\mu\in\mcL_S^{sat}$.
 
             \vspace{0.7em}
-            $M\cdot\tau\succL 
+            $M\cdot\tau\succL
             M[r']\theta\cdot\mu\in irred_{R_S}(\mcL_S^{sat})$ ($\mu$ is irreducible by $R_S$)
             contradicts minimality of $M\cdot\tau$.
 
 
             \vspace{0.7em}
-            \item If $M[r']\theta\cdot\mu$ is UP-redundant in $\mcL_S^{sat}$ then 
+            \item If $M[r']\theta\cdot\mu$ is UP-redundant in $\mcL_S^{sat}$ then
             \begin{gather*}
                 R_S \cup irred_{R_S}(
                 \{
@@ -520,7 +519,7 @@ Assume $M\cdot\tau$ is reducible by $(\ell\to r)\in R_S$
                     M[r']\theta\cdot\mu \succL M'\tau'
                     \} \models M[r']\theta\mu
             \end{gather*}
-            Hence there is $M'\cdot\tau'\in\mcL_S^{sat}$ false in $\mcI$ such that 
+            Hence there is $M'\cdot\tau'\in\mcL_S^{sat}$ false in $\mcI$ such that
             $M\cdot\tau\succL M[r']\theta\cdot\mu\succL M'\cdot\tau'$,
 
             $M'\cdot\tau'$ contradicts minimality of $M\cdot\tau$.
@@ -531,7 +530,7 @@ Assume $M\cdot\tau$ is reducible by $(\ell\to r)\in R_S$
 
 \framebreak
         Under the assumption that $\mcI$ is not a model
-        
+
         a minimal ground literal $M\cdot\tau$ exists that is
     \begin{itemize}
         \item false in $\mcI$
@@ -550,10 +549,10 @@ Assume $M\cdot\tau$ is reducible by $(\ell\to r)\in R_S$
     \end{enumerate}
 
     \vspace{0.7em}
-    Both cases lead to a contradiction (next slide). 
+    Both cases lead to a contradiction (next slide).
 
-    We reject the assumption and conclude 
-    
+    We reject the assumption and conclude
+
     that $\mcI$ is a model for all ground instances of $S$.
 
 \framebreak
