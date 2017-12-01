@@ -25,18 +25,9 @@ handout,
     \nocite{GK2004csl} %, Ganzinger2004
     \bibliographystyle{plain}
     \bibliography{biblio.bib}
-
-    \begin{abstract}
-        The satisfiability of a set of ground instances of first order clauses is decidable.
-        Instantiation-based theorem proving eventually finds a set of unsatisfiable ground
-        instances for any unsatisfiable set of first order clauses (at least in theory).
-
-        In most satisfiable cases an infinite number of ground instances exist.
-
-
-
-    \end{abstract}
 \end{frame}
+
+
 
 \section{ATP}
 \subsection{The big picture}
@@ -584,6 +575,38 @@ Assume $M\cdot\tau$ is reducible by $(\ell\to r)\in R_S$
         Contradiction to $\emptyclause\not\in\mcL_S^{sat}$.
     \end{enumerate}
 
+\end{frame}
+
+\section{Summary}
+\subsection{}
+\begin{frame}{Summary}
+
+\end{frame}
+
+\subsection{abstract}
+\begin{frame}
+    \begin{abstract}
+        Instantiation-based theorem proving eventually finds a finite set of unsatisfiable ground
+        instances for any unsatisfiable set of first order clauses (at least in theory).
+        Satisfiability of ground instances can be effectively decided by a SAT-solver.
+        \vspace{0.7em}
+
+        But satisfiability of a finite set of ground instances does not confirm satisfiability
+        of a set of non-ground clauses.
+        % Indeed, early provers could not confirm satisfiability of a set of non-ground clauses.
+        \vspace{0.7em}
+
+        Unit paramodulation is a sound instantiation-based calculus
+        for first order logic with equality. It may terminate
+        without generating an unsatisfiable set of ground instances.
+        We present the completeness proof from the literature,
+        i.e.~a saturated set of non-ground clauses
+        with satisfiable instances is satisfiable.
+
+
+
+
+    \end{abstract}
 \end{frame}
 
 \end{document}
