@@ -320,7 +320,8 @@ $R_{Inst}(S) = \{\, \mf(\mf(x))\mEQ\mf(x) \,\}$
 
 \end{frame}
 
-\subsection{Completeness}
+\section{Completeness}
+\subsection{Theorem}
 \begin{frame}{Completeness}
 
     \vspace{1.4em}
@@ -342,7 +343,7 @@ $R_{Inst}(S) = \{\, \mf(\mf(x))\mEQ\mf(x) \,\}$
         \end{proof}
 \end{frame}
 
-\subsection{Construction}
+\subsection{Model Construction}
 \begin{frame}[allowframebreaks]{Model Construction}
     Let $S$ be an Inst-saturated set of clauses.
     \begin{itemize}
@@ -404,32 +405,38 @@ $R_{Inst}(S) = \{\, \mf(\mf(x))\mEQ\mf(x) \,\}$
 \end{frame}
 
 \subsection{Counterexample}
-\begin{frame}[allowframebreaks]{Assumed Counterexample}
+\begin{frame}[allowframebreaks]{Counterexample}
 
     Assume $\mcI$ is not a model of $S$.
     \begin{align*}
         \text{Let }
         D &= \min_{\succC}\{\,
         C'\cdot\sigma \mid C'\in S,\,
-        \mcI\not\models C'\sigma\,
+        C'\sigma\text{ false in }\mcI\,
         \}
     \end{align*}
 
     Then
     \begin{itemize}
-        \item $D = D'\cdot\sigma$ is not Inst-redundant. Otherwise
+        \item $D = D'\cdot\sigma$ is not Inst-redundant.
+        \vspace{0.2em}
+
+        Otherwise there are
         $D_1,\ldots,D_n\models D$, $D\succC D_i$ for all $i$,
-        and $\mcI\not\models D_j$ for one $j$ contradicts minimality.
+
+        and $D_j$ false in $\mcI$ for one $j$, which contradicts minimality.
+
         \item $x\sigma$ irreducible by $R_S$ for every variable $x$ in $D'$.
+        \vspace{0.2em}
+
         Otherwise let $(\ell\to r)\tau\in R_L$ and $x\sigma = x\sigma[l\tau]_p$ for some variable x in D'.
         We define substitution $\sigma'$ with $x\sigma' = x\sigma[r\tau]_p$ and $y\sigma' = y\sigma$ for $y\neq x$.
-        $\mcI\not\models D'\sigma'$ and $D\succC D'\cdot\sigma'$ contradicts minimality.
+        $D'\sigma'$ is false in $\mcI$ and $D\succC D'\cdot\sigma'$,
+        which contradicts minimality.
     \end{itemize}
 
+\framebreak
 
-% \end{frame}
-
-% \begin{frame}
     Since $D$ is not Inst-redundant in $S$,
     we have for some literal $L$,
 
@@ -452,8 +459,10 @@ $R_{Inst}(S) = \{\, \mf(\mf(x))\mEQ\mf(x) \,\}$
         \models
         L\sigma
     \end{align*}
-    Therefore there is $L'\cdot\sigma'\in irred_{R_S}(\mcL_S^{sat})$ that is false in $I$.
+    Therefore there is $L'\cdot\sigma'\in irred_{R_S}(\mcL_S^{sat})$ that is false in $\mcI$.
     \vspace{0.7em}
+
+    We choose the minimal of those.
 
     \framebreak
     We define
@@ -577,37 +586,34 @@ Assume $M\cdot\tau$ is reducible by $(\ell\to r)\in R_S$
 
 \end{frame}
 
+\section{Closures and clauses}
+\subsection{Lifting}
+\begin{frame}
+    \begin{itemize}
+        \item UP for literal closures
+        \vspace{-1.4em}
+            \input{SNIPPETS/UPI}
+            \vspace{-2.1em}
+            \input{SNIPPETS/UPC}
+
+        \vspace{0.7em}
+
+    \item UPL for literals (clauses)
+    \vspace{-1.4em}
+    \input{SNIPPETS/UPLI}
+    \vspace{-2.1em}
+    \input{SNIPPETS/UPLC}
+\end{itemize}
+
+
+\end{frame}
+
 \section{Summary}
 \subsection{}
 \begin{frame}{Summary}
 
 \end{frame}
 
-\subsection{abstract}
-\begin{frame}
-    \begin{abstract}
-        Instantiation-based theorem proving eventually finds a finite set of unsatisfiable ground
-        instances for any unsatisfiable set of first order clauses (at least in theory).
-        Satisfiability of ground instances can be effectively decided by a SAT-solver.
-        \vspace{0.7em}
 
-        But satisfiability of a finite set of ground instances does not confirm satisfiability
-        of a set of non-ground clauses.
-        % Indeed, early provers could not confirm satisfiability of a set of non-ground clauses.
-        \vspace{0.7em}
-
-        Unit paramodulation is part of a sound instantiation-based calculus
-        for first order logic with equality.
-        They proving procedure may saturate
-        without generating an unsatisfiable set of ground instances.
-        We present the completeness proof from the literature.
-        An Inst-saturated set of non-ground clauses
-        with satisfiable grounded instances is satisfiable.
-
-
-
-
-    \end{abstract}
-\end{frame}
 
 \end{document}
