@@ -251,8 +251,11 @@ handout,
     \end{lemma}
 \end{frame}
 
-\begin{frame}[allowframebreaks]
-    \begin{lemma}[Irreducibility of minimal false literal closure]
+\section{Irreducibility}
+\subsection{Lemma}
+\begin{frame}
+    \begin{lemma}
+        \label{irreducible}
         \vspace{0.7em}
 
         If
@@ -263,15 +266,13 @@ handout,
 
             ground rewrite system oriented by $\succG$
 
-            \item
-            $\ell\to r\in R
-            \Rightarrow
-            (\ell'\mEQ r')\cdot\rho \in \mcL^{sat}$
+            \item Every
+            $\ell\to_R r = (\ell'\mEQ r')\cdot\rho \in \mcL^{sat}$
             with
-            $\ell\to r = (\ell'\mEQ r')\rho$
+            $\ell'\cdot\rho\succL r\cdot\rho$.
 
-            \item $I$ is an interpretation and every $L\sigma\in I$
-            is irreducible by $R$, and
+            \item $I$ is an interpretation (every $L\sigma\in I$
+            is irreducible by $R$), and
 
             \item
             $M\cdot\tau = \min_{\succL}\!
@@ -282,19 +283,25 @@ handout,
             \right\}
             $
 \end{itemize}
+\vspace{0.7em}
+
 Then $M\cdot\tau$ is irreducible by $R$.
 \vspace{0.7em}
 
 (By definition only $\tau$ is irreducible by $R$)
 \end{lemma}
-
-    \framebreak
+\end{frame}
+\subsection{Proof}
+\begin{frame}
     \begin{proof}
-        \begin{enumerate}
-            \item
+        % \begin{enumerate}
+        %     \item
         Assume $M\cdot\tau$ is reducible by
-        $\ell\to r\in R$ and $(\ell'\to r')\cdot\rho\in\mcL^{sat}$.
+        $\ell\to_R r = (\ell'\to r')\cdot\rho\in\mcL^{sat}$.
+        \vspace{0.2em}
+
         Since $\tau$ is irreducible by $R$:
+        \vspace{-0.5em}
         \begin{gather*}
             \infer[
                 {\theta = \mgu(\ell'\!,\,\ell'')}
@@ -304,20 +311,34 @@ Then $M\cdot\tau$ is irreducible by $R$.
             {M[r']\theta\cdot\mu}
             {(\ell'\to r')\cdot\rho & M[\ell'']\cdot\tau}
         \end{gather*}
-        and $M\cdot\tau\succL M[r']\theta\cdot\mu$, $\mu$ is irreducible by $R$
+        $M\cdot\tau\succL M\theta\cdot\mu$,
+        $M[r']\theta\mu$ is false in $I$,
+        $\mu$ is irreducible by $R$.
 
-        \item
+        % \item
         \begin{enumerate}
-            \item Assume $M[r']\theta\cdot\mu$ is UP-redundant.
-            \begin{gather*}
-                R \cup irred_R(M'\cdot\tau'\mid ) \models M[r']\theta\mu
-            \end{gather*}
+            \item Assume $M[r']\theta\cdot\mu$ is UP-redundant:
+            \vspace{0.5em}
 
+            \hfill
+            $R \cup irred_R(\mcL^{sat}_{M[r']\theta\cdot\mu\succL} )
+            \models
+            M[r']\theta\mu$
+            \vspace{0.5em}
 
-            % \item Assume $M[r']\theta\cdot\mu$ is not UP-redundant
+            Then there is $M'\cdot\tau'\in\mcL^{sat}$ false in $I$ and
+            $M'\cdot\tau'\succL M[r']\theta\mu$.
+            \vspace{0.5em}
+
+            \item Assume $M[r']\theta\cdot\mu$ is not UP-redundant:
+            \hfill
+            $M[r']\theta\cdot\mu\in\mcL^{sat}$.
         \end{enumerate}
+        Both contradict the minimality of $M\cdot\tau$,
+        we reject the assumption, and conclude irreducibility
+        of $M\cdot\tau$.
 
-    \end{enumerate}
+    % \end{enumerate}
     \end{proof}
 \end{frame}
 
@@ -468,7 +489,7 @@ $R_{Inst}(S) = \{\, \mf(\mf(x))\mEQ\mf(x) \,\}$
             $I_S$ is consistent,
 
             \hfill
-            $L\sigma\in L_S$ is irreducible by $R_S$
+            $L\sigma\in I_S$ is irreducible by $R_S$
 
             \vspace{0.7em}
             \item Let $\mcI$ be an arbitrary total consistent extension of $I_S$.
@@ -540,9 +561,6 @@ $R_{Inst}(S) = \{\, \mf(\mf(x))\mEQ\mf(x) \,\}$
     Therefore there is $L'\cdot\sigma'\in irred_{R_S}(\mcL_S^{sat})$ that is false in $\mcI$.
     \vspace{0.7em}
 
-    We choose the minimal of those.
-
-    \framebreak
     We define
     \begin{gather*}
         M\cdot\tau = \min_{\succL}\!
@@ -552,59 +570,71 @@ $R_{Inst}(S) = \{\, \mf(\mf(x))\mEQ\mf(x) \,\}$
     \mcI \not\models M'\tau'\,
 \right\}
     \end{gather*}
+    which is irreducible by $R_S$ (Lemma on slide \pageref{irreducible}).
 
-Assume $M\cdot\tau$ is reducible by $(\ell\to r)\in R_S$
+    \framebreak
+%     We define
+%     \begin{gather*}
+%         M\cdot\tau = \min_{\succL}\!
+% \left\{\,
+%     L'\cdot\tau' \mid
+%     L'\cdot\sigma' \in irred_{R_S}(\mcL_S^{sat}),\,
+%     \mcI \not\models M'\tau'\,
+% \right\}
+%     \end{gather*}
 
-        and $(\ell\to r)$ is produced by $(\ell'\mEQ r')\cdot\rho\in\mcL_S^{sat}$
+% Assume $M\cdot\tau$ is reducible by $(\ell\to r)\in R_S$
 
-        \vspace{0.7em}
-        UP-inference is applicable because $\tau$ is irreducible by $R_S$
-        % and we derive $M[r']\theta\cdot\mu$
-        % from $(\ell'\mEQ r')\cdot\rho$ and $M[\ell'']\cdot\tau$
-        % with $\ell'\rho = \ell''\tau = \ell''\theta\mu$,
-        % $\theta=\mgu(\ell',\ell'')$, and $\mcI\not\models M[r']\theta\mu$
-        \begin{gather*}
-            \infer[UP]
-            {M[r']\theta\cdot\mu}
-            {(\ell'\mEQ r')\cdot\rho & M[\ell'']\cdot\tau}
-            % \\
-            % \ell'\rho = \ell''\tau = \ell''\theta\mu,\,
-            % \theta=\mgu(\ell',\ell''),
-            \\
-            \\
-            M[r']\theta\mu\text{ is false in } \mcI.
-        \end{gather*}
+%         and $(\ell\to r)$ is produced by $(\ell'\mEQ r')\cdot\rho\in\mcL_S^{sat}$
+
+%         \vspace{0.7em}
+%         UP-inference is applicable because $\tau$ is irreducible by $R_S$
+%         % and we derive $M[r']\theta\cdot\mu$
+%         % from $(\ell'\mEQ r')\cdot\rho$ and $M[\ell'']\cdot\tau$
+%         % with $\ell'\rho = \ell''\tau = \ell''\theta\mu$,
+%         % $\theta=\mgu(\ell',\ell'')$, and $\mcI\not\models M[r']\theta\mu$
+%         \begin{gather*}
+%             \infer[UP]
+%             {M[r']\theta\cdot\mu}
+%             {(\ell'\mEQ r')\cdot\rho & M[\ell'']\cdot\tau}
+%             % \\
+%             % \ell'\rho = \ell''\tau = \ell''\theta\mu,\,
+%             % \theta=\mgu(\ell',\ell''),
+%             \\
+%             \\
+%             M[r']\theta\mu\text{ is false in } \mcI.
+%         \end{gather*}
 
 
         \framebreak
 
-        \begin{itemize}
-            \item If $M[r']\theta\cdot\mu$ is not UP-redundant in $\mcL_S^{sat}$
-            then $M[r']\theta\cdot\mu\in\mcL_S^{sat}$.
+        % \begin{itemize}
+        %     \item If $M[r']\theta\cdot\mu$ is not UP-redundant in $\mcL_S^{sat}$
+        %     then $M[r']\theta\cdot\mu\in\mcL_S^{sat}$.
 
-            \vspace{0.7em}
-            $M\cdot\tau\succL
-            M[r']\theta\cdot\mu\in irred_{R_S}(\mcL_S^{sat})$ ($\mu$ is irreducible by $R_S$)
-            contradicts minimality of $M\cdot\tau$.
+        %     \vspace{0.7em}
+        %     $M\cdot\tau\succL
+        %     M[r']\theta\cdot\mu\in irred_{R_S}(\mcL_S^{sat})$ ($\mu$ is irreducible by $R_S$)
+        %     contradicts minimality of $M\cdot\tau$.
 
 
-            \vspace{0.7em}
-            \item If $M[r']\theta\cdot\mu$ is UP-redundant in $\mcL_S^{sat}$ then
-            \begin{gather*}
-                R_S \cup irred_{R_S}(
-                \{
-                    M'\cdot\tau'\in\mcL_S^{sat}\mid
-                    M[r']\theta\cdot\mu \succL M'\tau'
-                    \} \models M[r']\theta\mu
-            \end{gather*}
-            Hence there is $M'\cdot\tau'\in\mcL_S^{sat}$ false in $\mcI$ such that
-            $M\cdot\tau\succL M[r']\theta\cdot\mu\succL M'\cdot\tau'$,
+        %     \vspace{0.7em}
+        %     \item If $M[r']\theta\cdot\mu$ is UP-redundant in $\mcL_S^{sat}$ then
+        %     \begin{gather*}
+        %         R_S \cup irred_{R_S}(
+        %         \{
+        %             M'\cdot\tau'\in\mcL_S^{sat}\mid
+        %             M[r']\theta\cdot\mu \succL M'\tau'
+        %             \} \models M[r']\theta\mu
+        %     \end{gather*}
+        %     Hence there is $M'\cdot\tau'\in\mcL_S^{sat}$ false in $\mcI$ such that
+        %     $M\cdot\tau\succL M[r']\theta\cdot\mu\succL M'\cdot\tau'$,
 
-            $M'\cdot\tau'$ contradicts minimality of $M\cdot\tau$.
+        %     $M'\cdot\tau'$ contradicts minimality of $M\cdot\tau$.
 
-        \end{itemize}
+        % \end{itemize}
 
-        Hence $M\cdot\tau$ is irreducible by $R_S$.
+        % Hence $M\cdot\tau$ is irreducible by $R_S$.
 
 \framebreak
         Under the assumption that $\mcI$ is not a model
@@ -686,11 +716,11 @@ Assume $M\cdot\tau$ is reducible by $(\ell\to r)\in R_S$
 
 \end{frame}
 
-\section{Summary}
-\subsection{}
-\begin{frame}{Summary}
+% \section{Summary}
+% \subsection{}
+% \begin{frame}{Summary}
 
-\end{frame}
+% \end{frame}
 
 
 
