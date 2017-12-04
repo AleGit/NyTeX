@@ -49,11 +49,17 @@ handout,
 
     \begin{itemize}
         \item first order signature with function \textcolor{gray}{(and predicate)} symbols
-        \item terms $s,t,\ell,r$ \textcolor{gray}{(and predicates $P, Q, \bullet$)}
-        \item atoms are equations of terms $s\mEQ t$ \textcolor{gray}{(or predicates $P\mEQ\bullet$)}
+        \item terms $s,t,\ell,r$
+        \hfill\textcolor{gray}{(and predicates $P, Q, \bullet$)}
+        \item atoms are equations of terms $s\mEQ t$
+        \hfill\textcolor{gray}{(or predicates $P\mEQ\bullet$)}
         \item literals are atoms or negated atoms
         \item clauses are a multisets of literals
-        \item closures $C\cdot\sigma$ are pairs of clauses and substitutions
+        \item closures are pairs of clauses and ground substitutions
+        \vspace{0.7em}
+
+        $(\,\mf(x)\mEQ b\lor x\mNE\ma\,)\cdot\{\,x\mapsto\mf(a)\,\}$
+
         \framebreak
         \item orderings
     \end{itemize}
@@ -94,12 +100,12 @@ handout,
     where
     \input{SNIPPETS/UPC}
 
-    \vspace{0.7em}
+    \vspace{0.3em}
 
         \begin{example}
     The set of literal closures
     $\{\,
-    (\mf(x)\mEQ\mb)\cdot\{x\to\ma\},\,
+    (\mf(x)\mEQ\mb)\cdot\{x\mapsto\ma\},\,
     \ma\mEQ \mb,\,
     \mf(\mb)\mNE\mb\,
     \}$ is inconsistent,
@@ -107,10 +113,12 @@ handout,
     if $\ma\succG\mb$.
         \end{example}
 
-        \vspace{0.7em}
+        \vspace{0.3em}
 
     \begin{lemma}
-        If $\sigma$, $\sigma'$ are irreducible by an TRS R then $\rho$ is irreducible by $R$.
+        If $\sigma$, $\sigma'$ are irreducible by a ground rewrite system R
+
+        then $\rho$ is irreducible by $R$.
     \end{lemma}
 
 \end{frame}
@@ -241,6 +249,76 @@ handout,
                 \mcL'^\infty \backslash \mcR_{UP}(\mcL'^\infty)
             \end{gather*}
     \end{lemma}
+\end{frame}
+
+\begin{frame}[allowframebreaks]
+    \begin{lemma}[Irreducibility of minimal false literal closure]
+        \vspace{0.7em}
+
+        If
+        \begin{itemize}
+            \item $\mcL$ is a set of literal closures. $\emptyclause\not\in\mcL^{sat}$
+
+            \item $R$ is a (convergent and interreduced)
+
+            ground rewrite system oriented by $\succG$
+
+            \item
+            $\ell\to r\in R
+            \Rightarrow
+            (\ell'\mEQ r')\cdot\rho \in \mcL^{sat}$
+            with
+            $\ell\to r = (\ell'\mEQ r')\rho$
+
+            \item $I$ is an interpretation and every $L\sigma\in I$
+            is irreducible by $R$, and
+
+            \item
+            $M\cdot\tau = \min_{\succL}\!
+            \left\{\,
+            L\cdot\sigma \mid
+            L\cdot\sigma \in irred_{R}(\mcL^{sat}),\,
+            L\sigma\text{ is false in }I\,
+            \right\}
+            $
+\end{itemize}
+Then $M\cdot\tau$ is irreducible by $R$.
+\vspace{0.7em}
+
+(By definition only $\tau$ is irreducible by $R$)
+\end{lemma}
+
+    \framebreak
+    \begin{proof}
+        \begin{enumerate}
+            \item
+        Assume $M\cdot\tau$ is reducible by
+        $\ell\to r\in R$ and $(\ell'\to r')\cdot\rho\in\mcL^{sat}$.
+        Since $\tau$ is irreducible by $R$:
+        \begin{gather*}
+            \infer[
+                {\theta = \mgu(\ell'\!,\,\ell'')}
+                \atop
+                {\ell'\rho = \ell''\tau = \ell''\theta\mu}
+                ]
+            {M[r']\theta\cdot\mu}
+            {(\ell'\to r')\cdot\rho & M[\ell'']\cdot\tau}
+        \end{gather*}
+        and $M\cdot\tau\succL M[r']\theta\cdot\mu$, $\mu$ is irreducible by $R$
+
+        \item
+        \begin{enumerate}
+            \item Assume $M[r']\theta\cdot\mu$ is UP-redundant.
+            \begin{gather*}
+                R \cup irred_R(M'\cdot\tau'\mid ) \models M[r']\theta\mu
+            \end{gather*}
+
+
+            % \item Assume $M[r']\theta\cdot\mu$ is not UP-redundant
+        \end{enumerate}
+
+    \end{enumerate}
+    \end{proof}
 \end{frame}
 
 \section{Instantiation}
