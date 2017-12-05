@@ -3,6 +3,7 @@ handout,
 %draft
 ]{beamer}
 \usetheme[shadow]{ComputationalLogic}
+\setbeamertemplate{theorems}[numbered]
 
 \input{PREAMBLE/BPackages.tex}	% \usepackage{mystyle}
 
@@ -439,16 +440,15 @@ $R_{Inst}(S) = \{\, \mf(\mf(x))\mEQ\mf(x) \,\}$
 
     \begin{proof}
         \begin{enumerate}
-            \item Construct candidate model
-            \item Assumed counterexample fails
+            \item Construction of a candidate model
+            \item Proof that candidate is a model by contradiction
         \end{enumerate}
-        Conclude candidate is model
         \end{proof}
 \end{frame}
 
 \subsection{Model Construction}
 \begin{frame}[allowframebreaks]{Model Construction}
-    Let $S$ be an Inst-saturated set of clauses.
+    Let $S$ be an Inst-saturated set of clauses, i.e.
     \begin{itemize}
         \item $S\bot$ is satisfiable
         \item $\emptyclause\not\in\mcL_S^{sat}$
@@ -491,20 +491,54 @@ $R_{Inst}(S) = \{\, \mf(\mf(x))\mEQ\mf(x) \,\}$
             $I_S = \bigcup_{L\in\mcL_S^{sat}} \epsilon_L$
             \hfill
             $I_S$ is consistent,
-
-            \hfill
             $L\sigma\in I_S$ is irreducible by $R_S$
-
-            \vspace{0.7em}
-            \item Let $\mcI$ be an arbitrary total consistent extension of $I_S$.
         \end{itemize}
 
         \vspace{1.4em}
 
-        \begin{block}{Claim}
-            $\mcI$ is a model for all ground instances of clauses in $S$.
-            % $\mcI\models C\cdot\sigma$ for all $C\in S$ and $\sigma$ ground substitution.
-        \end{block}
+        \begin{conjecture}
+            An arbitrary total consistent extension $\mcI$ of $I_S$
+            is a model for all ground instances of clauses in $S$.
+        \end{conjecture}
+        \vspace{1.4em}
+
+        For the following slides let $\mcL_S,\mcL_S^{sat}, I_S, R_S$ be defined as above
+        and $\mcI$ be an arbitrary consistent extension of $I_S$.
+\end{frame}
+
+\subsection{Useful lemmata}
+
+\begin{frame}
+    \begin{lemma}\label{existence}
+
+    If any $L\cdot\sigma\in\mcL_S$ exists with $\mcI\not\models L\sigma$ then
+
+    there is a $L'\cdot\sigma'\in irred_{R_S}(\mcL_S^{sat})$ with $\mcI\not\models L'\sigma'$.
+    \end{lemma}
+
+    \begin{Proof}
+        We have two cases
+
+    \begin{itemize}
+        \item If $L\cdot\sigma$ is not UP-redundant in $\mcL_S^{sat}$,
+        then $L'\cdot\sigma' = L\cdot\sigma$.
+
+        \item If $L\cdot\sigma$ is UP-redundant in $\mcL_S^{sat}$.
+    By construction $\sigma$ is irreducible by $R_S$. Then we have
+    \begin{align*}
+        R_S \cup irred_{R_S}(
+            \{
+            L'\cdot\sigma'\in\mcL_S^{sat}
+            \mid
+            L\cdot\sigma \succL L'\cdot\sigma'
+            \}
+        )
+        \models
+        L\sigma
+    \end{align*}
+    Hence there is $L'\cdot\sigma'\in irred_{R_S}$ with $\mcI\not\models L'\sigma'$.
+    \end{itemize}
+\end{Proof}
 \end{frame}
 
 \begin{frame}[allowframebreaks]
@@ -518,7 +552,7 @@ $R_{Inst}(S) = \{\, \mf(\mf(x))\mEQ\mf(x) \,\}$
             L'\sigma'\text{ false in }\mcI\,
             \right\}
         \end{gather*}
-        exists, then $M\cdot\tau$ is irreducible by $R_S$.
+        is defined, then $M\cdot\tau$ is irreducible by $R_S$.
     \end{lemma}
     % \vspace{2.1em}
 
@@ -550,7 +584,7 @@ $R_{Inst}(S) = \{\, \mf(\mf(x))\mEQ\mf(x) \,\}$
 
             \vspace{0.7em}
             Now $M\cdot\tau\succL
-            M[r']\theta\cdot\mu\in irred_{R_S}(\mcL_S^{sat})$ 
+            M[r']\theta\cdot\mu\in irred_{R_S}(\mcL_S^{sat})$
 
             contradicts minimality of $M\cdot\tau$.
 
@@ -616,24 +650,24 @@ $R_{Inst}(S) = \{\, \mf(\mf(x))\mEQ\mf(x) \,\}$
     that $D' = L\lor D''$, $\sel(D') = L$, $L\cdot\sigma\in\mcL_S$,
     $L\sigma$ is false in $\mcI$
 
-    \vspace{0.7em}
-    Assume $L\cdot\sigma$ is UP-redundant in $\mcL_S^{sat}$.
+    % \vspace{0.7em}
+    % Assume $L\cdot\sigma$ is UP-redundant in $\mcL_S^{sat}$.
 
-    \vspace{0.7em}
-    By construction $\sigma$ is irreducible by $R_S$. Then we have
-    \begin{align*}
-        R_S \cup irred_{R_S}(
-            \{
-            L'\cdot\sigma'\in\mcL_S^{sat}
-            \mid
-            L\cdot\sigma \succL L'\cdot\sigma'
-            \}
-        )
-        \models
-        L\sigma
-    \end{align*}
-    Therefore there is $L'\cdot\sigma'\in irred_{R_S}(\mcL_S^{sat})$ that is false in $\mcI$.
-    \vspace{0.7em}
+    % \vspace{0.7em}
+    % By construction $\sigma$ is irreducible by $R_S$. Then we have
+    % \begin{align*}
+    %     R_S \cup irred_{R_S}(
+    %         \{
+    %         L'\cdot\sigma'\in\mcL_S^{sat}
+    %         \mid
+    %         L\cdot\sigma \succL L'\cdot\sigma'
+    %         \}
+    %     )
+    %     \models
+    %     L\sigma
+    % \end{align*}
+    % Therefore there is $L'\cdot\sigma'\in irred_{R_S}(\mcL_S^{sat})$ that is false in $\mcI$.
+    % \vspace{0.7em}
 
     Hence the following literal closure
     \begin{gather*}
@@ -644,73 +678,12 @@ $R_{Inst}(S) = \{\, \mf(\mf(x))\mEQ\mf(x) \,\}$
     L'\cdot\sigma'\text{ false in }\mcI\,
 \right\}
     \end{gather*}
-    exists and is irreducible by $R_S$ (Lemma on slide \pageref{irreducible}).
+    exists (Lemma \ref{existence} on slide \pageref{existence})
+    and
+
+    is irreducible by $R_S$ (Lemma \ref{irreducible} on slide \pageref{irreducible}).
 
     \framebreak
-%     We define
-%     \begin{gather*}
-%         M\cdot\tau = \min_{\succL}\!
-% \left\{\,
-%     L'\cdot\tau' \mid
-%     L'\cdot\sigma' \in irred_{R_S}(\mcL_S^{sat}),\,
-%     \mcI \not\models M'\tau'\,
-% \right\}
-%     \end{gather*}
-
-% Assume $M\cdot\tau$ is reducible by $(\ell\to r)\in R_S$
-
-%         and $(\ell\to r)$ is produced by $(\ell'\mEQ r')\cdot\rho\in\mcL_S^{sat}$
-
-%         \vspace{0.7em}
-%         UP-inference is applicable because $\tau$ is irreducible by $R_S$
-%         % and we derive $M[r']\theta\cdot\mu$
-%         % from $(\ell'\mEQ r')\cdot\rho$ and $M[\ell'']\cdot\tau$
-%         % with $\ell'\rho = \ell''\tau = \ell''\theta\mu$,
-%         % $\theta=\mgu(\ell',\ell'')$, and $\mcI\not\models M[r']\theta\mu$
-%         \begin{gather*}
-%             \infer[UP]
-%             {M[r']\theta\cdot\mu}
-%             {(\ell'\mEQ r')\cdot\rho & M[\ell'']\cdot\tau}
-%             % \\
-%             % \ell'\rho = \ell''\tau = \ell''\theta\mu,\,
-%             % \theta=\mgu(\ell',\ell''),
-%             \\
-%             \\
-%             M[r']\theta\mu\text{ is false in } \mcI.
-%         \end{gather*}
-
-
-%         \framebreak
-
-%         \begin{itemize}
-%             \item If $M[r']\theta\cdot\mu$ is not UP-redundant in $\mcL_S^{sat}$
-%             then $M[r']\theta\cdot\mu\in\mcL_S^{sat}$.
-
-%             \vspace{0.7em}
-%             $M\cdot\tau\succL
-%             M[r']\theta\cdot\mu\in irred_{R_S}(\mcL_S^{sat})$ ($\mu$ is irreducible by $R_S$)
-%             contradicts minimality of $M\cdot\tau$.
-
-
-%             \vspace{0.7em}
-%             \item If $M[r']\theta\cdot\mu$ is UP-redundant in $\mcL_S^{sat}$ then
-%             \begin{gather*}
-%                 R_S \cup irred_{R_S}(
-%                 \{
-%                     M'\cdot\tau'\in\mcL_S^{sat}\mid
-%                     M[r']\theta\cdot\mu \succL M'\tau'
-%                     \} \models M[r']\theta\mu
-%             \end{gather*}
-%             Hence there is $M'\cdot\tau'\in\mcL_S^{sat}$ false in $\mcI$ such that
-%             $M\cdot\tau\succL M[r']\theta\cdot\mu\succL M'\cdot\tau'$,
-
-%             $M'\cdot\tau'$ contradicts minimality of $M\cdot\tau$.
-
-%         \end{itemize}
-
-%         Hence $M\cdot\tau$ is irreducible by $R_S$.
-
-\framebreak
         Under the assumption that $\mcI$ is not a model
 
         a minimal ground literal $M\cdot\tau$ exists that is
