@@ -127,21 +127,18 @@ handout,
 
 \subsection{Redundancy}
 \begin{frame}{UP-Redundancy}
+    Let $\mcL$ be a set of literal closures. We define
     \begin{itemize}
-        \item
-    We define the set
-    \begin{gather*}
-        irred_R(\mcL) =
+        \item $irred_R(\mcL) =
         \{\,
         L\cdot\sigma\in\mcL \mid
         \sigma\text{ is irreducible w.r.t.~}R
-        \,\}
-    \end{gather*}
-    for a set of literal closures $\mcL$
-    and a ground rewrite system $R$.
+        \,\}$
+    
+    for an arbitrary ground rewrite system $R$
 
     \vspace{0.7em}
-    \item Let
+    \item
     $
     \mcL_{L\cdot\sigma\succL} =
     \{\,
@@ -151,7 +148,7 @@ handout,
     $.
 
     \vspace{0.7em}
-    \item A literal closure $L\cdot\sigma$ is UP-redundant in $\mcL$ if
+    \item Literal closure $L\cdot\sigma$ is UP-redundant in $\mcL$ if
     \begin{gather*}
         R \cup irred_R(\mcL_{L\cdot\sigma\succL}) \vDash L\sigma
     \end{gather*}
@@ -346,7 +343,7 @@ $R_{Inst}(S) = \{\, \mf(\mf(x))\mEQ\mf(x) \,\}$
     \begin{proof}
         \begin{enumerate}
             \item Construction of a candidate model
-            \item Proof that candidate is a model by contradiction
+            \item Assumption that candidate is a not model\hfill\lightning
         \end{enumerate}
         \end{proof}
 \end{frame}
@@ -404,9 +401,9 @@ $R_{Inst}(S) = \{\, \mf(\mf(x))\mEQ\mf(x) \,\}$
 \begin{frame}
     \begin{lemma}\label{existence}
 
-    If any $L\cdot\sigma\in\mcL_S$ exists with $\mcI\not\models L\sigma$ then
-
-    there is a $L'\cdot\sigma'\in irred_{R_S}(\mcL_S^{sat})$ with $\mcI\not\models L'\sigma'$.
+    If any $L\cdot\sigma\in\mcL_S$, irreducible by $R_S$ exists with $\mcI\not\models L\sigma$ 
+    
+    then there is a $L'\cdot\sigma'\in irred_{R_S}(\mcL_S^{sat})$ with $\mcI\not\models L'\sigma'$.
     \end{lemma}
 
     \begin{Proof}
@@ -466,7 +463,7 @@ $R_{Inst}(S) = \{\, \mf(\mf(x))\mEQ\mf(x) \,\}$
             {(\ell'\mEQ r')\cdot\rho & M[\ell'']\cdot\tau}
         \end{gather*}
         $\mu$ is irreducible by $R_S$, and $M[r']\theta\mu${ is false in }$\mcI$.
-        \hfill\lightning
+        \hfill\ldots
     \end{block}
 
     \framebreak
@@ -523,10 +520,12 @@ $R_{Inst}(S) = \{\, \mf(\mf(x))\mEQ\mf(x) \,\}$
             \item $s\tau$ and $t\tau$ are irreducible by $R_{M\cdot\tau}$
             \item $R_{M\cdot\tau}$ is a convergent term rewrite system
         \end{itemize}
-        Hence there is $(s\mNE t)\tau\in I_{M\cdot\tau}$
-        produced to $I_{M\cdot\tau}$ by a $(s'\mNE t')\cdot\tau'$.
+        Hence we have $(s\mNE t)\tau\in I_{M\cdot\tau}$
+        produced to $I_{M\cdot\tau}$ by a $(s'\mNE t')\cdot\tau'$,
 
-        Then $(s'\mNE t')\tau'\succG (s\mEQ t)\tau$ and $(s'\mNE t')\cdot\tau'\succL M\cdot\tau$
+        but $(s'\mNE t')\tau'\succG (s\mEQ t)\tau$ and $(s'\mNE t')\cdot\tau'\succL M\cdot\tau$. 
+        \hfill\lightning
+
     \end{proof}
     \end{lemma}
 \end{frame}
@@ -575,6 +574,7 @@ $R_{Inst}(S) = \{\, \mf(\mf(x))\mEQ\mf(x) \,\}$
         $D_1,\ldots,D_n\models D$, $D\succC D_i$ for all $i$,
 
         and $D_j$ false in $\mcI$ for one $j$, which contradicts minimality.
+        \hfill\lightning
 
         \item $x\sigma$ irreducible by $R_S$ for every variable $x$ in $D'$.
         \vspace{0.2em}
@@ -582,7 +582,7 @@ $R_{Inst}(S) = \{\, \mf(\mf(x))\mEQ\mf(x) \,\}$
         Otherwise let $(\ell\to r)\tau\in R_L$ and $x\sigma = x\sigma[l\tau]_p$ for some variable x in D'.
         We define substitution $\sigma'$ with $x\sigma' = x\sigma[r\tau]_p$ and $y\sigma' = y\sigma$ for $y\neq x$.
         $D'\sigma'$ is false in $\mcI$ and $D\succC D'\cdot\sigma'$,
-        which contradicts minimality.
+        which contradicts minimality.\hfill\lightning
     \end{itemize}
 
 \framebreak
@@ -611,12 +611,13 @@ $R_{Inst}(S) = \{\, \mf(\mf(x))\mEQ\mf(x) \,\}$
         \item M is not an inequation by lemma \ref{inequation}
     \end{itemize}
 
-    This is a contradiction.
+    This is a contradiction.\hfill\lightning
+    \vspace{0.7em}
 
     Our assumption is false,
     $\mcI$ is a model for all instances of $S$,
 
-    and $S$ is satisfiable.
+    hence $S$ is satisfiable.
     \hfill\qed
 
 \end{frame}
