@@ -611,8 +611,51 @@ $R_{Inst}(S) = \{\, \mf(\mf(x))\mEQ\mf(x) \,\}$
 
 \end{frame}
 
+\begin{frame}
+
+    \begin{lemma}\label{equation}
+        Let $M\cdot\tau\in\mcL_S^{sat}$,
+        irreducible by $R_S$, and not productive.
+
+        With $\mcI\not\models M\tau$ follows that $M$ is not an equation $(s\mEQ t)$.
+
+    \begin{proof}
+        Assume $M = (s\mEQ t)$. Then we have
+        \begin{itemize}
+            \item $I_{M\cdot\tau}\models (s\mNE t)\tau$
+            \item All literals in $I_{M\cdot\tau}$ are irreducible by $R_{M\cdot\tau}$
+            \item $s\tau$ and $t\tau$ are irreducible by $R_{M\cdot\tau}$
+            \item $R_{M\cdot\tau}$ is a convergent term rewrite system
+        \end{itemize}
+        Hence there is $(s\mNE t)\tau\in I_{M\cdot\tau}$
+        produced to $I_{M\cdot\tau}$ by a $(s'\mNE t')\cdot\tau'$.
+
+        Then $(s'\mNE t')\tau'\succG (s\mEQ t)\tau$ and $(s'\mNE t')\cdot\tau'\succL M\cdot\tau$
+    \end{proof}
+    \end{lemma}
+\end{frame}
+\begin{frame}
+    \begin{lemma}\label{inequation}
+        Let $M\cdot\tau\in\mcL_S^{sat}$,
+        irreducible by $R_S$, and not productive.
+
+        With $\mcI\not\models M\tau$ follows that $M$ is not an inequation $(s\mNE t)$.
+        \begin{proof}
+        Assume $M\cdot\tau$ is inequation $(s\mNE t)\cdot\tau$. We have
+        \begin{itemize}
+            \item $I_{M\cdot\tau}\models (s\mEQ t)\tau$
+            \item $s\tau$ and $t\tau$ are irreducible by $R_{M\cdot\tau}$
+        \end{itemize}
+        Hence $s\tau = t\tau$ and equality resolution is applicable.
+
+        Contradiction to $\emptyclause\not\in\mcL_S^{sat}$.
+    \end{proof}
+    \end{lemma}
+
+\end{frame}
+
 \subsection{Counterexample}
-\begin{frame}[allowframebreaks]{Counterexample}
+\begin{frame}[allowframebreaks]{Proof}
 
     Assume $\mcI$ is not a model of $S$.
     \begin{align*}
@@ -649,25 +692,7 @@ $R_{Inst}(S) = \{\, \mf(\mf(x))\mEQ\mf(x) \,\}$
 
     that $D' = L\lor D''$, $\sel(D') = L$, $L\cdot\sigma\in\mcL_S$,
     $L\sigma$ is false in $\mcI$
-
-    % \vspace{0.7em}
-    % Assume $L\cdot\sigma$ is UP-redundant in $\mcL_S^{sat}$.
-
-    % \vspace{0.7em}
-    % By construction $\sigma$ is irreducible by $R_S$. Then we have
-    % \begin{align*}
-    %     R_S \cup irred_{R_S}(
-    %         \{
-    %         L'\cdot\sigma'\in\mcL_S^{sat}
-    %         \mid
-    %         L\cdot\sigma \succL L'\cdot\sigma'
-    %         \}
-    %     )
-    %     \models
-    %     L\sigma
-    % \end{align*}
-    % Therefore there is $L'\cdot\sigma'\in irred_{R_S}(\mcL_S^{sat})$ that is false in $\mcI$.
-    % \vspace{0.7em}
+    \vspace{0.7em}
 
     Hence the following literal closure
     \begin{gather*}
@@ -678,66 +703,18 @@ $R_{Inst}(S) = \{\, \mf(\mf(x))\mEQ\mf(x) \,\}$
     L'\cdot\sigma'\text{ false in }\mcI\,
 \right\}
     \end{gather*}
-    exists (Lemma \ref{existence} on slide \pageref{existence})
-    and
+    exists by Lemma \ref{existence}, is irreducible by Lemma \ref{irreducible},
+    and not productive.
 
-    is irreducible by $R_S$ (Lemma \ref{irreducible} on slide \pageref{irreducible}).
-
-    \framebreak
-        Under the assumption that $\mcI$ is not a model
-
-        a minimal ground literal $M\cdot\tau$ exists that is
     \begin{itemize}
-        \item false in $\mcI$
-        \item in $\mcL_S^{sat}$
-        \item irreducible by $R_S$
-        \item not productive.
+        \item M is not an equation by lemma \ref{equation}
+        \item M is not an inequation by lemma \ref{inequation}
     \end{itemize}
-    \vspace{1em}
 
-    Hence $I_{M\cdot\tau}\models\overline{M}\tau$
-    with two possible cases:
+    This is a contradiction.
 
-    \begin{enumerate}
-        \item $M\cdot\tau$ is equation $(s\mEQ t)\cdot\tau$  \hfill $I_{M\cdot\tau}\models (s\mNE t)\tau$
-        \item $M\cdot\tau$ is inequation $(s\mNE t)\cdot\tau$ \hfill $I_{M\cdot\tau}\models (s\mEQ t)\tau$
-    \end{enumerate}
-
-    \vspace{0.7em}
-    Both cases lead to a contradiction (next slide).
-
-    We reject the assumption and conclude
-
-    that $\mcI$ is a model for all ground instances of $S$.
-
-\framebreak
-
-
-    \begin{enumerate}
-        \item Assume $M\cdot\tau$ is equation $(s\mEQ t)\cdot\tau$:
-        \begin{itemize}
-            \item $I_{M\cdot\tau}\models (s\mNE t)\tau$
-            \item All literals in $I_{M\cdot\tau}$ are irreducible by $R_{M\cdot\tau}$
-            \item $s\tau$ and $t\tau$ are irreducible by $R_{M\cdot\tau}$
-            \item $R_{M\cdot\tau}$ is a convergent term rewrite system
-        \end{itemize}
-        Hence $(s\mNE t)\tau\in I_{M\cdot\tau}$ and
-        produced to $I_{M\cdot\tau}$ by a $(s'\mNE t')\cdot\tau'$.
-
-        Then $(s'\mNE t')\tau'\succG (s\mEQ t)\tau$ and $(s'\mNE t')\cdot\tau'\succL M\cdot\tau$
-
-        Contradiction to minimality of $M\cdot\tau$ w.r.t.~$\succL$.
-        \vspace{0.5em}
-
-        \item Assume $M\cdot\tau$ is inequation $(s\mNE t)\cdot\tau$. We have
-        \begin{itemize}
-            \item $I_{M\cdot\tau}\models (s\mEQ t)\tau$
-            \item $s\tau$ and $t\tau$ are irreducible by $R_{M\cdot\tau}$
-        \end{itemize}
-        Hence $s\tau = t\tau$ and equality resolution is applicable.
-
-        Contradiction to $\emptyclause\not\in\mcL_S^{sat}$.
-    \end{enumerate}
+    Our assumption is false and $\mcI$ is a model for all instances of $S$.
+    \hfill\qed
 
 \end{frame}
 
