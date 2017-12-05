@@ -447,25 +447,22 @@ $R_{Inst}(S) = \{\, \mf(\mf(x))\mEQ\mf(x) \,\}$
 \end{frame}
 
 \subsection{Model Construction}
-\begin{frame}[allowframebreaks]{Model Construction}
-    Let $S$ be an Inst-saturated set of clauses, i.e.
-    \begin{itemize}
-        \item $S\bot$ is satisfiable
-        \item $\emptyclause\not\in\mcL_S^{sat}$
+\begin{frame}{Construction}
+    Let $S$ be an Inst-saturated set of clauses,
+    i.e.~$\emptyclause\not\in\mcL_S^{sat}$, SAT($S\bot$).
+    \vspace{0.7em}
 
-\end{itemize}
-
-\vspace{1.4em}
     Let $L = L'\cdot\sigma \in\mcL_S^{sat}$.
-    We define by induction on $\succL$
+    We define by induction on $\succL$:
+
         \begin{itemize}
-            \item $I_L = \bigcup_{L\succL M}\epsilon_M$
-            \hfill $\epsilon_M$ allready defined for all $M$ with $L\succL M$
+            \item $I_L = \{\,\epsilon_M\mid L\succL M\,\}$
+            \hfill I.H.: $\epsilon_M$ is defined for any $M\mid L\succL M$
 
             \item $R_L = \{ s \to t \mid s\mEQ t\in I_L, s\succG t \}$
 
                 \item $\epsilon_L = \left\{
-                    \begin{array}{cl}
+                    \begin{array}{cll}
                         \emptyset &\text{if }
                         L'\sigma\text{ reducible by }R_L
                         \\
@@ -473,14 +470,14 @@ $R_{Inst}(S) = \{\, \mf(\mf(x))\mEQ\mf(x) \,\}$
                         I_L\vDash L'\sigma
                         \text{ or }
                         I_L\vDash \overline{L'}\sigma
-                        \text{ (defined)}
+                        &\text{(defined)}
                         \\
                         \{ L'\sigma \}
-                        &\text{if }L'\sigma \text{ is productive (irreducible, undefined)}
+                        &\text{otherwise}
+                        &\text{(productive)}
                     \end{array}
                 \right.$
-
-                \framebreak
+                \vspace{0.7em}
             \item
             $R_S = \bigcup_{L\in\mcL_S^{sat}} R_L$
             \hfill
@@ -494,20 +491,11 @@ $R_{Inst}(S) = \{\, \mf(\mf(x))\mEQ\mf(x) \,\}$
             $L\sigma\in I_S$ is irreducible by $R_S$
         \end{itemize}
 
-        \vspace{1.4em}
-
-        \begin{conjecture}
-            An arbitrary total consistent extension $\mcI$ of $I_S$
-            is a model for all ground instances of clauses in $S$.
-        \end{conjecture}
-        \vspace{1.4em}
-
         For the following slides let $\mcL_S,\mcL_S^{sat}, I_S, R_S$ be defined as above
-        and $\mcI$ be an arbitrary consistent extension of $I_S$.
+        and let $\mcI$ be an arbitrary consistent extension of $I_S$.
 \end{frame}
 
-\subsection{Useful lemmata}
-
+\subsection{Lemma 6}
 \begin{frame}
     \begin{lemma}\label{existence}
 
@@ -521,7 +509,8 @@ $R_{Inst}(S) = \{\, \mf(\mf(x))\mEQ\mf(x) \,\}$
 
     \begin{itemize}
         \item If $L\cdot\sigma$ is not UP-redundant in $\mcL_S^{sat}$,
-        then $L'\cdot\sigma' = L\cdot\sigma$.
+        then $L'\cdot\sigma'=L\cdot\sigma$.
+        \hfill\checkmark
 
         \item If $L\cdot\sigma$ is UP-redundant in $\mcL_S^{sat}$.
     By construction $\sigma$ is irreducible by $R_S$. Then we have
@@ -536,7 +525,9 @@ $R_{Inst}(S) = \{\, \mf(\mf(x))\mEQ\mf(x) \,\}$
         \models
         L\sigma
     \end{align*}
-    Hence there is $L'\cdot\sigma'\in irred_{R_S}$ with $\mcI\not\models L'\sigma'$.
+    At least one $L'\cdot\sigma'\in irred_{R_S}(\mcL_S^{sat})$
+    with $\mcI\not\models L'\sigma'$.
+    \hfill\checkmark
     \end{itemize}
 \end{Proof}
 \end{frame}
@@ -574,6 +565,7 @@ $R_{Inst}(S) = \{\, \mf(\mf(x))\mEQ\mf(x) \,\}$
             {(\ell'\mEQ r')\cdot\rho & M[\ell'']\cdot\tau}
         \end{gather*}
         $\mu$ is irreducible by $R_S$, and $M[r']\theta\mu${ is false in }$\mcI$.
+        \hfill\lightning
     \end{block}
 
     \framebreak
@@ -591,6 +583,7 @@ $R_{Inst}(S) = \{\, \mf(\mf(x))\mEQ\mf(x) \,\}$
             M[r']\theta\cdot\mu\in irred_{R_S}(\mcL_S^{sat})$
 
             contradicts minimality of $M\cdot\tau$.
+            \hfill\lightning
 
 
             \vspace{0.7em}
@@ -606,6 +599,7 @@ $R_{Inst}(S) = \{\, \mf(\mf(x))\mEQ\mf(x) \,\}$
             $M\cdot\tau\succL M[r']\theta\cdot\mu\succL M'\cdot\tau'$,
 
             $M'\cdot\tau'$ contradicts minimality of $M\cdot\tau$.
+            \hfill\lightning
 
         \end{itemize}
 
@@ -615,13 +609,14 @@ $R_{Inst}(S) = \{\, \mf(\mf(x))\mEQ\mf(x) \,\}$
 
 \end{frame}
 
+\subsection{Lemma 8}
 \begin{frame}
 
     \begin{lemma}\label{equation}
         Let $M\cdot\tau\in\mcL_S^{sat}$,
-        irreducible by $R_S$, and not productive.
+        irreducible by $R_S$, and defined (not productive).
 
-        With $\mcI\not\models M\tau$ follows that $M$ is not an equation $(s\mEQ t)$.
+        From $\mcI\not\models M\tau$ follows that $M$ is not an equation $(s\mEQ t)$.
 
     \begin{proof}
         Assume $M = (s\mEQ t)$. Then we have
@@ -638,12 +633,14 @@ $R_{Inst}(S) = \{\, \mf(\mf(x))\mEQ\mf(x) \,\}$
     \end{proof}
     \end{lemma}
 \end{frame}
+
+\subsection{Lemma 9}
 \begin{frame}
     \begin{lemma}\label{inequation}
         Let $M\cdot\tau\in\mcL_S^{sat}$,
-        irreducible by $R_S$, and not productive.
+        irreducible by $R_S$, and defined (not productive).
 
-        With $\mcI\not\models M\tau$ follows that $M$ is not an inequation $(s\mNE t)$.
+        From $\mcI\not\models M\tau$ follows that $M$ is not an inequation $(s\mNE t)$.
         \begin{proof}
         Assume $M\cdot\tau$ is inequation $(s\mNE t)\cdot\tau$. We have
         \begin{itemize}
@@ -658,19 +655,21 @@ $R_{Inst}(S) = \{\, \mf(\mf(x))\mEQ\mf(x) \,\}$
 
 \end{frame}
 
-\subsection{Counterexample}
-\begin{frame}[allowframebreaks]{Proof}
+\subsection{Model}
+\begin{frame}[allowframebreaks]
 
-    Assume $\mcI$ is not a model of $S$.
-    \begin{align*}
-        \text{Let }
-        D &= \min_{\succC}\{\,
-        C'\cdot\sigma \mid C'\in S,\,
-        C'\sigma\text{ false in }\mcI\,
-        \}
-    \end{align*}
+    \begin{lemma}
+        $\mcI$ is a model for all ground instances of $S$
+    \end{lemma}
 
-    Then
+    \begin{block}{Proof.}
+        Assume $
+            D = \min_{\succC}\{\,
+            C'\cdot\sigma \mid C'\in S,\,
+            C'\sigma\text{ false in }\mcI\,
+            \}
+            $ exists, then
+    \end{block}
     \begin{itemize}
         \item $D = D'\cdot\sigma$ is not Inst-redundant.
         \vspace{0.2em}
@@ -717,32 +716,35 @@ $R_{Inst}(S) = \{\, \mf(\mf(x))\mEQ\mf(x) \,\}$
 
     This is a contradiction.
 
-    Our assumption is false and $\mcI$ is a model for all instances of $S$.
+    Our assumption is false,
+    $\mcI$ is a model for all instances of $S$,
+
+    and $S$ is satisfiable.
     \hfill\qed
 
 \end{frame}
 
-\section{Closures and clauses}
-\subsection{Lifting}
-\begin{frame}
-    \begin{itemize}
-        \item UP for literal closures
-        \vspace{-1.4em}
-            \input{SNIPPETS/UPI}
-            \vspace{-2.1em}
-            \input{SNIPPETS/UPC}
+% \section{Closures and clauses}
+% \subsection{Lifting}
+% \begin{frame}
+%     \begin{itemize}
+%         \item UP for literal closures
+%         \vspace{-1.4em}
+%             \input{SNIPPETS/UPI}
+%             \vspace{-2.1em}
+%             \input{SNIPPETS/UPC}
 
-        \vspace{0.7em}
+%         \vspace{0.7em}
 
-    \item UPL for literals (clauses)
-    \vspace{-1.4em}
-    \input{SNIPPETS/UPLI}
-    \vspace{-2.1em}
-    \input{SNIPPETS/UPLC}
-\end{itemize}
+%     \item UPL for literals (clauses)
+%     \vspace{-1.4em}
+%     \input{SNIPPETS/UPLI}
+%     \vspace{-2.1em}
+%     \input{SNIPPETS/UPLC}
+% \end{itemize}
 
 
-\end{frame}
+% \end{frame}
 
 % \section{Summary}
 % \subsection{}
