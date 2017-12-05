@@ -252,101 +252,6 @@ handout,
     \end{lemma}
 \end{frame}
 
-% \section{Irreducibility}
-% \subsection{Lemma}
-% \begin{frame}
-%     \begin{lemma}
-%         \label{irreducible}
-%         \vspace{0.7em}
-
-%         Let $\mcL$ be a set of literals where $\mcL\bot$ is satisfied by model $I_\bot$.
-%         \begin{itemize}
-%             \item $\mcL$ is a set of literal closures. $\emptyclause\not\in\mcL^{sat}$
-
-%             \item $R$ is a (convergent and interreduced)
-
-%             ground rewrite system oriented by $\succG$
-
-%             \item Every
-%             $\ell\to_R r = (\ell'\mEQ r')\rho$,
-%             $(\ell'\mEQ r')\cdot\rho \in \mcL^{sat}$,
-%             $\ell'\cdot\rho\succL r\cdot\rho$.
-
-%             \item $I$ is an interpretation (every $L\sigma\in I$
-%             is irreducible by $R$), and
-
-%             \item
-%             $M\cdot\tau = \min_{\succL}\!
-%             \left\{\,
-%             L\cdot\sigma \mid
-%             L\cdot\sigma \in irred_{R}(\mcL^{sat}),\,
-%             L\sigma\text{ is false in }I\,
-%             \right\}
-%             $
-% \end{itemize}
-% \vspace{0.7em}
-
-% Then $M\cdot\tau$ is irreducible by $R$.
-% \vspace{0.7em}
-
-% (By definition only $\tau$ is irreducible by $R$)
-% \end{lemma}
-% \end{frame}
-
-% \subsection{Proof}
-% \begin{frame}
-%     \begin{proof}
-%         % \begin{enumerate}
-%         %     \item
-%         Assume $M\cdot\tau$ is reducible by
-%         $\ell\to_R r = (\ell'\to r')\cdot\rho\in\mcL^{sat}$.
-%         \vspace{0.2em}
-
-%         Since $\tau$ is irreducible by $R$:
-%         \vspace{-0.5em}
-%         \begin{gather*}
-%             \infer[
-%                 {\theta = \mgu(\ell'\!,\,\ell'')}
-%                 \atop
-%                 {\ell'\rho = \ell''\tau = \ell''\theta\mu}
-%                 ]
-%             {M[r']\theta\cdot\mu}
-%             {(\ell'\to r')\cdot\rho & M[\ell'']\cdot\tau}
-%         \end{gather*}
-%         $M\cdot\tau\succL M[r']\theta\cdot\mu$,
-%         $M[r']\theta\mu$ false in $I$,
-%         $\mu$ is irreducible by $R$.
-
-%         % \item
-%         \begin{enumerate}
-%             \item Assume $M[r']\theta\cdot\mu$ is UP-redundant in $\mcL^{sat}$:
-%             \vspace{0.5em}
-
-%             \hfill
-%             $R \cup irred_R(\mcL^{sat}_{M[r']\theta\cdot\mu\succL} )
-%             \models
-%             M[r']\theta\mu$
-%             \vspace{0.5em}
-
-%             Then there is $M'\cdot\tau'\in\mcL^{sat}$,
-%             $M'\tau'$ false in $I$,
-
-%             and
-%             $M'\cdot\tau'\succL M[r']\theta\mu$.
-%             \vspace{0.5em}
-
-%             \item Assume $M[r']\theta\cdot\mu$ is not UP-redundant:
-%             \hfill
-%             $M[r']\theta\cdot\mu\in\mcL^{sat}$.
-%         \end{enumerate}
-%         Both contradict the minimality of $M\cdot\tau$,
-%         we reject the assumption, and conclude irreducibility
-%         of $M\cdot\tau$ w.r.t.~$R$.
-
-%     % \end{enumerate}
-%     \end{proof}
-% \end{frame}
-
 \section{Instantiation}
 \subsection{Redundancy}
 
@@ -555,10 +460,6 @@ $R_{Inst}(S) = \{\, \mf(\mf(x))\mEQ\mf(x) \,\}$
 
         \vspace{0.7em}
         Now UP-inference is applicable because $\tau$ is irreducible by $R_S$,
-        % and we derive $M[r']\theta\cdot\mu$
-        % from $(\ell'\mEQ r')\cdot\rho$ and $M[\ell'']\cdot\tau$
-        % with $\ell'\rho = \ell''\tau = \ell''\theta\mu$,
-        % $\theta=\mgu(\ell',\ell'')$, and $\mcI\not\models M[r']\theta\mu$
         \begin{gather*}
             \infer[UP]
             {M[r']\theta\cdot\mu}
@@ -569,10 +470,6 @@ $R_{Inst}(S) = \{\, \mf(\mf(x))\mEQ\mf(x) \,\}$
     \end{block}
 
     \framebreak
-
-        % \begin{block}
-
-            % (proof to lemma \ref{irreducible} contd.)
 
         \begin{itemize}
             \item If $M[r']\theta\cdot\mu$ is not UP-redundant in $\mcL_S^{sat}$
