@@ -12,7 +12,7 @@ handout,
 	Alexander Maringele
 }
 \institute[UIBK]{%
-	{alexander.maringele@gmail.com}
+	{alexander.maringele@uibk.ac.at}
 }
 \date{December 6th, 2017}
 
@@ -22,17 +22,13 @@ handout,
 \begin{document}
 \titleframe
 
-\begin{frame}
-    \nocite{GK2004csl} %, Ganzinger2004
-    \bibliographystyle{plain}
-    \bibliography{biblio.bib}
-\end{frame}
+
 
 
 
 \section{ATP}
 \subsection{The big picture}
-\begin{frame}{Instantiation-based first order theorem proving}{The big picture}
+\begin{frame}{Instantiation-based first order ATP}{The big picture}
 
     \vspace{0.7em}
     \input{T/refutation.tex}
@@ -42,29 +38,42 @@ handout,
 \end{frame}
 
 
+\subsection{Literature}
+\begin{frame}
+    \nocite{GK2004csl} %, Ganzinger2004
+    \bibliographystyle{plain}
+    \bibliography{biblio.bib}
+\end{frame}
+
+
 \section{Preliminaries}
 
 \subsection{Clauses, closures and orderings}
 
 \begin{frame}[allowframebreaks]{Preliminaries}{Equational First Order Logic}
 
+    \onslide<+->
     \begin{itemize}
-        \item first order signature with function \textcolor{gray}{(and predicate)} symbols
-        \item terms $s,t,\ell,r$
+        \item<+-> first order signature with function \textcolor{gray}{(and predicate)} symbols
+        \item<+-> terms $s,t,\ell,r$
         \hfill\textcolor{gray}{(and predicates $P, Q, \bullet$)}
-        \item atoms are equations of terms $s\mEQ t$
+        \item<+-> atoms are equations of terms $s\mEQ t$
         \hfill\textcolor{gray}{(or predicates $P\mEQ\bullet$)}
-        \item literals are atoms or negated atoms
-        \item clauses are a multisets of literals
-        \item closures are pairs of clauses and ground substitutions
+        \item<+-> literals are atoms or negated atoms
+        \item<+-> clauses are a multisets of literals
+        \item<+-> closures are pairs of clauses and ground substitutions
         \vspace{0.7em}
 
         $(\,\mf(x)\mEQ b\lor x\mNE\ma\,)\cdot\{\,x\mapsto\mf(a)\,\}$
 
         \framebreak
         \item orderings
+
+
     \end{itemize}
-    \vspace{-1.4em}
+    \vspace{-2.8em}
+
+
     \begin{align*}
         &\succG
         \tag*{order on ground terms, literals, and clauses defined by}
@@ -134,7 +143,7 @@ handout,
         L\cdot\sigma\in\mcL \mid
         \sigma\text{ is irreducible w.r.t.~}R
         \,\}$
-    
+
     for an arbitrary ground rewrite system $R$
 
     \vspace{0.7em}
@@ -343,7 +352,7 @@ $R_{Inst}(S) = \{\, \mf(\mf(x))\mEQ\mf(x) \,\}$
     \begin{proof}
         \begin{enumerate}
             \item Construction of a candidate model
-            \item Assumption that candidate is a not model\hfill\lightning
+            \item Assumption that candidate is not a model\hfill\lightning
         \end{enumerate}
         \end{proof}
 \end{frame}
@@ -355,11 +364,11 @@ $R_{Inst}(S) = \{\, \mf(\mf(x))\mEQ\mf(x) \,\}$
     \vspace{0.7em}
 
     Let $L = L'\cdot\sigma \in\mcL_S^{sat}$.
-    We define by induction on $\succL$:
+    We define inductively:
 
         \begin{itemize}
             \item $I_L = \{\,\epsilon_M\mid L\succL M\,\}$
-            \hfill I.H.: $\epsilon_M$ is defined for any $M\mid L\succL M$
+            \hfill  IH:~$\epsilon_M$ is defined for any $M\mid L\succL M$
 
             \item $R_L = \{ s \to t \mid s\mEQ t\in I_L, s\succG t \}$
 
@@ -385,24 +394,25 @@ $R_{Inst}(S) = \{\, \mf(\mf(x))\mEQ\mf(x) \,\}$
             \hfill
             $R_S$ is convergent and interreduced
 
-            \vspace{0.7em}
             \item
             $I_S = \bigcup_{L\in\mcL_S^{sat}} \epsilon_L$
             \hfill
             $I_S$ is consistent,
             $L\sigma\in I_S$ is irreducible by $R_S$
         \end{itemize}
+        \vspace{0.7em}
 
-        For the following slides let $\mcL_S,\mcL_S^{sat}, I_S, R_S$ be defined as above
-        and let $\mcI$ be an arbitrary consistent extension of $I_S$.
+        Let $\mcI$ be an arbitrary consistent extension of $I_S$
+
+        in all the following lemmata.
 \end{frame}
 
 \subsection{Lemma 6}
 \begin{frame}
     \begin{lemma}\label{existence}
 
-    If any $L\cdot\sigma\in\mcL_S$, irreducible by $R_S$ exists with $\mcI\not\models L\sigma$ 
-    
+    If any $L\cdot\sigma\in\mcL_S$, irreducible by $R_S$ exists with $\mcI\not\models L\sigma$
+
     then there is a $L'\cdot\sigma'\in irred_{R_S}(\mcL_S^{sat})$ with $\mcI\not\models L'\sigma'$.
     \end{lemma}
 
@@ -468,20 +478,22 @@ $R_{Inst}(S) = \{\, \mf(\mf(x))\mEQ\mf(x) \,\}$
 
     \framebreak
 
+    We have two cases
+
         \begin{itemize}
             \item If $M[r']\theta\cdot\mu$ is not UP-redundant in $\mcL_S^{sat}$
             then $M[r']\theta\cdot\mu\in\mcL_S^{sat}$.
 
-            \vspace{0.7em}
+            \vspace{0.3em}
             Now $M\cdot\tau\succL
             M[r']\theta\cdot\mu\in irred_{R_S}(\mcL_S^{sat})$
 
             contradicts minimality of $M\cdot\tau$.
             \hfill\lightning
+            \vspace{0.3em}
 
-
-            \vspace{0.7em}
             \item If $M[r']\theta\cdot\mu$ is UP-redundant in $\mcL_S^{sat}$ then
+            \vspace{-0.3em}
             \begin{gather*}
                 R_S \cup irred_{R_S}(
                 \{
@@ -520,10 +532,10 @@ $R_{Inst}(S) = \{\, \mf(\mf(x))\mEQ\mf(x) \,\}$
             \item $s\tau$ and $t\tau$ are irreducible by $R_{M\cdot\tau}$
             \item $R_{M\cdot\tau}$ is a convergent term rewrite system
         \end{itemize}
-        Hence we have $(s\mNE t)\tau\in I_{M\cdot\tau}$
-        produced to $I_{M\cdot\tau}$ by a $(s'\mNE t')\cdot\tau'$,
+        Hence $(s\mNE t)\tau\in I_{M\cdot\tau}$
+        is produced to $I_{M\cdot\tau}$ by some $(s'\mNE t')\cdot\tau'$,
 
-        but $(s'\mNE t')\tau'\succG (s\mEQ t)\tau$ and $(s'\mNE t')\cdot\tau'\succL M\cdot\tau$. 
+        but $(s'\mNE t')\tau'\succG (s\mEQ t)\tau$ and $(s'\mNE t')\cdot\tau'\succL M\cdot\tau$.
         \hfill\lightning
 
     \end{proof}
@@ -546,6 +558,8 @@ $R_{Inst}(S) = \{\, \mf(\mf(x))\mEQ\mf(x) \,\}$
         Hence $s\tau = t\tau$ and equality resolution is applicable.
 
         Contradiction to $\emptyclause\not\in\mcL_S^{sat}$.
+        \hfill\lightning
+
     \end{proof}
     \end{lemma}
 
@@ -614,10 +628,9 @@ $R_{Inst}(S) = \{\, \mf(\mf(x))\mEQ\mf(x) \,\}$
     This is a contradiction.\hfill\lightning
     \vspace{0.7em}
 
-    Our assumption is false,
-    $\mcI$ is a model for all instances of $S$,
+    Our assumption was false and
 
-    hence $S$ is satisfiable.
+    $\mcI$ is a model for all instances of $S$.
     \hfill\qed
 
 \end{frame}
