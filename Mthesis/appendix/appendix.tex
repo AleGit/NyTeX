@@ -114,8 +114,8 @@
     
         \draw[->] (SO) -- (STP);
         \draw[->] (RO) -- (RWO);
-        \draw[->, dotted] (RO) -- (WFO); 
-        \draw (RO) edge[out=0,in=-45,->] (WF); 
+        \draw[->] (RO) -- (WFO); 
+        % \draw (RO) edge[out=0,in=-45,->] (WF); 
     
         \draw[->] (SO) -- (RWO);
         \draw[->, dotted] (SO) -- (RO);
@@ -126,29 +126,7 @@
     
     \end{tikzpicture}
 
-\vspace{1cm}
 
-\begin{tikzpicture}
-    
-        
-    
-        \node (IRR) at (-2,2) { irreflexive };
-        \node (TRA) at (2,2) { transitive };
-    
-        \node (PO) at (0,0) { proper/strict order };
-        \node (WF) at (4,0) { well-founded };
-        \node (WFO) at (2,-2) { well-founded order};
-    
-        \draw[->] (PO) -- (IRR);
-        \draw[->] (PO) -- (TRA);
-
-        \draw[->] (WFO) -- (PO);
-        \draw[->] (WFO) -- (WF);
-
-    
-    
-    
-    \end{tikzpicture}
     
     \vspace{1cm}
 
