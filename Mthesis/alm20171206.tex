@@ -64,7 +64,7 @@ handout,
         \item<+-> closures are pairs of clauses and ground substitutions
         \vspace{0.7em}
 
-        $(\,\mf(x)\mEQ b\lor x\mNE\ma\,)\cdot\{\,x\mapsto\mf(a)\,\}$
+        $(\,\mf(x)\mEQ \mb\lor x\mNE\ma\,)\cdot\{\,x\mapsto\mf(\ma)\,\}$
 
         \framebreak
         \item orderings
@@ -86,17 +86,20 @@ handout,
         \tag{\textcolor{gray}{$P\succG\bullet$}}
         \\[0.7em]
         &\succL
-        \tag*{an arbitrary total well-founded extension of $\succG$ such that}
+        \tag*{a total well-founded extension of $\succG$ such that}
         \\
         && L\sigma\succG L'\sigma' &\Rightarrow L\cdot\sigma\succL L'\cdot\sigma'\tag*{}
         \\[0.7em]
-        &\succC \tag*{an arbitrary total well-founded extension of $\succG$ such that }
+        &\succC \tag*{a total well-founded extension of $\succG$ such that }
         \\
         && C\tau\succG D\rho
         &\Rightarrow C\cdot\tau\succC D\cdot\rho
         \\
         && (C\tau=D\rho\text{ and }C\theta = D)
-        &\Rightarrow C\cdot\tau\succC D\cdot\rho   \tag*{}
+        &\Rightarrow C\cdot\tau\succC D\cdot\rho
+        \\
+        && \text{where $\theta$ is not a renaming}
+        &
     \end{align*}
 \end{frame}
 
@@ -323,7 +326,7 @@ $R_{Inst}(S) = \{\, \mf(\mf(x))\mEQ\mf(x) \,\}$
     \end{align*}
 
     \item
-    $\mcL_S^{sat}$ denotes the satuarion process of $\mcL_S$.
+    $\mcL_S^{sat}$ denotes the saturation process of $\mcL_S$.
 
     \item A set of clauses $S$ is Inst-saturated w.r.t.~a selection function,
 
