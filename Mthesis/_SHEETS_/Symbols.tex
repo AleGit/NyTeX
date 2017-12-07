@@ -9,16 +9,53 @@
     \abstract{The quick brown fox jumps over the lazy dog.
     Why?}
 
-    \maketitle
+    % \maketitle
 
     \newcommand{\showmath}[1]{\texttt{\string#1} & $#1$ & \texttt{\meaning#1}\\}
 
-    \begin{itemize}
-        \item \verb+\hfill {\myem The quick brown fox jumps over the lazy dog.} +
+
+        \verb+\hfill {\myem The quick brown fox jumps over the lazy dog.} +
 
         \hfill {\myem The quick brown fox jumps over the lazy dog.}
-        \item Symbols
 
+
+\begin{table}
+        \begin{tabular}{lcl}
+            \showmath{\arity}		% arity of a symbol
+
+            \showmath{\var}			% variables of a term
+            \showmath{\fun}			% function symbols of a term
+            \showmath{\pos}			% positions in a term
+            \showmath{\posT}			% positions in a term
+            \showmath{\posS}
+            \showmath{\fvar}
+            \showmath{\bvar}
+
+            \showmath{\domain}			% domain of an assignment
+            \showmath{\range}		% range of an assignment
+            \showmath{\image}			% image of an assignment
+            \showmath{\irred}
+
+            \showmath{\mgu}			% most general unifier
+            \showmath{\sel}			% selection function
+
+            %\showmath{\mul}{mul}
+            %\showmath{\add}{add}
+            \showmath{\head}
+            \showmath{\tail}
+            \showmath{\length}
+
+            \showmath{\UNIF}
+            \showmath{\INST}
+            \showmath{\GNRL}
+            \showmath{\VRNT}
+            \showmath{\PSTR}
+        \end{tabular}
+        \caption{Math Operators}
+    \end{table}
+
+
+\begin{table}
         \begin{tabular}{lcl}
         \showmath{\disjointunion}
         \showmath{\lbic}
@@ -49,15 +86,18 @@
         \showmath{\mca}
 
         \end{tabular}
+        \caption{Symbols}
+    \end{table}
 
-        \item Symbols with single argument
+        Symbols with single argument
 
+        \begin{table}
         \begin{tabular}{lcl}
             \showmath{\rwStep}
             \showmath{\defEQ}
             \showmath{\defEV}
         \end{tabular}
-
-    \end{itemize}
+        \caption{Unary symbols}
+    \end{table}
 
     \end{document}

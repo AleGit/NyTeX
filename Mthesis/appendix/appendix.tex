@@ -7,17 +7,17 @@
 
 % \input{epigraphs/Menge}
 
-% In this appendix we recall some mathematical and logical concepts and notions 
+% In this appendix we recall some mathematical and logical concepts and notions
 % we have used but not defined in the main part.
-% We assume at least a {\myem basic} understanding of sets as already 
-% described by Georg Cantor in the 19th century. 
+% We assume at least a {\myem basic} understanding of sets as already
+% described by Georg Cantor in the 19th century.
 % However we just assume that our sets are definable within a consistent set theory.
 % Thus we have well defined {\myem membership} relationships between objects and sets,
-% well defined {\myem subset} relationships between sets, 
+% well defined {\myem subset} relationships between sets,
 % and well defined {\myem Cartesian products} over sets.
 
-% %?? In the presentations of the equality axioms we have chosen the clausal normal form 
-% %from Definition \vref{def:syntax:CNF} 
+% %?? In the presentations of the equality axioms we have chosen the clausal normal form
+% %from Definition \vref{def:syntax:CNF}
 % %with the semantics of Definition \vref{def:model}.
 
 
@@ -78,78 +78,6 @@
 % %\end{figure}
 
 
-\begin{tikzpicture}
-    
-    
-        \node (CUC) at (-4,8) { contexts };
-        \node (CUS) at (0,8) { substitutions };
-    
-        \node (IRR) at (6,6) { irreflexive };
-        \node (TRA) at (2,6) { transitive };
-        \node (CL) at (-2,6) { closed under };
-    
-        \node (PO) at (4,4.4) { $>$ };
-        \node (PO) at (4,4) { proper order };
-        \node (RWR) at (0,4) { rewrite relation };
-        
-        \node (STP) at (-2,2) { subterm property };
-        \node (RWO) at (2,2) { rewrite order };
-        \node (WF) at (8,4) { well-founded };
-    
-        \node (SO) at (0,0) {simplification order};
-        \node (RO) at (4,0) {reduction order};
-
-        \node (WFO) at (6,2) { well-founded order };
-            
-    
-        \draw[->] (CL) -- (CUC);
-        \draw[->] (CL) -- (CUS);
-    
-        \draw[->] (PO) -- (IRR);
-        \draw[->] (PO) -- (TRA);
-    
-        \draw[->] (RWR) -- (CL);
-    
-        \draw[->] (RWO) -- (PO);
-        \draw[->] (RWO) -- (RWR);
-    
-        \draw[->] (SO) -- (STP);
-        \draw[->] (RO) -- (RWO);
-        \draw[->] (RO) -- (WFO); 
-        % \draw (RO) edge[out=0,in=-45,->] (WF); 
-    
-        \draw[->] (SO) -- (RWO);
-        \draw[->, dotted] (SO) -- (RO);
-
-        \draw[->] (WFO) -- (WF); 
-        \draw[->] (WFO) -- (PO); 
-    
-    
-    \end{tikzpicture}
-
-
-    
-    \vspace{1cm}
-
-\begin{tikzpicture}
-    \node (REFLEXIVE) at (-2,2) { reflexive };
-    \node (TRANSITIVE) at (2,2) { transiitve };
-    \node (SYMMETRIC) at (-4,0) { symmetric };
-    \node (PREORDER) at (0,0) { preorder };
-    \node (ANTISYMMETRIC) at (4,0) { antisymmetric };
-    \node (SIM) at (-2,-1.6) { $\sim$ };
-    \node (EQUIVALENCE) at (-2,-2) { equivalence };
-    \node (GEQ) at (2,-1.6) { $\geq$ };
-    \node (PARTIAL) at (2,-2) { partial order };
-
-    \draw[->] (PREORDER) -- (REFLEXIVE);
-    \draw[->] (PREORDER) -- (TRANSITIVE);
-
-    \draw[->] (EQUIVALENCE) -- (SYMMETRIC);
-    \draw[->] (EQUIVALENCE) -- (PREORDER);
-    \draw[->] (PARTIAL) -- (PREORDER);
-    \draw[->] (PARTIAL) -- (ANTISYMMETRIC);
-\end{tikzpicture}
 
 
 

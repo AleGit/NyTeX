@@ -1,0 +1,26 @@
+\begin{tikzpicture}
+    \node (defREFLEXIVE) at (-2,2.5) { $s\sim s$ };
+    \node (REFLEXIVE) at (-2,2) { reflexive };
+
+    \node (defTRANSITIVE) at (2,2.5) { $s\geq t\geq u\Rightarrow s\geq u$ };
+    \node (TRANSITIVE) at (2,2) { transiitve };
+
+    \node (defTRANSITIVE) at (-4,0.5) { $s\sim t\Leftrightarrow t\sim s$ };
+    \node (SYMMETRIC) at (-4,0) { symmetric };
+    \node (PREORDER) at (0,0) { preorder };
+
+    \node (defANTISYMMETRIC) at (4,0.5) { $s\geq t, s\neq t \Rightarrow t\not\geq s$ };
+    \node (ANTISYMMETRIC) at (4,0) { antisymmetric };
+    \node (SIM) at (-2,-1.6) { $\sim$ };
+    \node (EQUIVALENCE) at (-2,-2) { equivalence };
+    \node (GEQ) at (2,-1.6) { $\geq$ };
+    \node (PARTIAL) at (2,-2) { partial order };
+
+    \draw[->] (PREORDER) -- (REFLEXIVE);
+    \draw[->] (PREORDER) -- (TRANSITIVE);
+
+    \draw[->] (EQUIVALENCE) -- (SYMMETRIC);
+    \draw[->] (EQUIVALENCE) -- (PREORDER);
+    \draw[->] (PARTIAL) -- (PREORDER);
+    \draw[->] (PARTIAL) -- (ANTISYMMETRIC);
+\end{tikzpicture}
