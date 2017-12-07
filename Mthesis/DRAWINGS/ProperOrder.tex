@@ -4,20 +4,23 @@
     \node (defCUS) at (0,8.5) { $s\succ t\Rightarrow s\sigma\succ t\sigma$};
     \node (CUS) at (0,8) { substitutions };
 
+    \node (ASYM) at (4,8.5) { $s\succ t\Rightarrow t\not\succ s$ };
+    \node (ASYM) at (4,8) { asymmetric };
+
         \node (CL) at (-2,6) { closed under };
-        \node (defIRR) at (2,6.5) { $s\not>s$ };
+        \node (defIRR) at (2,6.5) { $s\succ t\succ u\Rightarrow s\succ u$ };
         \node (IRR) at (6,6) { irreflexive };
-        \node (defIRR) at (6,6.5) { $s>t>u\Rightarrow s>u$ };
+        \node (defIRR) at (6,6.5) { $s\nsucc s$ };
         \node (TRA) at (2,6) { transitive };
 
         \node (PO) at (4,4.4) { $>$ };
         \node (PO) at (4,4) { proper order };
         \node (RWR) at (0,4) { rewrite relation };
 
-        \node (defSTP) at (-2,2.5) { $C[s]\succ s$ };
+        \node (defSTP) at (-2,2.5) { $C\neq\square\Rightarrow C[s]\succ s$ };
         \node (STP) at (-2,2) { subterm property };
         \node (RWO) at (2,2) { rewrite order };
-        \node (defWF) at (8,4.5) { $(s_i Rs_{i+1})_i$ is finite };
+        \node (defWF) at (8,4.5) { $\nexists s_0(s_i\succ s_{i+1})_{i=0}^{\infty}$ };
         \node (WF) at (8,4) { well-founded };
 
         \node (SO) at (0,0) {simplification order};
@@ -49,6 +52,12 @@
         \draw[->] (WFO) -- (PO);
 
         \draw[->, dotted] (WF) -- (IRR);
+
+        \node (TRAIRR) at (4,6) { $\bullet$ };
+        \draw[->, dotted] (TRAIRR) -- (ASYM);
+        \draw[->, dotted] (TRA) -- (TRAIRR);
+        \draw[->, dotted] (IRR) -- (TRAIRR);
+        \draw[->, dotted] (ASYM) edge [out=-60, in=150] (IRR);
 
 
     \end{tikzpicture}
