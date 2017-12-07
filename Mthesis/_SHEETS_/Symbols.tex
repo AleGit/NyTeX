@@ -1,42 +1,63 @@
 \documentclass[]{clseminar}
 
     \input{../PREAMBLE/Symbols}
-    
+
     \begin{document}
-    
+
     \author{Alexander Maringele}
     \title{Symbols}
     \abstract{The quick brown fox jumps over the lazy dog.
     Why?}
-    
+
     \maketitle
 
-    \newcommand{\demo}[1]{$#1$}
+    \newcommand{\showmath}[1]{\texttt{\string#1} & $#1$ & \texttt{\meaning#1}\\}
 
     \begin{itemize}
-        \item \verb+\myem+ \myem The quick brown fox jumps over the lazy dog
-        \item 
-        \demo{\disjointunion},,
-        \verb+\disjointunion+ 
-        $\disjointunion$, 
-        \verb+\false+ 
-        $\false$,
-        \verb+\lbic+ 
-        $\lbic$,  
-        \verb+\limp+ 
-        $\limp$,  
-        \verb+\succG\succL\succC+
-        $\succG$,   
-        \verb+\succG\succL\succC+
-        $\succL$,   
-        \verb+\succG\succL\succC+
-        $\succC$, 
-        \verb+\true+ $\true$
+        \item \verb+\hfill {\myem The quick brown fox jumps over the lazy dog.} +
+
+        \hfill {\myem The quick brown fox jumps over the lazy dog.}
+        \item Symbols
+
+        \begin{tabular}{lcl}
+        \showmath{\disjointunion}
+        \showmath{\lbic}
+        \showmath{\limp}
+        \showmath{\succG}
+        \showmath{\succL}
+        \showmath{\succC}
+        \showmath{\false}
+        \showmath{\true}
+        \showmath{\ma}
+        \showmath{\mpp}
+        \showmath{\mpq}
+        \showmath{\mpred}
+        \showmath{\msucc}
+        \showmath{\mzero}
+        \showmath{\mA}
+        \showmath{\mEQ}
+        \showmath{\mNE}
+        \showmath{\mkf}
+        \showmath{\mkg}
+        \showmath{\mkr}
+        \showmath{\mks}
+        \showmath{\mkt}
+        \showmath{\encsep}
+        \showmath{\pthsep}
+
+        \showmath{\mcA}
+        \showmath{\mca}
+
+        \end{tabular}
+
+        \item Symbols with single argument
+
+        \begin{tabular}{lcl}
+            \showmath{\rwStep}
+            \showmath{\defEQ}
+            \showmath{\defEV}
+        \end{tabular}
 
     \end{itemize}
 
-
-
-    
-        
     \end{document}
