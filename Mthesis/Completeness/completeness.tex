@@ -4,53 +4,122 @@
 
 \chapter{Completeness}
 
-We present \cite{Ganzinger2004}.
+We present the completeness proof from \cite{GK2004csl} in a more accessible form.
 
 \section{Closures}
 
-\begin{figure}\label{fig:simplification:ordering}
-    \begin{center}
+\begin{definition}
+    A closure is a pair of a clause $C$ and a substitution $\sigma$,
+    conveniently written as $C\cdot\sigma$. Two closures $C\cdot\sigma = D\cdot\tau$
+    are the same if $C$ is a variant of $D$ and $C\sigma$ is a variant of $D\tau$.
+    A closure $C\cdot\sigma$ represents a clause $C\sigma$,
+    i.e.~the result of applying substitution $\sigma$ to $C$.
+    A ground closure represents a ground clause.
+\end{definition}
+
+% \begin{center}
+\begin{figure}\label{fig:simplification:order}
 \input{DRAWINGS/ProperOrder}
-\caption{Properties of a simplification ordering on terms}
-    \end{center}
+\caption{Properties of a simplification order on terms}
 \end{figure}
+% \end{center}
 
-
-
-
+\begin{lemma}
+    A total simplification order
+    – see Figure \vref{fig:simplification:order} –
+    over ground terms always exists \cite{NR2001}.
+\end{lemma}
 
 \begin{definition}
-    A total simplification ordering
-    – see Figure \vref{fig:simplification:ordering} –
-    over ground terms always exists.
 
-    \begin{itemize}
-        \item We assume $\succG$ as a
+    We assume $\succG$ as a
         total, well-founded, and monotone extension of a
-        total simplification ordering \cite{NR2001} over ground terms to ground (literal) clauses
-        such that
+        total simplification order over ground terms to ground (literal) clauses
+        and ground (literal) closures such that
         \begin{align*}
-            s\mNE t &\succG s\mEQ t &
-            L\lor L &\succG L
-        \end{align*}
-        holds for arbitrary ground terms $s,t$ and an arbitrary ground literal $L$.
-
-        \item We assume $\succC$ as an extension of $\succG$
-        over ground (literal) clauses to ground (literal) closures
-        such that
-        \begin{align*}
-            C\cdot\tau\succC D\cdot\rho
+            s\sigma\mNE t\sigma \quad&\succG\quad s\sigma\mEQ t\sigma
+            \\
+            L\sigma\lor C\sigma \quad&\succG\quad L\sigma
+            \\[0.7em]
+            L\sigma \succG L'\sigma'
             \quad&\Rightarrow\quad
-            \left\{
-            \begin{array}{ll}
-                &C\tau\succG D\rho
-                \\
-                \text{or}&C\tau=D\rho, C\theta=D
-            \end{array}
-            \right.
+            L\cdot\sigma \succL L'\cdot\sigma'
+        \\
+        \left.
+        \begin{array}{r}
+            C\tau\succG D\rho\text{ or}
+            \\
+            C\tau=D\rho, C\theta=D
+        \end{array}
+        \right\}
+            \quad&\Rightarrow\quad
+            C\cdot\tau\succC D\cdot\rho
         \end{align*}
-        holds on clauses $C,D$, ground substitutions $\tau,\rho$,
+        holds for terms $s,t$,
+        literals $L, L'$,
+        clauses $C,D$,
+        ground substitutions $\sigma, \tau, \rho$
         and proper instantiator $\theta$.
-    \end{itemize}
 
 \end{definition}
+
+\begin{definition}[Unit paramodulation \cite{GK2004csl}]
+    \input{SNIPPETS/UPI}
+    where
+    \input{SNIPPETS/UPC}
+    \end{definition}
+
+    \begin{example}
+        Let  $\mf(s,t,u)\succG\mg(s')$ for all ground terms
+        $r,s,t,s'$.
+        % $\succ_{kbo}$ order on terms.
+        \begin{gather*}
+            \infer[\theta]{
+                \left(
+                    \mh(\underbrace{
+                        \boxed{\mg(x')}
+                        }_{r\theta})\mNE\mg(x')
+                    \right)\cdot\rho
+            }{
+                \left(
+                    \overbrace{\mf(x,y,\mc)}^{\ell}
+                    \mEQ
+                    \overbrace{\mg(x)}^r
+                \right)\cdot \sigma
+            & \left(
+                \mh(\overbrace{
+                    \boxed{\mf(x',\mh(y'), z')}
+                    }^{\ell'})\mNE\mg(x')
+                \right)\cdot \sigma'
+            }
+        \end{gather*}
+        \begin{align*}
+            \sigma &= \{x\mapsto\ma, y\mapsto\mh(\mb)\} &
+             \sigma' &= \{x'\mapsto\ma, y'\mapsto\mb, z'\mapsto\mc\}
+             \\
+             \theta &= \{x\mapsto x',y\mapsto\mh(y'),z'\mapsto\mc\}
+              &
+             \rho &=\{ x'\mapsto \ma, y'\mapsto \mb \}
+             \\
+             \ell'\theta &= \mf(x',\mh(y'),\mc)
+             &
+             \ell'\theta\rho &= \mf(\ma, \mh(\mb), \mc) = \ell\sigma = \ell'\sigma'
+        \end{align*}
+    \end{example}
+
+    \begin{lemma}
+        Let $R$ be a ground rewrite system and UP is applicable to
+        \( (l\mEQ r)\cdot\sigma, L[l']\cdot\sigma' \)
+        with conclusion
+        \( L[r]\theta\cdot\rho \).
+        If $\sigma,\sigma'$ are irreducible w.r.t.~R then $\rho$ is irreducible w.r.t.~R.
+    \end{lemma}
+
+    \begin{proof}
+        Assume otherwise.
+        Hence there is a $x\in\var(l'\theta)$ such that $x\theta\rho$ is reducible by $R$.
+
+    \end{proof}
+
+
+
