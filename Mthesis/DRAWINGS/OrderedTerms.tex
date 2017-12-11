@@ -1,0 +1,28 @@
+\begin{tikzpicture}
+    \node (X) at (-4,0) { $x\in\mcT$ };
+    \node (AC) at (-2,2) { $\ma \succ \mc$ };
+    \node (FABC) at (2,2) { $ \mf(\ma) \succ \mf(\mb) \succ \mf(\mc)$ };
+
+    
+    \node (ABC) at (0,0) { $ \ma \succ\mb \succ \mc$ };
+    \node (FAC) at (0,4) { $ \mf(\ma) \succ \mf(\mc)$};
+
+    \draw[->] (ABC) -- node[above, sloped] {transivity} (AC);
+    \draw[->] (AC) -- node[above, sloped] {$\mf(\square)$} (FAC);
+
+    \draw[->] (ABC) -- (FABC);
+    \draw[->, gray] (FABC) -- node[above, sloped] {t} (FAC);
+
+
+
+
+    \node (FTT) at (-8,4)  { $\mf^+(t)\succ t$};
+    \node (FAA) at (-4,4)  { $\mf^+(\ma)\succ \ma$};
+    \node (FXX) at (-6,2) { $\mf^+(x)\succ x$};
+
+    \draw[->] (X) -- node[above, sloped] {subterm} (FXX);
+    \draw[draw=none] (X) -- node[below, sloped] {property} (FXX);
+    
+    \draw[->] (FXX) -- node[above,sloped] {$x\mapsto t$} (FTT);
+    \draw[->] (FXX) -- node[above,sloped] {$x\mapsto t$} (FAA);
+\end{tikzpicture}
