@@ -1,0 +1,56 @@
+% !TeX root = ../mthesis.tex
+% !TeX encoding = UTF-8
+% !TeX spellcheck = en_US
+
+\chapter{Completeness}
+
+We present \cite{Ganzinger2004}.
+
+\section{Closures}
+
+\begin{figure}\label{fig:simplification:ordering}
+    \begin{center}
+\input{DRAWINGS/ProperOrder}
+\caption{Properties of a simplification ordering on terms}
+    \end{center}
+\end{figure}
+
+
+
+
+
+\begin{definition}
+    A total simplification ordering
+    – see Figure \vref{fig:simplification:ordering} –
+    over ground terms always exists.
+
+    \begin{itemize}
+        \item We assume $\succG$ as a
+        total, well-founded, and monotone extension of a
+        total simplification ordering \cite{NR2001} over ground terms to ground (literal) clauses
+        such that
+        \begin{align*}
+            s\mNE t &\succG s\mEQ t &
+            L\lor L &\succG L
+        \end{align*}
+        holds for arbitrary ground terms $s,t$ and an arbitrary ground literal $L$.
+
+        \item We assume $\succC$ as an extension of $\succG$
+        over ground (literal) clauses to ground (literal) closures
+        such that
+        \begin{align*}
+            C\cdot\tau\succC D\cdot\rho
+            \quad&\Rightarrow\quad
+            \left\{
+            \begin{array}{ll}
+                &C\tau\succG D\rho
+                \\
+                \text{or}&C\tau=D\rho, C\theta=D
+            \end{array}
+            \right.
+        \end{align*}
+        holds on clauses $C,D$, ground substitutions $\tau,\rho$,
+        and proper instantiator $\theta$.
+    \end{itemize}
+
+\end{definition}

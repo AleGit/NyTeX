@@ -71,9 +71,9 @@
 
 %\newcommand{\NGTPREQ}{\not\succcurlyeq}
 
-\newcommand{\succG}{\mathrel\succ_{\!gr}}
-\newcommand{\succL}{\mathrel\succ_{\!\ell}}
-\newcommand{\succC}{\mathrel\succ_{\!cl}}
+\newcommand{\succG}{\mathrel\succ_{\mathtt{G}}}
+\newcommand{\succL}{\mathrel\succ_{\mathtt{L}}}
+\newcommand{\succC}{\mathrel\succ_{\mathtt{C}}}
 
 \newcommand{\disjointunion}{\mathop{\dot\cup}}
 \newcommand{\limp}{\rightarrow}		% logical implication, see lor, land, lnot
@@ -266,7 +266,8 @@
 	{l=r & L[l']}
 }
 
-\newcommand{\ctxhole}{\boxdot}
+\newcommand{\ctxhole}{\square} %{\boxdot}
+\newcommand{\ctx}[1][\ ]{\mathtt{C[}#1\mathtt{]}}
 \newcommand{\emptyclause}{\square}
 \newcommand\relation{\mathrel{\circledast}}	% \currency
 
