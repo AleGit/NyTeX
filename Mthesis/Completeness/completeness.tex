@@ -121,5 +121,565 @@ We present the completeness proof from \cite{GK2004csl} in a more accessible for
 
     \end{proof}
 
+    \section{Preliminaries}
+
+    \subsection{Clauses, closures and orderings}
+
+
+
+        \begin{itemize}
+            \item first order signature with function \textcolor{gray}{(and predicate)} symbols
+            \item terms $s,t,\ell,r$
+            \hfill\textcolor{gray}{(and predicates $P, Q, \bullet$)}
+            \item atoms are equations of terms $s\mEQ t$
+            \hfill\textcolor{gray}{(or predicates $P\mEQ\bullet$)}
+            \item literals are atoms or negated atoms
+            \item clauses are a multisets of literals
+            \item closures are pairs of clauses and ground substitutions
+            \vspace{0.7em}
+
+            $(\,\mf(x)\mEQ \mb\lor x\mNE\ma\,)\cdot\{\,x\mapsto\mf(\ma)\,\}$
+
+
+            \item orderings
+
+
+        \end{itemize}
+        \vspace{-2.8em}
+
+
+        \begin{align*}
+            &\succG
+            \tag*{order on ground terms, literals, and clauses defined by}
+            \\
+            \tag*{a total, well-founded, and monotone extension of}
+            \\
+            \tag*{a total simplification ordering $\succG'$ on ground terms}
+            \\
+            &&s\mNE t \succG s\mEQ t &,\ L\lor L \succG L
+            \tag{\textcolor{gray}{$P\succG\bullet$}}
+            \\[0.7em]
+            &\succL
+            \tag*{a total well-founded extension of $\succG$ such that}
+            \\
+            && L\sigma\succG L'\sigma' &\Rightarrow L\cdot\sigma\succL L'\cdot\sigma'\tag*{}
+            \\[0.7em]
+            &\succC \tag*{a total well-founded extension of $\succG$ such that }
+            \\
+            && C\tau\succG D\rho
+            &\Rightarrow C\cdot\tau\succC D\cdot\rho
+            \\
+            && (C\tau=D\rho\text{ and }C\theta = D)
+            &\Rightarrow C\cdot\tau\succC D\cdot\rho
+            \\
+            && \text{where $\theta$ is not a renaming}
+            &
+        \end{align*}
+
+
+    \section{Unit Paramodulation}
+    \subsection{Inferences}
+
+
+        \input{SNIPPETS/UPI}
+        where
+        \input{SNIPPETS/UPC}
+
+        \vspace{0.3em}
+
+            \begin{example}
+        The set of literal closures
+        $\{\,
+        (\mf(x)\mEQ\mb)\cdot\{x\mapsto\ma\},\,
+        \ma\mEQ \mb,\,
+        \mf(\mb)\mNE\mb\,
+        \}$ is inconsistent,
+        but the empty clause is not derivable
+        if $\ma\succG\mb$.
+            \end{example}
+
+            \vspace{0.3em}
+
+        \begin{lemma}
+            If $\sigma$, $\sigma'$ are irreducible by a ground rewrite system R
+
+            then $\rho$ is irreducible by $R$.
+        \end{lemma}
+
+
+
+
+    \subsection{Redundancy}
+        Let $\mcL$ be a set of literal closures. We define
+        \begin{itemize}
+            \item $irred_R(\mcL) =
+            \{\,
+            L\cdot\sigma\in\mcL \mid
+            \sigma\text{ is irreducible w.r.t.~}R
+            \,\}$
+
+        for an arbitrary ground rewrite system $R$
+
+        \vspace{0.7em}
+        \item
+        $
+        \mcL_{L\cdot\sigma\succL} =
+        \{\,
+        L'\!\cdot\sigma'\in\mcL \mid
+        L\cdot\sigma\succL L'\cdot\sigma'
+        \,\}
+        $.
+
+        \vspace{0.7em}
+        \item Literal closure $L\cdot\sigma$ is UP-redundant in $\mcL$ if
+        \begin{gather*}
+            R \cup irred_R(\mcL_{L\cdot\sigma\succL}) \vDash L\sigma
+        \end{gather*}
+        for every ground rewrite system $R$
+
+        oriented by $\succG$
+        where $\sigma$ is irreducible w.r.t.~$R$.
+
+        \vspace{0.7em}
+        \item
+        $\mcR_{UP}(\mcL)$ denotes the set of all UP-redundant closures in $\mcL$.
+    \end{itemize}
+
+    \subsection{Satuaration}
+
+            The UP-{saturation process} for $\mcL$ is a sequence \( \{ \mcL_i \}_{i=0}^\infty \) where
+
+            \begin{itemize}
+                \item $\mcL_0 = \mcL$
+
+
+            \item
+            $\mcL_{i+1} = \left\{
+                    \begin{array}{lclc}
+                        \mcL_i \backslash L\cdot\sigma
+                        &\text{if}
+                        &R \cup \irred_R(\mcL_{i,L\cdot\sigma\succL}) \entails L\sigma
+                        \\
+                        \\
+                        \mcL_i \cup\,\emptyclause
+                        &\text{if}
+                        &\left\{\begin{array}{l}
+                            (s\mNE t)\cdot\tau\in\mcL_i
+                            \\
+                            s\tau = t\tau,\,
+                            \mu=\mgu(s,t)
+                        \end{array}\right.
+                        \\
+                        \\
+                        \mcL_i \cup\, L[r]\theta\cdot\rho
+                        &\text{if}
+                        &\left\{\begin{array}{l}
+                            (\ell\mEQ r)\cdot\sigma,\,
+                            L[\ell']\cdot\sigma'\in\mcL_i
+                            \\
+                            \ell\sigma\succG r\sigma,\,
+                            \theta=\mgu(\ell,\ell'),
+                            \\
+                            \ell'\notin\mcV,\,
+                            \ell\sigma = \ell'\sigma' = \ell'\theta\rho,
+                        \end{array}\right.
+                        \\
+                        \\
+                        \mcL_i
+                        &&\text{otherwise}
+                    \end{array}
+                \right.$
+        \end{itemize}
+
+    \vspace{0.7em}
+
+            Let \( \mcL^\infty \) be the set of persistent closures, i.e.~the lower limit of $\mcL_i$.
+
+            % i.e.~the lower limit of the sequence.
+
+    \subsection{Fairness}
+
+            The UP-saturation process is {UP-fair} if for every UP-inference
+            with premises in \( \mcL^\infty \) the conclusion is UP-redundant
+            w.r.t.~\(\mcL_j\) for some \(j\).
+
+            For a set of literals \( \mcL \) we define
+            the saturated set of literal closures
+            \( \mcL^{sat} = \mcL^\infty\backslash\mcR_{UP}(\mcL^\infty) \)
+            for some UP-saturation process
+            \( \{ \mcL_i\}_{i=0}^\infty \)
+            with $\mcL_0 = \mcL$.
+
+            \vspace{1.4em}
+
+        \begin{lemma}
+            The set \( \mcL^{sat} \) is unique because
+            for any two UP-fair saturation processes
+            \(\{ \mcL_i
+                \}_{i=0}^\infty\) and
+                \(\{ \mcL'_i
+                \}_{i=0}^\infty\)
+                with $\mcL_0 = \mcL'_0$ we have
+                \begin{gather*}
+                    \mcL^\infty \backslash \mcR_{UP}(\mcL^\infty)
+                    =
+                    \mcL'^\infty \backslash \mcR_{UP}(\mcL'^\infty)
+                \end{gather*}
+        \end{lemma}
+
+    \section{Instantiation}
+    \subsection{Redundancy}
+
+
+    Let $S$ be a set of clauses.
+
+    \begin{itemize}
+        \item A ground closure $C$ is Inst-redundant in $S$
+        if for some $k$
+        % consequence of smaller ground instances $C_1,\ldots,C_k$ of $S$, i.e.~
+        \begin{itemize}
+            \item $C'_i\in S$, $C_i=C'_i\cdot\sigma'_i$, $C\succC C_i$ \hfill for $i\in 1\ldots k$
+            \item such that $C_1,\ldots,C_k\models C$
+        \end{itemize}
+        \vspace{0.7em}
+        \item
+        A (possible non-ground) clause $C$ is called Inst-redundant in $S$
+
+    if each ground closure $C\cdot\sigma$ is Inst-redundant in $S$.
+
+    \vspace{0.7em}
+    \item
+    $R_{Inst}(S)$ denotes the set of all Inst-redundant clauses in $S$.
+
+    \vspace{0.7em}
+    \begin{example}
+    $S =
+        \{\,
+        \mf(x)\mEQ x,\,
+        \mf(\ma)\mEQ \ma,\,
+        \mf(\mf(x))\mEQ\mf(x)
+        \,\}$
+
+    $R_{Inst}(S) = \{\, \mf(\mf(x))\mEQ\mf(x) \,\}$
+    \end{example}
+    \end{itemize}
+
+    \subsection{Selection}
+        Let $S$ be a set of clauses $S$, let $I_\bot$ be a model of $S\bot$.
+
+        \vspace{0.7em}
+        \begin{itemize}
+            \item
+        A selection function $\sel$ maps clauses to literals such that
+        \begin{align*}
+            \sel(C)&\in C
+            &&&
+            I_\bot&\models\sel(C)\bot
+        \end{align*}
+
+        \item
+        The set of $S$-relevant literal closures
+        \begin{align*}
+            \mcL_S &= \left\{\, L\cdot\sigma \mid
+            \begin{array}{l}
+                L\lor C\in S,\,L = \sel(L\lor C)\\
+                (L\lor C)\cdot\sigma\text{ is not Inst-redundant in S},\\
+            \end{array}
+            \,\right\}
+        \end{align*}
+
+        \item
+        $\mcL_S^{sat}$ denotes the saturation process of $\mcL_S$.
+
+        \item A set of clauses $S$ is Inst-saturated w.r.t.~a selection function,
+
+        if $\mcL_S^{sat}$ does not contain the empty clause.
+
+
+
+    \end{itemize}
+
+    \section{Completeness}
+    \subsection{Theorem}
+
+        \vspace{1.4em}
+
+        \begin{theorem}
+        If a set of clauses $S$ is Inst-saturated,
+        and $S\bot$ is satisfiable,
+
+        then $S$ is also satisfiable.
+        \end{theorem}
+        \vspace{1.4em}
+
+        \begin{proof}
+            \begin{enumerate}
+                \item Construction of a candidate model
+                \item Assumption that candidate is not a model
+            \end{enumerate}
+            \end{proof}
+
+    \subsection{Model Construction}
+        Let $S$ be an Inst-saturated set of clauses,
+        i.e.~$\emptyclause\not\in\mcL_S^{sat}$, SAT($S\bot$).
+        \vspace{0.7em}
+
+        Let $L = L'\cdot\sigma \in\mcL_S^{sat}$.
+        We define inductively:
+
+            \begin{itemize}
+                \item $I_L = \{\,\epsilon_M\mid L\succL M\,\}$
+                \hfill  IH:~$\epsilon_M$ is defined for any $M\mid L\succL M$
+
+                \item $R_L = \{ s \to t \mid s\mEQ t\in I_L, s\succG t \}$
+
+                    \item $\epsilon_L = \left\{
+                        \begin{array}{cll}
+                            \emptyset &\text{if }
+                            L'\sigma\text{ reducible by }R_L
+                            \\
+                            \emptyset &\text{if }
+                            I_L\vDash L'\sigma
+                            \text{ or }
+                            I_L\vDash \overline{L'}\sigma
+                            &\text{(defined)}
+                            \\
+                            \{ L'\sigma \}
+                            &\text{otherwise}
+                            &\text{(productive)}
+                        \end{array}
+                    \right.$
+                    \vspace{0.7em}
+                \item
+                $R_S = \bigcup_{L\in\mcL_S^{sat}} R_L$
+                \hfill
+                $R_S$ is convergent and interreduced
+
+                \item
+                $I_S = \bigcup_{L\in\mcL_S^{sat}} \epsilon_L$
+                \hfill
+                $I_S$ is consistent,
+                $L\sigma\in I_S$ is irreducible by $R_S$
+            \end{itemize}
+            \vspace{0.7em}
+
+            Let $\mcI$ be an arbitrary consistent extension of $I_S$
+
+            in all the following lemmata.
+
+    \subsection{Lemma 6}
+        \begin{lemma}\label{existence}
+
+        If any $L\cdot\sigma\in\mcL_S$, irreducible by $R_S$ exists with $\mcI\not\models L\sigma$
+
+        then there is a $L'\cdot\sigma'\in irred_{R_S}(\mcL_S^{sat})$ with $\mcI\not\models L'\sigma'$.
+        \end{lemma}
+
+        \begin{proof}
+            We have two cases
+
+        \begin{itemize}
+            \item If $L\cdot\sigma$ is not UP-redundant in $\mcL_S^{sat}$,
+            then $L'\cdot\sigma'=L\cdot\sigma$.
+            \hfill\checkmark
+
+            \item If $L\cdot\sigma$ is UP-redundant in $\mcL_S^{sat}$.
+        By construction $\sigma$ is irreducible by $R_S$. Then we have
+        \begin{align*}
+            R_S \cup irred_{R_S}(
+                \{
+                L'\cdot\sigma'\in\mcL_S^{sat}
+                \mid
+                L\cdot\sigma \succL L'\cdot\sigma'
+                \}
+            )
+            \models
+            L\sigma
+        \end{align*}
+        At least one $L'\cdot\sigma'\in irred_{R_S}(\mcL_S^{sat})$
+        with $\mcI\not\models L'\sigma'$.
+        \hfill\checkmark
+        \end{itemize}
+    \end{proof}
+
+    \subsection{Lemma 7}
+        \begin{lemma}\label{irreducible}
+            Whenever
+            \begin{gather*}
+                M\cdot\tau = \min_{\succL}\!
+                \left\{\,
+                L'\cdot\tau' \mid
+                L'\cdot\sigma' \in irred_{R_S}(\mcL_S^{sat}),\,
+                L'\sigma'\text{ false in }\mcI\,
+                \right\}
+            \end{gather*}
+            is defined, then $M\cdot\tau$ is irreducible by $R_S$.
+        \end{lemma}
+        % \vspace{2.1em}
+
+        \begin{proof}
+            Assume $M\cdot\tau$ is reducible by $(\ell\to r)\in R_S$
+
+            and $(\ell\to r)$ is produced by $(\ell'\mEQ r')\cdot\rho\in\mcL_S^{sat}$.
+
+            \vspace{0.7em}
+            Now UP-inference is applicable because $\tau$ is irreducible by $R_S$,
+            \begin{gather*}
+                \infer[UP]
+                {M[r']\theta\cdot\mu}
+                {(\ell'\mEQ r')\cdot\rho & M[\ell'']\cdot\tau}
+            \end{gather*}
+            $\mu$ is irreducible by $R_S$, and $M[r']\theta\mu${ is false in }$\mcI$.
+            \hfill\ldots
+
+        We have two cases
+
+            \begin{itemize}
+                \item If $M[r']\theta\cdot\mu$ is not UP-redundant in $\mcL_S^{sat}$
+                then $M[r']\theta\cdot\mu\in\mcL_S^{sat}$.
+
+                \vspace{0.3em}
+                Now $M\cdot\tau\succL
+                M[r']\theta\cdot\mu\in irred_{R_S}(\mcL_S^{sat})$
+
+                contradicts minimality of $M\cdot\tau$.
+                \hfill
+                \vspace{0.3em}
+
+                \item If $M[r']\theta\cdot\mu$ is UP-redundant in $\mcL_S^{sat}$ then
+                \vspace{-0.3em}
+                \begin{gather*}
+                    R_S \cup irred_{R_S}(
+                    \{
+                        M'\cdot\tau'\in\mcL_S^{sat}\mid
+                        M[r']\theta\cdot\mu \succL M'\tau'
+                        \} \models M[r']\theta\mu
+                \end{gather*}
+                Hence there is $M'\cdot\tau'\in\mcL_S^{sat}$ false in $\mcI$ such that
+                $M\cdot\tau\succL M[r']\theta\cdot\mu\succL M'\cdot\tau'$,
+
+                $M'\cdot\tau'$ contradicts minimality of $M\cdot\tau$.
+                \hfill
+
+            \end{itemize}
+
+            Hence $M\cdot\tau$ is irreducible by $R_S$.
+            \hfill\qed
+        \end{proof}
+
+
+
+    \subsection{Lemma 8}
+
+        \begin{lemma}\label{equation}
+            Let $M\cdot\tau\in\mcL_S^{sat}$,
+            irreducible by $R_S$, and defined (not productive).
+
+            From $\mcI\not\models M\tau$ follows that $M$ is not an equation $(s\mEQ t)$.
+
+        \begin{proof}
+            Assume $M = (s\mEQ t)$. Then we have
+            \begin{itemize}
+                \item $I_{M\cdot\tau}\models (s\mNE t)\tau$
+                \item All literals in $I_{M\cdot\tau}$ are irreducible by $R_{M\cdot\tau}$
+                \item $s\tau$ and $t\tau$ are irreducible by $R_{M\cdot\tau}$
+                \item $R_{M\cdot\tau}$ is a convergent term rewrite system
+            \end{itemize}
+            Hence $(s\mNE t)\tau\in I_{M\cdot\tau}$
+            is produced to $I_{M\cdot\tau}$ by some $(s'\mNE t')\cdot\tau'$,
+
+            but $(s'\mNE t')\tau'\succG (s\mEQ t)\tau$ and $(s'\mNE t')\cdot\tau'\succL M\cdot\tau$.
+            \hfill
+
+        \end{proof}
+        \end{lemma}
+
+    \subsection{Lemma 9}
+        \begin{lemma}\label{inequation}
+            Let $M\cdot\tau\in\mcL_S^{sat}$,
+            irreducible by $R_S$, and defined (not productive).
+
+            From $\mcI\not\models M\tau$ follows that $M$ is not an inequation $(s\mNE t)$.
+            \begin{proof}
+            Assume $M\cdot\tau$ is inequation $(s\mNE t)\cdot\tau$. We have
+            \begin{itemize}
+                \item $I_{M\cdot\tau}\models (s\mEQ t)\tau$
+                \item $s\tau$ and $t\tau$ are irreducible by $R_{M\cdot\tau}$
+            \end{itemize}
+            Hence $s\tau = t\tau$ and equality resolution is applicable.
+
+            Contradiction to $\emptyclause\not\in\mcL_S^{sat}$.
+            \hfill
+
+        \end{proof}
+        \end{lemma}
+
+
+    \subsection{Model}
+
+        \begin{lemma}
+            $\mcI$ is a model for all ground instances of $S$
+        \end{lemma}
+
+        \begin{proof}
+            Assume $
+                D = \min_{\succC}\{\,
+                C'\cdot\sigma \mid C'\in S,\,
+                C'\sigma\text{ false in }\mcI\,
+                \}
+                $ exists, then
+
+        \begin{itemize}
+            \item $D = D'\cdot\sigma$ is not Inst-redundant.
+            \vspace{0.2em}
+
+            Otherwise there are
+            $D_1,\ldots,D_n\models D$, $D\succC D_i$ for all $i$,
+
+            and $D_j$ false in $\mcI$ for one $j$, which contradicts minimality.
+            \hfill
+
+            \item $x\sigma$ irreducible by $R_S$ for every variable $x$ in $D'$.
+            \vspace{0.2em}
+
+            Otherwise let $(\ell\to r)\tau\in R_L$ and $x\sigma = x\sigma[l\tau]_p$ for some variable x in D'.
+            We define substitution $\sigma'$ with $x\sigma' = x\sigma[r\tau]_p$ and $y\sigma' = y\sigma$ for $y\neq x$.
+            $D'\sigma'$ is false in $\mcI$ and $D\succC D'\cdot\sigma'$,
+            which contradicts minimality.\hfill
+        \end{itemize}
+
+        Since $D$ is not Inst-redundant in $S$,
+        we have for some literal $L$,
+
+        that $D' = L\lor D''$, $\sel(D') = L$, $L\cdot\sigma\in\mcL_S$,
+        $L\sigma$ is false in $\mcI$
+        \vspace{0.7em}
+
+        Hence the following literal closure
+        \begin{gather*}
+            M\cdot\tau = \min_{\succL}\!
+    \left\{\,
+        L'\cdot\tau' \mid
+        L'\cdot\sigma' \in irred_{R_S}(\mcL_S^{sat}),\,
+        L'\cdot\sigma'\text{ false in }\mcI\,
+    \right\}
+        \end{gather*}
+        exists by Lemma \ref{existence}, is irreducible by Lemma \ref{irreducible},
+        and not productive.
+
+        \begin{itemize}
+            \item M is not an equation by lemma \ref{equation}
+            \item M is not an inequation by lemma \ref{inequation}
+        \end{itemize}
+
+        This is a contradiction.\hfill
+        \vspace{0.7em}
+
+        Our assumption was false and
+
+        $\mcI$ is a model for all instances of $S$.
+        \hfill\qed
+    \end{proof}
+
 
 
