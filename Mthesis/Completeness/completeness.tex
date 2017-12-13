@@ -171,16 +171,15 @@ We present the completeness proof from \cite{GK2004csl} in an more unnested form
     \end{itemize}
 \end{definition}
 
-    \begin{definition}[UP-Satuaration]
+    \begin{definition}[UP-Saturation]
 
-            The UP-{saturation process} for $\mcL$ is a sequence \( \{ \mcL_i \}_{i=0}^\infty \) where
-
-            \begin{itemize}
-                \item $\mcL_0 = \mcL$
-
-
-            \item
-            $\mcL_{i+1} = \left\{
+            The UP-{saturation process}
+            is a sequence \( \{ \mcL_i \}_{i=0}^\infty \)
+            where $\mcL_{i+1}$ is constructed from $\mcL_i$
+            by removing redundant literal closures in $\mcL_i$
+            or by adding inferences of $\mcL_i$ until saturation.
+            \begin{gather*}
+            \mcL_{i+1} = \left\{
                     \begin{array}{lclc}
                         \mcL_i \backslash L\cdot\sigma
                         &\text{if}
@@ -214,10 +213,10 @@ We present the completeness proof from \cite{GK2004csl} in an more unnested form
                         \mcL_i
                         &&\text{otherwise}
                     \end{array}
-                \right.$
-        \end{itemize}
+                \right.
+                \end{gather*}
 
-            Let \( \mcL^\infty \) be the set of persistent closures, i.e.~the lower limit of $\mcL_i$.
+            The set of persistent closures \( \mcL^\infty \) is the lower limit of $\mcL_i$.
 
             % i.e.~the lower limit of the sequence.
     \end{definition}
@@ -226,6 +225,8 @@ We present the completeness proof from \cite{GK2004csl} in an more unnested form
             The UP-saturation process is {UP-fair} if for every UP-inference
             with premises in \( \mcL^\infty \) the conclusion is UP-redundant
             w.r.t.~\(\mcL_j\) for some \(j\).
+    \end{definition}
+    \begin{definition}
 
             For a set of literals \( \mcL \) we define
             the saturated set of literal closures
@@ -233,7 +234,7 @@ We present the completeness proof from \cite{GK2004csl} in an more unnested form
             for some UP-saturation process
             \( \{ \mcL_i\}_{i=0}^\infty \)
             with $\mcL_0 = \mcL$.
-
+    \end{definition}
 
 
         \begin{lemma}
@@ -250,7 +251,6 @@ We present the completeness proof from \cite{GK2004csl} in an more unnested form
                     \mcL'^\infty \backslash \mcR_{UP}(\mcL'^\infty)
                 \end{gather*}
         \end{lemma}
-    \end{definition}
 
 \begin{definition}[Inst-Redundancy]
 
