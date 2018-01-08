@@ -4,7 +4,7 @@
 
 \chapter{Completeness}
 
-We present the completeness proof from \cite{GK2004csl} in an more unnested form.
+We present the completeness proof from \cite{GK2004csl} in a more unnested form.
 
 \section{Closures}
 
@@ -17,16 +17,29 @@ We present the completeness proof from \cite{GK2004csl} in an more unnested form
     A ground closure represents a ground clause.
 \end{definition}
 
-% \begin{center}
+We have briefly introduced term rewriting in Section \vref{sec:termrewriting}.
+In Figure \vref{fig:simplification:order} we summarize the properties of orders on terms.
+The solid arrows mark definitions,
+e.g.~a simplification order is a rewrite order
+that respects the subterm property;
+a reduction order is a well-founded rewrite order
+(Definition \ref{def:simplification:order}).
+The dotted arrows mark derived properties,
+e.g.~every simplification order is a reduction order
+(Lemma \ref{lem:siplifiaction:order:well:founded});
+tranistive and irreflexive relations are asymmetric,
+because $s\succ t$ and $t\succ s$ would imply
+$s\succ s$ by transitivity.
+%
+\begin{center}
 \begin{figure}\label{fig:simplification:order}
-\input{DRAWINGS/ProperOrder}
-\caption{Properties of a simplification order on terms}
+    \input{DRAWINGS/ProperOrder}
+    \caption{Properties of a simplification order on terms}
 \end{figure}
-% \end{center}
-
+\end{center}
+%
 \begin{lemma}
     A total simplification order
-    – see Figure \vref{fig:simplification:order} –
     over ground terms always exists \cite{NR2001}.
 \end{lemma}
 

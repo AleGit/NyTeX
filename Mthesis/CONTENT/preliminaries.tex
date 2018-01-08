@@ -334,7 +334,7 @@ there will not arise any ambiguity for the reader about the role of the symbol.
 	$\downarrow_\mcR$, $\uparrow_\mcR$ are rewrite relations on every TRS $\mcR$.
 \end{lemma}
 %%
-\begin{definition}
+\begin{definition}\label{def:simplification:order}
 	A proper (i.e.~irreflexive and transitive) order on terms is called {\myem rewrite order} if it is a rewrite relation.
 	A {\myem reduction order} is a well-founded rewrite order,
 	i.e.~there is no infinite sequence
@@ -344,7 +344,7 @@ there will not arise any ambiguity for the reader about the role of the symbol.
 	A {\myem simplification order} is a rewrite order with the {\myem subterm property},
 	i.e.~$u[t]_p \succ t$ for all terms $u$, $t$ and positions $p\neq\epsilon$.
 \end{definition}
-\begin{lemma}
+\begin{lemma}\label{lem:siplifiaction:order:well:founded}
 	Every simplification order is well-founded, hence it is a reduction order.
 \end{lemma}
 
