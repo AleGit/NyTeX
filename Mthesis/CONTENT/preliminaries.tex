@@ -12,10 +12,10 @@ propositional and predicate logic \cite{Huth:2004:LCS:975331},
 term rewriting \cite{Baader:1998:TR:280474},
 decision procedures \cite{Kroening:2008:DPA:1391237},
 and satisfiability checking modulo theories \cite{Biere:2009:HSV:1550723}.
-Nevertheless -- for clarity -- we state basic notions and  definitions
-of first order logic with equality in section \ref{sec:syntax},
-introduce basic concepts of first order semantics in section \ref{sec:semantics},
-and describe basic term rewriting terminology in section \ref{sec:termrewriting}.
+Nevertheless - for clarity - we state basic notions and  definitions
+of first order logic with equality in Section \ref{sec:syntax},
+introduce basic concepts of first order semantics in Section \ref{sec:semantics},
+and describe basic term rewriting terminology in Section \ref{sec:termrewriting}.
 %This section is an extension of the same section in our seminar report \cite{axm:SR2}
 These notions and notations largely follow the lecture notes to term rewriting and automated reasoning \cite{AM2015tr, GM2013ar}.
 % Figure \vref{fig:conventions} in the appendix lists typographical conventions.
@@ -23,7 +23,8 @@ These notions and notations largely follow the lecture notes to term rewriting a
 
 \section{Syntax}\label{sec:syntax}
 
-In this section we introduce the syntax of arbitrary first order formualae (\FOF)
+In this section we introduce the syntax of arbitrary first order formualae (\FOF),
+prenex normal form (\PNF),
 and clausal normal form (\CNF).
 
 \input{preliminaries/signature}
@@ -101,11 +102,34 @@ We state satisfiability and validity of arbitrary first order formulae or sets o
 	a disjunction $F\lor G$ holds if one or both of its subformulae $F$ or $G$ hold,
 	a conjunction $F\land G$ holds, if both of its subformualae $F$ and $G$ hold,
 	an implication $F\limp G$ holds if its first subformula $F$ does not hold or its second subformula $F'$ holds (or both).
+
 	\begin{remark}Usually we use precedences on connectives to omit parentheses
 		and some heuristics to structure the formulae for readability
 		without introducing semantic ambiguity.
 	\end{remark}
 \end{definition}
+
+\begin{definition}[Consequence and validity]
+	A (first order) sentence $G$ is a semantic consequence of a set of sentences
+	$\Gamma = \{ F_1,\ldots,F_n \}$ if $G$ holds in all models for $F_1,\ldots,F_n$.
+	We write $F_1,\ldots,F_n\models G$ or just $\Gamma\models G$.
+	A sentence $G$ is valid if it holds in all interpretations.
+\end{definition}
+
+\begin{theorem}[Gödels Vollständigkeitssatz]
+	Es gibt einen Kalkül der Prädikatenlogik erster Stufe derart, dass für jede Formelmenge
+$\Gamma$ und für jede Formel
+$\varphi$ gilt:
+$\varphi$ folgt genau dann aus
+$\Gamma$, wenn
+$\varphi$ im Kalkül aus
+$\Gamma$  hergeleitet werden kann.
+\end{theorem}
+
+\begin{theorem}
+	Natural deduction is a complete calculus, i.e.~a proof $\Gamma\proves G$ exists,
+	whenever $\Gamma\models G$.
+\end{theorem}
 
 \begin{definition}[\index*{Semantics} of \index{CNF}\CNF]\label{def:semantics:CNF}
 	An atom holds in an interpretation if and only if it

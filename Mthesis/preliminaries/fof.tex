@@ -17,6 +17,11 @@
 	are (composite) first order formulae.
 \end{definition}
 
+\begin{remark}
+	Symbol $\limp$ for implication is not to be confused
+	with the equational symbol for rewrite rules in Section \ref{sec:termrewriting}.
+\end{remark}
+
 \begin{definition}\label{def:fof:fvars}\label{def:fof:bvars}
 	We define the set of {\myem free} variables and the set of {\myem bound} variables
 	of a first order formula $F$ as follows:
@@ -76,16 +81,19 @@ We may denote $\mcF(F)$ for the implicit signature of an formula $F$.
 
 \begin{example}
 	\[
-	\begin{array}{clcl}
+	\begin{array}{clccl}
 		\forall x ({\mP(x) \lor \forall x {\mQ(x)}}) &
+		\text{\xmark}
+		&\qquad\qquad
 		&
 		\forall x ({\mP(x) \lor \forall y {\mQ(y)}}) &
-		\checkmark
+		\text{\cmark}
 		\\
 		(\forall x {\mP(x)}) \lor (\forall x {\mQ(x)}) &
-		&
+		\text{\xmark}
+		&&
 		(\forall x {\mP(x)}) \lor (\forall y {\mQ(y)}) &
-		\checkmark
+		\text{\cmark}
 	\end{array}
 	\]
 

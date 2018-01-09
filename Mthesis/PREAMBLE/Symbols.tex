@@ -71,7 +71,7 @@
 
 %\newcommand{\NGTPREQ}{\not\succcurlyeq}
 
-\newcommand{\succG}{\mathrel\succ_{\mathtt{G}}}
+\newcommand{\succG}{\mathrel\succ_{\!\mathtt{gr}}}
 \newcommand{\succL}{\mathrel\succ_{\mathtt{L}}}
 \newcommand{\succC}{\mathrel\succ_{\mathtt{C}}}
 
@@ -270,6 +270,8 @@
 \newcommand{\ctx}[1][\ ]{\mathtt{C[}#1\mathtt{]}}
 \newcommand{\emptyclause}{\square}
 \newcommand\relation{\mathrel{\circledast}}	% \currency
+
+\usepackage{pifont}% http://ctan.org/pkg/pifont
 
 \newcommand{\cmark}{\ding{51}}
 \newcommand{\xmark}{\ding{55}}

@@ -27,9 +27,8 @@ a reduction order is a well-founded rewrite order
 The dotted arrows mark derived properties,
 e.g.~every simplification order is a reduction order
 (Lemma \ref{lem:siplifiaction:order:well:founded});
-tranistive and irreflexive relations are asymmetric,
-because $s\succ t$ and $t\succ s$ would imply
-$s\succ s$ by transitivity.
+tranistive and irreflexive relations are allways asymmetric,
+etc.
 %
 \begin{center}
 \begin{figure}\label{fig:simplification:order}
@@ -45,8 +44,8 @@ $s\succ s$ by transitivity.
 
 \begin{definition}
 
-    We assume $\succG$ as a
-        total, well-founded, and monotone extension of a
+    We assume $\succG$, $\succL$, $\succC$ as
+        total, well-founded, and monotone extensions of a
         total simplification order over ground terms to ground (literal) clauses
         and ground (literal) closures such that
         \begin{align*}
@@ -60,7 +59,8 @@ $s\succ s$ by transitivity.
         \\
         \left.
         \begin{array}{r}
-            C\tau\succG D\rho\text{ or}
+            C\tau\succG D\rho\\
+            \text{ or}
             \\
             C\tau=D\rho, C\theta=D
         \end{array}
@@ -72,7 +72,20 @@ $s\succ s$ by transitivity.
         literals $L, L'$,
         clauses $C,D$,
         ground substitutions $\sigma, \tau, \rho$
-        and proper instantiator $\theta$.
+        and a proper instantiator $\theta$.
+        Note that the order on unit closures is slightly different than on literal closures, e.g.:
+        \begin{align*}
+            (\mf(x)\mEQ x)\cdot\{ x\mapsto \ma\}
+            &\succC
+            (\mf(\ma)\mEQ\ma)\cdot\emptyset
+            & \theta = \{ x\mapsto \ma \}
+        \\
+        (\mf(x)\mEQ x)\cdot\{ x\mapsto \ma\}
+        &\not\succL
+        (\mf(\ma)\mEQ\ma)\cdot\emptyset
+        \end{align*}
+
+
 
 \end{definition}
 
@@ -265,7 +278,7 @@ $s\succ s$ by transitivity.
                 \end{gather*}
         \end{lemma}
 
-\begin{definition}[Inst-Redundancy]
+\begin{definition}[Inst-Redundancy]\label{def:inst:redundant}
 
     Let $S$ be a set of clauses.
 
@@ -556,21 +569,24 @@ $s\succ s$ by transitivity.
         \end{lemma}
 
         \begin{proof}
-            Assume $
+            Assume $\mcI$ is not a model.
+
+            Hence a minmal ground closure $
                 D = \min_{\succC}\{\,
                 C'\cdot\sigma \mid C'\in S,\,
-                C'\sigma\text{ false in }\mcI\,
-                \}
-                $ exists, then
+                \mcI\not\models C'\sigma\,
+                \}$,
+                an instance of a clause in $S$,
+                $\false$ in $\mcI$, must exist. Further on
 
         \begin{itemize}
             \item $D = D'\cdot\sigma$ is not Inst-redundant.
             \vspace{0.2em}
 
-            Otherwise there are
+            Otherwise by Definition \ref{def:inst:redundant} there are
             $D_1,\ldots,D_n\models D$, $D\succC D_i$ for all $i$,
 
-            and $D_j$ false in $\mcI$ for one $j$, which contradicts minimality.
+            and $D_j$ $\false$ in $\mcI$ for one $j$, which contradicts minimality.
             \hfill
 
             \item $x\sigma$ irreducible by $R_S$ for every variable $x$ in $D'$.
@@ -586,7 +602,7 @@ $s\succ s$ by transitivity.
         we have for some literal $L$,
 
         that $D' = L\lor D''$, $\sel(D') = L$, $L\cdot\sigma\in\mcL_S$,
-        $L\sigma$ is false in $\mcI$
+        $L\sigma$ is $\false$ in $\mcI$.
         \vspace{0.7em}
 
         Hence the following literal closure
@@ -595,24 +611,17 @@ $s\succ s$ by transitivity.
     \left\{\,
         L'\cdot\tau' \mid
         L'\cdot\sigma' \in irred_{R_S}(\mcL_S^{sat}),\,
-        L'\cdot\sigma'\text{ false in }\mcI\,
+        \mcI\not\models L'\cdot\sigma'\,
     \right\}
         \end{gather*}
         exists by Lemma \ref{existence}, is irreducible by Lemma \ref{irreducible},
-        and not productive.
+        and is not productive.
+        Since $\mcI\not\models M\cdot\tau$ the literal
+        M cannot be an equation by Lemma \ref{equation}
+        or an inequation by Lemma \ref{inequation}.
+        We have derived a contradiction from our only assumption.
 
-        \begin{itemize}
-            \item M is not an equation by lemma \ref{equation}
-            \item M is not an inequation by lemma \ref{inequation}
-        \end{itemize}
-
-        This is a contradiction.\hfill
-        \vspace{0.7em}
-
-        Our assumption was false and
-
-        $\mcI$ is a model for all instances of $S$.
-        \hfill\qed
+        Therefore $\mcI$ is a model for all instances of $S$.
     \end{proof}
 
 
