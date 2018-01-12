@@ -279,7 +279,13 @@ Hence we state useful definitions to deal with this situation and demonstrate th
 
 \section{Term Rewriting and Orderings}\label{sec:termrewriting}
 
-
+\begin{definition}\label{def:rewrite:signature}
+	A term rewrite signature $\mcFf$ is a set of function symbols
+	with associated arities
+	as in Definition \ref{def:signature}.
+	Terms, term variables, ground terms and unary function symbol notations
+	are defined as in Definitions \ref{def:terms} to \ref{def:unary:power}.
+\end{definition}
 
 
 \begin{definition}\label{def:rewriterule}
@@ -368,37 +374,44 @@ there will not arise any ambiguity for the reader about the role of the symbol.
 	A {\myem simplification order} is a rewrite order with the {\myem subterm property},
 	i.e.~$u[t]_p \succ t$ for all terms $u$, $t$ and positions $p\neq\epsilon$.
 \end{definition}
+
+\begin{figure}[htb]\label{fig:simplification:order}
+	\input{DRAWINGS/ProperOrder}
+	\caption{Properties of relations on terms}
+\end{figure}
+
+Figure \vref{fig:simplification:order} summarizes the properties of relations on terms.
+The solid arrows mark definitions,
+e.g.~a rewrite order is closed under contexts and substitutions (Definition \ref{def:closed-under});
+a simplification order is a rewrite order
+that respects the subterm property
+(Definition \ref{def:simplification:order}).
+The dotted arrows mark derived properties,
+e.g.~every simplification order is a reduction order
+(Lemma \ref{lem:siplifiaction:order:well:founded});
+tranistive and irreflexive relations are allways asymmetric,
+etc.
+
 \begin{lemma}\label{lem:siplifiaction:order:well:founded}
 	Every simplification order is well-founded, hence it is a reduction order.
 \end{lemma}
 
-% \begin{theorem}
-% 	A TRS $\mcR$ is terminating if and only if there exists a reduction order $\succ$
-% 	such that $l\succ r$ for every rewrite rule $l\rightarrow r\in\mcR$.
-% 	We call $\mcR$ simply terminating if $\succ$ is a simplification order.
-% \end{theorem}
+\begin{theorem}
+	A TRS $\mcR$ is terminating if and only if there exists a reduction order $\succ$
+	such that $l\succ r$ for every rewrite rule $l\rightarrow r\in\mcR$.
+	We call $\mcR$ simply terminating if $\succ$ is a simplification order.
+\end{theorem}
 
-% \begin{lemma}
-% 	A simplification order $\succ_{\mathsf{gr}}$ on ground terms always exists.
-% \end{lemma}
-
-\subsection{Literal and Clause Orderings}\label{sec:literal:clause:orderings}
-
-\IMPROVE{ DEFINITIONS of ORDERINGS, merge definitions }
-
-% \begin{definiton}
-% 	Multiset. $\{x,x \}$ is mutliset $M$ with $M(x)=2$
-% \end{definiton}
+\subsection{Clause and literal orderings}
 
 \begin{lemma}
-	Any ordering $\succ$ on a set $S$ can be extended to an ordering on multisets over $S$
+	Any ordering $\succ$ on a set $C$ can be extended to an ordering on multisets over $C$
 	as follows $N \succ M$ if $N \neq M$
-	and whenever there is $x\in S$ with $N(x) < M(x)$
+	and whenever there is $x\in C$ with $N(x) < M(x)$
 	then there is $y \succ x$ with $N(y) > M(y)$.
 
 	An ordering $\succ$ on terms can be extended to orderings on literals and clauses.
 \end{lemma}
-
 % 2.4
 For the following definition we assume
 $\succG$ as a a total, well-founded and monotone extension
