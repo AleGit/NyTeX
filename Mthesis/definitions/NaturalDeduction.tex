@@ -3,24 +3,26 @@
 % !TeX spellcheck = en_US
 
 \begin{definition}[\cite{Huth:2004:LCS:975331}]\label{def:natural:deduction}
-	We recall the rules of {\myem natural deduction}  in Tables 
-	\ref{tab:natural:deduction:connectives}, \ref{tab:natural:deduction:equality}, 
-	and \ref{tab:natural:deduction:quantifiers} which provide a logical calculus, 
-	i.e.~a formal proof system for first order logic. 
-	The formulae $F$ and $G$ in these rules are sentences, 
-	the bound variable in  $\forall x F'$ occurs free in $F'$, 
+	We recall the rules of {\myem natural deduction} for connectives
+	in Table \ref{tab:natural:deduction:connectives},
+	for equality in Table \ref{tab:natural:deduction:equality},
+	and for quantifiers in Table \ref{tab:natural:deduction:quantifiers}.
+	Natural deduction provides a logical calculus,
+	i.e.~a formal proof system for first order logic.
+	The formulae $F$ and $G$ in these rules are sentences,
+	the bound variable in  $\forall x F'$ occurs free in $F'$,
 	and terms $s$ and $t$ are ground.
 
 \begin{table}[hbt]
 \begin{gather*}
 \begin{array}{ccccc}
-\infer[(\land i)]{F\land G}{F & G} 
+\infer[(\land i)]{F\land G}{F & G}
 &
-\infer[(\land e_1)]{G}{F \land G} 
+\infer[(\land e_1)]{G}{F \land G}
 &
 \infer[(\land e_2)]{F}{F \land G}
 &
-\infer[(\lnot\lnot i)]{\lnot\lnot F}{F} 
+\infer[(\lnot\lnot i)]{\lnot\lnot F}{F}
 &
 \infer[(\lnot\lnot e)]{F}{\lnot\lnot F}
 \\[0.7em]
@@ -49,7 +51,7 @@
 		F\lor G &
 		\boxed{\begin{array}{c}F\\\vdots\\H\end{array}} &
 		\boxed{\begin{array}{c}G\\\vdots\\H\end{array}}
-	}	
+	}
 }
 \\[0.7em]
 &
