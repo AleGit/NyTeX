@@ -7,11 +7,11 @@
 %\input{epigraphs/defintion}
 
 In this thesis we assume the reader's familiarity with
-propositional and predicate logic \cite{Huth:2004:LCS:975331},
+propositional and first order logic \cite{Huth:2004:LCS:975331},
 %automated theorem proving \cite{Fitting:1996:FLA:230183},
-term rewriting \cite{Baader:1998:TR:280474},
-decision procedures \cite{Kroening:2008:DPA:1391237},
-and satisfiability checking modulo theories \cite{Biere:2009:HSV:1550723}.
+term rewriting (TRW \cite{Baader:1998:TR:280474}),
+decision procedures (DP \cite{Kroening:2008:DPA:1391237}),
+and satisfiability checking modulo theories (SMT \cite{Biere:2009:HSV:1550723}).
 Nevertheless - for clarity - we state basic notions and  definitions
 of first order logic with equality in Section \ref{sec:syntax},
 introduce basic concepts of first order semantics in Section \ref{sec:semantics},
@@ -33,11 +33,13 @@ and clausal normal form (\CNF).
 
 \input{preliminaries/atoms}
 
-\input{preliminaries/ground}
+\subsection{Formulae and Normal forms}
 
 \input{preliminaries/fof}
 
 \input{preliminaries/cnf}
+
+\subsection{Substitution}
 
 \input{preliminaries/substitution}
 
@@ -109,28 +111,6 @@ We state satisfiability and validity of arbitrary first order formulae or sets o
 	\end{remark}
 \end{definition}
 
-\begin{definition}[Consequence and validity]
-	A (first order) sentence $G$ is a semantic consequence of a set of sentences
-	$\Gamma = \{ F_1,\ldots,F_n \}$ if $G$ holds in all models for $F_1,\ldots,F_n$.
-	We write $F_1,\ldots,F_n\models G$ or just $\Gamma\models G$.
-	A sentence $G$ is valid if it holds in all interpretations.
-\end{definition}
-
-\begin{theorem}[Gödels Vollständigkeitssatz]
-	Es gibt einen Kalkül der Prädikatenlogik erster Stufe derart, dass für jede Formelmenge
-$\Gamma$ und für jede Formel
-$\varphi$ gilt:
-$\varphi$ folgt genau dann aus
-$\Gamma$, wenn
-$\varphi$ im Kalkül aus
-$\Gamma$  hergeleitet werden kann.
-\end{theorem}
-
-\begin{theorem}
-	Natural deduction is a complete calculus, i.e.~a proof $\Gamma\proves G$ exists,
-	whenever $\Gamma\models G$.
-\end{theorem}
-
 \begin{definition}[\index*{Semantics} of \index{CNF}\CNF]\label{def:semantics:CNF}
 	An atom holds in an interpretation if and only if it
 	holds with all possible assignments.
@@ -141,10 +121,14 @@ $\Gamma$  hergeleitet werden kann.
 \end{definition}
 
 \begin{definition}
-	A {\myem model} $\mcM$ for a set of clauses (a sentence) is an interpretation that
+	A {\myem model} $\mcM$ for a set of clauses $S$ (for a sentence $F$)
+	is an interpretation that
 	{\myem satisfies} the set of clauses (the sentence),
-	i.e.~the set of clauses (the sentence) holds in this interpretation.
-	A set of clauses (a sentence) is {\myem satisfiable} if and only if there is at least one model for it.
+	i.e.~the set of clauses (the sentence) holds in that interpretation $\mcM$.
+	We write $\mcM\models S$ or $\mcM\models F$.
+	% i.e.~the set of clauses (the sentence) holds in this interpretation.
+
+	A set of clauses (a sentence) is {\myem satisfiable} if there exists at least one model for it.
 	A set of clauses (a sentence) is {\myem valid} if and only if every interpretation is a model.
 \end{definition}
 
@@ -177,18 +161,27 @@ $\Gamma$  hergeleitet werden kann.
 
 \begin{definition}
 	An {\myem Herbrand interpretation} $\mcH$ is an interpretation where the domain
-	is an Hebrand universe
+	is an Herbrand universe
 	and the interpretation of each ground term $t_\mcH := t$ is the term itself.
 \end{definition}
 
-\subsection{Transformations}
 
-\IMPROVE
-We now provide the basic defintions to transform sentences in suitable set of clauses.
 
-\begin{definition}[Equivalence]
-	A finite sequence of sentences $F_1, \ldots F_n \entails G$ entails a sentence
-	if $G$ holds in any shared model for all sentences in the sequence.
+
+
+\subsection{Equivalence and Equisatisfiability}
+
+\begin{definition}
+	% [Consequence and entailment]
+	A (first order) sentence $G$ is a semantic consequence of a set of sentences
+	$\Gamma = \{ F_1,\ldots,F_n \}$ if $G$ holds in all models for $F_1,\ldots,F_n$.
+	We write $\Gamma\entails G$ say that $\Gamma$ entails G.
+\end{definition}
+
+\begin{definition}
+	% [Equivalence]
+	% A finite sequence of sentences $F_1, \ldots F_n \entails G$ entails a sentence
+	% if $G$ holds in any shared model for all sentences in the sequence.
 	Two sentences $F \equival G$ are equivalent
 	if an only if the first sentence entails the second and vice versa.
 \end{definition}
@@ -204,9 +197,10 @@ We now provide the basic defintions to transform sentences in suitable set of cl
 	by the defintions for semantics, entailment, and equivalence.\hfill$\Box$
 \end{lemma}
 
-
-\begin{definition}[Equisatisfiability] $F \equisat G$
+\begin{definition}[Equisatisfiability] Two sentences $F \equisat G$ are equisatisifiable if and only if $F$ is satisfiable if and only if $G$ is satisfiable.
 \end{definition}
+
+$\mP(\mf(x)) \not\equiv \mQ(\mg(x))$ but $\mP(\mf(x)) \equisat \mQ(\mg(x))$
 
 
 \begin{example}We can relate sets of clauses to sentences
@@ -276,6 +270,23 @@ Hence we state useful definitions to deal with this situation and demonstrate th
 
 %How we find a normal model or justify its existence we will discuss in Section \vref{sec:automation} about Automation.
 
+\subsection{Completeness of First Order Logic}
+
+\begin{theorem}[Gödels Vollständigkeitssatz]
+	Es gibt einen Kalkül der Prädikatenlogik erster Stufe derart, dass für jede Formelmenge
+$\Gamma$ und für jede Formel
+$\varphi$ gilt:
+$\varphi$ folgt genau dann aus
+$\Gamma$, wenn
+$\varphi$ im Kalkül aus
+$\Gamma$  hergeleitet werden kann.
+\end{theorem}
+
+\begin{theorem}
+	Natural deduction is a complete calculus, i.e.~a proof $\Gamma\proves G$ exists,
+	whenever $\Gamma\models G$.
+\end{theorem}
+
 
 \section{Term Rewriting and Orderings}\label{sec:termrewriting}
 
@@ -294,7 +305,7 @@ Hence we state useful definitions to deal with this situation and demonstrate th
 	%	\[
 	%		\ell\rwEQ r \text{ is rewrite rule }\quad :\Longleftrightarrow\quad\ell\not\in\mcV\text{ and }\var(r)\subseteq\var(l)
 	%	\]
-	A rewrite rule $\ell'\rwStep r'$ is a {\myem variant} of $\ell\rwStep r$ if there is a renaming $\varrho$
+	A rewrite rule $\ell'\rwStep r'$ is a {\myem variant} of $\ell\rwStep r$ if there is a variable renaming $\varrho$
 	such that
 	$(\ell\rightarrow r)\varrho := \ell\varrho\rightarrow r\varrho = l'\rightarrow r'$.
 	A {\myem term rewrite system} is a set of rewrite rules without variants.

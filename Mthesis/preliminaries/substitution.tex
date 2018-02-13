@@ -36,47 +36,24 @@
 \end{definition}
 
 \begin{definition}
-	We partially define the instance $F\sigma$ for a sentence $F$ and a substitution $\sigma$ as follows.
+	We can easily extend our definition to composite first order formulae,
+	but the cases of quantified formulae need more consideration.
+	So we only partially define $F\sigma$ for first order formulae $F$ and substitution $\sigma$ as follows (if $G\sigma$ and $H\sigma$ are defined in the respective cases).
 	\DEFINE{
 		F\sigma
 	}
 {
-		\lnot(G\sigma) & \text{if }F = \lnot G\\
+		\lnot(G\sigma) & \text{if }F = \lnot G
+		\\
 		(G\sigma) * (H\sigma) & \text{if }F = G * H, *\in \{ \land, \lor, \limp \}\\
 		\quantify x(G\sigma) &\text{if }F = \quantify x G,
 		\quantify\in\{ \forall,\exists \},
 		x\not\in\domain(\sigma)
+		% \\
+		% \texttt{undefind} & \texttt{otherwise}
 		% x\not\in\bvar(G)
 	}
 \end{definition}
-
-\begin{definition}
-	Let $\quantify x G$ be a formula, $\sigma = \{ x\mapsto x'\}$, i.e~a variable renaming where $\domain(\sigma) = \{ x \}$,
-	then the renaming of a quantified or bound variable is well defined.
-	\DEFINE{
-		(\quantify x G)
-	}{
-		\quantify x'\, G\{ x\mapsto x'\}
-}
-
-\end{definition}
-
-
-%\begin{definition}
-%	Let $F = \quantify x G$ and $x \in\fvar(G)$ with $\quantify\in\{ \forall,\exists \}$
-%\end{definition}
-
-%%% F(x) formula with free variable x
-% \begin{remark}[\OBSOLETE]
-% 	We write $F(x)$ for a clause or formula to express that $\fvar(F) \supseteq \{ x \}$
-% 	and we abbreviate $F(x)\{x\mapsto t\}$ with $F(t)$, i.e.~all occurrences
-% 	of the first and only free variable in $F$ is substituted with term $t$.
-% \end{remark}
-
-
-
-%\footnotetext{We use prefix and infix notation interchangable, e.g.
-%${\mEQ}(s,t)$ represents the same equation as $s\mEQ t$.}
 
 \begin{definition}
 	A clause $\mcC$ {\myem strictly subsumes} a clause $\mcD$ if their exists a substitution $\theta$ such that $\mcC\theta \subsetneq \mcD$,

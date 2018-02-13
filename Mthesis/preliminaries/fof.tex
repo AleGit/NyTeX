@@ -3,7 +3,7 @@
 % !TeX spellcheck = en_US
 
 \begin{definition}[\index{FOF}\FOF]\label{def:syntax:FOF}
-	Atoms from the previous definition are {\myem first order formulae}.
+	The atoms in Definition \vref{def:atoms} are {\myem first order formulae}.
 	The universal quantification $(\forall x F)$
 	and the existential quantification $(\exists x F)$
 	of a first order formula are (quantified) first order formulae
@@ -18,7 +18,7 @@
 \end{definition}
 
 \begin{remark}
-	Symbol $\limp$ for implication is not to be confused
+	The Symbol $\limp$ for implication is not to be confused
 	with the equational symbol for rewrite rules in Section \ref{sec:termrewriting}.
 \end{remark}
 
@@ -46,7 +46,12 @@
 \end{definition}
 
 \begin{example}
-	With formula $F = (\forall x (x\mEQ y)) \lor (\exists y \mP(x,y)$ we have $\fvar(F) = \bvar(F)$.
+	With formula $F = (\forall x (x\mEQ y)) \lor (\exists y \mP(x,y)$
+	we have $\fvar(F) = \bvar(F)$, which we would like to avoid.
+	For equivalent (see Section \vref{sec:semantics}) formulae
+	$F' = (\forall x (x\mEQ y')) \lor (\exists y \mP(x',y)$
+	and we get
+	$\fvar(F') \cap \bvar(F') = \emptyset$.
 	%	 = \{ x, y\}$.
 \end{example}
 
