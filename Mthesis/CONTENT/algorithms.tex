@@ -56,7 +56,7 @@ First will discuss the given clause algorithm in Section \ref{sec:given:clause:a
 as a saturation process that eventually determines all possible derivate clauses
 with respect to a given calculus, e.g. ordered resolution.
 
-\subsection{Given Clause Algorithm}
+\subsection{Given Clause Algorithm}\label{sec:given:clause:algorithm}
 
 \begin{procedure}[Given Clause Algorithm]
 	We start with a set of clauses $S = P \disjointunion U$,
@@ -198,10 +198,8 @@ We consider only proper instances of an active and the given clause as probable 
 	& ^{1:}&{\colLo\mP(\tikzmark{PP}\ma)}\lor\colN\mQ(\tikzmark{PQ}\ma)
 	& ^{2:}&{\mP(\ma)\lor\lnot\mQ(\consbot/y)}
 	& ^{2,1:}&\boxed{{\colLo\mP(\tikzmark{PA}\ma)}\lor\colN\lnot\mQ(\tikzmark{NQ}\ma)}
-%	\begin{tikzpicture}[overlay,remember picture,out=315,in=225,distance=0.4cm]
-%	\draw[<->,red,shorten >=3pt,shorten <=3pt] (PQ.center) to (NQ.center);
-%	\end{tikzpicture}
 	\end{align*}
+
 	\begin{tikzpicture}[overlay,remember picture, out=340, in=200 ]
 	\draw[->, thick, dotted] (NP.south) to (PP.south);
 	\draw[->, thick, dotted] (NP.south) to (PA.south);
