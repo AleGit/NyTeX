@@ -14,14 +14,15 @@ A formal proof comprises only proof steps confirmed by rules of the applied logi
 \input{definitions/NaturalDeduction}
 
 \begin{definition}A sentence in first order logic is provable
-	if their exists a proof in a formal proof system for first order logic, e.g. natural deduction.
+	if their exists a proof in a formal proof system for first order logic,
+	e.g.~natural deduction.
 	We write
 	\( F_1, \ldots, F_n \proves G \)
 	when we can prove G from premises \( F_1,\ldots,F_n \).
 \end{definition}
 
-A natural deduction proof starts with a (possible empty) set of sentences -- the premises --
-and infer other sentences -- the conclusions -- by applying the syntactic proof inference rules.
+A natural deduction proof starts with a (possible empty) set of sentences --- the premises ---
+and infer other sentences --- the conclusions --- by applying the syntactic proof inference rules.
 A box must be opened for each assumption, e.g.~a term or a sentence.
 Closing the box discards the assumption and all its conclusions within the box(es),
 but may introduce a derived sentence outside the box(es).

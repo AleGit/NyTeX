@@ -22,9 +22,9 @@
 	\DEFINE{
 		\foxt\sigma
 	}{
-			s_i 				& \text{if }\foxt=x_i\in\domain(\sigma), \sigma(x_i) = s_i
+			s_i & \text{if }\foxt=x_i\in\domain(\sigma), \sigma(x_i) = s_i
 			\\
-			y					& \text{if }\foxt=y\in\mcV\,\backslash\domain(\sigma)
+			y & \text{if }\foxt=y\in\mcV \, \backslash\domain(\sigma)
 			\\
 			\foxf(\foxt_1\sigma,\ldots,\foxt_n\sigma)	&\text{if }\foxt=\foxf(\foxt_1,\ldots,\foxt_n)
 			\text{ where  }
@@ -45,9 +45,10 @@
 {
 		\lnot(G\sigma) & \text{if }F = \lnot G
 		\\
-		(G\sigma) * (H\sigma) & \text{if }F = G * H, *\in \{ \land, \lor, \limp \}\\
-		\quantify x(G\sigma) &\text{if }F = \quantify x G,
-		\quantify\in\{ \forall,\exists \},
+		(G\sigma) * (H\sigma) & \text{if }F = G * H, *\in \{ \land, \lor, \limp \}
+		\\
+		\quantify x (G\sigma) &\text{if }F = \quantify x G,
+		\quantify \in \{ \forall, \exists \},
 		x\not\in\domain(\sigma)
 		% \\
 		% \texttt{undefind} & \texttt{otherwise}
@@ -74,7 +75,7 @@ We define the \coloremph{composition} of two substitutions \( \sigma \) and \( \
 \end{definition}
 
 \begin{lemma}\label{lem:substitution}
-	With the definitions in \ref{def:substitution} and \ref{def:substcomp} the equation
+	With the definitions in~\ref{def:substitution} and~\ref{def:substcomp} the equation
 	\( (\mct\sigma)\tau = \mct(\sigma\tau) \) holds for
 	term, atoms, and literals.
 \end{lemma}
@@ -92,7 +93,8 @@ We define the \coloremph{composition} of two substitutions \( \sigma \) and \( \
 
 		\item (step case) Let \( \mct = \mcf(t_1,\ldots,t_n) \)
 		then
-		$((\mcf(t_1,\ldots,t_n))\sigma)\tau
+		\(
+			((\mcf(t_1,\ldots,t_n))\sigma)\tau
 		\defEQ
 		(\mcf(t_1\sigma,\ldots,t_n\sigma))\tau
 		\defEQ
@@ -101,10 +103,11 @@ We define the \coloremph{composition} of two substitutions \( \sigma \) and \( \
 		\mcf(t_1(\sigma\tau),\ldots,t_n(\sigma\tau))
 		\defEQ
 		(\mcf(t_1,\ldots,t_n))(\sigma\tau)
-		$ holds.
+		\) holds.
 
 		\item (step case) Let \( \mct = \lnot A \) then
-		$((\lnot A)\sigma)\tau
+		\(
+		((\lnot A)\sigma)\tau
 		\defEQ
 		(\lnot(A\sigma))\tau
 		\defEQ
@@ -113,6 +116,6 @@ We define the \coloremph{composition} of two substitutions \( \sigma \) and \( \
 		\lnot(A(\sigma\tau))
 		\defEQ
 		(\lnot A)(\sigma\tau)
-		$ holds.
+		\) holds.
 	\end{itemize}
 \end{proof}

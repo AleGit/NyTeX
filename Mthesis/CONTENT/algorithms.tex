@@ -52,9 +52,9 @@ and infinite inferences can be drawn from a satisfiable subset of the set of cla
 %For an automated procedure we need a process that guarantees that eventually all possible inferences were drawn.
 In any case an automated procedure has to notice when all derivations have already been processed.
 
-First will discuss the given clause algorithm in Section \ref{sec:given:clause:algorithm}
+First will discuss the given clause algorithm in Section~\ref{sec:given:clause:algorithm}
 as a saturation process that eventually determines all possible derivate clauses
-with respect to a given calculus, e.g. ordered resolution.
+with respect to a given calculus, e.g.~ordered resolution.
 
 \subsection{Given Clause Algorithm}\label{sec:given:clause:algorithm}
 
@@ -66,11 +66,11 @@ with respect to a given calculus, e.g. ordered resolution.
 		\item[\jek] Whenever we can conclude unsatisfiability of \( S \)
 		we exit the procedure with \( \lnot\SAT \).
 		\setcounter{enumi}{0}
-		\item If \( P \) is empty we exit and return \SAT.
-		\item We select a passive clause, i.e.~the given clause. \jek
+		\item If \( P \) is empty we exit and return \SAT{}.
+		\item We select a passive clause, i.e.~the given clause. \hfill\jek
 		\item We iterate over the active clauses and check for applicable inference rule
 		for each pair of an active and the given clause
-		to derive additional clauses which we add to the set of passive clauses. \jek
+		to derive additional clauses which we add to the set of passive clauses. \hfill\jek
 		\item We move the given clause from passive to active and continue with step 1.
 	\end{enumerate}
 \end{procedure}
@@ -81,11 +81,12 @@ the active clauses are on the left of the given clause,
 and the passive clauses are on the right.
 Each line represents one iteration of our procedure 3.
 %
-In both examples we start with the unsatisfiable set of clauses \( S=\{\, \mP(\ma)\lor\mQ(a), \mP(\ma)\lor\lnot\mQ(y), \lnot\mP(x) \,\} \).
+In both examples we start with the unsatisfiable set of clauses
+\( S=\{ \, \mP(\ma)\lor\mQ(a), \mP(\ma)\lor\lnot\mQ(y), \lnot\mP(x) \, \} \).
 
 \subsubsection{Ordered Resolution}
 
-\jek\( \ \Leftarrow\emptyclause\in S_i \). We conclude unsatisfiability of \( S \) whenever the empty clause is found (already present or derived).
+\jek \( \ \Leftarrow\emptyclause\in S_i \). We conclude unsatisfiability of \( S \) whenever the empty clause is found (already present or derived).
 New clauses are disjunctions of instances of an active and the given clause where conflicting literals were removed,
 in other words the union of the two instances without the contradicting literals.
 \begin{gather*}
@@ -134,7 +135,7 @@ in other words the union of the two instances without the contradicting literals
 
 \subsubsection{InstGen}
 
-\jek\( \ \Leftarrow \lnot\SAT(S_i\bot) \). We conclude unsatisfiability of \( S \) whenever (a subset of) \( S_i\bot \) -- a set of ground instances -- is unsatisfiable.
+\jek \( \ \Leftarrow \lnot\SAT(S_i\bot) \). We conclude unsatisfiability of \( S \) whenever (a subset of) \( S_i\bot \) --- a set of ground instances --- is unsatisfiable.
 We consider only proper instances of an active and the given clause as probable new clauses to extend the set of clauses.
 \begin{gather*}
 	\infer[\sigma=\{ x'\mapsto\mf(x), y\mapsto\mg(y') \}]{
@@ -245,8 +246,7 @@ We consider only proper instances of an active and the given clause as probable 
 		\draw[myarrow,dotted] (ac.east) to [bend left=25](pc);
 
 		\end{tikzpicture}
-		\caption{Proving loop with \SAT and \InstGen}
-		\label{fig:inst-gen-maxcomp}
+		\caption{Proving loop with \SAT and \InstGen}\label{fig:inst-gen-maxcomp}
 	\end{center}
 \end{figure}
 
@@ -283,8 +283,8 @@ Last but not least we may search for subterms in literals of existing clauses th
 Naively we can just scan through all existing clauses and check each clause for the desired qualities.
 	The workload for processing a generated clause is proportional to the number of existing clauses and
 	the workload for checking a pair of clauses.
-	The latter includes unification, which is at least linear to the size of clauses \cite{ALBERT19933},
-	while Robinson's unification algorithm \cite{Robinson:1965:MLB:321250.321253} is exponential in the worst case.
+	The latter includes unification, which is at least linear to the size of clauses~\cite{ALBERT19933},
+	while Robinson's unification algorithm~\cite{Robinson:1965:MLB:321250.321253} is exponential in the worst case.
 	The complexity for this direct approach of processing \( n \) clauses of fixed size (i.e.~constant unification costs per pair) is \( \mcO(n^2) \).
 
 \input{samples/termindexing}

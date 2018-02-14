@@ -11,8 +11,14 @@
 	i.e.~there exists a unique position \( r \) such that \( pr = q \),
 	we write \( p\leq q \) and \( q\backslash r = p \).
 	We write \( p<q \) if \( p \) is a proper prefix of \( q \), i.e.~\( p\leq q \) but \( p\neq q \).
-	We define \( \head(iq)=i \) and \( \tail(iq) = q) \) for \( i\in\mathbb{N} \), \( q\in\mathbb{N}^* \),
-	further \( \length(\epsilon)=0 \), \( \length(iq) = 1 + \length(q) \).
+	We define
+	\( \head(iq)=i \) and
+	\( \tail(iq) = q \)
+	for \( i\in\mathbb{N} \),
+	\( q\in\mathbb{N}^* \),
+	further
+	\( \length(\epsilon)=0 \),
+	\( \length(iq) = 1 + \length(q) \).
 %
 	Two positions \( p\parallel q \) are parallel if none is above the other,
 	i.e.~for any common prefix \( r \) both remaining tails
@@ -28,10 +34,11 @@
 		\pos(\foxt) }
 	{
 		\{ \epsilon \}
-		& \text{if }\foxt = x \in \mcV\\
-		%
-		\{ \epsilon \} \cup\, \bigcup_{i=1}^{n} \{ iq\mid q\in\pos(t_i) \}
-		&	\text{if }\foxt=\mf(t_1,\ldots,t_n), \mf\in\mcFfn\\
+		& \text{if }\foxt = x \in \mcV
+		\\
+		\{ \epsilon \} \cup \, \bigcup_{i=1}^{n} \{ iq\mid q\in\pos(t_i) \}
+		&	\text{if }\foxt=\mf(t_1,\ldots,t_n), \mf\in\mcFfn
+		\\
 		%
 %		{\colG\xcancel{\{ \epsilon \}\, \cup }}
 %		\bigcup_{i=1}^{n} \{ iq\mid q\in\pos(t_i) \}
@@ -39,8 +46,8 @@
 		%
 %		{\colG\pdfmarkupcomment[markup=StrikeOut,color=red,author=ALM]{
 %			\{ \epsilon \} \cup}{}}
-		\{ \epsilon \} \cup\, \bigcup_{i=1}^{n} \{ iq\mid q\in\pos(t_i) \}
-		&	\text{if }\foxt=\mP(t_1,\ldots,t_n), \mP\in\mcFPn\text{ or }\foxt=t_1\mEQ t_2
+		\{ \epsilon \} \cup \, \bigcup_{i=1}^{n} \{ iq\mid q\in\pos(t_i) \}
+		&	\text{if } \foxt=\mP(t_1,\ldots,t_n), \mP\in\mcFPn\text{ or }\foxt=t_1\mEQ t_2
 		\\[0.5em]
 		%
 %		{\colG\xcancel{\{ \epsilon \}\, \cup }}\{ 1q \mid q\in\pos(t_1) \} \cup \{ 2q \mid q\in\pos(t_2) \}
@@ -84,7 +91,7 @@
 	%A \coloremph{hole} denotes a special constant symbol \( \ctxhole\in\mcFf^{(0)} \).
 	%A \coloremph{context} is a term \( t \) with exactly one hole, i.e.~one occurrence \( |t|_{\ctxhole}=1 \).
 	We may write \( \foxt[s] \) if \( s \) is a subterm of \( \foxt \)
-	(at some term position \( p\in\posT(\foxt) \), such that \( \foxt|_p = s \)).
+	(at some term position \( p\in\posT(\foxt) \), such that \( {\foxt|}_p = s \)).
 	With a follow up statement \( \foxt[s'] \) in the same scope we express
-	the replacement of subterm \( s \) with term \( s' \) in \( \foxt \), i.e.~the application of \( \foxt[s']_p \).
+	the replacement of subterm \( s \) with term \( s' \) in \( \foxt \), i.e.~the application of \( {\foxt[s']}_p \).
 \end{definition}

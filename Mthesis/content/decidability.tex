@@ -18,12 +18,12 @@ Without premises a sentence has to be provable if and only if it holds in any in
 
 We first state some completeness, undecidability, and other
 fundamental theorems about first order logic
-in Section \vref{sec:fol:theorems}.
+in Section~\vref{sec:fol:theorems}.
 Then we enumerate decidable fragments of first order logic
 which can be described purely syntactically
-in Section \vref{sec:decidable:fol:fragments}.
+in Section~\vref{sec:decidable:fol:fragments}.
 We conclude this chapter with a look at decidable first-order theories
-in Section \ref{sec:decidable:fol:theories},
+in Section~\ref{sec:decidable:fol:theories},
 which are not necessarily contained
 in one of the syntactically describable and decidable fragments of first-order logic.
 
@@ -106,9 +106,11 @@ of first-order logic where satisfiability is decidable.\footnote{
 \begin{definition}[\cite{MR1482227}]\label{def:prefix:class}
 	We describe classes of first-order formulae in \PNF with triples
 	\[
-	[\, \Pi, (p_1,p_2,\ldots), (f_1,f_2,\ldots)\,]_{(\mEQ)} \subseteq [\, all, all, all\,]_{\mEQ}
+	{[ \, \Pi, (p_1,p_2,\ldots), (f_1,f_2,\ldots) \, ]}_{(\mEQ)}
+	\subseteq {[\, all, all, all\,]}_{\mEQ}
 	\]
-	where \( \Pi = \quantify_1 \ldots \quantify_n \), \( \quantify_i\in\{\forall,\exists\} \)
+	where \( \Pi = \quantify_1 \ldots \quantify_n \),
+	\( \quantify_i\in \{ \forall, \exists \} \)
 	describes the structure of the quantifier prefix (without variables) of the formulae,
 	the value \( p_i \) is the maximal number of predicate symbols with arity \( i \),
 	and the value \( f_i \) the maximal number of function symbols with arity \( i \) in the signature.
