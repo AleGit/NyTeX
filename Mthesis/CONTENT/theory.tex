@@ -119,7 +119,7 @@ where
             \}
     \end{align*}
     % 4.4 %
-    we call a literal closure $L\cdot\sigma$ {\myem UP-redundant}
+    we call a literal closure $L\cdot\sigma$ \coloremph{UP-redundant}
     in set of literal closures $\mcL$
     if
     \[
@@ -188,13 +188,13 @@ where
     \end{proof}
 
 \begin{definition}
-    A UP-{\myem saturation process} is
+    A UP-\coloremph{saturation process} is
     a sequence \( \{ \mcL_i \}_{i=0}^\infty \)
     of sets of literal closures where
     \( \mcL_{i+1} \) can be obtained from
     \( \mcL_i \)
-    by {\myem adding} a conclusion of an UP-inference with premises in $\mcL_i$
-    or by {\myem removing} a UP-redundant w.r.t.~\(\mcL_i\) closure:
+    by \coloremph{adding} a conclusion of an UP-inference with premises in $\mcL_i$
+    or by \coloremph{removing} a UP-redundant w.r.t.~\(\mcL_i\) closure:
     \begin{gather*}
         \mcL_{i+1} = \left\{
             \begin{array}{lclc}
@@ -229,7 +229,7 @@ where
 
     Let \( \mcL^\infty \) be the set of persistent closures,
     i.e.~the lower limit of the sequence.
-    The process is {\myem fair} if for every UP-inference
+    The process is \coloremph{fair} if for every UP-inference
     with premesis in \( \mcL^\infty \) the conclusion is UP-redundant
     w.r.t.~\(\mcL_j\) for some \(j\).
 
@@ -259,7 +259,7 @@ where
 % 5.2
 \begin{definition}
     Let $S$ be a set of clauses.
-    A ground closure $C$ is {\myem Inst-redundant} in $S$
+    A ground closure $C$ is \coloremph{Inst-redundant} in $S$
     if there exist closures $C_1,\ldots,C_k$
     that are ground instances of $S$ such that
     \begin{align*}
@@ -274,7 +274,7 @@ where
 
 \begin{definition}
     Consider a set of clauses $S$, a model $I_\bot$ of $S_\bot$,
-    and a {\myem selection funtion} $\sel$ based on $I_\bot$
+    and a \coloremph{selection funtion} $\sel$ based on $I_\bot$
     that maps clauses to literals such that for all $C\in S$
     \begin{gather*}
         \sel(C)=L \in C
@@ -284,7 +284,7 @@ where
         I_\bot \entails L\bot
     \end{gather*}
     % 5.4
-    We define a set of {\myem S-relevant} instances of literals $\mcL_S$
+    We define a set of \coloremph{S-relevant} instances of literals $\mcL_S$
     as the set of all literal closures $L\cdot\sigma$ such that
     \begin{gather*}
         L\lor C\in S
@@ -295,7 +295,7 @@ where
     \end{gather*}
     Then let $\mcL_S^{sat}$ denote the UP-saturation process of $\mcL_S$.
     % 5.5
-    A set of clauses is {\myem Inst-saturated} w.r.t.~a selection function $\sel$
+    A set of clauses is \coloremph{Inst-saturated} w.r.t.~a selection function $\sel$
     if $\emptyclause\not\in\mcL_S^{sat}$.
 \end{definition}
 

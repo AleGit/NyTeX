@@ -3,11 +3,11 @@
 % !TeX spellcheck = en_US
 
 \begin{definition}[\index{FOF}\FOF]\label{def:syntax:FOF}
-	The atoms in Definition \vref{def:atoms} are {\myem first order formulae}.
+	The atoms in Definition \vref{def:atoms} are \coloremph{first order formulae}.
 	The universal quantification $(\forall x F)$
 	and the existential quantification $(\exists x F)$
 	of a first order formula are (quantified) first order formulae
-	with {\myem bound} variable $x\in\mcV$.
+	with \coloremph{bound} variable $x\in\mcV$.
 	The negation $(\lnot F)$ of a first order formula
 	is a (composite) first order formula.
 	Further, the disjunction $(F \lor F')$,
@@ -23,7 +23,7 @@
 \end{remark}
 
 \begin{definition}\label{def:fof:fvars}\label{def:fof:bvars}
-	We define the set of {\myem free} variables and the set of {\myem bound} variables
+	We define the set of \coloremph{free} variables and the set of \coloremph{bound} variables
 	of a first order formula $F$ as follows:
 \DEFINE{\fvar(F)}{
 		\bigcup_{i=1}^n \var(t_i) &\text{if }F = \mP(t_1,\ldots,t_n)\text{ or }t_1\mEQ t_{n=2}
@@ -59,7 +59,7 @@
 %\begin{remark}
 We often will write formulae or sentences
 without stating the signature.
-The reader can easily deduce the underlying {\myem implicit} signature with arities
+The reader can easily deduce the underlying \coloremph{implicit} signature with arities
 and the set of variables by applying the definitions of the syntax for first order formulae.
 We follow the convention to use $x,y,z$ for variables
 and $\ma,\mb,\mc$ for constant function symbols
@@ -69,7 +69,7 @@ We may denote $\mcF(F)$ for the implicit signature of an formula $F$.
 %\end{remark}
 
 \begin{definition}\label{def:fof:closed}\label{def:fof:sentence}
-	A first order formula is closed, i.e.~a first order {\myem sentence},
+	A first order formula is closed, i.e.~a first order \coloremph{sentence},
 	if it does not contain free variables -- all occurring variables are bound.
 %	A quantifier free sentence is ground.
 	Additionally we assume for any sentence
@@ -112,7 +112,7 @@ We may denote $\mcF(F)$ for the implicit signature of an formula $F$.
 	$n$ bound and distinct variables $x_i$,
 	and quantifier free subformula $G$ with
 	a matching set of free variables, i.e.~$\fvar(G) = \bvar(F)$,
-	is in {\myem prenex normal form}.
+	is in \coloremph{prenex normal form}.
 \end{definition}
 
 

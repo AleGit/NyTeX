@@ -4,7 +4,7 @@
 
 
 \begin{definition}
-	A {\myem partial order} is a reflexive, transitive, and antisymmetric binary relation, 
+	A \coloremph{partial order} is a reflexive, transitive, and antisymmetric binary relation,
 	i.e.~$\sqsubseteq$ is a partial order on $A$ if
 	the following three clauses hold for arbitrary elements $x,y,z$ in $A$.
 	\begin{align*}
@@ -20,7 +20,7 @@
 \end{definition}
 
 \begin{definition}
-	A {\myem proper order} is a irreflexive and transitive binary relation, 
+	A \coloremph{proper order} is a irreflexive and transitive binary relation,
 	i.e.~$\sqsubset$ is a proper order on $A$ if the following two clauses hold.
 	\begin{align*}
 	x\not\sqsubset x
@@ -33,7 +33,7 @@
 \end{definition}
 
 \begin{definition}
-	A {\myem total order} is a proper order where the following clause holds.
+	A \coloremph{total order} is a proper order where the following clause holds.
 	\[
 		x \sqsubset y \lor y \sqsubset x  \lor x=y \tag*{totality}
 	\]
@@ -46,7 +46,7 @@
 	symmetric,
 	antisymmetric,
 	and asymmetric
-	relation. 
+	relation.
 	Hence it is a proper order, but not total.
 \end{example}
 
@@ -67,8 +67,8 @@
 	\]
 \end{proof}
 
-\begin{example}The strict subset relation $\subsetneq$ over a power set is a proper order, but not a total, 
-	e.g. for the power set over natural numbers we have 
+\begin{example}The strict subset relation $\subsetneq$ over a power set is a proper order, but not a total,
+	e.g. for the power set over natural numbers we have
 	\[
 	\{ 1 \} \not\subsetneq \{ 2 \}
 	\land \{ 2 \} \not\subsetneq \{ 1 \}
@@ -80,7 +80,7 @@
 
 
 \begin{definition}
-	A binary relation $\supset$ is {\myem well-founded} on a set $A$ if there is no infinite sequence 
+	A binary relation $\supset$ is \coloremph{well-founded} on a set $A$ if there is no infinite sequence
 	$(a_i)_{i\in\mathbb{N}}$ of $a_i\in A$
 	with $a_i\supset a_{i+1}$ for all $i\in\mathbb{N}$.
 \end{definition}

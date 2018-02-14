@@ -3,17 +3,17 @@
 % !TeX spellcheck = en_US
 
 \begin{definition}
-	A binary relation $R$ on terms has the {\myem subterm property} if 
+	A binary relation $R$ on terms has the \coloremph{subterm property} if
 	$s[t]_p\mathbin{R}t$ for all terms $s,t$ and all positions $p\in\pos(s) \setminus \{\epsilon\}$.
 \end{definition}
 
 \begin{definition}\label{def:prec}
-	A {\myem precedence} $\succ$ is a proper order 
+	A \coloremph{precedence} $\succ$ is a proper order
 	on a signature.
 \end{definition}
 
 \begin{definition}[LPO]\label{def:lpo}
-	Let $\succ$ be a precedence. In a {\myem lexicographic path order} $\succ_{lpo}$ on (general) terms the relation $s\succ_{lpo} t$ holds,
+	Let $\succ$ be a precedence. In a \coloremph{lexicographic path order} $\succ_{lpo}$ on (general) terms the relation $s\succ_{lpo} t$ holds,
 	if one of these three cases holds:
 	\begin{enumerate}
 		\item $s=\mcf(s_1,\ldots,s_n)$, $t=\mcf(t_1,\ldots,t_n)$ and for some $1\leq i\leq n$:
@@ -27,12 +27,12 @@
 
 \begin{definition}\label{def:weight}
 	Let $\mcF$ be a signature.
-	A {\myem weight function} is a pair $(w,w_0)$. 
+	A \coloremph{weight function} is a pair $(w,w_0)$.
 	The first member $w$ is a function that maps every symbol $\mcf\in\mcF$ to a natural number $w(\mcf)$,
-	the second is a constant $w_0>0$ such that $w(\mc)\geq w_0$ for every constant $c\in\mcF$. 
+	the second is a constant $w_0>0$ such that $w(\mc)\geq w_0$ for every constant $c\in\mcF$.
 	The weight of a (general) term $t$ is defined as:
 	\begin{gather*}
-	w(t) = \left\{ \begin{array}{ll} 
+	w(t) = \left\{ \begin{array}{ll}
 	w_0 & \text{if } t\in\mcV\\
 	w(\mcf)+\sum_{i=1}^n w(t_i) & \text{if }t=\mcf(t_1,\ldots,t_n)
 	\end{array}\right.
@@ -63,9 +63,9 @@
 
 \begin{lemma}
 	\begin{align*}
-	\bigwedge_{i=1}^{n} 
-	\left(	
-		\bigvee_{j=1}^{c_i}\,p_{i,j} 
+	\bigwedge_{i=1}^{n}
+	\left(
+		\bigvee_{j=1}^{c_i}\,p_{i,j}
 	\right)
 	\ &\equiv
 	\bigvee_{(j_1,\ldots,j_n)}
@@ -79,39 +79,39 @@
 	\begin{itemize}
 		\item (base) $n=1$.
 		\begin{align*}
-		\bigvee_{j=1}^{c_1} p_{i,j}\ &= \bigvee_{(j_1)} p_{(1,j_1)} 
+		\bigvee_{j=1}^{c_1} p_{i,j}\ &= \bigvee_{(j_1)} p_{(1,j_1)}
 		&
 		(j_1) \in \{ 1,\ldots, c_1 \}
 		\end{align*}
-		
+
 		\item (step) $n+1$
-		
+
 		\begin{align*}
-		\bigwedge_{i=1}^{n+1} 
-		\left(	
-			\bigvee_{j=1}^{c_i}\,p_{i,j} 
+		\bigwedge_{i=1}^{n+1}
+		\left(
+			\bigvee_{j=1}^{c_i}\,p_{i,j}
 		\right)
 		\ \defEQ&\quad
-		\left( 
-			\bigwedge_{i=1}^{n} 
+		\left(
+			\bigwedge_{i=1}^{n}
 			\left(
 				\bigvee_{j=1}^{c_i}\,p_{i,j}
 			\right)
 		\right)
-%		
-		\land 
+%
+		\land
 		\left(\bigvee_{j=1}^{c_{n+1}} p_{n+1,j}\right)
 		\\
-		\defEV[I.H.]&\ 
+		\defEV[I.H.]&\
 		\left(
 		\bigvee_{(j_1,\ldots,j_n)}
 		\bigwedge_{i=1}^{n}\,a_{(i,j_i)}
 		\right)
-		\land 
+		\land
 		\left(\bigvee_{j=1}^{c_{n+1}} p_{n+1,j}\right)
 %		&(j_1,\ldots,j_n)\in\prod_{i=1}^{n}\{ 1,\ldots,c_i \}
 		\\
-		\defEV[DIST]&\ 
+		\defEV[DIST]&\
 		\bigvee_{j_{n+1}=1}^{c_{n+1}}
 		\left(
 		\bigvee_{(j_1,\ldots,j_n)}
@@ -121,7 +121,7 @@
 		\land p_{(n+1,j_{n+1})}
 		\right)
 		\end{align*}
-		
-		
+
+
 	\end{itemize}
 \end{proof}

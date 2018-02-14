@@ -6,28 +6,28 @@
 \begin{definition}
 	A n-ary relation is a subset of the Cartesian product of $n$ sets.
 %	$A^n = \{ (a_1, \ldots, a_n) \mid a_i \in A\text{ for }0\leq i \leq n \}$.
-	A {\myem binary relation} $R$ on domain $A$ 
-	is a subset of $A \times A := \{ (a,b) \mid a\in A, b\in A \}$ -- 
+	A \coloremph{binary relation} $R$ on domain $A$
+	is a subset of $A \times A := \{ (a,b) \mid a\in A, b\in A \}$ --
 	the set of all pairs of elements in $A$.
 	We write $R(a,b)$ or $a\ R\ b$ to express that $(a,b)\in R \subseteq A\times A$.
 \end{definition}
 
 \begin{example}
-	Pythagorean triples define a relation on natural numbers. 
-	\[(3,4,5)\in\{ 
-		(a,b,c) \mid 
-		a\in\mathbb{N}\land 
-		b\in\mathbb{N}\land 
+	Pythagorean triples define a relation on natural numbers.
+	\[(3,4,5)\in\{
+		(a,b,c) \mid
+		a\in\mathbb{N}\land
+		b\in\mathbb{N}\land
 		c\in\mathbb{N}\land
 		a^2 + b^2 = c^3
 	\}
 	\subsetneq \mathbb{N}^3
-	\] 
+	\]
 \end{example}
 
 \begin{definition}
-	An {\myem equivalence relation} 
-	is a reflexive, transitive, and symmetric binary relation, 
+	An \coloremph{equivalence relation}
+	is a reflexive, transitive, and symmetric binary relation,
 	i.e.~$\sim$ is an equivalence relation if the following three clauses hold.
 	\begin{align*}
 	x\sim x
@@ -39,14 +39,14 @@
 	x\not\sim y \lor y\sim x
 	\tag*{symmetry}
 	\end{align*}
-	The {\myem equivalence class} $[x]_\sim$
+	The \coloremph{equivalence class} $[x]_\sim$
 	of an element $x$ is a subset that contains all elements that are equivalent to $x$.
 	Trivially the equivalence $x\sim y$ implies the identity $[x]_\sim = [y]_\sim$.
 	The quotient set modulo an equivalence relation is the set of a set's equivalent classes.
-	\begin{align*} 
+	\begin{align*}
 	[x]_\sim &:= \{\, y \mid x \sim y\} &
-	A/_{\!\sim} &:= \{\, [x]_\sim \mid x \in A \,\} 
-	\end{align*} 
+	A/_{\!\sim} &:= \{\, [x]_\sim \mid x \in A \,\}
+	\end{align*}
 \end{definition}
 
 \begin{lemma}

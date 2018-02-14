@@ -63,13 +63,13 @@ We state satisfiability and validity of arbitrary first order formulae or sets o
 
 \begin{definition}\label{def:interpretation}
 	An \coloremph{interpretation} \( \mcI \) over a signature \( \mcF \) consists of a
-	non-empty set \( A \) --- the {\myem universe} or {\myem domain},
+	non-empty set \( A \) --- the \coloremph{universe} or \coloremph{domain},
 	definitions of mappings \( \mf_\mcI: A^n\rightarrow A \) for every function symbol \( \mf\in\mcFf \),
 	and definitions of (possibly empty) n-ary relations
 	 \( {\mP_\mcI}\subseteq A^n \) for every predicate symbol \( \mP\in\mcFP \)
 	 and the definition of a binary relation \( {\mEQ_\mcI}\subseteq A^2 \) for the equality symbol.
-	 A (variable) {\myem assignment} is a mapping from variables to elements of the domain.
-	 We define the {\myem evaluation} \( \alpha_\mcI \) of a term \( t \)
+	 A (variable) \coloremph{assignment} is a mapping from variables to elements of the domain.
+	 We define the \coloremph{evaluation} \( \alpha_\mcI \) of a term \( t \)
 	 for assingment \( \alpha \) and interpretation \( \mcI \):
 	 \DEFINE{\alpha_\mcI(t)}{
 	 	\alpha_\mcI(x)
@@ -87,7 +87,7 @@ We state satisfiability and validity of arbitrary first order formulae or sets o
 
 \begin{definition}\label{def:semantics:atoms}
 	A predicate \( \mP(t_1,\ldots,t_n) \)
-	{\myem holds} for an assignment \( \alpha_\mcI \)
+	\coloremph{holds} for an assignment \( \alpha_\mcI \)
 	if and only if the evaluation of its n-tuple \(
 	(\alpha_\mcI({t_1}),\ldots,\alpha_\mcI({t_n})) \)
 	is an element of the relation \( \mP_\mcI\subseteq A^n \).
@@ -121,19 +121,19 @@ We state satisfiability and validity of arbitrary first order formulae or sets o
 \end{definition}
 
 \begin{definition}
-	A {\myem model} \( \mcM \) for a set of clauses \( S \) (for a sentence \( F \))
+	A \coloremph{model} \( \mcM \) for a set of clauses \( S \) (for a sentence \( F \))
 	is an interpretation that
-	{\myem satisfies} the set of clauses (the sentence),
+	\coloremph{satisfies} the set of clauses (the sentence),
 	i.e.~the set of clauses (the sentence) holds in that interpretation \( \mcM \).
 	We write \( \mcM\models S \) or \( \mcM\models F \).
 	% i.e.~the set of clauses (the sentence) holds in this interpretation.
 
-	A set of clauses (a sentence) is {\myem satisfiable} if there exists at least one model for it.
-	A set of clauses (a sentence) is {\myem valid} if and only if every interpretation is a model.
+	A set of clauses (a sentence) is \coloremph{satisfiable} if there exists at least one model for it.
+	A set of clauses (a sentence) is \coloremph{valid} if and only if every interpretation is a model.
 \end{definition}
 
 \begin{definition}\label{def:hk}
-	The {\myem Herbrand universe} for a first order signature \( \mcF \)
+	The \coloremph{Herbrand universe} for a first order signature \( \mcF \)
 	is the smallest set of terms that contains all \( H_{i\geq 0} \) defined inductively as
 	\begin{align*}
 	H_0 &= \left\{
@@ -160,7 +160,7 @@ We state satisfiability and validity of arbitrary first order formulae or sets o
 \end{definition}
 
 \begin{definition}
-	An {\myem Herbrand interpretation} \( \mcH \) is an interpretation where the domain
+	An \coloremph{Herbrand interpretation} \( \mcH \) is an interpretation where the domain
 	is an Herbrand universe
 	and the interpretation of each ground term \( t_\mcH := t \) is the term itself.
 \end{definition}
@@ -226,7 +226,7 @@ Hence we state useful definitions to deal with this situation and demonstrate th
 \end{example}
 
 \begin{definition}\label{def:normal:interpreation}
-	An {\myem normal} interpretation defines \( \mEQ_\mcI \) as identity on its domain,
+	An \coloremph{normal} interpretation defines \( \mEQ_\mcI \) as identity on its domain,
 	e.g.~the equation of terms \( s \mEQ_\mcI t \) holds if and only
 	if any evaluation of its terms are equal \( \alpha_\mcI(s) = \alpha_\mcI(t) \)
 	for all assignments \( \alpha \).
@@ -235,7 +235,7 @@ Hence we state useful definitions to deal with this situation and demonstrate th
 \end{definition}
 
 \begin{definition}
-	A {\myem term interpretation}
+	A \coloremph{term interpretation}
 	\( \mcI_t \)
 	is an interpretation
 	where the elements of its domain \( A = \mcTFf/_\sim \)
@@ -245,7 +245,7 @@ Hence we state useful definitions to deal with this situation and demonstrate th
 	A ground predicate \( \mP(t_1,\ldots,t_n) \) holds if
 	\( ([t_1]_\sim,\ldots,[t_n]_\sim) \in \mP^{\mcI_t} \subseteq A^n \).
 	%	A ground literal does not hold if and only if its complementary literal holds.
-	%	In an {\myem equational} term interpretation an equation \( s\mEQ t \) holds if an only if \( s\sim t \).
+	%	In an \coloremph{equational} term interpretation an equation \( s\mEQ t \) holds if an only if \( s\sim t \).
 \end{definition}
 
 
@@ -302,16 +302,16 @@ Hence we state useful definitions to deal with this situation and demonstrate th
 
 
 \begin{definition}\label{def:rewriterule}
-	A {\myem rewrite rule} is an equation of terms where the left-hand side is not a variable
+	A \coloremph{rewrite rule} is an equation of terms where the left-hand side is not a variable
 	and the variables occuring in the right-hand side occur also in the left-hand side.
 	%	\[
 	%		\ell\rwEQ r \text{ is rewrite rule }\quad :\Longleftrightarrow\quad\ell\not\in\mcV\text{ and }\var(r)\subseteq\var(l)
 	%	\]
-	A rewrite rule \( \ell'\rwStep r' \) is a {\myem variant} of \( \ell\rwStep r \) if there is a variable renaming \( \varrho \)
+	A rewrite rule \( \ell'\rwStep r' \) is a \coloremph{variant} of \( \ell\rwStep r \) if there is a variable renaming \( \varrho \)
 	such that
 	\( (\ell\rightarrow r)\varrho := \ell\varrho\rightarrow r\varrho = l'\rightarrow r' \).
-	A {\myem term rewrite system} is a set of rewrite rules without variants.
-	In a {\myem ground} term rewrite system every term on every side in every rule is a ground term.
+	A \coloremph{term rewrite system} is a set of rewrite rules without variants.
+	In a \coloremph{ground} term rewrite system every term on every side in every rule is a ground term.
 \end{definition}
 
 Although we use the the same symbol for implications \( F\limp G \) between first order formulae
@@ -321,53 +321,53 @@ there will not arise any ambiguity for the reader about the role of the symbol.
 %
 \begin{definition}
 	We say \( s\rightarrow_\mcR t \) is a
-	{\myem rewrite step}
+	\coloremph{rewrite step}
 	 with respect to TRS \( \mcR \)
 	when there is a position \( p \in \pos(s) \),
 	a rewrite rule \( \ell\rwStep r\in\mcR \),
 	and a substitution \( \sigma \) such that
 	\( s|_p=\ell\sigma \) and \( s[r\sigma]_p = t \).
-		The subterm \( \ell\sigma \) is called {\myem redex} and
-	\( s \) rewrites to \( t \) by {\myem contracting} \( \ell\sigma \) to {\myem contractum} \( r\sigma \).
+		The subterm \( \ell\sigma \) is called \coloremph{redex} and
+	\( s \) rewrites to \( t \) by \coloremph{contracting} \( \ell\sigma \) to \coloremph{contractum} \( r\sigma \).
 	%
-	We say a term \( s \) is {\myem irreducible} or in {\myem normal form} with respect to TRS \( \mcR \) if there is no rewrite step \( s\rightarrow_\mcR t \) for any term \( t \).
+	We say a term \( s \) is \coloremph{irreducible} or in \coloremph{normal form} with respect to TRS \( \mcR \) if there is no rewrite step \( s\rightarrow_\mcR t \) for any term \( t \).
 	The set of normal forms \( \mNFR \) contains all irreducible terms of the TRS \( \mcR \).
 
 	\end{definition}
 %
 %\begin{definition}
-%	A {\myem rewrite relation} is a binary relation on terms that is closed under contexts and substitutions.
-%	A {\myem rewrite order} is a proper order on terms
+%	A \coloremph{rewrite relation} is a binary relation on terms that is closed under contexts and substitutions.
+%	A \coloremph{rewrite order} is a proper order on terms
 %	(i.e. an irreflexive and transitive relation on terms) and a rewrite relation.
-%	A {\myem reduction order} is a well-founded rewrite order.
+%	A \coloremph{reduction order} is a well-founded rewrite order.
 %\end{definition}
 %
 \begin{definition}
 	A term \( s \) can be rewritten to term \( t \) with notion \( s\rightarrow^*_\mcR t \)
-	if there exists at least one {\myem rewrite sequence} \( (a_1,\ldots ,a_n) \) such that
+	if there exists at least one \coloremph{rewrite sequence} \( (a_1,\ldots ,a_n) \) such that
 	\( s=a_1 \), \( a_n=t \), and \( a_i\rightarrow_\mcR a_{i+1} \) are rewrite steps for \( 1\leq i<n \).
-	A TRS is {\myem terminating} if there is no infinite rewrite sequence of terms.
+	A TRS is \coloremph{terminating} if there is no infinite rewrite sequence of terms.
 	%
-% 	Two Terms \( s \) and \( t \) are {\myem joinable} with notion \( s\downarrow t \)
+% 	Two Terms \( s \) and \( t \) are \coloremph{joinable} with notion \( s\downarrow t \)
 % 	if both can be rewritten to some term \( c \), i.e.~\( s \rightarrow^*c\ \, ^*\!\!\leftarrow t \).
 % %
-% 	Two Terms \( s \) and \( t \) are {\myem meetable} with notion \( s\uparrow t \)
+% 	Two Terms \( s \) and \( t \) are \coloremph{meetable} with notion \( s\uparrow t \)
 % 	if both can be rewritten from some common ancestor term \( a \), i.e.~\( s \leftarrow^*a\ \, ^*\!\!\rightarrow t \).
 % %
-% 	A TRS is {\myem confluent } if \( s \) and \( t \) are joinable whenever \( s\ ^*\!\!\leftarrow a \rightarrow^* t \) holds for some term \( a \).
+% 	A TRS is \coloremph{confluent } if \( s \) and \( t \) are joinable whenever \( s\ ^*\!\!\leftarrow a \rightarrow^* t \) holds for some term \( a \).
 % 	%
-% 	Terms \( s \) and \( t \) are {\myem convertible} with notion \( s\leftrightarrow^* t \)
+% 	Terms \( s \) and \( t \) are \coloremph{convertible} with notion \( s\leftrightarrow^* t \)
 % 	if there exists a sequence \( (a_1,\ldots ,a_n) \) such that
 % 	\( s=a_1 \), \( a_n=t \), and \( a_i\leftrightarrow a_{i+1} \), i.e.~\( a_i\rightarrow a_{i+1} \) or \( a_i\leftarrow a_{i+1} \) are rewrite steps for \( 1\leq i<n \).
 \end{definition}
 %
 \begin{definition}\label{def:closed-under}
-	A {\myem rewrite relation} is a binary relation
+	A \coloremph{rewrite relation} is a binary relation
 	\( \relation \) on arbitrary terms \( s \) and \( t \),
-	which additionally is {\myem closed under contexts}
+	which additionally is \coloremph{closed under contexts}
 	(whenever \( s\relation t \) then \( u[s]_p\relation u[t]_p \)
 	for an arbitrary term \( u \) and any position \( p\in\pos(u) \))
-	and {\myem closed under substitutions}
+	and \coloremph{closed under substitutions}
 	(whenever \( s\relation t \) then \( s\sigma\relation t\sigma \)
 	for an arbitrary substitution \( \sigma \)).
 \end{definition}
@@ -378,13 +378,13 @@ there will not arise any ambiguity for the reader about the role of the symbol.
 \end{lemma}
 %%
 \begin{definition}\label{def:simplification:order}
-	A proper (i.e.~irreflexive and transitive) order on terms is called {\myem rewrite order} if it is a rewrite relation.
-	A {\myem reduction order} is a well-founded rewrite order,
+	A proper (i.e.~irreflexive and transitive) order on terms is called \coloremph{rewrite order} if it is a rewrite relation.
+	A \coloremph{reduction order} is a well-founded rewrite order,
 	i.e.~there is no infinite sequence
 	\( (a_i)_{i\in\mathbb{N}} \)
 	where \( a_i\succ a_{i+1} \) for all \( i \).
 	% with \( i\in\mathbb{N} \).
-	A {\myem simplification order} is a rewrite order with the {\myem subterm property},
+	A \coloremph{simplification order} is a rewrite order with the \coloremph{subterm property},
 	i.e.~\( u[t]_p \succ t \) for all terms \( u \), \( t \) and positions \( p\neq\epsilon \).
 \end{definition}
 
@@ -458,7 +458,7 @@ to ground clauses \cite{NR2001}.
 		\( \lnot A\succ_\mL\lnot B \) and
 		\( \lnot A\succ_\mL A \) hold.
 		%
-		A (non-ground) literal \( L \) is {\myem (strictly) maximal} if there exists a ground substitution \( \tau \)
+		A (non-ground) literal \( L \) is \coloremph{(strictly) maximal} if there exists a ground substitution \( \tau \)
 		such for no other literal \( L' \) the relation \( L'\tau\succ L\tau \) (strictly: \( \succcurlyeq \)) holds.
 		We write \( \succ_{gr} \) to suggest the existence of such a ground substitution \( \tau \).
 	\end{definition}
