@@ -3,34 +3,34 @@
 % !TeX spellcheck = en_US
 
 \begin{definition}
-	A binary relation $R$ on terms has the \coloremph{subterm property} if
-	$s[t]_p\mathbin{R}t$ for all terms $s,t$ and all positions $p\in\pos(s) \setminus \{\epsilon\}$.
+	A binary relation \( R \) on terms has the \coloremph{subterm property} if
+	\( s[t]_p\mathbin{R}t \) for all terms \( s,t \) and all positions \( p\in\pos(s) \setminus \{\epsilon\} \).
 \end{definition}
 
 \begin{definition}\label{def:prec}
-	A \coloremph{precedence} $\succ$ is a proper order
+	A \coloremph{precedence} \( \succ \) is a proper order
 	on a signature.
 \end{definition}
 
 \begin{definition}[LPO]\label{def:lpo}
-	Let $\succ$ be a precedence. In a \coloremph{lexicographic path order} $\succ_{lpo}$ on (general) terms the relation $s\succ_{lpo} t$ holds,
+	Let \( \succ \) be a precedence. In a \coloremph{lexicographic path order} \( \succ_{lpo} \) on (general) terms the relation \( s\succ_{lpo} t \) holds,
 	if one of these three cases holds:
 	\begin{enumerate}
-		\item $s=\mcf(s_1,\ldots,s_n)$, $t=\mcf(t_1,\ldots,t_n)$ and for some $1\leq i\leq n$:
+		\item \( s=\mcf(s_1,\ldots,s_n) \), \( t=\mcf(t_1,\ldots,t_n) \) and for some \( 1\leq i\leq n \):
 		\[
 		(s_j=t_j\lor j\geq i) \land (s_i\succ_{lpo} t_i) \land (s\succ_{lpo} t_i \lor j\leq i)
 		\]
-		\item $s=\mcf(s_1,\ldots,s_n)$, $t=\mcg(t_1,\ldots,t_m)$, $\mcf\succ_\mcg$, and $s\succ_{lpo} t_i$ for all $1\leq i\leq m$.
-		\item $s=\mcf(s_1,\ldots,s_n)$ and $(s_i=t \lor s_i\succ_{lpo} t)$ for some $1\leq i\leq m$.
+		\item \( s=\mcf(s_1,\ldots,s_n) \), \( t=\mcg(t_1,\ldots,t_m) \), \( \mcf\succ_\mcg \), and \( s\succ_{lpo} t_i \) for all \( 1\leq i\leq m \).
+		\item \( s=\mcf(s_1,\ldots,s_n) \) and \( (s_i=t \lor s_i\succ_{lpo} t) \) for some \( 1\leq i\leq m \).
 	\end{enumerate}
 \end{definition}
 
 \begin{definition}\label{def:weight}
-	Let $\mcF$ be a signature.
-	A \coloremph{weight function} is a pair $(w,w_0)$.
-	The first member $w$ is a function that maps every symbol $\mcf\in\mcF$ to a natural number $w(\mcf)$,
-	the second is a constant $w_0>0$ such that $w(\mc)\geq w_0$ for every constant $c\in\mcF$.
-	The weight of a (general) term $t$ is defined as:
+	Let \( \mcF \) be a signature.
+	A \coloremph{weight function} is a pair \( (w,w_0) \).
+	The first member \( w \) is a function that maps every symbol \( \mcf\in\mcF \) to a natural number \( w(\mcf) \),
+	the second is a constant \( w_0>0 \) such that \( w(\mc)\geq w_0 \) for every constant \( c\in\mcF \).
+	The weight of a (general) term \( t \) is defined as:
 	\begin{gather*}
 	w(t) = \left\{ \begin{array}{ll}
 	w_0 & \text{if } t\in\mcV\\
@@ -40,19 +40,19 @@
 \end{definition}
 
 \begin{definition}[KBO]\label{def:kbo}
-	Let $\succ$ be a precedence and $(w,w_0)$ a weight function.
-	In a Knuth-Bendix order $\succ_{kbo}$ on (general) terms the relation $s\succ_{kbo} t$ holds if
-	$|s|_x\geq|t|_x$ for all $x\in\mcV$ and one of these two cases holds:
+	Let \( \succ \) be a precedence and \( (w,w_0) \) a weight function.
+	In a Knuth-Bendix order \( \succ_{kbo} \) on (general) terms the relation \( s\succ_{kbo} t \) holds if
+	\( |s|_x\geq|t|_x \) for all \( x\in\mcV \) and one of these two cases holds:
 	\begin{enumerate}
-		\item $w(s) > w(t)$
-		\item $w(s) = w(t)$ and one of these three sub cases holds:
+		\item \( w(s) > w(t) \)
+		\item \( w(s) = w(t) \) and one of these three sub cases holds:
 		\begin{enumerate}
-			\item $t\in\mcV$ and $s=\mcf^n(t)$ for some unary symbol $\mcf$ and $n\succ0$,
-			\item $s=\mcf(s_1,\ldots,s_n)$, $t=\mcf(t_1,\ldots,t_n)$, and for some $1\leq i\leq n$:
+			\item \( t\in\mcV \) and \( s=\mcf^n(t) \) for some unary symbol \( \mcf \) and \( n\succ0 \),
+			\item \( s=\mcf(s_1,\ldots,s_n) \), \( t=\mcf(t_1,\ldots,t_n) \), and for some \( 1\leq i\leq n \):
 			\[
 			(s_j=t_j \lor j\geq i) \land s_i\succ_{kbo} t_i
 			\]
-			\item $s=\mcf(s_1,\ldots,s_n)$, $t=\mcg(t_1,\ldots,t_m)$, and $\mcf\succ\mcg$.
+			\item \( s=\mcf(s_1,\ldots,s_n) \), \( t=\mcg(t_1,\ldots,t_m) \), and \( \mcf\succ\mcg \).
 		\end{enumerate}
 	\end{enumerate}
 \end{definition}
@@ -75,16 +75,16 @@
 	&\text{with }(j_1,\ldots,j_n)\in\prod_{i=1}^{n}\{ 1,\ldots,c_i \}
 	\end{align*}
 \end{lemma}
-\begin{proof}By induction on $n$
+\begin{proof}By induction on \( n \)
 	\begin{itemize}
-		\item (base) $n=1$.
+		\item (base) \( n=1 \).
 		\begin{align*}
 		\bigvee_{j=1}^{c_1} p_{i,j}\ &= \bigvee_{(j_1)} p_{(1,j_1)}
 		&
 		(j_1) \in \{ 1,\ldots, c_1 \}
 		\end{align*}
 
-		\item (step) $n+1$
+		\item (step) \( n+1 \)
 
 		\begin{align*}
 		\bigwedge_{i=1}^{n+1}

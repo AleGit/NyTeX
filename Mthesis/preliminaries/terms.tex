@@ -3,28 +3,28 @@
 % !TeX spellcheck = en_US
 
 \begin{definition}\label{def:terms}
-	We build the set of (first order) \coloremph{terms }$\mcTf = \mcTFfV$
+	We build the set of (first order) \coloremph{terms }\( \mcTf = \mcTFfV \)
 	from function symbols and a
-	countable set of \coloremph{variables }$\mcV$ disjoint from $\mcF$\!.
-	Every variable $x\in\mcV$ is a term,
-	every \coloremph{constant} $\mc\in\mcFf^{(0)}$ is a term,
-	and every expression $\mf(t_1,\ldots,t_n)$ is a term
-	for $n>0$, function symbol $\mf\in\mcFfn$,
-	and arbitrary terms $t_1,\ldots,t_n$.
+	countable set of \coloremph{variables }\( \mcV \) disjoint from \( \mcF \)\!.
+	Every variable \( x\in\mcV \) is a term,
+	every \coloremph{constant} \( \mc\in\mcFf^{(0)} \) is a term,
+	and every expression \( \mf(t_1,\ldots,t_n) \) is a term
+	for \( n>0 \), function symbol \( \mf\in\mcFfn \),
+	and arbitrary terms \( t_1,\ldots,t_n \).
 \end{definition}
 
 \begin{definition}\label{def:term:vars}\label{def:term:ground}
-	We define the set of variables of a first order term $t$ as follows:
+	We define the set of variables of a first order term \( t \) as follows:
 	\DEFINE{\var(t)} {
 		\{ x \} & \text{if } t = x \in \mcV \\
 		\bigcup_{i=1}^n \var(t_i) & \text{if }  t = \mf(t_1, \ldots t_n)
 	}
-	A \coloremph{ground} term $t'$ does not contain any variables, i.e.~$\var(t') = \emptyset$.
+	A \coloremph{ground} term \( t' \) does not contain any variables, i.e.~\( \var(t') = \emptyset \).
 \end{definition}
 
 \begin{definition}\label{def:unary:power}
-	For an unary function symbol $\mg\in\mcFfn[1]$, a natural number
-	$i\in\mathbb{N}$, and an arbitrary term $t\in\mcTf$ we introduce the notation $\mg^i(t)$ defined as follows:
+	For an unary function symbol \( \mg\in\mcFfn[1] \), a natural number
+	\( i\in\mathbb{N} \), and an arbitrary term \( t\in\mcTf \) we introduce the notation \( \mg^i(t) \) defined as follows:
 	\[
 	\mg^0(t) := t \qquad
 	\mg^{i+1}(t) := \mg(\mg^i(t))

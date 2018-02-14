@@ -6,32 +6,32 @@
 %\ref{tab:undecidable:FunctionsAndEquations}
 
 
-We look how formulae from these decidable fragments of first order logic 
+We look how formulae from these decidable fragments of first order logic
 (Tables \ref{tab:decidedable:FiniteModelProperty} and \ref{tab:decidable:InfinityAxioms})
 can be transformed nicely into equisatisfiable set of clauses.
 The transformation is easy for formulae where the quantifiers follow a specific pattern where the appearances of the universal quantifier is limited. First we remove leading existential quantifiers and replace their variables with Skolem constants.
-Then we remove the trailing existential quantifiers and replace there variables with Skolem functions where the variables of the universal quantifiers are the arguments. After that we remove the remaining universal quantifiers. We transform the remaining formula with constants, functions and a restricted number of free variables into (an equisatisfiable) conjunctive normal form with a suitable procedure. 
+Then we remove the trailing existential quantifiers and replace there variables with Skolem functions where the variables of the universal quantifiers are the arguments. After that we remove the remaining universal quantifiers. We transform the remaining formula with constants, functions and a restricted number of free variables into (an equisatisfiable) conjunctive normal form with a suitable procedure.
 
 \begin{definition}\label{def:prefix:class}
 	We describe classes of first order formulae in clausal normal form with triples
 	\[
 	_{_\CNF}\langle\, \pi, (p_1,p_2,\ldots), (f_1,f_2,\ldots)\,\rangle_{(=)}
 	\]
-	where $\pi$ is the maximal number of distinct variables (with multiple occurrences),
-	$p_i$ the maximal number of predicates symbols of arity $i$,
-	$f_i$ the maximal number of function symbols of arity $i$.
+	where \( \pi \) is the maximal number of distinct variables (with multiple occurrences),
+	\( p_i \) the maximal number of predicates symbols of arity \( i \),
+	\( f_i \) the maximal number of function symbols of arity \( i \).
 	The equality symbol is not counted as binary predicate symbol.
-	Instead the subscript $=$ indicates its presence.
+	Instead the subscript \( = \) indicates its presence.
 \end{definition}
 
 \begin{table}[hbt]
 \begin{align}
 \PNF& &&& \CNF& \tag*{}\\
-[\,\exists^{∗}\forall^{∗}, all, (0)&\,]_{=} 
+[\,\exists^{∗}\forall^{∗}, all, (0)&\,]_{=}
 &&\checkmark& _{_\CNF}\langle\,\omega,all, (0)&\,\rangle_{=}
 \label{tab:decidable:CNF:1}
 \\
-[\,\exists^{∗}\forall^2\exists^{∗} , all, (0)&\,] 
+[\,\exists^{∗}\forall^2\exists^{∗} , all, (0)&\,]
 &&\checkmark& _{_\CNF}\langle\,2, all, (0,\omega)&\,\rangle
 \label{tab:decidable:CNF:2}
 \\
@@ -47,8 +47,8 @@ Then we remove the trailing existential quantifiers and replace there variables 
 &&\checkmark& _{_\CNF}\langle\, 0, all, all&\,\rangle_{=}
 \label{tab:decidable:CNF:5}
 \\
- [\,all, (\omega), (1)&\,]_{=} 
-&&\supsetneq& {} _{_\CNF}\langle\,\omega, (\omega), (1)&\,\rangle_{=} 
+ [\,all, (\omega), (1)&\,]_{=}
+&&\supsetneq& {} _{_\CNF}\langle\,\omega, (\omega), (1)&\,\rangle_{=}
 \label{tab:decidable:CNF:6}
 \\
 [\,\exists^{∗}\forall\exists^{∗}, all, (1)&\,]_{=}
@@ -64,27 +64,27 @@ With the following transformation into clausal normal form
 we get one skolem constant per leading existential quantifier. And we get \ldots
 
 \begin{itemize}
-	\item[\ref{tab:decidable:CNF:1}] 
+	\item[\ref{tab:decidable:CNF:1}]
 	\ldots one free variable per trailing universal quantifier.
-	
+
 	\item[\ref{tab:decidable:CNF:2}]
-	\ldots one binary skolem function per trailing existential quantifier, 
+	\ldots one binary skolem function per trailing existential quantifier,
 	and two free variables for the two universal quantifiers in between.
-	
+
 	\item[\ref{tab:decidable:CNF:3}]
-	??? With Lemma \ref{lem:unaries:unaries} the class $[\,all, (\omega), (\omega)\,]$
-	is equivalent to $[\,\exists^{∗}\forall^{∗}, (\omega), (\omega)\,]$.
-	
+	??? With Lemma \ref{lem:unaries:unaries} the class \( [\,all, (\omega), (\omega)\,] \)
+	is equivalent to \( [\,\exists^{∗}\forall^{∗}, (\omega), (\omega)\,] \).
+
 	\item[\ref{tab:decidable:CNF:4}]
-	\ldots one unary skolem function per trailing existential quantifier, 
+	\ldots one unary skolem function per trailing existential quantifier,
 	and one free variable for the one universal quantifier in between.
-	
+
 	\item[\ref{tab:decidable:CNF:5}]
 	\ldots no free variables at all.
-	
+
 	\item[\ref{tab:decidable:CNF:6}]
-	The class $[\,all, (\omega), (1)\,]_=$
-	is bigger than class $[\,\exists^{∗}\forall^{∗}, (\omega), (1)\,]_=$.
+	The class \( [\,all, (\omega), (1)\,]_= \)
+	is bigger than class \( [\,\exists^{∗}\forall^{∗}, (\omega), (1)\,]_= \).
 \begin{align*}
 	\forall x \exists y\,&(\msucc(x)\mNE x\land \msucc(x)\mEQ y)\tag*{satisfiable}
 	\\
@@ -94,87 +94,87 @@ we get one skolem constant per leading existential quantifier. And we get \ldots
 \end{itemize}
 
 \begin{lemma}\label{lem:unaries:unaries}
-	??? A formula in $[\,all, (\omega), (\omega)\,]$ is equivalent / equisatisfiable 
-	to a formula in $[\,\exists^*\forall^*, (\omega), (\omega)\,]$.
+	??? A formula in \( [\,all, (\omega), (\omega)\,] \) is equivalent / equisatisfiable
+	to a formula in \( [\,\exists^*\forall^*, (\omega), (\omega)\,] \).
 \end{lemma}
 
-\begin{proof} ??? It is sufficient to show  
-	that $\forall x\exists y\,F\equiv\exists y\forall y\,F$
-%	where $\fvar(F)\subseteq\{x,y\}$
+\begin{proof} ??? It is sufficient to show
+	that \( \forall x\exists y\,F\equiv\exists y\forall y\,F \)
+%	where \( \fvar(F)\subseteq\{x,y\} \)
 	for unary predicate and function symbols.
-	We use structural induction on formula $F$.
+	We use structural induction on formula \( F \).
 	\begin{enumerate}
-		\item (base) Let $F$ be a literal,
-		i.e.~a (negated) predicate with one argument term $t$.
-		We abbreviate the literal with $L(z)$ if $\var(t) = \{ z \}$. 
+		\item (base) Let \( F \) be a literal,
+		i.e.~a (negated) predicate with one argument term \( t \).
+		We abbreviate the literal with \( L(z) \) if \( \var(t) = \{ z \} \).
 		\begin{gather*}
 			\forall x \exists y L(x)  \equiv \forall x L(x) \equiv {\colG \exists y} \forall x L(x)
 			\qquad\qquad
 			\forall x \exists y L(y)  \equiv \exists y L(y) \equiv \exists y{\colG \forall x}  L(y)
 		\end{gather*}
-		\item (step) Let $F$ be the negation of a formula.
+		\item (step) Let \( F \) be the negation of a formula.
 		\begin{gather*}
-		\forall x \exists y\, (\lnot G) 
+		\forall x \exists y\, (\lnot G)
 		\equiv \lnot (\exists x \forall y\, G)
-		\defEV[IH] \lnot (\forall y\exists x \, G) 
+		\defEV[IH] \lnot (\forall y\exists x \, G)
 		\equiv \exists y \forall x\, (\lnot G)
 		\end{gather*}
-		\item (step) Let $F$ be the junction $\landlor{}\in\{\land,\lor\}$ of a “free” literal, i.e.~$x,y\not\in\var(L)$, and a formula.
+		\item (step) Let \( F \) be the junction \( \landlor{}\in\{\land,\lor\} \) of a “free” literal, i.e.~\( x,y\not\in\var(L) \), and a formula.
 		\begin{gather*}
-		\forall x\exists y\,( L \landlor G) 
+		\forall x\exists y\,( L \landlor G)
 		\equiv L \landlor \forall x\exists y\, G
 		\defEV[IH]L \landlor \exists y\forall x\, G
 		\equiv\exists y\forall x\,( L \landlor G )
 		\end{gather*}
-		\item (step) Let $F$ be the conjunction of a “universal” literal and a formula.
+		\item (step) Let \( F \) be the conjunction of a “universal” literal and a formula.
 		\begin{align*}
-		\forall x \exists y\,({L(x)\land G}) 
+		\forall x \exists y\,({L(x)\land G})
 		&\equiv \forall x\,({L(x)} \land \exists y\,G)
 		\equiv \forall x\,L(x)\land \forall x\exists y\,G
 		\\&\defEV[IH] \forall x\,{L(x)} \land \exists y\forall x\,G
 		\equiv\exists y\,(\forall x\,L(x)\land \forall x\,G)
 		\equiv\exists y \forall x\,({L(x)\land G})
 		\end{align*}
-		\item (step) Let $F$ be the disjunction of an “existential” literal and a formula.
+		\item (step) Let \( F \) be the disjunction of an “existential” literal and a formula.
 		\begin{align*}
-		\exists x \forall y\,(L(x)\lor H) 
+		\exists x \forall y\,(L(x)\lor H)
 		&\equiv \lnot(\forall x\exists y\,(L^c(x)\land \lnot H)) \\
 		&\defEV[4.]\lnot( \exists y\forall x\,(L^c(x)\land \lnot H) )
 		\equiv \forall y \exists x\,(L(x)\lor H)
 		\end{align*}
-		
-		
+
+
 		\item (step)
-		Let $F$ be the disjunction of an “universal” literal and a formula.	
+		Let \( F \) be the disjunction of an “universal” literal and a formula.
 		\begin{align*}
-		\forall x \exists y\,(L(x)\lor G) 
-		&\equiv 
+		\forall x \exists y\,(L(x)\lor G)
+		&\equiv
 		\end{align*}
-		
+
 		\item (step)
-		Let $F$ be the conjunction of an “existential” literal and a formula.
+		Let \( F \) be the conjunction of an “existential” literal and a formula.
 		\begin{align*}
-		\exists x \forall y\,(L(x)\land G) 
-		&\equiv 
+		\exists x \forall y\,(L(x)\land G)
+		&\equiv
 		\end{align*}
-		
-		
+
+
 	\end{enumerate}
 \end{proof}
 
 
 
 %\begin{lemma}\label{lem:unaries:equals}
-%	??? A formula in $[\,all, (\omega), (1)\,]_=$ is equivalent / equisatisfiable 
-%	to a formula in $[\,\exists^*\forall^*, (\omega), (1)\,]_=$ ???
+%	??? A formula in \( [\,all, (\omega), (1)\,]_= \) is equivalent / equisatisfiable
+%	to a formula in \( [\,\exists^*\forall^*, (\omega), (1)\,]_= \) ???
 %\end{lemma}
 %
 %\begin{proof}
 %	\begin{enumerate}
-%		\item $\forall x \exists y\, x\mEQ y$
-%		\item $\forall x \exists y\, y\mEQ x$
+%		\item \( \forall x \exists y\, x\mEQ y \)
+%		\item \( \forall x \exists y\, y\mEQ x \)
 %	\end{enumerate}
-%		
+%
 %\end{proof}
 
 
@@ -233,11 +233,11 @@ we get one skolem constant per leading existential quantifier. And we get \ldots
 [\,\Pi_?, (p_1, {\colLo 1}), (0)\,] &\supsetneq&
 [\,\Pi_?, (p_1, {\colHi 0}), (0)\,]&\subseteq&
 [\,all,(\omega),(\omega)\,]
-\\[0.5em]		
+\\[0.5em]
 		\\ \\{}
-		[\,\forall\exists\forall, (\omega, 1), (0)\,] &\multirow{9}{*}{$\supsetneq$}&
-		\multirow{9}{*}{$[\,\Pi, (p_1, {\colHi 0}), (0)\,]$} &\multirow{9}{*}{$\subseteq$}&
-		\multirow{9}{*}{$[\,all,(\omega),(\omega)\,]$}
+		[\,\forall\exists\forall, (\omega, 1), (0)\,] &\multirow{9}{*}{\( \supsetneq \)}&
+		\multirow{9}{*}{\( [\,\Pi, (p_1, {\colHi 0}), (0)\,] \)} &\multirow{9}{*}{\( \subseteq \)}&
+		\multirow{9}{*}{\( [\,all,(\omega),(\omega)\,] \)}
 	\\{}
 	[\,\forall^3 \exists, (\omega, 1), (0)\,] &&
 	&&

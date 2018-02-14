@@ -4,21 +4,21 @@
 
 \begin{definition}\label{def:position}
 	A \coloremph{position} is a finite sequence of positive integers.
-	The root position is the empty sequence $\epsilon$.
-	The position $pq$ is obtained by concatenation of positions $p$ and $q$.
+	The root position is the empty sequence \( \epsilon \).
+	The position \( pq \) is obtained by concatenation of positions \( p \) and \( q \).
 	%
-	A position $p$ is \coloremph{above} a position $q$ if $p$ is a prefix of $q$,
-	i.e.~there exists a unique position $r$ such that $pr = q$,
-	we write $p\leq q$ and $q\backslash r = p$.
-	We write $p<q$ if $p$ is a proper prefix of $q$, i.e.~$p\leq q$ but $p\neq q$.
-	We define $\head(iq)=i$ and $\tail(iq) = q)$ for $i\in\mathbb{N}$, $q\in\mathbb{N}^*$,
-	further $\length(\epsilon)=0$, $\length(iq) = 1 + \length(q)$.
+	A position \( p \) is \coloremph{above} a position \( q \) if \( p \) is a prefix of \( q \),
+	i.e.~there exists a unique position \( r \) such that \( pr = q \),
+	we write \( p\leq q \) and \( q\backslash r = p \).
+	We write \( p<q \) if \( p \) is a proper prefix of \( q \), i.e.~\( p\leq q \) but \( p\neq q \).
+	We define \( \head(iq)=i \) and \( \tail(iq) = q) \) for \( i\in\mathbb{N} \), \( q\in\mathbb{N}^* \),
+	further \( \length(\epsilon)=0 \), \( \length(iq) = 1 + \length(q) \).
 %
-	Two positions $p\parallel q$ are parallel if none is above the other,
-	i.e.~for any common prefix $r$ both remaining tails
-	$p\backslash r$ and $q\backslash r$ are different and not root positions.
-	A position $p$ is left of position $q$ if $\head(p\backslash r) < \head(p\backslash r)$
-	for maximal common prefix $r$.
+	Two positions \( p\parallel q \) are parallel if none is above the other,
+	i.e.~for any common prefix \( r \) both remaining tails
+	\( p\backslash r \) and \( q\backslash r \) are different and not root positions.
+	A position \( p \) is left of position \( q \) if \( \head(p\backslash r) < \head(p\backslash r) \)
+	for maximal common prefix \( r \).
 
 \end{definition}
 \begin{definition}
@@ -62,7 +62,7 @@
 		\pos(\foxt) \setminus \{ \epsilon \}
 		& \text{if }\foxt\text{ is an atom}
 	}
-	the extraction of a subterm at a term position $p\in\posT(\foxt)$ from an atom or a term,
+	the extraction of a subterm at a term position \( p\in\posT(\foxt) \) from an atom or a term,
 %
 	\DEFINE{
 		\foxt|_p
@@ -71,7 +71,7 @@
 		\foxt_i|_q	& \text{if }t=\foxf(t_1,\ldots,t_n), p=iq, \foxf\in\mcFn
 	}
 	%
-	and the insertion of a term $s$ at a term position $p\in\posT(\foxt)$ into an atom or a term
+	and the insertion of a term \( s \) at a term position \( p\in\posT(\foxt) \) into an atom or a term
 	by replacing the subterm at that term position.
 	\DEFINE{
 		\foxt[s]_p}
@@ -80,11 +80,11 @@
 		\foxf(\foxt_1,\ldots,\foxt_i[s]_q,\ldots,\foxt_n)	& \text{if }t=\foxf(\foxt_1,\ldots,\foxt_n), p=iq,
 		\foxf\in\mcFn, 0 < i \leq n
 	}
-%where $p\neq\epsilon$ if $\foxt$ is an atom.
-	%A \coloremph{hole} denotes a special constant symbol $\ctxhole\in\mcFf^{(0)}$.
-	%A \coloremph{context} is a term $t$ with exactly one hole, i.e.~one occurrence $|t|_{\ctxhole}=1$.
-	We may write $\foxt[s]$ if $s$ is a subterm of $\foxt$
-	(at some term position $p\in\posT(\foxt)$, such that $\foxt|_p = s$).
-	With a follow up statement $\foxt[s']$ in the same scope we express
-	the replacement of subterm $s$ with term $s'$ in $\foxt$, i.e.~the application of $\foxt[s']_p$.
+%where \( p\neq\epsilon \) if \( \foxt \) is an atom.
+	%A \coloremph{hole} denotes a special constant symbol \( \ctxhole\in\mcFf^{(0)} \).
+	%A \coloremph{context} is a term \( t \) with exactly one hole, i.e.~one occurrence \( |t|_{\ctxhole}=1 \).
+	We may write \( \foxt[s] \) if \( s \) is a subterm of \( \foxt \)
+	(at some term position \( p\in\posT(\foxt) \), such that \( \foxt|_p = s \)).
+	With a follow up statement \( \foxt[s'] \) in the same scope we express
+	the replacement of subterm \( s \) with term \( s' \) in \( \foxt \), i.e.~the application of \( \foxt[s']_p \).
 \end{definition}

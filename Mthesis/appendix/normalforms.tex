@@ -4,7 +4,7 @@
 
 \noindent We can assume that each variable of a formula is quantified exactly once.
 \begin{enumerate}
-	\item For every subformula $\forall x\, G$ or $\exists x\, G$ of $F$ follows that $x\in\fvar(G)$.
+	\item For every subformula \( \forall x\, G \) or \( \exists x\, G \) of \( F \) follows that \( x\in\fvar(G) \).
 	\item A quantified variable does not appear outside the quantified subformula.
 \end{enumerate}
 We can achieve this by carefully renaming variables to unused variable names.
@@ -25,9 +25,9 @@ We can achieve this by carefully renaming variables to unused variable names.
 \end{example}
 
 \begin{definition}\label{def:syntax:PNF}
-	A first order formula $F = Q_1 x_1 \ldots Q_n x_n\, F'$
-	with quantifiers $Q_i\in\{\forall,\exists\}$,
-	quantifier-free subformula $F'$ with $\var(F') = \{ x_1,\ldots,x_n \}$
+	A first order formula \( F = Q_1 x_1 \ldots Q_n x_n\, F' \)
+	with quantifiers \( Q_i\in\{\forall,\exists\} \),
+	quantifier-free subformula \( F' \) with \( \var(F') = \{ x_1,\ldots,x_n \} \)
 	is in \coloremph{prenex normal form}.
 \end{definition}
 
@@ -56,7 +56,7 @@ We can achieve this by carefully renaming variables to unused variable names.
 	&
 	{\colG G \lor (\exists x F) \equiv{}} (\exists x F) \lor G &\equiv \exists x (F \lor G)
 	\end{align*}
-	whenever $x\not\in\var(G)$.
+	whenever \( x\not\in\var(G) \).
 \end{lemma}
 
 \begin{lemma}\label{lem:quantifier:equivalences}
@@ -79,7 +79,7 @@ We can achieve this by carefully renaming variables to unused variable names.
 		&
 		(\forall x F) \lor (\exists y G) &\equiv \exists y \forall x (F\lor G)
 	\end{align*}
-	whenever $x\not\in\fvar(G)$ and $y\not\in\fvar(F)$.
+	whenever \( x\not\in\fvar(G) \) and \( y\not\in\fvar(F) \).
 \end{lemma}
 
 \begin{remark}

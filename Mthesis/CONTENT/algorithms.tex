@@ -13,12 +13,12 @@ The recursive definition of the syntax of terms, atoms and literal suggest a tre
 \begin{tikzpicture}[->,>=stealth',level/.style={sibling distance = 2cm/#1,
 	level distance = 0.8cm}]
 
-\node { $\lnot$ }
+\node { \( \lnot \) }
 	child {
-		node { $\mP$ }
-		child { node {$x$} }
-		child { node {$\mf$}
-			child { node {$x$} }
+		node { \( \mP \) }
+		child { node {\( x \)} }
+		child { node {\( \mf \)}
+			child { node {\( x \)} }
 		}
 	}
 ;
@@ -59,14 +59,14 @@ with respect to a given calculus, e.g. ordered resolution.
 \subsection{Given Clause Algorithm}\label{sec:given:clause:algorithm}
 
 \begin{procedure}[Given Clause Algorithm]
-	We start with a set of clauses $S = P \disjointunion U$,
-	where $P$ is a set of \coloremph{passive} clauses
-	and $U$ is the initially empty set of \coloremph{active} (or used) clauses.
+	We start with a set of clauses \( S = P \disjointunion U \),
+	where \( P \) is a set of \coloremph{passive} clauses
+	and \( U \) is the initially empty set of \coloremph{active} (or used) clauses.
 	\begin{enumerate}
-		\item[\jek] Whenever we can conclude unsatisfiability of $S$
-		we exit the procedure with $\lnot\SAT$.
+		\item[\jek] Whenever we can conclude unsatisfiability of \( S \)
+		we exit the procedure with \( \lnot\SAT \).
 		\setcounter{enumi}{0}
-		\item If $P$ is empty we exit and return \SAT.
+		\item If \( P \) is empty we exit and return \SAT.
 		\item We select a passive clause, i.e.~the given clause. \jek
 		\item We iterate over the active clauses and check for applicable inference rule
 		for each pair of an active and the given clause
@@ -81,11 +81,11 @@ the active clauses are on the left of the given clause,
 and the passive clauses are on the right.
 Each line represents one iteration of our procedure 3.
 %
-In both examples we start with the unsatisfiable set of clauses $S=\{\, \mP(\ma)\lor\mQ(a), \mP(\ma)\lor\lnot\mQ(y), \lnot\mP(x) \,\}$.
+In both examples we start with the unsatisfiable set of clauses \( S=\{\, \mP(\ma)\lor\mQ(a), \mP(\ma)\lor\lnot\mQ(y), \lnot\mP(x) \,\} \).
 
 \subsubsection{Ordered Resolution}
 
-\jek$\ \Leftarrow\emptyclause\in S_i$. We conclude unsatisfiability of $S$ whenever the empty clause is found (already present or derived).
+\jek\( \ \Leftarrow\emptyclause\in S_i \). We conclude unsatisfiability of \( S \) whenever the empty clause is found (already present or derived).
 New clauses are disjunctions of instances of an active and the given clause where conflicting literals were removed,
 in other words the union of the two instances without the contradicting literals.
 \begin{gather*}
@@ -96,7 +96,7 @@ in other words the union of the two instances without the contradicting literals
 }
 \end{gather*}
 
-\begin{example}[Ordered Resolution] We assume $\mP(\ma)\succ\mQ(\ma)$,
+\begin{example}[Ordered Resolution] We assume \( \mP(\ma)\succ\mQ(\ma) \),
 	underline the maximal literal the given clauses,
 	color conflicts red,
 	 and derive the empty clause in the fifth iteration.
@@ -134,7 +134,7 @@ in other words the union of the two instances without the contradicting literals
 
 \subsubsection{InstGen}
 
-\jek$\ \Leftarrow \lnot\SAT(S_i\bot)$. We conclude unsatisfiability of $S$ whenever (a subset of) $S_i\bot$ -- a set of ground instances -- is unsatisfiable.
+\jek\( \ \Leftarrow \lnot\SAT(S_i\bot) \). We conclude unsatisfiability of \( S \) whenever (a subset of) \( S_i\bot \) -- a set of ground instances -- is unsatisfiable.
 We consider only proper instances of an active and the given clause as probable new clauses to extend the set of clauses.
 \begin{gather*}
 	\infer[\sigma=\{ x'\mapsto\mf(x), y\mapsto\mg(y') \}]{
@@ -148,8 +148,8 @@ We consider only proper instances of an active and the given clause as probable 
 
 
 \begin{example}[InstGen]The active and given clauses are already encoded and given to a \SAT solver.
-	The basic given clause algorithm would stop and fail after $(4)$
-	since $S_4\bot$ is still satisfiable and there is no conflict between the underlined selected literal of the given clause
+	The basic given clause algorithm would stop and fail after \( (4) \)
+	since \( S_4\bot \) is still satisfiable and there is no conflict between the underlined selected literal of the given clause
 	and any selected literals of any of the active clauses.
 
 
@@ -285,7 +285,7 @@ Naively we can just scan through all existing clauses and check each clause for 
 	the workload for checking a pair of clauses.
 	The latter includes unification, which is at least linear to the size of clauses \cite{ALBERT19933},
 	while Robinson's unification algorithm \cite{Robinson:1965:MLB:321250.321253} is exponential in the worst case.
-	The complexity for this direct approach of processing $n$ clauses of fixed size (i.e.~constant unification costs per pair) is $\mcO(n^2)$.
+	The complexity for this direct approach of processing \( n \) clauses of fixed size (i.e.~constant unification costs per pair) is \( \mcO(n^2) \).
 
 \input{samples/termindexing}
 

@@ -58,11 +58,11 @@ For example we must not remove the derived proper instance
 
 \section{Unit Paramodulation}
 \begin{definition}
-    A closure is a pair $(C,\sigma)$ of a clause $C$ and a substitution $\sigma$,
-    conveniently written as $C\cdot\sigma$. Two closures $C\cdot\sigma = D\cdot\tau$
-    are the same if $C$ is a variant of $D$ and $C\sigma$ is a variant of $D\tau$.
-    Note the different meaning of a closure $C\cdot\sigma$ representing a clause $C\sigma$
-    --- the result of applying substitution $\sigma$ to $C$.
+    A closure is a pair \( (C,\sigma) \) of a clause \( C \) and a substitution \( \sigma \),
+    conveniently written as \( C\cdot\sigma \). Two closures \( C\cdot\sigma = D\cdot\tau \)
+    are the same if \( C \) is a variant of \( D \) and \( C\sigma \) is a variant of \( D\tau \).
+    Note the different meaning of a closure \( C\cdot\sigma \) representing a clause \( C\sigma \)
+    --- the result of applying substitution \( \sigma \) to \( C \).
     A ground closure represents a ground clause.
 \end{definition}
 
@@ -95,7 +95,7 @@ where
 \end{definition}
 
 \section{Redundancy and Saturation}
-    We assume $\succ, \succG, \succL, \succC, \succ_\mL$
+    We assume \( \succ, \succG, \succL, \succC, \succ_\mL \)
     as used and defined in
     Section \vref{sec:literal:clause:orderings}.
     \IMPROVE{use consolidated ordering symbols}
@@ -107,8 +107,8 @@ where
     i.e.~all terms \(\sigma(x)\) with
     \( x\in\domain(\sigma) \) are irreducible (normal forms) w.r.t.~TRS \(R\).
     % 4.2
-    Let $R$ be an arbitrary ground rewrite system
-    and $\mcL$ a set of literals closures.
+    Let \( R \) be an arbitrary ground rewrite system
+    and \( \mcL \) a set of literals closures.
     With
     \begin{align*}
         \irred_R(\mcL) &= \{ L\cdot\sigma \mid L\cdot\sigma\in\mcL,
@@ -119,14 +119,14 @@ where
             \}
     \end{align*}
     % 4.4 %
-    we call a literal closure $L\cdot\sigma$ \coloremph{UP-redundant}
-    in set of literal closures $\mcL$
+    we call a literal closure \( L\cdot\sigma \) \coloremph{UP-redundant}
+    in set of literal closures \( \mcL \)
     if
     \[
         R \cup \irred_R(\mcL_{L\cdot\sigma\succL}) \entails L\sigma
     \]
-    holds for every ground rewrite system $R$ oriented by $\succG$
-    where $\sigma$ is irreducible w.r.t.\,$R$.
+    holds for every ground rewrite system \( R \) oriented by \( \succG \)
+    where \( \sigma \) is irreducible w.r.t.\,\( R \).
     We distill all UP-redundant closures in \( \mcL \) to the set
     \( \mcR_{UP}(\mcL) \).
     \[
@@ -138,16 +138,16 @@ where
         \}
     \]
 
-    % denotes the set of all closures in $\mcL$ less than
+    % denotes the set of all closures in \( \mcL \) less than
 \end{definition}
 
 % 5.3
 \begin{lemma}
-    Let $R$ be a ground rewrite system and UP is applicable to
+    Let \( R \) be a ground rewrite system and UP is applicable to
     \( (l\mEQ r)\cdot\sigma, L[l']\cdot\sigma' \)
     with conclusion
     \( L[r]\theta\cdot\rho \).
-    If $\sigma,\sigma'$ are irreducible w.r.t.~R then $\rho$ is irreducible w.r.t.~R.
+    If \( \sigma,\sigma' \) are irreducible w.r.t.~R then \( \rho \) is irreducible w.r.t.~R.
 \end{lemma}
 
 \begin{proof}
@@ -160,17 +160,17 @@ where
             {(l\mEQ r)\cdot\sigma & L[l']\cdot\sigma'}
     \end{gather*}
     where
-        $l'=l\theta$,
-        $l\sigma\succG r\sigma$,
-        $l\sigma = l'\sigma$,
-        $\var(r)\subseteq\var(l)$,
-        $L[l']\sigma'\succG(l\mEQ r)\sigma$.
+        \( l'=l\theta \),
+        \( l\sigma\succG r\sigma \),
+        \( l\sigma = l'\sigma \),
+        \( \var(r)\subseteq\var(l) \),
+        \( L[l']\sigma'\succG(l\mEQ r)\sigma \).
     \end{definition}
 
 \begin{example}
-    Let $g\succ f$,
-    $\sigma = \{ x\mapsto \ma, y\mapsto \mb \}$,
-    $\sigma' = \{ x'\mapsto \ma, y'\mapsto \mb \}$
+    Let \( g\succ f \),
+    \( \sigma = \{ x\mapsto \ma, y\mapsto \mb \} \),
+    \( \sigma' = \{ x'\mapsto \ma, y'\mapsto \mb \} \)
     \begin{align*}
     \infer[
         \theta = \{ x\mapsto x', y\mapsto y'\}
@@ -193,7 +193,7 @@ where
     of sets of literal closures where
     \( \mcL_{i+1} \) can be obtained from
     \( \mcL_i \)
-    by \coloremph{adding} a conclusion of an UP-inference with premises in $\mcL_i$
+    by \coloremph{adding} a conclusion of an UP-inference with premises in \( \mcL_i \)
     or by \coloremph{removing} a UP-redundant w.r.t.~\(\mcL_i\) closure:
     \begin{gather*}
         \mcL_{i+1} = \left\{
@@ -238,7 +238,7 @@ where
     \( \mcL^{sat} = \mcL^\infty\backslash\mcR_{UP}(\mcL^\infty) \)
     for some UP-saturation process
     \( \{ \mcL_i\}_{i=0}^\infty \)
-    with $\mcL_0 = \mcL$.
+    with \( \mcL_0 = \mcL \).
 \end{definition}
 
 \begin{lemma}
@@ -248,7 +248,7 @@ where
         \}_{i=0}^\infty\) and
         \(\{ \mcL'_i
         \}_{i=0}^\infty\)
-        with $\mcL_0 = \mcL'_0$ we have
+        with \( \mcL_0 = \mcL'_0 \) we have
         \begin{gather*}
             \mcL^\infty \backslash \mcR_{UP}(\mcL^\infty)
             =
@@ -258,24 +258,24 @@ where
 
 % 5.2
 \begin{definition}
-    Let $S$ be a set of clauses.
-    A ground closure $C$ is \coloremph{Inst-redundant} in $S$
-    if there exist closures $C_1,\ldots,C_k$
-    that are ground instances of $S$ such that
+    Let \( S \) be a set of clauses.
+    A ground closure \( C \) is \coloremph{Inst-redundant} in \( S \)
+    if there exist closures \( C_1,\ldots,C_k \)
+    that are ground instances of \( S \) such that
     \begin{align*}
-        C \succC C_i \tag*{for all $i=1,\ldots,k$} \\
+        C \succC C_i \tag*{for all \( i=1,\ldots,k \)} \\
         C_1,\ldots,C_k\entails C
     \end{align*}
 
-    A (possibly non-ground) clause $C'$ is called Inst-redundant
-    if each ground closure $C\cdot\sigma$ is Inst-redundant in S.
-    The set $\mcR_{Inst}(S)$ denotes the set of all Inst-redundant clauses/closures in S.
+    A (possibly non-ground) clause \( C' \) is called Inst-redundant
+    if each ground closure \( C\cdot\sigma \) is Inst-redundant in S.
+    The set \( \mcR_{Inst}(S) \) denotes the set of all Inst-redundant clauses/closures in S.
 \end{definition}
 
 \begin{definition}
-    Consider a set of clauses $S$, a model $I_\bot$ of $S_\bot$,
-    and a \coloremph{selection funtion} $\sel$ based on $I_\bot$
-    that maps clauses to literals such that for all $C\in S$
+    Consider a set of clauses \( S \), a model \( I_\bot \) of \( S_\bot \),
+    and a \coloremph{selection funtion} \( \sel \) based on \( I_\bot \)
+    that maps clauses to literals such that for all \( C\in S \)
     \begin{gather*}
         \sel(C)=L \in C
         \qquad
@@ -284,8 +284,8 @@ where
         I_\bot \entails L\bot
     \end{gather*}
     % 5.4
-    We define a set of \coloremph{S-relevant} instances of literals $\mcL_S$
-    as the set of all literal closures $L\cdot\sigma$ such that
+    We define a set of \coloremph{S-relevant} instances of literals \( \mcL_S \)
+    as the set of all literal closures \( L\cdot\sigma \) such that
     \begin{gather*}
         L\lor C\in S
         \qquad
@@ -293,17 +293,17 @@ where
         \qquad
         L = \sel(L\lor C)
     \end{gather*}
-    Then let $\mcL_S^{sat}$ denote the UP-saturation process of $\mcL_S$.
+    Then let \( \mcL_S^{sat} \) denote the UP-saturation process of \( \mcL_S \).
     % 5.5
-    A set of clauses is \coloremph{Inst-saturated} w.r.t.~a selection function $\sel$
-    if $\emptyclause\not\in\mcL_S^{sat}$.
+    A set of clauses is \coloremph{Inst-saturated} w.r.t.~a selection function \( \sel \)
+    if \( \emptyclause\not\in\mcL_S^{sat} \).
 \end{definition}
 
 % 5.7 b
 \begin{definition}[model construction]
-    By induction on $\succL$
-    a candidate model for $S$ is constructed
-    based on $\mcL_S^{sat}$.
+    By induction on \( \succL \)
+    a candidate model for \( S \) is constructed
+    based on \( \mcL_S^{sat} \).
 
     \begin{align*}
         \mcL_S^{sat} &=
@@ -320,23 +320,23 @@ where
 
 % 5.7
 \begin{theorem}
-    An Inst-saturated set of clauses $S$ is satisfiable if $S\bot$ is satisfiable.
-    % If for a given set of clauses $S$
-    % the set of ground instances $S\bot$ is satisfiable
-    % and $S$ is Inst-saturated
-    % with selection function $\sel_\bot$ based
-    % on model $I_\bot$ for $S\bot$
+    An Inst-saturated set of clauses \( S \) is satisfiable if \( S\bot \) is satisfiable.
+    % If for a given set of clauses \( S \)
+    % the set of ground instances \( S\bot \) is satisfiable
+    % and \( S \) is Inst-saturated
+    % with selection function \( \sel_\bot \) based
+    % on model \( I_\bot \) for \( S\bot \)
     % then S is satisfiable.
 \end{theorem}
 
 
 
 \begin{proof}
-    We assume an Inst-saturated set of clauses $S$,
-    where $S\bot$ is satisfiable with a model $I_\bot$,
-    a function $\sel$ from clauses to literals is based on $I_\bot$,
-    $\mcL_S$ contains the S-relevant instances of (selected) literals,
-    and $\mcL_S^{sat}$ does not contain the empty clause.
+    We assume an Inst-saturated set of clauses \( S \),
+    where \( S\bot \) is satisfiable with a model \( I_\bot \),
+    a function \( \sel \) from clauses to literals is based on \( I_\bot \),
+    \( \mcL_S \) contains the S-relevant instances of (selected) literals,
+    and \( \mcL_S^{sat} \) does not contain the empty clause.
 
 
 
@@ -350,9 +350,9 @@ where
 
 % 5.7k
 \begin{lemma}
-    If $M\cdot\tau \in \mcL_S^{sat}$,
-    $M\cdot\tau$ is irreducible by $R_s$,
-    and $M\cdot$ is not productive, then
+    If \( M\cdot\tau \in \mcL_S^{sat} \),
+    \( M\cdot\tau \) is irreducible by \( R_s \),
+    and \( M\cdot \) is not productive, then
     \begin{gather}
         I_{M\cdot\tau} \models (\lnot M)\tau
     \end{gather}

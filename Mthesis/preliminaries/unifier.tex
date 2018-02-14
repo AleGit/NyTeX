@@ -4,14 +4,14 @@
 
 \begin{definition}\label{def:unifier}
 Two first order expressions [\(\mct, \mcu\) are \coloremph{unifiable} if there exists a \coloremph{unifier},
-i.e.~a substitution $\sigma$ such that $\mct\sigma=\mcu\sigma$.
-The \coloremph{most general unifier} $\mgu(\mct,\mcu)$ is a unifier such that
-for every other unifier $\sigma'$ there exists a substitution $\tau$ where
-$\sigma' = \sigma \tau$.
+i.e.~a substitution \( \sigma \) such that \( \mct\sigma=\mcu\sigma \).
+The \coloremph{most general unifier} \( \mgu(\mct,\mcu) \) is a unifier such that
+for every other unifier \( \sigma' \) there exists a substitution \( \tau \) where
+\( \sigma' = \sigma \tau \).
 Two literals are variants if their most general unifier is a renaming.
 Two literals are \coloremph{clashing} when the first literal
 and the complement of the second literal are unifiable,
-i.e.~literals $L'$ and $L$ are clashing if $\mgu(L', L^c)$ exists.
+i.e.~literals \( L' \) and \( L \) are clashing if \( \mgu(L', L^c) \) exists.
 \end{definition}
 
 \begin{remark}
@@ -19,6 +19,6 @@ i.e.~literals $L'$ and $L$ are clashing if $\mgu(L', L^c)$ exists.
 \end{remark}
 
 \begin{example}
-	Literals $\mP(x)$ and $\lnot\mP(\mf(\ma,y))$
-	are clashing by unifier $\{ x\mapsto \mf(\ma,y)\}$.
+	Literals \( \mP(x) \) and \( \lnot\mP(\mf(\ma,y)) \)
+	are clashing by unifier \( \{ x\mapsto \mf(\ma,y)\} \).
 \end{example}

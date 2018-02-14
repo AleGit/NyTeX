@@ -178,8 +178,8 @@
 \newcommand{\mcTf}{\mcT_\mf}						% terms (short)
 \newcommand{\mcTFf}{{\mcT(\mcF_\mf,\emptyset)}}		% ground terms (long)
 \newcommand{\mcTFfV}{{\mcT(\mcF_\mf,\mcV)}}		% terms (long)
-\newcommand{\mcPT}{{\mcP(\mcFP,\mcTf})}				% predicates
-\newcommand{\mcET}{{\mcE(\mEQ, \mcTf})}				% equations
+\newcommand{\mcPT}{\mcP(\mcFP,\mcTf)}				% predicates
+\newcommand{\mcET}{\mcE(\mEQ, \mcTf)}				% equations
 
 
 \newcommand{\mNF}[1]{\mathsf{NF}(#1)}	% Normal Form
@@ -304,11 +304,11 @@
 \newcommand{\Yices}{\texttt{Yices\;2}\xspace}
 \newcommand{\Ziii}{\texttt{Z3}\xspace}
 
-\newcommand{\landlor}{\mathrel{\ooalign{\hss$\land$\hss\cr$\lor$}}}
-%\newcommand{\limpxor}{\mathrel{\ooalign{\hss$\limp$\hss\cr$\oplus$}}}
+\newcommand{\landlor}{\mathrel{\ooalign{\hss\( \land \)\hss\cr\( \lor \)}}}
+%\newcommand{\limpxor}{\mathrel{\ooalign{\hss\( \limp \)\hss\cr\( \oplus \)}}}
 \newcommand{\quantify}{{\rotatebox[origin=c]{180}{\textsf{\AE}}}\!}
 %\newcommand{\junction}{\landlor}
-\newcommand{\logical}{\mathrel{\ooalign{\hss$\landlor$\hss\cr$\limp$}}}
+\newcommand{\logical}{\mathrel{\ooalign{\hss\( \landlor \)\hss\cr\( \limp \)}}}
 
 \newcommand{\prompt}{\$}
 \newcommand{\proves}{\vdash}
@@ -317,11 +317,11 @@
 \newcommand{\equival}{\equiv}
 \newcommand{\equisat}{%
 	\mathrel{\vcenter{\offinterlineskip
-			\hbox{$\sim$}\vskip-.35ex\hbox{$\sim$}\vskip-.35ex\hbox{$\sim$}}}}
+			\hbox{\( \sim \)}\vskip-.35ex\hbox{\( \sim \)}\vskip-.35ex\hbox{\( \sim \)}}}}
 
 
 %\newcommand{\jek}{(\Lightning?)}
-\newcommand{\jek}{(\Lightning$_\true^?$)}
+\newcommand{\jek}{(\Lightning\( _\true^? \))}
 
 \newcommand{\MAXIMAL}[1]{\boxed{\color{colMAXIMAL}#1}}
 \newcommand{\STRICTLY}[1]{\boxed{\color{colSTRICTLY}#1}}

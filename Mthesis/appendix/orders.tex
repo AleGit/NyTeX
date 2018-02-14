@@ -5,8 +5,8 @@
 
 \begin{definition}
 	A \coloremph{partial order} is a reflexive, transitive, and antisymmetric binary relation,
-	i.e.~$\sqsubseteq$ is a partial order on $A$ if
-	the following three clauses hold for arbitrary elements $x,y,z$ in $A$.
+	i.e.~\( \sqsubseteq \) is a partial order on \( A \) if
+	the following three clauses hold for arbitrary elements \( x,y,z \) in \( A \).
 	\begin{align*}
 	x\sqsubseteq x
 	\tag*{reflexivivity}
@@ -21,7 +21,7 @@
 
 \begin{definition}
 	A \coloremph{proper order} is a irreflexive and transitive binary relation,
-	i.e.~$\sqsubset$ is a proper order on $A$ if the following two clauses hold.
+	i.e.~\( \sqsubset \) is a proper order on \( A \) if the following two clauses hold.
 	\begin{align*}
 	x\not\sqsubset x
 	\tag*{irreflexivivity}
@@ -29,7 +29,7 @@
 	x\not\sqsubset y \lor  y \not\sqsubset z \lor x\sqsubset z
 	\tag*{transitivity}
 	\end{align*}
-	always hold for arbitrary elements $x,y,z$ in $A$.
+	always hold for arbitrary elements \( x,y,z \) in \( A \).
 \end{definition}
 
 \begin{definition}
@@ -40,7 +40,7 @@
 \end{definition}
 
 \begin{example}
-	By definition the empty relation $\emptyset \subseteq A \times A$ is a
+	By definition the empty relation \( \emptyset \subseteq A \times A \) is a
 	irreflexive,
 	transitive,
 	symmetric,
@@ -55,7 +55,7 @@
 	\begin{align*}
 	x\not\sqsubset y &\lor y\not\sqsubset x \tag*{asymmetry}
 	\end{align*}
-	always holds for arbitrary $x$ and $y$ in $A$.
+	always holds for arbitrary \( x \) and \( y \) in \( A \).
 \end{lemma}
 
 \begin{proof} We use resolution to derive asymmetry from irreflectivity and transitivity.
@@ -67,7 +67,7 @@
 	\]
 \end{proof}
 
-\begin{example}The strict subset relation $\subsetneq$ over a power set is a proper order, but not a total,
+\begin{example}The strict subset relation \( \subsetneq \) over a power set is a proper order, but not a total,
 	e.g. for the power set over natural numbers we have
 	\[
 	\{ 1 \} \not\subsetneq \{ 2 \}
@@ -80,14 +80,14 @@
 
 
 \begin{definition}
-	A binary relation $\supset$ is \coloremph{well-founded} on a set $A$ if there is no infinite sequence
-	$(a_i)_{i\in\mathbb{N}}$ of $a_i\in A$
-	with $a_i\supset a_{i+1}$ for all $i\in\mathbb{N}$.
+	A binary relation \( \supset \) is \coloremph{well-founded} on a set \( A \) if there is no infinite sequence
+	\( (a_i)_{i\in\mathbb{N}} \) of \( a_i\in A \)
+	with \( a_i\supset a_{i+1} \) for all \( i\in\mathbb{N} \).
 \end{definition}
 
 \begin{example}
-	The strict superset relation $\supsetneq$ on finite sets is well-founded.
-	The canonical greater than relation $>$ is well founded on natural numbers,
+	The strict superset relation \( \supsetneq \) on finite sets is well-founded.
+	The canonical greater than relation \( > \) is well founded on natural numbers,
 	but not on integers or positive rational numbers.
 	\begin{gather*}
 	-1 > -2 > \ldots > -(2^i) > -(2^{i+1}) > \ldots\\

@@ -63,26 +63,26 @@ were introduced and proven in the first half of the 20th century.
 \end{lemma}
 
 \begin{theorem}[Compactness, Gödel 1930, Maltsev 1936]\label{the:compactness}
-	If every finite subset of a set of formulas $S$ has a model then $S$ has a model.
+	If every finite subset of a set of formulas \( S \) has a model then \( S \) has a model.
 \end{theorem}
 
 \begin{theorem}[Löwenheim Skolem, 1915, 1920]\label{the:loewenheim}
-	If a set of formulas $S$ has a model then $S$ has a countable model.
+	If a set of formulas \( S \) has a model then \( S \) has a countable model.
 \end{theorem}
 
 \begin{theorem}[Herbrand, 1930]\label{the:herbrand}
-	Let $S$ be a set of clauses without equality. Then the following statements are equivalent.
+	Let \( S \) be a set of clauses without equality. Then the following statements are equivalent.
 	\begin{itemize}
-		\item $S$ is satisfiable.
-		\item $S$ has a Herbrand model.
-		\item Every finite subset of all ground instances of $S$ has a Herbrand model.
+		\item \( S \) is satisfiable.
+		\item \( S \) has a Herbrand model.
+		\item Every finite subset of all ground instances of \( S \) has a Herbrand model.
 	\end{itemize}
 \end{theorem}
 
 \begin{corollary}
-	Let $S$ be a set of clauses without equality.
-	Then $S$ is unsatisfiable if and only if there exists
-	an unsatisfiable finite set of ground instances of $S$.
+	Let \( S \) be a set of clauses without equality.
+	Then \( S \) is unsatisfiable if and only if there exists
+	an unsatisfiable finite set of ground instances of \( S \).
 \end{corollary}
 
 \begin{lemma}
@@ -108,13 +108,13 @@ of first-order logic where satisfiability is decidable.\footnote{
 	\[
 	[\, \Pi, (p_1,p_2,\ldots), (f_1,f_2,\ldots)\,]_{(\mEQ)} \subseteq [\, all, all, all\,]_{\mEQ}
 	\]
-	where $\Pi = \quantify_1 \ldots \quantify_n$, $\quantify_i\in\{\forall,\exists\}$
+	where \( \Pi = \quantify_1 \ldots \quantify_n \), \( \quantify_i\in\{\forall,\exists\} \)
 	describes the structure of the quantifier prefix (without variables) of the formulae,
-	the value $p_i$ is the maximal number of predicate symbols with arity $i$,
-	and the value $f_i$ the maximal number of function symbols with arity $i$ in the signature.
+	the value \( p_i \) is the maximal number of predicate symbols with arity \( i \),
+	and the value \( f_i \) the maximal number of function symbols with arity \( i \) in the signature.
 	The equality symbol is not counted as binary predicate symbol. Instead,
 	the absence or presence of equality in the formulae
-	is indicated by the absence or presence of a subscript $\mEQ$.
+	is indicated by the absence or presence of a subscript \( \mEQ \).
 \end{definition}
 
 \begin{example}\label{ex:monadic}
@@ -191,7 +191,7 @@ We follow definitions and examples in \cite{AM2015L}.
 
 \begin{definition}[Theory]
 	A \coloremph{first-order theory} is a pair of a first-order signature
-	and the possible infinite conjunction $\bigwedge_i A_i$ of first-order formulae,
+	and the possible infinite conjunction \( \bigwedge_i A_i \) of first-order formulae,
 	i.e.~the axioms, over the theory's signature.
 	A theory is \coloremph{consistent} if the contradiction is not derivable.
 	A theory is satisfiable if there exists a model for its axioms.
@@ -207,7 +207,7 @@ We follow definitions and examples in \cite{AM2015L}.
 \end{definition}
 
 \begin{example}
-A theory with axioms $\forall x\,\mP(x)$ and $\exists x\,\lnot\mP(x)$ is neither consistent nor satisfiable.
+A theory with axioms \( \forall x\,\mP(x) \) and \( \exists x\,\lnot\mP(x) \) is neither consistent nor satisfiable.
 \end{example}
 
 \begin{lemma}
@@ -233,7 +233,7 @@ to conclude that the conjecture is indeed a theorem.
 The following equivalence and congruence axioms form the theory of equality over a first order signature.
 
 \begin{definition}
-	[Equivalence] A binary relation $\mEQ$ over a domain
+	[Equivalence] A binary relation \( \mEQ \) over a domain
 	is an equivalence relation if and only if the following axioms hold over the given domain.
 	\label{def:equivalence:axioms}
 \begin{align*}
@@ -251,31 +251,31 @@ The following equivalence and congruence axioms form the theory of equality over
 \end{align*}
 \end{definition}
 
-\begin{definition}[$\vec{x}$-Notation]
-	Occasionally we may abbreviate a sequence of $n$ variables by $\vec{x}$.
-	Then we write $\mcf(\vecn{x})$
-	for first-order expression $\mcf(x_1,\ldots,x_n)$
-	with n-ary function or predicate symbol $\mcf$,
-%	 $\mcf\in\mcFn$,
-	a single equation $\vecn{x}\mEQ\vecn{y}$ for
-	the conjunction of $n$ equations
-	$x_1\mEQ y_1\land\ldots\land x_n\mEQ y_n$,
-	and $\forall\vecn{x}$ for
-	the sequence of quantified variables $\forall x_1\ldots\forall x_n$.
+\begin{definition}[\( \vec{x} \)-Notation]
+	Occasionally we may abbreviate a sequence of \( n \) variables by \( \vec{x} \).
+	Then we write \( \mcf(\vecn{x}) \)
+	for first-order expression \( \mcf(x_1,\ldots,x_n) \)
+	with n-ary function or predicate symbol \( \mcf \),
+%	 \( \mcf\in\mcFn \),
+	a single equation \( \vecn{x}\mEQ\vecn{y} \) for
+	the conjunction of \( n \) equations
+	\( x_1\mEQ y_1\land\ldots\land x_n\mEQ y_n \),
+	and \( \forall\vecn{x} \) for
+	the sequence of quantified variables \( \forall x_1\ldots\forall x_n \).
 \end{definition}
 
 \begin{definition}
-	[Congruence schemata] An equivalence relation $\mEQ$ is a congruence relation if and only if
+	[Congruence schemata] An equivalence relation \( \mEQ \) is a congruence relation if and only if
 	the following formulae hold
 	\label{def:congruence:schemata}
 	\begin{align*}
 	\forall\vecn{x}\,\forall\vecn{y}\,
 	&\left(\vecn{x}\mEQ\vecn{y} \limp \mf(\vecn{x}) \mEQ \mf(\vecn{y}) \right)
-	\tag*{for all $\mf\in\mcFfn$}
+	\tag*{for all \( \mf\in\mcFfn \)}
 	\\
 	\forall\vecn{x}\,\forall\vecn{y}\,
 	&\left(\vecn{x}\mEQ\vecn{y} \limp (\mP(\vecn{x}) \limp \mP(\vecn{y}))\right)
-	\tag*{for all $\mP\in\mcFPn$}
+	\tag*{for all \( \mP\in\mcFPn \)}
 	\end{align*}
 
 
@@ -366,18 +366,18 @@ The following axioms characterize natural numbers, addition, and multiplication.
 \begin{definition}
 	[Natural Numbers]
 	\label{def:natural:numbers:axioms}
-	We introduce a fresh constant $0\in\mcFn[0]$,
-	a unary successor symbol $\msucc\in\mcFn[1]$
+	We introduce a fresh constant \( 0\in\mcFn[0] \),
+	a unary successor symbol \( \msucc\in\mcFn[1] \)
 	and restrict their models with two axioms.
 \begin{align*}
 \forall x\, &(\msucc(x) \mNE 0)
 \tag*{zero is smallest}
 \\ %–––––––––––––––––––––––––––
 \forall x \forall y\, &(\msucc(x) \mEQ \msucc(y) \limp x \mEQ y)
-\tag*{injectivity of $\msucc$}
+\tag*{injectivity of \( \msucc \)}
 \\
 \colG\forall x\forall y\,&\colG(x\mEQ y \limp \msucc(x)\mEQ\msucc(y))
-\tag*{congruence of $\msucc$}
+\tag*{congruence of \( \msucc \)}
 \\
 \underbrace{G(0)}_{\text{base}}
 \land\, \forall x'\,&
@@ -390,7 +390,7 @@ The following axioms characterize natural numbers, addition, and multiplication.
 \end{definition}
 
 \begin{example}
-	We may prove $\forall x\, (\msucc(x) \mNE x)$ with $G(x) = \msucc(x) \mNE x$ by induction.
+	We may prove \( \forall x\, (\msucc(x) \mNE x) \) with \( G(x) = \msucc(x) \mNE x \) by induction.
 	\begin{align*}
 		\underbrace{\msucc(0)\mNE 0}_{\text{base}}
 		\land\, \forall x'\,&
@@ -404,7 +404,7 @@ The following axioms characterize natural numbers, addition, and multiplication.
 \begin{definition}
 	[Addition]
 	\label{def:addition:axioms}
-	We introduce the binary addition symbol $+\in\mcFfn[2]$ with two axioms about defining equalities of sums.
+	We introduce the binary addition symbol \( +\in\mcFfn[2] \) with two axioms about defining equalities of sums.
 \begin{align*}
 \forall x\,
 &(x+0 \mEQ x)
@@ -415,7 +415,7 @@ The following axioms characterize natural numbers, addition, and multiplication.
 \\
 \colG\forall x_1\forall x_2\forall y_1\forall y_2\,
 &\colG (x_1\mEQ y_1\land x_2\mEQ y_2 \limp x_1+y_1\mEQ x_2+y_2)
-\tag*{congruence of $+$}
+\tag*{congruence of \( + \)}
 \end{align*}
 \end{definition}
 
@@ -430,13 +430,13 @@ The following axioms characterize natural numbers, addition, and multiplication.
 	\end{gather*}
 	\end{example}
 
-\begin{theorem}Presburger Artihmetic (Moj\'{z}esz Presburger, 1929), i.e.~the first-order theory that includes the axioms for equality, natural numbers, induction schemata, and addition, is consistent, complete and decidable. The computational complexity of the decision problem is at least doubly exponential $2^{2^{cn}}$(Fischer and Rabin, 1974), but less than triple exponential (Oppen, 1978. Berman, 1980).
+\begin{theorem}Presburger Artihmetic (Moj\'{z}esz Presburger, 1929), i.e.~the first-order theory that includes the axioms for equality, natural numbers, induction schemata, and addition, is consistent, complete and decidable. The computational complexity of the decision problem is at least doubly exponential \( 2^{2^{cn}} \)(Fischer and Rabin, 1974), but less than triple exponential (Oppen, 1978. Berman, 1980).
 \end{theorem}
 
 \begin{definition}
 	[Multiplikation]
 	\label{tab:addition:axioms}
-	We introduce the binary multiplication symbol $\times\in\mcFfn[2]$
+	We introduce the binary multiplication symbol \( \times\in\mcFfn[2] \)
 	with two axioms about defining equalities of products.
 	\begin{align*}
 	\forall x\,
@@ -448,7 +448,7 @@ The following axioms characterize natural numbers, addition, and multiplication.
 	\\
 	\colG\forall x_1\forall x_2\forall y_1\forall y_2\,
 	&\colG (x_1\mEQ y_1\land x_2\mEQ y_2 \limp x_1\times y_1\mEQ x_2 \times y_2)
-	\tag*{congruence of $\times$}
+	\tag*{congruence of \( \times \)}
 	\end{align*}
 \end{definition}
 
@@ -465,23 +465,23 @@ The following axioms characterize natural numbers, addition, and multiplication.
 	and determine neutral elements.
 	\begin{align*}
 	\forall x\forall y\forall z\,&(x\circ(y\circ z) \mEQ (x\circ y)\circ z)
-	\tag*{associativity of $\circ\in\{+,\times\}$}
+	\tag*{associativity of \( \circ\in\{+,\times\} \)}
 	\\
 	\forall x\forall y\,&(x\circ y \mEQ y\circ x)
-	\tag*{commutativity of $\circ\in\{+,\times\}$}
+	\tag*{commutativity of \( \circ\in\{+,\times\} \)}
 	\\
 	\forall x\,&(x + 0\mEQ x \land 0 + x \mEQ x )
-	\tag*{neutral element for $+$}
+	\tag*{neutral element for \( + \)}
 	\\
 	\forall x\,&(x \times \msucc(0)\mEQ x \land \msucc(0) \times x \mEQ x )
-	\tag*{neutral element for $\times$}
+	\tag*{neutral element for \( \times \)}
 	\end{align*}
 \end{lemma}
 
 %\begin{proof}by induction
 %	\begin{align*}
 %	0 + 0 \mEQ 0
-%	\tag*{$\forall e$}
+%	\tag*{\( \forall e \)}
 %	\\
 %	0+x\mEQ x\tag*{assumption}
 %	\\

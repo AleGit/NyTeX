@@ -3,19 +3,19 @@
 % !TeX spellcheck = en_US
 
 
-In Section \ref{sec:syntax} we have already defined atomic formulae in Definition \ref{def:atoms},
-but we can only build formulae in clausal normal form (\CNF) with Definition \vref{def:syntax:CNF}.
+In Section \ref{sec:syntax} we have already defined atomic formulae in Definition~\ref{def:atoms},
+but we can only build formulae in clausal normal form (\CNF) with Definition~\vref{def:syntax:CNF}.
 Now we will define arbitrary first order formulae (\FOF).
 
-\CNF-Syntax Definition \vref{def:syntax:CNF},
-\CNF-Semantics Definition \vref{def:semantics:CNF},
-\FOF-Syntax Definition \vref{def:syntax:FOF}, and
-\FOF-Semantics Definition \vref{def:semantics:FOF}
+\CNF-Syntax Definition~\vref{def:syntax:CNF},
+\CNF-Semantics Definition~\vref{def:semantics:CNF},
+\FOF-Syntax Definition~\vref{def:syntax:FOF}, and
+\FOF-Semantics Definition~\vref{def:semantics:FOF}
 
 
 
-We've already defined when an atom holds for an assignment $\alpha_\mcI$
-in an interpretation $\mcI$ within Definition \vref{def:model}.
+We've already defined when an atom holds for an assignment \( \alpha_\mcI \)
+in an interpretation \( \mcI \) within Definition \vref{def:model}.
 Now we extend these definitions to first order formulae.
 
 
@@ -23,17 +23,17 @@ Now we extend these definitions to first order formulae.
 	Beside the obvious semantically indistinguishable formulae with double negations, conjunctions, and disjunctions
 	we have introduced new ones.
 	\begin{enumerate}
-		\item $\forall x F$, $\exists x F$, and $F$ are equivalent if $x\not\in\fvar(F)$.
+		\item \( \forall x F \), \( \exists x F \), and \( F \) are equivalent if \( x\not\in\fvar(F) \).
 		We usually omit quantifiers with variables that do not occur free in the subformula.
-		\item $\exists x F$ and $F$ are not equivalent if $x\in\fvar(F)$,
-		e.g. $\exists x(x\mNE\ma)$ is satisfiable and $x\mNE\ma$ isn't.
-		\item $\forall x F$ and $F$ are equivalent even if $x\in\fvar(F)$,
-		because in both cases we demand that $F$ holds in all assignments in our model.
+		\item \( \exists x F \) and \( F \) are not equivalent if \( x\in\fvar(F) \),
+		e.g. \( \exists x(x\mNE\ma) \) is satisfiable and \( x\mNE\ma \) isn't.
+		\item \( \forall x F \) and \( F \) are equivalent even if \( x\in\fvar(F) \),
+		because in both cases we demand that \( F \) holds in all assignments in our model.
 		Usually we keep these universal quantifiers in \FOF.
 
 		\item A first order formulae without quantifiers is in \coloremph{clausal form},
-		but not necessarily in \CNF, e.g.~a weakened version of symmetry $(x\mEQ \ma)\limp (\ma\mEQ x)$
-		is equisatisfiable to $\forall x ((x\mEQ \ma)\limp (\ma\mEQ x))$
-		and $\exists a (\forall x ((x\mEQ a)\limp (a\mEQ x))$.
-		\item A proposition $p$, i.e.~a nullary predicate symbol holds if $()\in p_\mcI \subseteq A^0$.
+		but not necessarily in \CNF, e.g.~a weakened version of symmetry \( (x\mEQ \ma)\limp (\ma\mEQ x) \)
+		is equisatisfiable to \( \forall x ((x\mEQ \ma)\limp (\ma\mEQ x)) \)
+		and \( \exists a (\forall x ((x\mEQ a)\limp (a\mEQ x)) \).
+		\item A proposition \( p \), i.e.~a nullary predicate symbol holds if \( ()\in p_\mcI \subseteq A^0 \).
 	\end{enumerate}

@@ -14,13 +14,13 @@
 
 	% outer rectangle
 	\draw[rounded corners=1.5mm,dotted] (0,3) rectangle (10.5,-3);
-	\draw(3,2.7) node {Is sentence $F$ a first order theorem?};
+	\draw(3,2.7) node {Is sentence \( F \) a first order theorem?};
 	\pause
 	\draw[myarrow, ultra thick] (-0.3,0) --
-	node[above] {$\lnot F\approx S$}
+	node[above] {\( \lnot F\approx S \)}
 	(1.8,0);
 \pause
-		\node (S) at (2.5,0) {$S_0$};
+		\node (S) at (2.5,0) {\( S_0 \)};
 
 
 			% SLIDE 2
@@ -29,10 +29,10 @@
 			% inner rectangle
 			\draw[very thick,draw=DarkGray]  (1.5,-2.25) rectangle (8,2.25);
 			% is S satisfaible?
-			\draw (2.9,1.9) node {Is $S$ satisfiable?};
+			\draw (2.9,1.9) node {Is \( S \) satisfiable?};
 
 \pause
-	\node (S) at (3.2,0) {$S_i$};
+	\node (S) at (3.2,0) {\( S_i \)};
 	\draw[thin,dashed,draw=colO] (2.9,0) ellipse (0.7 and 1.44);
 \pause
 		% SLIDE unsatisfiable
@@ -41,8 +41,8 @@
 		decorate[decoration={snake}]
 		{(1.4, 1) -- (8.2,0.6)};
 		\draw[myarrow, draw=colHi, ultra thick] (7.5,1.8) --
-			node[pos=-0.3,below] {$S_i\bot$ unsatisfiable}
-			node[above] {$S$ unsatisfiable}
+			node[pos=-0.3,below] {\( S_i\bot \) unsatisfiable}
+			node[above] {\( S \) unsatisfiable}
 			node[pos=1,above] {yes}
 			(11,1.8) ;
 
@@ -50,14 +50,14 @@
 
 \pause
 		% SLIDE satisfiable
-		\node (S) at (4.15,0) {$S_j$};
+		\node (S) at (4.15,0) {\( S_j \)};
 		\draw[thin,dashed,draw=colO] (3.4,0) ellipse (1.2 and 0.8);  % S
 		\draw[dashed, draw=colG, thick]
 		decorate[decoration={snake}]
 		{ (1.4,-1)  --  (8.2,-0.6) };
 		\draw[myarrow,draw=colLo, ultra thick] (7.5,0) --
 			node[pos=-0.1] {\LARGE ?}
-			node[above] {$S$ satisfiable}
+			node[above] {\( S \) satisfiable}
 			node[pos=1,above] {no}
 			(11,0) ;
 
