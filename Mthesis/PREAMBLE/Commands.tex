@@ -3,7 +3,7 @@
 % shortens the definition by cases
 \newcommand{\DEFINE}[3][=]{{
 		\begin{gather*}
-		#2 #1 \left\{
+		#2 #1 \left \{
 				\begin{array}{ll}
 					#3
 				\end{array}
@@ -14,6 +14,6 @@
 % accepts greek as input
 \newcommand{\textgreek}[1]{\begingroup\fontencoding{LGR}\selectfont#1\endgroup}
 
-\newcommand{\tikzmark}[1]{\tikz[overlay,remember picture] \node (#1) {};}
+\newcommand{\tikzmark}[1]{\tikz[overlay,remember picture] \node{} (#1) {};}
 
 
