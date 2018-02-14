@@ -47,9 +47,10 @@
 
 \begin{example}
 	With formula $F = (\forall x (x\mEQ y)) \lor (\exists y \mP(x,y)$
-	we have $\fvar(F) = \bvar(F)$, which we would like to avoid.
-	For equivalent (see Section \vref{sec:semantics}) formulae
+	we have $\fvar(F) = \bvar(F)$, which we would like to avoid:
+	Formulae
 	$F' = (\forall x (x\mEQ y')) \lor (\exists y \mP(x',y)$
+	is equivalent to F (see Section \vref{sec:semantics})
 	and we get
 	$\fvar(F') \cap \bvar(F') = \emptyset$.
 	%	 = \{ x, y\}$.
@@ -72,15 +73,16 @@ We may denote $\mcF(F)$ for the implicit signature of an formula $F$.
 	if it does not contain free variables -- all occurring variables are bound.
 %	A quantifier free sentence is ground.
 	Additionally we assume for any sentence
-	that each variable is bound exactly once,
-	but occurs as free variable in a subformula,
-	or formally
+	that each variable is bound exactly once.
+	Additiony the variable occurs as free variable
+	in the subformula of the quantified subformula
+	where it was bound:
 	\begin{align*}
-	\bvar(F) &= \bvar(G)\disjointunion\bvar(H)
-	 &&\text{if } F \in\{\,G\land H,G\lor H,G\limp H\,\}
+	\bvar(G * H) &= \bvar(G)\disjointunion\bvar(H)
+	 &*& \in\{\,\land,\lor,\limp\,\}
 	\\
-	\bvar(F) &= \{x\}\disjointunion\bvar(G)\text{ and } x\in\fvar(G)
-	&&\text{if }F \in\{\, \forall x\,G, \exists x\,G\,\}
+	\bvar(\quantify x F) &= \{x\}\disjointunion\bvar(F)\text{, } x\in\fvar(F)
+	&\quantify& \in\{\, \forall, \exists\,\}
 \end{align*}
 \end{definition}
 
