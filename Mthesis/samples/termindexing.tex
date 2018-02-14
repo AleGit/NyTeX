@@ -133,19 +133,19 @@ node[pos=0.85, above] {maybe} (10.5,0.15) ;
 	Variants of terms generate the same position strings
 	\begin{itemize}
 		\item if variable names are ignored
-		\hfill\( \mf(y,z) \Rightarrow
+		\hfill \( \mf(y,z) \Rightarrow
 		\ANGLES{\epsilon,\mf}
 		\ANGLES{1,*}
 		\ANGLES{2,*}
 		 \)
 
 		\item or normalized
-		\hfill\( \mf(y,z) \Rightarrow
+		\hfill \( \mf(y,z) \Rightarrow
 		\ANGLES{\epsilon,\mf}
 		\ANGLES{1,x_1}
 		\ANGLES{2,x_2} \)
 		\\
-		\hfill\( \mf(y,y) \Rightarrow
+		\hfill \( \mf(y,y) \Rightarrow
 		\ANGLES{\epsilon,\mf}
 		\ANGLES{1,x_1}
 		\ANGLES{2,x_1}
@@ -157,7 +157,7 @@ node[pos=0.85, above] {maybe} (10.5,0.15) ;
 
 
 %+ POSITION/PositionStrings + Term traversals
-\begin{definition} We define the set of {\myem position strings}
+\begin{definition} We define the set of \coloremph{position strings}
 	\begin{gather*}
 	\posS(t) =
 	\begin{cases}
@@ -252,8 +252,8 @@ node[pos=0.85, above] {maybe} (10.5,0.15) ;
 		\TI{t_3}\mh(\mf(\ma,\ma))
 		 \)
 		\begin{align*}
-		t_1 &\Rightarrow \{ \mh.1.\mf.1.{*},  \mh.1.\mf.2.{*} \}\\
-		t_2 &\Rightarrow \{ \mh.1.\mf.1.{*},  \mh.1.\mf.2.\ma \}\\
+		t_1 &\Rightarrow \{ \mh.1.\mf.1.{*},  \mh.1.\mf.2.{*} \} \\
+		t_2 &\Rightarrow \{ \mh.1.\mf.1.{*},  \mh.1.\mf.2.\ma \} \\
 		t_3 &\Rightarrow \{ \mh.1.\mf.1.\ma,  \mh.1.\mf.2 \ma \}
 		\end{align*}
 	\end{minipage}
@@ -437,7 +437,7 @@ node[pos=0.85, above] {maybe} (10.5,0.15) ;
 		\TI{t_3}\mh(\mf(\ma,\ma))
 		 \)
 		\begin{align*}
-		\mh(\mf(z,\mb))) &\Rightarrow\{ \mh.1.\mf.1.{*}, \mh.1.\mf.2.\mb\}
+		\mh(\mf(z,\mb)) &\Rightarrow \{ \mh.1.\mf.1.{*}, \mh.1.\mf.2.\mb \}
 		\\[0.7em]
 		u : \mh(\mf({\colN z},{\colHi \mb}))
 		& \mapsto
@@ -697,7 +697,7 @@ node[pos=0.85, above] {maybe} (10.5,0.15) ;
 	\TI{t_1}\mh(\mf(x,y)),
 	\TI{t_2}\mh(\mf(x,\mh(\ma))),
 	\TI{t_3}\mh(\mf(\mh(\ma),\ma)),
-	\TI{t_4}\mh(\mf(\ma,\ma)))
+	\TI{t_4}\mh(\mf(\ma,\ma))
 	 \)
 
 	\begin{tikzpicture}[->]
