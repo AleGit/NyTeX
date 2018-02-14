@@ -3,6 +3,7 @@
         "ackermann",
         "arities",
         "arity",
+        "commutativity",
         "disjunctions",
         "equisatisfiable",
         "grädel",
@@ -17,6 +18,7 @@
         "subterm",
         "subterms",
         "undecidability",
+        "unifiable",
         "unsatisfiability"
     ]
 }
