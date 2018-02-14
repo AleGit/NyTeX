@@ -19,56 +19,56 @@ We have claimed that in this case the set of clauses is satisfiable.
 
 
 
-We present the completeness proof from \cite{GK2004csl} in a more unnested form.
+We present the completeness proof from~\cite{GK2004csl} in a more unnested form.
 
 
 \section{Unit paramodulation}\label{sec:unit:paramodulation}
 
 \begin{definition}
-    A closure is a pair of a clause $C$ and a substitution $\sigma$,
-    conveniently written as $C\cdot\sigma$. Two closures $C\cdot\sigma = D\cdot\tau$
-    are the same if $C$ is a variant of $D$ and $C\sigma$ is a variant of $D\tau$.
-    A closure $C\cdot\sigma$ represents a clause $C\sigma$,
-    i.e.~the result of applying substitution $\sigma$ to $C$.
+    A closure is a pair of a clause \(C\) and a substitution \(\sigma\),
+    conveniently written as \(C\cdot\sigma\). Two closures \(C\cdot\sigma = D\cdot\tau\)
+    are the same if \(C\) is a variant of \(D\) and \(C\sigma\) is a variant of \(D\tau\).
+    A closure \(C\cdot\sigma\) represents a clause \(C\sigma\),
+    i.e.~the result of applying substitution \(\sigma\) to \(C\).
     A ground closure represents a ground clause.
 \end{definition}
 
 % 2.4
 For the following definition we assume
-$\succG$ as a a total, well-founded and monotone extension
+\(\succG\) as a a total, well-founded and monotone extension
 from a total simplification ordering on ground terms
 to ground clauses \cite{NR2001}.
 
 \begin{definition}
 	% 4.3
-    We define an order $\succL$ on ground closures of literals
-    as an arbitrary total well-founded extension of $\succG$
+    We define an order \(\succL\) on ground closures of literals
+    as an arbitrary total well-founded extension of \(\succG\)
     such that
-    $L\cdot\sigma\succL L'\cdot\sigma'$ whenever
-    $L\sigma\succG L'\sigma'$.
+    \(L\cdot\sigma\succL L'\cdot\sigma'\) whenever
+    \(L\sigma\succG L'\sigma'\).
 
 	% 5.1
     We define an order \( \succC \) on ground closures
     as an arbitrary total well-founded extension of
-    $\succC'$ -- an inherently well-founded order defined as extension of $\succG$
+    \(\succC'\) -- an inherently well-founded order defined as extension of \(\succG\)
     such that
-    $C\cdot\tau\succC' D\cdot\rho$ whenever
-    $C\tau\succG D\rho$ or $C\tau = D\rho$ and $C\theta = D$ for an proper instantiater $\theta$.
+    \(C\cdot\tau\succC' D\cdot\rho\) whenever
+    \(C\tau\succG D\rho\) or \(C\tau = D\rho\) and \(C\theta = D\) for an proper instantiater \(\theta\).
 \end{definition}
 
 \begin{lemma}A well-founded and total order on general ground terms always exists.\end{lemma}
 
 	\begin{definition}[Order on literals]\label{def:orders-on-literals}
-		We extend a well-founded and total order $\succ$ on general ground terms,
-		i.e~general atoms to a well-founded proper order $\succ_\mL$
-		on literals such that for all atoms $A$ and $B$ with $A\succ B$
-		the relations $A\succ_\mL B$ ,
-		$\lnot A\succ_\mL\lnot B$ and
-		$\lnot A\succ_\mL A$ hold.
+		We extend a well-founded and total order \(\succ\) on general ground terms,
+		i.e~general atoms to a well-founded proper order \(\succ_\mL\)
+		on literals such that for all atoms \(A\) and \(B\) with \(A\succ B\)
+		the relations \(A\succ_\mL B\) ,
+		\(\lnot A\succ_\mL\lnot B\) and
+		\(\lnot A\succ_\mL A\) hold.
 		%
-		A (non-ground) literal $L$ is {\myem (strictly) maximal} if there exists a ground substitution $\tau$
-		such for no other literal $L'$ the relation $L'\tau\succ L\tau$ (strictly: $\succcurlyeq$) holds.
-		We write $\succ_{gr}$ to suggest the existence of such a ground substitution $\tau$.
+		A (non-ground) literal \(L\) is {\myem (strictly) maximal} if there exists a ground substitution \(\tau\)
+		such for no other literal \(L'\) the relation \(L'\tau\succ L\tau\) (strictly: \(\succcurlyeq\)) holds.
+		We write \(\succ_{gr}\) to suggest the existence of such a ground substitution \(\tau\).
 	\end{definition}
 %
 
@@ -80,7 +80,7 @@ to ground clauses \cite{NR2001}.
 
 \begin{definition}
 
-    We assume $\succG$, $\succL$, $\succC$ as
+    We assume \(\succG\), \(\succL\), \(\succC\) as
         total, well-founded, and monotone extensions of a
         total simplification order over ground terms to ground (literal) clauses
         and ground (literal) closures such that the following properties hold
@@ -104,11 +104,11 @@ to ground clauses \cite{NR2001}.
             \quad&\Rightarrow\quad
             C\cdot\tau\succC D\cdot\rho
         \end{align*}
-        for arbitrary terms $s,t$,
-        literals $L, L'$,
-        clauses $C,D$, and
-        ground substitutions $\sigma, \tau, \rho$
-        where $\theta$ is a proper instantiator.
+        for arbitrary terms \(s,t\),
+        literals \(L, L'\),
+        clauses \(C,D\), and
+        ground substitutions \(\sigma, \tau, \rho\)
+        where \(\theta\) is a proper instantiator.
         Note that the order on unit closures is slightly different than on literal closures, e.g.:
         \begin{align*}
             (\mf(x)\mEQ x)\cdot\{ x\mapsto \ma\}
@@ -132,9 +132,9 @@ to ground clauses \cite{NR2001}.
     \end{definition}
 
     \begin{example}
-        Let  $\mf(s,t,u)\succG\mg(s')$ for all ground terms
-        $r,s,t,s'$.
-        % $\succ_{kbo}$ order on terms.
+        Let  \(\mf(s,t,u)\succG\mg(s')\) for all ground terms
+        \(r,s,t,s'\).
+        % \(\succ_{kbo}\) order on terms.
         \begin{gather*}
             \infer[\theta]{
                 \left(
@@ -170,16 +170,16 @@ to ground clauses \cite{NR2001}.
     \end{example}
 
     \begin{lemma}
-        Let $R$ be a ground rewrite system and UP is applicable to
+        Let \(R\) be a ground rewrite system and UP is applicable to
         \( (l\mEQ r)\cdot\sigma, L[l']\cdot\sigma' \)
         with conclusion
         \( L[r]\theta\cdot\rho \).
-        If $\sigma,\sigma'$ are irreducible w.r.t.~R then $\rho$ is irreducible w.r.t.~R.
+        If \(\sigma,\sigma'\) are irreducible w.r.t.~R then \(\rho\) is irreducible w.r.t.~R.
     \end{lemma}
 
     \begin{proof}
         Assume otherwise.
-        Hence there is a $x\in\var(l'\theta)$ such that $x\theta\rho$ is reducible by $R$.
+        Hence there is a \(x\in\var(l'\theta)\) such that \(x\theta\rho\) is reducible by \(R\).
 
     \end{proof}
 
@@ -191,7 +191,7 @@ to ground clauses \cite{NR2001}.
         \mf(\mb)\mNE\mb\,
         \}$ is inconsistent,
         but the empty clause is not derivable
-        if $\ma\succG\mb$.
+        if \(\ma\succG\mb\).
             \end{example}
 
 
@@ -200,7 +200,7 @@ to ground clauses \cite{NR2001}.
 
 
     \begin{definition}[UP-Redundancy]
-        Let $\mcL$ be a set of literal closures. We define
+        Let \(\mcL\) be a set of literal closures. We define
         \begin{itemize}
             \item $\irred_R(\mcL) =
             \{\,
@@ -208,7 +208,7 @@ to ground clauses \cite{NR2001}.
             \sigma\text{ is irreducible w.r.t.~}R
             \,\}$
 
-        for an arbitrary ground rewrite system $R$
+        for an arbitrary ground rewrite system \(R\)
 
         \item
         $
@@ -219,17 +219,17 @@ to ground clauses \cite{NR2001}.
         \,\}
         $.
 
-        \item Literal closure $L\cdot\sigma$ is UP-redundant in $\mcL$ if
+        \item Literal closure \(L\cdot\sigma\) is UP-redundant in \(\mcL\) if
         \begin{gather*}
             R \cup irred_R(\mcL_{L\cdot\sigma\succL}) \vDash L\sigma
         \end{gather*}
-        for every ground rewrite system $R$
+        for every ground rewrite system \(R\)
 
-        oriented by $\succG$
-        where $\sigma$ is irreducible w.r.t.~$R$.
+        oriented by \(\succG\)
+        where \(\sigma\) is irreducible w.r.t.~\(R\).
 
         \item
-        $\mcR_{UP}(\mcL)$ denotes the set of all UP-redundant closures in $\mcL$.
+        \(\mcR_{UP}(\mcL)\) denotes the set of all UP-redundant closures in \(\mcL\).
     \end{itemize}
 \end{definition}
 
@@ -237,9 +237,9 @@ to ground clauses \cite{NR2001}.
 
             The UP-{saturation process}
             is a sequence \( \{ \mcL_i \}_{i=0}^\infty \)
-            where $\mcL_{i+1}$ is constructed from $\mcL_i$
-            by removing redundant literal closures in $\mcL_i$
-            or by adding inferences of $\mcL_i$ until saturation.
+            where \(\mcL_{i+1}\) is constructed from \(\mcL_i\)
+            by removing redundant literal closures in \(\mcL_i\)
+            or by adding inferences of \(\mcL_i\) until saturation.
             \begin{gather*}
             \mcL_{i+1} = \left\{
                     \begin{array}{lclc}
@@ -278,7 +278,7 @@ to ground clauses \cite{NR2001}.
                 \right.
                 \end{gather*}
 
-            The set of persistent closures \( \mcL^\infty \) is the lower limit of $\mcL_i$.
+            The set of persistent closures \( \mcL^\infty \) is the lower limit of \(\mcL_i\).
 
             % i.e.~the lower limit of the sequence.
     \end{definition}
@@ -295,7 +295,7 @@ to ground clauses \cite{NR2001}.
             \( \mcL^{sat} = \mcL^\infty\backslash\mcR_{UP}(\mcL^\infty) \)
             for some UP-saturation process
             \( \{ \mcL_i\}_{i=0}^\infty \)
-            with $\mcL_0 = \mcL$.
+            with \(\mcL_0 = \mcL\).
     \end{definition}
 
 
@@ -306,7 +306,7 @@ to ground clauses \cite{NR2001}.
                 \}_{i=0}^\infty\) and
                 \(\{ \mcL'_i
                 \}_{i=0}^\infty\)
-                with $\mcL_0 = \mcL'_0$ we have
+                with \(\mcL_0 = \mcL'_0\) we have
                 \begin{gather*}
                     \mcL^\infty \backslash \mcR_{UP}(\mcL^\infty)
                     =
@@ -316,25 +316,25 @@ to ground clauses \cite{NR2001}.
 
 \begin{definition}[Inst-Redundancy]\label{def:inst:redundant}
 
-    Let $S$ be a set of clauses.
+    Let \(S\) be a set of clauses.
 
     \begin{itemize}
-        \item A ground closure $C$ is Inst-redundant in $S$
-        if for some $k$
-        % consequence of smaller ground instances $C_1,\ldots,C_k$ of $S$, i.e.~
+        \item A ground closure \(C\) is Inst-redundant in \(S\)
+        if for some \(k\)
+        % consequence of smaller ground instances \(C_1,\ldots,C_k\) of \(S\), i.e.~
         \begin{itemize}
-            \item $C'_i\in S$, $C_i=C'_i\cdot\sigma'_i$, $C\succC C_i$ \hfill for $i\in 1\ldots k$
-            \item such that $C_1,\ldots,C_k\models C$
+            \item \(C'_i\in S\), \(C_i=C'_i\cdot\sigma'_i\), \(C\succC C_i\) \hfill for \(i\in 1\ldots k\)
+            \item such that \(C_1,\ldots,C_k\models C\)
         \end{itemize}
 
         \item
-        A (possible non-ground) clause $C$ is called Inst-redundant in $S$
+        A (possible non-ground) clause \(C\) is called Inst-redundant in \(S\)
 
-    if each ground closure $C\cdot\sigma$ is Inst-redundant in $S$.
+    if each ground closure \(C\cdot\sigma\) is Inst-redundant in \(S\).
 
 
     \item
-    $R_{Inst}(S)$ denotes the set of all Inst-redundant clauses in $S$.
+    \(R_{Inst}(S)\) denotes the set of all Inst-redundant clauses in \(S\).
 
 
     \end{itemize}
@@ -349,15 +349,15 @@ to ground clauses \cite{NR2001}.
         \mf(\mf(x))\mEQ\mf(x)
         \,\}$
 
-    $R_{Inst}(S) = \{\, \mf(\mf(x))\mEQ\mf(x) \,\}$
+    \(R_{Inst}(S) = \{\, \mf(\mf(x))\mEQ\mf(x) \,\}\)
     \end{example}
 
     \begin{definition}[S-Relevance]
-        Let $S$ be a set of clauses $S$, let $I_\bot$ be a model of $S\bot$.
+        Let \(S\) be a set of clauses \(S\), let \(I_\bot\) be a model of \(S\bot\).
 
         \begin{itemize}
             \item
-        A selection function $\sel$ maps clauses to literals such that
+        A selection function \(\sel\) maps clauses to literals such that
         \begin{align*}
             \sel(C)&\in C
             &&&
@@ -365,7 +365,7 @@ to ground clauses \cite{NR2001}.
         \end{align*}
 
         \item
-        The set of $S$-relevant literal closures
+        The set of \(S\)-relevant literal closures
         \begin{align*}
             \mcL_S &= \left\{\, L\cdot\sigma \mid
             \begin{array}{l}
@@ -382,40 +382,40 @@ to ground clauses \cite{NR2001}.
 \end{definition}
 
 \begin{definition}[Inst-Saturation]
-    Let $\mcL_S^{sat}$ denote the saturation process of $\mcL_S$.
-    Then a set of clauses $S$ is Inst-saturated w.r.t.~a selection function $\sel$,
-            if $\mcL_S^{sat}$ does not contain the empty literal clause.
+    Let \(\mcL_S^{sat}\) denote the saturation process of \(\mcL_S\).
+    Then a set of clauses \(S\) is Inst-saturated w.r.t.~a selection function \(\sel\),
+            if \(\mcL_S^{sat}\) does not contain the empty literal clause.
 \end{definition}
         \begin{theorem}
-        If a set of clauses $S$ is Inst-saturated,
-        and $S\bot$ is satisfiable,
+        If a set of clauses \(S\) is Inst-saturated,
+        and \(S\bot\) is satisfiable,
 
-        then $S$ is also satisfiable.
+        then \(S\) is also satisfiable.
         \end{theorem}
 
-        \begin{proof} We assume that $S$ is not satisfiable.
+        \begin{proof} We assume that \(S\) is not satisfiable.
             \begin{enumerate}
-                \item We construct a candidate model $\mcI$ in Definition \vref{def:candidate:model:construction}.
-                \item We can show that $\mcI$ is a model by Lemma \vref{lemma:model:is:candidate}.
+                \item We construct a candidate model \(\mcI\) in Definition \vref{def:candidate:model:construction}.
+                \item We can show that \(\mcI\) is a model by Lemma \vref{lemma:model:is:candidate}.
 
                 That contradicts our assumption.
             \end{enumerate}
-            We discard our assumption and conclude that $S$ is satisfiable.
+            We discard our assumption and conclude that \(S\) is satisfiable.
             \end{proof}
 
     \begin{definition}[{Candidate Model Construction}]\label{def:candidate:model:construction}
 
-        Let $S$ be an Inst-saturated set of clauses,
-        i.e.~$\emptyclause\not\in\mcL_S^{sat}$, SAT($S\bot$).
+        Let \(S\) be an Inst-saturated set of clauses,
+        i.e.~\(\emptyclause\not\in\mcL_S^{sat}\), SAT(\(S\bot\)).
 
-        Let $L = L'\cdot\sigma \in\mcL_S^{sat}$.
+        Let \(L = L'\cdot\sigma \in\mcL_S^{sat}\).
         We define inductively:
 
             \begin{itemize}
-                \item $I_L = \{\,\epsilon_M\mid L\succL M\,\}$
-                \hfill  IH:~$\epsilon_M$ is defined for any $M\mid L\succL M$
+                \item \(I_L = \{\,\epsilon_M\mid L\succL M\,\}\)
+                \hfill  IH:~\(\epsilon_M\) is defined for any \(M\mid L\succL M\)
 
-                \item $R_L = \{ s \to t \mid s\mEQ t\in I_L, s\succG t \}$
+                \item \(R_L = \{ s \to t \mid s\mEQ t\in I_L, s\succG t \}\)
 
                     \item $\epsilon_L = \left\{
                         \begin{array}{cll}
@@ -435,40 +435,40 @@ to ground clauses \cite{NR2001}.
                     \right.$
 
                 \item
-                $R_S = \bigcup_{L\in\mcL_S^{sat}} R_L$
+                \(R_S = \bigcup_{L\in\mcL_S^{sat}} R_L\)
                 \hfill
-                $R_S$ is convergent and interreduced
+                \(R_S\) is convergent and interreduced
 
                 \item
-                $I_S = \bigcup_{L\in\mcL_S^{sat}} \epsilon_L$
+                \(I_S = \bigcup_{L\in\mcL_S^{sat}} \epsilon_L\)
                 \hfill
-                $I_S$ is consistent,
-                $L\sigma\in I_S$ is irreducible by $R_S$
+                \(I_S\) is consistent,
+                \(L\sigma\in I_S\) is irreducible by \(R_S\)
             \end{itemize}
         \end{definition}
 
-            Let $\mcI$ be an arbitrary consistent extension of $I_S$
+            Let \(\mcI\) be an arbitrary consistent extension of \(I_S\)
 
             in all the following lemmata.
 
 
         \begin{lemma}\label{existence}
 
-        If any $L\cdot\sigma\in\mcL_S$, irreducible by $R_S$ exists with $\mcI\not\models L\sigma$
+        If any \(L\cdot\sigma\in\mcL_S\), irreducible by \(R_S\) exists with \(\mcI\not\models L\sigma\)
 
-        then there is a $L'\cdot\sigma'\in irred_{R_S}(\mcL_S^{sat})$ with $\mcI\not\models L'\sigma'$.
+        then there is a \(L'\cdot\sigma'\in irred_{R_S}(\mcL_S^{sat})\) with \(\mcI\not\models L'\sigma'\).
         \end{lemma}
 
         \begin{proof}
             We have two cases
 
         \begin{itemize}
-            \item If $L\cdot\sigma$ is not UP-redundant in $\mcL_S^{sat}$,
-            then $L'\cdot\sigma'=L\cdot\sigma$.
+            \item If \(L\cdot\sigma\) is not UP-redundant in \(\mcL_S^{sat}\),
+            then \(L'\cdot\sigma'=L\cdot\sigma\).
             \hfill\checkmark
 
-            \item If $L\cdot\sigma$ is UP-redundant in $\mcL_S^{sat}$.
-        By construction $\sigma$ is irreducible by $R_S$. Then we have
+            \item If \(L\cdot\sigma\) is UP-redundant in \(\mcL_S^{sat}\).
+        By construction \(\sigma\) is irreducible by \(R_S\). Then we have
         \begin{align*}
             R_S \cup irred_{R_S}(
                 \{
@@ -480,8 +480,8 @@ to ground clauses \cite{NR2001}.
             \models
             L\sigma
         \end{align*}
-        At least one $L'\cdot\sigma'\in irred_{R_S}(\mcL_S^{sat})$
-        with $\mcI\not\models L'\sigma'$.
+        At least one \(L'\cdot\sigma'\in irred_{R_S}(\mcL_S^{sat})\)
+        with \(\mcI\not\models L'\sigma'\).
         \hfill\checkmark
         \end{itemize}
     \end{proof}
@@ -497,39 +497,39 @@ to ground clauses \cite{NR2001}.
                 L'\sigma'\text{ false in }\mcI\,
                 \right\}
             \end{gather*}
-            is defined, then $M\cdot\tau$ is irreducible by $R_S$.
+            is defined, then \(M\cdot\tau\) is irreducible by \(R_S\).
         \end{lemma}
 
         \begin{proof}
-            Assume $M\cdot\tau$ is reducible by $(\ell\to r)\in R_S$
+            Assume \(M\cdot\tau\) is reducible by \((\ell\to r)\in R_S\)
 
-            and $(\ell\to r)$ is produced by $(\ell'\mEQ r')\cdot\rho\in\mcL_S^{sat}$.
+            and \((\ell\to r)\) is produced by \((\ell'\mEQ r')\cdot\rho\in\mcL_S^{sat}\).
 
             \vspace{0.7em}
-            Now UP-inference is applicable because $\tau$ is irreducible by $R_S$,
+            Now UP-inference is applicable because \(\tau\) is irreducible by \(R_S\),
             \begin{gather*}
                 \infer[UP]
                 {M[r']\theta\cdot\mu}
                 {(\ell'\mEQ r')\cdot\rho & M[\ell'']\cdot\tau}
             \end{gather*}
-            $\mu$ is irreducible by $R_S$, and $M[r']\theta\mu${ is false in }$\mcI$.
+            \(\mu\) is irreducible by \(R_S\), and \(M[r']\theta\mu\){ is false in }\(\mcI\).
             \hfill\ldots
 
         We have two cases
 
             \begin{itemize}
-                \item If $M[r']\theta\cdot\mu$ is not UP-redundant in $\mcL_S^{sat}$
-                then $M[r']\theta\cdot\mu\in\mcL_S^{sat}$.
+                \item If \(M[r']\theta\cdot\mu\) is not UP-redundant in \(\mcL_S^{sat}\)
+                then \(M[r']\theta\cdot\mu\in\mcL_S^{sat}\).
 
                 \vspace{0.3em}
                 Now $M\cdot\tau\succL
                 M[r']\theta\cdot\mu\in irred_{R_S}(\mcL_S^{sat})$
 
-                contradicts minimality of $M\cdot\tau$.
+                contradicts minimality of \(M\cdot\tau\).
                 \hfill
                 \vspace{0.3em}
 
-                \item If $M[r']\theta\cdot\mu$ is UP-redundant in $\mcL_S^{sat}$ then
+                \item If \(M[r']\theta\cdot\mu\) is UP-redundant in \(\mcL_S^{sat}\) then
                 \vspace{-0.3em}
                 \begin{gather*}
                     R_S \cup irred_{R_S}(
@@ -538,15 +538,15 @@ to ground clauses \cite{NR2001}.
                         M[r']\theta\cdot\mu \succL M'\tau'
                         \} \models M[r']\theta\mu
                 \end{gather*}
-                Hence there is $M'\cdot\tau'\in\mcL_S^{sat}$ false in $\mcI$ such that
-                $M\cdot\tau\succL M[r']\theta\cdot\mu\succL M'\cdot\tau'$,
+                Hence there is \(M'\cdot\tau'\in\mcL_S^{sat}\) false in \(\mcI\) such that
+                \(M\cdot\tau\succL M[r']\theta\cdot\mu\succL M'\cdot\tau'\),
 
-                $M'\cdot\tau'$ contradicts minimality of $M\cdot\tau$.
+                \(M'\cdot\tau'\) contradicts minimality of \(M\cdot\tau\).
                 \hfill
 
             \end{itemize}
 
-            Hence $M\cdot\tau$ is irreducible by $R_S$.
+            Hence \(M\cdot\tau\) is irreducible by \(R_S\).
             \hfill\qed
         \end{proof}
 
@@ -555,24 +555,24 @@ to ground clauses \cite{NR2001}.
 
 
         \begin{lemma}\label{equation}
-            Let $M\cdot\tau\in\mcL_S^{sat}$,
-            irreducible by $R_S$, and defined (not productive).
+            Let \(M\cdot\tau\in\mcL_S^{sat}\),
+            irreducible by \(R_S\), and defined (not productive).
 
-            From $\mcI\not\models M\tau$ follows that $M$ is not an equation $(s\mEQ t)$.
+            From \(\mcI\not\models M\tau\) follows that \(M\) is not an equation \((s\mEQ t)\).
 
         \begin{proof}
-            Assume $M = (s\mEQ t)$. Then we have
+            Assume \(M = (s\mEQ t)\). Then we have
             \begin{itemize}
-                \item $I_{M\cdot\tau}\models (s\mNE t)\tau$
-                \item All literals in $I_{M\cdot\tau}$ are irreducible by $R_{M\cdot\tau}$
-                \item $s\tau$ and $t\tau$ are irreducible by $R_{M\cdot\tau}$
-                \item $R_{M\cdot\tau}$ is a convergent term rewrite system
+                \item \(I_{M\cdot\tau}\models (s\mNE t)\tau\)
+                \item All literals in \(I_{M\cdot\tau}\) are irreducible by \(R_{M\cdot\tau}\)
+                \item \(s\tau\) and \(t\tau\) are irreducible by \(R_{M\cdot\tau}\)
+                \item \(R_{M\cdot\tau}\) is a convergent term rewrite system
             \end{itemize}
-            Hence $(s\mNE t)\tau\in I_{M\cdot\tau}$
-            is produced to $I_{M\cdot\tau}$ by some $(s'\mNE t')\cdot\tau'$,
+            Hence \((s\mNE t)\tau\in I_{M\cdot\tau}\)
+            is produced to \(I_{M\cdot\tau}\) by some \((s'\mNE t')\cdot\tau'\),
 
-            but $(s'\mNE t')\tau'\succG (s\mEQ t)\tau$
-            and $(s'\mNE t')\cdot\tau'\succL M\cdot\tau$.
+            but \((s'\mNE t')\tau'\succG (s\mEQ t)\tau \)
+            and \((s'\mNE t')\cdot\tau'\succL M\cdot\tau \).
             \hfill
 
         \end{proof}
@@ -580,19 +580,19 @@ to ground clauses \cite{NR2001}.
 
 
         \begin{lemma}\label{inequation}
-            Let $M\cdot\tau\in\mcL_S^{sat}$,
-            irreducible by $R_S$, and defined (not productive).
+            Let \(M\cdot\tau\in\mcL_S^{sat}\),
+            irreducible by \(R_S\), and defined (not productive).
 
-            From $\mcI\not\models M\tau$ follows that $M$ is not an inequation $(s\mNE t)$.
+            From \(\mcI\not\models M\tau\) follows that \(M\) is not an inequation \((s\mNE t)\).
             \begin{proof}
-            Assume $M\cdot\tau$ is inequation $(s\mNE t)\cdot\tau$. We have
+            Assume \(M\cdot\tau\) is inequation \((s\mNE t)\cdot\tau\). We have
             \begin{itemize}
-                \item $I_{M\cdot\tau}\models (s\mEQ t)\tau$
-                \item $s\tau$ and $t\tau$ are irreducible by $R_{M\cdot\tau}$
+                \item \(I_{M\cdot\tau}\models (s\mEQ t)\tau\)
+                \item \(s\tau\) and \(t\tau\) are irreducible by \(R_{M\cdot\tau}\)
             \end{itemize}
-            Hence $s\tau = t\tau$ and equality resolution is applicable.
+            Hence \(s\tau = t\tau\) and equality resolution is applicable.
 
-            Contradiction to $\emptyclause\not\in\mcL_S^{sat}$.
+            Contradiction to \(\emptyclause\not\in\mcL_S^{sat}\).
             \hfill
 
         \end{proof}
@@ -602,44 +602,44 @@ to ground clauses \cite{NR2001}.
 
 
         \begin{lemma}\label{lemma:model:is:candidate}
-            $\mcI$ is a model for all ground instances of $S$
+            \(\mcI\) is a model for all ground instances of \(S\)
         \end{lemma}
 
         \begin{proof}
-            Assume $\mcI$ is not a model.
+            Assume \(\mcI\) is not a model.
 
             Hence a minmal ground closure $
                 D = \min_{\succC}\{\,
                 C'\cdot\sigma \mid C'\in S,\,
                 \mcI\not\models C'\sigma\,
                 \}$,
-                an instance of a clause in $S$,
-                $\false$ in $\mcI$, must exist. Further on
+                an instance of a clause in \(S\),
+                \(\false\) in \(\mcI\), must exist. Further on
 
         \begin{itemize}
-            \item $D = D'\cdot\sigma$ is not Inst-redundant.
+            \item \(D = D'\cdot\sigma\) is not Inst-redundant.
             \vspace{0.2em}
 
             Otherwise by Definition \ref{def:inst:redundant} there are
-            $D_1,\ldots,D_n\models D$, $D\succC D_i$ for all $i$,
+            \(D_1,\ldots,D_n\models D\), \(D\succC D_i\) for all \(i\),
 
-            and $D_j$ $\false$ in $\mcI$ for one $j$, which contradicts minimality.
+            and \(D_j\) \(\false\) in \(\mcI\) for one \(j\), which contradicts minimality.
             \hfill
 
-            \item $x\sigma$ irreducible by $R_S$ for every variable $x$ in $D'$.
+            \item \(x\sigma\) irreducible by \(R_S\) for every variable \(x\) in \(D'\).
             \vspace{0.2em}
 
-            Otherwise let $(\ell\to r)\tau\in R_L$ and $x\sigma = x\sigma[l\tau]_p$ for some variable x in D'.
-            We define substitution $\sigma'$ with $x\sigma' = x\sigma[r\tau]_p$ and $y\sigma' = y\sigma$ for $y\neq x$.
-            $D'\sigma'$ is false in $\mcI$ and $D\succC D'\cdot\sigma'$,
+            Otherwise let \((\ell\to r)\tau\in R_L\) and \(x\sigma = x\sigma[l\tau]_p\) for some variable x in D'.
+            We define substitution \(\sigma'\) with \(x\sigma' = x\sigma[r\tau]_p\) and \(y\sigma' = y\sigma\) for \(y\neq x\).
+            \(D'\sigma'\) is false in \(\mcI\) and \(D\succC D'\cdot\sigma'\),
             which contradicts minimality.\hfill
         \end{itemize}
 
-        Since $D$ is not Inst-redundant in $S$,
-        we have for some literal $L$,
+        Since \(D\) is not Inst-redundant in \(S\),
+        we have for some literal \(L\),
 
-        that $D' = L\lor D''$, $\sel(D') = L$, $L\cdot\sigma\in\mcL_S$,
-        $L\sigma$ is $\false$ in $\mcI$.
+        that \(D' = L\lor D''\), \(\sel(D') = L\), \(L\cdot\sigma\in\mcL_S\),
+        \(L\sigma\) is \(\false\) in \(\mcI\).
         \vspace{0.7em}
 
         Hence the following literal closure
@@ -653,12 +653,12 @@ to ground clauses \cite{NR2001}.
         \end{gather*}
         exists by Lemma \ref{existence}, is irreducible by Lemma \ref{irreducible},
         and is not productive.
-        Since $\mcI\not\models M\cdot\tau$ the literal
+        Since \(\mcI\not\models M\cdot\tau\) the literal
         M cannot be an equation by Lemma \ref{equation}
         or an inequation by Lemma \ref{inequation}.
         We have derived a contradiction from our only assumption.
 
-        Therefore $\mcI$ is a model for all instances of $S$.
+        Therefore \(\mcI\) is a model for all instances of \(S\).
     \end{proof}
 
 
