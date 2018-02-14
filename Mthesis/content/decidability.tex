@@ -123,9 +123,9 @@ of first-order logic where satisfiability is decidable.\footnote{
 	The monadic predicate calculus includes formulae with arbitrary quantifier prefixes,
 	arbitrary many unary predicate symbols, the equality symbol, but no function symbols.
 	\begin{gather*}
-	{\colG [\,all, (\omega), (1)\,]_{\mEQ}
+	{\colG {[\,all, (\omega), (1)\,]}_{\mEQ}
 	\quad\supsetneq}\qquad
-	[\,all, (\omega), (0 ) \,]_{\mEQ}
+	{[\,all, (\omega), (0 ) \,]}_{\mEQ}
 	\tag{Löwenheim 1925, Kalmár 1929}
 	\end{gather*}
 \end{example}
@@ -135,25 +135,25 @@ of first-order logic where satisfiability is decidable.\footnote{
 	but just one universal quantifier. It contains arbitrary many predicate symbols
 	with arbitrary arities, the equality symbol, but no function symbols.
 	\begin{gather*}
-	{\colG [\,\exists^*\forall\exists^*,all,(1)\,]_{\mEQ}
+	{\colG {[\,\exists^*\forall\exists^*,all,(1)\,]}_{\mEQ}
 	\quad\supsetneq}\qquad
-	[\,\exists^*\forall\exists^*,all,(0) \,]_{=}\qquad\qquad\qquad
+	{[\,\exists^*\forall\exists^*,all,(0) \,]}_{=}\qquad\qquad\qquad
 	\tag{Ackermann 1928}
 	\end{gather*}
 \end{example}
 
 \begin{remark}
 	One unary function symbol can be added to these fragments of first order logic above
-	without loosing decidability (see Table \vref{tab:decidable:InfinityAxioms}).
+	without loosing decidability (see Table~\vref{tab:decidable:InfinityAxioms}).
 \end{remark}
 
 %Goldfarb, Gurevich, Rabin, Shelah completly characterized decidable and undecidable prefix classes.
 
 \begin{table}[hbt]
 	\begin{align*}
-	%\colG [\,all, (\omega), (0 )&\colG\,]_= \tag{Löwenheim 1925, Kalmár 1929}
-	%\\
-	[\,\exists^{∗}\forall^{∗}, all, (0)&\,]_{=} \tag{Bernays, Schönfinkel 1928, Ramsey 1932}
+	% \colG [\,all, (\omega), (0 )&{\colG\,]}_= \tag{Löwenheim 1925, Kalmár 1929}
+	% \\
+	[ \, \exists^{∗}\forall^{∗}, all, (0)&{ \, ]}_{=} \tag{Bernays, Schönfinkel 1928, Ramsey 1932}
 	\\
 	[\,\exists^{∗}\forall^2\exists^{∗} , all, (0)&\,] \tag{Gödel 1932, Kalmár 1933, Schütte 1934}
 	\\
@@ -161,27 +161,23 @@ of first-order logic where satisfiability is decidable.\footnote{
 	\\
 	[\,\exists^{∗}\forall\exists^{∗}, all, all&\,] \tag{Gurevich 1973}
 	\\
-	[\,\exists^{∗}, all, all&\,]_{=} \tag{Gurevich 1976}
+	[\,\exists^{∗}, all, all&{ \, ]}_{=} \tag{Gurevich 1976}
 	\end{align*}
-	%\caption[Decidable prefix classes]{Decidable prefix classes in first-order logic}
-	\caption[Decidable prefix classes (finite)]{Decidable prefix classes with finite model property }
-	\label{tab:decidedable:FiniteModelProperty}
+	\caption[Decidable prefix classes (finite)]{Decidable prefix classes with finite model property}\label{tab:decidedable:FiniteModelProperty}
 \end{table}
 
 \begin{table}[hbt]
 	\begin{align*}
-	[\,all, (\omega), (1)&\,]_{=} \tag{Rabin 1969}
+	[ \, all, (\omega), (1)&{ \, ]}_{=} \tag{Rabin 1969}
 	\\
-	[\,\exists^{∗}\forall\exists^{∗}, all, (1)&\,]_{=} \tag{Shelah 1977}
+	[ \, \exists^{∗}\forall\exists^{∗}, all, (1)&{ \, ]}_{=} \tag{Shelah 1977}
 	\end{align*}
-	%\caption[Decidable prefix classes]{Decidable prefix classes in first-order logic}
-	\caption[Decidable prefix classes (infinite)]{Decidable prefix classes with infinity axioms. }
-	\label{tab:decidable:InfinityAxioms}
+	\caption[Decidable prefix classes (infinite)]{Decidable prefix classes with infinity axioms.}\label{tab:decidable:InfinityAxioms}
 \end{table}
 
 \begin{lemma}
-	Satisfiability is decidable \cite{MR1482227} in all prefix classes from Tables
-	\ref{tab:decidedable:FiniteModelProperty} and \ref{tab:decidable:InfinityAxioms}.
+	Satisfiability is decidable~\cite{MR1482227} in all prefix classes from
+	Tables~\ref{tab:decidedable:FiniteModelProperty} and~\ref{tab:decidable:InfinityAxioms}.
 	Each of theses classes is closed under conjunction with respect to satisfiability.
 \end{lemma}
 
@@ -189,7 +185,7 @@ of first-order logic where satisfiability is decidable.\footnote{
 
 \section{Theories in First Order Logic}\label{sec:decidable:fol:theories}
 
-We follow definitions and examples in \cite{AM2015L}.
+We follow definitions and examples in~\cite{AM2015L}.
 
 \begin{definition}[Theory]
 	A \coloremph{first-order theory} is a pair of a first-order signature
@@ -236,8 +232,7 @@ The following equivalence and congruence axioms form the theory of equality over
 
 \begin{definition}
 	[Equivalence] A binary relation \( \mEQ \) over a domain
-	is an equivalence relation if and only if the following axioms hold over the given domain.
-	\label{def:equivalence:axioms}
+	is an equivalence relation if and only if the following axioms hold over the given domain.\label{def:equivalence:axioms}
 \begin{align*}
 \forall x\,
 &\left(x \mEQ x\right)
@@ -268,8 +263,7 @@ The following equivalence and congruence axioms form the theory of equality over
 
 \begin{definition}
 	[Congruence schemata] An equivalence relation \( \mEQ \) is a congruence relation if and only if
-	the following formulae hold
-	\label{def:congruence:schemata}
+	the following formulae hold\label{def:congruence:schemata}
 	\begin{align*}
 	\forall\vecn{x}\,\forall\vecn{y}\,
 	&\left(\vecn{x}\mEQ\vecn{y} \limp \mf(\vecn{x}) \mEQ \mf(\vecn{y}) \right)
@@ -300,10 +294,11 @@ The following equivalence and congruence axioms form the theory of equality over
 %\end{remark}
 %
 \begin{lemma}\label{lemma:equivalence:congruence}
-The equivalence and congruence axioms of equality are provable with natural deduction (Definition \vref{def:natural:deduction},
-Tables \vref{tab:natural:deduction:connectives}
-\vref{tab:natural:deduction:equality}, and
-\vref{tab:natural:deduction:quantifiers}).
+The equivalence and congruence axioms of equality are provable with natural deduction
+(Definition~\vref{def:natural:deduction},
+Tables~\vref{tab:natural:deduction:connectives},
+\vref{tab:natural:deduction:equality},
+and~\vref{tab:natural:deduction:quantifiers}).
 \end{lemma}
 \begin{proof}
 	For brevity we skip the quantifier introductions (and handle variables like constants)
@@ -366,8 +361,7 @@ Tables \vref{tab:natural:deduction:connectives}
 The following axioms characterize natural numbers, addition, and multiplication.
 
 \begin{definition}
-	[Natural Numbers]
-	\label{def:natural:numbers:axioms}
+	[Natural Numbers]\label{def:natural:numbers:axioms}
 	We introduce a fresh constant \( 0\in\mcFn[0] \),
 	a unary successor symbol \( \msucc\in\mcFn[1] \)
 	and restrict their models with two axioms.
@@ -397,15 +391,14 @@ The following axioms characterize natural numbers, addition, and multiplication.
 		\underbrace{\msucc(0)\mNE 0}_{\text{base}}
 		\land\, \forall x'\,&
 		\underbrace{
-			\left(\msucc(x')\mNE x' \limp \msucc(\msucc(x'))\mNE \msucc(x'))\right)
+			\left( \msucc(x')\mNE x' \limp \msucc(\msucc(x'))\mNE \msucc(x') \right)
 		}_{\text{step case}}
-		\,\limp\, \forall x\,\msucc(x)\mNE x
+		\, \limp \, \forall x \, \msucc(x)\mNE x
 		\end{align*}
 \end{example}
 
 \begin{definition}
-	[Addition]
-	\label{def:addition:axioms}
+	[Addition]\label{def:addition:axioms}
 	We introduce the binary addition symbol \( +\in\mcFfn[2] \) with two axioms about defining equalities of sums.
 \begin{align*}
 \forall x\,
@@ -436,8 +429,7 @@ The following axioms characterize natural numbers, addition, and multiplication.
 \end{theorem}
 
 \begin{definition}
-	[Multiplikation]
-	\label{tab:addition:axioms}
+	[Multiplikation]\label{tab:addition:axioms}
 	We introduce the binary multiplication symbol \( \times\in\mcFfn[2] \)
 	with two axioms about defining equalities of products.
 	\begin{align*}
@@ -467,10 +459,10 @@ The following axioms characterize natural numbers, addition, and multiplication.
 	and determine neutral elements.
 	\begin{align*}
 	\forall x\forall y\forall z\,&(x\circ(y\circ z) \mEQ (x\circ y)\circ z)
-	\tag*{associativity of \( \circ\in\{+,\times\} \)}
+	\tag*{associativity of \( \circ\in \{ +,\times \} \) }
 	\\
 	\forall x\forall y\,&(x\circ y \mEQ y\circ x)
-	\tag*{commutativity of \( \circ\in\{+,\times\} \)}
+	\tag*{commutativity of \( \circ\in \{ +, \times \} \)}
 	\\
 	\forall x\,&(x + 0\mEQ x \land 0 + x \mEQ x )
 	\tag*{neutral element for \( + \)}
