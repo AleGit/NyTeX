@@ -62,15 +62,15 @@ We state satisfiability and validity of arbitrary first order formulae or sets o
 \subsection{Models}
 
 \begin{definition}\label{def:interpretation}
-	An {\myem interpretation} $\mcI$ over a signature $\mcF$ consists of a
-	non-empty set $A$ --- the {\myem universe} or {\myem domain},
-	definitions of mappings $\mf_\mcI: A^n\rightarrow A$ for every function symbol $\mf\in\mcFf$,
+	An \coloremph{interpretation} \( \mcI \) over a signature \( \mcF \) consists of a
+	non-empty set \( A \) --- the {\myem universe} or {\myem domain},
+	definitions of mappings \( \mf_\mcI: A^n\rightarrow A \) for every function symbol \( \mf\in\mcFf \),
 	and definitions of (possibly empty) n-ary relations
-	 ${\mP_\mcI}\subseteq A^n$ for every predicate symbol $\mP\in\mcFP$
-	 and the definition of a binary relation ${\mEQ_\mcI}\subseteq A^2$ for the equality symbol.
+	 \( {\mP_\mcI}\subseteq A^n \) for every predicate symbol \( \mP\in\mcFP \)
+	 and the definition of a binary relation \( {\mEQ_\mcI}\subseteq A^2 \) for the equality symbol.
 	 A (variable) {\myem assignment} is a mapping from variables to elements of the domain.
-	 We define the {\myem evaluation} $\alpha_\mcI$ of a term $t$
-	 for assingment $\alpha$ and interpretation $\mcI$:
+	 We define the {\myem evaluation} \( \alpha_\mcI \) of a term \( t \)
+	 for assingment \( \alpha \) and interpretation \( \mcI \):
 	 \DEFINE{\alpha_\mcI(t)}{
 	 	\alpha_\mcI(x)
 	 	&\text{if }t=x\in\mcV \\
@@ -86,24 +86,24 @@ We state satisfiability and validity of arbitrary first order formulae or sets o
 \end{definition}
 
 \begin{definition}\label{def:semantics:atoms}
-	A predicate $\mP(t_1,\ldots,t_n)$
-	{\myem holds} for an assignment $\alpha_\mcI$
-	if and only if the evaluation of its n-tuple $
-	(\alpha_\mcI({t_1}),\ldots,\alpha_\mcI({t_n}))$
-	is an element of the relation $\mP_\mcI\subseteq A^n$.
-	Similar an equation $s\mEQ t$
-	holds if $\alpha_\mcI(s) \mEQ_\mcI \alpha_\mcI(t)$.
+	A predicate \( \mP(t_1,\ldots,t_n) \)
+	{\myem holds} for an assignment \( \alpha_\mcI \)
+	if and only if the evaluation of its n-tuple \(
+	(\alpha_\mcI({t_1}),\ldots,\alpha_\mcI({t_n})) \)
+	is an element of the relation \( \mP_\mcI\subseteq A^n \).
+	Similar an equation \( s\mEQ t \)
+	holds if \( \alpha_\mcI(s) \mEQ_\mcI \alpha_\mcI(t) \).
 \end{definition}
 
 \begin{definition}[\index*{Semantics} of \index{FOF}\FOF]\label{def:semantics:FOF}
-	A universally quantified sentence $\forall x F$
-	holds in an interpretation if its subformula $F$ holds for all assignments for $x$.
-	An existential quantified sentence $\exists xF$ holds if its subformula $F$ holds for at least one assignment for $x$.
+	A universally quantified sentence \( \forall x F \)
+	holds in an interpretation if its subformula \( F \) holds for all assignments for \( x \).
+	An existential quantified sentence \( \exists xF \) holds if its subformula \( F \) holds for at least one assignment for \( x \).
 	For a given interpretation and predefined assignments for all occurring free variables
-	a negation $\lnot F$ holds if its subformula $F$ does not hold,
-	a disjunction $F\lor G$ holds if one or both of its subformulae $F$ or $G$ hold,
-	a conjunction $F\land G$ holds, if both of its subformualae $F$ and $G$ hold,
-	an implication $F\limp G$ holds if its first subformula $F$ does not hold or its second subformula $F'$ holds (or both).
+	a negation \( \lnot F \) holds if its subformula \( F \) does not hold,
+	a disjunction \( F\lor G \) holds if one or both of its subformulae \( F \) or \( G \) hold,
+	a conjunction \( F\land G \) holds, if both of its subformualae \( F \) and \( G \) hold,
+	an implication \( F\limp G \) holds if its first subformula \( F \) does not hold or its second subformula \( F' \) holds (or both).
 
 	\begin{remark}Usually we use precedences on connectives to omit parentheses
 		and some heuristics to structure the formulae for readability
@@ -116,16 +116,16 @@ We state satisfiability and validity of arbitrary first order formulae or sets o
 	holds with all possible assignments.
 	A literal holds if and only if its complement does not hold.
 	A clause holds if at least one of its literals holds,
-	hence the empty clause $\square$ does not hold in any interpretation.
+	hence the empty clause \( \square \) does not hold in any interpretation.
 	A set of clauses holds if and only if every clause in the set holds.
 \end{definition}
 
 \begin{definition}
-	A {\myem model} $\mcM$ for a set of clauses $S$ (for a sentence $F$)
+	A {\myem model} \( \mcM \) for a set of clauses \( S \) (for a sentence \( F \))
 	is an interpretation that
 	{\myem satisfies} the set of clauses (the sentence),
-	i.e.~the set of clauses (the sentence) holds in that interpretation $\mcM$.
-	We write $\mcM\models S$ or $\mcM\models F$.
+	i.e.~the set of clauses (the sentence) holds in that interpretation \( \mcM \).
+	We write \( \mcM\models S \) or \( \mcM\models F \).
 	% i.e.~the set of clauses (the sentence) holds in this interpretation.
 
 	A set of clauses (a sentence) is {\myem satisfiable} if there exists at least one model for it.
@@ -133,8 +133,8 @@ We state satisfiability and validity of arbitrary first order formulae or sets o
 \end{definition}
 
 \begin{definition}\label{def:hk}
-	The {\myem Herbrand universe} for a first order signature $\mcF$
-	is the smallest set of terms that contains all $H_{i\geq 0}$ defined inductively as
+	The {\myem Herbrand universe} for a first order signature \( \mcF \)
+	is the smallest set of terms that contains all \( H_{i\geq 0} \) defined inductively as
 	\begin{align*}
 	H_0 &= \left\{
 	\begin{array}{ll}
@@ -160,9 +160,9 @@ We state satisfiability and validity of arbitrary first order formulae or sets o
 \end{definition}
 
 \begin{definition}
-	An {\myem Herbrand interpretation} $\mcH$ is an interpretation where the domain
+	An {\myem Herbrand interpretation} \( \mcH \) is an interpretation where the domain
 	is an Herbrand universe
-	and the interpretation of each ground term $t_\mcH := t$ is the term itself.
+	and the interpretation of each ground term \( t_\mcH := t \) is the term itself.
 \end{definition}
 
 
@@ -173,36 +173,36 @@ We state satisfiability and validity of arbitrary first order formulae or sets o
 
 \begin{definition}
 	% [Consequence and entailment]
-	A (first order) sentence $G$ is a semantic consequence of a set of sentences
-	$\Gamma = \{ F_1,\ldots,F_n \}$ if $G$ holds in all models for $F_1,\ldots,F_n$.
-	We write $\Gamma\entails G$ and also say that $\Gamma$ entails G.
-	Two sentences $F \equival G$ are equivalent
+	A (first order) sentence \( G \) is a semantic consequence of a set of sentences
+	\( \Gamma = \{ F_1,\ldots,F_n \} \) if \( G \) holds in all models for \( F_1,\ldots,F_n \).
+	We write \( \Gamma\entails G \) and also say that \( \Gamma \) entails G.
+	Two sentences \( F \equival G \) are equivalent
 	if an only if the first sentence entails the second and vice versa.
 \end{definition}
 
 \begin{lemma}
-	We can easily see that not satisfiable $F\land\lnot F$ entails every formula,
-	that valid $F\lor\lnot F$ is entailed by every sequence, further that
+	We can easily see that not satisfiable \( F\land\lnot F \) entails every formula,
+	that valid \( F\lor\lnot F \) is entailed by every sequence, further that
 	\begin{align*}
 	\Delta, F&\entails G  &\text{if and only if} && \Delta &\entails \lnot F\lor G \\
 	F_1,\ldots,F_n&\entails G  &\text{if and only if} && F_1\land\ldots\land F_n&\entails G\\
 	F\land G&\equival G\land F &F\lor G\equival G\lor F && F\limp G &\equival \lnot F\lor \lnot G
 	\end{align*}
-	by the defintions for semantics, entailment, and equivalence.\hfill$\Box$
+	by the defintions for semantics, entailment, and equivalence.\hfill\( \Box \)
 \end{lemma}
 
 \begin{example}
-	It is easy to see that $\mP(\ma) \not\equiv \mP(\mb)$ with
-	an interpretation where $\mP = \{ \ma \}$.
+	It is easy to see that \( \mP(\ma) \not\equiv \mP(\mb) \) with
+	an interpretation where \( \mP = \{ \ma \} \).
 	but there the same in “satisfiability“.
 \end{example}
 
 \begin{definition}
 	A equivalence transformation transforms
-	a sentecence $F$ to an equivalent sentence $F'$.
+	a sentecence \( F \) to an equivalent sentence \( F' \).
 \end{definition}
 
- but $\mP(\mf(\ma)) \equisat \mQ(\mg(\mb))$
+ but \( \mP(\mf(\ma)) \equisat \mQ(\mg(\mb)) \)
 
 
 \begin{example}We can relate sets of clauses to sentences
@@ -221,53 +221,53 @@ Hence we state useful definitions to deal with this situation and demonstrate th
 
 \begin{example}
 	\label{ex:a:neq:a}
-	Any interpretation $\mcI$
-	with ${\mEQ_\mcI} = \emptyset$ satisfies $\ma\mNE\ma$.
+	Any interpretation \( \mcI \)
+	with \( {\mEQ_\mcI} = \emptyset \) satisfies \( \ma\mNE\ma \).
 \end{example}
 
 \begin{definition}\label{def:normal:interpreation}
-	An {\myem normal} interpretation defines $\mEQ_\mcI$ as identity on its domain,
-	e.g.~the equation of terms $s \mEQ_\mcI t$ holds if and only
-	if any evaluation of its terms are equal $\alpha_\mcI(s) = \alpha_\mcI(t)$
-	for all assignments $\alpha$.
+	An {\myem normal} interpretation defines \( \mEQ_\mcI \) as identity on its domain,
+	e.g.~the equation of terms \( s \mEQ_\mcI t \) holds if and only
+	if any evaluation of its terms are equal \( \alpha_\mcI(s) = \alpha_\mcI(t) \)
+	for all assignments \( \alpha \).
 	In other words a normal interpretation yields different elements
-	for ground terms $s'$ and $t'$ if and only if $s'\mNE_\mcI t'$.
+	for ground terms \( s' \) and \( t' \) if and only if \( s'\mNE_\mcI t' \).
 \end{definition}
 
 \begin{definition}
 	A {\myem term interpretation}
-	$\mcI_t$
+	\( \mcI_t \)
 	is an interpretation
-	where the elements of its domain $A = \mcTFf/_\sim$
+	where the elements of its domain \( A = \mcTFf/_\sim \)
 	are equivalence classes of ground terms
-	and the interpretation of each ground term $t^{\mcI_t} := [t]_\sim$ is its equivalence class.
-	%		An equation $s\mEQ t$ of ground terms holds in if $[s]_\sim=[t]_\sim$.
-	A ground predicate $\mP(t_1,\ldots,t_n)$ holds if
-	$([t_1]_\sim,\ldots,[t_n]_\sim) \in \mP^{\mcI_t} \subseteq A^n$.
+	and the interpretation of each ground term \( t^{\mcI_t} := [t]_\sim \) is its equivalence class.
+	%		An equation \( s\mEQ t \) of ground terms holds in if \( [s]_\sim=[t]_\sim \).
+	A ground predicate \( \mP(t_1,\ldots,t_n) \) holds if
+	\( ([t_1]_\sim,\ldots,[t_n]_\sim) \in \mP^{\mcI_t} \subseteq A^n \).
 	%	A ground literal does not hold if and only if its complementary literal holds.
-	%	In an {\myem equational} term interpretation an equation $s\mEQ t$ holds if an only if $s\sim t$.
+	%	In an {\myem equational} term interpretation an equation \( s\mEQ t \) holds if an only if \( s\sim t \).
 \end{definition}
 
 
 \begin{example}
-	Consider the satisfiable set of clauses $S = \{ \mf(x) \mEQ x \}$.
+	Consider the satisfiable set of clauses \( S = \{ \mf(x) \mEQ x \} \).
 	%
-	We easily find a Herbrand model $\mcH$ with
-	predicate definition $\mEQ_\mcH = \{ (\mf^{i+1}(\ma)), \mf^{i}(\ma)) \mid i\geq 0  \} $.
-	However $\mcH$ is not a normal model because obviously $\mf(\ma)\neq\ma$ in its domain.
+	We easily find a Herbrand model \( \mcH \) with
+	predicate definition \( \mEQ_\mcH = \{ (\mf^{i+1}(\ma)), \mf^{i}(\ma)) \mid i\geq 0  \}  \).
+	However \( \mcH \) is not a normal model because obviously \( \mf(\ma)\neq\ma \) in its domain.
 	%
-	Further on we easily find an normal model $\mcM$
-	with domain $\{ \mc \}$, function definition $\mf_\mcM(\mc) \mapsto \mc$,
-	and the relation ${\mEQ_\mcM} = \{ (\mc,\mc)\}$ coincides with identity in its domain.
-	Certainly this model $\mcM$ is not an Hebrand model
-	because the interpretation of ground term ${\mf(\mc)}_\mcM = \mc$ is not the ground term $\mf(\mc)$ itself.
+	Further on we easily find an normal model \( \mcM \)
+	with domain \( \{ \mc \} \), function definition \( \mf_\mcM(\mc) \mapsto \mc \),
+	and the relation \( {\mEQ_\mcM} = \{ (\mc,\mc)\} \) coincides with identity in its domain.
+	Certainly this model \( \mcM \) is not an Hebrand model
+	because the interpretation of ground term \( {\mf(\mc)}_\mcM = \mc \) is not the ground term \( \mf(\mc) \) itself.
 	%
-	On the other hand we easily construct a normal term model $\mcM_t$ with domain $\{ [\ma]_\sim\}$,
+	On the other hand we easily construct a normal term model \( \mcM_t \) with domain \( \{ [\ma]_\sim\} \),
 	a plain function definition
-	$\mf_{\mcM_t}([\ma]_\sim) \mapsto [\ma]_\sim$
+	\( \mf_{\mcM_t}([\ma]_\sim) \mapsto [\ma]_\sim \)
 	with equivalence relation
-	$\ma \sim \mf(\ma)$.
-	Hence $\mEQ_{\mcM_t}$ agrees to equality in its domain of equivalence classes of ground terms.
+	\( \ma \sim \mf(\ma) \).
+	Hence \( \mEQ_{\mcM_t} \) agrees to equality in its domain of equivalence classes of ground terms.
 \end{example}
 
 %How we find a normal model or justify its existence we will discuss in Section \vref{sec:automation} about Automation.
@@ -277,23 +277,23 @@ Hence we state useful definitions to deal with this situation and demonstrate th
 \begin{theorem}[Gödels Vollständigkeitssatz]
 	Es gibt einen Kalkül der Prädikatenlogik erster Stufe derart, dass für jede Formelmenge
 \(\Gamma\) und für jede Formel
-$\varphi$ gilt:
-$\varphi$ folgt genau dann aus
-$\Gamma$, wenn
-$\varphi$ im Kalkül aus
-$\Gamma$  hergeleitet werden kann.
+\( \varphi \) gilt:
+\( \varphi \) folgt genau dann aus
+\( \Gamma \), wenn
+\( \varphi \) im Kalkül aus
+\( \Gamma \)  hergeleitet werden kann.
 \end{theorem}
 
 \begin{theorem}
-	Natural deduction is a complete calculus, i.e.~a proof $\Gamma\proves G$ exists,
-	whenever $\Gamma\models G$.
+	Natural deduction is a complete calculus, i.e.~a proof \( \Gamma\proves G \) exists,
+	whenever \( \Gamma\models G \).
 \end{theorem}
 
 
 \section{Term Rewriting and Orderings}\label{sec:termrewriting}
 
 \begin{definition}\label{def:rewrite:signature}
-	A term rewrite signature $\mcFf$ is a set of function symbols
+	A term rewrite signature \( \mcFf \) is a set of function symbols
 	with associated arities
 	as in Definition \ref{def:signature}.
 	Terms, term variables, ground terms and unary function symbol notations
@@ -307,31 +307,31 @@ $\Gamma$  hergeleitet werden kann.
 	%	\[
 	%		\ell\rwEQ r \text{ is rewrite rule }\quad :\Longleftrightarrow\quad\ell\not\in\mcV\text{ and }\var(r)\subseteq\var(l)
 	%	\]
-	A rewrite rule $\ell'\rwStep r'$ is a {\myem variant} of $\ell\rwStep r$ if there is a variable renaming $\varrho$
+	A rewrite rule \( \ell'\rwStep r' \) is a {\myem variant} of \( \ell\rwStep r \) if there is a variable renaming \( \varrho \)
 	such that
-	$(\ell\rightarrow r)\varrho := \ell\varrho\rightarrow r\varrho = l'\rightarrow r'$.
+	\( (\ell\rightarrow r)\varrho := \ell\varrho\rightarrow r\varrho = l'\rightarrow r' \).
 	A {\myem term rewrite system} is a set of rewrite rules without variants.
 	In a {\myem ground} term rewrite system every term on every side in every rule is a ground term.
 \end{definition}
 
-Although we use the the same symbol for implications $F\limp G$ between first order formulae
-and rewrite rules $s\rwStep t$ or rewrite steps $s'\rwStep_\mcR t$ between first order terms,
+Although we use the the same symbol for implications \( F\limp G \) between first order formulae
+and rewrite rules \( s\rwStep t \) or rewrite steps \( s'\rwStep_\mcR t \) between first order terms,
 there will not arise any ambiguity for the reader about the role of the symbol.
 
 %
 \begin{definition}
-	We say $s\rightarrow_\mcR t$ is a
+	We say \( s\rightarrow_\mcR t \) is a
 	{\myem rewrite step}
-	 with respect to TRS $\mcR$
-	when there is a position $p \in \pos(s)$,
-	a rewrite rule $\ell\rwStep r\in\mcR$,
-	and a substitution $\sigma$ such that
-	$s|_p=\ell\sigma$ and $s[r\sigma]_p = t$.
-		The subterm $\ell\sigma$ is called {\myem redex} and
-	$s$ rewrites to $t$ by {\myem contracting} $\ell\sigma$ to {\myem contractum} $r\sigma$.
+	 with respect to TRS \( \mcR \)
+	when there is a position \( p \in \pos(s) \),
+	a rewrite rule \( \ell\rwStep r\in\mcR \),
+	and a substitution \( \sigma \) such that
+	\( s|_p=\ell\sigma \) and \( s[r\sigma]_p = t \).
+		The subterm \( \ell\sigma \) is called {\myem redex} and
+	\( s \) rewrites to \( t \) by {\myem contracting} \( \ell\sigma \) to {\myem contractum} \( r\sigma \).
 	%
-	We say a term $s$ is {\myem irreducible} or in {\myem normal form} with respect to TRS $\mcR$ if there is no rewrite step $s\rightarrow_\mcR t$ for any term $t$.
-	The set of normal forms $\mNFR$ contains all irreducible terms of the TRS $\mcR$.
+	We say a term \( s \) is {\myem irreducible} or in {\myem normal form} with respect to TRS \( \mcR \) if there is no rewrite step \( s\rightarrow_\mcR t \) for any term \( t \).
+	The set of normal forms \( \mNFR \) contains all irreducible terms of the TRS \( \mcR \).
 
 	\end{definition}
 %
@@ -343,49 +343,49 @@ there will not arise any ambiguity for the reader about the role of the symbol.
 %\end{definition}
 %
 \begin{definition}
-	A term $s$ can be rewritten to term $t$ with notion $s\rightarrow^*_\mcR t$
-	if there exists at least one {\myem rewrite sequence} $(a_1,\ldots ,a_n)$ such that
-	$s=a_1$, $a_n=t$, and $a_i\rightarrow_\mcR a_{i+1}$ are rewrite steps for $1\leq i<n$.
+	A term \( s \) can be rewritten to term \( t \) with notion \( s\rightarrow^*_\mcR t \)
+	if there exists at least one {\myem rewrite sequence} \( (a_1,\ldots ,a_n) \) such that
+	\( s=a_1 \), \( a_n=t \), and \( a_i\rightarrow_\mcR a_{i+1} \) are rewrite steps for \( 1\leq i<n \).
 	A TRS is {\myem terminating} if there is no infinite rewrite sequence of terms.
 	%
-% 	Two Terms $s$ and $t$ are {\myem joinable} with notion $s\downarrow t$
-% 	if both can be rewritten to some term $c$, i.e.~$s \rightarrow^*c\ \, ^*\!\!\leftarrow t$.
+% 	Two Terms \( s \) and \( t \) are {\myem joinable} with notion \( s\downarrow t \)
+% 	if both can be rewritten to some term \( c \), i.e.~\( s \rightarrow^*c\ \, ^*\!\!\leftarrow t \).
 % %
-% 	Two Terms $s$ and $t$ are {\myem meetable} with notion $s\uparrow t$
-% 	if both can be rewritten from some common ancestor term $a$, i.e.~$s \leftarrow^*a\ \, ^*\!\!\rightarrow t$.
+% 	Two Terms \( s \) and \( t \) are {\myem meetable} with notion \( s\uparrow t \)
+% 	if both can be rewritten from some common ancestor term \( a \), i.e.~\( s \leftarrow^*a\ \, ^*\!\!\rightarrow t \).
 % %
-% 	A TRS is {\myem confluent } if $s$ and $t$ are joinable whenever $s\ ^*\!\!\leftarrow a \rightarrow^* t$ holds for some term $a$.
+% 	A TRS is {\myem confluent } if \( s \) and \( t \) are joinable whenever \( s\ ^*\!\!\leftarrow a \rightarrow^* t \) holds for some term \( a \).
 % 	%
-% 	Terms $s$ and $t$ are {\myem convertible} with notion $s\leftrightarrow^* t$
-% 	if there exists a sequence $(a_1,\ldots ,a_n)$ such that
-% 	$s=a_1$, $a_n=t$, and $a_i\leftrightarrow a_{i+1}$, i.e.~$a_i\rightarrow a_{i+1}$ or $a_i\leftarrow a_{i+1}$ are rewrite steps for $1\leq i<n$.
+% 	Terms \( s \) and \( t \) are {\myem convertible} with notion \( s\leftrightarrow^* t \)
+% 	if there exists a sequence \( (a_1,\ldots ,a_n) \) such that
+% 	\( s=a_1 \), \( a_n=t \), and \( a_i\leftrightarrow a_{i+1} \), i.e.~\( a_i\rightarrow a_{i+1} \) or \( a_i\leftarrow a_{i+1} \) are rewrite steps for \( 1\leq i<n \).
 \end{definition}
 %
 \begin{definition}\label{def:closed-under}
 	A {\myem rewrite relation} is a binary relation
-	$\relation$ on arbitrary terms $s$ and $t$,
+	\( \relation \) on arbitrary terms \( s \) and \( t \),
 	which additionally is {\myem closed under contexts}
-	(whenever $s\relation t$ then $u[s]_p\relation u[t]_p$
-	for an arbitrary term $u$ and any position $p\in\pos(u)$)
+	(whenever \( s\relation t \) then \( u[s]_p\relation u[t]_p \)
+	for an arbitrary term \( u \) and any position \( p\in\pos(u) \))
 	and {\myem closed under substitutions}
-	(whenever $s\relation t$ then $s\sigma\relation t\sigma$
-	for an arbitrary substitution $\sigma$).
+	(whenever \( s\relation t \) then \( s\sigma\relation t\sigma \)
+	for an arbitrary substitution \( \sigma \)).
 \end{definition}
 \begin{lemma}
-	The relations $\rightarrow^*_\mcR$,
-	$\rightarrow^+_\mcR$,
-	$\downarrow_\mcR$, $\uparrow_\mcR$ are rewrite relations on every TRS $\mcR$.
+	The relations \( \rightarrow^*_\mcR \),
+	\( \rightarrow^+_\mcR \),
+	\( \downarrow_\mcR \), \( \uparrow_\mcR \) are rewrite relations on every TRS \( \mcR \).
 \end{lemma}
 %%
 \begin{definition}\label{def:simplification:order}
 	A proper (i.e.~irreflexive and transitive) order on terms is called {\myem rewrite order} if it is a rewrite relation.
 	A {\myem reduction order} is a well-founded rewrite order,
 	i.e.~there is no infinite sequence
-	$(a_i)_{i\in\mathbb{N}}$
-	where $a_i\succ a_{i+1}$ for all $i$.
-	% with $i\in\mathbb{N}$.
+	\( (a_i)_{i\in\mathbb{N}} \)
+	where \( a_i\succ a_{i+1} \) for all \( i \).
+	% with \( i\in\mathbb{N} \).
 	A {\myem simplification order} is a rewrite order with the {\myem subterm property},
-	i.e.~$u[t]_p \succ t$ for all terms $u$, $t$ and positions $p\neq\epsilon$.
+	i.e.~\( u[t]_p \succ t \) for all terms \( u \), \( t \) and positions \( p\neq\epsilon \).
 \end{definition}
 
 \begin{figure}[htb]\label{fig:simplification:order}
@@ -410,57 +410,57 @@ etc.
 \end{lemma}
 
 \begin{theorem}
-	A TRS $\mcR$ is terminating if and only if there exists a reduction order $\succ$
-	such that $l\succ r$ for every rewrite rule $l\rightarrow r\in\mcR$.
-	We call $\mcR$ simply terminating if $\succ$ is a simplification order.
+	A TRS \( \mcR \) is terminating if and only if there exists a reduction order \( \succ \)
+	such that \( l\succ r \) for every rewrite rule \( l\rightarrow r\in\mcR \).
+	We call \( \mcR \) simply terminating if \( \succ \) is a simplification order.
 \end{theorem}
 
 \subsection{Clause and literal orderings}
 
 \begin{lemma}
-	Any ordering $\succ$ on a set $C$ can be extended to an ordering on multisets over $C$
-	as follows $N \succ M$ if $N \neq M$
-	and whenever there is $x\in C$ with $N(x) < M(x)$
-	then there is $y \succ x$ with $N(y) > M(y)$.
+	Any ordering \( \succ \) on a set \( C \) can be extended to an ordering on multisets over \( C \)
+	as follows \( N \succ M \) if \( N \neq M \)
+	and whenever there is \( x\in C \) with \( N(x) < M(x) \)
+	then there is \( y \succ x \) with \( N(y) > M(y) \).
 
-	An ordering $\succ$ on terms can be extended to orderings on literals and clauses.
+	An ordering \( \succ \) on terms can be extended to orderings on literals and clauses.
 \end{lemma}
 % 2.4
 For the following definition we assume
-$\succG$ as a a total, well-founded and monotone extension
+\( \succG \) as a a total, well-founded and monotone extension
 from a total simplification ordering on ground terms
 to ground clauses \cite{NR2001}.
 
 \begin{definition}
 	% 4.3
-    We define an order $\succL$ on ground closures of literals
-    as an arbitrary total well-founded extension of $\succG$
+    We define an order \( \succL \) on ground closures of literals
+    as an arbitrary total well-founded extension of \( \succG \)
     such that
-    $L\cdot\sigma\succL L'\cdot\sigma'$ whenever
-    $L\sigma\succG L'\sigma'$.
+    \( L\cdot\sigma\succL L'\cdot\sigma' \) whenever
+    \( L\sigma\succG L'\sigma' \).
 
 	% 5.1
     We define an order \( \succC \) on ground closures
     as an arbitrary total well-founded extension of
-    $\succC'$ -- an inherently well-founded order defined as extension of $\succG$
+    \( \succC' \) -- an inherently well-founded order defined as extension of \( \succG \)
     such that
-    $C\cdot\tau\succC' D\cdot\rho$ whenever
-    $C\tau\succG D\rho$ or $C\theta = D$ for an proper instantiater $\theta$.
+    \( C\cdot\tau\succC' D\cdot\rho \) whenever
+    \( C\tau\succG D\rho \) or \( C\theta = D \) for an proper instantiater \( \theta \).
 \end{definition}
 
 \begin{lemma}A well-founded and total order on general ground terms always exists.\end{lemma}
 
 	\begin{definition}[Order on literals]\label{def:orders-on-literals}
-		We extend a well-founded and total order $\succ$ on general ground terms,
-		i.e~general atoms to a well-founded proper order $\succ_\mL$
-		on literals such that for all atoms $A$ and $B$ with $A\succ B$
-		the relations $A\succ_\mL B$ ,
-		$\lnot A\succ_\mL\lnot B$ and
-		$\lnot A\succ_\mL A$ hold.
+		We extend a well-founded and total order \( \succ \) on general ground terms,
+		i.e~general atoms to a well-founded proper order \( \succ_\mL \)
+		on literals such that for all atoms \( A \) and \( B \) with \( A\succ B \)
+		the relations \( A\succ_\mL B \) ,
+		\( \lnot A\succ_\mL\lnot B \) and
+		\( \lnot A\succ_\mL A \) hold.
 		%
-		A (non-ground) literal $L$ is {\myem (strictly) maximal} if there exists a ground substitution $\tau$
-		such for no other literal $L'$ the relation $L'\tau\succ L\tau$ (strictly: $\succcurlyeq$) holds.
-		We write $\succ_{gr}$ to suggest the existence of such a ground substitution $\tau$.
+		A (non-ground) literal \( L \) is {\myem (strictly) maximal} if there exists a ground substitution \( \tau \)
+		such for no other literal \( L' \) the relation \( L'\tau\succ L\tau \) (strictly: \( \succcurlyeq \)) holds.
+		We write \( \succ_{gr} \) to suggest the existence of such a ground substitution \( \tau \).
 	\end{definition}
 
 
