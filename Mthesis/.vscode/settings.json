@@ -1,8 +1,22 @@
 {
     "cSpell.words": [
+        "ackermann",
+        "arities",
+        "arity",
+        "disjunctions",
         "equisatisfiable",
+        "grädel",
+        "gödel",
+        "herbrand",
+        "löwenheim",
+        "maltsev",
+        "multiset",
         "paramodulation",
         "satisfiability",
-        "subterm"
+        "skolem",
+        "subterm",
+        "subterms",
+        "undecidability",
+        "unsatisfiability"
     ]
 }
