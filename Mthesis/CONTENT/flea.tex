@@ -6,30 +6,30 @@
 
 \input{epigraphs/faust}
 
-In this chapter we introduce \FLEA --
-our \textbf{F}irst Order \textbf{L}ogic with \textbf{E}quality Theorem \textbf{A}ttester. 
-It is 
--- as the reader may allready suspect --
+In this chapter we introduce \FLEA{} ---
+our \textbf{F}irst Order \textbf{L}ogic with \textbf{E}quality Theorem \textbf{A}ttester.
+It is
+--- as the reader may allready suspect ---
 a modest implementation of an instantiation based theorem prover for first order clauses with equality.
 
 %We disucss its general architecture and elaborate on some implementation details.
 
 \section{Installation}
 
-\FLEA is open source (but still without license) and available on \GitHub\footnote{
+\FLEA{} is open source (but still without license) and available on \GitHub\footnote{
 	\href{https://github.com/AleGit/FLEA}{github.com/AleGit/FLEA}
 }. It depends on a working \Swift\footnote{
 	Instructions and binaries available on \href{https://swift.org}{swift.org}
-} toolchain at build time and the local installation of 
+} toolchain at build time and the local installation of
 \Yices\footnote{
 	Instruction and binary available on \href{http://yices.csl.sri.com}{yices.csl.sri.com}
 }
 and \Ziii\footnote{
 	Instructions and source code available on \href{https://github.com/Z3Prover/z3}{github.com/Z3Prover/z3}
-} at build and run time. After installation of these three prerequisites you may check the success with commands and results from Listing \ref{lst:check:Swyz}. 
+} at build and run time. After installation of these three prerequisites you may check the success with commands and results from Listing~\ref{lst:check:Swyz}.
 
-Not a strict prerequisite but we recommend to download, to unpack \href{http://www.cs.miami.edu/~tptp/TPTP/Distribution/TPTP-v6.4.0.tgz}{TPTP-v6.4.0.tgz} (or newer)
-from the \TPTP website\footnote{
+Not a strict prerequisite but we recommend to download, to unpack \href{http://www.cs.miami.edu/~tptp/TPTP/Distribution/TPTP-v6.4.0.tgz}{\TPTPtgz{}} (or newer)
+from the \TPTP{} website\footnote{
 	\href{http://www.cs.miami.edu/~tptp/}{www.cs.miami.edu/\textasciitilde tptp}
 }, and to create a symbolic link to the unpacked library in your home directory.
 \begin{lstlisting}[
@@ -42,11 +42,11 @@ $\prompt$ z3 --version
 Z3 version 4.5.1     # or newer
 $\prompt$ swift -version
 Swift version 3.1    # or newer
-$\prompt$ ls $\text{\textasciitilde}$/TPTP
+$\prompt$ ls \( \text{\textasciitilde} \)/TPTP
 Axioms    Documents    Generators    Problems    README    Scripts
 \end{lstlisting}
 
-After we have downloaded and installed external tool chain and libraries we clone \FLEA and install the parsing lib as in Listing \ref{lst:install:parsing}.
+After we have downloaded and installed external tool chain and libraries we clone \FLEA{} and install the parsing lib as in Listing~\ref{lst:install:parsing}.
 
 \begin{lstlisting}[
 label=lst:install:parsing,
@@ -88,8 +88,8 @@ protocol Node: Hashable {
 %	test
 %\end{figure}
 
-We can simply encode first order atoms purely propositional 
-when we construct the name for the propositional atom 
+We can simply encode first order atoms purely propositional
+when we construct the name for the propositional atom
 from a predicate or equation recursively as concatination of symbols.
 After installation of these prerequisites you may check if everything went well.
 
@@ -98,38 +98,40 @@ After installation of these prerequisites you may check if everything went well.
 \begin{definition}
 	We derive the propositional identifier of a general term as follows
 \DEFINE{\xi(\mct)}{
-	\bot &\text{if } \mct=x\in\mcV, \bot\not\in\mcF 
+	\bot &\text{if } \mct=x\in\mcV, \bot\not\in\mcF
 	\tag*{}\\
 	\mc &\text{if } \mct=c\in\mcFn[0]\\
 	\mcf\encsep\xi(t_1)\encsep\ldots\encsep\xi(t_n) &\text{if }\mct=\mcf(t_1,\ldots,t_n), \mcf\in\mcFn
 }
-where $\bot, \encsep\not\in\mcF$ are distinct symbols that do not occur in the signature of the set of clauses.
+where \( \bot, \encsep\not\in\mcF \) are distinct symbols that do not occur in the signature of the set of clauses.
 \end{definition}
 
 \begin{example}
 	We encode a simple predicate and a simple equation as follows.
 	\begin{align*}
-	\xi(\mpp(\mf(x,y),g(y)) &= \mpp\encsep\mf\encsep\bot\encsep\bot\encsep\mg\encsep\bot\\
-	\xi(\mf(x,y)\mEQ \mg(y)) &= {\mEQ}\encsep\mf\encsep\bot\encsep\bot\encsep\mg\encsep\bot\\
+	\xi(\mpp(\mf(x,y),g(y))) &= \mpp\encsep\mf\encsep\bot\encsep\bot\encsep\mg\encsep\bot
+	\\
+	\xi(\mf(x,y)\mEQ \mg(y)) &= {\mEQ}\encsep\mf\encsep\bot\encsep\bot\encsep\mg\encsep\bot
+	\\
 	\end{align*}
 \end{example}
 
 \begin{definition}
 	We define den \SMT-Encoding as follows
 \DEFINE{\Xi(\mct)}{
-	\mc_0 : U &\text{if } \mct=x\in\mcV, \mc_0\not\in\mcFn[0]  
+	\mc_0 : U &\text{if } \mct=x\in\mcV, \mc_0\not\in\mcFn[0]
 	\\
 	\mc  : U &\text{if } \mct=c\in\mcFfn[0]
 	\\
 	\mf
 	: (U^n\rightarrow U)\ \Xi(t_1)\ \ldots\ \Xi(t_n)
-	&\text{if }\mct=\mf(t_1,\ldots,t_n), \mf\in\mcFfn 
+	&\text{if }\mct=\mf(t_1,\ldots,t_n), \mf\in\mcFfn
 	\\
 	\mP  : \mathsf{Bool} &\text{if } \mct=p\in\mcFPn[0]
 	\\
 	\mP
 	: (U^n\rightarrow \mathsf{Bool})\ \Xi(t_1)\ \ldots\ \Xi(t_n)
-	&\text{if }\mct=\mP(t_1,\ldots,t_n), \mP\in\mcFPn 
+	&\text{if }\mct=\mP(t_1,\ldots,t_n), \mP\in\mcFPn
 }
 \end{definition}
 
@@ -147,8 +149,8 @@ struct Yices {
 \begin{lstlisting}[language=FLEA]
 extension Yices {
  static var bool_tau = yices_bool_type()
- static var free_tau: type_t { return namedType("$\tau$") }
- 
+ static var free_tau: type_t { return namedType("\( \tau \)") }
+
  /// Get or create (uninterpreted) type `name`.
  static func namedType(_ name: String) -> type_t {
   var tau = yices_get_type_by_name(name)
@@ -158,29 +160,29 @@ extension Yices {
   }
   return tau
  }
- 
+
  /// Get or create an uninterpreted global `symbol` of type `term_tau`.
  static func typedSymbol(symbol: String, term_tau: type_t) -> term_t {
   var c = yices_get_term_by_name(symbol)
   if c == NULL_TERM {
    c = yices_new_uninterpreted_term(term_tau)
    yices_set_term_name(c, symbol)
-  } 
+  }
   return c
  }
 \end{lstlisting}
 
-\begin{lstlisting}[language=FLEA] 
+\begin{lstlisting}[language=FLEA]
  /// Get or create a global constant `symbol` of type `term_tau`
  static func constant(_ symbol: String, term_tau: type_t) -> term_t {
   return typedSymbol(symbol, term_tau: term_tau)
  }
- 
+
  /// Create a homogenic domain tuple
  static func domain(_ count: Int, tau: type_t) -> [type_t] {
   return [type_t](repeating: tau, count: count)
  }
- 
+
  /// Get or create a function symbol of type domain -> range
  static func function(_ symbol: String, domain: [type_t], range: type_t) -> term_t {
   let f_tau = yices_function_type(UInt32(domain.count), domain, range)
@@ -192,11 +194,11 @@ extension Yices {
 \begin{lstlisting}[language=FLEA, mathescape=true]{SMT encoding}
 yices_init()
 let B = yices_bool_type()
-let U = Yices.namedType(name: "$\tau$")
+let U = Yices.namedType(name: "\( \tau \)")
 
 
 if foo
-list= { $S_1,S_2,S_3$ }
+list= { \( S_1,S_2,S_3 \) }
 \end{lstlisting}
 
 \begin{lstlisting}[language=FLEA]{Propositional encoding}
@@ -204,10 +206,10 @@ func encodeSAT<N:Node>(term: N) -> term_t {
 	switch n.symbol.type {
 		case .negation:
 			return yices_not( encode( term.nodes!.first!) )
-		
+
 		case .predicate, .equation:
-			return typedSymbol( $\xi$(term), term_tau: boolType)
-	}	
+			return typedSymbol( \( \xi \)(term), term_tau: boolType)
+	}
 }
 \end{lstlisting}
 
@@ -219,10 +221,10 @@ func encodeEUF<N:Node>(term: N) -> term_t {
 
 	case .predicate:
 		return application(term.symbol, nodes:term.nodes!, term_tau: boolType)
-		
+
 	case .equation:
-		return typedSymbol( $\xi$(term), term_tau: boolType)
-	}	
+		return typedSymbol( \( \xi \)(term), term_tau: boolType)
+	}
 }
 \end{lstlisting}
 
@@ -231,7 +233,7 @@ func encodeEUF<N:Node>(term: N) -> term_t {
 let boolType : type_t = yices_bool_type(void)
 
 let freeType : type_t = yices_new_uninterpreted_type(void)
-yices_set_type_name(freeType, "$\tau$") // pretty printing
+yices_set_type_name(freeType, "\( \tau \)") // pretty printing
 
 func typedSymbol(_ symbol: String, term_tau: type_t) -> term_t {
 	var t = yices_get_term_by_name(symbol)
@@ -259,7 +261,7 @@ func domain(_ count: Int, tau: type_t) -> [type_t] {
 \end{lstlisting}
 
 \begin{lstlisting}[language=flea]
-func function(_ symbol: String, 
+func function(_ symbol: String,
 		domain: [type_t], range: type_t) -> term_t {
 	let f_tau = yices_function_type(UInt32(domain.count), domain, range)
 	return typedSymbol(symbol, term_tau: f_tau)
@@ -267,9 +269,9 @@ func function(_ symbol: String,
 \end{lstlisting}
 
 \begin{lstlisting}[language=flea]
-func application(_ symbol: String, 
+func application(_ symbol: String,
 			args: [term_t], term_tau: type_t) -> term_t {
-	let f = function(symbol, 
+	let f = function(symbol,
 	domain:domain(args.count, tau:Yices.free_tau), range: term_tau)
 	return yices_application(f, UInt32(args.count), args)
 }
@@ -277,7 +279,7 @@ func application(_ symbol: String,
 
 
 \begin{definition}[Flattening of clauses]
-	
+
 	\end{definition}
 
 \begin{example}
@@ -299,15 +301,15 @@ func application(_ symbol: String,
 \subsection{The TPTP library}
 
 \begin{align*}
-F 
+F
 &=
 (F_1 \land \ldots \land F_n) \rightarrow G
 \\
-\lnot F 
+\lnot F
 &\equiv
 \lnot\left( \lnot(F_1 \land \ldots \land F_n) \lor G \right)
 \\
-&\equiv 
+&\equiv
 (F_1 \land \ldots \land F_n) \land \lnot G
 \end{align*}
 
