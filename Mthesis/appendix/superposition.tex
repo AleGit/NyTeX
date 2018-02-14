@@ -4,9 +4,9 @@
 
 %%%
 \begin{definition}\label{def:superposition-calculus}
-	Let $A,B$ be predicates (not equations),
-	$\mcC,\mcC',\mcD$ clauses, and $s,s', t,u,v$ terms.
-	The {\myem superposition calculus} includes the following inference rules
+	Let \( A,B \) be predicates (not equations),
+	\( \mcC,\mcC',\mcD \) clauses, and \( s,s', t,u,v \) terms.
+	The \coloremph{superposition calculus} includes the following inference rules
 	\begin{itemize}
 		%
 		\item ordered resolution and ordered factoring
@@ -22,9 +22,9 @@
 		{(A \lor \mcC')\sigma}
 		{{ A}\lor B\lor\mcC}
 		\end{gather*}
-		where unifier $\sigma=\mgu(A,B)$ exists,
-		instance $A\sigma$ is \txtSTRICTLY in $\mcC\sigma$,
-		and	instance $\lnot B\sigma$ is \txtMAXIMAL in $\mcD\sigma$.
+		where unifier \( \sigma=\mgu(A,B) \) exists,
+		instance \( A\sigma \) is \txtSTRICTLY{} in \( \mcC \sigma \),
+		and	instance \( \lnot B\sigma \) is \txtMAXIMAL{} in \( \mcD\sigma \).
 			%
 		\item ordered paramodulation
 		\begin{gather*}
@@ -38,10 +38,10 @@
 		{(\mcC\lor A[t]\lor\mcD')\,\sigma}
 		{{ s\mEQ t} \lor\mcC\quad { A[s']}\lor\mcD'}
 		%
-%		where unifier $\sigma=\mgu(s,s')$ exists,
-%		$(s\mEQ t)\sigma$ {is strictly maximal} in $\mcC\sigma$,
-%		$\lnot A[s']$ { is maximal} in $\mcD\sigma$,
-%		$A[s']$ {is strictly maximal} in $\mcD'\sigma$;
+%		where unifier \( \sigma=\mgu(s,s') \) exists,
+%		\( (s\mEQ t)\sigma \) {is strictly maximal} in \( \mcC\sigma \),
+%		\( \lnot A[s'] \) { is maximal} in \( \mcD\sigma \),
+%		\( A[s'] \) {is strictly maximal} in \( \mcD'\sigma \);
 \end{gather*}
 \item superposition
 \begin{gather*}
@@ -56,14 +56,14 @@
 		{{ s\mEQ t}\lor\mcC\quad { u[s']\mEQ v}\lor\mcD}
 		\end{gather*}
 		%
-		where unifier $\sigma=\mgu(s,s')$ exists,
-		$s'\not\in\mcV$,
-		$t\sigma\not\succcurlyeq s\sigma$,
-		$v\sigma\not\succcurlyeq u[s']\sigma$,
-		$(s\mEQ t)\sigma$ is \txtSTRICTLY in $\mcC\sigma$,
-		$\lnot A[s']$ and $u[s']\mNE v$ are \txtMAXIMAL in $\mcC\sigma$,
-		$A[s']$ and $u[s']\mEQ v$ are \txtSTRICTLY in $\mcD\sigma$,
-		$(s\mEQ t)\sigma\not\succcurlyeq(u[s']\mEQ v)\sigma$.
+		where unifier \( \sigma=\mgu(s,s') \) exists,
+		\( s'\not\in\mcV \),
+		\( t\sigma\not\succcurlyeq s\sigma \),
+		\( v\sigma\not\succcurlyeq u[s']\sigma \),
+		\( (s\mEQ t)\sigma \) is \txtSTRICTLY{} in \( \mcC\sigma \),
+		\( \lnot A[s'] \) and \( u[s']\mNE v \) are \txtMAXIMAL{} in \( \mcC\sigma \),
+		\( A[s'] \) and \( u[s']\mEQ v \) are \txtSTRICTLY{} in \( \mcD\sigma \),
+		\( (s\mEQ t)\sigma\not\succcurlyeq(u[s']\mEQ v)\sigma \).
 		\item
 		equality resolution and equality factoring
 		\[
@@ -78,10 +78,10 @@
 		{{ u\mEQ v}\lor{s\mEQ s'}\lor\mcC'}
 		\]
 		where
-		$\sigma=\mgu(s,s')$ exists,
-		$(s\mNE s')\sigma$ is \txtMAXIMAL in $\mcC$,
-		$(s\mEQ s')\sigma$ is \txtSTRICTLY in $\mcC'$,
-		$(s\mEQ s')\sigma\not\succcurlyeq(u\mEQ v)$. (????)
+		\( \sigma=\mgu(s,s') \) exists,
+		\( (s\mNE s')\sigma \) is \txtMAXIMAL{} in \( \mcC \),
+		\( (s\mEQ s')\sigma \) is \txtSTRICTLY{} in \( \mcC' \),
+		\( (s\mEQ s')\sigma\not\succcurlyeq(u\mEQ v) \). (????)
 	\end{itemize}
 	%
 \end{definition}

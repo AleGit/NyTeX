@@ -185,11 +185,11 @@ to ground clauses \cite{NR2001}.
 
             \begin{example}
         The set of literal closures
-        $\{\,
+        \( \{\,
         (\mf(x)\mEQ\mb)\cdot\{x\mapsto\ma\},\,
         \ma\mEQ \mb,\,
         \mf(\mb)\mNE\mb\,
-        \}$ is inconsistent,
+        \} \) is inconsistent,
         but the empty clause is not derivable
         if \(\ma\succG\mb\).
             \end{example}
@@ -202,22 +202,22 @@ to ground clauses \cite{NR2001}.
     \begin{definition}[UP-Redundancy]
         Let \(\mcL\) be a set of literal closures. We define
         \begin{itemize}
-            \item $\irred_R(\mcL) =
+            \item \( \irred_R(\mcL) =
             \{\,
             L\cdot\sigma\in\mcL \mid
             \sigma\text{ is irreducible w.r.t.~}R
-            \,\}$
+            \,\} \)
 
         for an arbitrary ground rewrite system \(R\)
 
         \item
-        $
+        \(
         \mcL_{L\cdot\sigma\succL} =
         \{\,
         L'\!\cdot\sigma'\in\mcL \mid
         L\cdot\sigma\succL L'\cdot\sigma'
         \,\}
-        $.
+         \).
 
         \item Literal closure \(L\cdot\sigma\) is UP-redundant in \(\mcL\) if
         \begin{gather*}
@@ -342,12 +342,12 @@ to ground clauses \cite{NR2001}.
 \end{definition}
 
 \begin{example}
-    $S =
+    \( S =
         \{\,
         \mf(x)\mEQ x,\,
         \mf(\ma)\mEQ \ma,\,
         \mf(\mf(x))\mEQ\mf(x)
-        \,\}$
+        \,\} \)
 
     \(R_{Inst}(S) = \{\, \mf(\mf(x))\mEQ\mf(x) \,\}\)
     \end{example}
@@ -417,7 +417,7 @@ to ground clauses \cite{NR2001}.
 
                 \item \(R_L = \{ s \to t \mid s\mEQ t\in I_L, s\succG t \}\)
 
-                    \item $\epsilon_L = \left\{
+                    \item \( \epsilon_L = \left\{
                         \begin{array}{cll}
                             \emptyset &\text{if }
                             L'\sigma\text{ reducible by }R_L
@@ -432,7 +432,7 @@ to ground clauses \cite{NR2001}.
                             &\text{otherwise}
                             &\text{(productive)}
                         \end{array}
-                    \right.$
+                    \right. \)
 
                 \item
                 \(R_S = \bigcup_{L\in\mcL_S^{sat}} R_L\)
@@ -522,8 +522,8 @@ to ground clauses \cite{NR2001}.
                 then \(M[r']\theta\cdot\mu\in\mcL_S^{sat}\).
 
                 \vspace{0.3em}
-                Now $M\cdot\tau\succL
-                M[r']\theta\cdot\mu\in irred_{R_S}(\mcL_S^{sat})$
+                Now \( M\cdot\tau\succL
+                M[r']\theta\cdot\mu\in irred_{R_S}(\mcL_S^{sat}) \)
 
                 contradicts minimality of \(M\cdot\tau\).
                 \hfill
@@ -608,11 +608,11 @@ to ground clauses \cite{NR2001}.
         \begin{proof}
             Assume \(\mcI\) is not a model.
 
-            Hence a minmal ground closure $
+            Hence a minmal ground closure \(
                 D = \min_{\succC}\{\,
                 C'\cdot\sigma \mid C'\in S,\,
                 \mcI\not\models C'\sigma\,
-                \}$,
+                \} \),
                 an instance of a clause in \(S\),
                 \(\false\) in \(\mcI\), must exist. Further on
 
