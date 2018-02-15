@@ -63,8 +63,10 @@ We state satisfiability and validity of arbitrary first order formulae or sets o
 
 \begin{definition}\label{def:interpretation}
 	An \coloremph{interpretation} \( \mcI \) over a signature \( \mcF \) consists of a
-	non-empty set \( A \) --- the \coloremph{universe} or \coloremph{domain},
-	definitions of mappings \( \mf_\mcI: A^n\rightarrow A \) for every function symbol \( \mf\in\mcFf \),
+	non-empty set \( A \) (i.e.~the \coloremph{universe} or \coloremph{domain}),
+	definitions of mappings
+	\( \mf_\mcI: A^n\rightarrow A \)
+	for every function symbol \( \mf\in\mcFf \),
 	and definitions of (possibly empty) n-ary relations
 	 \( {\mP_\mcI}\subseteq A^n \) for every predicate symbol \( \mP\in\mcFP \)
 	 and the definition of a binary relation \( {\mEQ_\mcI}\subseteq A^2 \) for the equality symbol.
@@ -175,11 +177,15 @@ We state satisfiability and validity of arbitrary first order formulae or sets o
 
 \begin{definition}
 	% [Consequence and entailment]
-	A (first order) sentence \( G \) is a semantic consequence of a set of sentences
+	A (first order) sentence \( G \) is a \coloremph{semantic consequence} of a set of sentences
 	\( \Gamma = \{ F_1,\ldots,F_n \} \) if \( G \) holds in all models for \( F_1,\ldots,F_n \).
 	We write \( \Gamma\entails G \) and also say that \( \Gamma \) entails G.
-	Two sentences \( F \equival G \) are equivalent
+	Two sentences \( F \equival G \) are \coloremph{equivalent}
 	if an only if the first sentence entails the second and vice versa.
+	An \coloremph{equivalence transformation} morphs an arbitrary sentence \(F\)
+	to another sentence \(F'\) such that \( F\equiv F'\).
+	An equivalence transformation respects the validity of a sentence.
+	Equivalence transformations respect the satisfiability of sentences.
 \end{definition}
 
 \begin{lemma}
@@ -193,19 +199,31 @@ We state satisfiability and validity of arbitrary first order formulae or sets o
 	by the definitions for semantics, entailment, and equivalence.\hfill \( \qed \)
 \end{lemma}
 
-\begin{example}
-	It is easy to see that \( \mP(\ma) \not\equiv \mP(\mb) \) with
-	an interpretation where \( \mP = \{ \ma \} \).
-	but there the same in “satisfiability“.
-\end{example}
-
 \begin{definition}
-	A equivalence transformation transforms
-	a sentence \( F \) to an equivalent sentence \( F' \).
+	Two sentences \( F \equisat G \) are \coloremph{equisatisfiable}
+	if \( F \) is satisfiable whenever \( G \) is satisfiable
+	and the other way round.
+	An \coloremph{equisatisfiable transformation} morphs an arbitrary sentence
+	\( F \) to a sentence \( F' \) such that \( F \equisat F' \).
+	Equisatisfiable transformations respect the satisfiability of sentences.
 \end{definition}
 
- but \( \mP(\mf(\ma)) \equisat \mQ(\mg(\mb)) \)
+% \begin{example}
+% 	Let \(F\) be an arbitrary formula with \( \fvar(F) = \{ x \} \).
+% 	It is easy to see that in general
+% 	\( F\{ x\mapsto\ma \} \not\equiv F\{ x\mapsto\mb \} \)
+% 	but
+% 	\( F\{ x\mapsto\ma \} \equisat F\{ x\mapsto\mb \} \),
+% 	e.g.~we can construct a model such that
+% 	\(\mP(\ma)\) holds but \(\mP(\mb)\) does not.
+% 	But undoubtedly \(\mP(\ma)\) is as satisfiable as
+% 	 \(\mP(\mb)\).
+% \end{example}
 
+\begin{example}
+	\( \exists x \, \mP(x) \equisat \mP(\ma) \), but only
+	\( \mP(\ma) \entails \exists x \, \mP(x) \) holds.
+\end{example}
 
 \begin{example}We can relate sets of clauses to sentences
 	\[
@@ -219,7 +237,7 @@ We state satisfiability and validity of arbitrary first order formulae or sets o
 \subsection{Equality}
 
 In Definition~\ref{def:semantics:atoms} we have interpreted the equality symbol as binary relation without restrictions.
-This of course allows undesirable models as in the following Example~\ref{ex:a:neq:a}.
+This allows unwelcome models as in Example~\ref{ex:a:neq:a}.
 Hence we state useful definitions to deal with this situation and demonstrate their usage in an example.
 
 \begin{example}\label{ex:a:neq:a}
