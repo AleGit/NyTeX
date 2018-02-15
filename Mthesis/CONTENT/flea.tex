@@ -198,33 +198,25 @@ extension Yices {
 }
 \end{lstlisting}
 
-\begin{lstlisting}[language=FLEA,
-	% cspell:disable
-	mathescape=true,
-	% cspell:enable
-	caption={SMT encoding}]
+\begin{lstlisting}[language=FLEA, caption={SMT encoding}]
 yices_init()
 let B = yices_bool_type()
-let U = Yices.namedType(name: "\( \tau \)")
-
-
-if foo
-list= { \( S_1,S_2,S_3 \) }
+let U = Yices.namedType(name: "$\tau$")
 \end{lstlisting}
 
-\begin{lstlisting}[language=FLEA]{Propositional encoding}
+\begin{lstlisting}[language=FLEA, caption={Propositional encoding}]
 func encodeSAT<N:Node>(term: N) -> term_t {
 	switch n.symbol.type {
 		case .negation:
 			return yices_not( encode( term.nodes!.first!) )
 
 		case .predicate, .equation:
-			return typedSymbol( \( \xi \)(term), term_tau: boolType)
+			return typedSymbol( $\xi$(term), term_tau: boolType)
 	}
 }
 \end{lstlisting}
 
-\begin{lstlisting}[language=FLEA]{EUF encoding}
+\begin{lstlisting}[language=FLEA, caption={EUF encoding}]
 func encodeEUF<N:Node>(term: N) -> term_t {
 	switch term.symbol.type {
 	case .negation:
@@ -234,17 +226,17 @@ func encodeEUF<N:Node>(term: N) -> term_t {
 		return application(term.symbol, nodes:term.nodes!, term_tau: boolType)
 
 	case .equation:
-		return typedSymbol( \( \xi \)(term), term_tau: boolType)
+		return typedSymbol( $\xi$(term), term_tau: boolType)
 	}
 }
 \end{lstlisting}
 
 
-\begin{lstlisting}[language=flea]{Yices types, symbols, and constants}
+\begin{lstlisting}[language=flea, caption={Yices types, symbols, and constants}]
 let boolType : type_t = yices_bool_type(void)
 
 let freeType : type_t = yices_new_uninterpreted_type(void)
-yices_set_type_name(freeType, "\( \tau \)") // pretty printing
+yices_set_type_name(freeType, "$\tau$") // pretty printing
 
 func typedSymbol(_ symbol: String, term_tau: type_t) -> term_t {
 	var t = yices_get_term_by_name(symbol)
