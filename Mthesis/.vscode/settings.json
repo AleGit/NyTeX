@@ -82,6 +82,8 @@
     "cSpell.ignoreRegExpList": [
         "[(]n-[a-z]*[)]",
         "[{][clr]*[}]",
-        // "[$].*"
+        "^[$].*popd",
+        "^[$].*pushd",
+        "^[$].*ctests"
     ],
 }
