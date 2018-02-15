@@ -1,6 +1,7 @@
-% !TeX root = ../mthesis.tex
+% !TeX root = ../mythesis.tex
 % !TeX encoding = UTF-8
-% !TeX spellcheck = en_US
+
+% cspell:disable
 
 %% ==============================================================
 %% ### MISC ###
@@ -13,7 +14,7 @@
 \providecommand{\colEm}{}	% not color et all
 %% ==============================================================
 
-% math alpahbets
+% math alphabets
 
 \DeclareMathAlphabet{\mathpzc}{OT1}{pzc}{m}{it}	% \mathpzc
 \DeclareMathAlphabet{\mathcll}{T1}{calligra}{m}{n}
@@ -33,7 +34,7 @@
 \DeclareMathOperator{\domain}{dom}			% domain of an assignment
 \DeclareMathOperator{\range}{rng}		% range of an assignment
 \DeclareMathOperator{\image}{img}			% image of an assignment
-\DeclareMathOperator{\irred}{irred}
+\DeclareMathOperator{\IRRED}{irred}
 
 \DeclareMathOperator{\mgu}{mgu}			% most general unifier
 \DeclareMathOperator{\sel}{sel}			% selection function
@@ -130,7 +131,7 @@
 \newcommand{\mks}{\mathfrak{s}}
 \newcommand{\mkt}{\mathfrak{t}}
 
-% caligraphic symbol
+% calligraphic symbol
 
 \newcommand{\mcA}{\mathcal{A}}
 \newcommand{\mcB}{\mathcal{B}}
@@ -173,7 +174,7 @@
 \newcommand{\mcFP}{{\mcF_\mP}}		% predicate symbols
 \newcommand{\mcCon}{\mcF_\mathsf{con}}
 \newcommand{\mcAux}{\mcF_\mathsf{aux}}
-\newcommand{\mcFfPE}{\mcFf \,\disjointunion \,\mcFP \,\disjointunion \, \{\mEQ \}}
+\newcommand{\mcFfPE}{\ensuremath{\mcFf \, \disjointunion \, \mcFP \, \disjointunion \, \{\mEQ \}}}
 
 \newcommand{\mcTf}{\mcT_\mf}						% terms (short)
 \newcommand{\mcTFf}{{\mcT(\mcF_\mf,\emptyset)}}		% ground terms (long)
@@ -182,7 +183,7 @@
 \newcommand{\mcET}{\mcE(\mEQ, \mcTf)}				% equations
 
 
-\newcommand{\mNF}[1]{\mathsf{NF}(#1)}	% Normal Form
+\newcommand{\mNF}[1]{\mathsf{NF} (#1)}	% Normal Form
 \newcommand{\mNFR}{\mNF{\mcR}}		% set of normal forms
 
 % reevaluate:
@@ -227,19 +228,19 @@
 %
 
 % first order expression)
-\newcommand{\foxf}{{\colO \mcf}} % predicate or function symbol f
-\newcommand{\foxt}{{\colO \mct}} % atom or term t
-\newcommand{\foxs}{{\colO \mcs}} % atom or term t
+\newcommand{\foxf}{\ensuremath{\colO \mcf}} % predicate or function symbol f
+\newcommand{\foxt}{\ensuremath{\colO \mct}} % atom or term t
+\newcommand{\foxs}{\ensuremath{\colO \mcs}} % atom or term t
 
 
 \newcommand{\TI}[1]{^{^{#1:}}\!}
 \newcommand{\ANGLES}[1]{\langle#1\rangle}
 
-\newcommand{\joins}{\rightarrow^*\cdot^*\!\!\leftarrow}
-\newcommand{\meets}{^*\!\!\leftarrow \cdot \rightarrow^* }
+\newcommand{\joins}{\rightarrow^*\cdot^*\! \!\leftarrow}
+\newcommand{\meets}{\ensuremath{^*\! \!\leftarrow \cdot \rightarrow^* }}
 
 
-\newcommand{\mCP}[1]{\mathsf{CP}(#1)}		% Critical Pair
+\newcommand{\mCP}[1]{\mathsf{CP} (#1)}		% Critical Pair
 \newcommand{\mCPR}{\mCP{\mcR}}		% CP(R)
 
 \newcommand{\MUL}[2]	% multiplication
@@ -250,20 +251,19 @@
 {\add(#1,#2)}			% add(x,y)
 %{#1+#2}				% x+y
 
-\newcommand{\MYPOS}[1]{{\tt #1}}
-\newcommand{\overlap}[3]{\langle #1,\MYPOS{#2}, #3 \rangle}
-\newcommand{\overlapN}[4]{{_{\overlap{#1}{#2}{#3}}}^{#4:\;}}
+\newcommand{\MYPOS}[1]{\ensuremath{\tt #1}}
+\newcommand{\overlap}[3]{\ensuremath{\langle #1,\MYPOS{#2}, #3 \rangle}}
+\newcommand{\overlapN}[4]{\ensuremath{_{\overlap{#1}{#2}{#3}}}^{#4:\;}}
 
 %\newcommand{\GTKBO}{>_{\tt kbo}}
-\newcommand{\GTKBOW}[2]{\texttt{SMT}(#1\!>_\texttt{kbo}\!#2)}
-\newcommand{\GTKBOP}[2]{\texttt{SMT}(#1\!>_\texttt{kbo}'\!#2)}
+\newcommand{\GTKBOW}[2]{\texttt{SMT} (#1\!>_\texttt{kbo}\!#2)}
+\newcommand{\GTKBOP}[2]{\texttt{SMT} (#1\!>_\texttt{kbo}'\!#2)}
 
-\newcommand{\UPL}{\infer
-	[(\sigma)
+\newcommand{\UPL}{\ensuremath{\infer[(\sigma)
 		\quad\sigma=\mgu(l,l'), l'\!\not\in\mcV, l\sigma\rho\sgr r\sigma\rho
 	]
 	{L[r]\sigma}
-	{l=r & L[l']}
+	{l=r & L[l']}}
 }
 
 \newcommand{\ctxhole}{\square} %{\boxdot}
@@ -289,8 +289,8 @@
 \newcommand{\SAT}{\texttt{SAT}\xspace}
 \newcommand{\SMT}{\texttt{SMT}\xspace}
 
-\newcommand{\consbot}{\mc\!_\bot}	% Inst-Gen bot, i.e. distinct constant symbol not in the signature
-\newcommand{\subsbot}{\sigma\!_\bot}
+\newcommand{\consbot}{\ensuremath{\mc \!_\bot}}	% Inst-Gen bot, i.e. distinct constant symbol not in the signature
+\newcommand{\subsbot}{\ensuremath{\sigma \!_\bot}}
 
 \newcommand{\CNF}{\texttt{CNF}\xspace}
 \newcommand{\FOF}{\texttt{FOF}\xspace}

@@ -1,4 +1,4 @@
-% !TeX root = ../mthesis.tex
+% !TeX root = ../mythesis.tex
 % !TeX encoding = UTF-8
 % !TeX spellcheck = en_US
 
@@ -111,7 +111,7 @@ where
     and \( \mcL \) a set of literals closures.
     With
     \begin{align*}
-        \irred_R(\mcL) &= \{ L\cdot\sigma \mid L\cdot\sigma\in\mcL,
+        \IRRED_R(\mcL) &= \{ L\cdot\sigma \mid L\cdot\sigma\in\mcL,
         \sigma\textsf{ irreducible w.r.t.~}R \}
     \\
         \mcL_{L\cdot\sigma\succL} &= \{
@@ -123,7 +123,7 @@ where
     in set of literal closures \( \mcL \)
     if
     \[
-        R \cup \irred_R(\mcL_{L\cdot\sigma\succL}) \entails L\sigma
+        R \cup \IRRED_R(\mcL_{L\cdot\sigma\succL}) \entails L\sigma
     \]
     holds for every ground rewrite system \( R \) oriented by \( \succG \)
     where \( \sigma \) is irreducible w.r.t.\,\( R \).
@@ -134,7 +134,7 @@ where
             L\cdot\sigma
             \mid
             L\cdot\sigma \in \mcL,
-            R \cup \irred_R(\mcL_{L\cdot\sigma\succL}) \entails L\sigma
+            R \cup \IRRED_R(\mcL_{L\cdot\sigma\succL}) \entails L\sigma
         \}
     \]
 
@@ -207,7 +207,7 @@ where
                 \\
                 \mcL_i \backslash L\cdot\sigma
                 &\text{if}
-                &R \cup \irred_R(\mcL_{L\cdot\sigma\succL}) \entails L\sigma
+                &R \cup \IRRED_R(\mcL_{L\cdot\sigma\succL}) \entails L\sigma
                 \\
                 \mcL_i \cup\, L[r]\theta\cdot\rho
                 &\text{if}
@@ -230,7 +230,7 @@ where
     Let \( \mcL^\infty \) be the set of persistent closures,
     i.e.~the lower limit of the sequence.
     The process is \coloremph{fair} if for every UP-inference
-    with premesis in \( \mcL^\infty \) the conclusion is UP-redundant
+    with premises in \( \mcL^\infty \) the conclusion is UP-redundant
     w.r.t.~\(\mcL_j\) for some \(j\).
 
     For a set of literals \( \mcL \) we define

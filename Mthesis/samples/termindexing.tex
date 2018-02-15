@@ -1,4 +1,4 @@
-% !TeX root = ../mthesis.tex
+% !TeX root = ../mythesis.tex
 % !TeX encoding = UTF-8
 % !TeX spellcheck = en_US
 
@@ -30,7 +30,7 @@
 %+ MOTIVATION/goalFastTermRetrieval
 %+ MOTIVATION/goalSoundComplete
 \begin{goal}
-	%	A sound\( ^\circ \), refutational complete\( ^\diamond \), and effective\( ^\star \) caculus.
+	%	A sound\( ^\circ \), refutational complete\( ^\diamond \), and effective\( ^\star \) calculus.
 	A sound, refutation complete, and
 	 {effective} calculus.
 	\begin{enumerate}
@@ -83,7 +83,7 @@ node[pos=0, above] {\( F \)}
 % is F a theorem?
 \draw(2.4,2.7) node {\color{colN}Is \( F \) a theorem?};
 
-% SLIDE Is S satifiable?
+% SLIDE Is S satisfiable?
 \node[colG] (S) at (1.6,-2.7) {\scriptsize\( \lnot F \approx S \)};
 \node (S) at (2.5,0) {\( S \)};
 
@@ -93,7 +93,7 @@ node[pos=0, above] {\( F \)}
 
 % inner rectangle
 \draw[rounded corners=-1.5mm]  (1.5,-2.25) rectangle (8,2.25);
-% is S satisfaible?
+% is S satisfiable?
 \draw (3.2,-1.9) node {\color{colN}Is \( \lnot F \) satisfiable?};
 
 % SLIDE unsatisfiable
@@ -129,7 +129,7 @@ node[pos=0.85, above] {maybe} (10.5,0.15) ;
 \subsection{Position}
 
 %+ POSITION/Normalization
-\begin{example}{Variable normalisation}
+\begin{example}{Variable normalization}
 	Variants of terms generate the same position strings
 	\begin{itemize}
 		\item if variable names are ignored
@@ -238,9 +238,9 @@ node[pos=0.85, above] {maybe} (10.5,0.15) ;
 
 \subsection{Path Indexing}
 
-%% PATHINDEXING %%
+%% PATH INDEXING %%
 
-%+ PATHINDEXING/Build+Index
+%+ PATH INDEXING/Build+Index
 \begin{example}{Build}
 	\def\TRIEWIDTH{4cm}
 	\def\TEXTWIDTH{\textwidth-\TRIEWIDTH-2em}
@@ -269,7 +269,7 @@ node[pos=0.85, above] {maybe} (10.5,0.15) ;
 \end{example}
 
 
-%+ PATHINDEXING/PathStrings
+%+ PATH INDEXING/PathStrings
 \begin{example}{Path strings}
 	The path-strings of \( \mh(\mf(\ma,y)) \) are
 	{\( \mh. 1. \mf. 1. \ma \)} and
@@ -351,7 +351,7 @@ node[pos=0.85, above] {maybe} (10.5,0.15) ;
 	\end{tikzpicture}
 \end{example}
 
-% PATHINDEXING/PrefixTrees
+% PATH INDEXING/PrefixTrees
 \begin{example}[Prefix Trees]
 \begin{gather*}
 \{
@@ -425,7 +425,7 @@ node[pos=0.85, above] {maybe} (10.5,0.15) ;
 \( \mh(\mg(y,x)) \mapsto \{ \mh.1.\mg.1.{*}, \mh.1.\mg.2.{*} \} \)
 \end{example}
 
-%+ PATHINDEXING/Retrieve
+%+ PATH INDEXING/Retrieve
 \begin{example}{Retrieve}
 	\def\TRIEWIDTH{4cm}
 	\def\TEXTWIDTH{\textwidth-\TRIEWIDTH-2em}
@@ -497,7 +497,7 @@ node[pos=0.85, above] {maybe} (10.5,0.15) ;
 	\end{minipage}
 \end{example}
 
-%+ PATHINDEXiNG/Subterms
+%+ PATH INDEXING/Subterms
 \begin{example}{Demodulation (Subterms)}
 	\(
 	\colG
@@ -560,15 +560,15 @@ node[pos=0.85, above] {maybe} (10.5,0.15) ;
 %		\input{PATHINDEXING/Index}
 		\input{samples/pathindexingindex}
 
-		\node[colN] (hsubs) at (5,4) {\( \mh \)};
-		\path[dashdotted, above, pos=0.3,sloped,bend right=5,colN]  (hsubs) edge node {\scriptsize\( \ANGLES{\epsilon,\mh} \)} (h);
+		\node[colN] (n-hsubs) at (5,4) {\( \mh \)};
+		\path[dashdotted, above, pos=0.3,sloped,bend right=5,colN]  (n-hsubs) edge node {\scriptsize\( \ANGLES{\epsilon,\mh} \)} (h);
 
-		\node[colN] (fsubs) at (5,3) {\( \mf \)};
-		\path[dashdotted, above, pos=0.3,sloped, bend right=10,colN]  (fsubs) edge node {\scriptsize\( \ANGLES{1,\mf} \)} (h1f);
+		\node[colN] (n-fsubs) at (5,3) {\( \mf \)};
+		\path[dashdotted, above, pos=0.3,sloped, bend right=10,colN]  (n-fsubs) edge node {\scriptsize\( \ANGLES{1,\mf} \)} (h1f);
 
-		\node[colN] (asubs) at (5,2) {\( \ma \)};
-		\path[dashdotted, above, bend right, pos=0.3,sloped,colN]  (asubs) edge node {\scriptsize\( \ANGLES{11,\ma} \)} (h1f1a);
-		\path[dashdotted, bend right, below, pos=0.3,sloped,colN]  (asubs) edge node {\scriptsize\( \ANGLES{12,\ma} \)} (h1f2a);
+		\node[colN] (n-asubs) at (5,2) {\( \ma \)};
+		\path[dashdotted, above, bend right, pos=0.3,sloped,colN]  (n-asubs) edge node {\scriptsize\( \ANGLES{11,\ma} \)} (h1f1a);
+		\path[dashdotted, bend right, below, pos=0.3,sloped,colN]  (n-asubs) edge node {\scriptsize\( \ANGLES{12,\ma} \)} (h1f2a);
 
 		\end{tikzpicture}
 	\end{minipage}
@@ -576,7 +576,7 @@ node[pos=0.85, above] {maybe} (10.5,0.15) ;
 
 \end{example}
 
-%+ PATHINDEXING/SubtermTrees
+%+ PATH INDEXING/SubtermTrees
 \begin{example}{Subterm trees}
 \begin{gather*}
 \{
@@ -688,10 +688,10 @@ node[pos=0.85, above] {maybe} (10.5,0.15) ;
 
 
 \subsection{Substitution Tree}
-%% SUBSTITUTIONTREES
+%% SUBSTITUTION TREES
 
-%+ SUBSTITUTIONTREES/Build+Index
-\begin{example}{Substitutiontree Build}
+%+ SUBSTITUTION TREES/Build+Index
+\begin{example}{Substitution tree build}
 
 	\(
 	\TI{t_1}\mh(\mf(x,y)),
@@ -701,14 +701,14 @@ node[pos=0.85, above] {maybe} (10.5,0.15) ;
 	 \)
 
 	\begin{tikzpicture}[->]
-%	\input{SUBSTITUTIONTREES/Index}
+%	\input{SUBSTITUTION TREES/Index}
 	\input{samples/substitutiontreesindex}
 
 	\end{tikzpicture}
 \end{example}
 
-%+ SUBSTITUTIONTREES/Retrieve+Index
-\begin{example}{Substitutiontree Retrieve}
+%+ SUBSTITUTION TREES/Retrieve+Index
+\begin{example}{Substitution tree retrieve}
 
 	\(
 	\TI{t_1}\mh(\mf(x,y)),
@@ -717,23 +717,23 @@ node[pos=0.85, above] {maybe} (10.5,0.15) ;
 	\TI{t_4}\mh(\mf(\ma,\ma))
 	 \)
 	\begin{tikzpicture}[->]
-%	\input{SUBSTITUTIONTREES/Index}
+%	\input{SUBSTITUTION TREES/Index}
 	\input{samples/substitutiontreesindex}
 	\end{tikzpicture}
 \end{example}
 
-%% DISCRIMINATIONTREE
+%% DISCRIMINATION TREE
 \subsection{Discrimination Tree}
 
 %\input{samples/discriminationtreeindex}
 %\input{samples/discriminationtreeterms}
-%% DISCRIMINATIONTREE/Build+Terms+Index
+%% DISCRIMINATION TREE/Build+Terms+Index
 \begin{example}{Build}
 
 	\def\TRIEWIDTH{4cm}
 	\def\TEXTWIDTH{\textwidth-\TRIEWIDTH-2em}
 	\begin{minipage}{\TEXTWIDTH}
-%		\input{DISCRIMINATIONTREE/Terms}
+%		\input{DISCRIMINATION TREE/Terms}
 		\input{samples/discriminationtreeterms}
 		\begin{align*}
 		t_1 &\Rightarrow \mh.\mf.{*}.{*}\\
@@ -745,7 +745,7 @@ node[pos=0.85, above] {maybe} (10.5,0.15) ;
 		\def\pyL{-0.3}
 		\def\pxL{-0.0}
 		\begin{tikzpicture}[->,dotted]
-%		\input{DISCRIMINATIONTREE/Index}
+%		\input{DISCRIMINATION TREE/Index}
 		\input{samples/discriminationtreeindex}
 		\node (lu) at (-3,-5.5) {} ;
 		\end{tikzpicture}
@@ -755,16 +755,16 @@ node[pos=0.85, above] {maybe} (10.5,0.15) ;
 
 
 
-%% DISCRIMINATIONTREE/Index
-%% DISCRIMINATIONTREE/IndexEdges
+%% DISCRIMINATION TREE/Index
+%% DISCRIMINATION TREE/IndexEdges
 
-%+ DISCRIMINATIONTREE/Retrieve+Terms+Index
+%+ DISCRIMINATION TREE/Retrieve+Terms+Index
 \begin{example}{Retrieve}
 
 	\def\TRIEWIDTH{4cm}
 	\def\TEXTWIDTH{\textwidth-\TRIEWIDTH-2em}
 	\begin{minipage}{\TEXTWIDTH}
-%		\input{DISCRIMINATIONTREE/Terms}
+%		\input{DISCRIMINATION TREE/Terms}
 		\input{samples/discriminationtreeterms}
 		\begin{align*}
 		\mh(\mf(x',\ma))&\Rightarrow \mh.\mf.{*}.\ma
@@ -782,14 +782,14 @@ node[pos=0.85, above] {maybe} (10.5,0.15) ;
 	%
 	\begin{minipage}{\TRIEWIDTH}
 		\begin{tikzpicture}[->,dotted]
-%		\input{DISCRIMINATIONTREE/Index}
+%		\input{DISCRIMINATION TREE/Index}
 		\input{samples/discriminationtreeindex}
 		\path[bend right, dashed, colN] (root) edge  (h);
 		\path[bend right, dashed, colN] (h) edge  (hf);
 		\path[bend right, dashed, colN] (hf) edge (hfx);
-		\path[bend right, dashed, colN] (hfx) edge  (hfxx);
-		\path[bend right, dashed, colN] (hf) edge  (hfha);
-		\path[bend right, dashed, colN] (hfha) edge (hfhaa);
+		\path[bend right, dashed, colN] (hfx) edge  (n-hfxx);
+		\path[bend right, dashed, colN] (hf) edge  (n-hfha);
+		\path[bend right, dashed, colN] (n-hfha) edge (n-hfhaa);
 
 		\node (lu) at (-3,-5.5) {} ;
 		\end{tikzpicture}
@@ -797,16 +797,16 @@ node[pos=0.85, above] {maybe} (10.5,0.15) ;
 	%
 \end{example}
 
-%% DISCRIMINATIONTREE/Subterms+Terms+Index
+%% DISCRIMINATION TREE/Subterms+Terms+Index
 \begin{example}{Subterms}
 	\def\TRIEWIDTH{\textwidth/2-1em}
-%%	\input{DISCRIMINATIONTREE/Terms}
+%%	\input{DISCRIMINATION TREE/Terms}
 	\input{samples/discriminationtreeterms}
 %	\vspace{1em}
 
 	\begin{minipage}{\TRIEWIDTH}
 		\begin{tikzpicture}[->, dotted]
-%		\input{DISCRIMINATIONTREE/Index}
+%		\input{DISCRIMINATION TREE/Index}
 		\input{samples/discriminationtreeindex}
 		\node (ha) at (1,-2) {.} ;
 		\path[dashdotted,colN] (h) edge node {\( \ma \)} (ha);
@@ -819,22 +819,22 @@ node[pos=0.85, above] {maybe} (10.5,0.15) ;
 		\begin{minipage}{\TRIEWIDTH}
 			\begin{tikzpicture}[->,dotted]
 %
-%%			\input{DISCRIMINATIONTREE/Index}
+%%			\input{DISCRIMINATION TREE/Index}
 			\input{samples/discriminationtreeindex}
-			\node (hsubs) at (1,-4.5) {};
-			\path[dashdotted, colN, sloped,above] (hsubs)
+			\node (n-hsubs) at (1,-4.5) {};
+			\path[dashdotted, colN, sloped,above] (n-hsubs)
 			edge[pos=0.4] node[sloped]
 			{\scriptsize\( \ANGLES{\epsilon,\mh} \)}  (h);
-			\path[dashdotted, colN,sloped, above] (hsubs)
+			\path[dashdotted, colN,sloped, above] (n-hsubs)
 			edge[bend left=0,pos=0.4,sloped]
 			node
 			{\scriptsize\( \ANGLES{11,\mh} \)}
 			(hfh);
 %
-			\path[dashdotted, colN] (hsubs)
+			\path[dashdotted, colN] (n-hsubs)
 			edge[bend left=0,pos=0.2,sloped]
 			node[below] {\scriptsize \( \ANGLES{12,\mh} \)}
-			(hfxh);
+			(n-hfxh);
 %
 			\node (lu) at (-3.5,-5.5) {} ;
 			\end{tikzpicture}

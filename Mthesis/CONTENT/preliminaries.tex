@@ -1,4 +1,4 @@
-% !TeX root = ../mthesis.tex
+% !TeX root = ../mythesis.tex
 % !TeX encoding = UTF-8
 % !TeX spellcheck = en_US
 
@@ -23,7 +23,7 @@ These notions and notations largely follow the lecture notes to term rewriting a
 
 \section{Syntax}\label{sec:syntax}
 
-In this section we introduce the syntax of arbitrary first order formualae (\FOF),
+In this section we introduce the syntax of arbitrary first order formulae (\FOF),
 prenex normal form (\PNF),
 and clausal normal form (\CNF).
 
@@ -70,8 +70,9 @@ We state satisfiability and validity of arbitrary first order formulae or sets o
 	 and the definition of a binary relation \( {\mEQ_\mcI}\subseteq A^2 \) for the equality symbol.
 	 A (variable) \coloremph{assignment} is a mapping from variables to elements of the domain.
 	 We define the \coloremph{evaluation} \( \alpha_\mcI \) of a term \( t \)
-	 for assingment \( \alpha \) and interpretation \( \mcI \):
-	 \DEFINE{\alpha_\mcI(t)}{
+	 for assignment \( \alpha \) and interpretation \( \mcI \):
+	 \begin{gather*}
+	 \MDEFINE{\alpha_\mcI(t)}{ll}{
 	 	\alpha_\mcI(x)
 	 	&\text{if }t=x\in\mcV \\
 	 	\mc_\mcI
@@ -80,6 +81,7 @@ We state satisfiability and validity of arbitrary first order formulae or sets o
 	 	\mf_\mcI (\alpha_\mcI(t_1),\ldots,\alpha_\mcI(t_n))
 	 	&\text{if }t=\mf(t_1,\ldots,t_n), \mf\in\mcFfn[n>0], t_i\in\mcTf
  }
+	 \end{gather*}
 \begin{remark}
 	The evaluation of ground terms does not depend on variable assignments.
 \end{remark}
@@ -151,11 +153,10 @@ We state satisfiability and validity of arbitrary first order formulae or sets o
 	H'_0 &= H_0
 	\\
 	H_{k+1} &= \bigcup_{n> 0}
-	\{ \, \mf(t_1,\ldots,t_n) \mid
-	\mf\in\mcFfn[n],
-	t_1,\ldots,t_n \in H_k' \, \}
+	\{ \, \mf(t_1, \ldots, t_n) \mid{} \mf\in\mcFfn[n],
+	t_1, \ldots, t_n \in{} H_k' \, \}
 	&
-	H'_{k+1} &= H_k \cup H'_{k+1}
+	H'_{k+1} &= H_k \cup{} H'_{k+1}
 	\end{align*}
 
 \end{definition}
@@ -189,7 +190,7 @@ We state satisfiability and validity of arbitrary first order formulae or sets o
 	F_1,\ldots,F_n&\entails G  &\text{if and only if} && F_1\land\ldots\land F_n&\entails G\\
 	F\land G&\equival G\land F &F\lor G\equival G\lor F && F\limp G &\equival \lnot F\lor \lnot G
 	\end{align*}
-	by the definitions for semantics, entailment, and equivalence.\hfill\( \Box \)
+	by the definitions for semantics, entailment, and equivalence.\hfill \( \qed \)
 \end{lemma}
 
 \begin{example}
@@ -208,7 +209,8 @@ We state satisfiability and validity of arbitrary first order formulae or sets o
 
 \begin{example}We can relate sets of clauses to sentences
 	\[
-	\{\,\mP(x, \mf(x)),\,\mQ(y,\ma)\,\} \equisat \forall x\exists y(\mP(x,y)) \land \exists a\forall y(\mQ(y,a)) .
+	\{ \, \mP(x, \mf(x)), \, \mQ(y,\ma)\, \}
+	\equisat \forall x\exists y(\mP(x,y)) \land \exists a\forall y(\mQ(y,a)) .
 	\]
 \end{example}
 
@@ -216,12 +218,11 @@ We state satisfiability and validity of arbitrary first order formulae or sets o
 
 \subsection{Equality}
 
-In Definition \ref{def:semantics:atoms} we have interpreted the equality symbol as binary relation without restrictions.
-This of course allows undesirable models as in the following Example \ref{ex:a:neq:a}.
+In Definition~\ref{def:semantics:atoms} we have interpreted the equality symbol as binary relation without restrictions.
+This of course allows undesirable models as in the following Example~\ref{ex:a:neq:a}.
 Hence we state useful definitions to deal with this situation and demonstrate their usage in an example.
 
-\begin{example}
-	\label{ex:a:neq:a}
+\begin{example}\label{ex:a:neq:a}
 	Any interpretation \( \mcI \)
 	with \( {\mEQ_\mcI} = \emptyset \) satisfies \( \ma\mNE\ma \).
 \end{example}
@@ -241,10 +242,10 @@ Hence we state useful definitions to deal with this situation and demonstrate th
 	is an interpretation
 	where the elements of its domain \( A = \mcTFf/_\sim \)
 	are equivalence classes of ground terms
-	and the interpretation of each ground term \( t^{\mcI_t} := [t]_\sim \) is its equivalence class.
+	and the interpretation of each ground term \( t^{\mcI_t} := {[t]}_\sim \) is its equivalence class.
 	%		An equation \( s\mEQ t \) of ground terms holds in if \( [s]_\sim=[t]_\sim \).
 	A ground predicate \( \mP(t_1,\ldots,t_n) \) holds if
-	\( ([t_1]_\sim,\ldots,[t_n]_\sim) \in \mP^{\mcI_t} \subseteq A^n \).
+	\( ({[t_1]}_\sim,\ldots,{[t_n]}_\sim) \in \mP^{\mcI_t} \subseteq A^n \).
 	%	A ground literal does not hold if and only if its complementary literal holds.
 	%	In an \coloremph{equational} term interpretation an equation \( s\mEQ t \) holds if an only if \( s\sim t \).
 \end{definition}
@@ -254,18 +255,20 @@ Hence we state useful definitions to deal with this situation and demonstrate th
 	Consider the satisfiable set of clauses \( S = \{ \mf(x) \mEQ x \} \).
 	%
 	We easily find a Herbrand model \( \mcH \) with
-	predicate definition \( \mEQ_\mcH = \{ (\mf^{i+1}(\ma)), \mf^{i}(\ma)) \mid i\geq 0  \}  \).
+	predicate definition
+	\( \mEQ_\mcH = \{ (\mf^{i+1}(\ma)), \mf^{i}(\ma) \mid i\geq 0  \}  \).
 	However \( \mcH \) is not a normal model because obviously \( \mf(\ma)\neq\ma \) in its domain.
 	%
 	Further on we easily find an normal model \( \mcM \)
 	with domain \( \{ \mc \} \), function definition \( \mf_\mcM(\mc) \mapsto \mc \),
 	and the relation \( {\mEQ_\mcM} = \{ (\mc,\mc)\} \) coincides with identity in its domain.
-	Certainly this model \( \mcM \) is not an Hebrand model
+	Certainly this model \( \mcM \) is not an Herbrand model
 	because the interpretation of ground term \( {\mf(\mc)}_\mcM = \mc \) is not the ground term \( \mf(\mc) \) itself.
 	%
-	On the other hand we easily construct a normal term model \( \mcM_t \) with domain \( \{ [\ma]_\sim\} \),
+	On the other hand we easily construct a normal term model
+	\( \mcM_t \) with domain \( \{ {[\ma]}_\sim \} \),
 	a plain function definition
-	\( \mf_{\mcM_t}([\ma]_\sim) \mapsto [\ma]_\sim \)
+	\( \mf_{\mcM_t}({[\ma]}_\sim) \mapsto {[\ma]}_\sim \)
 	with equivalence relation
 	\( \ma \sim \mf(\ma) \).
 	Hence \( \mEQ_{\mcM_t} \) agrees to equality in its domain of equivalence classes of ground terms.
@@ -275,18 +278,11 @@ Hence we state useful definitions to deal with this situation and demonstrate th
 
 \subsection{Completeness of First Order Logic}
 
-\begin{theorem}[Gödels Vollständigkeitssatz]
-	Es gibt einen Kalkül der Prädikatenlogik erster Stufe derart, dass für jede Formelmenge
-\(\Gamma\) und für jede Formel
-\( \varphi \) gilt:
-\( \varphi \) folgt genau dann aus
-\( \Gamma \), wenn
-\( \varphi \) im Kalkül aus
-\( \Gamma \)  hergeleitet werden kann.
-\end{theorem}
+\input{theorems/goedelsvollstaendigkeitssatz}
 
 \begin{theorem}
-	Natural deduction is a complete calculus, i.e.~a proof \( \Gamma\proves G \) exists,
+	Natural deduction is a complete calculus,
+	i.e.~a proof \( \Gamma\proves G \) exists,
 	whenever \( \Gamma\models G \).
 \end{theorem}
 
@@ -296,9 +292,9 @@ Hence we state useful definitions to deal with this situation and demonstrate th
 \begin{definition}\label{def:rewrite:signature}
 	A term rewrite signature \( \mcFf \) is a set of function symbols
 	with associated arities
-	as in Definition \ref{def:signature}.
+	as in Definition~\ref{def:signature}.
 	Terms, term variables, ground terms and unary function symbol notations
-	are defined as in Definitions \ref{def:terms} to \ref{def:unary:power}.
+	are defined as in Definitions~\ref{def:terms} to~\ref{def:unary:power}.
 \end{definition}
 
 
@@ -327,7 +323,7 @@ there will not arise any ambiguity for the reader about the role of the symbol.
 	when there is a position \( p \in \pos(s) \),
 	a rewrite rule \( \ell\rwStep r\in\mcR \),
 	and a substitution \( \sigma \) such that
-	\( s|_p=\ell\sigma \) and \( s[r\sigma]_p = t \).
+	\( s|_p=\ell\sigma \) and \( s{[r\sigma]}_p = t \).
 		The subterm \( \ell\sigma \) is called \coloremph{redex} and
 	\( s \) rewrites to \( t \) by \coloremph{contracting} \( \ell\sigma \) to \coloremph{contractum} \( r\sigma \).
 	%
@@ -366,7 +362,7 @@ there will not arise any ambiguity for the reader about the role of the symbol.
 	A \coloremph{rewrite relation} is a binary relation
 	\( \relation \) on arbitrary terms \( s \) and \( t \),
 	which additionally is \coloremph{closed under contexts}
-	(whenever \( s\relation t \) then \( u[s]_p\relation u[t]_p \)
+	(whenever \( s\relation t \) then \( u{[s]}_p\relation u{[t]}_p \)
 	for an arbitrary term \( u \) and any position \( p\in\pos(u) \))
 	and \coloremph{closed under substitutions}
 	(whenever \( s\relation t \) then \( s\sigma\relation t\sigma \)
@@ -382,11 +378,11 @@ there will not arise any ambiguity for the reader about the role of the symbol.
 	A proper (i.e.~irreflexive and transitive) order on terms is called \coloremph{rewrite order} if it is a rewrite relation.
 	A \coloremph{reduction order} is a well-founded rewrite order,
 	i.e.~there is no infinite sequence
-	\( (a_i)_{i\in\mathbb{N}} \)
+	\( {(a_i)}_{i\in\mathbb{N}} \)
 	where \( a_i\succ a_{i+1} \) for all \( i \).
 	% with \( i\in\mathbb{N} \).
 	A \coloremph{simplification order} is a rewrite order with the \coloremph{subterm property},
-	i.e.~\( u[t]_p \succ t \) for all terms \( u \), \( t \) and positions \( p\neq\epsilon \).
+	i.e.~\( u{[t]}_p \succ t \) for all terms \( u \), \( t \) and positions \( p\neq\epsilon \).
 \end{definition}
 
 \begin{figure}[htb]\label{fig:simplification:order}
@@ -394,16 +390,16 @@ there will not arise any ambiguity for the reader about the role of the symbol.
 	\caption{Properties of relations on terms}
 \end{figure}
 
-Figure \vref{fig:simplification:order} summarizes the properties of relations on terms.
+Figure~\vref{fig:simplification:order} summarizes the properties of relations on terms.
 The solid arrows mark definitions,
-e.g.~a rewrite order is closed under contexts and substitutions (Definition \ref{def:closed-under});
+e.g.~a rewrite order is closed under contexts and substitutions (Definition~\ref{def:closed-under});
 a simplification order is a rewrite order
 that respects the subterm property
-(Definition \ref{def:simplification:order}).
+(Definition~\ref{def:simplification:order}).
 The dotted arrows mark derived properties,
 e.g.~every simplification order is a reduction order
-(Lemma \ref{lem:siplifiaction:order:well:founded});
-tranistive and irreflexive relations are allways asymmetric,
+(Lemma~\ref{lem:siplifiaction:order:well:founded});
+transitive and irreflexive relations are always asymmetric,
 etc.
 
 \begin{lemma}\label{lem:siplifiaction:order:well:founded}
@@ -430,7 +426,7 @@ etc.
 For the following definition we assume
 \( \succG \) as a a total, well-founded and monotone extension
 from a total simplification ordering on ground terms
-to ground clauses \cite{NR2001}.
+to ground clauses~\cite{NR2001}.
 
 \begin{definition}
 	% 4.3
@@ -443,10 +439,10 @@ to ground clauses \cite{NR2001}.
 	% 5.1
     We define an order \( \succC \) on ground closures
     as an arbitrary total well-founded extension of
-    \( \succC' \) -- an inherently well-founded order defined as extension of \( \succG \)
+    \( \succC' \) --- an inherently well-founded order defined as extension of \( \succG \)
     such that
     \( C\cdot\tau\succC' D\cdot\rho \) whenever
-    \( C\tau\succG D\rho \) or \( C\theta = D \) for an proper instantiater \( \theta \).
+    \( C\tau\succG D\rho \) or \( C\theta = D \) for an proper instantiator \( \theta \).
 \end{definition}
 
 \begin{lemma}A well-founded and total order on general ground terms always exists.\end{lemma}
@@ -455,7 +451,7 @@ to ground clauses \cite{NR2001}.
 		We extend a well-founded and total order \( \succ \) on general ground terms,
 		i.e~general atoms to a well-founded proper order \( \succ_\mL \)
 		on literals such that for all atoms \( A \) and \( B \) with \( A\succ B \)
-		the relations \( A\succ_\mL B \) ,
+		the relations \( A\succ_\mL B \),
 		\( \lnot A\succ_\mL\lnot B \) and
 		\( \lnot A\succ_\mL A \) hold.
 		%

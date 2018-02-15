@@ -1,4 +1,4 @@
-% !TeX root = ../mthesis.tex
+% !TeX root = ../mythesis.tex
 % !TeX encoding = UTF-8
 % !TeX spellcheck = en_US
 
@@ -19,9 +19,8 @@
 \begin{definition}
 	We define the instance \( \mct\sigma \)
 	respectively the application of a substitution \( \sigma \) to a literal or term \( \foxt \) as follows
-	\DEFINE{
-		\foxt\sigma
-	}{
+	\begin{gather*}
+	\MDEFINE{\foxt\sigma}{ll}{
 			s_i & \text{if }\foxt=x_i\in\domain(\sigma), \sigma(x_i) = s_i
 			\\
 			y & \text{if }\foxt=y\in\mcV \, \backslash\domain(\sigma)
@@ -31,6 +30,7 @@
 			 \foxf\in\mcFn \\
 			 \lnot (A\sigma) &\text{if }\foxt = \lnot A, \text{ where } A\text{ is an atom}
 			 }
+	\end{gather*}
 
 \noindent Further we define the instance of a clause as the multiset of the instances of its literals.
 \end{definition}
@@ -39,10 +39,8 @@
 	We can easily extend our definition to composite first order formulae,
 	but the cases of quantified formulae need more consideration.
 	So we only partially define \( F\sigma \) for first order formulae \( F \) and substitution \( \sigma \) as follows (if \( G\sigma \) and \( H\sigma \) are defined in the respective cases).
-	\DEFINE{
-		F\sigma
-	}
-{
+	\begin{gather*}
+	\MDEFINE{F\sigma}{ll}{
 		\lnot(G\sigma) & \text{if }F = \lnot G
 		\\
 		(G\sigma) * (H\sigma) & \text{if }F = G * H, *\in \{ \land, \lor, \limp \}
@@ -54,6 +52,7 @@
 		% \texttt{undefind} & \texttt{otherwise}
 		% x\not\in\bvar(G)
 	}
+	\end{gather*}
 \end{definition}
 
 \begin{definition}

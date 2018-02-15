@@ -1,4 +1,4 @@
-% !TeX root = ../mthesis.tex
+% !TeX root = ../mythesis.tex
 % !TeX encoding = UTF-8
 % !TeX spellcheck = en_US
 
@@ -208,7 +208,7 @@ to ground clauses~\cite{NR2001}.
    \begin{definition}[UP-Redundancy]
         Let \( \mcL \) be a set of literal closures. We define
        \begin{itemize}
-           \item \( \irred_R(\mcL) =
+           \item \( \IRRED_R(\mcL) =
            \{ \,
             L\cdot\sigma\in\mcL \mid
            \sigma\text{ is irreducible w.r.t.~}R
@@ -226,8 +226,11 @@ to ground clauses~\cite{NR2001}.
          \).
 
        \item Literal closure \( L\cdot\sigma \) is UP-redundant in \( \mcL \) if
+
        \begin{gather*}
+            % cspell:disable
             R \cup irred_R(\mcL_{L\cdot\sigma\succL}) \vDash L\sigma
+            % cspell:enable
        \end{gather*}
         for every ground rewrite system \( R \)
 
@@ -251,7 +254,7 @@ to ground clauses~\cite{NR2001}.
                    \begin{array}{lclc}
                        \mcL_i \backslash L\cdot\sigma
                         &\text{if}
-                        &R \cup \irred_R(\mcL_{i,L\cdot\sigma\succL}) \entails L\sigma
+                        &R \cup \IRRED_R(\mcL_{i,L\cdot\sigma\succL}) \entails L\sigma
                        \\
                        \\
                        \mcL_i \cup \, \emptyclause
@@ -460,7 +463,7 @@ to ground clauses~\cite{NR2001}.
 
         If any \( L\cdot\sigma\in\mcL_S \), irreducible by \( R_S \) exists with \( \mcI\not\models L\sigma \)
 
-        then there is a \( L'\cdot\sigma'\in irred_{R_S}(\mcL_S^{sat}) \) with \( \mcI\not\models L'\sigma' \).
+        then there is a \( L'\cdot\sigma'\in \IRRED_{R_S}(\mcL_S^{sat}) \) with \( \mcI\not\models L'\sigma' \).
        \end{lemma}
 
        \begin{proof}
@@ -474,7 +477,7 @@ to ground clauses~\cite{NR2001}.
            \item If \( L\cdot\sigma \) is UP-redundant in \( \mcL_S^{sat} \).
         By construction \( \sigma \) is irreducible by \( R_S \). Then we have
        \begin{align*}
-            R_S \cup irred_{R_S}(
+            R_S \cup \IRRED_{R_S}(
                \{
                 L'\cdot\sigma'\in\mcL_S^{sat}
                \mid
@@ -484,7 +487,7 @@ to ground clauses~\cite{NR2001}.
            \models
             L\sigma
        \end{align*}
-        % At least one \( L'\cdot\sigma'\in irred_{R_S}(\mcL_S^{sat}) \)
+        % At least one \( L'\cdot\sigma'\in \IRRED{R_S}(\mcL_S^{sat}) \)
         with \( \mcI\not\models L'\sigma' \).
        \hfill \checkmark{}
        \end{itemize}
@@ -497,7 +500,7 @@ to ground clauses~\cite{NR2001}.
                 M\cdot\tau = \min_{\succL}\!
                \left \{ \,
                 L'\cdot\tau' \mid
-                L'\cdot\sigma' \in irred_{R_S}(\mcL_S^{sat}), \,
+                L'\cdot\sigma' \in \IRRED_{R_S}(\mcL_S^{sat}), \,
                 L'\sigma'\text{ false in }\mcI \,
                \right \}
            \end{gather*}
@@ -527,7 +530,7 @@ to ground clauses~\cite{NR2001}.
 
                \vspace{0.3em}
                 Now \( M\cdot\tau\succL
-                M[r']\theta\cdot\mu\in irred_{R_S}(\mcL_S^{sat}) \)
+                M[r']\theta\cdot\mu\in \IRRED_{R_S}(\mcL_S^{sat}) \)
 
                 contradicts minimality of \( M\cdot\tau \).
                \hfill
@@ -536,7 +539,7 @@ to ground clauses~\cite{NR2001}.
                \item If \( M[r']\theta\cdot\mu \) is UP-redundant in \( \mcL_S^{sat} \) then
                \vspace{-0.3em}
                \begin{gather*}
-                    R_S \cup irred_{R_S}
+                    R_S \cup \IRRED_{R_S}
                    \{
                         M'\cdot\tau'\in\mcL_S^{sat}\mid
                         M[r']\theta\cdot\mu \succL M'\tau'
@@ -651,7 +654,7 @@ to ground clauses~\cite{NR2001}.
             M\cdot\tau = \min_{\succL}\!
    \left \{ \,
         L'\cdot\tau' \mid
-        L'\cdot\sigma' \in irred_{R_S}(\mcL_S^{sat}), \,
+        L'\cdot\sigma' \in \IRRED_{R_S}(\mcL_S^{sat}), \,
        \mcI\not\models L'\cdot\sigma' \,
    \right \}
        \end{gather*}

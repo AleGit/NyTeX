@@ -1,4 +1,4 @@
-% !TeX root = ../mthesis.tex
+% !TeX root = ../mythesis.tex
 % !TeX encoding = UTF-8
 % !TeX spellcheck = en_US
 
@@ -17,11 +17,11 @@ fall out from refutational complete procedures.
 
 %An we judge the procedures by there theoretical performance on decidable fragments.
 %
-We know by Herbrand's theorem
+We know by Herbrand`∫s theorem
 %(\ref{the:herbrand}, p.~\pageref{the:herbrand})
 that each satisfiable set of (non-ground) clauses
 and each finite set of ground instances of a satisfiable set of (non-ground) clauses
-has a Hebrand model.
+has a Herbrand model.
 And we know by compactness
 %(\ref{the:compactness}, p.~\pageref{the:compactness})
 that if every finite subset of a set of clauses is satisfiable then this set is satisfiable.
@@ -41,10 +41,10 @@ while in general there is no bound on the size of a smallest set of unsatisfiabl
 To actually prove a theorem
 we first make use of the fact that a first-order formula is valid if and only if its negation is unsatisfiable.
 Second we efficiently transform the negated formula into an \coloremph{equisatisfiable} set of clauses
-(e.g.~with Tseitin's transformation~\cite{tseitin70}),
+(e.g.~with Tseytin`s transformation~\cite{tseitin70}),
 i.e.~the formula is satisfiable if and only if the set of clauses is satisfiable.
 
-%This can be done efficiently with Skolemization \cite{books/el/RV01/Hahnle01} and Tseitin-transformation \cite{tseitin70, PLAISTED1986293} as shown in \cite{Nonnengart01computingsmall}.
+%This can be done efficiently with Skolemization \cite{books/el/RV01/Hahnle01} and Tseytin-transformation \cite{tseitin70, PLAISTED1986293} as shown in \cite{Nonnengart01computingsmall}.
 
 It would be sufficient to just luckily guess an unsatisfiable set of ground instances.
 Usually instantiation based automated provers generate
@@ -75,8 +75,8 @@ without equality in Section~\ref{sec:proving:without:equaltiy} and with equality
 \section{Theory axioms in \CNF}\label{sec:clausal:normal:form}
 
 In the previous chapter we expressed axioms and lemmas of first order theories in \FOF{} syntax.
-Since Gilmore's prover, resolution and \InstGen{} work on sets of clauses we transform
-those axioms into (at least) equi-satisfiable representations in \CNF{} syntax
+Since Gilmore`s prover, resolution and \InstGen{} work on sets of clauses we transform
+those axioms into (at least) equisatisfiable representations in \CNF{} syntax
 as summarized for equivalence, congruence, natural numbers, and induction in Table~\ref{tab:natural:numbers},
 for addition and multiplication in Table~\ref{tab:addition:multiplication}.
 
@@ -183,16 +183,16 @@ In practice this prover ran into memory issues or time outs more often than not.
 We will discuss reasons for this inefficiency after we have described and demonstrated the procedure.
 
 First the negation of a sentence \( F \) has to be transformed into an equisatisfiable set of clauses.
-Then the prover's procedure
+Then the prover`s procedure
 creates a sequence of finite sets of ground instances \( S_k \)
 for the set of clauses \( S\approx\lnot F \) to prove the validity of a formula \( F \).
 Each set \( S_k \) contains all possible ground instances of \( S \)
 where all variables are substituted by elements of \( H_k \)
-from definition~\ref{def:hk} of the Hebrand universe.
+from definition~\ref{def:hk} of the Herbrand universe.
 Each \( S_k \) is then transformed into a disjunctive normal form where satisfiability is obvious.
 The procedure is aborted when an unsatisfiable \( S_k \) is encountered.
 
-\begin{procedure}[Gilmore's Prover]\label{proc:gilmore's:prover}
+\begin{procedure}[Gilmore`s Prover]\label{proc:gilmore's:prover}
 	We translate the negation of our formula \( F \) into an equisatisfiable set of clauses
 	\( \lnot F \approx S = \bigcup_{i=1}^{n} \mcC_i \) with an efficient algorithm~\cite{tseitin70, PLAISTED1986293}.
 	Then we start our first iteration with \( k=0 \).
@@ -231,7 +231,7 @@ Otherwise it would be a decision procedure for satisfiability in first order log
 which does not exist because of undecidability of satisfiability in first order logic.
 
 \begin{lemma}
-	Gilmore's procedure is a decison procedure for monadic first order logic
+	Gilmore's procedure is a decision procedure for monadic first order logic
 	(Examples~\ref{ex:monadic} and~\ref{ex:fosca:is:mortal})
 	and the Schönfinkel-Bernays fragment
 	(see Table~\ref{tab:decidedable:FiniteModelProperty})
@@ -243,7 +243,7 @@ which does not exist because of undecidability of satisfiability in first order 
 	The procedure can stop after the first iteration because
 	\( H_i = H_0 \) and \( S_i = S_0 \) for all \( i\geq0 \),
 	i.e.~after the first iteration
-	no new terms are added to the Hebrand model
+	no new terms are added to the Herbrand model
 	and no new ground instances can be generated.
 \end{proof}
 
@@ -428,14 +428,14 @@ We have observed three main disadvantages in Gilmore's procedure.
 	The check for unsatisfiability is far from efficient.
 	The transformation from a set of clauses
 	to a formula in disjunctive normal form\footnote{
-		In contrast the linear Tseitin transformation yields an equisatisfiable conjunctive normal form.
+		In contrast the linear Tseytin transformation yields an equisatisfiable conjunctive normal form.
 	}
 	usually introduces an exponential\footnote{
 		The existence of a polynomial algorithm
 		for the transformation of
 		an arbitrary propositional formula into
-		an equi\allowbreak{}satisfiable formula in {\em disjunctive normal
-			form\/} (where satisfiability is a linear check)
+		an equisatisfiable formula in \emph{disjunctive normal
+			form} (where satisfiability is a linear check)
 		would show that \( \mathsf{SAT} \) in \( \mcP \)
 		%		\( \mathsf{SAT}\in\mcP \)
 		and would prove \( \mcP = \mcN\mcP \), which remains unknown.
@@ -829,7 +829,7 @@ and we conclude unsatisfiability because of propositional unsatisfiability of
 		with a modern \SAT{} or \SMT{}-solver.
 
 		If \( S_k \, \subsbot \) is unsatisfiable then we exit the procedure and report
-		{ \coloremph{}{}usatisfiability} of \( S \), i.e~the original formula \( F \) is valid.
+		{ \coloremph{}{}unsatisfiability} of \( S \), i.e~the original formula \( F \) is valid.
 
 		\item\label{step:igl:model} The set \( S_k \, \subsbot \) is satisfiable, hence we can retrieve a model \( \mcM_k \models S_k\subsbot \).
 		We select one literal \( L_i = \sel(\mcC_i) \) per clause \( \mcC_i \in S_k \)
@@ -981,7 +981,7 @@ So far we have treated the equality symbol like any other binary predicate symbo
 which can yield models where \( \ma\mNE\ma \) holds.
 Understandably, we are only interested in normal models or
 at least in models that implies the existence of a normal model.
-We have allready seen that a normal Herbrand model might not exist,
+We have already seen that a normal Herbrand model might not exist,
 but we can ensure that we find only desired models.
 
 \subsection{Adding equality axioms}\label{sec:equality:axioms}
@@ -1171,7 +1171,7 @@ but we can ensure that we find only desired models.
 
 %\begin{example}
 %	Consider the set of clauses \( \{ \mc \mEQ \mb \} \).
-%	Here we don't find a Hebrand model where the equality symbol is interpreted as equality on its domain.
+%	Here we don't find a Herbrand model where the equality symbol is interpreted as equality on its domain.
 %\end{example}
 
 %\begin{align*}
@@ -1214,7 +1214,7 @@ but we can ensure that we find only desired models.
 
 \subsection{Equality inference rules}
 
-Instead of adding equality axioms for an equality predciate symbol,
+Instead of adding equality axioms for an equality predicate symbol,
 we add specific equality inference rules for completeness.
 
 

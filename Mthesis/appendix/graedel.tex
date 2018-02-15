@@ -1,4 +1,4 @@
-% !TeX root = ../mthesis.tex
+% !TeX root = ../mythesis.tex
 % !TeX encoding = UTF-8
 % !TeX spellcheck = en_US
 
@@ -7,7 +7,7 @@
 
 
 We look how formulae from these decidable fragments of first order logic
-(Tables \ref{tab:decidedable:FiniteModelProperty} and \ref{tab:decidable:InfinityAxioms})
+(Tables~\ref{tab:decidedable:FiniteModelProperty} and~\ref{tab:decidable:InfinityAxioms})
 can be transformed nicely into equisatisfiable set of clauses.
 The transformation is easy for formulae where the quantifiers follow a specific pattern where the appearances of the universal quantifier is limited. First we remove leading existential quantifiers and replace their variables with Skolem constants.
 Then we remove the trailing existential quantifiers and replace there variables with Skolem functions where the variables of the universal quantifiers are the arguments. After that we remove the remaining universal quantifiers. We transform the remaining formula with constants, functions and a restricted number of free variables into (an equisatisfiable) conjunctive normal form with a suitable procedure.
@@ -227,7 +227,9 @@ we get one skolem constant per leading existential quantifier. And we get \ldots
 
 \begin{table}[hbt]
 	\begin{gather*}
+		% cspell:disable
 		\begin{array}{rcccl}
+		% cspell:enable
 		\text{undecidable} &&\multicolumn{1}{c}{decidable}  & &  \text{classification}
 		\\ \\{}
 [\,\Pi_?, (p_1, {\colLo 1}), (0)\,] &\supsetneq&

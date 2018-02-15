@@ -1,12 +1,12 @@
-% !TeX root = ../mthesis.tex
+% !TeX root = ../mythesis.tex
 % !TeX encoding = UTF-8
 % !TeX spellcheck = en_US
 
 \begin{definition}[\cite{Huth:2004:LCS:975331}]\label{def:natural:deduction}
-	We recall the rules of \coloremph{natural deduction} for connectives
-	in Table \ref{tab:natural:deduction:connectives},
-	for equality in Table \ref{tab:natural:deduction:equality},
-	and for quantifiers in Table \ref{tab:natural:deduction:quantifiers}.
+	We recally the rules of \coloremph{natural deduction} for connectives
+	in Table~\ref{tab:natural:deduction:connectives},
+	for equality in Table~\ref{tab:natural:deduction:equality},
+	and for quantifiers in Table~\ref{tab:natural:deduction:quantifiers}.
 	Natural deduction provides a logical calculus,
 	i.e.~a formal proof system for first order logic.
 	The formulae \( F \) and \( G \) in these rules are sentences,
@@ -37,20 +37,20 @@
 \infer[(\lor i_2)]{F\lor G}{G}
 \\[0.7em]
 \infer[(\lnot i)]{\lnot F}{
-	\boxed{\begin{array}{c}F\\\vdots\\\bot\end{array}}}
+	\boxed{\begin{array}{c}F \\ \vdots \\ \bot \end{array}}}
 &
 \infer[\text{PBC}]{F}{
-	\boxed{\begin{array}{c}\lnot F\\\vdots\\\bot\end{array}}}
+	\boxed{\begin{array}{c}\lnot F \\ \vdots \\ \bot \end{array}}}
 &
 \infer[({\limp} i)]{F\limp G}{
-	\boxed{\begin{array}{c}F\\\vdots\\G\end{array}
+	\boxed{\begin{array}{c}F \\ \vdots \\ G \end{array}
 }}
 &
 \multicolumn{2}{l}{
 	\infer[(\lor e)]{H}{
 		F\lor G &
-		\boxed{\begin{array}{c}F\\\vdots\\H\end{array}} &
-		\boxed{\begin{array}{c}G\\\vdots\\H\end{array}}
+		\boxed{\begin{array}{c}F \\ \vdots \\ H \end{array}} &
+		\boxed{\begin{array}{c}G \\ \vdots \\ H \end{array}}
 	}
 }
 \\[0.7em]
@@ -63,8 +63,7 @@
 &
 \end{array}
 \end{gather*}
-\caption{Natural Deduction Rules for Connectives}
-\label{tab:natural:deduction:connectives}
+\caption{Natural Deduction Rules for Connectives}\label{tab:natural:deduction:connectives}
 \end{table}
 
 \begin{table}[hbt]
@@ -73,8 +72,7 @@
 	\qquad
 	\infer[({=}i)]{t=t}{}
 	\end{gather*}
-	\caption{Natural Deduction Rules for Equality}
-	\label{tab:natural:deduction:equality}
+	\caption{Natural Deduction Rules for Equality}\label{tab:natural:deduction:equality}
 \end{table}
 
 \begin{table}[hbt]
@@ -89,16 +87,29 @@
 	}
 	\\[1em]
 	\infer[(\forall i)]{\forall x F'}{
-		\boxed{\begin{array}{cc}t\\&\vdots\\&F'\{x\mapsto t\}\end{array}}
+		\boxed{
+			\begin{array}{cc}
+				t
+				\\
+				&\vdots
+				\\
+				&F' \{x\mapsto t\}
+			\end{array}} % end of boxed
 	}
 	&&
 	\infer[(\exists e)]{H}{
 		\exists x F' &
-		\boxed{\begin{array}{cc}t&F'\{x\mapsto t \}\\&\vdots\\&H\end{array}}
+		\boxed{
+			\begin{array}{cc}
+				t&F' \{ x\mapsto t \}
+				\\
+				&\vdots
+				\\
+				&H
+			\end{array}} % end of boxed
 	}
 	\end{array}
 	\end{gather*}
-	\caption{Natural Deduction Rules for Quantifiers}
-	\label{tab:natural:deduction:quantifiers}
+	\caption{Natural Deduction Rules for Quantifiers}\label{tab:natural:deduction:quantifiers}
 \end{table}
 \end{definition}

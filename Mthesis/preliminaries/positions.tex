@@ -1,4 +1,4 @@
-% !TeX root = ../mthesis.tex
+% !TeX root = ../mythesis.tex
 % !TeX encoding = UTF-8
 % !TeX spellcheck = en_US
 
@@ -30,9 +30,8 @@
 \begin{definition}
 
 	We define the set of \coloremph{positions} in an atom or a term recursively,
-	\DEFINE{
-		\pos(\foxt) }
-	{
+	\begin{gather*}
+	\MDEFINE{\pos(\foxt) }{ll}{
 		\{ \epsilon \}
 		& \text{if }\foxt = x \in \mcV
 		\\
@@ -59,34 +58,35 @@
 %		\{ \epsilon \} \cup\, \bigcup_{i=1}^{2} \{ iq\mid q\in\pos(t_i) \}
 %		&	\text{if }\foxt=t_1\mEQ t_2
 	}
+	\end{gather*}
 	the set of \coloremph{term positions} in an atom or a term,
-	\DEFINE{
-		\posT(\foxt)
-	}{
+	\begin{gather*}
+	\MDEFINE{\posT(\foxt)}{ll}{
 		\pos(\foxt)
 		& \text{if }\foxt\text{ is a term}
 		\\
 		\pos(\foxt) \setminus \{ \epsilon \}
 		& \text{if }\foxt\text{ is an atom}
 	}
+	\end{gather*}
 	the extraction of a subterm at a term position \( p\in\posT(\foxt) \) from an atom or a term,
 %
-	\DEFINE{
-		\foxt|_p
-	}{
+\begin{gather*}
+	\MDEFINE{\foxt|_p}{ll}{
 		\foxt 		& \text{if }p=\epsilon, \colG(\mct\text{ is a term}) \\
 		\foxt_i|_q	& \text{if }t=\foxf(t_1,\ldots,t_n), p=iq, \foxf\in\mcFn
 	}
+\end{gather*}
 	%
 	and the insertion of a term \( s \) at a term position \( p\in\posT(\foxt) \) into an atom or a term
 	by replacing the subterm at that term position.
-	\DEFINE{
-		\foxt[s]_p}
-	{
+	\begin{gather*}
+	\MDEFINE{\foxt{[s]}_p}{ll}{
 		s 		& \text{if }p=\epsilon, \colG(\mct\text{ is a term}) \\
-		\foxf(\foxt_1,\ldots,\foxt_i[s]_q,\ldots,\foxt_n)	& \text{if }t=\foxf(\foxt_1,\ldots,\foxt_n), p=iq,
+		\foxf(\foxt_1,\ldots,\foxt_i{[s]}_q,\ldots,\foxt_n)	& \text{if }t=\foxf(\foxt_1,\ldots,\foxt_n), p=iq,
 		\foxf\in\mcFn, 0 < i \leq n
 	}
+	\end{gather*}
 %where \( p\neq\epsilon \) if \( \foxt \) is an atom.
 	%A \coloremph{hole} denotes a special constant symbol \( \ctxhole\in\mcFf^{(0)} \).
 	%A \coloremph{context} is a term \( t \) with exactly one hole, i.e.~one occurrence \( |t|_{\ctxhole}=1 \).

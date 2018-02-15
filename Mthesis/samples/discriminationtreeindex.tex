@@ -7,21 +7,21 @@
 \path (h) edge node {\( \mf \)} (hf);
 \node (hfx) at (-2,-3) {.};
 \path (hf) edge node {\( * \)} (hfx);
-\node (hfxx) at (-3,-4) {.};
-\path (hfx) edge node {\( * \)} (hfxx);
-\node (1) at (-3,-4.2) {\scriptsize\( t_1 \)};
+\node (n-hfxx) at (-3,-4) {.};
+\path (hfx) edge node {\( * \)} (n-hfxx);
+\node (1) at (-3,-4.2) {\scriptsize \( t_1 \)};
 
-\node (hfxh) at (-2,-4) {.};
-\path (hfx) edge node {\( \mh \)} (hfxh);
-\node (hfxha) at (-2,-5) {.};
-\path (hfxh) edge node {\( \ma \)} (hfxha);
-\node (2) at (-2,-5.2) {\scriptsize\( t_2 \)};
+\node (n-hfxh) at (-2,-4) {.};
+\path (hfx) edge node {\( \mh \)} (n-hfxh);
+\node (n-hfxha) at (-2,-5) {.};
+\path (n-hfxh) edge node {\( \ma \)} (n-hfxha);
+\node (2) at (-2,-5.2) {\scriptsize \( t_2 \)};
 
 \node (hfh) at (-1,-3) {.};
 \path (hf) edge node {\( \mh \)} (hfh);
-\node (hfha) at (-1,-4) {.};
-\path (hfh) edge node {\( \ma \)} (hfha);
-\path[dashdotted,bend left=45,gray](hf) edge (hfha);
-\node (hfhaa) at (-1,-5) {.};
-\path (hfha) edge node {\( \ma \)} (hfhaa);
-\node (3) at (-1,-5.2) {\scriptsize\( t_3 \)};
+\node (n-hfha) at (-1,-4) {.};
+\path (hfh) edge node {\( \ma \)} (n-hfha);
+\path[dashdotted,bend left=45,gray] (hf) edge (n-hfha);
+\node (n-hfhaa) at (-1,-5) {.};
+\path (n-hfha) edge node {\( \ma \)} (n-hfhaa);
+\node (3) at (-1,-5.2) {\scriptsize \( t_3 \)};

@@ -1,4 +1,4 @@
-% !TeX root = ../mthesis.tex
+% !TeX root = ../mythesis.tex
 % !TeX encoding = UTF-8
 % !TeX spellcheck = en_US
 
@@ -87,7 +87,7 @@ In both examples we start with the unsatisfiable set of clauses
 
 \subsubsection{Ordered Resolution}
 
-\jek \( \ \Leftarrow\emptyclause\in S_i \). We conclude unsatisfiability of \( S \) whenever the empty clause is found (already present or derived).
+\jek{} \( \ \Leftarrow\emptyclause\in S_i \). We conclude unsatisfiability of \( S \) whenever the empty clause is found (already present or derived).
 New clauses are disjunctions of instances of an active and the given clause where conflicting literals were removed,
 in other words the union of the two instances without the contradicting literals.
 \begin{gather*}
@@ -136,7 +136,7 @@ in other words the union of the two instances without the contradicting literals
 
 \subsubsection{InstGen}
 
-\jek \( \ \Leftarrow \lnot\SAT(S_i\bot) \). We conclude unsatisfiability of \( S \) whenever (a subset of) \( S_i\bot \) --- a set of ground instances --- is unsatisfiable.
+\jek{} \( \ \Leftarrow \lnot\SAT(S_i\bot) \). We conclude unsatisfiability of \( S \) whenever (a subset of) \( S_i\bot \) --- a set of ground instances --- is unsatisfiable.
 We consider only proper instances of an active and the given clause as probable new clauses to extend the set of clauses.
 \begin{gather*}
 	\infer[\sigma=\{ x'\mapsto\mf(x), y\mapsto\mg(y') \}]{
@@ -149,11 +149,10 @@ We consider only proper instances of an active and the given clause as probable 
 \end{gather*}
 
 
-\begin{example}[InstGen]The active and given clauses are already encoded and given to a \SAT solver.
+\begin{example}[InstGen]The active and given clauses are already encoded and given to a \SAT{} solver.
 	The basic given clause algorithm would stop and fail after \( (4) \)
 	since \( S_4\bot \) is still satisfiable and there is no conflict between the underlined selected literal of the given clause
 	and any selected literals of any of the active clauses.
-
 
 	\begin{align*}
 	(1)\quad^{1:}&\boxed{\underline{\mP(\ma)}\lor\mQ(\ma)}
@@ -217,7 +216,12 @@ We consider only proper instances of an active and the given clause as probable 
 		\node (pc) [myrect] at (0,8em) {passive clauses};
 		\node (ab) [myrect] at (-8em,3.5em) {instantiation};
 		\node (gs) [myrect] at (-8em,8em) { \SAT};
-		\node (un) [mycircle] at (-15em,8em) {un\-satis\-fiable};
+
+		\node (un) [mycircle] at (-15em,8em) {
+			% cspell:disable
+			un\-satis\-fiable
+			% cspell:enable
+			};
 		\node (se) [myrect] at (-8em,12.5em) {selection};
 		\node (gc) [myrect] at (0em,16em) {given clause};
 		\node (ac) [myrect,dashed] at (-13em,16.5em) {active clauses};
@@ -226,7 +230,11 @@ We consider only proper instances of an active and the given clause as probable 
 		\node (us) [myrect,very thick,
 		%		minimum width=8em, minimum height=3.5em, text width=7em
 		] at (8.5em,8em) { \InstGen};
-		\node (sa) [mycircle] at (16em,8em) {satis\-fiable};
+		\node (sa) [mycircle] at (16em,8em) {
+			% cspell:disable
+			satis\-fiable
+			% cspell:enable
+			};
 		\node (su) [myrect] at (8.5em,3.5em) {substitution};
 
 		\draw[myarrow] (start) to (nc);
@@ -247,7 +255,7 @@ We consider only proper instances of an active and the given clause as probable 
 		\draw[myarrow,dotted] (ac.east) to [bend left=25](pc);
 
 		\end{tikzpicture}
-		\caption{Proving loop with \SAT and \InstGen}\label{fig:inst-gen-maxcomp}
+		\caption{Proving loop with \SAT{} and \InstGen{}}\label{fig:inst-gen-maxcomp}
 	\end{center}
 \end{figure}
 

@@ -1,4 +1,4 @@
-% !TeX root = ../mthesis.tex
+% !TeX root = ../mythesis.tex
 % !TeX encoding = UTF-8
 % !TeX spellcheck = en_US
 
@@ -9,7 +9,7 @@
 	the following three clauses hold for arbitrary elements \( x,y,z \) in \( A \).
 	\begin{align*}
 	x\sqsubseteq x
-	\tag*{reflexivivity}
+	\tag*{reflexivity}
 	\\
 	x\not\sqsubseteq y \lor  y \not\sqsubseteq z \lor x\sqsubseteq z
 	\tag*{transitivity}
@@ -24,7 +24,7 @@
 	i.e.~\( \sqsubset \) is a proper order on \( A \) if the following two clauses hold.
 	\begin{align*}
 	x\not\sqsubset x
-	\tag*{irreflexivivity}
+	\tag*{irreflexivity}
 	\\
 	x\not\sqsubset y \lor  y \not\sqsubset z \lor x\sqsubset z
 	\tag*{transitivity}
@@ -58,7 +58,7 @@
 	always holds for arbitrary \( x \) and \( y \) in \( A \).
 \end{lemma}
 
-\begin{proof} We use resolution to derive asymmetry from irreflectivity and transitivity.
+\begin{proof} We use resolution to derive asymmetry from irreflexivity and transitivity.
 	\[
 			\infer[\{x'\mapsto x, z\mapsto x \}]{
 			x\not\sqsubset y \lor y\not\sqsubset x }{
@@ -68,7 +68,7 @@
 \end{proof}
 
 \begin{example}The strict subset relation \( \subsetneq \) over a power set is a proper order, but not a total,
-	e.g. for the power set over natural numbers we have
+	e.g.~for the power set over natural numbers we have
 	\[
 	\{ 1 \} \not\subsetneq \{ 2 \}
 	\land \{ 2 \} \not\subsetneq \{ 1 \}

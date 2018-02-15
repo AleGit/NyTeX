@@ -1,4 +1,4 @@
-% !TeX root = ../mthesis.tex
+% !TeX root = ../mythesis.tex
 % !TeX encoding = UTF-8
 % !TeX spellcheck = en_US
 
@@ -19,7 +19,7 @@ and a new function symbol \( f\!_P \) for every predicate symbol \( P \):
 \section{Term Rewrite Systems}
 
 We can transform a set of selected literals into a term rewrite system
-when we introduce two new constant symbols -- \( \mathsf{true} \) and \( \mathsf{false} \) --
+when we introduce two new constant symbols --- \( \mathsf{true} \) and \( \mathsf{false} \) ---
 to transform each literal into a rewrite rule.
 \begin{align*}
 P(t_1,\ldots,t_n) \quad\Rightarrow &\quad P(t_1,\ldots,t_n) \rwStep \mathsf{true}
@@ -46,8 +46,11 @@ When we find a not unifiable critical peek, then the set of literals is inconsis
 	\end{align*}
 	with overlap \( \left<(1),p,(2)\right> \) with \( p=\epsilon \),
 	\( \sigma = \mgu(l_1, l_2|_\epsilon) = \{ x\mapsto \mf(y)\} \).
-	From overlap $\left(\ell_2\sigma[r_1\sigma]_\epsilon, \epsilon, \ell_2\sigma, r_2\sigma\right)
-	= (\mathsf{true}, \epsilon, \mP(\mf(y)), \mathsf{false})$
+	From overlap
+	\(
+		\left(\ell_2\sigma{[r_1\sigma]}_\epsilon, \epsilon, \ell_2\sigma, r_2\sigma\right)
+		= (\mathsf{true}, \epsilon, \mP(\mf(y)), \mathsf{false})
+	\)
 %	we obtain critical pair \( \mathsf{false} \leftarrow P(x) \rightarrow \mathsf{true} \)
 	we obtain critical pair \( \mathsf{true} \mEQ \mathsf{false} \).
 

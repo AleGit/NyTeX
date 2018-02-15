@@ -1,4 +1,4 @@
-% !TeX root = ../mthesis.tex
+% !TeX root = ../mythesis.tex
 % !TeX encoding = UTF-8
 % !TeX spellcheck = en_US
 
@@ -7,7 +7,10 @@
 \input{epigraphs/faust}
 
 In this chapter we introduce \FLEA{} ---
-our \textbf{F}irst Order \textbf{L}ogic with \textbf{E}quality Theorem \textbf{A}ttester.
+our
+% cspell:disable
+\textbf{F}irst Order \textbf{L}ogic with \textbf{E}quality Theorem \textbf{A}ttester.
+% cspell:enable
 It is
 --- as the reader may already suspect ---
 a modest implementation of an instantiation based theorem prover for first order clauses with equality.
@@ -33,7 +36,9 @@ from the \TPTP{} website\footnote{
 	\href{http://www.cs.miami.edu/~tptp/}{www.cs.miami.edu/\textasciitilde tptp}
 }, and to create a symbolic link to the unpacked library in your home directory.
 \begin{lstlisting}[
+	% cspell:disable
 	label=lst:check:Swyz,
+	% cspell:enable
 	caption={Check toolchain and libraries},
 	language=bash]
 $\prompt$ yices - V
@@ -74,7 +79,7 @@ $\prompt$ Scripts/ctests.sh                        # build and run all tests
 
 \section{Data struture}
 
-\begin{lstlisting}[language=flea]{Simplified defintion of general terms}}
+\begin{lstlisting}[language=flea, caption={Simplified definition of general terms}]
 protocol Node: Hashable {
 	associatedtype Symbol : Hashable
 	var symbol: Symbol { get set }
@@ -97,12 +102,14 @@ After installation of these prerequisites you may check if everything went well.
 
 \begin{definition}
 	We derive the propositional identifier of a general term as follows
-\DEFINE{\xi(\mct)}{
+\begin{gather*}
+	\MDEFINE{\xi(\mct)}{ll}{
 	\bot &\text{if } \mct=x\in\mcV, \bot\not\in\mcF
 	\tag*{}\\
 	\mc &\text{if } \mct=c\in\mcFn[0]\\
 	\mcf\encsep\xi(t_1)\encsep\ldots\encsep\xi(t_n) &\text{if }\mct=\mcf(t_1,\ldots,t_n), \mcf\in\mcFn
 }
+\end{gather*}
 where \( \bot, \encsep\not\in\mcF \) are distinct symbols that do not occur in the signature of the set of clauses.
 \end{definition}
 
@@ -191,7 +198,11 @@ extension Yices {
 }
 \end{lstlisting}
 
-\begin{lstlisting}[language=FLEA, mathescape=true]{SMT encoding}
+\begin{lstlisting}[language=FLEA,
+	% cspell:disable
+	mathescape=true,
+	% cspell:enable
+	caption={SMT encoding}]
 yices_init()
 let B = yices_bool_type()
 let U = Yices.namedType(name: "\( \tau \)")
