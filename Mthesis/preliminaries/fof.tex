@@ -2,7 +2,7 @@
 % !TeX encoding = UTF-8
 % !TeX spellcheck = en_US
 
-\begin{definition}[\index{FOF}\FOF]\label{def:syntax:FOF}
+\begin{definition}[\FOF]\label{def:syntax:FOF}
 	The atoms in Definition~\vref{def:atoms} are \coloremph{first order formulae}.
 	The universal quantification \( (\forall x F) \)
 	and the existential quantification \( (\exists x F) \)
@@ -25,7 +25,8 @@
 \begin{definition}\label{def:fof:fvars}\label{def:fof:bvars}
 	We define the set of \coloremph{free} variables and the set of \coloremph{bound} variables
 	of a first order formula \( F \) as follows:
-\DEFINE{\fvar(F)}{
+\begin{gather*}
+	\MDEFINE{\fvar(F)}{ll}{
 		\bigcup_{i=1}^n \var(t_i) &\text{if }F
 		= \mP(t_1,\ldots,t_n)\text{ or }t_1\mEQ{} t_{n=2}
 		\\
@@ -35,7 +36,9 @@
 		\\
 		\fvar (G) \setminus \{ x\} &\text{if } F \in \{ \, \forall x \, G, \exists x \, G \, \}
 	}
-\DEFINE{\bvar(F)}{
+\end{gather*}
+\begin{gather*}
+\MDEFINE{\bvar(F)}{ll}{
 	\emptyset &\text{if }F = \mP(t_1,\ldots,t_n)\text{ or }t_1\mEQ t_{n=2}
 	\\
 	\bvar(G)&\text{if }F = \lnot G
@@ -44,6 +47,7 @@
 	\\
 	\{ x\} \cup \bvar (G) &\text{if } F \in \{ \, \forall x \, G, \exists x\,G \, \}
 }
+\end{gather*}
 \end{definition}
 
 \begin{example}

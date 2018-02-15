@@ -50,7 +50,8 @@ In practice such a human approach may fail for an unsatisfiable set of clauses
 just because an important clause pairing has been overlooked
 and infinite inferences can be drawn from a satisfiable subset of the set of clauses.
 %For an automated procedure we need a process that guarantees that eventually all possible inferences were drawn.
-In any case an automated procedure has to notice when all derivations have already been processed.
+An automated procedure has to notice when all relevant derivations
+have already been processed.
 
 First will discuss the given clause algorithm in Section~\ref{sec:given:clause:algorithm}
 as a saturation process that eventually determines all possible derivate clauses
@@ -67,10 +68,10 @@ with respect to a given calculus, e.g.~ordered resolution.
 		we exit the procedure with \( \lnot\SAT \).
 		\setcounter{enumi}{0}
 		\item If \( P \) is empty we exit and return \SAT{}.
-		\item We select a passive clause, i.e.~the given clause. \hfill\jek
+		\item We select a passive clause, i.e.~the given clause. \hfill\jek{}
 		\item We iterate over the active clauses and check for applicable inference rule
 		for each pair of an active and the given clause
-		to derive additional clauses which we add to the set of passive clauses. \hfill\jek
+		to derive additional clauses which we add to the set of passive clauses. \hfill\jek{}
 		\item We move the given clause from passive to active and continue with step 1.
 	\end{enumerate}
 \end{procedure}

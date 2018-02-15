@@ -86,7 +86,7 @@ were introduced and proven in the first half of the 20th century.
 \end{corollary}
 
 \begin{lemma}
-With Skolemization and Tseitin transformation we can effectively transform a arbitrary first-order formula into an equisatisfiable set of clauses.
+With Skolemization and Tseytin transformation we can effectively transform a arbitrary first-order formula into an equisatisfiable set of clauses.
 \end{lemma}
 
 
@@ -147,7 +147,7 @@ of first-order logic where satisfiability is decidable.\footnote{
 	without loosing decidability (see Table~\vref{tab:decidable:InfinityAxioms}).
 \end{remark}
 
-%Goldfarb, Gurevich, Rabin, Shelah completly characterized decidable and undecidable prefix classes.
+%Goldfarb, Gurevich, Rabin, Shelah completely characterized decidable and undecidable prefix classes.
 
 \begin{table}[hbt]
 	\begin{align*}
@@ -213,8 +213,8 @@ A theory with axioms \( \forall x\,\mP(x) \) and \( \exists x\,\lnot\mP(x) \) is
 \end{lemma}
 %
 \begin{remark}
-In refuational theorem proving
-we show the unsatisfiabilty
+In refutational theorem proving
+we show the unsatisfiability
 of a negated sentence,
 i.e.~a \coloremph{conjecture},
 in conjunction with the axioms
@@ -244,7 +244,7 @@ The following equivalence and congruence axioms form the theory of equality over
 \\
 \forall x \forall y \forall z\,
 &\left(x \mEQ y \land y\mEQ z \limp x\mEQ z\right)
-\tag*{transitiviy}
+\tag*{transitivity}
 \end{align*}
 \end{definition}
 
@@ -277,7 +277,7 @@ The following equivalence and congruence axioms form the theory of equality over
 
 \end{definition}
 
-%\begin{remark}For simplicity we have replaced biconditionals in symmetry and predicate congruence with implications.
+%\begin{remark}For simplicity we have replaced logical biconditionals in symmetry and predicate congruence with implications.
 %	\begin{align*}
 %	\forall x \forall y\,
 %	\left(x \mEQ y \lbic y \mEQ x \right)
@@ -376,11 +376,11 @@ The following axioms characterize natural numbers, addition, and multiplication.
 \tag*{congruence of \( \msucc \)}
 \\
 \underbrace{G(0)}_{\text{base}}
-\land\, \forall x'\,&
+\land  \, \forall x'\,&
 \underbrace{
 	\left(G(x') \limp G(\msucc(x'))\right)
 }_{\text{step case}}
-\,\limp\, \forall x\,G(x)
+\, \limp \, \forall x \, G(x)
 \tag*{induction schema}
 \end{align*}
 \end{definition}
@@ -389,7 +389,7 @@ The following axioms characterize natural numbers, addition, and multiplication.
 	We may prove \( \forall x\, (\msucc(x) \mNE x) \) with \( G(x) = \msucc(x) \mNE x \) by induction.
 	\begin{align*}
 		\underbrace{\msucc(0)\mNE 0}_{\text{base}}
-		\land\, \forall x'\,&
+		\land \, \forall x' \, &
 		\underbrace{
 			\left( \msucc(x')\mNE x' \limp \msucc(\msucc(x'))\mNE \msucc(x') \right)
 		}_{\text{step case}}
@@ -425,11 +425,11 @@ The following axioms characterize natural numbers, addition, and multiplication.
 	\end{gather*}
 	\end{example}
 
-\begin{theorem}Presburger Artihmetic (Moj\'{z}esz Presburger, 1929), i.e.~the first-order theory that includes the axioms for equality, natural numbers, induction schemata, and addition, is consistent, complete and decidable. The computational complexity of the decision problem is at least doubly exponential \( 2^{2^{cn}} \)(Fischer and Rabin, 1974), but less than triple exponential (Oppen, 1978. Berman, 1980).
+\begin{theorem}Presburger arithmetic (Moj\'{z}esz Presburger, 1929), i.e.~the first-order theory that includes the axioms for equality, natural numbers, induction schemata, and addition, is consistent, complete and decidable. The computational complexity of the decision problem is at least doubly exponential \( 2^{2^{cn}} \)(Fischer and Rabin, 1974), but less than triple exponential (Oppen, 1978. Berman, 1980).
 \end{theorem}
 
 \begin{definition}
-	[Multiplikation]\label{tab:addition:axioms}
+	[Multiplication]\label{tab:addition:axioms}
 	We introduce the binary multiplication symbol \( \times\in\mcFfn[2] \)
 	with two axioms about defining equalities of products.
 	\begin{align*}
@@ -446,12 +446,12 @@ The following axioms characterize natural numbers, addition, and multiplication.
 	\end{align*}
 \end{definition}
 
-\begin{theorem}Peano Artihmetic (Guiseppe Peano, 1889),
-	i.e.~the first-order theory that extends Presburger Arithmetic with multiplication, is incomplete (Gödel's second incompleteness theorem in 1932) and undecidable.
+\begin{theorem}Peano Arithmetic (Giuseppe Peano, 1889),
+	i.e.~a first-order theory that extends Presburger Arithmetic with multiplication, is incomplete (Gödel`s second incompleteness theorem in 1932) and undecidable.
 \end{theorem}
 
 \begin{theorem}
-	The axioms of Peano Artihmetic appear consistent (Gentzen, 1936).
+	The axioms of Peano Arithmetic appear consistent (Gentzen, 1936).
 \end{theorem}
 
 \begin{lemma}[ACN]\label{lem:acn}

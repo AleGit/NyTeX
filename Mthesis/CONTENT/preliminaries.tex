@@ -95,14 +95,15 @@ We state satisfiability and validity of arbitrary first order formulae or sets o
 	holds if \( \alpha_\mcI(s) \mEQ_\mcI \alpha_\mcI(t) \).
 \end{definition}
 
-\begin{definition}[\index*{Semantics} of \index{FOF}\FOF]\label{def:semantics:FOF}
+\begin{definition}
+	[Semantics of \FOF{}]\label{def:semantics:FOF}
 	A universally quantified sentence \( \forall x F \)
 	holds in an interpretation if its subformula \( F \) holds for all assignments for \( x \).
 	An existential quantified sentence \( \exists xF \) holds if its subformula \( F \) holds for at least one assignment for \( x \).
 	For a given interpretation and predefined assignments for all occurring free variables
 	a negation \( \lnot F \) holds if its subformula \( F \) does not hold,
 	a disjunction \( F\lor G \) holds if one or both of its subformulae \( F \) or \( G \) hold,
-	a conjunction \( F\land G \) holds, if both of its subformualae \( F \) and \( G \) hold,
+	a conjunction \( F\land G \) holds, if both of its subformulae \( F \) and \( G \) hold,
 	an implication \( F\limp G \) holds if its first subformula \( F \) does not hold or its second subformula \( F' \) holds (or both).
 
 	\begin{remark}Usually we use precedences on connectives to omit parentheses
@@ -111,7 +112,7 @@ We state satisfiability and validity of arbitrary first order formulae or sets o
 	\end{remark}
 \end{definition}
 
-\begin{definition}[\index*{Semantics} of \index{CNF}\CNF]\label{def:semantics:CNF}
+\begin{definition}[Semantics of \CNF{}]\label{def:semantics:CNF}
 	An atom holds in an interpretation if and only if it
 	holds with all possible assignments.
 	A literal holds if and only if its complement does not hold.
@@ -136,11 +137,13 @@ We state satisfiability and validity of arbitrary first order formulae or sets o
 	The \coloremph{Herbrand universe} for a first order signature \( \mcF \)
 	is the smallest set of terms that contains all \( H_{i\geq 0} \) defined inductively as
 	\begin{align*}
-	H_0 &= \left\{
+	H_0 &=
+	\left \{
 	\begin{array}{ll}
-	\{\,\mc \mid \mc\in\mcFfn[0]\,\} 
-	&\text{if } \mcFfn[0]\not=\emptyset\\
-	\{\,\mc_0\,\}
+	\{ \, \mc \mid \mc\in\mcFfn[0] \, \} 
+	&\text{if } \mcFfn[0]\not=\emptyset
+	\\
+	\{ \, \mc_0 \, \}
 	&\text{if } \mcFfn[0]=\emptyset, \mc_0\not\in\mcF
 	\end{array}
 	\right.
@@ -148,11 +151,9 @@ We state satisfiability and validity of arbitrary first order formulae or sets o
 	H'_0 &= H_0
 	\\
 	H_{k+1} &= \bigcup_{n> 0}
-	\{\,
-	\mf(t_1,\ldots,t_n) \mid
+	\{ \, \mf(t_1,\ldots,t_n) \mid
 	\mf\in\mcFfn[n],
-	t_1,\ldots,t_n \in H_k'
-	\,\}
+	t_1,\ldots,t_n \in H_k' \, \}
 	&
 	H'_{k+1} &= H_k \cup H'_{k+1}
 	\end{align*}
@@ -188,7 +189,7 @@ We state satisfiability and validity of arbitrary first order formulae or sets o
 	F_1,\ldots,F_n&\entails G  &\text{if and only if} && F_1\land\ldots\land F_n&\entails G\\
 	F\land G&\equival G\land F &F\lor G\equival G\lor F && F\limp G &\equival \lnot F\lor \lnot G
 	\end{align*}
-	by the defintions for semantics, entailment, and equivalence.\hfill\( \Box \)
+	by the definitions for semantics, entailment, and equivalence.\hfill\( \Box \)
 \end{lemma}
 
 \begin{example}
@@ -199,7 +200,7 @@ We state satisfiability and validity of arbitrary first order formulae or sets o
 
 \begin{definition}
 	A equivalence transformation transforms
-	a sentecence \( F \) to an equivalent sentence \( F' \).
+	a sentence \( F \) to an equivalent sentence \( F' \).
 \end{definition}
 
  but \( \mP(\mf(\ma)) \equisat \mQ(\mg(\mb)) \)

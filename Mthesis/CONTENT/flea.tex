@@ -9,10 +9,10 @@
 In this chapter we introduce \FLEA{} ---
 our \textbf{F}irst Order \textbf{L}ogic with \textbf{E}quality Theorem \textbf{A}ttester.
 It is
---- as the reader may allready suspect ---
+--- as the reader may already suspect ---
 a modest implementation of an instantiation based theorem prover for first order clauses with equality.
 
-%We disucss its general architecture and elaborate on some implementation details.
+%We discuss its general architecture and elaborate on some implementation details.
 
 \section{Installation}
 
@@ -90,7 +90,7 @@ protocol Node: Hashable {
 
 We can simply encode first order atoms purely propositional
 when we construct the name for the propositional atom
-from a predicate or equation recursively as concatination of symbols.
+from a predicate or equation recursively as concatenation of symbols.
 After installation of these prerequisites you may check if everything went well.
 
 
@@ -118,21 +118,21 @@ where \( \bot, \encsep\not\in\mcF \) are distinct symbols that do not occur in t
 
 \begin{definition}
 	We define den \SMT-Encoding as follows
-\DEFINE{\Xi(\mct)}{
-	\mc_0 : U &\text{if } \mct=x\in\mcV, \mc_0\not\in\mcFn[0]
+\begin{gather*}
+\MDEFINE{\Xi(\mct)}{lcll}{
+	\mc_0&:&U &\text{if } \mct=x\in\mcV, \mc_0\not\in\mcFn[0]
 	\\
-	\mc  : U &\text{if } \mct=c\in\mcFfn[0]
+	\mc&:&U &\text{if } \mct=c\in\mcFfn[0]
 	\\
-	\mf
-	: (U^n\rightarrow U)\ \Xi(t_1)\ \ldots\ \Xi(t_n)
-	&\text{if }\mct=\mf(t_1,\ldots,t_n), \mf\in\mcFfn
+	\mf&:&(U^n\rightarrow U){\ }\Xi(t_1){\ }\ldots{\ }\Xi(t_n)
+	&\text{if }\mct=\mf(t_1,\ldots,t_n), \mf\in\mcFfn{}
 	\\
-	\mP  : \mathsf{Bool} &\text{if } \mct=p\in\mcFPn[0]
+	\mP&:&\mathsf{Bool} &\text{if } \mct=p\in\mcFPn[0]
 	\\
-	\mP
-	: (U^n\rightarrow \mathsf{Bool})\ \Xi(t_1)\ \ldots\ \Xi(t_n)
-	&\text{if }\mct=\mP(t_1,\ldots,t_n), \mP\in\mcFPn
+	\mP&:& (U^n \rightarrow\mathsf{Bool}){\ }\Xi(t_1){\ }\ldots{\ }\Xi(t_n)
+	&\text{if }\mct=\mP(t_1,\ldots,t_n), \mP\in\mcFPn{}
 }
+\end{gather*}
 \end{definition}
 
 \begin{lstlisting}[language=FLEA]
