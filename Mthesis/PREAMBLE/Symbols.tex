@@ -228,9 +228,9 @@
 %
 
 % first order expression)
-\newcommand{\foxf}{\ensuremath{\colO \mcf}} % predicate or function symbol f
-\newcommand{\foxt}{\ensuremath{\colO \mct}} % atom or term t
-\newcommand{\foxs}{\ensuremath{\colO \mcs}} % atom or term t
+\newcommand{\foxf}{\textcolor{colO}{\mcf}} % predicate or function symbol f
+\newcommand{\foxt}{\textcolor{colO}{\mct}} % atom or term t
+\newcommand{\foxs}{\textcolor{colO}{\mcs}} % atom or term t
 
 
 \newcommand{\TI}[1]{^{^{#1:}}\!}
@@ -304,11 +304,11 @@
 \newcommand{\Yices}{\texttt{Yices\;2}\xspace}
 \newcommand{\Ziii}{\texttt{Z3}\xspace}
 
-\newcommand{\landlor}{\mathrel{\ooalign{\hss\( \land \)\hss\cr\( \lor \)}}}
+% \newcommand{\landlor}{\mathrel{\ooalign{\hss\( \land \)\hss\cr\( \lor \)}}}
 %\newcommand{\limpxor}{\mathrel{\ooalign{\hss\( \limp \)\hss\cr\( \oplus \)}}}
 \newcommand{\quantify}{{\rotatebox[origin=c]{180}{\textsf{\AE}}}\!}
 %\newcommand{\junction}{\landlor}
-\newcommand{\logical}{\mathrel{\ooalign{\hss\( \landlor \)\hss\cr\( \limp \)}}}
+% \newcommand{\logical}{\mathrel{\ooalign{\hss\( \landlor \)\hss\cr\( \limp \)}}}
 
 \newcommand{\prompt}{\$}
 \newcommand{\proves}{\vdash}
@@ -316,7 +316,7 @@
 \newcommand{\entails}{\vDash}
 \newcommand{\equival}{\equiv}
 \newcommand{\equisat}{%
-	\mathrel{\vcenter{\offinterlineskip
+	\mathrel{\vcenter{\offinterlineskip{}
 			\hbox{\( \sim \)}\vskip-.35ex\hbox{\( \sim \)}\vskip-.35ex\hbox{\( \sim \)}}}}
 
 

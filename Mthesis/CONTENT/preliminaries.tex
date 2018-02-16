@@ -200,8 +200,8 @@ We state satisfiability and validity of arbitrary first order formulae or sets o
 \end{lemma}
 
 \begin{definition}
-	Two sentences \( F \equisat G \) are \coloremph{equisatisfiable}
-	if \( F \) is satisfiable whenever \( G \) is satisfiable
+	Two sentences \( F \equisat S \) are \coloremph{equisatisfiable}
+	if \( F \) is satisfiable whenever \( S \) is satisfiable
 	and the other way round.
 	An \coloremph{equisatisfiable transformation} morphs an arbitrary sentence
 	\( F \) to a sentence \( F' \) such that \( F \equisat F' \).
@@ -209,23 +209,33 @@ We state satisfiability and validity of arbitrary first order formulae or sets o
 \end{definition}
 
 % \begin{example}
-% 	Let \(F\) be an arbitrary formula with \( \fvar(F) = \{ x \} \).
-% 	It is easy to see that in general
-% 	\( F\{ x\mapsto\ma \} \not\equiv F\{ x\mapsto\mb \} \)
-% 	but
-% 	\( F\{ x\mapsto\ma \} \equisat F\{ x\mapsto\mb \} \),
-% 	e.g.~we can construct a model such that
-% 	\(\mP(\ma)\) holds but \(\mP(\mb)\) does not.
-% 	But undoubtedly \(\mP(\ma)\) is as satisfiable as
-% 	 \(\mP(\mb)\).
+% 	\begin{align*}
+% 		\{ \mcC\lor p, \mcD\lor\lnot p \} &\entails \{ \mcC\lor p, \mcD\lor\lnot p, \mcC\lor\mcD \}
+% 		\\
+% 		\{ \mcC\lor p, \mcD\lor\lnot p \} &\equisat \{ \mcC\lor p, \mcD\lor\lnot p, \mcC\lor\mcD \}
+% 		\\
+% 		\{ \mcC\lor p, \mcD\lor\lnot p \} &\not\equiv \{ \mcC\lor p, \mcD\lor\lnot p, \mcC\lor\mcD \}
+% 	\end{align*}
 % \end{example}
+
+\begin{example}
+	Let \(F\) be an arbitrary formula with \( \fvar(F) = \{ x \} \).
+	It is easy to see that in general
+	\( F\{ x\mapsto\ma \} \not\equiv F\{ x\mapsto\mb \} \)
+	but
+	\( F\{ x\mapsto\ma \} \equisat F\{ x\mapsto\mb \} \),
+	e.g.~we can construct a model such that
+	\(\mP(\ma)\) holds but \(\mP(\mb)\) does not.
+	But undoubtedly \(\mP(\ma)\) is as satisfiable as
+	 \(\mP(\mb)\).
+\end{example}
 
 \begin{example}
 	\( \exists x \, \mP(x) \equisat \mP(\ma) \), but only
 	\( \mP(\ma) \entails \exists x \, \mP(x) \) holds.
 \end{example}
 
-\begin{example}We can relate sets of clauses to sentences
+\begin{example}Equisatisfiability is easily extended to
 	\[
 	\{ \, \mP(x, \mf(x)), \, \mQ(y,\ma)\, \}
 	\equisat \forall x\exists y(\mP(x,y)) \land \exists a\forall y(\mQ(y,a)) .
