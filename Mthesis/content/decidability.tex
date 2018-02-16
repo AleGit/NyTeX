@@ -41,6 +41,14 @@ were introduced and proven in the first half of the 20th century.
 	We prove the soundness of each inference rule by case distinction and the use of the semantic definition of validity.
 \end{proof}
 
+\input{theorems/goedelsvollstaendigkeitssatz}
+
+\begin{theorem}
+	Natural deduction is a complete calculus,
+	i.e.~a proof \( \Gamma\proves G \) exists,
+	whenever \( \Gamma\models G \).
+\end{theorem}
+
 \begin{theorem}[Completeness, Gödel 1929]
 	Natural deduction as a sound formal proof system for first order logic is complete.
 \end{theorem}
@@ -84,6 +92,16 @@ were introduced and proven in the first half of the 20th century.
 	Then \( S \) is unsatisfiable if and only if there exists
 	an unsatisfiable finite set of ground instances of \( S \).
 \end{corollary}
+
+\begin{lemma}
+	Skolemization preserves satisfiability.
+
+	Tseytin`s transformation preserves satisfiability.
+\end{lemma}
+
+\begin{lemma}
+	Herbrandization preserves validity.
+\end{lemma}
 
 \begin{lemma}
 With Skolemization and Tseytin transformation we can effectively transform a arbitrary first-order formula into an equisatisfiable set of clauses.

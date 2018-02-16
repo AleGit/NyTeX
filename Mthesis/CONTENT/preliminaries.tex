@@ -175,20 +175,22 @@ We state satisfiability and validity of arbitrary first order formulae or sets o
 
 \subsection{Equivalence and Equisatisfiability}
 
-\begin{definition}
+\begin{definition}\label{def:entailment}\label{def:equivalence}
 	% [Consequence and entailment]
-	A (first order) sentence \( G \) is a \coloremph{semantic consequence} of a set of sentences
+	A (first order) sentence \( G \) is a \coloremph{semantic consequence}
+	of a set of sentences
 	\( \Gamma = \{ F_1,\ldots,F_n \} \) if \( G \) holds in all models for \( F_1,\ldots,F_n \).
 	We write \( \Gamma\entails G \) and also say that \( \Gamma \) entails G.
 	Two sentences \( F \equival G \) are \coloremph{equivalent}
 	if an only if the first sentence entails the second and vice versa.
 	An \coloremph{equivalence transformation} morphs an arbitrary sentence \(F\)
 	to another sentence \(F'\) such that \( F\equiv F'\).
-	An equivalence transformation respects the validity of a sentence.
-	Equivalence transformations respect the satisfiability of sentences.
+	Equivalence transformations preserve
+	validity \coloremph{and} satisfiability
+	of sentences.
 \end{definition}
 
-\begin{lemma}
+\begin{example}
 	We can easily see that not satisfiable \( F\land\lnot F \) entails every formula,
 	that valid \( F\lor\lnot F \) is entailed by every sequence, further that
 	\begin{align*}
@@ -197,16 +199,18 @@ We state satisfiability and validity of arbitrary first order formulae or sets o
 	F\land G&\equival G\land F &F\lor G\equival G\lor F && F\limp G &\equival \lnot F\lor \lnot G
 	\end{align*}
 	by the definitions for semantics, entailment, and equivalence.\hfill \( \qed \)
-\end{lemma}
+\end{example}
 
-\begin{definition}
-	Two sentences \( F \equisat S \) are \coloremph{equisatisfiable}
-	if \( F \) is satisfiable whenever \( S \) is satisfiable
+\begin{definition}\label{def:equisatisfiable}
+	Two sentences \( F \equisat G \) are \coloremph{equisatisfiable}
+	if \( F \) is satisfiable whenever \( G \) is satisfiable
 	and the other way round.
-	An \coloremph{equisatisfiable transformation} morphs an arbitrary sentence
+	An \coloremph{satisfiable transformation} morphs an arbitrary sentence
 	\( F \) to a sentence \( F' \) such that \( F \equisat F' \).
 	Equisatisfiable transformations respect the satisfiability of sentences.
 \end{definition}
+
+
 
 % \begin{example}
 % 	\begin{align*}
@@ -235,13 +239,12 @@ We state satisfiability and validity of arbitrary first order formulae or sets o
 	\( \mP(\ma) \entails \exists x \, \mP(x) \) holds.
 \end{example}
 
-\begin{example}Equisatisfiability is easily extended to
+\begin{example}
 	\[
 	\{ \, \mP(x, \mf(x)), \, \mQ(y,\ma)\, \}
 	\equisat \forall x\exists y(\mP(x,y)) \land \exists a\forall y(\mQ(y,a)) .
 	\]
 \end{example}
-
 
 
 \subsection{Equality}
@@ -303,17 +306,6 @@ Hence we state useful definitions to deal with this situation and demonstrate th
 \end{example}
 
 %How we find a normal model or justify its existence we will discuss in Section \vref{sec:automation} about Automation.
-
-\subsection{Completeness of First Order Logic}
-
-\input{theorems/goedelsvollstaendigkeitssatz}
-
-\begin{theorem}
-	Natural deduction is a complete calculus,
-	i.e.~a proof \( \Gamma\proves G \) exists,
-	whenever \( \Gamma\models G \).
-\end{theorem}
-
 
 \section{Term Rewriting and Orderings}\label{sec:termrewriting}
 
