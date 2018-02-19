@@ -4,22 +4,46 @@
 
 \chapter{Completeness of \InstGenEQ}
 
-An empty calculus,
+In the previous chapter we stated some calculi
+that has been used for the implementation
+of automated theorem provers.
+%
+It was easy to see that Gilmore`s prover is theoretically complete,
+but practically very inefficient.
+Additionally it would not stop for clearly satisfiable and simple sets of clauses.
+While it seams intuitive that resolution is complete
+--- we search for all clashing literals between clauses and resolve them ---
+it is puzzling that ordered resolution and then superposition are indeed complete.
+At first sight we would expect that all these restrictions
+lead to ignoring important inferences.
+
+A small set of rules and strict conditions for the application of a rule
+could improve the efficiency of a procedure, but undermine the completeness
+of the procedure, e.g.~an empty calculus,
 i.e.~a calculus without any rules,
-is obviously sound, but not complete.
+is obviously sound and very efficient, but not complete.
 
-
-We want to restrict our calculus as far as possible,
-such that there is a chance of termination
-
-As we have already seen in examples \InstGenEQ{}
-may terminate for a set of clauses without finding
-a unsatisfiable set of ground instances.
-We have claimed that in this case the set of clauses is satisfiable.
+So for every set of sound inference rules the question remains
+how far can we restrict them and still claim
+that a set of clauses is satisfiable when no rule is applicable any more.
 
 
 
-We present the completeness proof from~\cite{GK2004csl} in a more unnested form.
+
+
+% We want to restrict our calculus as far as possible,
+% such that there is a chance of termination
+
+% As we have already seen in examples \InstGenEQ{}
+% may terminate for a set of clauses without finding
+% a unsatisfiable set of ground instances.
+% We have claimed that in this case the set of clauses is satisfiable.
+
+In the first Section~\vref{sec:unit:paramodulation}
+we state unit paramodulation,
+then we define saturated set of clauses …
+than and present it`s completeness proof
+from the literature~\cite{GK2004csl} in a simpler unnested presentation.
 
 
 \section{Unit paramodulation}\label{sec:unit:paramodulation}
@@ -169,6 +193,8 @@ to ground clauses~\cite{NR2001}.
             \ell'\theta\rho &= \mf(\ma, \mh(\mb), \mc) = \ell\sigma = \ell'\sigma'
        \end{align*}
    \end{example}
+
+   \section{From Redundancy to Saturation}
 
    \begin{lemma}
         Let \( R \) be a ground rewrite system and UP is applicable to
@@ -393,6 +419,8 @@ to ground clauses~\cite{NR2001}.
     Then a set of clauses \( S \) is Inst-saturated w.r.t.~a selection function \( \sel \),
             if \( \mcL_S^{sat} \) does not contain the empty literal clause.
 \end{definition}
+
+\section{Fair Saturation}
        \begin{theorem}
         If a set of clauses \( S \) is Inst-saturated,
         and \( S\bot \) is satisfiable,
@@ -667,6 +695,10 @@ to ground clauses~\cite{NR2001}.
 
         Therefore \( \mcI \) is a model for all instances of \( S \).
    \end{proof}
+
+   \section{Saturation Strategies}
+
+
 
 
 
