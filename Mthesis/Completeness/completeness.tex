@@ -699,6 +699,64 @@ to ground clauses~\cite{NR2001}.
    \section{Saturation Strategies}
 
 
+   \IMPROVE{saturation}
+
+   \begin{definition}
+    An Inst-\coloremph{saturation process} is a sequence of triples
+    \(
+        {\{
+            \langle
+            S^i, {I\!_\bot}^i, \sel^i
+            \rangle
+            \}}_{i=1}^\infty
+    \)
+    where \( S^i \) is a set of clauses,
+    \( {I\!_\bot}^i \) a model for \( S^i \),
+    and \( \sel^i \) a selection function based on that model.
+%
+    We go from given
+    \( {\{ \langle S^i, {I\!_\bot}^i, \sel^i \rangle \}} \)
+    to successor state
+    \( {\{ \langle S^{i+1}, {I\!_\bot}^{i+1}, \sel^{i+1} \rangle \}} \)
+    by one of these steps
+    \begin{itemize}
+        \item
+        \( S^{i+1} = S^i \cup N \)
+        where \( N \) is a set of clauses such that
+        \( S^i \entails N \)
+        \item
+        \( S^{i+1} = S^i \setminus \{ C \} \)
+        where clause \( C \) is Inst-redundant in \( S^i \).
+    \end{itemize}
+\end{definition}
+
+    Consider the finite set of closures
+    \( L_1\cdot\sigma, \ldots, L_n\cdot\sigma \)
+    of clauses from \( S^\infty \)
+    We denote \( \mcL = \{ L_1\cdot\sigma, \ldots, L_n\cdot\sigma \} \).
+    The pair \( (K,L) \) is a \coloremph{permanent conflict} if
+    \( \mcL^{sat} \) contains the empty clause
+    and for infinitely many \( i \)
+    we have \( \sel^i(L_j\lor C_j) = L_j \)
+    for \( 1\leq j\leq n\).
+
+
+    \begin{definition}
+    An Inst-saturation process is \coloremph{Inst-fair}
+    if for every persistent conflict
+    \( (K,L) \)
+    at least one of the closures in \( K \)
+    is Inst-redundant in \( S_i \) for some \( i \).
+    \end{definition}
+
+
+
+
+
+
+
+
+
 
 
 
