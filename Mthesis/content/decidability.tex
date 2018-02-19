@@ -11,7 +11,10 @@ In other words, every sentence that holds in all possible models for its premise
 is derivable from its premises by applying rules of the formal system only.
 Additional we expect a useful calculus to be \coloremph{sound}, that is,
 every (syntactically) provable formula (semantically) holds in any model for its premises.
-Without premises a sentence has to be provable if and only if it holds in any interpretation.
+Without premises a sentence has to be provable if and only if it holds in any interpretation of its signature.
+
+% A logic or theory is \coloremph{decidable} if a decision procedure exists,
+% i.e.an algorithm that eventually terminates with the correct answer.
 
 
 %A standard example for a decidable logic is propositional logic.
@@ -23,18 +26,20 @@ Then we enumerate decidable fragments of first order logic
 which can be described purely syntactically
 in Section~\vref{sec:decidable:fol:fragments}.
 We conclude this chapter with a look at decidable first-order theories
-in Section~\ref{sec:decidable:fol:theories},
+in Section~\vref{sec:decidable:fol:theories},
 which are not necessarily contained
 in one of the syntactically describable and decidable fragments of first-order logic.
 
 
-\section{Theorems of First Order Logic}\label{sec:fol:theorems}
+\section{Theorems about First Order Logic}\label{sec:fol:theorems}
 
-The most fundamental theorem about first order logic
-were introduced and proven in the first half of the 20th century.
+The fundamental theorems about first order logic
+were already proven in the first half of the 20th century.
+They outline the possibilities and limitations of any attempt
+to create a general procedure that checks the validity of arbitrary first order sentences.
 
 \begin{theorem}[Soundness]
-	The inference rules of natural deduction (Definition\vref{def:natural:deduction}) are sound.
+	The inference rules of natural deduction (see Definition\vref{def:natural:deduction}) are sound.
 \end{theorem}
 
 \begin{proof}
@@ -49,9 +54,9 @@ were introduced and proven in the first half of the 20th century.
 	whenever \( \Gamma\models G \).
 \end{theorem}
 
-\begin{theorem}[Completeness, Gödel 1929]
-	Natural deduction as a sound formal proof system for first order logic is complete.
-\end{theorem}
+% \begin{theorem}[Completeness, Gödel 1929]
+% 	Natural deduction --- a sound formal proof system for first order logic --- is complete.
+% \end{theorem}
 
 \begin{theorem}
 	[Undecidability, Church 1936, Turing 1937]
@@ -110,12 +115,13 @@ With Skolemization and Tseytin transformation we can effectively transform a arb
 
 \section{Decidable Fragments of First Order Logic}\label{sec:decidable:fol:fragments}
 
-This section presents purely syntactical defined fragments
-of first-order logic where satisfiability is decidable.\footnote{
-	\,Definitions and compact overviews follow the presentation
-	“\href{http://logic.rwth-aachen.de/~graedel/kalmar.pdf}{Decidable fragments of first-order and fixed-point logic}”
-	by E.~Grädel (\url{http://logic.rwth-aachen.de/~graedel/}).
-}
+Validity and satisfiability in general are undecidable in First Order Logic.
+However this section presents purely syntactical defined (tiny) fragments
+of first-order logic where satisfiability is decidable.%\footnote{
+% 	\,Definitions and compact overviews follow the presentation
+% 	“\href{http://logic.rwth-aachen.de/~graedel/kalmar.pdf}{Decidable fragments of first-order and fixed-point logic}”
+% 	by E.~Grädel (\url{http://logic.rwth-aachen.de/~graedel/}).
+% }
 
 
 
@@ -203,7 +209,7 @@ of first-order logic where satisfiability is decidable.\footnote{
 
 \section{Theories in First Order Logic}\label{sec:decidable:fol:theories}
 
-We follow definitions and examples in~\cite{AM2015L}.
+We follow the definitions and examples by A. Middeldorp in~\cite{AM2015L}.
 
 \begin{definition}[Theory]
 	A \coloremph{first-order theory} is a pair of a first-order signature
@@ -219,7 +225,7 @@ We follow definitions and examples in~\cite{AM2015L}.
 		\quad\text{ or }\quad
 		\bigwedge_i A_i \limp \mathsf{theorem}
 	\]
-	A theory is decidable if it is decidable whether an arbitrary sentence holds in the theory.
+	A theory is decidable if it is decidable whether an arbitrary sentence holds in the theory, i.e.~if the sentence is a consequence of the axioms.
 \end{definition}
 
 \begin{example}
@@ -266,6 +272,17 @@ The following equivalence and congruence axioms form the theory of equality over
 \end{align*}
 \end{definition}
 
+\begin{remark}
+	Decidable first-order fragment
+	\(
+		[ \, \forall^3, (0), (0) \, ]{}_{=}
+		\subsetneq
+		[ \, all, (\omega), (1) \, ]{}_{=}
+	\)
+	contains the equivalence axioms.
+\end{remark}
+
+
 \begin{definition}[\( \vec{x} \)-Notation]
 	Occasionally we may abbreviate a sequence of \( n \) variables by \( \vec{x} \).
 	Then we write \( \mcf(\vecn{x}) \)
@@ -291,8 +308,6 @@ The following equivalence and congruence axioms form the theory of equality over
 	&\left(\vecn{x}\mEQ\vecn{y} \limp (\mP(\vecn{x}) \limp \mP(\vecn{y}))\right)
 	\tag*{for all \( \mP\in\mcFPn \)}
 	\end{align*}
-
-
 \end{definition}
 
 %\begin{remark}For simplicity we have replaced logical biconditionals in symmetry and predicate congruence with implications.
@@ -380,7 +395,7 @@ The following axioms characterize natural numbers, addition, and multiplication.
 
 \begin{definition}
 	[Natural Numbers]\label{def:natural:numbers:axioms}
-	We introduce a fresh constant \( 0\in\mcFn[0] \),
+	We introduce a constant symbol $0$,
 	a unary successor symbol \( \msucc\in\mcFn[1] \)
 	and restrict their models with two axioms.
 \begin{align*}
@@ -402,6 +417,16 @@ The following axioms characterize natural numbers, addition, and multiplication.
 \tag*{induction schema}
 \end{align*}
 \end{definition}
+
+\begin{remark}
+	Decidable first-order fragment
+	\(
+		[ \, \exists\forall^2, (0), (1) \, ]{}_{=}
+		\subsetneq
+		[ \, all, (\omega), (1) \, ]{}_{=}
+	\)
+	contains the axioms of natural numbers.
+\end{remark}
 
 \begin{example}
 	We may prove \( \forall x\, (\msucc(x) \mNE x) \) with \( G(x) = \msucc(x) \mNE x \) by induction.
@@ -432,6 +457,13 @@ The following axioms characterize natural numbers, addition, and multiplication.
 \end{align*}
 \end{definition}
 
+\begin{remark}
+	First-order segment
+	\( [ \, \forall^2 , (0), (1,1) \, ]{}_{=} \)
+	contains the addition axioms without function congruence but
+	already is not embedded in any decidable first-order fragment.
+\end{remark}
+
 \begin{example}
 	\begin{gather*}
 	{\colG \msucc(\msucc(\msucc(0)))} + \msucc(\msucc(0))
@@ -445,6 +477,11 @@ The following axioms characterize natural numbers, addition, and multiplication.
 
 \begin{theorem}Presburger arithmetic (Moj\'{z}esz Presburger, 1929), i.e.~the first-order theory that includes the axioms for equality, natural numbers, induction schemata, and addition, is consistent, complete and decidable. The computational complexity of the decision problem is at least doubly exponential \( 2^{2^{cn}} \)(Fischer and Rabin, 1974), but less than triple exponential (Oppen, 1978. Berman, 1980).
 \end{theorem}
+
+\begin{remark}
+	Sentences in Presburger arithmetic are contained in
+	\( [ \, all , (0), (1,1) \, ]{}_{=} \).
+\end{remark}
 
 \begin{definition}
 	[Multiplication]\label{tab:addition:axioms}
@@ -467,6 +504,11 @@ The following axioms characterize natural numbers, addition, and multiplication.
 \begin{theorem}Peano Arithmetic (Giuseppe Peano, 1889),
 	i.e.~a first-order theory that extends Presburger Arithmetic with multiplication, is incomplete (Gödel`s second incompleteness theorem in 1932) and undecidable.
 \end{theorem}
+
+\begin{remark}
+	Sentences in Presburger arithmetic are contained in
+	\( [ \, all , (0), (1,2) \, ]{}_{=} \).
+\end{remark}
 
 \begin{theorem}
 	The axioms of Peano Arithmetic appear consistent (Gentzen, 1936).
