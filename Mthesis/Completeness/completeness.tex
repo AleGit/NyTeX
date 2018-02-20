@@ -39,14 +39,16 @@ that a set of clauses is satisfiable when no rule is applicable any more.
 % a unsatisfiable set of ground instances.
 % We have claimed that in this case the set of clauses is satisfiable.
 
-In the first Section~\vref{sec:unit:paramodulation}
-we state unit paramodulation,
-then we define saturated set of clauses …
-than and present it`s completeness proof
-from the literature~\cite{GK2004csl} in a simpler unnested presentation.
+In the first Section~\vref{sec:unit:paramodulation:closures}
+we state unit paramodulation for literal closures,
+in Section~\vref{sec:inst:saturated:sets}
+to present the completeness for saturated sets of closures
+in a more untangled form than in the literature~\cite{GK2004csl}
+% Section~\vref{sec:inst:saturation:process},
+% Section~\vref{sec:inst:process:fairness}.
 
 
-\section{Unit paramodulation}\label{sec:unit:paramodulation}
+\section{Unit paramodulation}\label{sec:unit:paramodulation:closures}
 
 \begin{definition}
     A closure is a pair of a clause \( C \) and a substitution \( \sigma \),
@@ -194,7 +196,6 @@ to ground clauses~\cite{NR2001}.
        \end{align*}
    \end{example}
 
-   \section{From Redundancy to Saturation}
 
    \begin{lemma}
         Let \( R \) be a ground rewrite system and UP is applicable to
@@ -226,10 +227,7 @@ to ground clauses~\cite{NR2001}.
         if \( \ma\succG\mb \).
            \end{example}
 
-
-
-
-
+\section{Satisfiability of saturated sets}\label{sec:inst:saturated:sets}
 
    \begin{definition}[UP-Redundancy]
         Let \( \mcL \) be a set of literal closures. We define
@@ -420,7 +418,6 @@ to ground clauses~\cite{NR2001}.
             if \( \mcL_S^{sat} \) does not contain the empty literal clause.
 \end{definition}
 
-\section{Fair Saturation}
        \begin{theorem}
         If a set of clauses \( S \) is Inst-saturated,
         and \( S\bot \) is satisfiable,
@@ -696,10 +693,13 @@ to ground clauses~\cite{NR2001}.
         Therefore \( \mcI \) is a model for all instances of \( S \).
    \end{proof}
 
-   \section{Saturation Strategies}
+   \IMPROVE{Section~\vref{sec:saturation:strategies}}
 
+   \section{Saturation}\label{sec:saturation:strategies}
 
-   \IMPROVE{saturation}
+   So far we have only shown that a saturated set \( S \)
+   is satisfiable if its \( S\bot \) is satisfiable.
+   Now we look at strategies to construct a satisfied set.
 
    \begin{definition}
     An Inst-\coloremph{saturation process} is a sequence of triples
@@ -727,8 +727,13 @@ to ground clauses~\cite{NR2001}.
         \item
         \( S^{i+1} = S^i \setminus \{ C \} \)
         where clause \( C \) is Inst-redundant in \( S^i \).
+        If \( S^{i+1} \bot \) is unsatisfiable
+        the process terminates with result “unsatisfiable”.
     \end{itemize}
 \end{definition}
+
+\( S^\infty \) denotes the lower limit of \( {\{ S^i \}}_{i=1}^\infty \) ---
+the set of persistent clauses.
 
     Consider the finite set of closures
     \( L_1\cdot\sigma, \ldots, L_n\cdot\sigma \)
@@ -748,6 +753,54 @@ to ground clauses~\cite{NR2001}.
     at least one of the closures in \( K \)
     is Inst-redundant in \( S_i \) for some \( i \).
     \end{definition}
+
+    \begin{lemma}
+        Let \( S^\infty \) be a set of persistent clauses
+        of an Inst-fair saturation process
+        \( {\{ \langle S^i, {I\!_\bot}^i, \sel^i \rangle \}}_{i=1}^\infty \),
+        and let \( S^\infty\bot \) be satisfiable.
+        Then there exists a model \( I\bot \) of \( S^\infty\bot \)
+        and a selection function \( \sel \) based on \( I\bot \)
+        such that \(S^\infty \) is Inst-saturated w.r.t. \( sel \).
+    \end{lemma}
+
+    \section{Fairness}
+
+    We represent UP-proofs as a binary trees.
+    We label the nodes by closures
+    and substitutions from the corresponding inferences.
+    At each node we assume that the left proof branch
+    is variable disjoint from the right proof branch.
+
+    \begin{lemma}
+        Let \( P \) be a proof of the empty clause,
+        and \( PI \) the set of \(P\)-relevant instances of
+        all leafs of \(P\). Then \( PI\bot \) is unsatisfiable.
+    \end{lemma}
+
+    \begin{corollary}
+        Let \( (K, \mcL) \) be a persistent conflict
+        and \( P \) a proof of the empty clause form \( \mcL \) in \( UP \),
+        then at least one \(P\)-relevant instantiator is proper.
+    \end{corollary}
+
+
+    \section{Lifting}
+
+
+
+    \begin{lemma}
+        Let \(Lit\) be a set of literals such that \( Lit\bot \) is satisfiable.
+        Further let \( \mcL \) be a set of ground closures from \( Lit \)
+        such that the empty clause is derivable in \( UP \) from \( \mcL \).
+        Then there is a proof of the empty clause in \( UPL \) from \( Lit \)
+        such that for at least one closure \( L \cdot \sigma \in \mcL \),
+        P-relevant instance of \(L\) is \( L\theta \)
+        where \( \theta \) is a proper instantiator
+        and \( L\sigma = L\theta\tau \) for some ground substitution \( \tau \).
+    \end{lemma}
+
+
 
 
 
