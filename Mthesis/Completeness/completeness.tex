@@ -40,15 +40,21 @@ that a set of clauses is satisfiable when no rule is applicable any more.
 % We have claimed that in this case the set of clauses is satisfiable.
 
 In the first Section~\vref{sec:unit:paramodulation:closures}
-we state unit paramodulation for literal closures,
-in Section~\vref{sec:inst:saturated:sets}
-to present the completeness for saturated sets of closures
-in a more untangled form than in the literature~\cite{GK2004csl}
+we state unit paramodulation for literal closures.
+In Section~\vref{sec:inst:saturated:sets} we present
+an untangled version of the proof of satisfiability
+of saturated sets of closures
+from the literature~\cite{GK2004csl}.
+After that we look a saturation strategies in
+Section~\vref{sec:saturation:strategies}
+and finally we apply the completeness result to \InstGenEQ{}
+in Section~\vref{sec:lifting}.
+
 % Section~\vref{sec:inst:saturation:process},
 % Section~\vref{sec:inst:process:fairness}.
 
 
-\section{Unit paramodulation}\label{sec:unit:paramodulation:closures}
+\section{Unit paramodulation on literal closures}\label{sec:unit:paramodulation:closures}
 
 \begin{definition}
     A closure is a pair of a clause \( C \) and a substitution \( \sigma \),
@@ -59,66 +65,25 @@ in a more untangled form than in the literature~\cite{GK2004csl}
     A ground closure represents a ground clause.
 \end{definition}
 
-% 2.4
-For the following definition we assume
-\( \succG \) as a a total, well-founded and monotone extension
-from a total simplification ordering on ground terms
-to ground clauses~\cite{NR2001}.
 
-\begin{definition}
-	% 4.3
-    We define an order \( \succL \) on ground closures of literals
-    as an arbitrary total well-founded extension of \( \succG \)
-    such that
-   \( L\cdot\sigma\succL L'\cdot\sigma' \) whenever
-   \( L\sigma\succG L'\sigma' \).
 
-	% 5.1
-    We define an order \( \succC \) on ground closures
-    as an arbitrary total well-founded extension of
-   \( \succC' \) --- an inherently well-founded order defined as extension of \( \succG \)
-    such that
-   \( C\cdot\tau\succC' D\cdot\rho \) whenever
-   \( C\tau\succG D\rho \) or \( C\tau = D\rho \) and \( C\theta = D \) for an proper instantiator \( \theta \).
-\end{definition}
-
-\begin{lemma}A well-founded and total order on general ground terms always exists.\end{lemma}
-
-	\begin{definition}[Order on literals]\label{def:orders-on-literals}
-		We extend a well-founded and total order \( \succ \) on general ground terms,
-		i.e~general atoms to a well-founded proper order \( \succ_\mL \)
-		on literals such that for all atoms \( A \) and \( B \) with \( A\succ B \)
-		the relations \( A\succ_\mL B \),
-		\( \lnot A\succ_\mL\lnot B \) and
-		\( \lnot A\succ_\mL A \) hold.
-		%
-		A (non-ground) literal \( L \) is \coloremph{(strictly) maximal} if there exists a ground substitution \( \tau \)
-		such for no other literal \( L' \) the relation \( L'\tau\succ L\tau \) (strictly: \( \succcurlyeq \)) holds.
-		We write \( \succ_{gr} \) to suggest the existence of such a ground substitution \( \tau \).
-	\end{definition}
-%
-
-%
-\begin{lemma}
-    A total simplification order
-    over ground terms always exists~\cite{NR2001}.
-\end{lemma}
-
-\begin{definition}
-
+\begin{remark}
     We assume \( \succG \), \( \succL \), \( \succC \) as
         total, well-founded, and monotone extensions of a
-        total simplification order over ground terms to ground (literal) clauses
-        and ground (literal) closures such that the following properties hold
+        total simplification order \( \succ \)
+        over ground terms to ground (literal) clauses
+        (see Section~\vref{sec:clause:and:literal:orderings})
+        and ground (literal) closures
+        such that the following properties hold
        \begin{align*}
             s\sigma\mNE t\sigma \quad&\succG\quad s\sigma\mEQ t\sigma
-           \\
-            L\sigma\lor C\sigma \quad&\succG\quad L\sigma
-           \\[0.7em]
-            L\sigma \succG L'\sigma'
+           &
+           L\sigma \succG L'\sigma'
            \quad&\Rightarrow\quad
             L\cdot\sigma \succL L'\cdot\sigma'
-       \\
+           \\
+            L\sigma\lor C\sigma \quad&\succG\quad L\sigma
+       &
        \left.
        \begin{array}{r}
             C\tau\succG D\rho
@@ -147,10 +112,7 @@ to ground clauses~\cite{NR2001}.
         &\not\succL
         (\mf(\ma)\mEQ\ma)\cdot\emptyset
        \end{align*}
-
-
-
-\end{definition}
+\end{remark}
 
 \begin{definition}[Unit paramodulation~\cite{GK2004csl}]
    \input{SNIPPETS/UPI}
@@ -228,6 +190,11 @@ to ground clauses~\cite{NR2001}.
            \end{example}
 
 \section{Satisfiability of saturated sets}\label{sec:inst:saturated:sets}
+
+In this section we will define saturated set of literal closures
+with respect to unit paramodulation.
+Additionally we will show that a saturated set of literal closures
+is satisfiable if and only if its grounding is satisfiable.
 
    \begin{definition}[UP-Redundancy]
         Let \( \mcL \) be a set of literal closures. We define
@@ -693,9 +660,9 @@ to ground clauses~\cite{NR2001}.
         Therefore \( \mcI \) is a model for all instances of \( S \).
    \end{proof}
 
-   \IMPROVE{Section~\vref{sec:saturation:strategies}}
+%    \IMPROVE{Section~\vref{sec:saturation:strategies}}
 
-   \section{Saturation}\label{sec:saturation:strategies}
+   \section{Fair Saturation Strategies for Saturation}\label{sec:saturation:strategies}
 
    So far we have only shown that a saturated set \( S \)
    is satisfiable if its \( S\bot \) is satisfiable.
@@ -764,8 +731,6 @@ the set of persistent clauses.
         such that \(S^\infty \) is Inst-saturated w.r.t. \( sel \).
     \end{lemma}
 
-    \section{Fairness}
-
     We represent UP-proofs as a binary trees.
     We label the nodes by closures
     and substitutions from the corresponding inferences.
@@ -785,7 +750,7 @@ the set of persistent clauses.
     \end{corollary}
 
 
-    \section{Lifting}
+    \section{Lifting}\label{sec:lifting}
 
 
 
