@@ -662,30 +662,31 @@ is satisfiable if and only if its grounding is satisfiable.
 
 %    \IMPROVE{Section~\vref{sec:saturation:strategies}}
 
-   \section{Fair Saturation Strategies for Saturation}\label{sec:saturation:strategies}
+   \section{Saturation Strategies}\label{sec:saturation:strategies}
 
-   So far we have only shown that a saturated set \( S \)
-   is satisfiable if its \( S\bot \) is satisfiable.
-   Now we look at strategies to construct a satisfied set.
+   So far we have only shown that a Inst-saturated set of clauses
+   \( S \) is satisfiable if \( S\bot \) is satisfiable.
+   Now we take a look at how Inst-saturation can be achieved
+   starting form a set of clauses \( S^0 \).
 
    \begin{definition}
     An Inst-\coloremph{saturation process} is a sequence of triples
     \(
         {\{
             \langle
-            S^i, {I\!_\bot}^i, \sel^i
+            S^i, I^{i}_{\!\bot}, \sel^i
             \rangle
             \}}_{i=1}^\infty
     \)
     where \( S^i \) is a set of clauses,
-    \( {I\!_\bot}^i \) a model for \( S^i \),
+    \( I^{i}_{\!\bot} \) a model for \( S^i\bot \),
     and \( \sel^i \) a selection function based on that model.
 %
-    We go from given
-    \( {\{ \langle S^i, {I\!_\bot}^i, \sel^i \rangle \}} \)
-    to successor state
-    \( {\{ \langle S^{i+1}, {I\!_\bot}^{i+1}, \sel^{i+1} \rangle \}} \)
-    by one of these steps
+    We try to go from a given state
+    \( {\{ \langle S^i, I^{i}_{\!\bot}, \sel^i \rangle \}} \)
+    to a successor state
+    \( {\{ \langle S^{i+1}, I^{i+1}_{\!\bot}, \sel^{i+1} \rangle \}} \)
+    first by performing one of the following steps
     \begin{itemize}
         \item
         \( S^{i+1} = S^i \cup N \)
@@ -693,43 +694,58 @@ is satisfiable if and only if its grounding is satisfiable.
         \( S^i \entails N \)
         \item
         \( S^{i+1} = S^i \setminus \{ C \} \)
-        where clause \( C \) is Inst-redundant in \( S^i \).
-        If \( S^{i+1} \bot \) is unsatisfiable
-        the process terminates with result “unsatisfiable”.
+        where clause \( C \) is Inst-redundant in \( S^{i} \).
     \end{itemize}
 \end{definition}
+\noindent If \( S^{i+1}\! \bot \) is unsatisfiable
+the process terminates with result “unsatisfiable”.
+Otherwise we build \( I^{\,i+1}_{\!\bot} \) and \( \sel^{\,i+1} \)
+from \( S^{i+1}\!\bot \).
+%
+The set of persistent clauses \( S^\infty \) denotes the lower limit of \( {\{ S^i \}}_{i=1}^\infty \).
 
-\( S^\infty \) denotes the lower limit of \( {\{ S^i \}}_{i=1}^\infty \) ---
-the set of persistent clauses.
-
-    Consider the finite set of closures
-    \( L_1\cdot\sigma, \ldots, L_n\cdot\sigma \)
-    of clauses from \( S^\infty \)
-    We denote \( \mcL = \{ L_1\cdot\sigma, \ldots, L_n\cdot\sigma \} \).
+\begin{definition}
+    Let
+    \( K = \{ (L_1\lor C_1)\cdot\sigma, \ldots, (L_n\lor C_n)\cdot\sigma \} \)
+    be a finite set of closures
+    of clauses from \( S^\infty \).
+    Let \( \mcL = \{ L_1\cdot\sigma, \ldots, L_n\cdot\sigma \} \).
     The pair \( (K,L) \) is a \coloremph{permanent conflict} if
     \( \mcL^{sat} \) contains the empty clause
     and for infinitely many \( i \)
     we have \( \sel^i(L_j\lor C_j) = L_j \)
-    for \( 1\leq j\leq n\).
-
-
-    \begin{definition}
+    for \( 1\leq j < n \).
     An Inst-saturation process is \coloremph{Inst-fair}
     if for every persistent conflict
     \( (K,L) \)
     at least one of the closures in \( K \)
-    is Inst-redundant in \( S_i \) for some \( i \).
+    is Inst-redundant in \( S^i \) for some \( i \).
     \end{definition}
 
     \begin{lemma}
         Let \( S^\infty \) be a set of persistent clauses
         of an Inst-fair saturation process
         \( {\{ \langle S^i, {I\!_\bot}^i, \sel^i \rangle \}}_{i=1}^\infty \),
-        and let \( S^\infty\bot \) be satisfiable.
-        Then there exists a model \( I\bot \) of \( S^\infty\bot \)
-        and a selection function \( \sel \) based on \( I\bot \)
-        such that \(S^\infty \) is Inst-saturated w.r.t. \( sel \).
+        and let \( S^\infty \! \bot \) be satisfiable.
+        Then there exists a model \( I \! \bot \) of \( S^\infty \! \bot \)
+        and a selection function \( \sel \) based on \( I \! \bot \)
+        such that \(S^\infty \) is Inst-saturated w.r.t. \( \sel \).
     \end{lemma}
+
+    \begin{proof} …
+    \end{proof}
+
+
+        In an \emph{Inst-fair} saturation process
+        % \( { \{ \langle S^i, I^{i}_{\!\bot}, \sel^i \rangle \}}_{i=1}^\infty \)
+        the set of ground instances
+        \( S^i \! \bot \) is either satisfiable for all \( i \)
+        or unsatisfiable for some \( i \).
+        In the first case an Inst-saturated \( S^i \)
+        with satisfiable \( S^i \! \bot \) proves satisfiability of \( S^1 \),
+        while in the second case the first unsatisfiable \( S^i \! \bot \)
+        provides evidence of the unsatisfiability of \( S^1 \).
+
 
     We represent UP-proofs as a binary trees.
     We label the nodes by closures
