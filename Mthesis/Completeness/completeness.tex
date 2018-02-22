@@ -65,14 +65,35 @@ in Section~\vref{sec:lifting}.
     A ground closure represents a ground clause.
 \end{definition}
 
+For the following definitions we assume
+\( \succG \) as a a total, well-founded and monotone extension
+from a total simplification ordering on ground terms
+to ground literal and clauses~\cite{NR2001},
+which always exists.
 
+
+\begin{definition}
+	% 4.3
+    We define an order \( \succL \) on ground closures of literals
+    as an arbitrary total well-founded extension of \( \succG \)
+    such that
+    \( L\cdot\sigma\succL L'\cdot\sigma' \) whenever
+    \( L\sigma\succG L'\sigma' \).
+
+	% 5.1
+    We define an order \( \succC \) on ground closures
+    as an arbitrary total well-founded extension of
+    \( \succC' \) --- an inherently well-founded order defined as extension of \( \succG \)
+    such that
+    \( C\cdot\tau\succC' D\cdot\rho \) whenever
+    \( C\tau\succG D\rho \) or \( C\theta = D \) for an proper instantiator \( \theta \).
+\end{definition}
 
 \begin{remark}
-    We assume \( \succG \), \( \succL \), \( \succC \) as
+    In summary we assume \( \succG \), \( \succL \), \( \succC \) as
         total, well-founded, and monotone extensions of a
         total simplification order \( \succ \)
         over ground terms to ground (literal) clauses
-        (see Section~\vref{sec:clause:and:literal:orderings})
         and ground (literal) closures
         such that the following properties hold
        \begin{align*}
@@ -86,21 +107,19 @@ in Section~\vref{sec:lifting}.
        &
        \left.
        \begin{array}{r}
-            C\tau\succG D\rho
-            \\
-           \text{ or}
-           \\
-            C\tau=D\rho, C\theta=D
-       \end{array}
+        C\tau=D\rho, C\theta=D
+        \\
+        \text{or } C\tau\succG D\rho
+    \end{array}
        \right \}
            \quad&\Rightarrow\quad
             C\cdot\tau\succC{} D\cdot\rho{}
        \end{align*}
         for arbitrary terms \( s,t \),
         literals \( L, L' \),
-        clauses \( C,D \), and
-        ground substitutions \( \sigma, \tau, \rho \)
-        where \( \theta \) is a proper instantiator.
+        clauses \( C,D \),
+        ground substitutions \( \sigma, \tau, \rho \),
+        and instantiator \( \theta \).
         Note that the order on unit closures is slightly different than on literal closures, e.g.:
        \begin{align*}
             (\mf(x)\mEQ x)\cdot \{ x\mapsto \ma \}
@@ -385,7 +404,7 @@ is satisfiable if and only if its grounding is satisfiable.
             if \( \mcL_S^{sat} \) does not contain the empty literal clause.
 \end{definition}
 
-       \begin{theorem}
+       \begin{theorem}\label{theorem:inst:saturated:satisfiable}
         If a set of clauses \( S \) is Inst-saturated,
         and \( S\bot \) is satisfiable,
 
@@ -657,7 +676,10 @@ is satisfiable if and only if its grounding is satisfiable.
         or an inequation by Lemma~\ref{inequation}.
         We have derived a contradiction from our only assumption.
 
-        Therefore \( \mcI \) is a model for all instances of \( S \).
+        Therefore \( \mcI \) is a model for all instances of \( S \),
+        hence
+        % \( S \) is satisfiable and
+        Theorem~\vref{theorem:inst:saturated:satisfiable} holds.
    \end{proof}
 
 %    \IMPROVE{Section~\vref{sec:saturation:strategies}}
@@ -667,7 +689,7 @@ is satisfiable if and only if its grounding is satisfiable.
    So far we have only shown that a Inst-saturated set of clauses
    \( S \) is satisfiable if \( S\bot \) is satisfiable.
    Now we take a look at how Inst-saturation can be achieved
-   starting form a set of clauses \( S^0 \).
+   starting from a set of clauses \( S^1 \).
 
    \begin{definition}
     An Inst-\coloremph{saturation process} is a sequence of triples
@@ -686,7 +708,7 @@ is satisfiable if and only if its grounding is satisfiable.
     \( {\{ \langle S^i, I^{i}_{\!\bot}, \sel^i \rangle \}} \)
     to a successor state
     \( {\{ \langle S^{i+1}, I^{i+1}_{\!\bot}, \sel^{i+1} \rangle \}} \)
-    first by performing one of the following steps
+    by first performing one of the following steps
     \begin{itemize}
         \item
         \( S^{i+1} = S^i \cup N \)
@@ -696,13 +718,13 @@ is satisfiable if and only if its grounding is satisfiable.
         \( S^{i+1} = S^i \setminus \{ C \} \)
         where clause \( C \) is Inst-redundant in \( S^{i} \).
     \end{itemize}
-\end{definition}
 \noindent If \( S^{i+1}\! \bot \) is unsatisfiable
 the process terminates with result “unsatisfiable”.
 Otherwise we build \( I^{\,i+1}_{\!\bot} \) and \( \sel^{\,i+1} \)
 from \( S^{i+1}\!\bot \).
 %
 The set of persistent clauses \( S^\infty \) denotes the lower limit of \( {\{ S^i \}}_{i=1}^\infty \).
+\end{definition}
 
 \begin{definition}
     Let
@@ -749,23 +771,44 @@ The set of persistent clauses \( S^\infty \) denotes the lower limit of \( {\{ S
     It remains to ensure that the Inst-saturation process is Inst-fair.
 
 
-    We represent UP-proofs as a binary trees.
+    We represent UP-proofs as binary trees.
     We label the nodes by closures
     and substitutions from the corresponding inferences.
     At each node we assume that the left proof branch
-    is variable disjoint from the right proof branch.
+    is variable disjoint from the right proof branch
+    (which can be achieved by variable renaming).
+    We construct a \coloremph{P-relevant instantiator}
+    of literal \( L \in \mcL \)
+    as composition \( \theta = \theta_1\ldots\theta_k \)
+    of the sequence of substitutions \( (\theta_i)_{i=1}^k \)
+    along the path of length \( k \)
+    from leaf \( L\cdot\sigma \)
+    to the root of a proof \( P \).
+    Further we construct the \coloremph{P-relevant instance}
+    \( L\theta\cdot\tau \) from
+    \( L \cdot \sigma \) with \( \theta \)
+    with \( L\theta\tau = L\sigma \).
+
 
     \begin{lemma}
-        Let \( P \) be a proof of the empty clause,
-        and \( PI \) the set of \(P\)-relevant instances of
-        all leafs of \(P\). Then \( PI\bot \) is unsatisfiable.
+        Let \( \mcP \) be the set of all P-relevant instances
+        of all leafs of a proof \( P \) of the empty clause.
+        Then \( \mcP \bot \) is unsatisfiable.
     \end{lemma}
 
     \begin{corollary}
         Let \( (K, \mcL) \) be a persistent conflict
-        and \( P \) a proof of the empty clause form \( \mcL \) in \( UP \),
+        and \( P \) a proof of the empty clause from \( \mcL \) in \( UP \),
         then at least one \(P\)-relevant instantiator is proper.
     \end{corollary}
+
+    We make closures in \( K \)
+    of a persistent conflict \( (K,\mcL) \)
+    Inst-redundant by adding their P-relevant proper instances.
+    We make and Inst-saturation process fair
+    by UP-saturating literal closures from persisting conflicts
+    and adding proper instantiations of clauses with substitutions
+    gained from proofs of the empty clause.
 
 
     \section{Lifting}\label{sec:lifting}

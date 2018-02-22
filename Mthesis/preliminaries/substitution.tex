@@ -17,27 +17,60 @@
 	(at least one variable is mapped to a non-variable term).
 \end{definition}
 \begin{definition}
-	We define the instance \( \mct\sigma \)
-	respectively the application of a substitution \( \sigma \) to a literal or term \( \foxt \) as follows
+	We define the application of a substitution \( \sigma \)
+	to term $t$, a literal \( L \), or a clause \( C \) as follows
+	\begin{align*}
+	t\sigma &=
+	\left \{
+		\begin{array}{ll}
+			s_i & \text{if }t=x_i\in\domain(\sigma), \sigma(x_i) = s_i
+			\\
+			y & \text{if }t=y\in\mcV \, \backslash\domain(\sigma)
+			\\
+			\mf(t_1\sigma,\ldots,t_n\sigma)	&\text{if }t=\mf(t_1,\ldots,t_n)
+			\text{ where  }\mf\in\mcFfn
+		\end{array}
+	\right.
+			 \\
+	L\sigma &=
+	\left \{
+		\begin{array}{ll}
+			\mP(t_1\sigma,\ldots,t_n\sigma)
+			&\text{if }L=\mP(t_1,\ldots,t_n)
+			\text{ where  }\mP\in\mcFPn
+			\\
+			t_1\sigma\mEQ t_2\sigma
+			&\text{if } L = t_1\mEQ t_2
+			\\
+			\lnot(A\sigma)&\text{if } L=\lnot A\text{ where }A\text{ is an atom}
+		\end{array}
+	\right.
+	\\
+	C\sigma &= \bigvee_{L\in C} L \sigma
+	\end{align*}
+\end{definition}
+
+\begin{definition}\label{def:term:literal:clause:substitution}
+	We define the application of special grounding “substitution” \( \bot \) to a term \( t \) with distinct constant symbol \( \bot \not\in\mcF(t) \)
+	as follows
 	\begin{gather*}
-	\MDEFINE{\foxt\sigma}{ll}{
-			s_i & \text{if }\foxt=x_i\in\domain(\sigma), \sigma(x_i) = s_i
+	\MDEFINE{t\sigma}{ll}{
+			\bot & \text{if }t=x\in\mcV
 			\\
-			y & \text{if }\foxt=y\in\mcV \, \backslash\domain(\sigma)
-			\\
-			\foxf(\foxt_1\sigma,\ldots,\foxt_n\sigma)	&\text{if }\foxt=\foxf(\foxt_1,\ldots,\foxt_n)
+			\mf(t_1\sigma,\ldots,t_n\sigma)	&\text{if }t=\mf(t_1,\ldots,t_n)
 			\text{ where  }
-			 \foxf\in\mcFn \\
-			 \lnot (A\sigma) &\text{if }\foxt = \lnot A, \text{ where } A\text{ is an atom}
+			 \mf\in\mcFfn
 			 }
 	\end{gather*}
+	We define the application of \( \bot \) to literals and clauses as in
+	Definition~\vref{def:term:literal:clause:substitution}.
 
-\noindent Further we define the instance of a clause as the multiset of the instances of its literals.
 \end{definition}
 
 \begin{definition}
 	We can easily extend our definition to composite first order formulae,
-	but the cases of quantified formulae need more consideration.
+	but the cases of quantified formulae would need more consideration
+	and are not needed in this thesis.
 	So we only partially define \( F\sigma \) for first order formulae \( F \) and substitution \( \sigma \) as follows (if \( G\sigma \) and \( H\sigma \) are defined in the respective cases).
 	\begin{gather*}
 	\MDEFINE{F\sigma}{ll}{
