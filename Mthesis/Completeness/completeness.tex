@@ -133,7 +133,7 @@ which always exists.
        \end{align*}
 \end{remark}
 
-\begin{definition}[Unit paramodulation~\cite{GK2004csl}]
+\begin{definition}[Unit paramodulation~\cite{GK2004csl}]\label{def:unit:paramodulation}
    \input{SNIPPETS/UPI}
     where
    \input{SNIPPETS/UPC}
@@ -813,7 +813,15 @@ The set of persistent clauses \( S^\infty \) denotes the lower limit of \( {\{ S
 
     \section{Lifting}\label{sec:lifting}
 
+    \begin{definition}[Unit paramodulation for literals~\cite{GK2004csl}]\label{def:unit:paramodulation}
+        \input{SNIPPETS/UPLI}
+         where
+        \input{SNIPPETS/UPLC}
+        \end{definition}
 
+    We construct P-relevant instantiators and P-relevant instances
+    of literals \( L\sigma \) from proofs in UPL of the empty clause
+    in the same way as above.
 
     \begin{lemma}
         Let \(Lit\) be a set of literals such that \( Lit\bot \) is satisfiable.
