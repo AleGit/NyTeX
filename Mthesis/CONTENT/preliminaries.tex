@@ -173,7 +173,7 @@ We state satisfiability and validity of arbitrary first order formulae or sets o
 
 
 
-\subsection{Equivalence and Equisatisfiability}
+\subsection{Equisatisfiability}
 
 \begin{definition}\label{def:entailment}\label{def:equivalence}
 	% [Consequence and entailment]
@@ -263,9 +263,11 @@ We state satisfiability and validity of arbitrary first order formulae or sets o
 	with \( {\mEQ_\mcI} = \emptyset \) satisfies \( \ma\mNE\ma \).
 \end{example}
 
-\noindent In Definition~\vref{def:semantics:atoms} we have interpreted the equality symbol as binary relation without restrictions.
-This allows unwelcome models as in Example~\vref{ex:a:neq:a}.
-Hence we state useful definitions to deal with this situation and demonstrate their usage in an example.
+\noindent In Definition~\vref{def:semantics:atoms} we allowed
+to interpret the equality symbol without restrictions.
+This may yield unwelcome models as in Example~\vref{ex:a:neq:a}.
+Hence we state useful definitions to deal with this situation
+and demonstrate their usage in an example.x
 
 
 \begin{definition}\label{def:normal:interpreation}
@@ -319,24 +321,9 @@ Hence we state useful definitions to deal with this situation and demonstrate th
 
 \section{Term Rewriting and Term Orderings}\label{sec:termrewriting}
 
-
-
-\begin{lemma}A well-founded and total order on general ground terms always exists.\end{lemma}
-
-
-
-	\begin{definition}[Order on literals]
-		We extend a well-founded and total order \( \succ \) on general ground terms,
-		i.e~general atoms to a well-founded proper order \( \succ_\mL \)
-		on literals such that for all atoms \( A \) and \( B \) with \( A\succ B \)
-		the relations \( A\succ_\mL B \),
-		\( \lnot A\succ_\mL\lnot B \) and
-		\( \lnot A\succ_\mL A \) hold.
-		%
-		A (non-ground) literal \( L \) is \coloremph{(strictly) maximal} if there exists a ground substitution \( \tau \)
-		such for no other literal \( L' \) the relation \( L'\tau\succ L\tau \) (strictly: \( \succcurlyeq \)) holds.
-		We write \( \succ_{gr} \) to suggest the existence of such a ground substitution \( \tau \).
-	\end{definition}
+Term rewriting provides theoretical foundations for practical procedures
+when dealing with equations of terms.
+This section follows basic definitions and notions as in~\cite{AM2015L}.
 
 \begin{definition}\label{def:rewrite:signature}
 	A term rewrite signature \( \mcFf \) is a set of function symbols
@@ -362,7 +349,9 @@ Hence we state useful definitions to deal with this situation and demonstrate th
 
 Although we use the the same symbol for implications \( F\limp G \) between first order formulae
 and rewrite rules \( s\rwStep t \) or rewrite steps \( s'\rwStep_\mcR t \) between first order terms,
-there will not arise any ambiguity for the reader about the role of the symbol.
+there will not arise any ambiguity for the reader about the role of the symbol,
+because the implication is used between first order formulae
+and the rewrite symbol is used between (function) terms.
 
 %
 \begin{definition}
@@ -417,6 +406,16 @@ there will not arise any ambiguity for the reader about the role of the symbol.
 	(whenever \( s\relation t \) then \( s\sigma\relation t\sigma \)
 	for an arbitrary substitution \( \sigma \)).
 \end{definition}
+\begin{definition}
+	Let \( \mcR \) be a TRS, \( s \) and \( t \) be terms.
+	The relation \( s \rightarrow^*_\mcR t \) holds if \( s \) can be rewritten to \( t \).
+	\( s \rightarrow^+_\mcR t \) holds \( s \) can be rewritten to \( t \)
+	and the length of the rewrite sequence is at least one,
+	relation \( s \downarrow_\mcR t \) holds if there is a term \( r \) such that
+	\( r \rightarrow^*_\mcR s \) and \( r \rightarrow^*_\mcR t \), and
+	relation \( \uparrow_\mcR \) holds if there is a term \( u \) such that
+	\( s \rightarrow^*_\mcR u \) and \( t \rightarrow^*_\mcR u \).
+\end{definition}
 \begin{lemma}
 	The relations \( \rightarrow^*_\mcR \),
 	\( \rightarrow^+_\mcR \),
@@ -461,6 +460,15 @@ etc.
 	We call \( \mcR \) simply terminating if \( \succ \) is a simplification order.
 \end{theorem}
 
+
+\begin{lemma}
+% A well-founded and total order on general ground terms always exists.
+% \end{lemma}
+% \begin{lemma}
+    A total simplification order
+    over ground terms always exists~\cite{NR2001}.
+\end{lemma}
+
 % \subsection{Clause and literal orderings}\label{sec:clause:and:literal:orderings}
 
 \begin{lemma}
@@ -471,6 +479,9 @@ etc.
 
 	An ordering \( \succ \) on terms can be extended to orderings on literals and clauses.
 \end{lemma}
+
+
+
 
 % % 2.4
 % For the following definition we assume
@@ -499,10 +510,7 @@ etc.
 %
 
 % %
-% \begin{lemma}
-%     A total simplification order
-%     over ground terms always exists~\cite{NR2001}.
-% \end{lemma}
+
 
 
 

@@ -2,13 +2,16 @@
 % !TeX encoding = UTF-8
 % !TeX spellcheck = en_US
 
+
+
+
 \begin{definition}\label{def:unit-superpositin-calculus}
 	The \coloremph{unit superposition calculus} includes
 	\begin{itemize}
-		\item unit paramodulation \( \mathsf{(UP)} \)
+		\item unit paramodulation
 		\begin{gather*}
 		\infer
-		[(U\!P)]
+		[\mathsf{UP}]
 		{(L[t])\,\sigma}
 		{s\mEQ t&L[s']}
 		\end{gather*}
@@ -19,15 +22,15 @@
 
 		% {\colG (\( t\sigma\not\succcurlyeq s\sigma \))}
 		%
-		\item unit superposition \( (U\!S_-,U\!S_+) \)
+		\item unit superposition
 		\begin{gather*}
 		\infer
-		[(U\!S_-)]
+		[\mathsf{(US_-)}]
 		{(u[t]\mNE v)\,\sigma}
 		{s\mEQ t&u[s']\mNE v}
 		\qquad\qquad
 		\infer
-		[(U\!S_+)]
+		[\mathsf{(US_+)}]
 		{(u[t]\mEQ v)\,\sigma}
 		{s\mEQ t&u[s']\mEQ v}
 		\end{gather*}
@@ -39,15 +42,15 @@
 		for some grounding substitution \( \theta \);
 		% {\colG (\( t\sigma\not\succcurlyeq s\sigma \), \( v\sigma\not\succcurlyeq u[s']\sigma \))}
 		%
-		\item unit equality resolution \( (U\!R_\mEQ) \), and unit resolution \( (U\!R) \)
+		\item unit equality resolution and unit resolution
 		\begin{gather*}
 		\infer
-		[(U\!R_\mEQ)]
+		[\mathsf{(UR_\mEQ)}]
 		{\emptyclause}
 		{s\mNE t}
 		\quad\quad\quad\qquad
 		\infer
-		[(U\!R)]
+		[\mathsf{(UR)}]
 		{\emptyclause}
 		{A&\lnot B}
 		\end{gather*}

@@ -2,7 +2,7 @@
 % !TeX encoding = UTF-8
 % !TeX spellcheck = en_US
 
-\chapter{Automation}
+\chapter{Automated Theorem Proving}
 
 \input{epigraphs/syllogism}
 
@@ -17,6 +17,7 @@ fall out from refutational complete procedures.
 
 %An we judge the procedures by there theoretical performance on decidable fragments.
 %
+% If we fail to prove a theorem directly we can show that its negation leads to an contradiction, in the case of a first order theorem, that its negation (which can be transformed into a equisatisfiable set of clauses) is not satisfiable.
 We know by Herbrand`s theorem
 %(\ref{the:herbrand}, p.~\pageref{the:herbrand})
 that each satisfiable set of (non-ground) clauses
@@ -28,8 +29,8 @@ that if every finite subset of a set of clauses is satisfiable then this set is 
 The satisfiability of a set of ground instances is decidable
 as we have already implicitly stated in Table~\vref{tab:decidedable:FiniteModelProperty}
 with decidable class \( {[ \, \exists^{∗}, all, all \, ]}_{=} \).
-So the central idea of instantiation-based first order theorem proving
-is to find an unsatisfiable and finite set of ground instances for a given set of clauses.
+So a natural idea of first order theorem proving
+is to derive an unsatisfiable and finite set of ground instances for a given set of clauses.
 In general a failure in this search does not show satisfiability of the given set of clauses.
 In practice we make many detours in the search and we experience very finite resources of space and time,
 while in general there is no bound on the size of a smallest set of unsatisfiable ground instances.
@@ -39,10 +40,11 @@ while in general there is no bound on the size of a smallest set of unsatisfiabl
 
 
 To actually prove a theorem
-we first make use of the fact that a first-order formula is valid if and only if its negation is unsatisfiable.
-Second we efficiently transform the negated formula into an \coloremph{equisatisfiable} set of clauses
-(e.g.~with Skolemization and Tseytin`s transformation~\cite{tseitin70}),
-i.e.~the formula is satisfiable if and only if the set of clauses is satisfiable.
+we first can make use of the fact that a first-order formula is valid if and only if its negation is unsatisfiable.
+Second we can efficiently transform a negated sentence into an
+\coloremph{equisatisfiable} set of clauses
+(with Skolemization and Tseytin`s transformation~\cite{tseitin70}),
+i.e.~the negated sentence is satisfiable if and only if the set of clauses is satisfiable.
 
 %This can be done efficiently with Skolemization \cite{books/el/RV01/Hahnle01} and Tseytin-transformation \cite{tseitin70, PLAISTED1986293} as shown in \cite{Nonnengart01computingsmall}.
 
@@ -55,7 +57,7 @@ eventually.
 
 First we translate axioms and lemmata into clausal normal form in Sections~\ref{sec:clausal:normal:form},
 then we look at Gilmore's Prover from 1960 in Section~\ref{sec:gilmore:prover}.
-After that we look at more modern calculi for refutation based first order theorem proving
+After that we look at more modern calculi for refutational first order theorem proving
 without equality in Section~\ref{sec:proving:without:equaltiy} and with equality in Section~\ref{sec:proving:with:equality}.
 
 
@@ -512,7 +514,7 @@ by Davis, Putnam, Longeman, and Loveland,
 which was the starting point for the development of efficient propositionally satisfiability checkers, i.e.~efficient modern SAT solvers.
 
 
-\section{Proving without Equality}\label{sec:proving:without:equaltiy}
+\section{ATP without Equality}\label{sec:proving:without:equaltiy}
 
 In this section we already add the equality symbol \( \mEQ \) into our formulae,
 but we treat it not different from an arbitrary binary predicate symbol with infix notation.
@@ -710,25 +712,25 @@ We can easily notice disadvantages in resolution.
 \end{example}
 
 
-\begin{definition}[Order on clauses]
-	multiset order
-\end{definition}
+% \begin{definition}[Order on clauses]
+% 	multiset order
+% \end{definition}
 
 \begin{lemma}
-	Ordered resolution is refutation complete.
+	Ordered resolution is refutational complete.
 \end{lemma}
 
-\begin{proof}
-	If no new resolvant can be derived and the empty clause is not in the set of clauses we have a model.
+% \begin{proof}
+% 	If no new resolvant can be derived and the empty clause is not in the set of clauses we have a model.
 
-	The resolvant \( (\mcC\lor\mcD)\sigma \) is smaller than \( (A\lor\mcC)\sigma \) and \( (\lnot B\lor\mcD)\sigma \)
+% 	The resolvant \( (\mcC\lor\mcD)\sigma \) is smaller than \( (A\lor\mcC)\sigma \) and \( (\lnot B\lor\mcD)\sigma \)
 
-	\( \lnot B \succ_\mL A \) because \( A\sigma=B\sigma=C \) and \( \lnot X\succ_\mL X \).
-\end{proof}
+% 	\( \lnot B \succ_\mL A \) because \( A\sigma=B\sigma=C \) and \( \lnot X\succ_\mL X \).
+% \end{proof}
 
 \subsection{InstGen}\label{sec:inst:gen}
 
-Gilmore's prover blindly constructs new ground instances.
+Gilmore's prover systematically constructs all ground instances eventually --- starting with the smallest. So it can take many steps to discover a simple contradiction.
 
 \begin{definition}[\InstGen] Let \( A, B \) be atoms and \( \mcC,\mcD \) be clauses.
 	\begin{gather*}
@@ -975,7 +977,7 @@ S_0 \disjointunion
 
 
 
-\section{Proving with Equality}\label{sec:proving:with:equality}
+\section{ATM with Equality}\label{sec:proving:with:equality}
 
 So far we have treated the equality symbol like any other binary predicate symbol,
 which can yield models where \( \ma\mNE\ma \) holds.

@@ -29,12 +29,12 @@
 		\item ordered paramodulation
 		\begin{gather*}
 		\infer
-		[\mathsf{()}]
+		[\mathsf{(oP)}]
 		{(\mcC\lor \lnot A[t]\lor\mcD)\,\sigma}
 		{{ s\mEQ t} \lor\mcC\quad { \lnot A[s']}\lor\mcD}
 		\hspace{3cm}
 		\infer
-		[\mathsf{()}]
+		[\mathsf{(oP)}]
 		{(\mcC\lor A[t]\lor\mcD')\,\sigma}
 		{{ s\mEQ t} \lor\mcC\quad { A[s']}\lor\mcD'}
 		%
@@ -46,12 +46,12 @@
 \item superposition
 \begin{gather*}
 		\infer
-		[()]
+		[\mathsf{(S_-)}]
 		{(\mcC\lor u[t]\mNE v\lor\mcD)\,\sigma}
 		{{ s\mEQ t}\lor\mcC\quad { u[s']\mNE v}\lor\mcD}
 		\hspace{3cm}
 		\infer
-		[(S_+)]
+		[\mathsf{(S_+)}]
 		{(\mcC\lor u[t]\mEQ v\lor\mcD)\,\sigma}
 		{{ s\mEQ t}\lor\mcC\quad { u[s']\mEQ v}\lor\mcD}
 		\end{gather*}
@@ -81,7 +81,7 @@
 		\( \sigma=\mgu(s,s') \) exists,
 		\( (s\mNE s')\sigma \) is \txtMAXIMAL{} in \( \mcC \),
 		\( (s\mEQ s')\sigma \) is \txtSTRICTLY{} in \( \mcC' \),
-		\( (s\mEQ s')\sigma\not\succcurlyeq(u\mEQ v) \). (????)
+		\( (s\mEQ s')\sigma\not\succcurlyeq(u\mEQ v) \).
 	\end{itemize}
 	%
 \end{definition}
