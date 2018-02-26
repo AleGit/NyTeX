@@ -848,15 +848,16 @@ The set of persistent clauses \( S^\infty \) denotes the lower limit of \( {\{ S
             \disjointunion
             \{ \mc_\top \}
             \disjointunion
-            \{ \mf_\mP \mid \mP \in \mcFP \}
+            \{ \mf_{\mP_{\!i}} \mid \mP_{\!i} \in \mcFP \}
             \]
         such that \( \mc_\top \) is a constant function symbol,
-        and \( \arity(\mf_\mP) = \arity(\mP) \) for all \( \mP \in \mcFP \).
+        and \( \arity(\mf_{\mP_{\!i}}) = \arity(\mP_{\!i}) \) for all \( i \).
 
     \end{definition}
 
     \begin{corollary}
-
+        We can transform any clause over signature \( \mcF \)
+        in a purely equational clause over signature \( \mcF' \).
     \end{corollary}
 
     \begin{definition}
@@ -866,13 +867,30 @@ The set of persistent clauses \( S^\infty \) denotes the lower limit of \( {\{ S
             \begin{gather*}
             \infer
             [\mathsf{UP}]
-            {(L[t])\,\sigma}
-            {s\mEQ t&L[s']}
+            {\lnot(A[t])\,\sigma}
+            {s\mEQ t&\lnot A[s']}
+            \qquad\qquad
+            \infer
+            [\mathsf{UP}]
+            {(A[t])\,\sigma}
+            {s\mEQ t&A[s']}
             \end{gather*}
             where \( \sigma=\mgu(s,s') \) is defined,
             \( s'\not\in\mcV \),
             \( s(\sigma)\theta\succ t(\sigma)er\theta \)
             for some grounding substitution \( \theta \);
+            \begin{gather*}
+                \infer
+                [\mathsf{UP}]
+                {(A[t]\mNE\mc_\top)\,\sigma}
+                {s\mEQ t&A[s']\mNE\mc_\top}
+                \qquad\qquad
+                \infer
+                [\mathsf{UP}]
+                {(A[t]\mEQ \mc_\top)\,\sigma}
+                {s\mEQ t&A[s']\mEQ \mc_\top}
+                \end{gather*}
+
 
             % {\colG (\( t\sigma\not\succcurlyeq s\sigma \))}
             %
@@ -909,6 +927,17 @@ The set of persistent clauses \( S^\infty \) denotes the lower limit of \( {\{ S
             {A&\lnot B}
             \end{gather*}
             where \( s \) and \( t \) (\( A \) and \( B \) respectively) are unifiable.
+            \begin{gather*}
+                \infer
+                [\mathsf{(UR_\mEQ)}]
+                {\emptyclause}
+                {s\mNE t}
+                \quad\quad\quad\qquad
+                \infer
+                [\mathsf{(UR)}]
+                {\emptyclause}
+                {A\mEQ\mc_\top&\lnot B\mNE\mc_\top}
+                \end{gather*}
         \end{itemize}
     \end{definition}
 
