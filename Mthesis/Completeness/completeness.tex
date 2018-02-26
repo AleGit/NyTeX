@@ -133,7 +133,7 @@ which always exists.
        \end{align*}
 \end{remark}
 
-\begin{definition}[Unit paramodulation~\cite{GK2004csl}]\label{def:unit:paramodulation}
+\begin{definition}[Unit paramodulation for literal closures~\cite{GK2004csl}]\label{def:unit:paramodulation}
    \input{SNIPPETS/UPI}
     where
    \input{SNIPPETS/UPC}
@@ -833,6 +833,87 @@ The set of persistent clauses \( S^\infty \) denotes the lower limit of \( {\{ S
         where \( \theta \) is a proper instantiator
         and \( L\sigma = L\theta\tau \) for some ground substitution \( \tau \).
     \end{lemma}
+
+    \section{InstGenEQ}
+
+    So far \( \mathsf{UPLC} \) and \( \mathsf{UPL} \) only deal
+    with equations but not with predicates.
+    In this section we justify Definition~\vref{def:unit-superpositin-calculus}
+
+    \begin{definition}
+        For a given first order signature \( \mcF = \mcFfPE \).
+        We derive a purely equational signature \( \mcF' \) from \( \mcF \):
+        \[
+            \mcF'_\mf = \mcFf
+            \disjointunion
+            \{ \mc_\top \}
+            \disjointunion
+            \{ \mf_\mP \mid \mP \in \mcFP \}
+            \]
+        such that \( \mc_\top \) is a constant function symbol,
+        and \( \arity(\mf_\mP) = \arity(\mP) \) for all \( \mP \in \mcFP \).
+
+    \end{definition}
+
+    \begin{corollary}
+
+    \end{corollary}
+
+    \begin{definition}
+        The \coloremph{unit superposition calculus} includes
+        \begin{itemize}
+            \item unit paramodulation
+            \begin{gather*}
+            \infer
+            [\mathsf{UP}]
+            {(L[t])\,\sigma}
+            {s\mEQ t&L[s']}
+            \end{gather*}
+            where \( \sigma=\mgu(s,s') \) is defined,
+            \( s'\not\in\mcV \),
+            \( s(\sigma)\theta\succ t(\sigma)er\theta \)
+            for some grounding substitution \( \theta \);
+
+            % {\colG (\( t\sigma\not\succcurlyeq s\sigma \))}
+            %
+            \item unit superposition
+            \begin{gather*}
+            \infer
+            [\mathsf{(US_-)}]
+            {(u[t]\mNE v)\,\sigma}
+            {s\mEQ t&u[s']\mNE v}
+            \qquad\qquad
+            \infer
+            [\mathsf{(US_+)}]
+            {(u[t]\mEQ v)\,\sigma}
+            {s\mEQ t&u[s']\mEQ v}
+            \end{gather*}
+            where \( \sigma=\mgu(s,s') \) is defined,
+            \( s'\not\in\mathcal{V}, \)
+            \( s\sigma\theta\succ t\sigma\theta \),
+            \( u[s']\sigma\theta\succ v\sigma\theta \)
+
+            for some grounding substitution \( \theta \);
+            % {\colG (\( t\sigma\not\succcurlyeq s\sigma \), \( v\sigma\not\succcurlyeq u[s']\sigma \))}
+            %
+            \item unit equality resolution and unit resolution
+            \begin{gather*}
+            \infer
+            [\mathsf{(UR_\mEQ)}]
+            {\emptyclause}
+            {s\mNE t}
+            \quad\quad\quad\qquad
+            \infer
+            [\mathsf{(UR)}]
+            {\emptyclause}
+            {A&\lnot B}
+            \end{gather*}
+            where \( s \) and \( t \) (\( A \) and \( B \) respectively) are unifiable.
+        \end{itemize}
+    \end{definition}
+
+    \begin{definition}
+    \end{definition}
 
 
 
