@@ -855,94 +855,132 @@ The set of persistent clauses \( S^\infty \) denotes the lower limit of \( {\{ S
 
     \end{definition}
 
-    \begin{corollary}
-        We can transform any clause over signature \( \mcF \)
-        in a purely equational clause over signature \( \mcF' \).
-    \end{corollary}
-
     \begin{definition}
-        The \coloremph{unit superposition calculus} includes
-        \begin{itemize}
-            \item unit paramodulation
-            \begin{gather*}
-            \infer
-            [\mathsf{UP}]
-            {\lnot(A[t])\,\sigma}
-            {s\mEQ t&\lnot A[s']}
-            \qquad\qquad
-            \infer
-            [\mathsf{UP}]
-            {(A[t])\,\sigma}
-            {s\mEQ t&A[s']}
-            \end{gather*}
-            where \( \sigma=\mgu(s,s') \) is defined,
-            \( s'\not\in\mcV \),
-            \( s(\sigma)\theta\succ t(\sigma)er\theta \)
-            for some grounding substitution \( \theta \);
+        We translate any set of clauses over signature \( \mcF \)
+        into a equisatisfiable and purely equational set of clauses over signature \( \mcF' \)
+        by replacing predicates with equations.
+        \begin{align*}
+            T(S) &= \bigcup_{C\in S} T(C) &
+            T(C) &= \bigcup_{L\in C} T(L) \\
+            T(s\mEQ t) &= s\mEQ t &
+            T(s\mNE t) &= s\mNE t \\
+            T(\mP(t_1,\ldots,t_n)) &= \mf_\mP(t_1,\ldots,t_n)\mEQ\mc_\mP &
+            T(\lnot\mP(t_1,\ldots,t_n)) &= \mf_\mP(t_1,\ldots,t_n)\mNE\mc_\mP \\
+            % T(L) &= \left \{
+            %     \begin{array}{ll}
+            %         s \mEQ t \\
+            %         s \mNE t \\
+            %         \mf_\mP(t_1,\ldots,t_n) \mEQ \mc_\bot \\
+            %         \mf_\mP(t_1,\ldots,t_n) \mNE \mc_\bot
+            %     \end{array}
+            %     \right.
+            %     \tag{literal}
+        \end{align*}
+    \end{definition}
+
+    % \begin{lemma}
+    %     We can simulate all derivation rules of \InstGenEQ with unit paramodulation for literals.
+    % \end{lemma}
+
+
+    % \begin{definition}The translated rules of unit superposition calculus:
+    %     \begin{itemize}
+    %         \item unit paramodulation
             \begin{gather*}
                 \infer
-                [\mathsf{UP}]
+                [\mathsf{TUP}_-]
                 {(A[t]\mNE\mc_\top)\,\sigma}
                 {s\mEQ t&A[s']\mNE\mc_\top}
                 \qquad\qquad
                 \infer
-                [\mathsf{UP}]
+                [\mathsf{TUP}_+]
                 {(A[t]\mEQ \mc_\top)\,\sigma}
                 {s\mEQ t&A[s']\mEQ \mc_\top}
                 \end{gather*}
+            where \( \sigma=\mgu(s,s') \) is defined,
+            \( s'\not\in\mcV \),
+            \( s(\sigma)\theta\succ t(\sigma)\theta \)
+            for some grounding substitution \( \theta \);
 
 
-            % {\colG (\( t\sigma\not\succcurlyeq s\sigma \))}
-            %
-            \item unit superposition
-            \begin{gather*}
+    %         % {\colG (\( t\sigma\not\succcurlyeq s\sigma \))}
+    %         %
+    %         \item unit superposition
+    %         \begin{gather*}
+    %         \infer
+    %         [\mathsf{(US_-)}]
+    %         {(u[t]\mNE v)\,\sigma}
+    %         {s\mEQ t&u[s']\mNE v}
+    %         \qquad\qquad
+    %         \infer
+    %         [\mathsf{(US_+)}]
+    %         {(u[t]\mEQ v)\,\sigma}
+    %         {s\mEQ t&u[s']\mEQ v}
+    %         \end{gather*}
+    %         where \( \sigma=\mgu(s,s') \) is defined,
+    %         \( s'\not\in\mathcal{V}, \)
+    %         \( s\sigma\theta\succ t\sigma\theta \),
+    %         \( u[s']\sigma\theta\succ v\sigma\theta \)
+
+    %         for some grounding substitution \( \theta \);
+    %         % {\colG (\( t\sigma\not\succcurlyeq s\sigma \), \( v\sigma\not\succcurlyeq u[s']\sigma \))}
+    %         %
+    %         \item unit equality resolution and unit resolution
+    %         \begin{gather*}
+    %             \infer
+    %             [\mathsf{(UR_\mEQ)}]
+    %             {\emptyclause}
+    %             {s\mNE t}
+    %             \quad\quad\quad\qquad
+    %             \infer
+    %             [\mathsf{(UR)}]
+    %             {\emptyclause}
+    %             {A\mEQ\mc_\top&B\mNE\mc_\top}
+    %             \end{gather*}
+    %         where \( s \) and \( t \) (\( A \) and \( B \) respectively) are unifiable.
+    %     \end{itemize}
+    % \end{definition}
+
+    \begin{corollary}
+        The can represent translated proofs in \InstGenEQ
+        as proofs in unit paramodulation.
+    \end{corollary}
+
+    \begin{proof}
+        We simulate derivation rules of \InstGenEQ
+        with unit paramodulation for literals.
+        \begin{align*}
+        \infer[(\sigma)]
+        {
+            \infer[(\emptyset)]
+            {\emptyclause}
+            {\mc_\top \mNE \mc\top}
+        }
+        {A\mEQ\mc_\top & B\mNE\mc_\top}
+        % &&
+        % \infer[(\sigma)]
+        % {\emptyclause}
+        % {A & \lnot B}
+        \end{align*}
+        where \( \ell = A \), \( r=\mc_\top \), \( \ell' = B \)
+        and \( \mgu(A,B)\).
+
+        \begin{gather*}
             \infer
-            [\mathsf{(US_-)}]
-            {(u[t]\mNE v)\,\sigma}
-            {s\mEQ t&u[s']\mNE v}
+            [\mathsf{TUP}_-]
+            {(A[t]\mNE\mc_\top)\,\sigma}
+            {s\mEQ t&A[s']\mNE\mc_\top}
             \qquad\qquad
             \infer
-            [\mathsf{(US_+)}]
-            {(u[t]\mEQ v)\,\sigma}
-            {s\mEQ t&u[s']\mEQ v}
+            [\mathsf{TUP}_+]
+            {(A[t]\mEQ \mc_\top)\,\sigma}
+            {s\mEQ t&A[s']\mEQ \mc_\top}
             \end{gather*}
-            where \( \sigma=\mgu(s,s') \) is defined,
-            \( s'\not\in\mathcal{V}, \)
-            \( s\sigma\theta\succ t\sigma\theta \),
-            \( u[s']\sigma\theta\succ v\sigma\theta \)
-
-            for some grounding substitution \( \theta \);
-            % {\colG (\( t\sigma\not\succcurlyeq s\sigma \), \( v\sigma\not\succcurlyeq u[s']\sigma \))}
-            %
-            \item unit equality resolution and unit resolution
-            \begin{gather*}
-            \infer
-            [\mathsf{(UR_\mEQ)}]
-            {\emptyclause}
-            {s\mNE t}
-            \quad\quad\quad\qquad
-            \infer
-            [\mathsf{(UR)}]
-            {\emptyclause}
-            {A&\lnot B}
-            \end{gather*}
-            where \( s \) and \( t \) (\( A \) and \( B \) respectively) are unifiable.
-            \begin{gather*}
-                \infer
-                [\mathsf{(UR_\mEQ)}]
-                {\emptyclause}
-                {s\mNE t}
-                \quad\quad\quad\qquad
-                \infer
-                [\mathsf{(UR)}]
-                {\emptyclause}
-                {A\mEQ\mc_\top&\lnot B\mNE\mc_\top}
-                \end{gather*}
-        \end{itemize}
-    \end{definition}
-
-    \begin{definition}
-    \end{definition}
+        where \( \sigma=\mgu(s,s') \) is defined,
+        \( s'\not\in\mcV \),
+        \( s(\sigma)\theta\succ t(\sigma)\theta \)
+        for some grounding substitution \( \theta \);
+    \end{proof}
 
 
 
