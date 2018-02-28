@@ -2,7 +2,7 @@
 % !TeX encoding = UTF-8
 % !TeX spellcheck = en_US
 
-\chapter{Completeness of \InstGenEQ}
+\chapter{Completeness}
 
 In the previous chapter we stated some calculi
 that has been used for the implementation
@@ -811,7 +811,7 @@ The set of persistent clauses \( S^\infty \) denotes the lower limit of \( {\{ S
     gained from proofs of the empty clause.
 
 
-    \section{Lifting}\label{sec:lifting}
+    \section{Unit paramodulation for literals}\label{sec:lifting}
 
     \begin{definition}[Unit paramodulation for literals~\cite{GK2004csl}]\label{def:unit:paramodulation}
         \input{SNIPPETS/UPLI}
@@ -883,103 +883,69 @@ The set of persistent clauses \( S^\infty \) denotes the lower limit of \( {\{ S
     % \end{lemma}
 
 
-    % \begin{definition}The translated rules of unit superposition calculus:
-    %     \begin{itemize}
-    %         \item unit paramodulation
+    \begin{corollary}
+        We can represent proofs in \InstGenEQ
+        as proofs in unit paramodulation of literals.
+    \end{corollary}
+
+    \begin{proof}
+        We simulate each derivation steps that uses a \InstGenEQ~rule
+        by (partial) proof branches on translated literals.
+        \begin{itemize}
+            \item unit paramodulation
             \begin{gather*}
                 \infer
-                [\mathsf{TUP}_-]
+                [  ]
                 {(A[t]\mNE\mc_\top)\,\sigma}
                 {s\mEQ t&A[s']\mNE\mc_\top}
                 \qquad\qquad
                 \infer
-                [\mathsf{TUP}_+]
+                [  ]
                 {(A[t]\mEQ \mc_\top)\,\sigma}
                 {s\mEQ t&A[s']\mEQ \mc_\top}
                 \end{gather*}
             where \( \sigma=\mgu(s,s') \) is defined,
             \( s'\not\in\mcV \),
-            \( s(\sigma)\theta\succ t(\sigma)\theta \)
+            \( (s\sigma)\theta\succ (t\sigma)\theta \)
+
             for some grounding substitution \( \theta \);
 
+            \item unit superposition
+            \begin{gather*}
+            \infer
+            [  ]
+            {(u[t]\mNE v)\,\sigma}
+            {s\mEQ t&u[s']\mNE v}
+            \qquad\qquad
+            \infer
+            [  ]
+            {(u[t]\mEQ v)\,\sigma}
+            {s\mEQ t&u[s']\mEQ v}
+            \end{gather*}
+            where \( \sigma=\mgu(s,s') \) is defined,
+            \( s'\not\in\mathcal{V}, \)
+            \( s\sigma\theta\succ t\sigma\theta \),
+            \( u[s']\sigma\theta\succ v\sigma\theta \)
 
-    %         % {\colG (\( t\sigma\not\succcurlyeq s\sigma \))}
-    %         %
-    %         \item unit superposition
-    %         \begin{gather*}
-    %         \infer
-    %         [\mathsf{(US_-)}]
-    %         {(u[t]\mNE v)\,\sigma}
-    %         {s\mEQ t&u[s']\mNE v}
-    %         \qquad\qquad
-    %         \infer
-    %         [\mathsf{(US_+)}]
-    %         {(u[t]\mEQ v)\,\sigma}
-    %         {s\mEQ t&u[s']\mEQ v}
-    %         \end{gather*}
-    %         where \( \sigma=\mgu(s,s') \) is defined,
-    %         \( s'\not\in\mathcal{V}, \)
-    %         \( s\sigma\theta\succ t\sigma\theta \),
-    %         \( u[s']\sigma\theta\succ v\sigma\theta \)
+            for some grounding substitution \( \theta \);
 
-    %         for some grounding substitution \( \theta \);
-    %         % {\colG (\( t\sigma\not\succcurlyeq s\sigma \), \( v\sigma\not\succcurlyeq u[s']\sigma \))}
-    %         %
-    %         \item unit equality resolution and unit resolution
-    %         \begin{gather*}
-    %             \infer
-    %             [\mathsf{(UR_\mEQ)}]
-    %             {\emptyclause}
-    %             {s\mNE t}
-    %             \quad\quad\quad\qquad
-    %             \infer
-    %             [\mathsf{(UR)}]
-    %             {\emptyclause}
-    %             {A\mEQ\mc_\top&B\mNE\mc_\top}
-    %             \end{gather*}
-    %         where \( s \) and \( t \) (\( A \) and \( B \) respectively) are unifiable.
-    %     \end{itemize}
-    % \end{definition}
-
-    \begin{corollary}
-        The can represent translated proofs in \InstGenEQ
-        as proofs in unit paramodulation.
-    \end{corollary}
-
-    \begin{proof}
-        We simulate derivation rules of \InstGenEQ
-        with unit paramodulation for literals.
-        \begin{align*}
-        \infer[(\sigma)]
+            \item unit equality resolution and unit resolution
+            \begin{gather*}
+                \infer
+                [(\sigma)]
+                {\emptyclause}
+                {s\mNE t}
+                \quad\quad\quad\qquad
+                \infer[(\sigma)]
         {
             \infer[(\emptyset)]
             {\emptyclause}
             {\mc_\top \mNE \mc\top}
         }
         {A\mEQ\mc_\top & B\mNE\mc_\top}
-        % &&
-        % \infer[(\sigma)]
-        % {\emptyclause}
-        % {A & \lnot B}
-        \end{align*}
-        where \( \ell = A \), \( r=\mc_\top \), \( \ell' = B \)
-        and \( \mgu(A,B)\).
-
-        \begin{gather*}
-            \infer
-            [\mathsf{TUP}_-]
-            {(A[t]\mNE\mc_\top)\,\sigma}
-            {s\mEQ t&A[s']\mNE\mc_\top}
-            \qquad\qquad
-            \infer
-            [\mathsf{TUP}_+]
-            {(A[t]\mEQ \mc_\top)\,\sigma}
-            {s\mEQ t&A[s']\mEQ \mc_\top}
-            \end{gather*}
-        where \( \sigma=\mgu(s,s') \) is defined,
-        \( s'\not\in\mcV \),
-        \( s(\sigma)\theta\succ t(\sigma)\theta \)
-        for some grounding substitution \( \theta \);
+                \end{gather*}
+            where \( s \) and \( t \) (\( A \) and \( B \) respectively) are unifiable.
+        \end{itemize}
     \end{proof}
 
 

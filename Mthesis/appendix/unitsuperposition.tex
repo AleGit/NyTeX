@@ -11,13 +11,19 @@
 		\item unit paramodulation
 		\begin{gather*}
 		\infer
-		[\mathsf{UP}]
-		{(L[t])\,\sigma}
-		{s\mEQ t&L[s']}
+		[\mathsf{UP_-}]
+		{(\lnot A[t])\,\sigma}
+		{s\mEQ t&\lnot A[s']}
+		\qquad\qquad
+		\infer
+		[\mathsf{UP_+}]
+		{(A[t])\,\sigma}
+		{s\mEQ t&A[s']}
 		\end{gather*}
 		where \( \sigma=\mgu(s,s') \) is defined,
 		\( s'\not\in\mcV \),
-		\( s(\sigma)\theta\succ t(\sigma)er\theta \)
+		\( s\sigma\theta\succ t\sigma\theta \)
+
 		for some grounding substitution \( \theta \);
 
 		% {\colG (\( t\sigma\not\succcurlyeq s\sigma \))}
