@@ -1239,14 +1239,12 @@ if and only if the empty clause can be derived. \MISSING{Proof of completeness R
 
 \subsubsection{Inst-Gen-Eq}\label{sec:inst:gen:eq}
 
-Here the general approach for proving unsatisfiability of a set of clauses is the same as with \InstGen{}.
-We approximate the satisfiability of the set of clauses with a \SAT{}- or \SMT{}-solver and in the case
-of satisfiability we use the propositional model for selecting literals.
-Then we searched for clashing selected literals to derive instances of contained clauses,
-that would refine the propositional approximation.
-
-
-
+In the presence of equality the general approach
+for proving unsatisfiability of a set of clauses
+is the same as with \InstGen{}.
+We approximate the satisfiability of the set of clauses with a \SAT{}- or \SMT{}-solver.
+In case of satisfiability we select one literal per clause based on the propositional model.
+From occuring conflicts we construct new instances.
 
 \input{appendix/unitsuperposition}
 
@@ -1263,6 +1261,63 @@ that would refine the propositional approximation.
 %	\mzero &\mNE \msucc(x)\\
 %	\end{align*}
 %\end{example}
+
+A naive approach would just consider pairs of selected literals to generate new instances.
+
+\newcommand{\myset}[1]{\{ \, #1 \, \}}
+\newcommand{\mysub}[1]{\{ #1 \}}
+\begin{example}We consider the unsatisfiable set \( S \).
+	\begin{align*}
+		S &= \myset{
+			\mf(\mh(x)) \mEQ \mc, \mh(y)\mEQ y, \mf(\ma) \mNE c
+		}
+		\\
+		S\bot &= \myset{
+			\mf(\mh(\bot)) \mEQ \mc, \mh(\bot)\mEQ y, \mf(\ma) \mNE c
+		}\tag{satisfiable}
+		\\
+		\mcM &= \myset{
+			[\mf(\mh(\bot),c)], [\mh(\bot),\bot], [\mf(a)]
+		}\tag{term model}
+	\end{align*}
+	The only applicable rule is paramodulation of the first two selected literals,
+	but the instantiator is not proper and just get variants of clauses in the set.
+	We have to use intermediate results and proof the empty clause.
+	\begin{gather*}
+		\infer[\mysub{y\mapsto \ma}]{\emptyclause}{
+		\infer[\mysub{x\mapsto y}]
+		{\mf(y)\mEQ\mc}
+		{\mh(y)\mEQ y & \mf(\mh(x))\mEQ \mc}
+		& \mf(\ma)\mNE\mc
+		}
+	\end{gather*}
+	Now we follow the path from each branch, i.e.~literal, to the root, i.e.~the empty clause
+	and concatenate the apply the occuring substitutions to the clauses the literals are originating from.
+	\begin{align*}
+		 \mh(\ma)\mEQ \ma &=
+		 (\mh(y)\mEQ y)\mysub{x\mapsto y}\mysub{y\mapsto \ma}
+		 \\
+		 \mf(\mh(\ma))\mEQ\mc &=
+		 (\mf(\mh(x))\mEQ \mc)\mysub{x\mapsto y}\mysub{y\mapsto \ma}
+		 \\
+		 \mf(\ma)\mNE \mc &=
+		 (\mf(\ma)\mNE \mc)\mysub{y\mapsto \ma}
+		 \\
+		S_1 &\supseteq \myset{
+			\mf(\ma) \mNE \mc,
+			\mf(\mh(\ma))\mEQ \mc, \mh(\ma)\mEQ \ma
+		}
+	\end{align*}
+
+	% \begin{align*}
+	% 	S_1 &\supseteq \myset{
+	% 		\mf(\ma) \mNE c,
+	% 		\mf(\mh(\ma))\mEQ \mc, \mh(\ma)\mEQ \ma
+	% 	}
+	% 	\\
+
+	% \end{align*}
+\end{example}
 
 
 
