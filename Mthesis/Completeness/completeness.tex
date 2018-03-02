@@ -54,7 +54,7 @@ in Section~\vref{sec:lifting}.
 % Section~\vref{sec:inst:process:fairness}.
 
 
-\section{Unit paramodulation on literal closures}\label{sec:unit:paramodulation:closures}
+\section{Reasoning on equational closures}\label{sec:reasoning:on:equational closures}
 
 \begin{definition}
     A closure is a pair of a clause \( C \) and a substitution \( \sigma \),
@@ -133,67 +133,138 @@ which always exists.
        \end{align*}
 \end{remark}
 
-\begin{definition}[Unit paramodulation for literal closures~\cite{GK2004csl}]\label{def:unit:paramodulation}
-   \input{SNIPPETS/UPI}
-    where
-   \input{SNIPPETS/UPC}
+   %%% see CS2011PhD, p.45f %%%
+
+   \begin{definition}[Unit superposition and resolution on closures~\cite{GK2004csl,CS2011PhD}, REC]\label{def:unit:superposition:on:closures}
+    \begin{gather*}
+        \infer[(\sigma)]
+        {(\underset{\mEQ}{L}[r])\sigma\cdot\rho}
+        {(l\mEQ r)\cdot\theta_{\!_1} & (\underset{\mEQ}{L}[l'])\cdot\theta_{\!_2}}
+    \qquad\qquad\qquad
+        \infer[(\sigma')]
+        {\emptyclause}
+        {(s'\mNE t')\cdot\theta'}
+    \end{gather*}
+    with \( \underset{\mEQ}{L}[l'] \in \{ s[l']\mNE t, s[l']\mEQ t \} \) and
+    \begin{itemize}
+        \item
+        \( \sigma = \mgu(l,l') \),
+        \( l'\not\in\mcV \),
+        \( l\theta_{\!_1} \succG r\theta_{\!_1} \),
+        \( s['l']\theta_{\!_2} \succG t\theta_{\!_2} \)
+        \hfill \( \sigma' = \mgu(s',t') \)
+        \item
+        \( l\theta_{\!_1} = l'\theta_{\!_2} \),
+        \( \var(\{l,r\}) \cap \var(\{ s[l'],t \}) = \emptyset \)
+        \hfill \( s'\theta' = r'\theta' \)
+        \item
+        \( \rho \) such that
+        \( (\theta_{\!_1}\cup\theta_{\!_2}) = \sigma\rho \),
+        \( \domain(\rho) \subseteq \var(\{ s[r],t \}) \)
+    \end{itemize}
    \end{definition}
 
+%    \begin{example}
+%         Let \( \mf(s,t,u)\succG\mg(s') \) for all ground terms
+%        \( r,s,t,s' \).
+%         % \( \succ_{kbo} \) order on terms.
+%        \begin{gather*}
+%            \infer[\theta]{
+%                \left(
+%                    \mh(\underbrace{
+%                        \boxed{\mg(x')}
+%                         }_{r\theta})\mNE\mg(x')
+%                    \right)\cdot\rho
+%             }{
+%                \left(
+%                    \overbrace{\mf(x,y,\mc)}^{\ell}
+%                    \mEQ
+%                    \overbrace{\mg(x)}^r
+%                \right)\cdot \sigma
+%             & \left(
+%                \mh(\overbrace{
+%                    \boxed{\mf(x',\mh(y'), z')}
+%                     }^{\ell'})\mNE\mg(x')
+%                \right)\cdot \sigma'
+%             }
+%        \end{gather*}
+%        \begin{align*}
+%            \sigma &= \{x\mapsto\ma, y\mapsto\mh(\mb)\} &
+%             \sigma' &= \{x'\mapsto\ma, y'\mapsto\mb, z'\mapsto\mc \}
+%             \\
+%             \theta &= \{x\mapsto x',y\mapsto\mh(y'),z'\mapsto\mc \}
+%               &
+%             \rho &=\{ x'\mapsto \ma, y'\mapsto \mb \}
+%             \\
+%             \ell'\theta &= \mf(x',\mh(y'),\mc)
+%              &
+%             \ell'\theta\rho &= \mf(\ma, \mh(\mb), \mc) = \ell\sigma = \ell'\sigma'
+%        \end{align*}
+%    \end{example}
+
    \begin{example}
-        Let \( \mf(s,t,u)\succG\mg(s') \) for all ground terms
-       \( r,s,t,s' \).
-        % \( \succ_{kbo} \) order on terms.
-       \begin{gather*}
-           \infer[\theta]{
-               \left(
-                   \mh(\underbrace{
-                       \boxed{\mg(x')}
-                        }_{r\theta})\mNE\mg(x')
-                   \right)\cdot\rho
-            }{
-               \left(
-                   \overbrace{\mf(x,y,\mc)}^{\ell}
-                   \mEQ
-                   \overbrace{\mg(x)}^r
-               \right)\cdot \sigma
-            & \left(
-               \mh(\overbrace{
-                   \boxed{\mf(x',\mh(y'), z')}
-                    }^{\ell'})\mNE\mg(x')
-               \right)\cdot \sigma'
-            }
-       \end{gather*}
-       \begin{align*}
-           \sigma &= \{x\mapsto\ma, y\mapsto\mh(\mb)\} &
-            \sigma' &= \{x'\mapsto\ma, y'\mapsto\mb, z'\mapsto\mc \}
-            \\
-            \theta &= \{x\mapsto x',y\mapsto\mh(y'),z'\mapsto\mc \}
-              &
-            \rho &=\{ x'\mapsto \ma, y'\mapsto \mb \}
-            \\
-            \ell'\theta &= \mf(x',\mh(y'),\mc)
-             &
-            \ell'\theta\rho &= \mf(\ma, \mh(\mb), \mc) = \ell\sigma = \ell'\sigma'
-       \end{align*}
-   \end{example}
+    Let \( \mf(s,t,u)\succG\mg(s') \) for all ground terms
+   \( r,s,t,s' \).
+    % \( \succ_{kbo} \) order on terms.
+   \begin{gather*}
+       \infer[(\sigma)]{
+           \left(
+               \mh(\underbrace{
+                   \boxed{\mg(x')}
+                    }_{r\sigma})\mNE\mg(x')
+               \right)\cdot\rho
+        }{
+           \left(
+               \overbrace{\mf(x,y,\mc)}^{l}
+               \mEQ
+               \overbrace{\mg(x)}^r
+           \right)\cdot \theta_{\!_1}
+        & \left(
+           \mh(\overbrace{
+               \boxed{\mf(x',\mh(y'), z')}
+                }^{l'})\mNE\mg(x')
+           \right)\cdot \theta_{\!_2}
+        }
+   \end{gather*}
+   \begin{align*}
+       \theta_{\!_1} &= \{x\mapsto\ma, y\mapsto\mh(\mb)\} &
+       \theta_{\!_2} &= \{x'\mapsto\ma, y'\mapsto\mb, z'\mapsto\mc \}
+        \\
+        \sigma &= \{x\mapsto x',y\mapsto\mh(y'),z'\mapsto\mc \}
+          &
+        \rho &=\{ x'\mapsto \ma, y'\mapsto \mb \}
+   \end{align*}
+   \begin{align*}
+   \sigma\rho &= \{
+    x\mapsto x'\!\rho,y\mapsto\mh(y')\rho,z'\mapsto\mc,
+    x'\mapsto \ma, y'\mapsto \mb
+    \}
+    \\
+    &= \{ x\mapsto \ma,y\mapsto\mh(\mb),z'\mapsto\mc,
+    x'\mapsto \ma, y'\mapsto \mb
+        \}
+    = \theta_{\!_1}\cup\theta_{\!_2}
+   \end{align*}
+\end{example}
 
 
    \begin{lemma}
-        Let \( R \) be a ground rewrite system and UP is applicable to
-       \( (l\mEQ r)\cdot\sigma, L[l']\cdot\sigma' \)
+        Let \( R \) be a ground rewrite system and USC is applicable to
+       \( (l\mEQ r)\cdot\theta_{\!_1}, L[l']\cdot\theta_{\!_2} \)
         with conclusion
-       \( L[r]\theta\cdot\rho \).
-        If \( \sigma,\sigma' \) are irreducible w.r.t.~R then \( \rho \) is irreducible w.r.t.~R.
+       \( L[r]\sigma\cdot\rho \).
+        If \( \theta_{\!_1}, \theta_{\!_2} \) are irreducible w.r.t.~R
+        then \( \rho \) is irreducible w.r.t.~R.
    \end{lemma}
 
    \begin{proof}
         Assume otherwise.
-        Hence there is a \(
-            x\in\var(l'\theta)
-        \) such that
-       \( x\theta\rho \) is reducible by \(
-            R
-            \).
+    %     Hence there is a \(
+    %         x\in\var(l'\theta)
+    %     \) such that
+    %    \( x\theta\rho \) is reducible by \(
+    %         R
+    %         \).
 
    \end{proof}
 
@@ -811,13 +882,34 @@ The set of persistent clauses \( S^\infty \) denotes the lower limit of \( {\{ S
     gained from proofs of the empty clause.
 
 
-    \section{Unit paramodulation for literals}\label{sec:lifting}
+    \section{Reasoning on equational literals}\label{sec:reasoning:on:equational:literals}
 
-    \begin{definition}[Unit paramodulation for literals~\cite{GK2004csl}]\label{def:unit:paramodulation}
-        \input{SNIPPETS/UPLI}
-         where
-        \input{SNIPPETS/UPLC}
-        \end{definition}
+    \begin{definition}[Unit superposition and resolution on literals~\cite{GK2004csl,CS2011PhD}, REL]\label{def:unit:superposition:on:literals}
+        \begin{gather*}
+            \infer[(\sigma)]
+            {(\underset{\mEQ}{L}[r])\sigma}
+            {(l\mEQ r) & (\underset{\mEQ}{L}[l'])}
+        \qquad\qquad\qquad
+            \infer[(\sigma')]
+            {\emptyclause}
+            {(s'\mNE t')}
+        \end{gather*}
+        with \( \underset{\mEQ}{L}[l'] \in \{ s[l']\mNE t, s[l']\mEQ t \} \) where
+        for some grounding substitution \( \theta \)
+        \begin{itemize}
+            \item
+            \( \sigma = \mgu(l,l') \),
+            \( l'\not\in\mcV \),
+            \( l\sigma\theta \succG r\sigma\theta \),
+            \( s[l']\sigma\theta \succG t\sigma\theta \)
+            \hfill \( \sigma' = \mgu(s',t') \)
+            \item
+            \( l\theta_{\!_1} = l'\theta_{\!_2} \),
+            \( \var(\{l,r\}) \cap \var(\{ s[l'],t \}) = \emptyset \)
+            \item
+            \( \domain(\theta) \subseteq \var(\{ l\sigma,r\sigma,s[l']\sigma,t\sigma \}) \)
+        \end{itemize}
+    \end{definition}
 
     We construct P-relevant instantiators and P-relevant instances
     of literals \( L\sigma \) from proofs in UPL of the empty clause
@@ -834,21 +926,24 @@ The set of persistent clauses \( S^\infty \) denotes the lower limit of \( {\{ S
         and \( L\sigma = L\theta\tau \) for some ground substitution \( \tau \).
     \end{lemma}
 
-    \section{InstGenEQ}
+    \section{Equational reasoning on predicates}\label{sec:equational:reasoning:on:predicates}
 
-    So far \( \mathsf{UPLC} \) and \( \mathsf{UPL} \) only deal
-    with equations but not with predicates.
-    In this section we justify Definition~\vref{def:unit-superpositin-calculus}
+    So far USC and USL dealt
+    with equations only.
+    In this section we translate first order logic
+    into purely equational logic and
+    justify the inference rules in Definition~\vref{def:unit-superpositin-calculus}.
 
     \begin{definition}
-        For a given first order signature \( \mcF = \mcFfPE \).
-        We derive a purely equational signature \( \mcF' \) from \( \mcF \):
+        Let \( \mcF = \mcFfPE \) be a given first order signature.
+        We derive a purely equational signature
+        % from \( \mcF \)
         \[
-            \mcF'_\mf = \mcFf
-            \disjointunion
-            \{ \mc_\top \}
-            \disjointunion
-            \{ \mf_{\mP_{\!i}} \mid \mP_{\!i} \in \mcFP \}
+            \underset{^\mEQ}{\mcF'_\mf} = \mcFf
+            \, \disjointunion \,
+            \{ \mc_\top \mid \mc_\top\not\in\mcF \}
+            \, \disjointunion \,
+            \{ \mP_{\mf} \mid \mP \in \mcFP, \mP_{\mf}\not\in\mcFf \}
             \]
         such that \( \mc_\top \) is a constant function symbol,
         and \( \arity(\mf_{\mP_{\!i}}) = \arity(\mP_{\!i}) \) for all \( i \).
@@ -856,95 +951,70 @@ The set of persistent clauses \( S^\infty \) denotes the lower limit of \( {\{ S
     \end{definition}
 
     \begin{definition}
-        We translate any set of clauses over signature \( \mcF \)
-        into a equisatisfiable and purely equational set of clauses over signature \( \mcF' \)
+        We translate sets of clauses over signature \( \mcF \)
+        into equisatisfiable and purely equational sets of clauses over signature
+        \( \underset{^\mEQ}{\mcF'_\mf} \)
         by replacing predicates with equations.
         \begin{align*}
-            T(S) &= \bigcup_{C\in S} T(C) &
-            T(C) &= \bigcup_{L\in C} T(L) \\
-            T(s\mEQ t) &= s\mEQ t &
-            T(s\mNE t) &= s\mNE t \\
-            T(\mP(t_1,\ldots,t_n)) &= \mf_\mP(t_1,\ldots,t_n)\mEQ\mc_\mP &
-            T(\lnot\mP(t_1,\ldots,t_n)) &= \mf_\mP(t_1,\ldots,t_n)\mNE\mc_\mP \\
-            % T(L) &= \left \{
-            %     \begin{array}{ll}
-            %         s \mEQ t \\
-            %         s \mNE t \\
-            %         \mf_\mP(t_1,\ldots,t_n) \mEQ \mc_\bot \\
-            %         \mf_\mP(t_1,\ldots,t_n) \mNE \mc_\bot
-            %     \end{array}
-            %     \right.
-            %     \tag{literal}
+            T_\mEQ(S) &= \bigcup_{C\in S} T_\mEQ(C) &
+            T_\mEQ(C) &= \bigcup_{L\in C} T_\mEQ(L) \\
+            T_\mEQ(s\mEQ t) &= s\mEQ t &
+            T_\mEQ(s\mNE t) &= s\mNE t \\
+            T_\mEQ(\mP(t_1,\ldots,t_n)) &= \mP_\mf(t_1,\ldots,t_n)\mEQ\mc_\top &
+            T_\mEQ(\lnot\mP(t_1,\ldots,t_n)) &= \mP_\mf(t_1,\ldots,t_n)\mNE\mc_\top
         \end{align*}
     \end{definition}
-
-    % \begin{lemma}
-    %     We can simulate all derivation rules of \InstGenEQ with unit paramodulation for literals.
-    % \end{lemma}
 
 
     \begin{corollary}
         We can represent proofs in \InstGenEQ
-        as proofs in unit paramodulation of literals.
+        as proofs in REL.
     \end{corollary}
 
     \begin{proof}
-        We simulate each derivation steps that uses a \InstGenEQ~rule
-        by (partial) proof branches on translated literals.
+        We simulate derivation steps with predicates in \InstGenEQ
+        as proofs with translated predicates in REL for
         \begin{itemize}
             \item unit paramodulation
             \begin{gather*}
                 \infer
-                [  ]
-                {(A[t]\mNE\mc_\top)\,\sigma}
-                {s\mEQ t&A[s']\mNE\mc_\top}
+                [ (\sigma) ]
+                {A_\mf[t]\sigma\mNE\mc_\top}
+                {s\mEQ t&A_\mf[s']\mNE\mc_\top}
                 \qquad\qquad
                 \infer
-                [  ]
-                {(A[t]\mEQ \mc_\top)\,\sigma}
-                {s\mEQ t&A[s']\mEQ \mc_\top}
+                [ (\sigma)  ]
+                {A_\mf[t]\sigma\mEQ \mc_\top}
+                {s\mEQ t&A_\mf[s']\mEQ \mc_\top}
                 \end{gather*}
             where \( \sigma=\mgu(s,s') \) is defined,
             \( s'\not\in\mcV \),
-            \( (s\sigma)\theta\succ (t\sigma)\theta \)
+            \( s\sigma\theta\succG t\sigma\theta \),
+            \( \textcolor{colG}{(A_\mf[s']\sigma\theta\succG\mc_\top)} \)
 
             for some grounding substitution \( \theta \);
 
-            \item unit superposition
+            \item % unit equality resolution and
+            unit resolution
             \begin{gather*}
-            \infer
-            [  ]
-            {(u[t]\mNE v)\,\sigma}
-            {s\mEQ t&u[s']\mNE v}
-            \qquad\qquad
-            \infer
-            [  ]
-            {(u[t]\mEQ v)\,\sigma}
-            {s\mEQ t&u[s']\mEQ v}
-            \end{gather*}
-            where \( \sigma=\mgu(s,s') \) is defined,
-            \( s'\not\in\mathcal{V}, \)
-            \( s\sigma\theta\succ t\sigma\theta \),
-            \( u[s']\sigma\theta\succ v\sigma\theta \)
-
-            for some grounding substitution \( \theta \);
-
-            \item unit equality resolution and unit resolution
-            \begin{gather*}
-                \infer
-                [(\sigma)]
-                {\emptyclause}
-                {s\mNE t}
-                \quad\quad\quad\qquad
+                % \infer
+                % [(\sigma)]
+                % {\emptyclause}
+                % {s\mNE t}
+                % \quad\quad\quad\qquad
                 \infer[(\sigma)]
-        {
-            \infer[(\emptyset)]
-            {\emptyclause}
-            {\mc_\top \mNE \mc\top}
-        }
-        {A\mEQ\mc_\top & B\mNE\mc_\top}
-                \end{gather*}
-            where \( s \) and \( t \) (\( A \) and \( B \) respectively) are unifiable.
+                {
+                    \infer[(\emptyset)]
+                    {\emptyclause}
+                    {\mc_\top \mNE \mc_\top}
+                    }
+                {A\mEQ\mc_\top & \lnot B\mNE\mc_\top}
+            \end{gather*}
+            where \( \sigma=\mgu(A,B) \) is defined,
+            \textcolor{colG}{
+                \( (A\sigma\theta\succ\mc_\top) \)
+                for any grounding substitution \( \theta \)
+            }
         \end{itemize}
     \end{proof}
 
