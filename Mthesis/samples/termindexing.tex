@@ -169,7 +169,7 @@ node[pos=0.85, above] {maybe} (10.5,0.15) ;
 	\end{gather*}
 \end{definition}
 
-\begin{example}[Term traversals]
+\begin{example}[Term traversals]x
 	%	\begin{gather*}{
 	%		\PosStr(\mh(\mf(\ma,\my))) = \{
 	%		{ \ANGLES{\epsilon,\mh},
@@ -179,7 +179,7 @@ node[pos=0.85, above] {maybe} (10.5,0.15) ;
 	%	{ \ANGLES{12,y} }
 	%	\end{gather*}
 
-	\begin{minipage}[c]{3cm}
+	\begin{minipage}[c]{3.1cm}
 		\begin{tikzpicture}[left]
 		{\node (h) at (0,-1) {\( \ANGLES{\epsilon,\mh} \)};}
 		{\node (hf) at (0,-2) {\( \ANGLES{1,\mf} \)};}
@@ -427,7 +427,7 @@ node[pos=0.85, above] {maybe} (10.5,0.15) ;
 
 %+ PATH INDEXING/Retrieve
 \begin{example}{Retrieve}
-	\def\TRIEWIDTH{4cm}
+	\def\TRIEWIDTH{5cm}
 	\def\TEXTWIDTH{\textwidth-\TRIEWIDTH-2em}
 
 	\begin{minipage}{\TEXTWIDTH}
@@ -499,6 +499,7 @@ node[pos=0.85, above] {maybe} (10.5,0.15) ;
 
 %+ PATH INDEXING/Subterms
 \begin{example}{Demodulation (Subterms)}
+
 	\(
 	\colG
 	\TI{t_1}\mh(\mf(x,y)),
@@ -717,6 +718,7 @@ node[pos=0.85, above] {maybe} (10.5,0.15) ;
 	\TI{t_3}\mh(\mf(\mh(\ma),\ma)),
 	\TI{t_4}\mh(\mf(\ma,\ma))
 	 \)
+
 	\begin{tikzpicture}[->]
 %	\input{SUBSTITUTION TREES/Index}
 	\input{samples/substitutiontreesindex}
@@ -731,7 +733,7 @@ node[pos=0.85, above] {maybe} (10.5,0.15) ;
 %% DISCRIMINATION TREE/Build+Terms+Index
 \begin{example}{Build}
 
-	\def\TRIEWIDTH{4cm}
+	\def\TRIEWIDTH{4.4cm}
 	\def\TEXTWIDTH{\textwidth-\TRIEWIDTH-2em}
 	\begin{minipage}{\TEXTWIDTH}
 %		\input{DISCRIMINATION TREE/Terms}
@@ -762,7 +764,7 @@ node[pos=0.85, above] {maybe} (10.5,0.15) ;
 %+ DISCRIMINATION TREE/Retrieve+Terms+Index
 \begin{example}{Retrieve}
 
-	\def\TRIEWIDTH{4cm}
+	\def\TRIEWIDTH{4.4cm}
 	\def\TEXTWIDTH{\textwidth-\TRIEWIDTH-2em}
 	\begin{minipage}{\TEXTWIDTH}
 %		\input{DISCRIMINATION TREE/Terms}
@@ -780,7 +782,7 @@ node[pos=0.85, above] {maybe} (10.5,0.15) ;
 					v:\mh(\mf(x',\ma))&\mapsto \{  \} \\
 		\end{align*}
 	\end{minipage}
-	%
+%
 	\begin{minipage}{\TRIEWIDTH}
 		\begin{tikzpicture}[->,dotted]
 %		\input{DISCRIMINATION TREE/Index}
