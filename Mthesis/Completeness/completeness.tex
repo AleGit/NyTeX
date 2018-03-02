@@ -39,7 +39,7 @@ that a set of clauses is satisfiable when no rule is applicable any more.
 % a unsatisfiable set of ground instances.
 % We have claimed that in this case the set of clauses is satisfiable.
 
-In the first Section~\vref{sec:unit:paramodulation:closures}
+In the first Section~\vref{sec:reasoning:on:equational:closures}
 we state unit paramodulation for literal closures.
 In Section~\vref{sec:inst:saturated:sets} we present
 an untangled version of the proof of satisfiability
@@ -48,13 +48,13 @@ from the literature~\cite{GK2004csl}.
 After that we look a saturation strategies in
 Section~\vref{sec:saturation:strategies}
 and finally we apply the completeness result to \InstGenEQ{}
-in Section~\vref{sec:lifting}.
+in Section~\vref{sec:equational:reasoning:on:predicates}.
 
 % Section~\vref{sec:inst:saturation:process},
 % Section~\vref{sec:inst:process:fairness}.
 
 
-\section{Reasoning on equational closures}\label{sec:reasoning:on:equational closures}
+\section{Reasoning on equational closures}\label{sec:reasoning:on:equational:closures}
 
 \begin{definition}
     A closure is a pair of a clause \( C \) and a substitution \( \sigma \),
@@ -851,7 +851,7 @@ The set of persistent clauses \( S^\infty \) denotes the lower limit of \( {\{ S
     We construct a \coloremph{P-relevant instantiator}
     of literal \( L \in \mcL \)
     as composition \( \theta = \theta_1\ldots\theta_k \)
-    of the sequence of substitutions \( (\theta_i)_{i=1}^k \)
+    of the sequence of substitutions \( {(\theta_i)}_{i=1}^k \)
     along the path of length \( k \)
     from leaf \( L\cdot\sigma \)
     to the root of a proof \( P \).
@@ -967,12 +967,13 @@ The set of persistent clauses \( S^\infty \) denotes the lower limit of \( {\{ S
 
 
     \begin{corollary}
-        We can represent proofs in \InstGenEQ
-        as proofs in REL.
+        We can represent proofs in \InstGenEQ{}
+        as proofs in {REL}.
     \end{corollary}
 
     \begin{proof}
-        We simulate derivation steps with predicates in \InstGenEQ
+        Unit superposition and unit equality resolution work the same.
+        We simulate derivation steps with predicates in \InstGenEQ{}
         as proofs with translated predicates in REL for
         \begin{itemize}
             \item unit paramodulation

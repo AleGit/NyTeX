@@ -18,7 +18,7 @@
 \end{definition}
 \begin{definition}
 	We define the application of a substitution \( \sigma \)
-	to term $t$, a literal \( L \), or a clause \( C \) as follows
+	to term \( t \), a literal \( L \), or a clause \( C \) as follows
 	\begin{align*}
 	t\sigma &=
 	\left \{
@@ -32,7 +32,7 @@
 		\end{array}
 	\right.
 			 \\
-	L\sigma &=
+	L\sigma{} &=
 	\left \{
 		\begin{array}{ll}
 			\mP(t_1\sigma,\ldots,t_n\sigma)
@@ -46,7 +46,11 @@
 		\end{array}
 	\right.
 	\\
-	C\sigma &= \bigvee_{L\in C} L \sigma
+	C \sigma{} &=
+\bigvee_{
+	L\in{} C
+}
+	L \sigma{}
 	\end{align*}
 \end{definition}
 

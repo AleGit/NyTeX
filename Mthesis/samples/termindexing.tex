@@ -2,7 +2,7 @@
 % !TeX encoding = UTF-8
 % !TeX spellcheck = en_US
 
-\section{Termindexing samples}
+\section{Term indexing samples}
 \subsection{Motivation}
 %% MOTIVATION %%
 
@@ -509,8 +509,9 @@ node[pos=0.85, above] {maybe} (10.5,0.15) ;
 	\color{black}\mf(x,\ma) \mEQ x
 	 \)
 
-	\def\TRIEWIDTH{\textwidth/2-1em}
-	\def\TEXTWIDTH{\textwidth-\TRIEWIDTH-2em}
+
+	 \def\TRIEWIDTH{\textwidth/2-1em}% chktex 8
+	 \def\TEXTWIDTH{\textwidth-\TRIEWIDTH-2em}
 	\begin{minipage}{\TEXTWIDTH}
 		\begin{tikzpicture}[->,dotted]
 %		\input{PATHINDEXING/Index}
@@ -799,7 +800,7 @@ node[pos=0.85, above] {maybe} (10.5,0.15) ;
 
 %% DISCRIMINATION TREE/Subterms+Terms+Index
 \begin{example}{Subterms}
-	\def\TRIEWIDTH{\textwidth/2-1em}
+	\def\TRIEWIDTH{\textwidth/2-1em}% chktex 8
 %%	\input{DISCRIMINATION TREE/Terms}
 	\input{samples/discriminationtreeterms}
 %	\vspace{1em}
