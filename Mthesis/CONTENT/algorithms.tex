@@ -39,7 +39,7 @@ The recursive definition of the syntax of terms, atoms and literal suggest a tre
 Clauses are multiset of literals.
 
 
-\section{Saturation}
+\section{Fair Saturation Strategies Basics}
 
 In the previous chapter we just applied derivation rules
 on pairs of clauses chosen haphazardly from the set of clauses
@@ -56,6 +56,10 @@ have already been processed.
 First will discuss the given clause algorithm in Section~\ref{sec:given:clause:algorithm}
 as a saturation process that eventually determines all possible derivate clauses
 with respect to a given calculus, e.g.~ordered resolution.
+Then we will look at \InstGen{} where this approach can fail
+and consider a better suited bookkeeping of processed clauses and literals
+in Section~\ref{sec:selected:literals:bookkeeping}.
+
 
 \subsection{Given Clause Algorithm}\label{sec:given:clause:algorithm}
 
@@ -99,9 +103,9 @@ in other words the union of the two instances without the contradicting literals
 \end{gather*}
 
 \begin{example}[Ordered Resolution] We assume \( \mP(\ma)\succ\mQ(\ma) \),
-	underline the maximal literal the given clauses,
-	color conflicts red,
-	 and derive the empty clause in the fifth iteration.
+	we underline the maximal literal in the given clauses,
+	we tint conflicts red,
+	 and we derive the empty clause in the fifth iteration.
 
 	\begin{align*}
 	^{1:}&\boxed{\underline{\mP(\ma)}\lor\mQ(a)}
@@ -259,7 +263,7 @@ We consider only proper instances of an active and the given clause as probable 
 	\end{center}
 \end{figure}
 
-\subsection{Bookkeeping}
+\subsection{Double-entry bookkeeping}\label{sec:selected:literals:bookkeeping}
 
 
 

@@ -54,7 +54,7 @@ in Section~\vref{sec:equational:reasoning:on:predicates}.
 % Section~\vref{sec:inst:process:fairness}.
 
 
-\section{Reasoning on equational closures}\label{sec:reasoning:on:equational:closures}
+\section{Equational Reasoning on equation closures}\label{sec:reasoning:on:equational:closures}
 
 \begin{definition}
     A closure is a pair of a clause \( C \) and a substitution \( \sigma \),
@@ -135,7 +135,7 @@ which always exists.
 
    %%% see CS2011PhD, p.45f %%%
 
-   \begin{definition}[Unit superposition and resolution on closures~\cite{GK2004csl,CS2011PhD}, REC]\label{def:unit:superposition:on:closures}
+   \begin{definition}[Unit superposition and resolution on closures~\cite{GK2004csl,CS2011PhD}, UPC]\label{def:unit:superposition:on:closures}
     \begin{gather*}
         \infer[(\sigma)]
         {(\underset{\mEQ}{L}[r])\sigma\cdot\rho}
@@ -882,9 +882,9 @@ The set of persistent clauses \( S^\infty \) denotes the lower limit of \( {\{ S
     gained from proofs of the empty clause.
 
 
-    \section{Reasoning on equational literals}\label{sec:reasoning:on:equational:literals}
+    \section{Equational reasoning on equation literals}\label{sec:reasoning:on:equational:literals}
 
-    \begin{definition}[Unit superposition and resolution on literals~\cite{GK2004csl,CS2011PhD}, REL]\label{def:unit:superposition:on:literals}
+    \begin{definition}[Unit superposition and resolution on literals~\cite{GK2004csl,CS2011PhD}, UPL]\label{def:unit:superposition:on:literals}
         \begin{gather*}
             \infer[(\sigma)]
             {(\underset{\mEQ}{L}[r])\sigma}
@@ -926,9 +926,10 @@ The set of persistent clauses \( S^\infty \) denotes the lower limit of \( {\{ S
         and \( L\sigma = L\theta\tau \) for some ground substitution \( \tau \).
     \end{lemma}
 
-    \section{Equational reasoning on predicates}\label{sec:equational:reasoning:on:predicates}
+    \section{Equational reasoning on predicate literals}\label{sec:equational:reasoning:on:predicates}
 
-    So far USC and USL dealt
+    So far the calculi in Definitions~\ref{def:unit:superposition:on:closures} (UPC)
+    and~\ref{def:unit:superposition:on:literals} (UPL) dealt
     with equations only.
     In this section we translate first order logic
     into purely equational logic and
@@ -939,21 +940,24 @@ The set of persistent clauses \( S^\infty \) denotes the lower limit of \( {\{ S
         We derive a purely equational signature
         % from \( \mcF \)
         \[
-            \underset{^\mEQ}{\mcF'_\mf} = \mcFf
+            {\mcF'_\mf} = \mcFf
  \disjointunion
             \{ \mc_\top \mid \mc_\top\not\in\mcF \}
  \disjointunion
             \{ \mP_{\mf} \mid \mP \in \mcFP, \mP_{\mf}\not\in\mcFf \}
             \]
         such that \( \mc_\top \) is a constant function symbol,
-        and \( \arity(\mf_{\mP_{\!i}}) = \arity(\mP_{\!i}) \) for all \( i \).
-
+        and \( \arity(\mP_{\mf}) = \arity(\mP) \) for all \( \mP_\mf \).
+        We extend our term order \( \succG \) to the new symbols
+        such that \( \mc_\top \) is the smallest “predicate” ground term.
     \end{definition}
 
     \begin{definition}
         We translate sets of clauses over signature \( \mcF \)
         into equisatisfiable and purely equational sets of clauses over signature
-        \( \underset{^\mEQ}{\mcF'_\mf} \)
+        \( {\mcF'_{\!\mEQ}} = {\mcF'_\mf}
+        \, \disjointunion \, \emptyset
+        \, \disjointunion  \{ \mEQ \} \)
         by replacing predicates with equations.
         \begin{align*}
             T_\mEQ(S) &= \bigcup_{C\in S} T_\mEQ(C) &
@@ -965,16 +969,23 @@ The set of persistent clauses \( S^\infty \) denotes the lower limit of \( {\{ S
         \end{align*}
     \end{definition}
 
+    The original equations of terms stay unchanged
+    while we replace each predicate with an equation,
+    and each negated predicate with an inequation,
+    where we have a “predicate” term on the left side
+    and a the “predicate” constant \( \mc_\top \) on the right side.
+
+
 
     \begin{corollary}
         We can represent proofs in \InstGenEQ{}
-        as proofs in {REL}.
+        as proofs in {UPL}.
     \end{corollary}
 
     \begin{proof}
         Unit superposition and unit equality resolution work the same.
         We simulate derivation steps with predicates in \InstGenEQ{}
-        as proofs with translated predicates in REL for
+        as proofs with translated predicates in {UPL} for
         \begin{itemize}
             \item unit paramodulation
             \begin{gather*}
