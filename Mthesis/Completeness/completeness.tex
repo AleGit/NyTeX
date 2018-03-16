@@ -14,18 +14,27 @@ Additionally it would not stop for clearly satisfiable and simple sets of clause
 While it seams intuitive that resolution is complete
 --- we search for all clashing literals between clauses and resolve them ---
 it is puzzling that ordered resolution and then superposition are indeed complete.
-At first sight we would expect that all these restrictions
-lead to ignoring important inferences.
+At first sight we could expect that all these restrictions
+would ignore important inferences at least in some special cases.
 
-A small set of rules and strict conditions for the application of a rule
-could improve the efficiency of a procedure, but undermine the completeness
+In general a smaller set of sound rules
+and stricter conditions for a rule's application
+could improve the efficiency of a procedure,
+but undermine the completeness
 of the procedure, e.g.~an empty calculus,
 i.e.~a calculus without any rules,
 is obviously sound and very efficient, but not complete.
+%
+In other words we have to prove for every saturation based calculus
+that we can decide satisfiability of any saturated set of clauses.
+That's even true for Gilmore's prover, but in most cases
+---
+the signature contains at least one not-constant predicate symbol
+(or the equality symbol)
+and one non-constant function symbol
+---
+sets of clauses cannot saturate.
 
-So for every set of sound inference rules the question remains
-how far can we restrict them and still claim
-that a set of clauses is satisfiable when no rule is applicable any more.
 
 
 
@@ -934,10 +943,12 @@ The set of persistent clauses \( S^\infty \) denotes the lower limit of \( {\{ S
     In this section we translate first order logic
     into purely equational logic and
     justify the inference rules in Definition~\vref{def:unit-superpositin-calculus}.
+    Intuitively we just replace predicate symbols with Boolean function symbols
+    and demand that functional predicates evaluate to true or not true in a model.
 
     \begin{definition}
-        Let \( \mcF = \mcFfPE \) be a given first order signature.
-        We derive a purely equational signature
+        Let \( \mcF = \mcFfPE \) be a first order signature.
+        We construct an extended set of function symbols
         % from \( \mcF \)
         \[
             {\mcF'_\mf} = \mcFf
@@ -953,8 +964,9 @@ The set of persistent clauses \( S^\infty \) denotes the lower limit of \( {\{ S
     \end{definition}
 
     \begin{definition}
-        We translate sets of clauses over signature \( \mcF \)
-        into equisatisfiable and purely equational sets of clauses over signature
+        We translate a set of clauses over signature \( \mcF \)
+        into a equisatisfiable and purely equational set of clauses
+        over purely equational signature
         \( {\mcF'_{\!\mEQ}} = {\mcF'_\mf}
         \, \disjointunion \, \emptyset
         \, \disjointunion  \{ \mEQ \} \)
@@ -1029,6 +1041,41 @@ The set of persistent clauses \( S^\infty \) denotes the lower limit of \( {\{ S
             }
         \end{itemize}
     \end{proof}
+
+    \begin{remark}
+        The transformation from predicate logic
+        to purely equational logic
+        and the application of the unit para\-modulation
+        to translated literals are well defined,
+        e.g.\ we will not end up with literals like
+        \( x \mEQ \mc_\top \),
+        \( \mP_\mf(x) \mEQ x \) or
+        \( \mf(\mP_\mf(x)) \mEQ x \).
+
+        Implicitly we define two sorts of function symbols in the transformation,
+        uninterpreted and Boolean function symbols.
+        Boolean function symbols only appear at the root positions of terms.
+        The root symbols of the two terms of an equation are always of the same sort.
+
+        Due the extended order \( \succG \), where
+        \( \mc_\top \) is the smallest term,
+        even \( \mP_\mf(x) \mEQ \mQ_\mf(x) \) cannot be derived from
+        literals \( \mP_\mf(x) \mEQ \mc_\top \) and \(\mQ_\mf(x) \mEQ \mc_\top \). So we can easily transform derived literals back to predicate logic.
+
+        Further we can easily transform predicate models to equational models and vice versa.
+        \begin{align*}
+            \mcM\models&\,\mP(s)
+            &\Longleftrightarrow&&
+            \mcM'\models&\,\mP(s)\mEQ \mc_\top
+            \\
+            \mcM\models&\,\lnot\mP(s)
+            &\Longleftrightarrow&&
+            \mcM'\models&\,\mP(s)\mNE \mc_\top
+        \end{align*}
+        i.e.\ %
+        \( s\in P_{\mcM} \) if and only if the evaluations
+        \( v'_{\mcM'}(\mP(s)) = v'_{\mcM'}(\mc_\top) \) are equal.
+    \end{remark}
 
 
 
