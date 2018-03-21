@@ -41,26 +41,32 @@ The recursive definition of the syntax of terms, atoms and literal suggest a tre
 Clauses are multiset of literals.
 
 
-\section{Fair Saturation Strategies Basics}
+\section{Saturation Basics}\label{sec:saturation:basics}
 
-In the previous chapter we just applied derivation rules
-on pairs of clauses chosen haphazardly from the set of clauses
-to derive and add new clauses
-until we could conclude unsatisfiability of the set of clauses.
-
-In practice such a human approach may fail for an unsatisfiable set of clauses
-just because an important clause pairing has been overlooked
+In examples in Chapter~\ref{chapter:automation},
+we just applied derivation rules
+to haphazardly chosen pairs of clauses
+to infer new clauses
+until we could conclude unsatisfiability.
+%
+In practice such a approach may fail for an unsatisfiable set of clauses
+simply because an important clause pairing has been overlooked
 and infinite inferences can be drawn from a satisfiable subset of the set of clauses.
-%For an automated procedure we need a process that guarantees that eventually all possible inferences were drawn.
-An automated procedure has to notice when all relevant derivations
-have already been processed.
+%
+In Chapter~\ref{chapter:completeness}, on the other hand,
+we relied on a fair saturation process to prove completeness of \InstGenEQ{}.
 
-First will discuss the given clause algorithm in Section~\ref{sec:given:clause:algorithm}
-as a saturation process that eventually determines all possible derivate clauses
-with respect to a given calculus, e.g.~ordered resolution.
-Then we will look at \InstGen{} where this approach can fail
-and consider a better suited bookkeeping of processed clauses and literals
+In Section~\ref{sec:given:clause:algorithm}
+we will combine the given clause algorithm
+and a basic strategy to a a simple and fair saturation process
+that eventually determines all possible derivate clauses
+with respect to ordered resolution.
+The same approach will fail easily for \InstGen{}.
+We consider a better suited bookkeeping of processed clauses and literals
 in Section~\ref{sec:selected:literals:bookkeeping}.
+
+
+% Both algorithms are just only building blocks for fair saturation strategies as we outline in Section~\ref{sec:fair:saturation:strategies:basics}
 
 
 \subsection{Given Clause Algorithm}\label{sec:given:clause:algorithm}
@@ -68,7 +74,7 @@ in Section~\ref{sec:selected:literals:bookkeeping}.
 \begin{procedure}[Given Clause Algorithm]
 	We start with a set of clauses \( S = P \disjointunion U \),
 	where \( P \) is a set of \coloremph{passive} clauses
-	and \( U \) is the initially empty set of \coloremph{active} (or used) clauses.
+	and \( U \) is the initially empty set of \coloremph{active} clauses.
 	\begin{enumerate}
 		\item[\jek] Whenever we can conclude unsatisfiability of \( S \)
 		we exit the procedure with \( \lnot\SAT \).
@@ -81,6 +87,27 @@ in Section~\ref{sec:selected:literals:bookkeeping}.
 		\item We move the given clause from passive to active and continue with step 1.
 	\end{enumerate}
 \end{procedure}
+
+The crucial part is the selection of the given clause.
+We have to ensure that any clause is selected eventually.
+Otherwise we may stay in a satisfiable subset of the set of clauses
+as we can see in the following silly example with respect to resolution.
+
+\begin{example}
+	Let \( S = P \disjointunion U \)
+	with \( P = \{
+		\lnot \mP(x)\lor\mP(x),
+		\lnot \mP(x)\lor\mP(x),
+		\lnot \mP(x),
+		\mP(\ma) \}
+	\)
+	and \( U = \emptyset \).
+
+
+\end{example}
+
+\begin{definition}[Oldest clause first strategy]
+\end{definition}
 
 
 In the following examples the given clause is boxed,
@@ -268,6 +295,13 @@ We consider only proper instances of an active and the given clause as probable 
 \subsection{Double-entry bookkeeping}\label{sec:selected:literals:bookkeeping}
 
 
+\subsection{Fair saturation strategies}\label{{sec:fair:saturation:strategies:basics}}
+
+Let us first demonstrate an insufficient saturation strategy with ordered resolution and the given claus algorithm.
+
+\begin{example}[Newest clause first]
+
+\end{example}
 
 
 
