@@ -56,12 +56,13 @@ and infinite inferences can be drawn from a satisfiable subset of the set of cla
 In Chapter~\ref{chapter:completeness}, on the other hand,
 we relied on a fair saturation process to prove completeness of \InstGenEQ{}.
 
+For now we will ignore possible simplifications of the set of clauses.
 In Section~\ref{sec:given:clause:algorithm}
 we will combine the given clause algorithm
-and a basic strategy to a a simple and fair saturation process
+and a basic selection strategy to a a simple and fair saturation process
 that eventually determines all possible derivate clauses
 with respect to ordered resolution.
-The same approach will fail easily for \InstGen{}.
+Surprisingly the same approach will fail easily for \InstGen{}.
 We consider a better suited bookkeeping of processed clauses and literals
 in Section~\ref{sec:selected:literals:bookkeeping}.
 
@@ -72,19 +73,21 @@ in Section~\ref{sec:selected:literals:bookkeeping}.
 \subsection{Given Clause Algorithm}\label{sec:given:clause:algorithm}
 
 \begin{procedure}[Given Clause Algorithm]
-	We start with a set of clauses \( S = P \disjointunion U \),
-	where \( P \) is a set of \coloremph{passive} clauses
-	and \( U \) is the initially empty set of \coloremph{active} clauses.
+	We start with a set \( S = P \disjointunion U \)
+	of initially empty \coloremph{processed} clauses \( P \)
+	and set of \coloremph{unprocessed} clauses \( U \).
 	\begin{enumerate}
 		\item[\jek] Whenever we can conclude unsatisfiability of \( S \)
 		we exit the procedure with \( \lnot\SAT \).
 		\setcounter{enumi}{0}
-		\item If \( P \) is empty we exit and return \SAT{}.
-		\item We select a passive clause, i.e.~the given clause. \hfill\jek{}
-		\item We iterate over the active clauses and check for applicable inference rule
-		for each pair of an active and the given clause
-		to derive additional clauses which we add to the set of passive clauses. \hfill\jek{}
-		\item We move the given clause from passive to active and continue with step 1.
+		\item If there are no unprocessed clauses,
+		we exit and return \SAT{}.
+		\item We select an unprocessed clause --- the now given clause \( G  \). \hfill\jek{}
+		\item We iterate over the processed clauses and check for applicable inference rules
+		for each pair \( (C, G) \subseteq P \times \{ G \} \) of a processed and the given clause
+		to derive additional clauses which we add to the set of unprocessed clauses. \hfill\jek{}
+		\item We remove the given clause from the set of unprocessed clauses
+		and add it to the set of processed clauses. Then continue with step 1.
 	\end{enumerate}
 \end{procedure}
 
@@ -94,6 +97,7 @@ Otherwise we may stay in a satisfiable subset of the set of clauses
 as we can see in the following silly example with respect to resolution.
 
 \begin{example}
+
 	Let \( S = P \disjointunion U \)
 	with \( P = \{
 		\lnot \mP(x)\lor\mP(x),
@@ -106,8 +110,10 @@ as we can see in the following silly example with respect to resolution.
 
 \end{example}
 
-\begin{definition}[Oldest clause first strategy]
+\begin{definition}[First-in/First-Out clause selection]
+	See~\cite{DBLP:conf/cade/SchulzM16, DBLP:conf/cade/2016}
 \end{definition}
+
 
 
 In the following examples the given clause is boxed,
