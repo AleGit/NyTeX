@@ -49,12 +49,15 @@ to haphazardly chosen pairs of clauses
 to infer new clauses
 until we could conclude unsatisfiability.
 %
-In practice such a approach may fail for an unsatisfiable set of clauses
-simply because an important clause pairing has been overlooked
-and infinite inferences can be drawn from a satisfiable subset of the set of clauses.
+In practice, such an approach may fail for an unsatisfiable set of clauses
+simply because an important clause pairing is overlooked
+and an infinite number of inferences can be drawn
+from a satisfiable subset of clauses.
 %
 In Chapter~\ref{chapter:completeness}, on the other hand,
-we relied on a fair saturation process to prove completeness of \InstGenEQ{}.
+we relied on a fair ---
+i.e.\ every non-redundant clause will be processed eventually ---
+saturation process to prove completeness of \InstGenEQ{}.
 
 For now we will ignore possible simplifications of the set of clauses.
 In Section~\ref{sec:given:clause:algorithm}
@@ -82,7 +85,7 @@ in Section~\ref{sec:selected:literals:bookkeeping}.
 		\setcounter{enumi}{0}
 		\item If there are no unprocessed clauses,
 		we exit and return \SAT{}.
-		\item We select an unprocessed clause --- the now given clause \( G  \). \hfill\jek{}
+		\item We select the \coloremph{best} unprocessed clause --- the now given clause \( G  \). \hfill\jek{}
 		\item We iterate over the processed clauses and check for applicable inference rules
 		for each pair \( (C, G) \subseteq P \times \{ G \} \) of a processed and the given clause
 		to derive additional clauses which we add to the set of unprocessed clauses. \hfill\jek{}
@@ -91,8 +94,8 @@ in Section~\ref{sec:selected:literals:bookkeeping}.
 	\end{enumerate}
 \end{procedure}
 
-The crucial part is the selection of the given clause.
-We have to ensure that any clause is selected eventually.
+The crucial part is the selection of best unprocessed clause as the given clause.
+We have to ensure that any (non-redundant) clause is selected eventually.
 Otherwise we may stay in a satisfiable subset of the set of clauses
 as we can see in the following silly example with respect to resolution.
 
