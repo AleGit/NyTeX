@@ -188,7 +188,8 @@ We will discuss reasons for this inefficiency after we have described and demons
 First the negation of a sentence \( F \) has to be transformed into an equisatisfiable set of clauses.
 Then the prover`s procedure
 creates a sequence of finite sets of ground instances \( S_k \)
-for the set of clauses \( S\approx\lnot F \) to prove the validity of a formula \( F \).
+for the set of clauses \( S\equisat\lnot F \) to prove the validity of a formula \( F \)
+by showing the unsatisfiability of \( S \).
 Each set \( S_k \) contains all possible ground instances of \( S \)
 where all variables are substituted by elements of \( H_k \)
 from definition~\ref{def:hk} of the Herbrand universe.
@@ -197,7 +198,7 @@ The procedure is aborted when an unsatisfiable \( S_k \) is encountered.
 
 \begin{procedure}[Gilmore`s Prover]\label{proc:gilmore's:prover}
 	We translate the negation of our formula \( F \) into an equisatisfiable set of clauses
-	\( \lnot F \approx S = \bigcup_{i=1}^{n} \mcC_i \) with an efficient algorithm~\cite{tseitin70, PLAISTED1986293}.
+	\( \lnot F \equisat S = \bigcup_{i=1}^{n} \mcC_i \) with an efficient algorithm~\cite{tseitin70, PLAISTED1986293}.
 	Then we start our first iteration with \( k=0 \).
 	\begin{enumerate}
 
@@ -347,7 +348,7 @@ Following Gilmore's prover we can easily prove the syllogism from above.
 	{ \coloremph{}{}irrelevant} instances,
 	i.e.~these clauses did not cause any conflict in
 	propositional satisfiability.
-	In this example the guess for a finite unsatisfiable set of ground instances appears feasible and yields a smaller set.
+	In this example the guess for a finite unsatisfiable set of ground instances appears feasible and yields a smaller unsatisfiable set of ground instances.
 	\[
 	 \{ \,
 	\lnot\mcL_1\sigma, \, \mcL_2\sigma
@@ -375,12 +376,12 @@ Following Gilmore's prover we can easily prove the syllogism from above.
 	\}
 	\tag*{satisfiable}
 	\end{align*}
-	So Gilmore's prover wouldn't terminate on this simple and decidable problem.
+	Gilmore's prover does not terminate on this simple and decidable problem.
 \end{example}
 
 
 
-We have observed three main disadvantages in Gilmore's procedure.
+So far we have observed three main disadvantages in Gilmore's procedure.
 \begin{enumerate}
 	\item\label{enum:gilmore:generation}
 	The generation of instances is unguided.
