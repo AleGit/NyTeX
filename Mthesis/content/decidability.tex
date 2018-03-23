@@ -43,20 +43,26 @@ to create a general procedure that checks the validity of arbitrary first order 
 \end{theorem}
 
 \begin{proof}
-	We prove the soundness of each inference rule by case distinction and the use of the semantic definition of validity.
+	We can prove the soundness of each inference rule by case distinction and the use of the semantic definition of validity.
 \end{proof}
 
 \input{theorems/goedelsvollstaendigkeitssatz}
 
-\begin{theorem}
+\begin{theorem}[\cite{bennett1973}]
 	Natural deduction is a complete calculus,
-	i.e.~a proof \( \Gamma\proves G \) exists,
+	i.e.\,a proof \( \Gamma\proves G \) exists,
 	whenever \( \Gamma\models G \).
 \end{theorem}
 
 % \begin{theorem}[Completeness, Gödel 1929]
 % 	Natural deduction --- a sound formal proof system for first order logic --- is complete.
 % \end{theorem}
+
+
+
+\begin{lemma}[Refutation]
+	By definition of the semantics of negation a formula is valid if and only if its negation is not satisfiable.
+\end{lemma}
 
 \begin{theorem}
 	[Undecidability, Church 1936, Turing 1937]
@@ -70,10 +76,6 @@ to create a general procedure that checks the validity of arbitrary first order 
 \begin{definition}[Finite model property]
 	A logic has the finite model property if each non-theorem is falsified by some finite model.
 \end{definition}
-
-\begin{lemma}[Refutation]
-	By definition of the semantics of negation a formula is valid if and only if its negation is not satisfiable.
-\end{lemma}
 
 \begin{theorem}[Compactness, Gödel 1930, Maltsev 1936]\label{the:compactness}
 	If every finite subset of a set of formulas \( S \) has a model then \( S \) has a model.
@@ -161,7 +163,7 @@ of first-order logic where satisfiability is decidable.%\footnote{
 	\begin{gather*}
 	{\colG {[\,\exists^*\forall\exists^*,all,(1)\,]}_{\mEQ}
 	\quad\supsetneq}\qquad
-	{[\,\exists^*\forall\exists^*,all,(0) \,]}_{=}\qquad\qquad\qquad
+	{[\,\exists^*\forall\exists^*,all,(0) \,]}_{\mEQ}\qquad\qquad\qquad
 	\tag{Ackermann 1928}
 	\end{gather*}
 \end{example}
@@ -177,7 +179,7 @@ of first-order logic where satisfiability is decidable.%\footnote{
 	\begin{align*}
 	% \colG [\,all, (\omega), (0 )&{\colG\,]}_= \tag{Löwenheim 1925, Kalmár 1929}
 	% \\
-	[ \, \exists^{∗}\forall^{∗}, all, (0)& \, ]{}_{=} \tag{Bernays, Schönfinkel 1928, Ramsey 1932}
+	[ \, \exists^{∗}\forall^{∗}, all, (0)& \, ]{}_{\mEQ} \tag{Bernays, Schönfinkel 1928, Ramsey 1932}
 	\\
 	[\,\exists^{∗}\forall^2\exists^{∗} , all, (0)&\,] \tag{Gödel 1932, Kalmár 1933, Schütte 1934}
 	\\
@@ -185,22 +187,22 @@ of first-order logic where satisfiability is decidable.%\footnote{
 	\\
 	[\,\exists^{∗}\forall\exists^{∗}, all, all&\,] \tag{Gurevich 1973}
 	\\
-	[\,\exists^{∗}, all, all& \, ]{}_{=} \tag{Gurevich 1976}
+	[\,\exists^{∗}, all, all& \, ]{}_{\mEQ} \tag{Gurevich 1976}
 	\end{align*}
 	\caption[Decidable prefix classes (finite)]{Decidable prefix classes with finite model property}\label{tab:decidedable:FiniteModelProperty}
 \end{table}
 
 \begin{table}[hbt]
 	\begin{align*}
-	[ \, all, (\omega), (1)& \, ]{}_{=} \tag{Rabin 1969}
+	[ \, all, (\omega), (1)& \, ]{}_{mEQ} \tag{Rabin 1969}
 	\\
-	[ \, \exists^{∗}\forall\exists^{∗}, all, (1)& \, ]{}_{=} \tag{Shelah 1977}
+	[ \, \exists^{∗}\forall\exists^{∗}, all, (1)& \, ]{}_{\mEQ} \tag{Shelah 1977}
 	\end{align*}
 	\caption[Decidable prefix classes (infinite)]{Decidable prefix classes with infinity axioms.}\label{tab:decidable:InfinityAxioms}
 \end{table}
 
-\begin{lemma}
-	Satisfiability is decidable~\cite{MR1482227} in all prefix classes from
+\begin{lemma}[\cite{MR1482227}]
+	Satisfiability is decidable in all prefix classes from
 	Tables~\ref{tab:decidedable:FiniteModelProperty} and~\ref{tab:decidable:InfinityAxioms}.
 	Each of theses classes is closed under conjunction with respect to satisfiability.
 \end{lemma}
@@ -209,7 +211,8 @@ of first-order logic where satisfiability is decidable.%\footnote{
 
 \section{Theories in First Order Logic}\label{sec:decidable:fol:theories}
 
-We follow the definitions and examples by A. Middeldorp in~\cite{AM2015L}.
+We follow the definitions and examples of first order theories
+by A. Middeldorp in~\cite{AM2015L}.
 
 \begin{definition}[Theory]
 	A \coloremph{first-order theory} is a pair of a first-order signature
@@ -273,13 +276,13 @@ The following equivalence and congruence axioms form the theory of equality over
 \end{definition}
 
 \begin{remark}
-	Decidable first-order fragment
+	The equivalence axioms are expressible within
+	the decidable first-order fragments
 	\(
-		[ \, \forall^3, (0), (0) \, ]{}_{=}
+		[ \, \forall^3, (0), (0) \, ]{}_{\mEQ}
 		\subsetneq
-		[ \, all, (\omega), (1) \, ]{}_{=}
-	\)
-	contains the equivalence axioms.
+		[ \, all, (\omega), (1) \, ]{}_{\mEQ}
+	\).
 \end{remark}
 
 
@@ -396,8 +399,8 @@ The following axioms characterize natural numbers, addition, and multiplication.
 \begin{definition}
 	[Natural Numbers]\label{def:natural:numbers:axioms}
 	We introduce a constant symbol \(0\),
-	a unary successor symbol \( \msucc\in\mcFn[1] \)
-	and restrict their models with two axioms.
+	a unary successor symbol \( \msucc\in\mcFn[1] \) --- congruence must hold ---
+	and restrict the possible models with two axioms.
 \begin{align*}
 \forall x\, &(\msucc(x) \mNE 0)
 \tag*{zero is smallest}
@@ -419,13 +422,13 @@ The following axioms characterize natural numbers, addition, and multiplication.
 \end{definition}
 
 \begin{remark}
-	Decidable first-order fragment
+	The axioms of natural numbers are expressible within the
+	decidable first-order fragments
 	\(
-		[ \, \exists\forall^2, (0), (1) \, ]{}_{=}
+		[ \, \exists\forall^2, (0), (1) \, ]{}_{\mEQ}
 		\subsetneq
-		[ \, all, (\omega), (1) \, ]{}_{=}
-	\)
-	contains the axioms of natural numbers.
+		[ \, all, (\omega), (1) \, ]{}_{\mEQ}
+	\).
 \end{remark}
 
 \begin{example}
@@ -442,7 +445,9 @@ The following axioms characterize natural numbers, addition, and multiplication.
 
 \begin{definition}
 	[Addition]\label{def:addition:axioms}
-	We introduce the binary addition symbol \( +\in\mcFfn[2] \) with two axioms about defining equalities of sums.
+	We introduce the binary addition symbol \( +\in\mcFfn[2] \)
+	--- congruence must hold ---
+	with two axioms about defining equalities of sums.
 \begin{align*}
 \forall x\,
 &(x+0 \mEQ x)
@@ -457,13 +462,6 @@ The following axioms characterize natural numbers, addition, and multiplication.
 \end{align*}
 \end{definition}
 
-\begin{remark}
-	First-order segment
-	\( [ \, \forall^2 , (0), (1,1) \, ]{}_{=} \)
-	contains the addition axioms without function congruence but
-	already is not embedded in any decidable first-order fragment.
-\end{remark}
-
 \begin{example}
 	\begin{gather*}
 	{\colG \msucc(\msucc(\msucc(0)))} + \msucc(\msucc(0))
@@ -473,19 +471,27 @@ The following axioms characterize natural numbers, addition, and multiplication.
 	\mEQ \msucc(\msucc(
 	{\colG \msucc(\msucc(\msucc(0)))}))
 	\end{gather*}
-	\end{example}
+\end{example}
 
-\begin{theorem}Presburger arithmetic (Moj\'{z}esz Presburger, 1929), i.e.~the first-order theory that includes the axioms for equality, natural numbers, induction schemata, and addition, is consistent, complete and decidable. The computational complexity of the decision problem is at least doubly exponential \( 2^{2^{cn}} \)(Fischer and Rabin, 1974), but less than triple exponential (Oppen, 1978. Berman, 1980).
+\begin{remark}
+	Already the axioms of addition (without function congruence)
+	are only contained in a non-decidable first order fragment
+	\( [ \, \forall^2 , (0), (1,1) \, ]{}_{\mEQ} \).
+	Still they are part of a decidable first-order theory.
+\end{remark}
+
+\begin{theorem}Presburger arithmetic (Moj\'{z}esz Presburger, 1929), i.e.\ the first-order theory that includes the axioms for equality, natural numbers, induction schemata, and addition, is consistent, complete and decidable. The computational complexity of the decision problem is at least doubly exponential \( 2^{2^{cn}} \)(Fischer and Rabin, 1974), but less than triple exponential (Oppen, 1978. Berman, 1980).
 \end{theorem}
 
 \begin{remark}
 	Sentences in Presburger arithmetic are contained in
-	\( [ \, all , (0), (1,1) \, ]{}_{=} \).
+	\( [ \, all , (0), (1,1) \, ]{}_{\mEQ} \).
 \end{remark}
 
 \begin{definition}
 	[Multiplication]\label{tab:addition:axioms}
 	We introduce the binary multiplication symbol \( \times\in\mcFfn[2] \)
+	--- congruence must hold ---
 	with two axioms about defining equalities of products.
 	\begin{align*}
 	\forall x\,
@@ -502,12 +508,12 @@ The following axioms characterize natural numbers, addition, and multiplication.
 \end{definition}
 
 \begin{theorem}Peano Arithmetic (Giuseppe Peano, 1889),
-	i.e.~a first-order theory that extends Presburger Arithmetic with multiplication, is incomplete (Gödel`s second incompleteness theorem in 1932) and undecidable.
+	i.e.\ the first-order theory that extends Presburger Arithmetic with multiplication, is incomplete (Gödel`s second incompleteness theorem in 1932) and undecidable.
 \end{theorem}
 
 \begin{remark}
-	Sentences in Presburger arithmetic are contained in
-	\( [ \, all , (0), (1,2) \, ]{}_{=} \).
+	Sentences in Peano arithmetic are contained in
+	\( [ \, all , (0), (1,2) \, ]{}_{\mEQ} \).
 \end{remark}
 
 \begin{theorem}
