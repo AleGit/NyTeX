@@ -308,7 +308,7 @@ as probable new clauses to extend the set of clauses.
 		\begin{tikzpicture}[scale=0.95, transform shape]
 		\node[rectangle] (start) at (0,-4em) {};
 		\node (nc) [myrect] at (0,0) {new\\clauses};
-		\node (pc) [myrect] at (0,8em) {passive clauses};
+		\node (pc) [myrect] at (0,8em) {unprocessed\\clauses};
 		\node (ab) [myrect] at (-8em,3.5em) {instantiation};
 		\node (gs) [myrect] at (-8em,8em) { \SAT};
 
@@ -318,8 +318,8 @@ as probable new clauses to extend the set of clauses.
 			% cspell:enable
 			};
 		\node (se) [myrect] at (-8em,12.5em) {selection};
-		\node (gc) [myrect] at (0em,16em) {given clause};
-		\node (ac) [myrect,dashed] at (-13em,16.5em) {active clauses};
+		\node (gc) [myrect] at (0em,16em) {given\\clause};
+		\node (ac) [myrect,dashed] at (-13em,16.5em) {processed\\clauses};
 
 		\node (sl) [myrect, thick] at (8.5em,12.5em) {selected literal};
 		\node (us) [myrect,very thick,
