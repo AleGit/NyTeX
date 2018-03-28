@@ -72,9 +72,9 @@
 \end{definition}
 
 \begin{definition}
-	We can easily extend our definition to composite first order formulae,
-	but the cases of quantified formulae would need more consideration
-	and are not needed in this thesis.
+	We can easily extend the application of substitutions
+	to composite first order formulae.
+	The cases of quantified formulae need more consideration.
 	So we only partially define \( F\sigma \) for first order formulae \( F \) and substitution \( \sigma \) as follows (if \( G\sigma \) and \( H\sigma \) are defined in the respective cases).
 	\begin{gather*}
 	\MDEFINE{F\sigma}{ll}{
@@ -82,7 +82,7 @@
 		\\
 		(G\sigma) * (H\sigma) & \text{if }F = G * H, *\in \{ \land, \lor, \limp \}
 		\\
-		\quantify x (G\sigma) &\text{if }F = \quantify x G,
+		\quantify x (G\sigma) &\text{if }F = \quantify x\,G,
 		\quantify \in \{ \forall, \exists \},
 		x\not\in\domain(\sigma)
 		% \\

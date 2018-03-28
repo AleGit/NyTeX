@@ -39,7 +39,7 @@ and clausal normal form (\CNF).
 
 \input{preliminaries/cnf}
 
-\subsection{Substitution}
+\subsection{Substitutions}
 
 \input{preliminaries/substitution}
 
@@ -198,10 +198,33 @@ We state satisfiability and validity of arbitrary first order formulae or sets o
 	\begin{align*}
 	\Delta, F&\entails G  &\text{if and only if} && \Delta &\entails \lnot F\lor G \\
 	F_1,\ldots,F_n&\entails G  &\text{if and only if} && F_1\land\ldots\land F_n&\entails G\\
-	F\land G&\equival G\land F &F\lor G\equival G\lor F && F\limp G &\equival \lnot F\lor \lnot G
+	F\land G&\equival G\land F &F\lor G\equival G\lor F && F\limp G &\equival \lnot F\lor G
 	\end{align*}
 	by the definitions for semantics, entailment, and equivalence.\hfill \( \qed \)
 \end{example}
+
+\begin{lemma}[Renaming of quantified variables]\label{lem:quantified:variable:renaming}
+	Let \( {F[G]}_p \)
+	be a first order sentence with quantified subformula
+	\( G = (\quantify x\,H) \) at position \( p \).
+	We assume an injective position index function \( i(p) \)
+	--- \( \forall p \forall q (p \mEQ q \lor i(p) \mNE i(q)  ) \) ---
+	from positions to natural numbers
+	and \( x'_{i(p)} \not\in\var(F) \).
+	If \( G' = \quantify x'_{i(p)} (H'\{x\mapsto x'_{i(p)}\}) \)
+	is defined then equivalences
+	\( G \equiv G' \) and
+	\(
+		{F[\,G\,]}_p
+		\equiv
+		{F[\,G'\,]}_p
+	\) hold.
+\end{lemma}
+
+\noindent We use Lemma~\ref{lem:quantified:variable:renaming}
+to justify our assumption about first order sentences
+in Definition~\ref{def:fof:closed} by renaming each
+quantified variable by its position index.
 
 \begin{definition}\label{def:equisatisfiable}
 	Two sentences \( F \equisat G \) are \coloremph{equisatisfiable}
@@ -213,14 +236,20 @@ We state satisfiability and validity of arbitrary first order formulae or sets o
 	but the validity may differ between \( F \) and \( F' \).
 \end{definition}
 
+\begin{remark}
+	By itself equisatisfiability of arbitrary formulae
+	usually gives no insights since
+	all unsatisfiable formulae are equisatisfiable to all unsatisfiable formulae
+	and all satisfiable formulae are equisatisfiable to all satisfiable formulae by definition.
+\end{remark}
+
 \begin{example}
 	Let \( F \) be a sentence.
 	Then \( F \equisat F \land \exists x \mP(x) \),
 	but \( F \not\entails F \land \exists x \mP(x) \)
-	as we can see for \( F = \mP(\ma)\lor\lnot\mP(\ma) \)
-	and \( \mP_\mcI = \emptyset \)
+	as we can see for tautology \( F = \mP(\ma)\lor\lnot\mP(\ma) \)
+	and interpretation \( \mP_\mcI = \emptyset \).
 \end{example}
-
 
 
 % \begin{example}

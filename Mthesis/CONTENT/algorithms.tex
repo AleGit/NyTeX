@@ -8,9 +8,9 @@
 
 \section{Sets of Clauses}
 
-\subsection{Terms, Atoms, and Literals}
+% \subsection{Terms, Atoms, and Literals}
 
-The recursive definition of the syntax of terms, atoms and literal suggest a tree structure.
+The recursive definition of the syntax of terms, atoms and literal suggests a tree data structure.
 
 \begin{tikzpicture}[->,>=stealth',level/.style={sibling distance = 2cm/#1,
 	level distance = 0.8cm}]
@@ -24,21 +24,18 @@ The recursive definition of the syntax of terms, atoms and literal suggest a tre
 		}
 	}
 ;
-
-
-
 \end{tikzpicture}
 
-\begin{tikzpicture}
-\draw (0,0) rectangle (1,1);
-\draw (0.1,0.1) rectangle (1cm,1cm);
+% \begin{tikzpicture}
+% \draw (0,0) rectangle (1,1);
+% \draw (0.1,0.1) rectangle (1cm,1cm);
 
-\draw (0,0) to (1,1);
-\end{tikzpicture}
+% \draw (0,0) to (1,1);
+% \end{tikzpicture}
 
-\subsection{Sets}
+% \subsection{Sets}
 
-Clauses are multiset of literals.
+Clauses are defined as multisets of literals.
 
 
 \section{Saturation Basics}\label{sec:saturation:basics}
@@ -75,7 +72,7 @@ in Section~\ref{sec:selected:literals:bookkeeping}.
 
 \subsection{Given Clause Algorithm}\label{sec:given:clause:algorithm}
 
-\begin{procedure}[Given Clause Algorithm]
+\begin{procedure}[Given Clause Algorithm]\label{proc:given:clause:algorithm}
 	We start with a set \( S = P \disjointunion U \)
 	of initially empty \coloremph{processed} clauses \( P \)
 	and set of \coloremph{unprocessed} clauses \( U \).
@@ -85,44 +82,98 @@ in Section~\ref{sec:selected:literals:bookkeeping}.
 		\setcounter{enumi}{0}
 		\item If there are no unprocessed clauses,
 		we exit and return \SAT{}.
-		\item We select the \coloremph{best} unprocessed clause --- the now given clause \( G  \). \hfill\jek{}
+		\item We select the \coloremph{best} unprocessed clause --- the now given clause \( G  \) --- and remove it from the unprocessed clauses. \hfill\jek{}
 		\item We iterate over the processed clauses and check for applicable inference rules
 		for each pair \( (C, G) \subseteq P \times \{ G \} \) of a processed and the given clause
 		to derive additional clauses which we add to the set of unprocessed clauses. \hfill\jek{}
-		\item We remove the given clause from the set of unprocessed clauses
-		and add it to the set of processed clauses. Then continue with step 1.
+		\item We add the given clause to the set of processed clauses.
+		Then continue with step 1.
 	\end{enumerate}
 \end{procedure}
 
-The crucial part is the selection of best unprocessed clause as the given clause.
+The crucial part is the selection of the best unprocessed clause as the given clause.
 We have to ensure that any (non-redundant) clause is selected eventually.
 Otherwise we may stay in a satisfiable subset of the set of clauses
 as we can see in the following silly example with respect to resolution.
 
 \begin{example}
+	We process the clearly unsatisfiable set of clauses
+	\( S = \{
+		\msucc(x)\mNE \msucc(y)\lor {x\mEQ y},
+		\msucc(x_0)\mNE x_0, \msucc(x')\mEQ x'
+		\} \)
+	and always select the newest clause as the “best” clause
+	after we have moved the first clause to the processed clauses.
 
-	Let \( S = P \disjointunion U \)
-	with \( P = \{
-		\lnot \mP(x)\lor\mP(x),
-		\lnot \mP(x)\lor\mP(x),
-		\lnot \mP(x),
-		\mP(\ma) \}
-	\)
-	and \( U = \emptyset \).
+	\begin{align*}
+		(1)\quad
+		&\boxed{\msucc(x)\mNE \msucc(y)\lor {x\mEQ y}} &
+		&&
+		&{ \msucc^1(x_0)\mNE \msucc^0(x_0) },\ { \msucc(x')\mEQ x' }
+		\\
+		(2)\quad
+		&\msucc(x)\mNE \msucc(y)\lor \underline{x\mEQ y} &
+		&&
+		&\boxed{ \msucc^1(x_0)\mNE \msucc^0(x_0) }\ \ldots
+		\\
+		(3+0)\quad
+		&\msucc(x)\mNE \msucc(y)\lor \underline{x\mEQ y} &
+		&{\left(\msucc^{i+1}(x_i)\mNE \msucc^{i}(x_i)\right)}_{i=0}^0 &
+		&\boxed{ \msucc^2(x_1)\mNE \msucc^1(x_1) }\ \ldots
+		\\
+		(3+k)\quad
+		&\msucc(x)\mNE \msucc(y)\lor \underline{x\mEQ y} &
+		&{\left(\msucc^{i+1}(x_i)\mNE \msucc^{i}(x_i)\right)}_{i=0}^k &
+		&\boxed{ \msucc^{k+2}(x_{k+1})\mNE \msucc^{k+1}(x_{k+1}) }
+		\end{align*}
+		The first clause always clashes with the newest clause.
+		\begin{gather*}
+			\infer[
+				\{x\mapsto\msucc^{k+2}(x_{k+1}),
+				y\mapsto\msucc^{k+1}(x_{k+1})\}
+				]{
+					\begin{array}{c}
+					\msucc(\msucc^{k+2}(x_{k+1}))\mNE \msucc(\msucc^{k+1}(x_{k+1}))
+					\\ \equiv \\
+					\msucc^{k+3}(x_{k+2})\mNE \msucc^{k+2}(x_{k+2})
+					\end{array}
+				}{
+				\msucc(x)\mNE \msucc(y)\lor \underline{x\mEQ y} &
+				\msucc^{k+2}(x_{k+1})\mNE \msucc^{k+1}(x_{k+1})
+			}
+		\end{gather*}
+
+
+
 
 
 \end{example}
 
-\begin{definition}[First-in/First-Out clause selection]
-	See~\cite{DBLP:conf/cade/SchulzM16, DBLP:conf/cade/2016}
+\begin{definition}[First-in/First-Out clause selection]~\cite{DBLP:conf/cade/SchulzM16, DBLP:conf/cade/2016}
+	Instead of two sets of clauses we maintain
+	the set of processed clauses and a queue of unprocessed clauses.
+	At start the collection of processed clauses is empty
+	and the queue of unprocessed clauses is enqueued with
+	the clauses of the problem, i.e.\ the set of clauses
+	that has to be shown unsatisfiable. We restrict selection and adding of clauses
+	in Procedure~\ref{proc:given:clause:algorithm}:
+	\begin{enumerate}
+		\item[2.]
+		We select the “best” clause
+		by dequeuing it from the unprocessed clauses.
+		\item[3.]
+		We enqueue newly derived clauses into the unprocessed clauses.
+	\end{enumerate}
+Clearly we will not miss any clause (pairing).
 \end{definition}
 
 
 
 In the following examples the given clause is boxed,
-the active clauses are on the left of the given clause,
-and the passive clauses are on the right.
-Each line represents one iteration of our procedure 3.
+the processed clauses are on the left of the given clause,
+and the unprocessed clauses are on the right.
+Each line represents one iteration of our
+Procedure~\ref{proc:given:clause:algorithm}.
 %
 In both examples we start with the unsatisfiable set of clauses
 \( S=\{ \, \mP(\ma)\lor\mQ(a), \mP(\ma)\lor\lnot\mQ(y), \lnot\mP(x) \, \} \).
@@ -179,7 +230,8 @@ in other words the union of the two instances without the contradicting literals
 \subsubsection{InstGen}
 
 \jek{} \( \ \Leftarrow \lnot\SAT(S_i\bot) \). We conclude unsatisfiability of \( S \) whenever (a subset of) \( S_i\bot \) --- a set of ground instances --- is unsatisfiable.
-We consider only proper instances of an active and the given clause as probable new clauses to extend the set of clauses.
+We consider only proper instances of an processed or given clause
+as probable new clauses to extend the set of clauses.
 \begin{gather*}
 	\infer[\sigma=\{ x'\mapsto\mf(x), y\mapsto\mg(y') \}]{
 		\mP(\mf(x),\mg(y')) \lor\mcC\sigma
@@ -191,10 +243,10 @@ We consider only proper instances of an active and the given clause as probable 
 \end{gather*}
 
 
-\begin{example}[InstGen]The active and given clauses are already encoded and given to a \SAT{} solver.
+\begin{example}[InstGen]The processed and given clauses are already encoded and given to a \SAT{} solver.
 	The basic given clause algorithm would stop and fail after \( (4) \)
 	since \( S_4\bot \) is still satisfiable and there is no conflict between the underlined selected literal of the given clause
-	and any selected literals of any of the active clauses.
+	and any selected literals of any of the processed clauses.
 
 	\begin{align*}
 	(1)\quad^{1:}&\boxed{\underline{\mP(\ma)}\lor\mQ(\ma)}
@@ -216,8 +268,8 @@ We consider only proper instances of an active and the given clause as probable 
 	& ^{3:}&{\colHi\underline{\lnot\mP(\consbot/x)}}
 	& ^{1,3:}_{2,3:}&\boxed{\underline{\lnot\mP(\ma)}}
 	\end{align*}
-	But the model did change in (4) and the selected literals of two of the active clauses had to be changed too.
-	Active clauses with changed selected literals have to be moved back to the passive clauses.
+	But the model did change in (4) and the selected literals of two of the processed clauses had to be changed too.
+	Processed clauses with changed selected literals have to be moved back to the unprocessed clauses.
 	Then we hit a contradiction of ground instances in (7').
 	\begin{align*}
 	(4')\quad^{3:}&{\underline{\colHi\lnot\mP(\consbot/x)}}
@@ -249,6 +301,7 @@ We consider only proper instances of an active and the given clause as probable 
 	\draw[<->,red, thick] (PQ.south) to (NQ.south);
 	\end{tikzpicture}
 \end{example}
+
 
 \begin{figure}[hbt]
 	\begin{center}
@@ -303,14 +356,11 @@ We consider only proper instances of an active and the given clause as probable 
 
 \subsection{Double-entry bookkeeping}\label{sec:selected:literals:bookkeeping}
 
+% \subsection{An insufficient strategy}
 
-\subsection{Fair saturation strategies}\label{{sec:fair:saturation:strategies:basics}}
 
-Let us first demonstrate an insufficient saturation strategy with ordered resolution and the given claus algorithm.
 
-\begin{example}[Newest clause first]
 
-\end{example}
 
 
 
