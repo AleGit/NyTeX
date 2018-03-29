@@ -70,8 +70,10 @@ in Section~\ref{sec:selected:literals:bookkeeping}.
 
 % Both algorithms are just only building blocks for fair saturation strategies as we outline in Section~\ref{sec:fair:saturation:strategies:basics}
 
-
 \subsection{Given Clause Algorithm}\label{sec:given:clause:algorithm}
+
+The given clause algorithm is originated in the set of support strategy~\cite{Wos:1965:ECS:321296.321302}. (todo: Otter and discount loops~\cite{DBLP:conf/cade/SchulzM16})
+%\cite{10.1007/978-3-319-40229-1_23, DBLP:conf/cade/SchulzM16})
 
 \begin{procedure}[Given Clause Algorithm]\label{proc:given:clause:algorithm}
 	We start with a set \( S = P \disjointunion U \)
@@ -95,58 +97,65 @@ in Section~\ref{sec:selected:literals:bookkeeping}.
 (In the following examples the given clause is boxed,
 the processed clauses are left of the given clause,
 and the unprocessed clauses are right of the given clause.
-Each line represents one iteration.)
+Each line represents one iteration of the procedure.)\\
 
-A crucial part in Procedure~\ref{proc:given:clause:algorithm} is the selection of the best unprocessed clause as the given clause.
-We have to ensure that any (non-redundant) clause is selected eventually.
+A crucial part is the selection of the “best” unprocessed clause.
+At least we have to ensure that any (non-redundant) clause is selected eventually.
 Otherwise we may stay in a satisfiable subset of the set of clauses
-as we can see in the following silly example with respect to resolution.
+as we demonstrate in the following silly example with respect to resolution.
 \begin{example}
 	We process the clearly unsatisfiable set of clauses
 	\( S = \{
 		\msucc(x)\mNE \msucc(y)\lor {x\mEQ y},
-		\msucc(x_0)\mNE x_0, \msucc(x')\mEQ x'
+		\msucc(x_2)\mNE x_2, \msucc(x')\mEQ x'
 		\} \)
 	and always select the \coloremph{newest} unprocessed clause as the “best” clause
 	after we have moved the first clause to the processed clauses.
 
 	\begin{align*}
-		(1)\quad
+		(k=1)\quad
 		&\boxed{\msucc(x)\mNE \msucc(y)\lor {x\mEQ y}} &
 		&&
-		&{ \msucc^1(x_0)\mNE \msucc^0(x_0) },\ { \msucc(x')\mEQ x' }
+		&{ \msucc^1(x_2)\mNE \msucc^0(x_2) },\ { \msucc(x')\mEQ x' }
 		\\
-		(2)\quad
+		(k=2)\quad
 		&\msucc(x)\mNE \msucc(y)\lor \underline{x\mEQ y} &
 		&&
-		&\boxed{ \msucc^1(x_0)\mNE \msucc^0(x_0) }\ \ldots
+		&\boxed{ \msucc^1(x_2)\mNE \msucc^0(x_2) }\ \ldots
 		\\
-		(3+0)\quad
+		(k=3)\quad
 		&\msucc(x)\mNE \msucc(y)\lor \underline{x\mEQ y} &
-		&{\left(\msucc^{i+1}(x_i)\mNE \msucc^{i}(x_i)\right)}_{i=0}^0 &
-		&\boxed{ \msucc^2(x_1)\mNE \msucc^1(x_1) }\ \ldots
+		&{\left(\msucc^{i-1}(x_{i})\mNE \msucc^{i-2}(x_{i})\right)}_{i=2}^{2} &
+		&\boxed{ \msucc^2(x_3)\mNE \msucc^1(x_3) }\ \ldots
 		\\
-		(3+k)\quad
+		(k=4)\quad
 		&\msucc(x)\mNE \msucc(y)\lor \underline{x\mEQ y} &
-		&{\left(\msucc^{i+1}(x_i)\mNE \msucc^{i}(x_i)\right)}_{i=0}^k &
-		&\boxed{ \msucc^{k+2}(x_{k+1})\mNE \msucc^{k+1}(x_{k+1}) }
+		&{\left(\msucc^{i-1}(x_{i})\mNE \msucc^{i-2}(x_{i})\right)}_{i=2}^{3} &
+		&\boxed{ \msucc^3(x_4)\mNE \msucc^2(x_4) }\ \ldots
+		\\
+		\cdots\quad & \cdots && \cdots && \cdots
+		\\
+		(k>3)\quad
+		&\msucc(x)\mNE \msucc(y)\lor \underline{x\mEQ y} &
+		&{\left(\msucc^{i-1}(x_{i})\mNE \msucc^{i-2}(x_{i})\right)}_{i=2}^{k-1} &
+		&\boxed{ \msucc^{k-1}(x_{k})\mNE \msucc^{k-2}(x_{k}) }
 		\end{align*}
 		In each iteration the newest clause
 		(an instance of the second clause)
 		clashes with the first clause but no other of the so far processed clauses.
 		\begin{gather*}
 			\infer[
-				\{x\mapsto\msucc^{k+2}(x_{k+1}),
-				y\mapsto\msucc^{k+1}(x_{k+1})\}
+				\{x\mapsto\msucc^{k-1}(x_{k}),
+				y\mapsto\msucc^{k-2}(x_{k})\}
 				]{
 					\begin{array}{c}
-					\msucc(\msucc^{k+2}(x_{k+1}))\mNE \msucc(\msucc^{k+1}(x_{k+1}))
+					\msucc(\msucc^{k-1}(x_{k}))\mNE \msucc(\msucc^{k-2}(x_{k}))
 					\\ \equiv \\
-					\msucc^{k+3}(x_{k+2})\mNE \msucc^{k+2}(x_{k+2})
+					\msucc^{k}(x_{k+1})\mNE \msucc^{k-1}(x_{k+1})
 					\end{array}
 				}{
 				\msucc(x)\mNE \msucc(y)\lor \underline{x\mEQ y} &
-				\msucc^{k+2}(x_{k+1})\mNE \msucc^{k+1}(x_{k+1})
+				\msucc^{k-1}(x_{k})\mNE \msucc^{k-2}(x_{k+1})
 			}
 		\end{gather*}
 \end{example}
