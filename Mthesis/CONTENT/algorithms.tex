@@ -92,18 +92,22 @@ in Section~\ref{sec:selected:literals:bookkeeping}.
 	\end{enumerate}
 \end{procedure}
 
-The crucial part is the selection of the best unprocessed clause as the given clause.
+(In the following examples the given clause is boxed,
+the processed clauses are left of the given clause,
+and the unprocessed clauses are right of the given clause.
+Each line represents one iteration.)
+
+A crucial part in Procedure~\ref{proc:given:clause:algorithm} is the selection of the best unprocessed clause as the given clause.
 We have to ensure that any (non-redundant) clause is selected eventually.
 Otherwise we may stay in a satisfiable subset of the set of clauses
 as we can see in the following silly example with respect to resolution.
-
 \begin{example}
 	We process the clearly unsatisfiable set of clauses
 	\( S = \{
 		\msucc(x)\mNE \msucc(y)\lor {x\mEQ y},
 		\msucc(x_0)\mNE x_0, \msucc(x')\mEQ x'
 		\} \)
-	and always select the newest clause as the “best” clause
+	and always select the \coloremph{newest} unprocessed clause as the “best” clause
 	after we have moved the first clause to the processed clauses.
 
 	\begin{align*}
@@ -127,7 +131,9 @@ as we can see in the following silly example with respect to resolution.
 		&{\left(\msucc^{i+1}(x_i)\mNE \msucc^{i}(x_i)\right)}_{i=0}^k &
 		&\boxed{ \msucc^{k+2}(x_{k+1})\mNE \msucc^{k+1}(x_{k+1}) }
 		\end{align*}
-		The first clause always clashes with the newest clause.
+		In each iteration the newest clause
+		(an instance of the second clause)
+		clashes with the first clause but no other of the so far processed clauses.
 		\begin{gather*}
 			\infer[
 				\{x\mapsto\msucc^{k+2}(x_{k+1}),
@@ -145,6 +151,8 @@ as we can see in the following silly example with respect to resolution.
 		\end{gather*}
 \end{example}
 
+
+
 \begin{definition}[First-in/First-Out clause selection~\cite{DBLP:conf/cade/SchulzM16, DBLP:conf/cade/2016}]
 	We keep track of the order clauses were added (e.g.\ by a queue).
 	We restrict selection and adding of clauses
@@ -158,17 +166,6 @@ as we can see in the following silly example with respect to resolution.
 	\end{enumerate}
 Clearly we will not miss any clause (pairing).
 \end{definition}
-
-
-
-In the following examples the given clause is boxed,
-the processed clauses are on the left of the given clause,
-and the unprocessed clauses are on the right.
-Each line represents one iteration of our
-Procedure~\ref{proc:given:clause:algorithm}.
-%
-In both examples we start with the unsatisfiable set of clauses
-\( S=\{ \, \mP(\ma)\lor\mQ(a), \mP(\ma)\lor\lnot\mQ(y), \lnot\mP(x) \, \} \).
 
 \subsubsection{Ordered Resolution}
 
@@ -185,6 +182,8 @@ in other words the union of the two instances without the contradicting literals
 \end{gather*}
 
 \begin{example}
+	We start with the clearly unsatisfiable set of clauses
+\( S=\{ \, \mP(\ma)\lor\mQ(\ma), \mP(\ma)\lor\lnot\mQ(y), \lnot\mP(x) \, \} \).
 	We assume \( \mP(\ma)\succ\mQ(\ma) \),
 	we underline the maximal literal in the given clauses,
 	we tint conflicts red,
@@ -224,7 +223,7 @@ in other words the union of the two instances without the contradicting literals
 \subsubsection{InstGen}
 
 \jek{} \( \ \Leftarrow \lnot\SAT(S_i\bot) \).
-With \InstGen we conclude unsatisfiability of \( S \) whenever (a subset of) \( S_i\bot \) --- a set of ground instances --- is unsatisfiable.
+With \InstGen{} we conclude unsatisfiability of \( S \) whenever (a subset of) \( S_i\bot \) --- a set of ground instances --- is unsatisfiable.
 We consider only proper instances of an processed or given clause
 as probable new clauses to extend the set of clauses.
 \begin{gather*}
@@ -237,8 +236,9 @@ as probable new clauses to extend the set of clauses.
 	}
 \end{gather*}
 
-
 \begin{example}
+	Again we start with the clearly unsatisfiable set of clauses
+\( S=\{ \, \mP(\ma)\lor\mQ(\ma), \mP(\ma)\lor\lnot\mQ(y), \lnot\mP(x) \, \} \).
 	The processed and given clauses are already encoded and given to a \SAT{} solver.
 	The basic given clause algorithm would stop and fail after \( (4) \)
 	since \( S_4\bot \) is still satisfiable and there is no conflict between the underlined selected literal of the given clause
