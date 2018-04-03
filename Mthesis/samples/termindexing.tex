@@ -2,8 +2,7 @@
 % !TeX encoding = UTF-8
 % !TeX spellcheck = en_US
 
-\section{Term indexing}
-\subsection{Motivation}
+% \subsection{Motivation}
 %% MOTIVATION %%
 
 %- MOTIVATION/ClausalForm
@@ -31,8 +30,8 @@
 %+ MOTIVATION/goalSoundComplete
 \begin{goal}
 	%	A sound\( ^\circ \), refutational complete\( ^\diamond \), and effective\( ^\star \) calculus.
-	A sound, refutation complete, and
-	 {effective} calculus.
+	Term indexing is about data structures and algorithms
+	for fast retrieval of matching terms.
 	\begin{enumerate}
 		\item {Reduce} search space
 		\begin{itemize}
@@ -63,14 +62,7 @@
 	\end{enumerate}
 \end{goal}
 
-\begin{definition}
-	\begin{align*}
-	\VRNT(s,t)&\Leftrightarrow \exists\sigma\ s\sigma = t\text{ and }\sigma\text{ is renaming}\\
-	\INST(s,t)&\Leftrightarrow\exists\sigma\ s = t\sigma\tag*{\( s \) is instance of \( t \)}\\
-	\GNRL(s,t)&\Leftrightarrow\exists\sigma\ s\sigma = t\tag*{\( s \) is generalization of \( t \)}\\
-	\UNIF(s,t)&\Leftrightarrow\exists\sigma\ s\sigma = t\sigma
-	\end{align*}
-\end{definition}
+
 
 \begin{tikzpicture}[scale = 1, transform shape, draw=black, fill=black, thick, sloped]
 
@@ -121,9 +113,7 @@ node[pos=0.85, above] {maybe} (10.5,0.15) ;
 
 %%
 
-\begin{definition}[Term Indexing]
-	Term indexing is about data structures and algorithms for fast retrieval of matching terms.
-\end{definition}
+
 
 
 \subsection{Position}

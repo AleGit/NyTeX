@@ -8,9 +8,15 @@
 
 \section{Data structures}
 
+\begin{enumerate}
+	\item Trees as first order literals, i.e.\ the root symbol is either a (negated) predicate symbol or the (negated) equality symbol.
+	\item Multisets of literals for first order clauses
+	\item Sets for Problems, i.e.~sets of clauses
+\end{enumerate}
+
 % \subsection{Terms, Atoms, and Literals}
 
-The recursive definition of the syntax of terms, atoms and literal suggests a tree data structure.
+% The recursive definition of the syntax of terms, atoms and literal suggests a tree data structure.
 
 
 % \begin{tikzpicture}[->,>=stealth',level/.style={sibling distance = 2cm/#1,
@@ -36,12 +42,12 @@ The recursive definition of the syntax of terms, atoms and literal suggests a tr
 
 % \subsection{Sets}
 
-Clauses are defined as multisets of literals.
+% Clauses are defined as multisets of literals.
 
 
 \section{Saturation Basics}\label{sec:saturation:basics}
 
-In examples in Chapter~\ref{chapter:automation},
+In the examples of Chapter~\ref{chapter:automation},
 we just applied derivation rules
 to haphazardly chosen pairs of clauses
 to infer new clauses
@@ -55,7 +61,7 @@ from a satisfiable subset of clauses.
 In Chapter~\ref{chapter:completeness}, on the other hand,
 we relied on a fair ---
 i.e.\ every non-redundant clause will be processed eventually ---
-saturation process to prove completeness of \InstGenEQ{}.
+saturation process to show completeness of \InstGenEQ{}.
 
 For now we will ignore possible simplifications of the set of clauses.
 In Section~\ref{sec:given:clause:algorithm}
@@ -103,7 +109,7 @@ A crucial part is the selection of the “best” unprocessed clause.
 At least we have to ensure that any (non-redundant) clause is selected eventually.
 Otherwise we may stay in a satisfiable subset of the set of clauses
 as we demonstrate in the following silly example with respect to resolution.
-\begin{example}
+\begin{example}[Insufficient clause selection]
 	We process the clearly unsatisfiable set of clauses
 	\( S = \{
 		\msucc(x)\mNE \msucc(y)\lor {x\mEQ y},
@@ -162,7 +168,7 @@ as we demonstrate in the following silly example with respect to resolution.
 
 
 
-\begin{definition}[First-in/First-Out clause selection~\cite{DBLP:conf/cade/SchulzM16, DBLP:conf/cade/2016}]
+\begin{definition}[First-in/First-out clause selection~\cite{DBLP:conf/cade/SchulzM16, DBLP:conf/cade/2016}]
 	We keep track of the order clauses were added (e.g.\ by a queue).
 	We restrict selection and adding of clauses
 	in Procedure~\ref{proc:given:clause:algorithm} as follows:
@@ -270,7 +276,7 @@ as probable new clauses to extend the set of clauses.
 	(4)\quad
 	^{1:}&{\colLo\mP(\ma)}\lor\colHi\mQ(\ma)
 	& ^{2:}&{\colLo\mP(\ma)}\lor\colHi\lnot\mQ(\consbot/y)
-	& ^{3:}&{\colHi\underline{\lnot\mP(\consbot/x)}}
+	& ^{3:}&{\colHi\underline{\lnot\mP(\consbot/x)}}††
 	& ^{1,3:}_{2,3:}&\boxed{\underline{\lnot\mP(\ma)}}
 	\end{align*}
 	But the model did change in (4) and the selected literals of two of the processed clauses had to be changed too.
@@ -361,12 +367,16 @@ as probable new clauses to extend the set of clauses.
 
 \subsection{Bookkeeping}\label{sec:selected:literals:bookkeeping}
 
-Just moving processed clauses back to unprocessed clauses may introduce unnecessary derivations.
-When a literal of a processed clause was de-selected
-in iteration \( n \) and
-is re-selected in a later iteration some of the pairings against
-the selected literals of the processed clauses may have already been considered before iteration \( n \),
-but we did not keep track of that.
+Just moving processed clauses back to unprocessed clauses may introduce unnecessary derivations from already considered literal pairings.
+The selected literal of a just processed clause
+could be deselected in a subsequent iteration \( m \)
+and re-selected in an even later iteration \( n \).
+Then some of this literals' pairings against
+the selected literals of the processed clauses
+may have already been considered before iteration \( n \),
+but in the procedure did not keep track of that.
+
+
 
 
 % \begin{align*}
@@ -413,15 +423,42 @@ to avoid logical redundancies in our set\footnote{
 	we do not increase the cardinality of the set.
 } of clauses.
 Further we search for existing clauses that contain clashing literals to a literal in our clause.
-This search may be restricted by a given order (e.g.~Superposition) or a propositional model (e.g.~\InstGenEQ).
+This search may be restricted by a given order (e.g.~superposition) or a propositional model (e.g.~\InstGenEQ).
 Last but not least we may search for subterms in literals of existing clauses that matches a term in an equation.
 
-Naively we can just scan through all existing clauses and check each clause for the desired qualities.
-	The workload for processing a generated clause is proportional to the number of existing clauses and
+Naively we can just scan through all existing clauses (and literals)
+and check each clause (and literal) for the desired qualities.
+	Then the workload for processing a clause is proportional to the number of clauses clauses and
 	the workload for checking a pair of clauses.
 	The latter includes unification, which is at least linear to the size of clauses~\cite{ALBERT19933},
 	while Robinson's unification algorithm~\cite{Robinson:1965:MLB:321250.321253} is exponential in the worst case.
 	The complexity for this direct approach of processing \( n \) clauses of fixed size (i.e.~constant unification costs per pair) is \( \mcO(n^2) \).
+
+
+	\begin{definition}Let us first define some relations on terms, literals and clauses.
+		\begin{align*}
+		% \VRNT(s,t)&\Leftrightarrow
+		\exists\sigma\ &s\sigma = t\sigma, \sigma\text{ is renaming}
+		\tag*{ \(s\) and \(t\) are variants}
+		\\
+		% \INST(s,t)&\Leftrightarrow
+		\exists\sigma\ &s = t\sigma\tag*{\( s \) is instance of \( t \)}
+		\\
+		% \GNRL(s,t)&\Leftrightarrow
+		\exists\sigma\ &s\sigma = t\tag*{\( s \) is generalization of \( t \)}
+		\\
+		% \UNIF(s,t)&\Leftrightarrow
+		\exists\sigma\ &s\sigma = t\sigma
+		\tag*{\(s\) and \(t\) are unifiable}
+		\\
+		% \PSSTR(L, s)&\Leftrightarrow
+		\exists p\ &L|_p\text{ and } s \text { are unifiable}
+		\\
+		% \SUBS(\mcC, \mcD)&\Leftrightarrow
+		\exists\sigma\ &\mcC\sigma\subseteq\mcD
+		\tag*{clause \(\mcC \) subsumes clause \( \mcD \)}
+		\end{align*}
+	\end{definition}
 
 \input{samples/termindexing}
 
