@@ -6,13 +6,13 @@
 
 
 
-\section{Data structures}
+% \section{Data structures}
 
-\begin{enumerate}
-	\item Trees as first order literals, i.e.\ the root symbol is either a (negated) predicate symbol or the (negated) equality symbol.
-	\item Multisets of literals for first order clauses
-	\item Sets for Problems, i.e.~sets of clauses
-\end{enumerate}
+% \begin{enumerate}
+% 	\item Trees as first order literals, i.e.\ the root symbol is either a (negated) predicate symbol or the (negated) equality symbol.
+% 	\item Multisets of literals for first order clauses
+% 	\item Sets for Problems, i.e.~sets of clauses
+% \end{enumerate}
 
 % \subsection{Terms, Atoms, and Literals}
 
@@ -103,7 +103,7 @@ The given clause algorithm is originated in the set of support strategy~\cite{Wo
 (In the following examples the given clause is boxed,
 the processed clauses are left of the given clause,
 and the unprocessed clauses are right of the given clause.
-Each line represents one iteration of the procedure.)\\
+Each line represents one iteration of the procedure.)
 
 A crucial part is the selection of the “best” unprocessed clause.
 At least we have to ensure that any (non-redundant) clause is selected eventually.
@@ -254,7 +254,8 @@ as probable new clauses to extend the set of clauses.
 \begin{example}
 	Again we start with the clearly unsatisfiable set of clauses
 \( S=\{ \, \mP(\ma)\lor\mQ(\ma), \mP(\ma)\lor\lnot\mQ(y), \lnot\mP(x) \, \} \).
-	The processed and given clauses are already encoded and given to a \SAT{} solver.
+	The processed and given clauses are already encoded and
+	given to a \SAT{} or \SMT{} solver.
 	The basic given clause algorithm would stop and fail after \( (4) \)
 	since \( S_4\bot \) is still satisfiable and there is no conflict between the underlined selected literal of the given clause
 	and any selected literals of any of the processed clauses.
@@ -309,7 +310,7 @@ as probable new clauses to extend the set of clauses.
 	\begin{tikzpicture}[overlay,remember picture, out=340, in=200 ]
 	\draw[->, thick, dotted] (NP.south) to (PP.south);
 	\draw[->, thick, dotted] (NP.south) to (PA.south);
-	\draw[<->,red, thick] (PQ.south) to (NQ.south);
+	\draw[<->,colLo, thick] (PQ.south) to (NQ.south);
 	\end{tikzpicture}
 \end{example}
 
@@ -412,9 +413,9 @@ but in the procedure did not keep track of that.
 
 
 
-In refutation theorem proving (a lot of) clauses are produced.
-For each generated clause we may have to find
-existing variants, generalizations, or instances of it.
+A refutational theorem proving process produces (a lot of) clauses.
+For each occurring clause, we may have to find
+all other clauses that match specific criteria.
 In a more general view we want to find existing clauses
 that subsume our clause or are subsumed by a our clause
 to avoid logical redundancies in our set\footnote{
@@ -432,7 +433,7 @@ and check each clause (and literal) for the desired qualities.
 	the workload for checking a pair of clauses.
 	The latter includes unification, which is at least linear to the size of clauses~\cite{ALBERT19933},
 	while Robinson's unification algorithm~\cite{Robinson:1965:MLB:321250.321253} is exponential in the worst case.
-	The complexity for this direct approach of processing \( n \) clauses of fixed size (i.e.~constant unification costs per pair) is \( \mcO(n^2) \).
+	The complexity class for this direct approach of processing \( n \) clauses of fixed size (i.e.~constant unification costs per pair) is \( \mcO(n^2) \).
 
 
 	\begin{definition}Let us first define some relations on terms, literals and clauses.

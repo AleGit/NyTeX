@@ -61,17 +61,18 @@ We state satisfiability and validity of arbitrary first order formulae or sets o
 
 \subsection{Models}
 
-
-
 \begin{definition}\label{def:interpretation}
-	An \coloremph{interpretation} \( \mcI \) over a signature \( \mcF \) consists of a
-	non-empty set \( A \) (i.e.~the \coloremph{universe} or \coloremph{domain}),
+	An \coloremph{interpretation} \( \mcI \)
+	over a signature \( \mcF \) consists of a
+	non-empty set \( A \)
+	(i.e.~the \coloremph{universe} or \coloremph{domain}),
 	definitions of mappings
 	\( \mf_\mcI: A^n\rightarrow A \)
 	for every function symbol \( \mf\in\mcFf \),
 	and definitions of (possibly empty) n-ary relations
 	 \( {\mP_\mcI}\subseteq A^n \) for every predicate symbol \( \mP\in\mcFP \)
 	 and the definition of a binary relation \( {\mEQ_\mcI}\subseteq A^2 \) for the equality symbol.
+
 	 A (variable) \coloremph{assignment} is a mapping from variables to elements of the domain.
 	 We define the \coloremph{evaluation} \( \alpha_\mcI \) of a term \( t \)
 	 for assignment \( \alpha \) and interpretation \( \mcI \):
@@ -86,10 +87,10 @@ We state satisfiability and validity of arbitrary first order formulae or sets o
 	 	&\text{if }t=\mf(t_1,\ldots,t_n), \mf\in\mcFfn[n>0], t_i\in\mcTf
  }
 	 \end{gather*}
+\end{definition}
 \begin{remark}
 	The evaluation of ground terms does not depend on variable assignments.
 \end{remark}
-\end{definition}
 
 \begin{definition}\label{def:semantics:atoms}
 	A predicate \( \mP(t_1,\ldots,t_n) \)
