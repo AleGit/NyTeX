@@ -20,7 +20,6 @@ and describe basic term rewriting terminology in Section~\ref{sec:termrewriting}
 These notions and notations largely follow the lecture notes to term rewriting and automated reasoning~\cite{AM2015tr, GM2013ar}.
 % Figure \vref{fig:conventions} in the appendix lists typographical conventions.
 
-
 \section{Syntax}\label{sec:syntax}
 
 In this section we introduce the syntax of arbitrary first order formulae (\FOF),
@@ -49,10 +48,6 @@ and clausal normal form (\CNF).
 
 \input{preliminaries/provability}
 
-
-
-
-
 \section{Semantics}\label{sec:semantics}
 
 In this section we recall some basic aspects and definitions of semantics in first order logic.
@@ -63,22 +58,25 @@ We state satisfiability and validity of arbitrary first order formulae or sets o
 
 \begin{definition}\label{def:interpretation}
 	An \coloremph{interpretation} \( \mcI \)
-	over a signature \( \mcF \) consists of a
+	over a first order signature \( \mcF \) consists of a
 	non-empty set \( A \)
-	(i.e.~the \coloremph{universe} or \coloremph{domain}),
+	(i.e.\ the \coloremph{universe} or \coloremph{domain}),
+%
 	definitions of mappings
 	\( \mf_\mcI: A^n\rightarrow A \)
 	for every function symbol \( \mf\in\mcFf \),
 	and definitions of (possibly empty) n-ary relations
 	 \( {\mP_\mcI}\subseteq A^n \) for every predicate symbol \( \mP\in\mcFP \)
-	 and the definition of a binary relation \( {\mEQ_\mcI}\subseteq A^2 \) for the equality symbol.
-
+	 and the definition of (possibly empty) binary relation \( {\mEQ_\mcI}\subseteq A^2 \) for the equality symbol.
+%
 	 A (variable) \coloremph{assignment} is a mapping from variables to elements of the domain.
+%
 	 We define the \coloremph{evaluation} \( \alpha_\mcI \) of a term \( t \)
 	 for assignment \( \alpha \) and interpretation \( \mcI \):
+
 	 \begin{gather*}
-	 \MDEFINE{\alpha_\mcI(t)}{ll}{
-	 	\alpha_\mcI(x)
+	 \MDEFINE{\alpha_\mcI(t) = t_{\alpha_\mcI}}{ll}{
+	 	\alpha(x)
 	 	&\text{if }t=x\in\mcV \\
 	 	\mc_\mcI
 	 	&\text{if }t=\mc\in\mcFfn[0]
@@ -87,6 +85,7 @@ We state satisfiability and validity of arbitrary first order formulae or sets o
 	 	&\text{if }t=\mf(t_1,\ldots,t_n), \mf\in\mcFfn[n>0], t_i\in\mcTf
  }
 	 \end{gather*}
+
 \end{definition}
 \begin{remark}
 	The evaluation of ground terms does not depend on variable assignments.
@@ -94,9 +93,10 @@ We state satisfiability and validity of arbitrary first order formulae or sets o
 
 \begin{definition}\label{def:semantics:atoms}
 	A predicate \( \mP(t_1,\ldots,t_n) \)
-	\coloremph{holds} for an assignment \( \alpha_\mcI \)
+	\coloremph{holds} for assignment~\( \alpha \)
+	and interpretation~\( \mcI \)
 	if and only if the evaluation of its n-tuple \(
-	(\alpha_\mcI({t_1}),\ldots,\alpha_\mcI({t_n})) \)
+	\alpha_\mcI(t_1,\ldots,t_n) = (\alpha_\mcI({t_1}),\ldots,\alpha_\mcI({t_n})) \in \mP_\mcI \)
 	is an element of the relation \( \mP_\mcI\subseteq A^n \).
 	Similar an equation \( s\mEQ t \)
 	holds if \( \alpha_\mcI(s) \mEQ_\mcI \alpha_\mcI(t) \).
@@ -299,7 +299,7 @@ quantified variable by its position index.
 to interpret the equality symbol without restrictions.
 This may yield unwelcome models as in Example~\vref{ex:a:neq:a}.
 Hence we state useful definitions to deal with this situation
-and demonstrate their usage in an example.x
+and demonstrate their usage in an example.
 
 
 \begin{definition}\label{def:normal:interpreation}

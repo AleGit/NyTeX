@@ -414,52 +414,52 @@ but in the procedure did not keep track of that.
 
 
 A refutational theorem proving process produces (a lot of) clauses.
-For each occurring clause, we may have to find
+For each occurring clause, we have to find
 all other clauses that match specific criteria.
-In a more general view we want to find existing clauses
-that subsume our clause or are subsumed by a our clause
-to avoid logical redundancies in our set\footnote{
+% In a more general view we want to find existing clauses
+% that subsume our clause or are subsumed by a our clause
+First of all, of course, we want to avoid unnecessary clauses\footnote{
 	At least we might expect that by adding clauses
 	that are syntactical identical to clauses already in the set
 	we do not increase the cardinality of the set.
-} of clauses.
+} in our set of clauses.
 Further we search for existing clauses that contain clashing literals to a literal in our clause.
-This search may be restricted by a given order (e.g.~superposition) or a propositional model (e.g.~\InstGenEQ).
-Last but not least we may search for subterms in literals of existing clauses that matches a term in an equation.
+% This search may be restricted by a given order (e.g.~superposition) or a propositional model (e.g.~\InstGenEQ).
+In the presence of equality we search for subterms in literals that unifies with one side of an equation.
 
 Naively we can just scan through all existing clauses (and literals)
 and check each clause (and literal) for the desired qualities.
-	Then the workload for processing a clause is proportional to the number of clauses clauses and
+	Then the workload for processing one additional clause is proportional to the number of other clauses and
 	the workload for checking a pair of clauses.
 	The latter includes unification, which is at least linear to the size of clauses~\cite{ALBERT19933},
 	while Robinson's unification algorithm~\cite{Robinson:1965:MLB:321250.321253} is exponential in the worst case.
 	The complexity class for this direct approach of processing \( n \) clauses of fixed size (i.e.~constant unification costs per pair) is \( \mcO(n^2) \).
 
 
-	\begin{definition}Let us first define some relations on terms, literals and clauses.
-		\begin{align*}
-		% \VRNT(s,t)&\Leftrightarrow
-		\exists\sigma\ &s\sigma = t\sigma, \sigma\text{ is renaming}
-		\tag*{ \(s\) and \(t\) are variants}
-		\\
-		% \INST(s,t)&\Leftrightarrow
-		\exists\sigma\ &s = t\sigma\tag*{\( s \) is instance of \( t \)}
-		\\
-		% \GNRL(s,t)&\Leftrightarrow
-		\exists\sigma\ &s\sigma = t\tag*{\( s \) is generalization of \( t \)}
-		\\
-		% \UNIF(s,t)&\Leftrightarrow
-		\exists\sigma\ &s\sigma = t\sigma
-		\tag*{\(s\) and \(t\) are unifiable}
-		\\
-		% \PSSTR(L, s)&\Leftrightarrow
-		\exists p\ &L|_p\text{ and } s \text { are unifiable}
-		\\
-		% \SUBS(\mcC, \mcD)&\Leftrightarrow
-		\exists\sigma\ &\mcC\sigma\subseteq\mcD
-		\tag*{clause \(\mcC \) subsumes clause \( \mcD \)}
-		\end{align*}
-	\end{definition}
+	% \begin{definition}Let us first define some relations on terms, literals and clauses.
+	% 	\begin{align*}
+	% 	% \VRNT(s,t)&\Leftrightarrow
+	% 	\exists\sigma\ &s\sigma = t\sigma, \sigma\text{ is renaming}
+	% 	\tag*{ \(s\) and \(t\) are variants}
+	% 	\\
+	% 	% \INST(s,t)&\Leftrightarrow
+	% 	\exists\sigma\ &s = t\sigma\tag*{\( s \) is instance of \( t \)}
+	% 	\\
+	% 	% \GNRL(s,t)&\Leftrightarrow
+	% 	\exists\sigma\ &s\sigma = t\tag*{\( s \) is generalization of \( t \)}
+	% 	\\
+	% 	% \UNIF(s,t)&\Leftrightarrow
+	% 	\exists\sigma\ &s\sigma = t\sigma
+	% 	\tag*{\(s\) and \(t\) are unifiable}
+	% 	\\
+	% 	% \PSSTR(L, s)&\Leftrightarrow
+	% 	\exists p\ &L|_p\text{ and } s \text { are unifiable}
+	% 	\\
+	% 	% \SUBS(\mcC, \mcD)&\Leftrightarrow
+	% 	\exists\sigma\ &\mcC\sigma\subseteq\mcD
+	% 	\tag*{clause \(\mcC \) subsumes clause \( \mcD \)}
+	% 	\end{align*}
+	% \end{definition}
 
 \input{samples/termindexing}
 
