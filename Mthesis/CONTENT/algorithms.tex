@@ -82,11 +82,11 @@ The given clause algorithm is originated in the set of support strategy~\cite{Wo
 %\cite{10.1007/978-3-319-40229-1_23, DBLP:conf/cade/SchulzM16})
 
 \begin{procedure}[Given Clause Algorithm]\label{proc:given:clause:algorithm}
-	We start with a set \( S = P \disjointunion U \)
-	of initially empty \coloremph{processed} clauses \( P \)
-	and set of \coloremph{unprocessed} clauses \( U \).
+	We start with an empty set \( P \) of \coloremph{processed} clauses \( P \)
+	and the original set of \coloremph{unprocessed} clauses \( U = S \),
+	e.g.\ a set of axioms and a negated conjecture.
 	\begin{enumerate}
-		\item[\jek] Whenever we can conclude unsatisfiability of \( S \)
+		\item[\jek] Whenever we can conclude unsatisfiability of the original set of clauses \( S \),
 		we exit the procedure with \( \lnot\SAT \).
 		\setcounter{enumi}{0}
 		\item If there are no unprocessed clauses,
@@ -96,7 +96,7 @@ The given clause algorithm is originated in the set of support strategy~\cite{Wo
 		for each pair \( (C, G) \subseteq P \times \{ G \} \) of a processed and the given clause
 		to derive additional clauses which we add to the set of unprocessed clauses. \hfill\jek{}
 		\item We add the given clause to the set of processed clauses.
-		Then continue with step 1.
+		We continue with step 1.
 	\end{enumerate}
 \end{procedure}
 
@@ -277,7 +277,7 @@ as probable new clauses to extend the set of clauses.
 	(4)\quad
 	^{1:}&{\colLo\mP(\ma)}\lor\colHi\mQ(\ma)
 	& ^{2:}&{\colLo\mP(\ma)}\lor\colHi\lnot\mQ(\consbot/y)
-	& ^{3:}&{\colHi\underline{\lnot\mP(\consbot/x)}}††
+	& ^{3:}&{\colHi\underline{\lnot\mP(\consbot/x)}}
 	& ^{1,3:}_{2,3:}&\boxed{\underline{\lnot\mP(\ma)}}
 	\end{align*}
 	But the model did change in (4) and the selected literals of two of the processed clauses had to be changed too.
@@ -369,14 +369,55 @@ as probable new clauses to extend the set of clauses.
 \subsection{Bookkeeping}\label{sec:selected:literals:bookkeeping}
 
 Just moving processed clauses back to unprocessed clauses may introduce unnecessary derivations from already considered literal pairings.
-The selected literal of a just processed clause
+Since we have no control over the constructed models
+the selected literal of a processed clause
 could be deselected in a subsequent iteration \( m \)
 and re-selected in an even later iteration \( n \).
 Then some of this literals' pairings against
-the selected literals of the processed clauses
+selected literals of the processed clauses
 may have already been considered before iteration \( n \),
-but in the procedure did not keep track of that.
+but our procedure did not keep track of that.
 
+\begin{example}[InstGen]
+	The first two clauses have been processed before step \( m \).
+	The first clause moves to the unprocessed clauses in step \( m \)
+	and could have been processed again before step \( n \).
+	The first clause moves again to the unprocessed clauses in step \( n \).
+When the first clause is processed after step \(n \)
+its selected literal clashes again with the selected literal of
+the second clause.
+\begin{align*}
+	^{1:}&\underline{\mP(x)}\lor L_1
+	&^{2:}&\underline{\lnot\mP(\ma)}\lor L_2
+	&&\textcolor{colG}{\cdots}
+	&\textcolor{colG}{^{i:}}&\textcolor{colG}{L_1\lor L_2}
+	&\textcolor{colG}{^{j:}}&\textcolor{colG}{\lnot L_1\lor\lnot L_2}
+	&&\textcolor{colG}{\cdots}
+	&\textcolor{colG}{^{1,2:}}&\textcolor{colG}{\mP(\ma)\lor L_1}
+	\\
+	(m)\quad
+	^{1:}&\mP(x)\lor \underline{L_1}
+	&^{2:}&\underline{\lnot\mP(\ma)}\lor L_2
+	&&\cdots
+	&^{i:}&\boxed{\underline{L_1}\lor L_2}
+	&\textcolor{colG}{^{j:}}&\textcolor{colG}{\lnot L_1\lor\lnot L_2}
+	&&\textcolor{colG}{\cdots}
+	&&\textcolor{colG}{\cdots}
+	\\
+	&\vdots
+	\\
+	(n)\quad
+	^{1:}&\underline{\mP(x)}\lor {L_1} &
+	^{2:}&\underline{\lnot\mP(\ma)}\lor L_2 &
+	&\cdots&
+	^{i:}&{L_1}\lor \underline{L_2} &
+	^{j:}&\boxed{\underline{\lnot L_1}\lor \lnot L_2} &
+	&\textcolor{colG}{\cdots}
+\end{align*}
+\end{example}
+
+\begin{procedure}
+\end{procedure}
 
 
 
@@ -418,11 +459,9 @@ For each occurring clause, we have to find
 all other clauses that match specific criteria.
 % In a more general view we want to find existing clauses
 % that subsume our clause or are subsumed by a our clause
-First of all, of course, we want to avoid unnecessary clauses\footnote{
-	At least we might expect that by adding clauses
-	that are syntactical identical to clauses already in the set
-	we do not increase the cardinality of the set.
-} in our set of clauses.
+First of all, of course, we want to avoid unnecessary clauses in our set of (processed) clauses\footnote{
+	At least we might expect that we do not process multiple variants of a clause.
+}.
 Further we search for existing clauses that contain clashing literals to a literal in our clause.
 % This search may be restricted by a given order (e.g.~superposition) or a propositional model (e.g.~\InstGenEQ).
 In the presence of equality we search for subterms in literals that unifies with one side of an equation.
@@ -433,7 +472,106 @@ and check each clause (and literal) for the desired qualities.
 	the workload for checking a pair of clauses.
 	The latter includes unification, which is at least linear to the size of clauses~\cite{ALBERT19933},
 	while Robinson's unification algorithm~\cite{Robinson:1965:MLB:321250.321253} is exponential in the worst case.
-	The complexity class for this direct approach of processing \( n \) clauses of fixed size (i.e.~constant unification costs per pair) is \( \mcO(n^2) \).
+	The complexity class for this direct approach of processing \( n \) clauses of fixed size (i.e.\ constant unification costs per pair) is \( \mcO(n^2) \).
+%
+	Term indexing~\cite{Graf1998} is about data structures and algorithms
+	for faster retrieval of matching terms.
+
+	\begin{definition}
+		A \coloremph{position string} \( \ANGLES{p, s } \)
+		is a pair of a position \( p \) and a symbol \( s \),
+		e.g.\ variable symbol \( x \) or function symbol \( \mf \).
+%
+		We define the set of position strings of a term.
+		\begin{gather*}
+		\posS(t) =
+		\begin{cases}
+		\{ \ANGLES{\epsilon,x} \}
+		& \text{if }t=x\in\SIGV \\
+		\{ \ANGLES{\epsilon, \mf} \} \cup \{ \ANGLES{ip,s}\mid \ANGLES{p,s} \in\posS(t_i)\}
+		&\text{if }t=\mf(t_1,\ldots,t_n)
+		\end{cases}
+		\end{gather*}
+	\end{definition}
+
+	\begin{example}
+			With position strings
+			we can express term paths and term traversals for term,
+			e.g.\ \( \posS(
+				{\mh(\mf(\ma, y ))}
+				) = \{
+				\ANGLES{\epsilon,\mh},
+			\ANGLES{1,\mf},
+			\ANGLES{11,\ma},
+			\ANGLES{12,y}
+			\}
+			\).
+
+		\begin{minipage}[c]{10.5cm}
+			\begin{gather*}
+			{\ANGLES{\epsilon,\mh}\ANGLES{1,\mf}\ANGLES{12,y}
+				\tag*{{path from root to leaf \( y \) (dashed)}}
+			}
+			\\
+			{\ANGLES{\epsilon,\mh}\ANGLES{1,\mf}\ANGLES{11,\ma}\ANGLES{12,y}
+				\tag*{{pre-order traversal (dotted)}}
+			}
+			\\
+			\end{gather*}
+		\end{minipage}
+		\qquad
+		\begin{minipage}[c]{4.1cm}
+			\begin{tikzpicture}[right]
+			{\node (h) at (0,-1) {\( \ANGLES{\epsilon,\mh} \)};}
+			{\node (hf) at (0,-2) {\( \ANGLES{1,\mf} \)};}
+			{\node (hfa) at (-1,-3) {\( \ANGLES{11,\ma} \)};}
+			{\node (hfy) at (1,-3) {\( \ANGLES{12,y} \)};}
+			%
+			{\path[->,dashed]
+				(h) edge (hf)
+				(hf)
+				edge (hfy)
+				;}
+			{\path[->,dotted, bend right]
+				(h) edge (hf)
+				(hf) edge (hfa)
+				(hfa) edge[bend left] (hfy)
+				;}
+			\end{tikzpicture}
+		\end{minipage}
+	\end{example}
+
+	\begin{definition}
+		A \coloremph{term path} in an arbitrary term \( t \)
+		is a finite sequence
+		\( {( \ANGLES{p_i,s_i} )}^{n}_{i=0}
+			\)
+		of position strings such that
+		\( \ANGLES{p_i,s_i} \in \posS(t) \),
+		\( p_i \) is a prefix of \( p_{i+1} \), and
+		\( \length(p_i)+1 = \length(p_{i+1}) \)
+		for all \( i < n \)
+		for some \( k \).
+
+	\end{definition}
+
+	\begin{definition}
+		A \coloremph{term traversal} of an arbitrary term \( t \)
+		is a finite sequence
+		\( {( \ANGLES{p_i,s_i} )}^{n}_{i=0}
+			\)
+		of position strings such that
+		\( n = |\posS(t)| \) and
+		\( \bigcup_{i}^{n} \{\ANGLES{p_i,s_i}\} = \posS(t) \).
+
+
+	\end{definition}
+
+
+
+
+
+
 
 
 	% \begin{definition}Let us first define some relations on terms, literals and clauses.
