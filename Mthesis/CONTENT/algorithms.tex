@@ -564,6 +564,22 @@ and check each clause (and literal) for the desired qualities.
 		\( n = |\posS(t)| \) and
 		\( \bigcup_{i}^{n} \{\ANGLES{p_i,s_i}\} = \posS(t) \).
 
+		% \begin{gather*}
+		% \MDEFINE[:\Leftrightarrow]{p \prec q}{clc}{
+		% 	p < q & p\text{ is a proper prefix of }q
+		% 	\\
+		% 	i < j & \text{if }p=ras, q=rbt, a\in\mathbb{N}, b\in\mathbb{N}
+		% }
+		% \end{gather*}
+
+		A pre-order term traversal \( {( \ANGLES{p_i,s_i} )}^{n}_{i=0} \)
+		is a term traversal such that whenever \( i <_\mathbb{N} j \)
+		the position
+		\( p_i \) is a proper prefix of position \( p_j \)
+		or the positions
+		\( p_i = rms \) and \( p_j = rnt \)
+		share a common (possible empty) prefix \( r \)
+		and \(m <_\mathbb{N} n \) for natural numbers \( m \), \( n \).
 
 	\end{definition}
 
