@@ -599,26 +599,39 @@ and check each clause (and literal) for the desired qualities.
 	\( \ANGLES{p_{i-1} k_{i}, s_{i}} \) for \( i>1 \).
 	\[
 		{(\ANGLES{p_i, s_i })}_{i=1}^n
-		\,=\, \ANGLES{p_1,s_1}{(\ANGLES{p_{i-1}k_i, s_i })}_{i=2}^n
-		\,\simeq\, \ANGLES{p_1,s_1}{(\ANGLES{k_i, s_i })}_{i=2}^n
+		=
+		\ANGLES{p_1,s_1}{(\ANGLES{p_{i-1}k_i, s_i })}_{i=2}^n
+		\simeq
+		\ANGLES{p_1,s_1}
+		{(\ANGLES{k_i, s_i })}_{i=2}^n
 	\]
-	For readability we omit the angles and separate
+	Additional we omit angles For readability we separate
 	positions and symbols with dots.
-	\[ \ANGLES{p,\mh}\ANGLES{p1,\mf}\ANGLES{p12,y}
-	\,\simeq\,\ANGLES{p,\mh}\ANGLES{1,\mf}\ANGLES{2,y}
-	\,\simeq\,p.\mh.1.\mf.2.y \]
+	\begin{gather*}
+		\ANGLES{p,\mh} \ANGLES{p1,\mf} \ANGLES{p12,y}
+		\simeq
+		\ANGLES{p,\mh} \ANGLES{1,\mf} \ANGLES{2,y}
+		\simeq
+		p.\mh.1.\mf.2.y
+		% \\
+		% \ANGLES{\epsilon,\mh} \ANGLES{p1,\mf} \ANGLES{p12,y}
+		% \simeq
+		% \ANGLES{\epsilon,\mh} \ANGLES{1,\mf} \ANGLES{2,y}
+		% \simeq
+		% \mh.1.\mf.2.y
+	\end{gather*}
 \end{notation}
 
 \begin{notation}
-	Since the pre-order term traversal is unique
-	for any term
-	and the arities of symbols are fixed we omit
-	angles and positions at all and just separate symbols with dots.
+	Since the arities of symbols are fixed
+	and the pre-order term traversal is unique for any term
+	we omit angles and positions.
+	For readability we separate symbols with dots.
 	\[
-		\ANGLES{\epsilon,\mh}\ANGLES{1,\mf}\ANGLES{11,\ma}\ANGLES{12,y}
+		\ANGLES{\epsilon,\mh} \ANGLES{1,\mf} \ANGLES{11,\ma} \ANGLES{12,y}
 		\simeq
 		\mh.\mf.\ma. y
-		\]
+	\]
 \end{notation}
 
 
