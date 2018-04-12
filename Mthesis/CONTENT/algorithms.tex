@@ -494,75 +494,31 @@ and check each clause (and literal) for the desired qualities.
 		\end{gather*}
 	\end{definition}
 
-	\begin{example}
-			With position strings
-			we can express term paths and term traversals for term,
-			e.g.\ \( \posS(
-				{\mh(\mf(\ma, y ))}
-				) = \{
-				\ANGLES{\epsilon,\mh},
-			\ANGLES{1,\mf},
-			\ANGLES{11,\ma},
-			\ANGLES{12,y}
-			\}
-			\).
 
-		\begin{minipage}[c]{10.5cm}
-			\begin{gather*}
-			{\ANGLES{\epsilon,\mh}\ANGLES{1,\mf}\ANGLES{12,y}
-				\tag*{{path from root to leaf \( y \) (dashed)}}
-			}
-			\\
-			{\ANGLES{\epsilon,\mh}\ANGLES{1,\mf}\ANGLES{11,\ma}\ANGLES{12,y}
-				\tag*{{pre-order traversal (dotted)}}
-			}
-			\\
-			\end{gather*}
-		\end{minipage}
-		\qquad
-		\begin{minipage}[c]{4.1cm}
-			\begin{tikzpicture}[right]
-			{\node (h) at (0,-1) {\( \ANGLES{\epsilon,\mh} \)};}
-			{\node (hf) at (0,-2) {\( \ANGLES{1,\mf} \)};}
-			{\node (hfa) at (-1,-3) {\( \ANGLES{11,\ma} \)};}
-			{\node (hfy) at (1,-3) {\( \ANGLES{12,y} \)};}
-			%
-			{\path[->,dashed]
-				(h) edge (hf)
-				(hf)
-				edge (hfy)
-				;}
-			{\path[->,dotted, bend right]
-				(h) edge (hf)
-				(hf) edge (hfa)
-				(hfa) edge[bend left] (hfy)
-				;}
-			\end{tikzpicture}
-		\end{minipage}
-	\end{example}
 
 	\begin{definition}
-		A \coloremph{term path} in an arbitrary term \( t \)
+		A \coloremph{term path} in a term \( t \)
 		is a finite sequence
-		\( {( \ANGLES{p_i,s_i} )}^{n}_{i=0}
+		\( {( \ANGLES{p_i,s_i} )}^{n}_{i=1}
 			\)
 		of position strings such that
 		\( \ANGLES{p_i,s_i} \in \posS(t) \),
-		\( p_i \) is a prefix of \( p_{i+1} \), and
-		\( \length(p_i)+1 = \length(p_{i+1}) \)
-		for all \( i < n \)
-		for some \( k \).
+		and \( p_i = p_{i-1} k_i \)
+		for all \( i > 1 \)
+		and some \( k_i \in\mathbb{N} \),
+		i.e.~\(p_{i-1}\) is the longest proper prefix of \(p_{i}\).
+
 
 	\end{definition}
 
 	\begin{definition}
-		A \coloremph{term traversal} of an arbitrary term \( t \)
+		A \coloremph{term traversal} of a term \( t \)
 		is a finite sequence
-		\( {( \ANGLES{p_i,s_i} )}^{n}_{i=0}
+		\( {( \ANGLES{p_i,s_i} )}^{n}_{i=1}
 			\)
 		of position strings such that
 		\( n = |\posS(t)| \) and
-		\( \bigcup_{i}^{n} \{\ANGLES{p_i,s_i}\} = \posS(t) \).
+		\( \bigcup_{i=1}^{n} \{\ANGLES{p_i,s_i}\} = \posS(t) \).
 
 		% \begin{gather*}
 		% \MDEFINE[:\Leftrightarrow]{p \prec q}{clc}{
@@ -572,16 +528,98 @@ and check each clause (and literal) for the desired qualities.
 		% }
 		% \end{gather*}
 
-		A pre-order term traversal \( {( \ANGLES{p_i,s_i} )}^{n}_{i=0} \)
+		A pre-order term traversal \( {( \ANGLES{p_i,s_i} )}^{n}_{i=1} \)
 		is a term traversal such that whenever \( i <_\mathbb{N} j \)
-		the position
+		for \( \ANGLES{p_i,s_i} \) and \( \ANGLES{p_j,s_j} \)
+		then either the position
 		\( p_i \) is a proper prefix of position \( p_j \)
 		or the positions
 		\( p_i = rms \) and \( p_j = rnt \)
 		share a common (possible empty) prefix \( r \)
-		and \(m <_\mathbb{N} n \) for natural numbers \( m \), \( n \).
+		and \(m <_\mathbb{N} n \) for natural numbers \( m \) and \( n \).
+		(\(r,s,t\) are positions, i.e.\ sequences of natural numbers)
 
 	\end{definition}
+
+	\begin{example}
+		We express term paths and term traversals
+		with position strings,
+		e.g.\ for term \( \mh(\mf(\ma, y )) \) we have \( \posS(
+			{\mh(\mf(\ma, y ))}
+			) = \{
+			\ANGLES{\epsilon,\mh},
+		\ANGLES{1,\mf},
+		\ANGLES{11,\ma},
+		\ANGLES{12,y}
+		\}
+		\).
+
+	\begin{minipage}[c]{10.5cm}
+		\begin{gather*}
+			% {\ANGLES{\epsilon,\mh}\ANGLES{1,\mf}\ANGLES{11,\ma}
+			% \tag*{{path from root to leaf \( \ma \) (---)}}
+			% }
+			% \\
+			{\ANGLES{\epsilon,\mh}\ANGLES{1,\mf}\ANGLES{12,y}
+			\tag*{{path from root to leaf \( y \) (dashed)}}
+			}
+			\\
+			{\ANGLES{\epsilon,\mh}\ANGLES{1,\mf}\ANGLES{11,\ma}\ANGLES{12,y}
+			\tag*{{pre-order traversal (dotted)}}
+			}
+		\end{gather*}
+	\end{minipage}
+	\qquad
+	\begin{minipage}[c]{4.1cm}
+		\begin{tikzpicture}[right]
+		{\node (h) at (0,-1) {\( \ANGLES{\epsilon,\mh} \)};}
+		{\node (hf) at (0,-2) {\( \ANGLES{1,\mf} \)};}
+		{\node (hfa) at (-1,-3) {\( \ANGLES{11,\ma} \)};}
+		{\node (hfy) at (1,-3) {\( \ANGLES{12,y} \)};}
+		%
+		{\path[->,dashed]
+			(h) edge (hf)
+			(hf)
+			edge (hfy)
+			;}
+		{\path[->,dotted, bend right]
+			(h) edge (hf)
+			(hf) edge (hfa)
+			(hfa) edge[bend left] (hfy)
+			;}
+		\end{tikzpicture}
+	\end{minipage}
+\end{example}
+
+\begin{notation}
+	Since \( p_{i} = p_{-1} k_{i} \) for
+	all \( i > 1 \)  and
+	some \( k_{i+1}\in\mathbb{N} \)
+	we abbreviate term paths by omitting the prefixes in positions strings
+	\( \ANGLES{p_{i-1} k_{i}, s_{i}} \) for \( i>1 \).
+	\[
+		{(\ANGLES{p_i, s_i })}_{i=1}^n
+		\,=\, \ANGLES{p_1,s_1}{(\ANGLES{p_{i-1}k_i, s_i })}_{i=2}^n
+		\,\simeq\, \ANGLES{p_1,s_1}{(\ANGLES{k_i, s_i })}_{i=2}^n
+	\]
+	For readability we omit the angles and separate
+	positions and symbols with dots.
+	\[ \ANGLES{p,\mh}\ANGLES{p1,\mf}\ANGLES{p12,y}
+	\,\simeq\,\ANGLES{p,\mh}\ANGLES{1,\mf}\ANGLES{2,y}
+	\,\simeq\,p.\mh.1.\mf.2.y \]
+\end{notation}
+
+\begin{notation}
+	Since the pre-order term traversal is unique
+	for any term
+	and the arities of symbols are fixed we omit
+	angles and positions at all and just separate symbols with dots.
+	\[
+		\ANGLES{\epsilon,\mh}\ANGLES{1,\mf}\ANGLES{11,\ma}\ANGLES{12,y}
+		\simeq
+		\mh.\mf.\ma. y
+		\]
+\end{notation}
 
 
 
