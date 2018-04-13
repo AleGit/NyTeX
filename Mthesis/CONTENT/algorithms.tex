@@ -480,9 +480,10 @@ and check each clause (and literal) for the desired qualities.
 	\begin{definition}
 		A \coloremph{position string} \( \ANGLES{p, s } \)
 		is a pair of a position \( p \) and a symbol \( s \),
-		e.g.\ variable symbol \( x \) or function symbol \( \mf \).
+		e.g.\ a function symbol.
 %
-		We define the set of position strings of a term.
+		We define the set of position strings \(\posS(t)\)
+		of a term \( t \) as follows.
 		\begin{gather*}
 		\posS(t) =
 		\begin{cases}
@@ -518,7 +519,8 @@ and check each clause (and literal) for the desired qualities.
 			\)
 		of position strings such that
 		\( n = |\posS(t)| \) and
-		\( \bigcup_{i=1}^{n} \{\ANGLES{p_i,s_i}\} = \posS(t) \).
+		\( \bigcup_{i=1}^{n} \{\ANGLES{p_i,s_i}\} = \posS(t) \),
+		i.e.~\( p_i \neq p_j \) for all \( i \neq j\).
 
 		% \begin{gather*}
 		% \MDEFINE[:\Leftrightarrow]{p \prec q}{clc}{
@@ -528,19 +530,16 @@ and check each clause (and literal) for the desired qualities.
 		% }
 		% \end{gather*}
 
-		A pre-order term traversal \( {( \ANGLES{p_i,s_i} )}^{n}_{i=1} \)
-		is a term traversal such that whenever \( i <_\mathbb{N} j \)
-		for \( \ANGLES{p_i,s_i} \) and \( \ANGLES{p_j,s_j} \)
-		then either the position
-		\( p_i \) is a proper prefix of position \( p_j \)
-		or the positions
-		\( p_i = rms \) and \( p_j = rnt \)
-		share a common (possible empty) prefix \( r \)
-		and \(m <_\mathbb{N} n \) for natural numbers \( m \) and \( n \).
-		(\(r,s,t\) are positions, i.e.\ sequences of natural numbers)
-
+		A pre-order term traversal
+		\( {( \ANGLES{p_i,s_i} )}^{n}_{i=1} \)
+		is a term traversal such that whenever \( i < j \)
+		% for \( \ANGLES{p_i,s_i} \) and \( \ANGLES{p_j,s_j} \)
+		then either position
+		\( p_i \) is \emph{above} position \( p_j \)
+		or position \( p_i \) is \emph{left} of position \( p_j \)
+		(see Definition~\vref{def:position}).
 	\end{definition}
-
+%
 	\begin{example}
 		We express term paths and term traversals
 		with position strings,
@@ -553,7 +552,7 @@ and check each clause (and literal) for the desired qualities.
 		\ANGLES{12,y}
 		\}
 		\).
-
+		\\[-0.5em]
 	\begin{minipage}[c]{10.5cm}
 		\begin{gather*}
 			% {\ANGLES{\epsilon,\mh}\ANGLES{1,\mf}\ANGLES{11,\ma}
@@ -568,6 +567,9 @@ and check each clause (and literal) for the desired qualities.
 			\tag*{{pre-order traversal (dotted)}}
 			}
 		\end{gather*}
+		Root position \( \epsilon \) is a above positions \(1, 11, 12\);
+		position \( 1 \) is above positions \(11, 12\);
+		position \( 11 \) is left of position \( 12 \).
 	\end{minipage}
 	\qquad
 	\begin{minipage}[c]{4.1cm}
@@ -576,6 +578,7 @@ and check each clause (and literal) for the desired qualities.
 		{\node (hf) at (0,-2) {\( \ANGLES{1,\mf} \)};}
 		{\node (hfa) at (-1,-3) {\( \ANGLES{11,\ma} \)};}
 		{\node (hfy) at (1,-3) {\( \ANGLES{12,y} \)};}
+		% \node (x) at (0,-0.5) {.};
 		%
 		{\path[->,dashed]
 			(h) edge (hf)
@@ -593,10 +596,10 @@ and check each clause (and literal) for the desired qualities.
 
 \begin{notation}
 	Since \( p_{i} = p_{-1} k_{i} \) for
-	all \( i > 1 \)  and
+	all \( i > 1 \) and
 	some \( k_{i+1}\in\mathbb{N} \)
 	we abbreviate term paths by omitting the prefixes in positions strings
-	\( \ANGLES{p_{i-1} k_{i}, s_{i}} \) for \( i>1 \).
+	\( \ANGLES{p_{i-1} k_{i}, s_{i}} \) for \( i>1 \) without ambiguity.
 	\[
 		{(\ANGLES{p_i, s_i })}_{i=1}^n
 		=
@@ -605,7 +608,7 @@ and check each clause (and literal) for the desired qualities.
 		\ANGLES{p_1,s_1}
 		{(\ANGLES{k_i, s_i })}_{i=2}^n
 	\]
-	Additional we omit angles For readability we separate
+	Additional we omit angles. For readability we separate
 	positions and symbols with dots.
 	\begin{gather*}
 		\ANGLES{p,\mh} \ANGLES{p1,\mf} \ANGLES{p12,y}
@@ -633,6 +636,32 @@ and check each clause (and literal) for the desired qualities.
 		\mh.\mf.\ma. y
 	\]
 \end{notation}
+
+\begin{definition}
+	% We define the set of
+	% variable occurrences \( \posV(t) \) as follows
+	% \begin{gather*}
+	% 	\posV(t) =
+	% 	\begin{cases}
+	% 	\{ \ANGLES{\epsilon,x} \}
+	% 	& \text{if }t=x\in\SIGV \\
+	% 	\{ \ANGLES{ip,s}\mid \ANGLES{p,s} \in\posV(t_i)\}
+	% 	&\text{if }t=\mf(t_1,\ldots,t_n)
+	% 	\end{cases}
+	% 	\end{gather*}
+A variable \(x\) occurs prior to variable \(y\) in a term \( t \)
+if there exists a position \(p\) with \( \ANGLES{p,x} \in \posS(t) \)
+such that position \(p\) is left of any position \(q\)
+with \( \ANGLES{q,y} \in \posS(t) \).
+%
+A term \( \bar{t} \) is normalized
+with sequence of variables \( {(x_i)}_{i=1}^n \)
+if \( \var(\bar{t}) = \bigcup_{i=1}^n\{ x_i \} \)
+and for any \( i < j \) the variable
+\( x_i \) occurs prior to variable \( x_j \) in term \( \bar{t} \).
+
+
+\end{definition}
 
 
 
