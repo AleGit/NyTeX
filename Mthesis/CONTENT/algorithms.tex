@@ -454,42 +454,39 @@ the second clause.
 
 
 
-A refutational theorem proving process produces (a lot of) clauses.
+A refutational theorem proving process like \InstGenEQ produces (a lot of) clauses.
 For each occurring clause, we have to find
 all other clauses that match specific criteria.
-% In a more general view we want to find existing clauses
-% that subsume our clause or are subsumed by a our clause
 First of all, of course, we want to avoid unnecessary clauses in our set of (processed) clauses\footnote{
 	At least we might expect that we do not process multiple variants of a clause.
 }.
-Further we search for existing clauses that contain clashing literals to a literal in our clause.
-% This search may be restricted by a given order (e.g.~superposition) or a propositional model (e.g.~\InstGenEQ).
-In the presence of equality we search for subterms in literals that unifies with one side of an equation.
+Further we search for processed clauses that contain clashing literals to our selected literal in our given clause.
+In the presence of equality we search for subterms in selected literals of processed clauses that unifies with one side of the selected equation in our given clause.
 
-Naively we can just scan through all existing clauses (and literals)
-and check each clause (and literal) for the desired qualities.
+Naively we can just scan through all existing clauses (selected literals)
+and check each clause (selected literal) for the desired qualities.
 	Then the workload for processing one additional clause is proportional to the number of other clauses and
 	the workload for checking a pair of clauses.
 	The latter includes unification, which is at least linear to the size of clauses~\cite{ALBERT19933},
 	while Robinson's unification algorithm~\cite{Robinson:1965:MLB:321250.321253} is exponential in the worst case.
 	The complexity class for this direct approach of processing \( n \) clauses of fixed size (i.e.\ constant unification costs per pair) is \( \mcO(n^2) \).
-%
+
 	Term indexing~\cite{Graf1998} is about data structures and algorithms
-	for faster retrieval of matching terms.
+	for faster retrieval of matching clauses, literals, and terms.
 
 	\begin{definition}
 		A \coloremph{position string} \( \ANGLES{p, s } \)
 		is a pair of a position \( p \) and a symbol \( s \),
 		e.g.\ a function symbol.
 %
-		We define the set of position strings \(\posS(t)\)
+		We define the set of position strings \(\PosStr(t)\)
 		of a term \( t \) as follows.
 		\begin{gather*}
-		\posS(t) =
+		\PosStr(t) =
 		\begin{cases}
 		\{ \ANGLES{\epsilon,x} \}
 		& \text{if }t=x\in\SIGV \\
-		\{ \ANGLES{\epsilon, \mf} \} \cup \{ \ANGLES{ip,s}\mid \ANGLES{p,s} \in\posS(t_i)\}
+		\{ \ANGLES{\epsilon, \mf} \} \cup \{ \ANGLES{ip,s}\mid \ANGLES{p,s} \in\PosStr(t_i)\}
 		&\text{if }t=\mf(t_1,\ldots,t_n)
 		\end{cases}
 		\end{gather*}
@@ -503,7 +500,7 @@ and check each clause (and literal) for the desired qualities.
 		\( {( \ANGLES{p_i,s_i} )}^{n}_{i=1}
 			\)
 		of position strings such that
-		\( \ANGLES{p_i,s_i} \in \posS(t) \),
+		\( \ANGLES{p_i,s_i} \in \PosStr(t) \),
 		and \( p_i = p_{i-1} k_i \)
 		for all \( i > 1 \)
 		and some \( k_i \in\mathbb{N} \),
@@ -518,8 +515,8 @@ and check each clause (and literal) for the desired qualities.
 		\( {( \ANGLES{p_i,s_i} )}^{n}_{i=1}
 			\)
 		of position strings such that
-		\( n = |\posS(t)| \) and
-		\( \bigcup_{i=1}^{n} \{\ANGLES{p_i,s_i}\} = \posS(t) \),
+		\( n = |\PosStr(t)| \) and
+		\( \bigcup_{i=1}^{n} \{\ANGLES{p_i,s_i}\} = \PosStr(t) \),
 		i.e.~\( p_i \neq p_j \) for all \( i \neq j\).
 
 		% \begin{gather*}
@@ -537,13 +534,13 @@ and check each clause (and literal) for the desired qualities.
 		then either position
 		\( p_i \) is \emph{above} position \( p_j \)
 		or position \( p_i \) is \emph{left} of position \( p_j \)
-		(see Definition~\vref{def:position}).
+		(see Definition~\vref{def:position} for above and left).
 	\end{definition}
 %
 	\begin{example}
 		We express term paths and term traversals
 		with position strings,
-		e.g.\ for term \( \mh(\mf(\ma, y )) \) we have \( \posS(
+		e.g.\ for term \( \mh(\mf(\ma, y )) \) we have \( \PosStr(
 			{\mh(\mf(\ma, y ))}
 			) = \{
 			\ANGLES{\epsilon,\mh},
@@ -594,7 +591,7 @@ and check each clause (and literal) for the desired qualities.
 	\end{minipage}
 \end{example}
 
-\begin{notation}
+\begin{notation}[Normalizing]
 	Since \( p_{i} = p_{-1} k_{i} \) for
 	all \( i > 1 \) and
 	some \( k_{i+1}\in\mathbb{N} \)
@@ -637,31 +634,45 @@ and check each clause (and literal) for the desired qualities.
 	\]
 \end{notation}
 
-\begin{definition}
-	% We define the set of
-	% variable occurrences \( \posV(t) \) as follows
-	% \begin{gather*}
-	% 	\posV(t) =
-	% 	\begin{cases}
-	% 	\{ \ANGLES{\epsilon,x} \}
-	% 	& \text{if }t=x\in\SIGV \\
-	% 	\{ \ANGLES{ip,s}\mid \ANGLES{p,s} \in\posV(t_i)\}
-	% 	&\text{if }t=\mf(t_1,\ldots,t_n)
-	% 	\end{cases}
-	% 	\end{gather*}
-A variable \(x\) occurs prior to variable \(y\) in a term \( t \)
-if there exists a position \(p\) with \( \ANGLES{p,x} \in \posS(t) \)
+\begin{definition}[Normalization]
+A variable \(x\) occurs prior to variable \(y\) in term \( t \)
+if there exists a position \(p\) with \( \ANGLES{p,x} \in \PosStr(t) \)
 such that position \(p\) is left of any position \(q\)
-with \( \ANGLES{q,y} \in \posS(t) \).
+where \( \ANGLES{q,y} \in \PosStr(t) \).
 %
-A term \( \bar{t} \) is normalized
-with sequence of variables \( {(x_i)}_{i=1}^n \)
-if \( \var(\bar{t}) = \bigcup_{i=1}^n\{ x_i \} \)
-and for any \( i < j \) the variable
-\( x_i \) occurs prior to variable \( x_j \) in term \( \bar{t} \).
-
+A term \( t \) is normalized
+with respect to a sequence of variables \( {(x_i)}_{i=1}^\infty \)
+if \( \var(t) = \bigcup_{i=1}^n\{ x_i \} \) for some \( n \in \mathbb{N} \)
+and for any \( i < j \leq n \) the variable
+\( x_i \) occurs prior to variable \( x_j \) in term \( t \).
+A substitution \( \sigma \) \coloremph{normalizes} term \( s \) 
+with respect to \( {(x_i)}_{i=1}^\infty \)
+if \( \sigma \) is a variable renaming and
+\( s\sigma \) is normalized with respect to \( {(x_i)}_{i=1}^\infty \).
 
 \end{definition}
+
+\begin{definition}
+	We define the set of variable agnostic position strings \(\vaPosStr(t)\)
+		of a term \( t \) with fresh symbol \( * \) as follows.
+		\begin{gather*}
+		\vaPosStr(t) =
+		\begin{cases}
+		\{ \ANGLES{\epsilon,*} \}
+		& \text{if }t=x\in\SIGV \\
+		\{ \ANGLES{\epsilon, \mf} \} \cup \{ \ANGLES{ip,s}\mid \ANGLES{p,s} \in\va	PosStr(t_i)\}
+		&\text{if }t=\mf(t_1,\ldots,t_n)
+		\end{cases}
+		\end{gather*}
+	Term paths and traversals work properly with
+	variable agnostic positions strings.
+\end{definition}
+
+\begin{example}
+
+\end{example}
+
+
 
 
 
