@@ -87,36 +87,55 @@ The given clause algorithm is originated in the set of support strategy~\cite{Wo
 	and the original set of \coloremph{unprocessed} clauses \( U = S \),
 	e.g.\ a set of axioms and a negated conjecture.
 	\begin{enumerate}
-		\item[\jek] Whenever we can conclude unsatisfiability of the original set of clauses \( S \),
-		we exit the procedure with \( \lnot\SAT \).
+		\item[\jek] Whenever we can conclude unsatisfiability
+		of the original set \( S \),
+		we exit the procedure with \( \UNSAT[(S)] \).
+		This depends on the calculus.
 		\setcounter{enumi}{0}
 		\item If there are no unprocessed clauses,
-		we exit and return \SAT{}.
+		we exit the procedure and return \(\SAT[(S)]\).
 		\item We select the \coloremph{best} unprocessed clause --- the now given clause \( G  \) --- and remove it from the unprocessed clauses. \hfill\jek{}
-		\item We iterate over the processed clauses and check for applicable inference rules
-		for each pair \( (C, G) \subseteq P \times \{ G \} \) of a processed and the given clause
-		to derive additional clauses which we add to the set of unprocessed clauses. \hfill\jek{}
-		\item We add the given clause to the set of processed clauses.
+		\item We check for applicable inference rules for pairs
+		of the given clause with processed clauses.
+		We add derived clauses to the unprocessed clauses. \hfill\jek{}
+		\item We add the given clause to the processed clauses.
 		We continue with step 1.
 	\end{enumerate}
 \end{procedure}
+
+% \subsubsection{Ordered Resolution}
+
+\begin{remark}
+	\jek{} \( \Leftarrow(\emptyclause\in S_i) \).
+With \emph{Resolution} we conclude unsatisfiability of \( S \) whenever the (already present or derived) empty clause is encountered.
+New clauses are disjunctions of instances of an active and the given clause where conflicting literals were removed,
+in other words the union of the two instances without the contradicting literals.
+\begin{gather*}
+\infer[\sigma=\{ x'\mapsto\mf(x), y\mapsto\mg(y') \}]{
+	(\mcC \lor \mcD)\sigma
+}{
+	\mP(\mf(x), y) \lor \mcC & \lnot\mP(x',\mg(y')) \lor \mcD
+}
+\end{gather*}
+\end{remark}
+
+A crucial part is the selection of the \emph{best} unprocessed clause.
+At least we have to ensure that any (non-redundant) clause is selected eventually.
+Otherwise we may stay in a satisfiable subset of the set of clauses
+as we demonstrate in the following silly example with respect to resolution.
 
 (In the following examples the given clause is boxed,
 the processed clauses are left of the given clause,
 and the unprocessed clauses are right of the given clause.
 Each line represents one iteration of the procedure.)
 
-A crucial part is the selection of the “best” unprocessed clause.
-At least we have to ensure that any (non-redundant) clause is selected eventually.
-Otherwise we may stay in a satisfiable subset of the set of clauses
-as we demonstrate in the following silly example with respect to resolution.
 \begin{example}[Insufficient clause selection]
 	We process the clearly unsatisfiable set of clauses
 	\( S = \{
 		\msucc(x)\mNE \msucc(y)\lor {x\mEQ y},
 		\msucc(x_2)\mNE x_2, \msucc(x')\mEQ x'
 		\} \)
-	and always select the \coloremph{newest} unprocessed clause as the “best” clause
+	and always select the \coloremph{newest} unprocessed clause as the \emph{best} clause
 	after we have moved the first clause to the processed clauses.
 
 	\begin{align*}
@@ -175,27 +194,15 @@ as we demonstrate in the following silly example with respect to resolution.
 	in Procedure~\ref{proc:given:clause:algorithm} as follows:
 	\begin{enumerate}
 		\item[2.]
-		We select the \coloremph{oldest} unprocessed clause as the best or given clause.
+		We select the \coloremph{oldest} unprocessed clause as the \emph{best} or given clause.
 		\item[3.]
-		We add each derived clause
-		as the so far newest unprocessed clause.
+		We add any derived clause
+		as so far \emph{youngest} unprocessed clause.
 	\end{enumerate}
-Clearly we will not miss any clause or literal pairing.
+	Apparently we will not miss any clause pairing.
 \end{definition}
 
-\subsubsection{Ordered Resolution}
 
-\jek{} \( \ \Leftarrow\emptyclause\in S_i \).
-With Ordered Resolution we conclude unsatisfiability of \( S \) whenever the empty clause is found (already present or derived).
-New clauses are disjunctions of instances of an active and the given clause where conflicting literals were removed,
-in other words the union of the two instances without the contradicting literals.
-\begin{gather*}
-\infer[\sigma=\{ x'\mapsto\mf(x), y\mapsto\mg(y') \}]{
-	(\mcC \lor \mcD)\sigma
-}{
-	\mP(\mf(x), y) \lor \mcC & \lnot\mP(x',\mg(y')) \lor \mcD
-}
-\end{gather*}
 
 \begin{example}
 	We start with the clearly unsatisfiable set of clauses
@@ -236,12 +243,15 @@ in other words the union of the two instances without the contradicting literals
 	\end{align*}
 \end{example}
 
-\subsubsection{InstGen}
+% \subsubsection{InstGen}
 
+\begin{remark}
 \jek{} \( \ \Leftarrow \lnot\SAT(S_i\bot) \).
 With \InstGen{} we conclude unsatisfiability of \( S \) whenever (a subset of) \( S_i\bot \) --- a set of ground instances --- is unsatisfiable.
-We consider only proper instances of an processed or given clause
-as probable new clauses to extend the set of clauses.
+We consider only proper instances of a processed or given clause
+as probable new clauses to extend the set of unprocessed clauses.
+\end{remark}
+\vspace{-1em}
 \begin{gather*}
 	\infer[\sigma=\{ x'\mapsto\mf(x), y\mapsto\mg(y') \}]{
 		\mP(\mf(x),\mg(y')) \lor\mcC\sigma
