@@ -485,13 +485,15 @@ and check each clause (selected literal) for the desired qualities.
 
 	Term indexing~\cite{Graf1998} is about data structures and algorithms
 	for faster retrieval of matching clauses, literals, and terms. First we introduce the used notions for term indexing. After that we describe
-	use cases and algorithms for the indexing and
+	the use cases, data structures and algorithms for the index
+	of clauses, literals, and terms and algorithms
 	for a the fast retrieval of candidates for
 
 	\begin{itemize}
-		\item variants of a subset of the given clause
-		\item clashing literals with the selected literal of the given clause
-		\item unifiable subterms of literals with one side of the selected equation of the given clause
+		\item literals clashing with the selected literal of the given clause
+		(\InstGen)
+		\item unifiable subterms of literals with one side of the selected equation (\InstGenEQ{})
+		\item variants of a subset of the given clause (Redundancy)
 	\end{itemize}
 
 
