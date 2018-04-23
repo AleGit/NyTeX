@@ -15,6 +15,9 @@
 	and the implication \( (F \limp F') \)
 	of two first order formulae
 	are (composite) first order formulae.
+
+	\(F \) and \( F' \) are \coloremph{subformulae} of
+	the quantified or composite formulae above.
 \end{definition}
 
 \begin{remark}
@@ -76,36 +79,48 @@ We may denote \( \mcF(F) \) for the implicit signature of an formula \( F \).
 \begin{definition}\label{def:fof:closed}\label{def:fof:sentence}
 	A first order formula is closed, i.e.~a first order \coloremph{sentence},
 	if it does not contain free variables --- all occurring variables are bound.
-%	A quantifier free sentence is ground.
-	Additionally we assume for any sentence
-	that each variable is bound exactly once.
-	Additionally the variable occurs as free variable
-	in the subformula of the quantified subformula
-	where it was bound:
+	For practical reasons we assume that the variables of a sentence
+	are bound exactly once
+	and occur as free variables
+	in the subformulae of the quantified formulae where the were bound.
 	\begin{align*}
-	\bvar(G * H) &= \bvar(G)\disjointunion\bvar(H)
-	 &*& \in \{ \, \land, \lor, \limp \, \}
-	\\
-	\bvar(\quantify x F) &= \{x\}\disjointunion\bvar(F)\text{, } x\in\fvar(F)
-	&\quantify& \in \{ \, \forall, \exists \, \}
-\end{align*}
+		\fvar(\phi) &= \emptyset
+		\text{ iff }\phi\text{ is a sentence}
+		\\
+		\bvar(G * H) &= \bvar(G)\disjointunion\bvar(H)
+		&*& \in \{ \, {\land} \ {\lor} \ {\limp} \, \}
+		\\
+		\bvar(\quantify x F) &= \{x\}\disjointunion\bvar(F)
+		&\quantify& \in \{ \, {\exists} \ {\forall} \, \}
+		\\
+		\quantify x F &\Rightarrow
+		x\in\fvar(F), x\not\in\bvar(F)
+		&\quantify& \in \{ \, {\exists} \ {\forall} \, \}
+	\end{align*}
 \end{definition}
 
-\begin{example}
+\begin{example}Sentences that do not match “\xmark”
+	and {equivalent (see Definition~\vref{def:semantics:FOF})}
+	sentences that match “\cmark”
+	the assumptions in Definition~\vref{def:fof:sentence}.
 	\[
-	\begin{array}{clccl}
-		\forall x ({\mP(x) \lor \forall x {\mQ(x)}}) &
-		\text{\xmark}
-		&\qquad\qquad
-		&
-		\forall x ({\mP(x) \lor \forall y {\mQ(y)}}) &
-		\text{\cmark}
+	\begin{array}{rrcll}
+		 \text{\color{colLo}{\xmark}}
+		& \forall x\, ({\mP(x) \lor \forall x\, {\mQ(x)}})
+		& {\equiv}
+		& \forall x\, ({\mP(x) \lor \forall y\, {\mQ(y)}})
+		& \text{\color{colHi}{\cmark}}
+		\\ \text{\color{colLo}{\xmark}}
+		& (\forall x\, {\mP(x)}) \lor (\forall x\, {\mQ(x)})
+		& {\equiv}
+		& (\forall x\, {\mP(x)}) \lor (\forall y\, {\mQ(y)})
+		& \text{\color{colHi}{\cmark}}
 		\\
-		(\forall x {\mP(x)}) \lor (\forall x {\mQ(x)}) &
-		\text{\xmark}
-		&&
-		(\forall x {\mP(x)}) \lor (\forall y {\mQ(y)}) &
-		\text{\cmark}
+		\text{\color{colLo}{\xmark}}
+		&  \forall x\, {\mP(\ma)}
+		& {\equiv}
+		& \mP(\ma)
+		& \text{\color{colHi}{\cmark}}
 	\end{array}
 	\]
 

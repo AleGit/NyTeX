@@ -484,7 +484,15 @@ and check each clause (selected literal) for the desired qualities.
 	The complexity class for this direct approach of processing \( n \) clauses of fixed size (i.e.\ constant unification costs per pair) is \( \mcO(n^2) \).
 
 	Term indexing~\cite{Graf1998} is about data structures and algorithms
-	for faster retrieval of matching clauses, literals, and terms.
+	for faster retrieval of matching clauses, literals, and terms. First we introduce the used notions for term indexing. After that we describe
+	use cases and algorithms for the indexing and
+	for a the fast retrieval of candidates for
+
+	\begin{itemize}
+		\item variants of a subset of the given clause
+		\item clashing literals with the selected literal of the given clause
+		\item unifiable subterms of literals with one side of the selected equation of the given clause
+	\end{itemize}
 
 
 
@@ -651,19 +659,20 @@ and check each clause (selected literal) for the desired qualities.
 \end{notation}
 
 \begin{definition}[Normalization]
-A variable \(x\) occurs prior to variable \(y\) in term \( t \)
-if there exists a position \(p\) with \( \ANGLES{p,x} \in \PosStr(t) \)
-such that position \(p\) is left of any position \(q\)
-where \( \ANGLES{q,y} \in \PosStr(t) \).
+% A variable \(x\) occurs prior to variable \(y\) in term \( t \)
+% if there exists a position \(p\) with \( \ANGLES{p,x} \in \PosStr(t) \)
+% such that position \(p\) is left of any position \(q\)
+% where \( \ANGLES{q,y} \in \PosStr(t) \).
 %
 A term \( t \) is normalized
 with respect to a sequence of variables \( {(x_i)}_{i=1}^\infty \)
 if \( \var(t) = \bigcup_{i=1}^n\{ x_i \} \) for some \( n \in \mathbb{N} \)
 and for any \( i < j \leq n \) the variable
-\( x_i \) occurs prior to variable \( x_j \) in term \( t \).
+\( x_i \) occurs \emph{left} (see Definition~\vref{def:position})
+of variable \( x_j \) in term \( t \).
 A substitution \( \sigma \) \coloremph{normalizes} term \( s \)
 with respect to \( {(x_i)}_{i=1}^\infty \)
-if \( \sigma \) is a variable renaming and
+iff \( \sigma \) is a variable renaming and
 \( s\sigma \) is normalized with respect to \( {(x_i)}_{i=1}^\infty \).
 
 \end{definition}
@@ -682,9 +691,22 @@ if \( \sigma \) is a variable renaming and
 		&\text{if }t=\mf(t_1,\ldots,t_n)
 		\end{cases}
 		\end{gather*}
+\end{definition}
+
+\begin{example}
 	Term paths and traversals work properly with
 	variable agnostic positions strings.
-\end{definition}
+	\begin{align*}
+		\mg(\mf(x,y),z)
+		&\Rightarrow
+		\mg.1.\mf.1.*, \mg.1.\mf.2.*, \mg.2.*
+		\tag*{term paths}
+		\\
+		&\Rightarrow \mg.\mf.*.*.*
+		\tag*{pre-order traversal}
+	\end{align*}
+\end{example}
+
 
 
 

@@ -86,13 +86,13 @@
 		\quantify \in \{ \forall, \exists \},
 		x\not\in\domain(\sigma)
 		% \\
-		% \texttt{undefind} & \texttt{otherwise}
+		% \texttt{undefined} & \texttt{otherwise}
 		% x\not\in\bvar(G)
 	}
 	\end{gather*}
 \end{definition}
 
-\begin{definition}
+\begin{definition}\label{def:strictly:subsumes}
 	A clause \( \mcC \) \coloremph{strictly subsumes} a clause \( \mcD \) if their exists a substitution \( \theta \) such that \( \mcC\theta \subsetneq \mcD \),
 	e.g.~when clause \( \mcD = \mcC\theta \lor \mcD' \) is a weakened instance of clause \( \mcC \).
 \end{definition}
