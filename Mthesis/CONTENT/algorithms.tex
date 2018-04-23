@@ -466,42 +466,40 @@ the second clause.
 
 
 
-A refutational theorem proving process like \InstGenEQ{} produces (a lot of) clauses.
+A refutational theorem proving process like \InstGenEQ{} produces a lot of clauses.
 For each occurring clause, we have to find
-all other clauses that match specific criteria.
-First of all, of course, we want to avoid unnecessary clauses in our set of (processed) clauses\footnote{
-	At least we might expect that we do not process multiple variants of a clause.
-}.
+all other clauses that match specific conditions to preserve completeness.
+First of all, of course, we want to avoid unnecessary clauses in our set of processed clauses
+--- at least we might expect that we do not have to process multiple variants of a clause.
 Further we search for processed clauses that contain clashing literals to our selected literal in our given clause.
 In the presence of equality we search for subterms in selected literals of processed clauses that unifies with one side of the selected equation in our given clause.
 
 Naively we can just scan through all existing clauses (selected literals)
-and check each clause (selected literal) for the desired qualities.
+and check each clause (selected literal) for the desired properties.
 	Then the workload for processing one additional clause is proportional to the number of other clauses and
 	the workload for checking a pair of clauses.
 	The latter includes unification, which is at least linear to the size of clauses~\cite{ALBERT19933},
 	while Robinson's unification algorithm~\cite{Robinson:1965:MLB:321250.321253} is exponential in the worst case.
-	The complexity class for this direct approach of processing \( n \) clauses of fixed size (i.e.\ constant unification costs per pair) is \( \mcO(n^2) \).
+	The complexity class for this direct approach of processing \( n \) clauses of a maximal size 
+	(i.e.\ constant bound for unification costs per pair) is \( \mcO(n^2) \).
 
 	Term indexing~\cite{Graf1998} is about data structures and algorithms
-	for faster retrieval of matching clauses, literals, and terms. First we introduce the used notions for term indexing. After that we describe
-	the use cases, data structures and algorithms for the index
-	of clauses, literals, and terms and algorithms
-	for a the fast retrieval of candidates for
+	for faster retrieval of matching clauses, literals, and terms. 
+	We will introduce the used notions for term indexing, describe
+	the use cases, data structures and algorithms for the indexing
+	of clauses, literals, and terms and the corresponding algorithms
+	for fast retrievals of sets of candidate clauses that likely matches the desired properties.
 
-	\begin{itemize}
-		\item literals clashing with the selected literal of the given clause
-		(\InstGen)
-		\item unifiable subterms of literals with one side of the selected equation (\InstGenEQ{})
-		\item variants of a subset of the given clause (Redundancy)
-	\end{itemize}
+	\begin{remark}
+		The following Definitions \ref{def:position:string} to \ref{def:agnostic:position:string} 
+		are easily applicable to functional and literal terms, but not to clauses (i.e.\ sets of literals).
+		Primarily we will build indexes with paths and traversals through literal terms.
+	\end{remark}
 
-
-
-	\begin{definition}
+	\begin{definition}\label{def:position:string}
 		A \coloremph{position string} \( \ANGLES{p, s } \)
 		is a pair of a position \( p \) and a symbol \( s \),
-		e.g.\ a function symbol.
+		i.e.~negation, predicate, equation, function, constant, variable.
 %
 		We define the set of position strings \(\PosStr(t)\)
 		of a term \( t \) as follows.
@@ -510,15 +508,15 @@ and check each clause (selected literal) for the desired qualities.
 		\begin{cases}
 		\{ \ANGLES{\epsilon,x} \}
 		& \text{if }t=x\in\SIGV \\
-		\{ \ANGLES{\epsilon, \mf} \} \cup \{ \ANGLES{ip,s}\mid \ANGLES{p,s} \in\PosStr(t_i)\}
-		&\text{if }t=\mf(t_1,\ldots,t_n)
+		\{ \ANGLES{\epsilon, \mcf} \} \cup \{ \ANGLES{ip,s}\mid \ANGLES{p,s} \in\PosStr(t_i)\}
+		&\text{if }t=\mcf(t_1,\ldots,t_n)
 		\end{cases}
 		\end{gather*}
 	\end{definition}
 
 
 
-	\begin{definition}
+	\begin{definition}\label{def:term:path}
 		A \coloremph{term path} in a term \( t \)
 		is a finite sequence
 		\( {( \ANGLES{p_i,s_i} )}^{n}_{i=1}
@@ -533,7 +531,7 @@ and check each clause (selected literal) for the desired qualities.
 
 	\end{definition}
 
-	\begin{definition}
+	\begin{definition}\label{def:term:traversal}
 		A \coloremph{term traversal} of a term \( t \)
 		is a finite sequence
 		\( {( \ANGLES{p_i,s_i} )}^{n}_{i=1}
@@ -564,10 +562,10 @@ and check each clause (selected literal) for the desired qualities.
 	\begin{example}
 		We express term paths and term traversals
 		with position strings,
-		e.g.\ for term \( \mh(\mf(\ma, y )) \) we have \( \PosStr(
-			{\mh(\mf(\ma, y ))}
+		e.g.\ for literal term \( \mP(\mf(\ma, y )) \) we have \( \PosStr(
+			{\mP(\mf(\ma, y ))}
 			) = \{
-			\ANGLES{\epsilon,\mh},
+			\ANGLES{\epsilon,\mP},
 		\ANGLES{1,\mf},
 		\ANGLES{11,\ma},
 		\ANGLES{12,y}
@@ -580,11 +578,11 @@ and check each clause (selected literal) for the desired qualities.
 			% \tag*{{path from root to leaf \( \ma \) (---)}}
 			% }
 			% \\
-			{\ANGLES{\epsilon,\mh}\ANGLES{1,\mf}\ANGLES{12,y}
+			{\ANGLES{\epsilon,\mP}\ANGLES{1,\mf}\ANGLES{12,y}
 			\tag*{{path from root to leaf \( y \) (dashed)}}
 			}
 			\\
-			{\ANGLES{\epsilon,\mh}\ANGLES{1,\mf}\ANGLES{11,\ma}\ANGLES{12,y}
+			{\ANGLES{\epsilon,\mP}\ANGLES{1,\mf}\ANGLES{11,\ma}\ANGLES{12,y}
 			\tag*{{pre-order traversal (dotted)}}
 			}
 		\end{gather*}
@@ -595,7 +593,7 @@ and check each clause (selected literal) for the desired qualities.
 	\qquad
 	\begin{minipage}[c]{4.1cm}
 		\begin{tikzpicture}[right]
-		{\node (h) at (0,-1) {\( \ANGLES{\epsilon,\mh} \)};}
+		{\node (h) at (0,-1) {\( \ANGLES{\epsilon,\mP} \)};}
 		{\node (hf) at (0,-2) {\( \ANGLES{1,\mf} \)};}
 		{\node (hfa) at (-1,-3) {\( \ANGLES{11,\ma} \)};}
 		{\node (hfy) at (1,-3) {\( \ANGLES{12,y} \)};}
@@ -615,7 +613,7 @@ and check each clause (selected literal) for the desired qualities.
 	\end{minipage}
 \end{example}
 
-\begin{notation}
+\begin{notation}\label{notation:term:path}
 	Since \( p_{i} = p_{-1} k_{i} \) for
 	all \( i > 1 \) and
 	some \( k_{i+1}\in\mathbb{N} \)
@@ -634,33 +632,33 @@ and check each clause (selected literal) for the desired qualities.
 	Additional we omit angles. For readability we separate
 	positions and symbols with dots.
 	\begin{gather*}
-		\ANGLES{p,\mh} \ANGLES{p1,\mf} \ANGLES{p12,y}
+		\ANGLES{11,\mf} \ANGLES{112,y}
 		\simeq
-		\ANGLES{p,\mh} \ANGLES{1,\mf} \ANGLES{2,y}
+		\ANGLES{11,\mf} \ANGLES{2,y}
 		\simeq
-		p.\mh.1.\mf.2.y
-		% \\
-		% \ANGLES{\epsilon,\mh} \ANGLES{p1,\mf} \ANGLES{p12,y}
-		% \simeq
-		% \ANGLES{\epsilon,\mh} \ANGLES{1,\mf} \ANGLES{2,y}
-		% \simeq
-		% \mh.1.\mf.2.y
+		11.\mf.2.y
+		\\
+		\ANGLES{\epsilon,\mP} \ANGLES{p1,\mf} \ANGLES{p12,y}
+		\simeq
+		\ANGLES{\epsilon,\mP} \ANGLES{1,\mf} \ANGLES{2,y}
+		\simeq
+		\mP.1.\mf.2.y
 	\end{gather*}
 \end{notation}
 
-\begin{notation}
+\begin{notation}\label{notation:term:traversal}
 	Since the arities of symbols are fixed
 	and the pre-order term traversal is unique for any term
 	we omit angles and positions.
 	For readability we separate symbols with dots.
 	\[
-		\ANGLES{\epsilon,\mh} \ANGLES{1,\mf} \ANGLES{11,\ma} \ANGLES{12,y}
+		\ANGLES{\epsilon,\mP} \ANGLES{1,\mf} \ANGLES{11,\ma} \ANGLES{12,y}
 		\simeq
-		\mh.\mf.\ma. y
+		\mP.\mf.\ma. y
 	\]
 \end{notation}
 
-\begin{definition}[Normalization]
+\begin{definition}[Normalization]\label{def:variable:normalization}
 % A variable \(x\) occurs prior to variable \(y\) in term \( t \)
 % if there exists a position \(p\) with \( \ANGLES{p,x} \in \PosStr(t) \)
 % such that position \(p\) is left of any position \(q\)
@@ -679,7 +677,7 @@ iff \( \sigma \) is a variable renaming and
 
 \end{definition}
 
-\begin{definition}
+\begin{definition}\label{def:agnostic:position:string}
 	We define the set of variable agnostic position strings \(\vaPosStr(t)\)
 		of a term \( t \) with fresh symbol \( * \) as follows.
 		\begin{gather*}
@@ -688,9 +686,9 @@ iff \( \sigma \) is a variable renaming and
 		\{ \ANGLES{\epsilon,*} \}
 		& \text{if }t=x\in\SIGV
 		\\
-		\{ \ANGLES{\epsilon, \mf} \} \cup \{ \ANGLES{ip,s}\mid \ANGLES{p,s}
+		\{ \ANGLES{\epsilon, \mcf} \} \cup \{ \ANGLES{ip,s}\mid \ANGLES{p,s}
 		\in\vaPosStr(t_i)\}
-		&\text{if }t=\mf(t_1,\ldots,t_n)
+		&\text{if }t=\mcf(t_1,\ldots,t_n)
 		\end{cases}
 		\end{gather*}
 \end{definition}
@@ -699,15 +697,17 @@ iff \( \sigma \) is a variable renaming and
 	Term paths and traversals work properly with
 	variable agnostic positions strings.
 	\begin{align*}
-		\mg(\mf(x,y),z)
+		\mP(\mf(x,y),z)
 		&\Rightarrow
-		\mg.1.\mf.1.*, \mg.1.\mf.2.*, \mg.2.*
+		\mP.1.\mf.1.*, \mg.1.\mf.2.*, \mg.2.*
 		\tag*{term paths}
 		\\
-		&\Rightarrow \mg.\mf.*.*.*
+		&\Rightarrow \mP.\mf.*.*.*
 		\tag*{pre-order traversal}
 	\end{align*}
 \end{example}
+
+
 
 
 
@@ -745,20 +745,6 @@ iff \( \sigma \) is a variable renaming and
 	% \end{definition}
 
 \input{samples/termindexing}
-
-
-
-
-
-
-
-\subsection{Clashing literals}
-
-\subsection{Variants}
-
-\subsection{Instances}
-
-\subsection{Subsumption}
 
 
 
