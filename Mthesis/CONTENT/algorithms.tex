@@ -733,7 +733,7 @@ iff \( \sigma \) is a variable renaming and
 	\end{align*}
 \end{example}
 
-\subsection{Sub-Variants of clauses}
+\subsection{Removal of redundant clauses}
 
 We start with an example that
 with \InstGen{} we must keep or add clauses
@@ -766,27 +766,53 @@ i.e.\ that are (weakened) instances of kept clauses.
 	\( S' \equiv S'\cup \{ \mcD \} \) which implies
 	\( S' \equisat S' \cup \{ \mcD \} \).
 %
-	With Example~\ref{ex:not:equisat} we have a counterexample to
-	\( S\bot \equisat S'\bot \), where \( C\sigma\bot \not\entails D\bot \),
+	Although clearly \( S'\bot\cup \{ \mcD\bot \} \entails S'\bot \)
+	we have a counterexample to
+	\( S'\bot \equisat S\bot \) with Example~\ref{ex:not:equisat},
+	where \( C\sigma\bot \not\entails D\bot \),
 	i.e.~\( \mP(\bot)\not\entails\mP(\mf(\ma)) \), but \( \mP(x)\entails\mP(\mf(\ma))  \)
 \end{proof}
 \begin{lemma}
 	If \( S = S' \cup \{ \mcD \} \),
-	\( \mcC \in S' \), and there is a variable renaming \( \rho \)
+	\( \mcC \in S' \), and there is a variable substitution \( \rho \)
 	such that \( \mcC\rho \subseteq \mcD \)
 	then
 	\( S\bot\equisat S'\bot \).
 \end{lemma}
 \begin{proof}
-	Since \( \rho \) is a variable renaming
+	Since \( \rho \) is a variable substitution
 	\( \mcC\rho\bot \entails \mcD\bot \) holds.
 \end{proof}
 
-\begin{definition}
-	A clause \( \mcC \) is a sub-variant of clause \( \mcD \)
-	if there is a variable renaming \( \rho \) such that
-	\( \mcC\rho \subseteq \mcD \).
+\begin{example}
+	\(
+		\{ \ldots,
+		\mP(x)\lor \mQ(y), \mP(z)\lor\mQ(z) \lor \mQ(\mf(z)) \}\bot
+		\equisat
+		\{ \ldots, \mP(x) \lor \mQ(y) \}\bot
+	\).
+\end{example}
+
+\begin{definition}[Backward removal]
+	For a set of processed clauses \( P \)
+	and a given, derived or unprocessed clause \( \mcG \) we
+	 remove clauses \( \mcD_i \) from \( P \) where
+	 \( \mcG\rho_i \subseteq \mcD_i \) for some
+	 variable substitution \( \rho_i \).
 \end{definition}
+
+\begin{definition}[Forward removal]
+	For a set of processed clauses \( P \)
+	we can omit a given, derived or unprocessed clause \( \mcG \)
+	if there exists a clause \( \mcC \in P \)
+	and a variable substitution \( \rho \) such that \( \mcC\rho\subseteq \mcG \).
+\end{definition}
+
+\subsection{Retrieval clashing literals}
+
+\subsection{Retrieval of unifiable subterms}
+
+
 
 
 
