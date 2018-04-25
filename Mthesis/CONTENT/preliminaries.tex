@@ -9,9 +9,9 @@
 In this thesis we assume the reader's familiarity with
 propositional and first order logic~\cite{Huth:2004:LCS:975331},
 %automated theorem proving \cite{Fitting:1996:FLA:230183},
-term rewriting (TRW~\cite{Baader:1998:TR:280474}),
-decision procedures (DP~\cite{Kroening:2008:DPA:1391237}),
-and satisfiability checking modulo theories (SMT~\cite{Biere:2009:HSV:1550723}).
+term rewriting (TRW)~\cite{Baader:1998:TR:280474},
+decision procedures (DP)~\cite{Kroening:2008:DPA:1391237},
+and satisfiability checking modulo theories (SMT)~\cite{Biere:2009:HSV:1550723}.
 Nevertheless --- for clarity --- we state basic notions and  definitions
 of first order logic with equality in Section~\ref{sec:syntax},
 introduce basic concepts of first order semantics in Section~\ref{sec:semantics},
@@ -23,8 +23,8 @@ These notions and notations largely follow the lecture notes to term rewriting a
 \section{Syntax}\label{sec:syntax}
 
 In this section we introduce the syntax of arbitrary first order formulae (\FOF),
-prenex normal form (\PNF),
-and clausal normal form (\CNF).
+formulae in prenex normal form (\PNF),
+and sentences in clausal normal form (\CNF).
 
 \input{preliminaries/signature}
 
@@ -32,13 +32,16 @@ and clausal normal form (\CNF).
 
 \input{preliminaries/atoms}
 
-\subsection{Formulae and Normal forms}
+\subsection{First Order Formulae and Normal forms}
 
 \input{preliminaries/fof}
 
 \input{preliminaries/cnf}
 
-\subsection{Substitutions}
+\subsection{Substitutions and Positions}
+
+We now introduce notions for the manipulation
+of clauses, literals and terms.
 
 \input{preliminaries/substitution}
 
@@ -197,14 +200,20 @@ We state satisfiability and validity of arbitrary first order formulae or sets o
 	We can easily see that not satisfiable \( F\land\lnot F \) entails every formula,
 	that valid \( F\lor\lnot F \) is entailed by every sequence, further that
 	\begin{align*}
-	\Delta, F&\entails G  &\text{if and only if} && \Delta &\entails \lnot F\lor G \\
-	F_1,\ldots,F_n&\entails G  &\text{if and only if} && F_1\land\ldots\land F_n&\entails G\\
+	\Delta, F&\entails G  &\text{if and only if} && \Delta &\entails \lnot F\lor G
+	\\
+	F_1,\ldots,F_n&\entails G  &\text{if and only if} && F_1\land\ldots\land F_n&\entails G
+	\\
 	F\land G&\equival G\land F &F\lor G\equival G\lor F && F\limp G &\equival \lnot F\lor G
+	\\
+	\quantify x (G) &\equiv \quantify x' (G \{x\mapsto x'\} )
+	&\text{if } x \not\in\fvar(G)
+	&&\text{renaming of} &\text{ one bound variable}
 	\end{align*}
 	by the definitions for semantics, entailment, and equivalence.\hfill \( \qed \)
 \end{example}
 
-\begin{lemma}[Renaming of quantified variables]\label{lem:quantified:variable:renaming}
+\begin{lemma}[Renaming of bound variables]\label{lem:quantified:variable:renaming}
 	Let \( {F[G]}_p \)
 	be a first order sentence with quantified subformula
 	\( G = (\quantify x\,H) \) at position \( p \).
@@ -241,13 +250,14 @@ quantified variable by its position index.
 	By itself equisatisfiability of arbitrary formulae
 	usually gives no insights since
 	all unsatisfiable formulae are equisatisfiable to all unsatisfiable formulae
-	and all satisfiable formulae are equisatisfiable to all satisfiable formulae by definition.
+	and all satisfiable formulae are equisatisfiable to all satisfiable formulae by definition,
+	e.g.\ \(\mP(\ma) \equisat \mb\mEQ\mc \). % chktex 21
 \end{remark}
 
 \begin{example}
 	Let \( F \) be a sentence.
-	Then \( F \equisat F \land \exists x \mP(x) \),
-	but \( F \not\entails F \land \exists x \mP(x) \)
+	Then \( F \equisat F \land \exists x \mP(x) \).
+	But \( F \not\entails F \land \exists x \mP(x) \)
 	as we can see for tautology \( F = \mP(\ma)\lor\lnot\mP(\ma) \)
 	and interpretation \( \mP_\mcI = \emptyset \).
 \end{example}

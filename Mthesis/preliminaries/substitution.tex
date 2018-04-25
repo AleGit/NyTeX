@@ -74,32 +74,44 @@
 \begin{definition}
 	We can easily extend the application of substitutions
 	to composite first order formulae.
-	The cases of quantified formulae need more consideration.
-	So we only partially define \( F\sigma \) for first order formulae \( F \) and substitution \( \sigma \) as follows (if \( G\sigma \) and \( H\sigma \) are defined in the respective cases).
+	The cases of quantified formulae need more consideration ---
+	we must not substitute bound variables.
+	% So we only partially define \( F\sigma \) for first order formulae \( F \) and substitution \( \sigma \) as follows (if \( G\sigma \) and \( H\sigma \) are defined in the respective cases).
 	\begin{gather*}
 	\MDEFINE{F\sigma}{ll}{
 		\lnot(G\sigma) & \text{if }F = \lnot G
 		\\
 		(G\sigma) * (H\sigma) & \text{if }F = G * H, *\in \{ \land, \lor, \limp \}
 		\\
-		\quantify x (G\sigma) &\text{if }F = \quantify x\,G,
-		\quantify \in \{ \forall, \exists \},
-		x\not\in\domain(\sigma)
-		% \\
-		% \texttt{undefined} & \texttt{otherwise}
-		% x\not\in\bvar(G)
+		\quantify x (G\sigma')
+		&
+		\text{if }
+		\left\{  % chktex 21
+			\begin{array}{l}
+				F = \quantify x\,G,
+				\quantify \in \{ \forall, \exists \}
+				\text{ and}
+				\\
+				\sigma'(x) = x, \sigma'(y) = \sigma(y)
+				\text{ for all } y \neq x.
+		\end{array}
+		\right.
 	}
 	\end{gather*}
+\end{definition}
+
+\begin{definition}
+	A formula \( G' \) is an instance of formula \( F = \quantify x (G) \)
+	if there exists a term \( t \) such that \( G' = G\{ x\mapsto t \} \).
+	If \( F \) is closed (i.e.\ \( \fvar(G) = \{ x \} \)) % chktex 21
+	and \( t \) is a ground term (i.e.\ \( \var(t) = \emptyset \)) then % chktex 21
+	\( G' \) is a ground instance of \( F \).
 \end{definition}
 
 \begin{definition}\label{def:strictly:subsumes}
 	A clause \( \mcC \) \coloremph{strictly subsumes} a clause \( \mcD \) if their exists a substitution \( \theta \) such that \( \mcC\theta \subsetneq \mcD \),
 	e.g.~when clause \( \mcD = \mcC\theta \lor \mcD' \) is a weakened instance of clause \( \mcC \).
 \end{definition}
-%\begin{example}
-%	Trivially any clause \( \mcC \) subsumes all its instances \( \mcC\sigma \) or weakenings \( \mcC\lor\mcD \).
-%	Further \( x\mEQ y \) subsumes \( x\mEQ x \lor \mP(y) \).
-%\end{example}
 
 \begin{definition}\label{def:substcomp}
 We define the \coloremph{composition} of two substitutions \( \sigma \) and \( \tau \) as follows

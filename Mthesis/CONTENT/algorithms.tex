@@ -2,7 +2,11 @@
 % !TeX encoding = UTF-8
 % !TeX spellcheck = en_US
 
-\chapter{Data Structures and Algorithms}
+\chapter{Algorithms and Data Structures}
+
+In this chapter we give a short overview of some necessary techniques for a reasonable prover. We assume familiarity with data structures and algorithms, e.g.\ sequences, trees, tries, etc. Still we will state some definitions and notions.
+First we take a look at methods to practically achieve saturation in Section~\vref{sec:saturation:basics}. Then we discuss some basics to speed up the retrieval of
+suitable clauses and literals in Section~\vref{sec:term:indexing}.
 
 
 
@@ -328,7 +332,7 @@ as probable new clauses to extend the set of unprocessed clauses.
 
 Just moving processed clauses back to unprocessed clauses
 as in Figure~\vref{fig:inst:gen:proving:loop}
-may introduce unnecessary derivations from already considered literal pairings.
+may introduce unnecessary derivations from already considered literals.
 Since we have no control over the constructed models
 the selected literal of a processed clause
 could be deselected in a one iteration
@@ -390,9 +394,9 @@ but our procedure did not keep track of that.
 	\end{center}
 \end{figure}
 
+\subsubsection{Inst-Gen}
 
-
-
+With \InstGen{} we should keep track of already considered pairs of literals (of clauses) as we demonstrate in the following example.
 
 \begin{example}[InstGen]
 	The first two clauses have been processed before step \( m \).
@@ -432,7 +436,10 @@ the second clause.
 \end{align*}
 \end{example}
 
-\begin{procedure}[Given clause algorithm with bookkeeping for \InstGen]
+\noindent
+So we maintain suitable data structure to adapt to the changed circumstances.
+
+\begin{procedure}[Given clause algorithm for \InstGen]
 	We maintain a set \( X \) of pairs of clauses with (at the time of processing) selected literals
 	\( (\mcC_1, L_1, \mcC_2, L_2) \) with \( L_i\in\mcC_i \).
 	In general we proceed as in Procedure~\vref{proc:given:clause:algorithm}
@@ -441,9 +448,9 @@ the second clause.
 	\begin{enumerate}
 		\item[2.]
 		After we have selected the \emph{best} unprocessed clause \( \mcG \)
-		we update our model and move processed clauses where the selected literals has changed back to the unprocessed clauses.
+		we update our model and move processed clauses where the selected literals have changed back to the unprocessed clauses.
 		\item[3.]
-		We ony consider a processed clause \( \mcC \)
+		We only consider a processed clause \( \mcC \)
 		with selected literal \( \sel(\mcC) \)
 		if the tuple \( ( \mcC, \sel(\mcC), \mcG, \sel(\mcG) ) \)
 		is not in set \( X \).
@@ -456,6 +463,11 @@ the second clause.
 
 
 \end{procedure}
+
+\subsubsection{Inst-Gen-Eq}
+
+Unfortunately just keeping track of literal pairs is not enough since we construct proof trees for the contradiction from multiple literals.
+
 
 
 
@@ -482,7 +494,7 @@ the second clause.
 
 
 
-\section{Term Indexing}
+\section{Term Indexing}\label{sec:term:indexing}
 
 
 
