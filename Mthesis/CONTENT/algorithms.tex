@@ -4,8 +4,9 @@
 
 \chapter{Algorithms and Data Structures}
 
-In this chapter we give a short overview of some necessary techniques for a reasonable prover. We assume familiarity with data structures and algorithms, e.g.\ sequences, trees, tries, etc. Still we will state some definitions and notions.
-First we take a look at methods to practically achieve saturation in Section~\vref{sec:saturation:basics}. Then we discuss some basics to speed up the retrieval of
+In this chapter we give a short overview on some necessary and useful techniques for a reasonable prover. We assume familiarity with algorithms and data structures as taught in many basic courses in computer science, e.g.\ sequences, trees, tries, etc. Still we will state some definitions and notions.
+First we take a look at methods to practically achieve saturation in Section~\vref{sec:saturation:basics}.
+Then we discuss some basics to speed up the retrieval of
 suitable clauses and literals in Section~\vref{sec:term:indexing}.
 
 
@@ -467,6 +468,10 @@ So we maintain suitable data structure to adapt to the changed circumstances.
 \subsubsection{Inst-Gen-Eq}
 
 Unfortunately just keeping track of literal pairs is not enough since we construct proof trees for the contradiction from multiple literals.
+Additionally we have to instantiate all clauses that contributed literals
+to the proof tree with proper instantiators that were constructed along the steps of the proof.
+
+More sophisticated approaches that addresses both problems at once are discussed in detail in~\cite{CS2011PhD}.
 
 
 
