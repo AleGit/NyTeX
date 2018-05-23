@@ -441,23 +441,25 @@ the second clause.
 So we maintain suitable data structure to adapt to the changed circumstances.
 
 \begin{procedure}[Given clause algorithm for \InstGen]
-	We maintain a set \( X \) of pairs of clauses with (at the time of processing) selected literals
-	\( (\mcC_1, L_1, \mcC_2, L_2) \) with \( L_i\in\mcC_i \).
+	We keep track of processed pairings of clauses
+	 with their (at the time of processing) selected literals
+	 \( \{ (\mcC, \sel(\mcC), (\mcD,\sel(\mcD)) \} \)
+	 in a suitable data structure.
 	In general we proceed as in Procedure~\vref{proc:given:clause:algorithm}
 	with two modifications.
 
 	\begin{enumerate}
 		\item[2.]
 		After we have selected the \emph{best} unprocessed clause \( \mcG \)
-		we update our model and move processed clauses where the selected literals have changed back to the unprocessed clauses.
+		we update our model. We move processed clauses back to unprocessed
+		if their selected literals have changed with the updated model.
 		\item[3.]
-		We only consider a processed clause \( \mcC \)
-		with selected literal \( \sel(\mcC) \)
-		if the tuple \( ( \mcC, \sel(\mcC), \mcG, \sel(\mcG) ) \)
-		is not in set \( X \).
+		We only consider a processed clause with its selected literal \( (\mcC, \sel(\mcC)) \)
+		if the pairing \( \{ (\mcC, \sel(\mcC)), (\mcG, \sel(\mcG)) \} \)
+		is not yet recorded.
 		After we have added all possible conclusions
-		to the unprocessed clauses we add
-		the tuple \( ( \mcC, \sel(\mcC), \mcG, \sel(\mcG) ) \) to \( X \).
+		to the unprocessed clauses we record
+		the pairing \( \{ (\mcC, \sel(\mcC)), (\mcG, \sel(\mcG)) \} \).
 
 	\end{enumerate}
 
@@ -470,7 +472,6 @@ So we maintain suitable data structure to adapt to the changed circumstances.
 Unfortunately just keeping track of literal pairs is not enough since we construct proof trees for the contradiction from multiple literals.
 Additionally we have to instantiate all clauses that contributed literals
 to the proof tree with proper instantiators that were constructed along the steps of the proof.
-
 More sophisticated approaches that addresses both problems at once are discussed in detail in~\cite{CS2011PhD}.
 
 
@@ -529,14 +530,14 @@ and check each clause (selected literal) for the desired properties.
 	Term indexing~\cite{Graf1998} is about data structures and algorithms
 	for faster retrieval of matching clauses, literals, and terms.
 	We will introduce the used notions for term indexing, describe
-	the use cases, data structures and algorithms for the indexing
+	use cases, data structures, and algorithms for the indexing
 	of clauses, literals, and terms and the corresponding algorithms
 	for fast retrievals of sets of candidate clauses that likely matches the desired properties.
 
 	\begin{remark}
 		The following Definitions~\ref{def:position:string} to~\ref{def:agnostic:position:string}
 		are easily applicable to functional and literal terms, but not to clauses (i.e.\ sets of literals).
-		Primarily we will build indexes with paths and traversals through literal terms.
+		Primarily we will build indexes over from literal terms.
 	\end{remark}
 
 	\begin{definition}\label{def:position:string}
@@ -756,7 +757,8 @@ iff \( \sigma \) is a variable renaming and
 
 % PATH INDEXING/PrefixTrees
 \begin{example}
-	We have constructed the literals tree for the following literals:
+	We have constructed the variable agnostic literals tree
+	for the following literals:
 	\begin{gather*}
 	\{
 	\TI{1}\mP(\mf(x,x)),
@@ -830,11 +832,11 @@ iff \( \sigma \) is a variable renaming and
 		\end{tikzpicture}
 	\end{center}
 	%
-	Now we retrieve candidates for literals clashing with
-	\( \lnot\mP(\mg(y,\mf(x))) \):
+	Now we retrieve candidate clauses with literals that clash with
+	literal \( \lnot\mP(\mg(y',\mf(x'))) \):
 %
 \begin{gather*}
-	\texttt{clashing}: \lnot\mP(\mg(y,\mf(x)))
+	\texttt{clashing}: \lnot\mP(\mg(y',\mf(x')))
 	\mapsto \texttt{unifiable}: \{ \mP.1.\mg.1.{*}, \mP.1.\mg.2.\mf.1.* \}
 	\mapsto \{ 2, 4, 6 \} \cap \{ 2, 4 \}
 \end{gather*}
@@ -844,18 +846,22 @@ iff \( \sigma \) is a variable renaming and
 
 \subsubsection{Redundant clauses}
 
-We start with an example that
-with \InstGen{} we must keep or add clauses
---- in difference to resolution --- that are subsumed by other clauses,
-i.e.\ that are (weakened) instances of kept clauses.
+In Resolution-based calculi
+we can ignore or omit clauses that are subsumed
+by other clauses.
+Weakened instances of other clauses are redundant.
+%
+In the following example we demonstrate that
+in general we must keep or add subsumed clauses
+with \InstGen.
 
 \begin{example}\label{ex:not:equisat}
 	The set of clauses \( S = \{ \,
 	\mP(x), \lnot\mP(\mf(\ma))
-	\, \} \) is unsatisfiable and
-	\( S\bot \) is satisfiable.
+	\, \} \) is clearly unsatisfiable, but
+	\( S\bot \) is still satisfiable.
 	We derive \( \mP(\mf(\ma)) \) which is subsumed by \( \mP(x) \),
-	but \( \{ \,
+	but can not ignore it because \( \{ \,
 	\mP(\bot), \lnot\mP(\mf(\ma)), \mP(\mf(\ma))
 	\, \} \) is unsatisfiable as desired.
 \end{example}
@@ -881,7 +887,7 @@ i.e.\ that are (weakened) instances of kept clauses.
 	where \( C\sigma\bot \not\entails D\bot \),
 	i.e.~\( \mP(\bot)\not\entails\mP(\mf(\ma)) \), but \( \mP(x)\entails\mP(\mf(\ma))  \).
 \end{proof}
-\begin{lemma}
+\begin{lemma}[Weakened variants]
 	If \( S = S' \cup \{ \mcD \} \),
 	\( \mcC \in S' \), and there is a variable substitution \( \rho \)
 	such that \( \mcC\rho \subseteq \mcD \)
@@ -890,7 +896,8 @@ i.e.\ that are (weakened) instances of kept clauses.
 \end{lemma}
 \begin{proof}
 	Since \( \rho \) is a variable substitution
-	\( \mcC\rho\bot \entails \mcD\bot \) holds.
+	\( \mcC\rho\bot \entails \mcD\bot \) holds
+	because \( \mcD\bot = \mcC\rho\bot \lor \mcD' \).
 \end{proof}
 
 \begin{example}
@@ -899,14 +906,12 @@ i.e.\ that are (weakened) instances of kept clauses.
 		\mP(x)\lor \mQ(y), \mP(z)\lor\mQ(z) \lor \mQ(\mf(z)) \}\bot
 		\equisat
 		\{ \ldots, \mP(x) \lor \mQ(y) \}\bot
+	\)
+	since \(
+		(\mP(x)\lor\mQ(y)) \{x\mapsto z, y\mapsto z \}
+		\subseteq
+		\mP(z)\lor\mQ(z)\lor\mQ(\mf(z))
 	\).
-\end{example}
-
-\begin{example}
-	There is no variable renaming \( \rho \) such that
-	\( R(x,x,y) \rho = R(x',y',y') \) or
-	\( R(x',y',y') \rho = R(x,x,y) \).
-
 \end{example}
 
 \begin{definition}[Backward removal]
@@ -924,23 +929,14 @@ i.e.\ that are (weakened) instances of kept clauses.
 	and a variable substitution \( \rho \) such that \( \mcC\rho\subseteq \mcG \).
 \end{definition}
 
-\begin{gather*}
-	\{
-	\TI{1}\mP(\mh(\mf(x,x))),
-	\TI{2}\lnot\mP(\mh(\mg(\ma,x))),
-	\TI{3}\mP(\mh(\mf(y,z))),
-	\\
-	\TI{4}\lnot\mP(\mh(\mg(\ma,y))),
-	\TI{5}\mP(\mh(\mf(y,x))),
-	\TI{6}\lnot\mQ(\mh(\mg(y,a)),\ma)
-	\}
-	\end{gather*}
-
-	\begin{align*}
-		\mP.\mh.\mf.*.* &\mapsto \{ 1 \}
-		\\
-		\lnot \mh \mg \ma * &\mapsto \{ 2 \}
-	\end{align*}
+	\begin{example}
+		With variable agnostic term traversals we may encounter
+		candidates for (weakened) variants that are actually not variants.
+		There is no variable renaming \( \rho \) such that
+		\( R(x,x,y) \rho = R(x',y',y') \) or
+		\( R(x',y',y') \rho = R(x,x,y) \)
+		but \( R.*.*.* \) matches perfectly.
+	\end{example}
 
 \subsubsection{Unifiable subterms}
 
@@ -1065,6 +1061,8 @@ i.e.\ that are (weakened) instances of kept clauses.
 		\{ 2^{11}, 4^{11} \} \cap \{ 6^{11} \} = \emptyset
 	\end{align*}
 \end{example}
+
+
 
 
 
