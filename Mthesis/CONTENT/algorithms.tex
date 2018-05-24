@@ -51,7 +51,7 @@ suitable clauses and literals in Section~\vref{sec:term:indexing}.
 
 
 
-\section{Saturation Basics}\label{sec:saturation:basics}
+\section{Practical Saturation Basics}\label{sec:saturation:basics}
 
 In the examples of Chapter~\ref{chapter:automation},
 we just applied derivation rules
@@ -92,13 +92,14 @@ The given clause algorithm is originated in the set of support strategy~\cite{Wo
 	and the original set of \coloremph{unprocessed} clauses \( U = S \),
 	e.g.\ a set of axioms and a negated conjecture.
 	\begin{enumerate}
-		\item[\jek] Whenever we can conclude unsatisfiability
-		of the original set \( S \) depending on the calculus used,
-		we exit the procedure with \( \UNSAT[(S)] \).
+		\item[\jek]
+		If we can conclude unsatisfiability of the original set \( S \)
+		then we exit the procedure with \( \UNSAT[(S)] \).
+		This depends on the used calculus.
 		\setcounter{enumi}{0}
 		\item If there are no unprocessed clauses,
 		we exit the procedure and return \(\SAT[(S)]\).
-		\item We select the \coloremph{best} unprocessed clause --- the now given clause \( \mcG \) --- and remove it from the unprocessed clauses. \hfill\jek{}
+		\item We select the \coloremph{best} unprocessed clause --- the now given clause \( \mcG \) --- and remove it from the unprocessed clauses. \jek{}
 		\item We check for applicable inference rules for pairs
 		of the given clause with processed clauses.
 		We add derived clauses to the unprocessed clauses. \hfill\jek{}
@@ -126,12 +127,13 @@ in other words the union of the two instances without the contradicting literals
 A crucial part is the selection of the \emph{best} unprocessed clause.
 At least we have to ensure that any (non-redundant) clause is selected eventually.
 Otherwise we may stay in a satisfiable subset of the set of clauses
-as we demonstrate in the following silly example with respect to resolution.
-
-(In the following examples the given clause is boxed,
+as we demonstrate in the following silly example\footnote{
+In the examples the given clause is boxed,
 the processed clauses are left of the given clause,
 and the unprocessed clauses are right of the given clause.
-Each line represents one iteration of the procedure.)
+Each line represents one iteration of the procedure.
+}
+with respect to resolution.
 
 \begin{example}[Insufficient clause selection]
 	We process the clearly unsatisfiable set of clauses
@@ -265,6 +267,8 @@ as probable new clauses to extend the set of unprocessed clauses.
 		\mP(\mf(x), y) \lor \mcC & \lnot\mP(x',\mg(y')) \lor \mcD
 	}
 \end{gather*}
+
+The following example demonstrates that the basic given clause algorithm is not suitable for \InstGen.
 
 \begin{example}
 	Again we start with the clearly unsatisfiable set of clauses
