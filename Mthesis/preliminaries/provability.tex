@@ -13,7 +13,7 @@ A formal proof comprises only proof steps confirmed by rules of the applied logi
 
 \input{definitions/NaturalDeduction}
 
-\begin{definition}A sentence in first order logic is provable
+\begin{definition}A sentence in first order logic is \coloremph{provable}
 	if their exists a proof in a formal proof system for first order logic,
 	e.g.~natural deduction.
 	We write
@@ -34,7 +34,7 @@ is in the transitive closure of inferable formulae from \( \{ F_1,\ldots,F_n\} \
 	we create a ground instance of our premise with quantifier elimination and the constant (3),
 	we extract the literals with both variants of conjunction elimination (4, 5),
 	we introduce a conjunction of the ground literals (6),
-	and close the box to introduce the universal quantified conjunction (7).
+	and close the box to introduce the universally quantified conjunction (7).
 	\begin{gather*}
 	\begin{BMAT}{rcrclccl}{ccccccccc}
 1 && 		&& \forall x(\mP(x)\land\lnot\mQ(x)) 	& && \texttt{premise}\\

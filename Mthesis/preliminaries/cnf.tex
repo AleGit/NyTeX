@@ -3,12 +3,28 @@
 % !TeX spellcheck = en_US
 
 \begin{definition}[\CNF]
-A (first order) \coloremph{literal} \( L \) is either an atom \( A \) or the negation
-\( (\lnot A) \) of an atom. We usually abbreviate \( \lnot(s\mEQ t) \) with \( s\mNE t \).
+A (first order) \coloremph{literal} \( L \) is either
+an atom \( A \) or the negation \( (\lnot A) \) of an atom.
+We usually abbreviate \( \lnot(s\mEQ t) \) with \( s\mNE t \).
+Further we call atoms \coloremph{positive} literals
+and negated atoms \coloremph{negative} literals.
 %
-The \coloremph{complement} \( L^\mcc \) of an atom (positive literal) is the negation of the atom.
-The complement of a negated atom (negative literal) is the atom itself.
-A (first order) \coloremph{clause} \( \mcC = L_1\lor\ldots\lor L_n \)  is a possible empty multiset of literals.
+We define the \coloremph{complement} \( L^\mcc \) of a literal
+as follows:
+%
+\[
+\MDEFINE{L^\mcc}{rll}{
+	\lnot A
+	&\text{if }L = A\text
+	&\text{where }A\text{ is an atom}
+	\\
+	A
+	&\text{if }L = \lnot A
+	&\text{where }A\text{ is an atom}
+}
+\]
+%
+A (first order) \coloremph{clause} \( \mcC = L_1\lor\ldots\lor L_n \)  is a possibly empty multiset of literals.
 A finite \coloremph{set of clauses} \( S=\{ \mcC_1,\ldots,\mcC_n \} \) is in \coloremph{clausal normal form}.
 \end{definition}
 
@@ -17,7 +33,8 @@ A finite \coloremph{set of clauses} \( S=\{ \mcC_1,\ldots,\mcC_n \} \) is in \c
 	are first order expressions.
 	We call a first order expression without variables \coloremph{ground},
 	i.e.\ we build ground first order expressions over an empty set of variables.
-	Obviously, ground first order formulae cannot contain quantifiers.
+	Obviously, ground first order formulae cannot contain quantifiers
+	that depend on variables.
 \end{remark}
 
 

@@ -21,7 +21,7 @@
 \end{definition}
 
 \begin{remark}
-	The Symbol \( \limp \) for implication is not to be confused
+	The symbol \( \limp \) for implication is not to be confused
 	with the equational symbol for rewrite rules in Section~\ref{sec:termrewriting}.
 \end{remark}
 
@@ -30,8 +30,13 @@
 	of a first order formula \( F \) as follows:
 \begin{gather*}
 	\MDEFINE{\fvar(F)}{ll}{
-		\bigcup_{i=1}^n \var(t_i) &\text{if }F
-		= \mP(t_1,\ldots,t_n)\text{ or }t_1\mEQ{} t_{n=2}
+		\bigcup_{i=1}^n \var(t_i)
+		&\text{if }F
+		= \mP(t_1,\ldots,t_n), \mP\in\mcFPn
+		\\
+		\var(t_1)\cup\var(t_2)
+		&\text{if }F
+		= t_1\mEQ t_2
 		\\
 		\fvar(G)&\text{if }F = \lnot G
 		\\
@@ -39,10 +44,11 @@
 		\\
 		\fvar (G) \setminus \{ x\} &\text{if } F \in \{ \, \forall x \, G, \exists x \, G \, \}
 	}
-\end{gather*}
-\begin{gather*}
+	\\
 \MDEFINE{\bvar(F)}{ll}{
-	\emptyset &\text{if }F = \mP(t_1,\ldots,t_n)\text{ or }t_1\mEQ t_{n=2}
+	\emptyset &\text{if }F = \mP(t_1,\ldots,t_n), \mP\in\mcFPn
+	\\
+	\emptyset &\text{if }F = t_1\mEQ t_2
 	\\
 	\bvar(G)&\text{if }F = \lnot G
 	\\
@@ -55,24 +61,26 @@
 
 \begin{example}
 	With formula \( F = (\forall x (x\mEQ y)) \lor (\exists y \mP(x,y)) \)
-	we have \( \fvar(F) = \bvar(F) \), which we would like to avoid:
-	Formulae
+	we have \( \fvar(F) = \bvar(F) \), which we would like to avoid.
+	In Section~\vref{sec:semantics} we will see that formula
 	\( F' = (\forall x (x\mEQ y')) \lor (\exists y \mP(x',y)) \)
-	is equivalent to F (see Section~\vref{sec:semantics})
+	is equivalent to our first formula F
 	and we get
 	\( \fvar(F') \cap \bvar(F') = \emptyset \).
 	%	 = \{ x, y\}$.
 \end{example}
 
 %\begin{remark}
-We often will write formulae or sentences
+We often will use formulae or sentences
 without stating the signature.
 The reader can easily deduce the underlying \coloremph{implicit} signature with arities
 and the set of variables by applying the definitions of the syntax for first order formulae.
 We follow the convention to use \( x,y,z \) for variables
 and \( \ma,\mb,\mc \) for constant function symbols
 (which avoids ambiguity in the presence of free variables).
-For easier readability we will use uppercase predicate symbols and lowercase function symbols.
+For easier readability we will use
+uppercase predicate symbols \(\mP,\mQ \) and
+lowercase function symbols \( \mf,\mg,\mh \) with indices.
 We may denote \( \mcF(F) \) for the implicit signature of an formula \( F \).
 %\end{remark}
 
@@ -82,27 +90,28 @@ We may denote \( \mcF(F) \) for the implicit signature of an formula \( F \).
 	For practical reasons we assume that the variables of a sentence
 	are bound exactly once
 	and occur as free variables
-	in the subformulae of the quantified formulae where the were bound.
+	in the subformulae of the quantified formulae where they were bound.
+	Thus the following will be assured.
 	\begin{align*}
 		\fvar(\phi) &= \emptyset
 		\text{ iff }\phi\text{ is a sentence}
 		\\
-		\bvar(G * H) &= \bvar(G)\disjointunion\bvar(H)
-		&*& \in \{ \, {\land} \ {\lor} \ {\limp} \, \}
+		\bvar(G \connect H) &= \bvar(G)\disjointunion\bvar(H)
+		&\connect& \in \SetOfConnectives
 		\\
 		\bvar(\quantify x F) &= \{x\}\disjointunion\bvar(F)
-		&\quantify& \in \{ \, {\exists} \ {\forall} \, \}
+		&\quantify& \in \SetOfQuantifiers
 		\\
 		\quantify x F &\Rightarrow
 		x\in\fvar(F), x\not\in\bvar(F)
-		&\quantify& \in \{ \, {\exists} \ {\forall} \, \}
+		&\quantify& \in \SetOfQuantifiers
 	\end{align*}
 \end{definition}
 
-\begin{example}Sentences that do not match “\xmark”
-	and {equivalent (see Definition~\vref{def:semantics:FOF})}
-	sentences that match “\cmark”
-	the assumptions in Definition~\vref{def:fof:sentence}.
+\begin{example}The sentences on the left do not match
+	the assumptions in Definition~\vref{def:fof:sentence}
+	but their {equivalent (Definition~\vref{def:equivalence})}
+	counterparts on the right do.
 	\[
 	\begin{array}{rrcll}
 		 \text{\color{colLo}{\xmark}}

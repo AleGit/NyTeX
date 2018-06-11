@@ -172,7 +172,14 @@
 \newcommand{\mct}{\mathpzc{t}}
 \newcommand{\mcu}{\mathpzc{u}}
 
-\newcommand{\mysymbol}{\mcf}
+\newcommand{\Pf}{\text{\currency}} % generic symobol form signature, P,f,=
+% \newcommand{\PfinF}{\Pf\in\mcF}
+
+\newcommand{\connect}{*} % generic connective
+\newcommand{\SetOfConnectives}{\{ \lor, \land, \rightarrow{}\} }
+
+\newcommand{\quantify}{{\rotatebox[origin=c]{180}{\textsf{\AE}}}\!}
+\newcommand{\SetOfQuantifiers}{\{ \forall, \exists{} \}}
 
 % signature, terms, predicates, equations
 
@@ -235,8 +242,9 @@
 
 % first order expression)
 \newcommand{\foxf}{\textcolor{colO}{\mcf}} % predicate or function symbol f
-\newcommand{\foxt}{\textcolor{colO}{\mct}} % atom or term t
 \newcommand{\foxs}{\textcolor{colO}{\mcs}} % atom or term t
+\newcommand{\foxt}{\textcolor{colO}{\mct}} % atom or term t
+\newcommand{\foxu}{\textcolor{colO}{\mcu}}
 
 
 \newcommand{\TI}[1]{^{^{#1:}}\!}
@@ -314,7 +322,6 @@
 
 % \newcommand{\landlor}{\mathrel{\ooalign{\hss\( \land \)\hss\cr\( \lor \)}}}
 %\newcommand{\limpxor}{\mathrel{\ooalign{\hss\( \limp \)\hss\cr\( \oplus \)}}}
-\newcommand{\quantify}{{\rotatebox[origin=c]{180}{\textsf{\AE}}}\!}
 %\newcommand{\junction}{\landlor}
 % \newcommand{\logical}{\mathrel{\ooalign{\hss\( \landlor \)\hss\cr\( \limp \)}}}
 

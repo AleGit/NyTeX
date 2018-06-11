@@ -8,7 +8,7 @@
 \begin{definition}\label{def:substitution}
 	A \coloremph{substitution} \( \sigma \) is a mapping from variables \( x\in\mcV \) to terms in \( \mcTFfV \)
 	where \coloremph{domain }\( \domain(\sigma) = \{ x\in\mcV\mid\sigma(x) \neq x \} \)
-	and image \( \image(\sigma) =\{ \sigma(x) \mid x\in V, \sigma(x)\neq x \} \) are finite.
+	and \coloremph{image} \( \image(\sigma) =\{ \sigma(x) \mid x\in V, \sigma(x)\neq x \} \) are finite.
 	We write substitutions as bindings, e.g.~\( \sigma=\{ x_1\mapsto s_1,\ldots,x_n\mapsto s_n \} \)
 	where \( \domain(\sigma)=\{ x_1,\ldots,x_n \} \) and \( \sigma(x_i)=s_i \).
 	A \coloremph{variable substitution} is a mapping from \( \mcV \) to \( \mcV\subseteq\mcTFfV \).
@@ -16,9 +16,9 @@
 	A \coloremph{proper instantiator} is a substitution that is not a variable substitution
 	(at least one variable is mapped to a non-variable term).
 \end{definition}
-\begin{definition}
+\begin{definition}\label{def:term:literal:clause:substitution}
 	We define the application of a substitution \( \sigma \)
-	to term \( t \), a literal \( L \), or a clause \( C \) as follows
+	to term \( t \), a literal \( L \), and clauses \( C \) as follows
 	\begin{align*}
 	t\sigma &=
 	\left \{
@@ -54,21 +54,20 @@
 	\end{align*}
 \end{definition}
 
-\begin{definition}\label{def:term:literal:clause:substitution}
-	We define the application of special grounding “substitution” \( \bot \) to a term \( t \) with distinct constant symbol \( \bot \not\in\mcF(t) \)
+\begin{definition}\label{def:grounding:substitution}
+	We define the application of the special “grounding substitution” \( \subsbot \) to a term \( t \) with distinct constant symbol \( \consbot \not\in\mcF \)
 	as follows
 	\begin{gather*}
 	\MDEFINE{t\sigma}{ll}{
-			\bot & \text{if }t=x\in\mcV
+			\consbot & \text{if }t=x\in\mcV
 			\\
-			\mf(t_1\sigma,\ldots,t_n\sigma)	&\text{if }t=\mf(t_1,\ldots,t_n)
+			\mf(t_1\consbot,\ldots,t_n\consbot)	&\text{if }t=\mf(t_1,\ldots,t_n)
 			\text{ where  }
 			 \mf\in\mcFfn
 			 }
 	\end{gather*}
-	We define the application of \( \bot \) to literals and clauses as in
+	We define the application of \( \subsbot \) to literals and clauses as in
 	Definition~\vref{def:term:literal:clause:substitution}.
-
 \end{definition}
 
 \begin{definition}
@@ -81,7 +80,8 @@
 	\MDEFINE{F\sigma}{ll}{
 		\lnot(G\sigma) & \text{if }F = \lnot G
 		\\
-		(G\sigma) * (H\sigma) & \text{if }F = G * H, *\in \{ \land, \lor, \limp \}
+		(G\sigma) \connect (H\sigma) & \text{if }F = G * H,
+		\connect\in\SetOfConnectives
 		\\
 		\quantify x (G\sigma')
 		&
@@ -89,7 +89,7 @@
 		\left\{  % chktex 21
 			\begin{array}{l}
 				F = \quantify x\,G,
-				\quantify \in \{ \forall, \exists \}
+				\quantify\in\SetOfQuantifiers
 				\text{ and}
 				\\
 				\sigma'(x) = x, \sigma'(y) = \sigma(y)
@@ -101,7 +101,7 @@
 \end{definition}
 
 \begin{definition}
-	A formula \( G' \) is an instance of formula \( F = \quantify x (G) \)
+	A formula \( G' \) is an \emph{instance} of formula \( F = \quantify x (G) \)
 	if there exists a term \( t \) such that \( G' = G\{ x\mapsto t \} \).
 	If \( F \) is closed (i.e.\ \( \fvar(G) = \{ x \} \)) % chktex 21
 	and \( t \) is a ground term (i.e.\ \( \var(t) = \emptyset \)) then % chktex 21
@@ -109,7 +109,7 @@
 \end{definition}
 
 \begin{definition}\label{def:strictly:subsumes}
-	A clause \( \mcC \) \coloremph{strictly subsumes} a clause \( \mcD \) if their exists a substitution \( \theta \) such that \( \mcC\theta \subsetneq \mcD \),
+	A clause \( \mcC \) \coloremph{strictly subsumes} a clause \( \mcD \) if there exists a substitution \( \theta \) such that \( \mcC\theta \subsetneq \mcD \),
 	e.g.~when clause \( \mcD = \mcC\theta \lor \mcD' \) is a weakened instance of clause \( \mcC \).
 \end{definition}
 
@@ -123,37 +123,38 @@ We define the \coloremph{composition} of two substitutions \( \sigma \) and \( \
 \end{definition}
 
 \begin{lemma}\label{lem:substitution}
-	With the definitions in~\ref{def:substitution} and~\ref{def:substcomp} the equation
-	\( (\mct\sigma)\tau = \mct(\sigma\tau) \) holds for
-	term, atoms, and literals.
+	With the Definitions in~\ref{def:substitution} and~\ref{def:substcomp} the resulting expressions for
+	\( (\mct\sigma)\tau \) and \( \mct( \sigma\tau) \) coincide for
+	any term or literal \( \mct \), i.e.~\( (\mct\sigma)\tau = \mct( \sigma\tau) \).
 \end{lemma}
 
 \begin{proof}
 	Assume \( \sigma \) and \( \tau \) are substitutions.
-	Then we use induction on the structure of the 	expression \( \mct \)
-	that the equation \( (\mct\sigma)\tau =  \mct(\tau\sigma) \) holds in all possible cases.
+	We use induction on the structure of \( \mct \)
+	to show that
+	\( (\mct\sigma)\tau = \mct(\tau\sigma) \) in all possible cases.
 	\begin{itemize}
-		\item (base case) Let \( \mct = x_i \in\domain(\sigma) \) then
-		\( ((x_i)\sigma)\tau\defEQ s_i\tau\defEQ x_i(\sigma\tau) \) holds.
+		\item (base case) If \( \mct = x_i \in\domain(\sigma) \) then
+		\( ((x_i)\sigma)\tau\defEQ s_i\tau\defEQ x_i(\sigma\tau) \).
 
-		\item (base case) Let \( \mct = y \not\in\domain(\sigma) \) then
-		\( (y\sigma)\tau \defEQ y\tau \defEQ y(\sigma\tau) \) holds.
+		\item (base case) If \( \mct = y \not\in\domain(\sigma) \) then
+		\( (y\sigma)\tau \defEQ y\tau \defEQ y(\sigma\tau) \).
 
-		\item (step case) Let \( \mct = \mcf(t_1,\ldots,t_n) \)
+		\item (step case) If \( \mct = \Pf(t_1,\ldots,t_n) \)
 		then
 		\(
-			((\mcf(t_1,\ldots,t_n))\sigma)\tau
+			((\Pf(t_1,\ldots,t_n))\sigma)\tau
 		\defEQ
-		(\mcf(t_1\sigma,\ldots,t_n\sigma))\tau
+		(\Pf(t_1\sigma,\ldots,t_n\sigma))\tau
 		\defEQ
-		\mcf((t_1\sigma)\tau,\ldots,(t_n\sigma)\tau)
+		\Pf((t_1\sigma)\tau,\ldots,(t_n\sigma)\tau)
 		\defEQ[IH]
-		\mcf(t_1(\sigma\tau),\ldots,t_n(\sigma\tau))
+		\Pf(t_1(\sigma\tau),\ldots,t_n(\sigma\tau))
 		\defEQ
-		(\mcf(t_1,\ldots,t_n))(\sigma\tau)
-		\) holds.
+		(\Pf(t_1,\ldots,t_n))(\sigma\tau)
+		\).
 
-		\item (step case) Let \( \mct = \lnot A \) then
+		\item (step case) If \( \mct = \lnot A \) then
 		\(
 		((\lnot A)\sigma)\tau
 		\defEQ
@@ -164,6 +165,6 @@ We define the \coloremph{composition} of two substitutions \( \sigma \) and \( \
 		\lnot(A(\sigma\tau))
 		\defEQ
 		(\lnot A)(\sigma\tau)
-		\) holds.
+		\).
 	\end{itemize}
 \end{proof}
