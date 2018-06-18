@@ -4,14 +4,19 @@
 
 \begin{definition}[\cite{Huth:2004:LCS:975331}]\label{def:natural:deduction}
 	We recall the rules of \coloremph{natural deduction} for connectives
-	in Table~\ref{tab:natural:deduction:connectives},
-	for equality in Table~\ref{tab:natural:deduction:equality},
-	and for quantifiers in Table~\ref{tab:natural:deduction:quantifiers}.
+	equality, and quantifiers in
+	Tables~\ref{tab:natural:deduction:connectives},
+	\ref{tab:natural:deduction:equality}, and
+	\ref{tab:natural:deduction:quantifiers}.
 	Natural deduction provides a logical calculus,
 	i.e.~a formal proof system for first order logic.
-	The formulae \( F \) and \( G \) in these rules are sentences,
-	the bound variable in  \( \forall x F' \) occurs free in \( F' \),
-	and terms \( s \) and \( t \) are ground.
+	In these rules
+	\( F \) and \( G \) are arbitrary first order sentences,
+	the bound variable \( x \) in any quantified formula
+	\( \forall x F' \) occurs free in \( F' \),
+	first order terms \( s \) and \( t \) are ground,
+	and \( \mc \) is a \emph{fresh} constant function symbol,
+	i.e.~it did not occur in any formula so far.
 
 \begin{table}[hbt]
 \begin{gather*}
@@ -89,11 +94,11 @@
 	\infer[(\forall i)]{\forall x F'}{
 		\boxed{
 			\begin{array}{cc}
-				t
+				\mc
 				\\
 				&\vdots
 				\\
-				&F' \{x\mapsto t\}
+				&F' \{x\mapsto \mc\}
 			\end{array}} % end of boxed
 	}
 	&&
@@ -101,7 +106,7 @@
 		\exists x F' &
 		\boxed{
 			\begin{array}{cc}
-				t&F' \{ x\mapsto t \}
+				\mc&F' \{ x\mapsto \mc \}
 				\\
 				&\vdots
 				\\

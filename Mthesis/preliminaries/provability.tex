@@ -18,7 +18,7 @@ A formal proof comprises only proof steps confirmed by rules of the applied logi
 	e.g.~natural deduction.
 	We write
 	\( F_1, \ldots, F_n \proves G \)
-	when we can prove G from premises \( F_1,\ldots,F_n \).
+	when we can prove \(G\) from premises \( F_1,\ldots,F_n \).
 \end{definition}
 
 A natural deduction proof starts with a (possible empty) set of sentences --- the premises ---
@@ -27,10 +27,12 @@ A box must be opened for each assumption, e.g.~a term or a sentence.
 Closing the box discards the assumption and all its conclusions within the box{(es)},
 but may introduce a derived sentence outside the box{(es)}.
 Then \( F_1,\ldots,F_n \proves H \) claims that \( H \)
-is in the transitive closure of inferable formulae from \( \{ F_1,\ldots,F_n\} \) outside of any box.
+is outside of any box
+and has been inferred (via a finite set of intermediate formulae)
+from \( \{ F_1,\ldots,F_n\} \).
 
 \begin{example}We show \( \forall x (\mP(x)\land\lnot\mQ(x)) \proves \forall x(\lnot\mQ(x)\land\mP(x)) \) with natural deduction.
-	We note our premise (1), we open a box and assume an arbitrary constant (2),
+	We note our premise (1), we open a box and assume an arbitrary fresh constant (2),
 	we create a ground instance of our premise with quantifier elimination and the constant (3),
 	we extract the literals with both variants of conjunction elimination (4, 5),
 	we introduce a conjunction of the ground literals (6),

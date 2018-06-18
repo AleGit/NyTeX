@@ -68,17 +68,19 @@ We state satisfiability and validity of arbitrary first order formulae or sets o
 	definitions of mappings
 	\( \mf_\mcI: A^n\rightarrow A \)
 	for every function symbol \( \mf\in\mcFf \),
-	and definitions of (possibly empty) n-ary relations
+	and definitions of (possibly empty) \(n\)-ary relations
 	 \( {\mP_\mcI}\subseteq A^n \) for every predicate symbol \( \mP\in\mcFP \)
 	 and the definition of (possibly empty) binary relation \( {\mEQ_\mcI}\subseteq A^2 \) for the equality symbol.
 %
 	 A (variable) \coloremph{assignment} is a mapping from variables to elements of the domain.
 %
 	 We define the \coloremph{evaluation} \( \alpha_\mcI \) of a term \( t \)
-	 for assignment \( \alpha \) and interpretation \( \mcI \):
+	 for an assignment \( \alpha \) and an interpretation \( \mcI \):
 
 	 \begin{gather*}
-	 \MDEFINE{\alpha_\mcI(t) = t_{\alpha_\mcI}}{ll}{
+	 \MDEFINE{\alpha_\mcI(t)
+	%  = t_{\alpha_\mcI}
+	 }{ll}{
 	 	\alpha(x)
 	 	&\text{if }t=x\in\mcV \\
 	 	\mc_\mcI
@@ -98,10 +100,10 @@ We state satisfiability and validity of arbitrary first order formulae or sets o
 	A predicate \( \mP(t_1,\ldots,t_n) \)
 	\coloremph{holds} for assignment~\( \alpha \)
 	and interpretation~\( \mcI \)
-	if and only if the evaluation of its n-tuple \(
+	if and only if the evaluation of its \(n\)-tuple \(
 	\alpha_\mcI(t_1,\ldots,t_n) = (\alpha_\mcI({t_1}),\ldots,\alpha_\mcI({t_n})) \in \mP_\mcI \)
 	is an element of the relation \( \mP_\mcI\subseteq A^n \).
-	Similar an equation \( s\mEQ t \)
+	Similarly an equation \( s\mEQ t \)
 	holds if \( \alpha_\mcI(s) \mEQ_\mcI \alpha_\mcI(t) \).
 \end{definition}
 
@@ -109,15 +111,15 @@ We state satisfiability and validity of arbitrary first order formulae or sets o
 	[Semantics of \FOF{}]\label{def:semantics:FOF}
 	A universally quantified sentence \( \forall x F \)
 	holds in an interpretation if its subformula \( F \) holds for all assignments for \( x \).
-	An existential quantified sentence \( \exists xF \) holds if its subformula \( F \) holds for at least one assignment for \( x \).
+	An existentially quantified sentence \( \exists xF \) holds if its subformula \( F \) holds for at least one assignment for \( x \).
 	For a given interpretation and predefined assignments for all occurring free variables
 	a negation \( \lnot F \) holds if its subformula \( F \) does not hold,
 	a disjunction \( F\lor G \) holds if one or both of its subformulae \( F \) or \( G \) hold,
-	a conjunction \( F\land G \) holds, if both of its subformulae \( F \) and \( G \) hold,
+	a conjunction \( F\land G \) holds if both of its subformulae \( F \) and \( G \) hold,
 	an implication \( F\limp G \) holds if its first subformula \( F \) does not hold or its second subformula \( F' \) holds (or both).
 
-	\begin{remark}Usually we use precedences on connectives to omit parentheses
-		and some heuristics to structure the formulae for readability
+	\begin{remark}Usually we assume precedences on connectives to omit parentheses
+		and apply some conventions to structure the formulae for readability
 		without introducing semantic ambiguity.
 	\end{remark}
 \end{definition}
@@ -186,8 +188,9 @@ We state satisfiability and validity of arbitrary first order formulae or sets o
 	A (first order) sentence \( G \) is a \coloremph{semantic consequence}
 	of a set of sentences
 	\( \Gamma = \{ F_1,\ldots,F_n \} \) if \( G \) holds in all models for \( F_1,\ldots,F_n \).
-	We write \( \Gamma\entails G \) and also say that \( \Gamma \) entails G.
-	Two sentences \( F \equival G \) are \coloremph{equivalent}
+	We write \( \Gamma\entails G \) and say that \( \Gamma \) entails \(G\).
+	Two sentences are \coloremph{equivalent},
+	denoted \( F \equival G \),
 	if an only if the first sentence entails the second and vice versa.
 	An \coloremph{equivalence transformation} morphs an arbitrary sentence \(F\)
 	to another sentence \(F'\) such that \( F\equiv F'\).
@@ -197,8 +200,10 @@ We state satisfiability and validity of arbitrary first order formulae or sets o
 \end{definition}
 
 \begin{example}
-	We can easily see that not satisfiable \( F\land\lnot F \) entails every formula,
-	that valid \( F\lor\lnot F \) is entailed by every sequence, further that
+	For an arbitrary first order sentence \( F \)
+	we can easily see the composite sentence \( F\land\lnot F \)
+	is unsatisfiable and entails every sentence,
+	that the composite sentence \( F\lor\lnot F \) is valid and entailed by every sequence of sentences, and further that
 	\begin{align*}
 	\Delta, F&\entails G  &\text{if and only if} && \Delta &\entails \lnot F\lor G
 	\\
@@ -207,7 +212,7 @@ We state satisfiability and validity of arbitrary first order formulae or sets o
 	F\land G&\equival G\land F &F\lor G\equival G\lor F && F\limp G &\equival \lnot F\lor G
 	\\
 	\quantify x (G) &\equiv \quantify x' (G \{x\mapsto x'\} )
-	&\text{if } x \not\in\fvar(G)
+	&\text{if } x' \not\in\fvar(G)
 	&&\text{renaming of} &\text{ one bound variable}
 	\end{align*}
 	by the definitions for semantics, entailment, and equivalence.\hfill \( \qed \)
@@ -217,8 +222,8 @@ We state satisfiability and validity of arbitrary first order formulae or sets o
 	Let \( {F[G]}_p \)
 	be a first order sentence with quantified subformula
 	\( G = (\quantify x\,H) \) at position \( p \).
-	We assume an injective position index function \( i(p) \)
-	--- \( \forall p \forall q (p \mEQ q \lor i(p) \mNE i(q)  ) \) ---
+	We assume an injective position index function \( i(p) \),
+	i.e.~\( \forall p \forall q (p \mEQ q \lor i(p) \mNE i(q)  ) \),
 	from positions to natural numbers
 	and \( x'_{i(p)} \not\in\var(F) \).
 	If \( G' = \quantify x'_{i(p)} (H'\{x\mapsto x'_{i(p)}\}) \)
