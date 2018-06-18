@@ -1,0 +1,52 @@
+\begin{table}[hbt]
+    \begin{gather*}
+    \begin{array}{ccccc}
+    \infer[(\land i)]{F\land G}{F & G}
+    &
+    \infer[(\land e_1)]{G}{F \land G}
+    &
+    \infer[(\land e_2)]{F}{F \land G}
+    &
+    \infer[(\lnot\lnot i)]{\lnot\lnot F}{F}
+    &
+    \infer[(\lnot\lnot e)]{F}{\lnot\lnot F}
+    \\[0.7em]
+    \infer[(\bot e)]{F}{\bot}
+    &
+    \infer[(\lnot e)]{\bot}{F & \lnot F}
+    &
+    \infer[\text{LEM}]{F\lor\lnot F}{}
+    &
+    \infer[(\lor i_1)]{F\lor G}{F}
+    &
+    \infer[(\lor i_2)]{F\lor G}{G}
+    \\[0.7em]
+    \infer[(\lnot i)]{\lnot F}{
+        \boxed{\begin{array}{c}F \\ \vdots \\ \bot \end{array}}}
+    &
+    \infer[\text{PBC}]{F}{
+        \boxed{\begin{array}{c}\lnot F \\ \vdots \\ \bot \end{array}}}
+    &
+    \infer[({\limp} i)]{F\limp G}{
+        \boxed{\begin{array}{c}F \\ \vdots \\ G \end{array}
+    }}
+    &
+    \multicolumn{2}{l}{
+        \infer[(\lor e)]{H}{
+            F\lor G &
+            \boxed{\begin{array}{c}F \\ \vdots \\ H \end{array}} &
+            \boxed{\begin{array}{c}G \\ \vdots \\ H \end{array}}
+        }
+    }
+    \\[0.7em]
+    &
+    \multicolumn{3}{r}{
+    \infer[\text{modus}\atop\text{ponens}]{G}{F & F\limp G}
+    \qquad
+    \infer[\text{modus}\atop\text{tollens}]{\lnot F}{F\limp G & \lnot G}
+    }
+    &
+    \end{array}
+    \end{gather*}
+    \caption{Natural Deduction Rules for Connectives}\label{tab:natural:deduction:connectives}
+    \end{table}

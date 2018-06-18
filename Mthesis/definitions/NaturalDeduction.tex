@@ -2,119 +2,32 @@
 % !TeX encoding = UTF-8
 % !TeX spellcheck = en_US
 
+
+
+\input{definitions/NDConnectives}
+
+\begin{definition}
+	We say a term \( t \) is \coloremph{free} for variable \( x \)
+	in a formula \( F \) if for every variable \( y \in \var(t) \)
+	and every subformula \( G = \quantify y H \) of \( F \),
+	the variable \( x \not\in\fvar(H) \).
+\end{definition}
+
+
+\input{definitions/NDEquality}
+
 \begin{definition}[\cite{Huth:2004:LCS:975331}]\label{def:natural:deduction}
 	We recall the rules of \coloremph{natural deduction} for connectives
-	equality, and quantifiers in
-	Tables~\ref{tab:natural:deduction:connectives},
-	\ref{tab:natural:deduction:equality}, and
-	\ref{tab:natural:deduction:quantifiers}.
-	Natural deduction provides a logical calculus,
-	i.e.~a formal proof system for first order logic.
-	In these rules
-	\( F \) and \( G \) are arbitrary first order sentences,
-	the bound variable \( x \) in any quantified formula
-	\( \forall x F' \) occurs free in \( F' \),
-	first order terms \( s \) and \( t \) are ground,
-	and \( \mc \) is a \emph{fresh} constant function symbol,
-	i.e.~it did not occur in any formula so far.
-
-\begin{table}[hbt]
-\begin{gather*}
-\begin{array}{ccccc}
-\infer[(\land i)]{F\land G}{F & G}
-&
-\infer[(\land e_1)]{G}{F \land G}
-&
-\infer[(\land e_2)]{F}{F \land G}
-&
-\infer[(\lnot\lnot i)]{\lnot\lnot F}{F}
-&
-\infer[(\lnot\lnot e)]{F}{\lnot\lnot F}
-\\[0.7em]
-\infer[(\bot e)]{F}{\bot}
-&
-\infer[(\lnot e)]{\bot}{F & \lnot F}
-&
-\infer[\text{LEM}]{F\lor\lnot F}{}
-&
-\infer[(\lor i_1)]{F\lor G}{F}
-&
-\infer[(\lor i_2)]{F\lor G}{G}
-\\[0.7em]
-\infer[(\lnot i)]{\lnot F}{
-	\boxed{\begin{array}{c}F \\ \vdots \\ \bot \end{array}}}
-&
-\infer[\text{PBC}]{F}{
-	\boxed{\begin{array}{c}\lnot F \\ \vdots \\ \bot \end{array}}}
-&
-\infer[({\limp} i)]{F\limp G}{
-	\boxed{\begin{array}{c}F \\ \vdots \\ G \end{array}
-}}
-&
-\multicolumn{2}{l}{
-	\infer[(\lor e)]{H}{
-		F\lor G &
-		\boxed{\begin{array}{c}F \\ \vdots \\ H \end{array}} &
-		\boxed{\begin{array}{c}G \\ \vdots \\ H \end{array}}
-	}
-}
-\\[0.7em]
-&
-\multicolumn{3}{r}{
-\infer[\text{modus}\atop\text{ponens}]{G}{F & F\limp G}
-\qquad
-\infer[\text{modus}\atop\text{tollens}]{\lnot F}{F\limp G & \lnot G}
-}
-&
-\end{array}
-\end{gather*}
-\caption{Natural Deduction Rules for Connectives}\label{tab:natural:deduction:connectives}
-\end{table}
-
-\begin{table}[hbt]
-	\begin{gather*}
-	\infer[({=}e)]{F'\{x\mapsto t\}}{s=t & F'\{x\mapsto s\}}
-	\qquad
-	\infer[({=}i)]{t=t}{}
-	\end{gather*}
-	\caption{Natural Deduction Rules for Equality}\label{tab:natural:deduction:equality}
-\end{table}
-
-\begin{table}[hbt]
-	\begin{gather*}
-	\begin{array}{ccc}
-	\infer[(\forall e)]{F'\{x\to t\}}{
-		\forall x F'
-	}
-	&&
-		\infer[(\exists i)]{\exists x F'}{
-		F'\{x\mapsto t \}
-	}
-	\\[1em]
-	\infer[(\forall i)]{\forall x F'}{
-		\boxed{
-			\begin{array}{cc}
-				\mc
-				\\
-				&\vdots
-				\\
-				&F' \{x\mapsto \mc\}
-			\end{array}} % end of boxed
-	}
-	&&
-	\infer[(\exists e)]{H}{
-		\exists x F' &
-		\boxed{
-			\begin{array}{cc}
-				\mc&F' \{ x\mapsto \mc \}
-				\\
-				&\vdots
-				\\
-				&H
-			\end{array}} % end of boxed
-	}
-	\end{array}
-	\end{gather*}
-	\caption{Natural Deduction Rules for Quantifiers}\label{tab:natural:deduction:quantifiers}
-\end{table}
+	in Table~\ref{tab:natural:deduction:connectives}
+	where \( F \), \( G \), and \( H \) are arbitrary first order formulae,
+	equality in Table~\ref{tab:natural:deduction:equality}
+	where first order terms \( s \) and \( t \) are free for \( x \) in \( F' \),
+	and quantifiers in
+	Table~\ref{tab:natural:deduction:quantifiers}
+	where \( x_0 \) is a \emph{fresh} variable symbol,
+	i.e.~\( x_0 \) did not occur in any formula so far.
 \end{definition}
+
+\input{definitions/NDQuantifiers}
+
+

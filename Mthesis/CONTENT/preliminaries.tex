@@ -226,14 +226,14 @@ We state satisfiability and validity of arbitrary first order formulae or sets o
 	i.e.~\( \forall p \forall q (p \mEQ q \lor i(p) \mNE i(q)  ) \),
 	from positions to natural numbers
 	and \( x'_{i(p)} \not\in\var(F) \).
-	If \( G' = \quantify x'_{i(p)} (H'\{x\mapsto x'_{i(p)}\}) \)
-	is defined then equivalences
+	Then \( G' = \quantify x'_{i(p)} (H\{x\mapsto x'_{i(p)}\}) \)
+	is well-formed with
 	\( G \equiv G' \) and
 	\(
 		{F[\,G\,]}_p
 		\equiv
 		{F[\,G'\,]}_p
-	\) hold.
+	\).
 \end{lemma}
 
 \noindent We use Lemma~\ref{lem:quantified:variable:renaming}
@@ -245,7 +245,7 @@ quantified variable by its position index.
 	Two sentences \( F \equisat G \) are \coloremph{equisatisfiable}
 	if \( F \) is satisfiable whenever \( G \) is satisfiable
 	and the other way round.
-	An \coloremph{satisfiability transformation} morphs an arbitrary sentence
+	A \coloremph{satisfiability transformation} morphs an arbitrary sentence
 	\( F \) to a sentence \( F' \) such that \( F \equisat F' \).
 	Satisfiability transformations respect the satisfiability of sentences,
 	but the validity may differ between \( F \) and \( F' \).
@@ -254,8 +254,8 @@ quantified variable by its position index.
 \begin{remark}
 	By itself equisatisfiability of arbitrary formulae
 	usually gives no insights since
-	any unsatisfiable formulae is equisatisfiable to \emph{any} unsatisfiable formulae
-	and any satisfiable formulae is equisatisfiable to \emph{any} satisfiable formulae by definition,
+	any unsatisfiable formulae is equisatisfiable to \emph{any} unsatisfiable formula
+	and any satisfiable formula is equisatisfiable to \emph{any} satisfiable formula by definition,
 	e.g.\ \(\mP(\ma) \equisat \mb\mEQ\mc \). % chktex 21
 \end{remark}
 
@@ -263,7 +263,7 @@ quantified variable by its position index.
 	Let \( F \) be a sentence.
 	Then \( F \equisat F \land \exists x \mP(x) \).
 	But \( F \not\entails F \land \exists x \mP(x) \)
-	as we can see for tautology \( F = \mP(\ma)\lor\lnot\mP(\ma) \)
+	as we can see for the tautology \( F = \mP(\ma)\lor\lnot\mP(\ma) \)
 	and interpretation \( \mP_\mcI = \emptyset \).
 \end{example}
 
@@ -318,7 +318,7 @@ and demonstrate their usage in an example.
 
 
 \begin{definition}\label{def:normal:interpreation}
-	An \coloremph{normal} interpretation defines \( \mEQ_\mcI \) as identity on its domain,
+	A \coloremph{normal} interpretation defines \( \mEQ_\mcI \) as identity on its domain,
 	e.g.~the equation of terms \( s \mEQ_\mcI t \) holds if and only
 	if any evaluation of its terms are equal \( \alpha_\mcI(s) = \alpha_\mcI(t) \)
 	for all assignments \( \alpha \).
@@ -349,11 +349,11 @@ and demonstrate their usage in an example.
 	\( \mEQ_\mcH = \{ (\mf^{i+1}(\ma)), \mf^{i}(\ma) \mid i\geq 0  \}  \).
 	However \( \mcH \) is not a normal model because obviously \( \mf(\ma)\neq\ma \) in its domain.
 	%
-	Further on we easily find an normal model \( \mcM \)
-	with domain \( \{ \mc \} \), function definition \( \mf_\mcM(\mc) \mapsto \mc \),
+	Further on we easily find a normal model \( \mcM \)
+	with domain \( \{ \mc \} \), function definition \( \mf_\mcM(\mc) = \mc \),
 	and the relation \( {\mEQ_\mcM} = \{ (\mc,\mc)\} \) coincides with identity in its domain.
 	Certainly this model \( \mcM \) is not an Herbrand model
-	because the interpretation of ground term \( {\mf(\mc)}_\mcM = \mc \) is not the ground term \( \mf(\mc) \) itself.
+	because the interpretation of the ground term \( {\mf(\mc)}_\mcM = \mf_\mcM(\mc)=\mc \) is not the ground term \( \mf(\mc) \) itself.
 	%
 	On the other hand we easily construct a normal term model
 	\( \mcM_t \) with domain \( \{ {[\ma]}_\sim \} \),
@@ -382,7 +382,7 @@ This section follows basic definitions and notions as in~\cite{AM2015L}.
 
 
 \begin{definition}\label{def:rewriterule}
-	A \coloremph{rewrite rule} is an equation of terms where the left-hand side is not a variable
+	A \coloremph{rewrite rule} \( \ell\rwStep r \) is an equation of terms where the left-hand side is not a variable
 	and the variables occuring in the right-hand side occur also in the left-hand side.
 	%	\[
 	%		\ell\rwEQ r \text{ is rewrite rule }\quad :\Longleftrightarrow\quad\ell\not\in\mcV\text{ and }\var(r)\subseteq\var(l)
@@ -390,15 +390,9 @@ This section follows basic definitions and notions as in~\cite{AM2015L}.
 	A rewrite rule \( \ell'\rwStep r' \) is a \coloremph{variant} of \( \ell\rwStep r \) if there is a variable renaming \( \varrho \)
 	such that
 	\( (\ell\rightarrow r)\varrho := \ell\varrho\rightarrow r\varrho = l'\rightarrow r' \).
-	A \coloremph{term rewrite system} is a set of rewrite rules without variants.
+	A \coloremph{term rewrite system} (TRS) is a set of rewrite rules without variants.
 	In a \coloremph{ground} term rewrite system every term on every side in every rule is a ground term.
 \end{definition}
-
-Although we use the the same symbol for implications \( F\limp G \) between first order formulae
-and rewrite rules \( s\rwStep t \) or rewrite steps \( s'\rwStep_\mcR t \) between first order terms,
-there will not arise any ambiguity for the reader about the role of the symbol,
-because the implication is used between first order formulae
-and the rewrite symbol is used between (function) terms.
 
 %
 \begin{definition}
@@ -416,6 +410,12 @@ and the rewrite symbol is used between (function) terms.
 	The set of normal forms \( \mNFR \) contains all irreducible terms of the TRS \( \mcR \).
 
 	\end{definition}
+
+Although we use the the same symbol for implications \( F\limp G \) between first order formulae
+and rewrite rules \( s\rwStep t \) or rewrite steps \( s'\rwStep_\mcR t \) between first order terms,
+there will not arise any ambiguity for the reader about the role of the symbol,
+because the implication is used between first order formulae
+and the rewrite symbol is used between (function) terms.
 %
 %\begin{definition}
 %	A \coloremph{rewrite relation} is a binary relation on terms that is closed under contexts and substitutions.
