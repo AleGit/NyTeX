@@ -1,35 +1,35 @@
 \begin{table}[hbt]
 	\begin{gather*}
 	\begin{array}{ccc}
-	\infer[(\forall e)]{F'\{x\to t\}}{
-		\forall x F'
+	\infer[(\forall e)]{F\{x\to t\}}{
+		\forall x F
 	}
 	&&
-		\infer[(\exists i)]{\exists x F'}{
-		F'\{x\mapsto t \}
+		\infer[(\exists i)]{\exists x F}{
+		F\{x\mapsto t \}
 	}
 	\\[1em]
-	\infer[(\forall i)]{\forall x F'}{
+	\infer[(\forall i)]{\forall x F}{
 		\boxed{
 			\begin{array}{cc}
 				x_0
 				\\
 				&\vdots
 				\\
-				&F' \{x\mapsto x_0 x\}
+				&F \{x\mapsto x_0\}
 			\end{array}} % end of boxed
 	}
 	&&
-	\infer[(\exists e)]{H}{
-		\exists x F' &
+	\infer[(\exists e)]{G}{
+		\exists x F &
 		\boxed{
 			\begin{array}{cc}
 				x_0
-				&F' \{ x\mapsto x_0 \}
+				&F \{ x\mapsto x_0 \}
 				\\
 				&\vdots
 				\\
-				&H
+				&G
 			\end{array}} % end of boxed
 	}
 	\end{array}

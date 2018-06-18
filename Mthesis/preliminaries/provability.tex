@@ -32,12 +32,14 @@ is outside of any box
 and has been inferred (via a finite set of intermediate formulae)
 from \( \{ F_1,\ldots,F_n\} \).
 
-\begin{example}We show \( \forall x (\mP(x)\land\lnot\mQ(x)) \proves \forall x(\lnot\mQ(x)\land\mP(x)) \) with natural deduction.
-	We note our premise (1), we open a box and assume a fresh variable \( x_0 \)(2),
+\begin{example}We show \( \forall x (\mP(x)\land\lnot\mQ(x)) \proves \forall x(\lnot\mQ(x)\land\mP(x)) \) with natural deduction in Figure~\ref{fig:natural:dedction:proof}.
+	First we note our premise (1), then we open a box and assume a fresh variable \( x_0 \)(2),
 	we create an instance of our premise with quantifier elimination and the variable \( x_0 \) (3),
 	we extract the literals with both variants of conjunction elimination (4, 5),
 	we introduce a conjunction of the literals (6),
 	and close the box to introduce the universally quantified conjunction (7).
+	\begin{figure}
+		\begin{center}
 	\begin{gather*}
 	\begin{BMAT}{rcrclccl}{ccccccccc}
 1 && 		&& \forall x(\mP(x)\land\lnot\mQ(x)) 	& && \texttt{premise}\\
@@ -50,4 +52,7 @@ from \( \{ F_1,\ldots,F_n\} \).
 \addpath{(2,1,1)rrrruuuuullllddddd}
 \end{BMAT}
 \end{gather*}
+\caption{\( \forall x (\mP(x)\land\lnot\mQ(x)) \proves \forall x(\lnot\mQ(x)\land\mP(x)) \)}
+\end{center}
+\end{figure}\label{fig:natural:dedction:proof}
 \end{example}

@@ -16,15 +16,17 @@
 
 \input{definitions/NDEquality}
 
-\begin{definition}[\cite{Huth:2004:LCS:975331}]\label{def:natural:deduction}
+\begin{definition}[Natural deduction~\cite{Huth:2004:LCS:975331}]\label{def:natural:deduction}
+	Let \( F \), \( G \), and \( H \) be first order formulae and
+	\(s\) and \(t\) be first order terms.
 	We recall the rules of \coloremph{natural deduction} for connectives
-	in Table~\ref{tab:natural:deduction:connectives}
-	where \( F \), \( G \), and \( H \) are arbitrary first order formulae,
-	equality in Table~\ref{tab:natural:deduction:equality}
-	where first order terms \( s \) and \( t \) are free for \( x \) in \( F' \),
-	and quantifiers in
+	in Table~\ref{tab:natural:deduction:connectives},
+	the rules for equality in Table~\ref{tab:natural:deduction:equality}
+	where \( s \) and \( t \) are free for variable \( x \) in formula \( F \),
+	and the rules for quantifiers in
 	Table~\ref{tab:natural:deduction:quantifiers}
-	where \( x_0 \) is a \emph{fresh} variable symbol,
+	where
+	\( x_0 \) is a \emph{fresh} variable symbol,
 	i.e.~\( x_0 \) did not occur in any formula so far.
 \end{definition}
 
