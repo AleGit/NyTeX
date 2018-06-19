@@ -18,13 +18,14 @@
         \node (RWRx) at (0,4.4) { \( \rightarrow^*_\mcR \) };
         \node (RWR) at (0,4) { rewrite relation };
 
-        \node (defSTP) at (-2,2.5) { \( \ctx\neq\ctxhole\Rightarrow \ctx[s]\succ s \) };
+        \node (defSTP) at (-2,2.5) { \( u[\ ]\neq\ctxhole\Rightarrow u[s]\succ s \) };
         \node (STP) at (-2,2) { subterm property };
         \node (RWO) at (2,2) { rewrite order };
         \node (defWF) at (8,4.5) { \( \nexists s_0(s_i\succ s_{i+1})_{i=0}^{\infty} \) };
         \node (WF) at (8,4) { well-founded };
 
         \node (SO) at (0,0) {simplification order};
+        \node (ROx) at (4,0.4) {\(\succ\)};
         \node (RO) at (4,0) {reduction order};
 
         \node (WFO) at (6,2) { well-founded order };
@@ -37,6 +38,7 @@
         \draw[->] (PO) -- (TRA);
 
         \draw[->] (RWR) -- (CL);
+        \draw[->, dotted] (RWR) -- (TRA);
 
         \draw[->] (RWO) -- (PO);
         \draw[->] (RWO) -- (RWR);

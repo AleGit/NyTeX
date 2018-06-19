@@ -389,7 +389,7 @@ This section follows basic definitions and notions as in~\cite{AM2015L}.
 	%	\]
 	A rewrite rule \( \ell'\rwStep r' \) is a \coloremph{variant} of \( \ell\rwStep r \) if there is a variable renaming \( \varrho \)
 	such that
-	\( (\ell\rightarrow r)\varrho := \ell\varrho\rightarrow r\varrho = l'\rightarrow r' \).
+	\( (\ell\rightarrow r)\varrho = \ell\varrho\rightarrow r\varrho = l'\rightarrow r' \).
 	A \coloremph{term rewrite system} (TRS) is a set of rewrite rules without variants.
 	In a \coloremph{ground} term rewrite system every term on every side in every rule is a ground term.
 \end{definition}
@@ -455,12 +455,13 @@ and the rewrite symbol is used between (function) terms.
 \end{definition}
 \begin{definition}
 	Let \( \mcR \) be a TRS, \( s \) and \( t \) be terms.
-	The relation \( s \rightarrow^*_\mcR t \) holds if \( s \) can be rewritten to \( t \).
-	\( s \rightarrow^+_\mcR t \) holds \( s \) can be rewritten to \( t \)
+	% The relation \( s \rightarrow^*_\mcR t \) holds if \( s \) can be rewritten to \( t \).
+	The relation \( s \rightarrow^+_\mcR t \) holds
+	if \( s \) can be rewritten to \( t \)
 	and the length of the rewrite sequence is at least one,
-	relation \( s \downarrow_\mcR t \) holds if there is a term \( r \) such that
+	relation \( s \uparrow_\mcR t \) holds if there is a term \( r \) such that
 	\( r \rightarrow^*_\mcR s \) and \( r \rightarrow^*_\mcR t \), and
-	relation \( \uparrow_\mcR \) holds if there is a term \( u \) such that
+	relation \( s \downarrow_\mcR t\) holds if there is a term \( u \) such that
 	\( s \rightarrow^*_\mcR u \) and \( t \rightarrow^*_\mcR u \).
 \end{definition}
 \begin{lemma}
@@ -471,7 +472,7 @@ and the rewrite symbol is used between (function) terms.
 %%
 \begin{definition}\label{def:simplification:order}
 	A proper (i.e.~irreflexive and transitive) order on terms is called \coloremph{rewrite order} if it is a rewrite relation.
-	A \coloremph{reduction order} is a well-founded rewrite order,
+	A \coloremph{reduction order} \( \succ \) is a well-founded rewrite order,
 	i.e.~there is no infinite sequence
 	\( {(a_i)}_{i\in\mathbb{N}} \)
 	where \( a_i\succ a_{i+1} \) for all \( i \).
