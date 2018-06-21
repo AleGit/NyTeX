@@ -61,8 +61,11 @@ to create a general procedure that checks the validity of arbitrary first order 
 
 
 \begin{lemma}[Refutation]
-	By definition of the semantics of negation a formula is valid if and only if its negation is not satisfiable.
+	A formula is valid if and only if its negation is not satisfiable.
 \end{lemma}
+\begin{proof}
+By definition of the semantics of negation, validity, and satisfiability.
+\end{proof}
 
 \begin{theorem}
 	[Undecidability~\cite{church_1936,turing1937}, Church 1936,
@@ -103,7 +106,9 @@ to create a general procedure that checks the validity of arbitrary first order 
 
 \begin{lemma}
 	Skolemization preserves satisfiability.
+\end{lemma}
 
+\begin{lemma}
 	Tseytin`s transformation preserves satisfiability.
 \end{lemma}
 
@@ -131,16 +136,18 @@ of first-order logic where satisfiability is decidable.%\footnote{
 
 
 \begin{definition}[\cite{MR1482227}]\label{def:prefix:class}
-	We describe classes of first-order formulae in \PNF{} with triples
+	We define classes, i.e.~sets of first-order formulae, with triples
 	\[
-	{[ \, \Pi, (p_1,p_2,\ldots), (f_1,f_2,\ldots) \, ]}_{(\mEQ)}
+	{[ \, \Pi, (p_1,p_2,\ldots, p_{j}), (f_1,f_2,\ldots, f_{k}) \, ]}_{(\mEQ)}
 	\subseteq {[\, all, all, all\,]}_{\mEQ}
 	\]
 	where \( \Pi = \quantify_1 \ldots \quantify_n \),
 	\( \quantify_i\in \{ \forall, \exists \} \)
-	describes the structure of the quantifier prefix (without variables) of the formulae,
-	the value \( p_i \) is the maximal number of predicate symbols with arity \( i \),
-	and the value \( f_i \) the maximal number of function symbols with arity \( i \) in the signature.
+	describes the structure of the quantifier prefix (without variables) of the formulae in \PNF{} and \( all \) in the first position denotes arbitrary prefixes of any length.
+	The value \( p_i \) represents the maximal number of predicate symbols with arity \( i \) and \( p_\ell = 0 \) for \( \ell > j \).
+	Similar the value \( f_i \) represents the maximal number of function symbols with arity \( i \) and \( f_\ell = 0 \) for \( \ell > k \).
+	In both cases \( all \) denotes an arbitrary number of symbols with any arity.
+%
 	The equality symbol is not counted as binary predicate symbol. Instead,
 	the absence or presence of equality in the formulae
 	is indicated by the absence or presence of a subscript \( \mEQ \).
@@ -229,9 +236,9 @@ by A. Middeldorp in~\cite{AM2015L}.
 		\quad\text{ or }\quad
 		\bigwedge_i A_i \limp \mathsf{theorem}
 	\]
-	A theory is decidable if it is decidable whether an arbitrary sentence holds in the theory, i.e.~if the sentence is a consequence of the axioms.
+	A theory is \coloremph{decidable} if there is a decision procedure whether an arbitrary sentence holds in the theory, i.e.~if the sentence is a consequence of the axioms.
 \end{definition}
-
+%
 \begin{example}
 A theory with axioms \( \forall x\,\mP(x) \) and \( \exists x\,\lnot\mP(x) \) is neither consistent nor satisfiable.
 \end{example}
@@ -239,6 +246,16 @@ A theory with axioms \( \forall x\,\mP(x) \) and \( \exists x\,\lnot\mP(x) \) is
 \begin{lemma}
 	A first order theory is consistent if and only if it is satisfiable.
 \end{lemma}
+%
+Even if we can decide that a sentence is not a theorem in a theory,
+e.g.~if we find a model for the axioms where the sentence does not hold,
+we still cannot conclude that the negation of the sentence is a theorem.
+\begin{example}
+	The sentence \( F = \forall x \forall y\, (x\mEQ y) \) is definitly not a theorem in many theories, but its negation \( \lnot F \equiv \exists x \exists y\, (x \mNE y) \) is not a theorem in any theory that allows models with a universe of cardinality one.
+\end{example}
+\begin{definition}
+	A (consistent) theory is \coloremph{complete} iff for any sentence in the theory (either) the sentence or its negation is a theorem in the theory.
+\end{definition}
 %
 \begin{remark}
 In refutational theorem proving
