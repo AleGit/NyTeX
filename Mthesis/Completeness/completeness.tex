@@ -948,27 +948,37 @@ The set of persistent clauses \( S^\infty \) denotes the lower limit of \( {\{ S
 
     \begin{definition}
         Let \( \mcF = \mcFfPE \) be a first order signature.
-        We construct an extended set of function symbols
-        % from \( \mcF \)
+        We construct a set of “Boolean“ function symbols
         \[
-            {\mcF'_\mf} = \mcFf
+            \bool{\mcF} = \{ \, \bool{\mP} \mid \mP \in \mcFP \, \}
+        \]
+        from the set of predicate symbols \( \mcFP \).
+        We construct an extended set of function symbols
+        \[
+            \mcFf' = \mcFf
+            \disjointunion
+            \bool{\mcF}
  \disjointunion
-            \{ \mc_\top \mid \mc_\top\not\in\mcF \}
- \disjointunion
-            \{ \mP_{\mf} \mid \mP \in \mcFP, \mP_{\mf}\not\in\mcFf \}
+            \{ \bool{\mc}
+            % \mid \bool{\mc}\not\in\mcF, \bool{\mc}\not\in\bool{\mcF}
+            \}
             \]
-        such that \( \mc_\top \) is a constant function symbol,
-        and \( \arity(\mP_{\mf}) = \arity(\mP) \) for all \( \mP_\mf \).
+        from \emph{uninterpreted} function symbols \( \mcFf \),
+        Boolean function symbols \( \bool\mcF \),
+        and fresh Boolean constant \( \bool{\mc} \),
+        such that \( \arity(\bool{\mP}) = \arity(\mP) \) for all \( \bool{\mP}\in\bool{\mcF} \).
         We extend our term order \( \succG \) to the new symbols
-        such that \( \mc_\top \) is the smallest “predicate” ground term.
+        such that \( \bool{\mc} \) is the smallest Boolean ground term,
+        i.e.~the smallest ground term with a Boolean function symbol
+        at its root position (and no other position).
     \end{definition}
 
     \begin{definition}
         We translate a set of clauses over signature \( \mcF \)
-        into a equisatisfiable and purely equational set of clauses
-        over purely equational signature
+        into an equisatisfiable and purely equational set of clauses
+        over the purely equational signature
         \( {\mcF'_{\!\mEQ}} = {\mcF'_\mf}
-        \, \disjointunion \, \emptyset
+        % \, \disjointunion \, \emptyset
         \, \disjointunion  \{ \mEQ \} \)
         by replacing predicates with equations.
         \begin{align*}
@@ -976,16 +986,16 @@ The set of persistent clauses \( S^\infty \) denotes the lower limit of \( {\{ S
             T_\mEQ(C) &= \bigcup_{L\in C} T_\mEQ(L) \\
             T_\mEQ(s\mEQ t) &= s\mEQ t &
             T_\mEQ(s\mNE t) &= s\mNE t \\
-            T_\mEQ(\mP(t_1,\ldots,t_n)) &= \mP_\mf(t_1,\ldots,t_n)\mEQ\mc_\top &
-            T_\mEQ(\lnot\mP(t_1,\ldots,t_n)) &= \mP_\mf(t_1,\ldots,t_n)\mNE\mc_\top
+            T_\mEQ(\mP(t_1,\ldots,t_n)) &= \bool{\mP}(t_1,\ldots,t_n)\mEQ\bool{\mc} &
+            T_\mEQ(\lnot\mP(t_1,\ldots,t_n)) &= \bool{\mP}(t_1,\ldots,t_n)\mNE\bool{\mc}
         \end{align*}
     \end{definition}
 
     The original equations of terms stay unchanged
     while we replace each predicate with an equation,
     and each negated predicate with an inequation,
-    where we have a “predicate” term on the left side
-    and a the “predicate” constant \( \mc_\top \) on the right side.
+    where we have a Boolean term on the left side
+    and the Boolean constant \( \bool{\mc} \) on the right side.
 
 
 
@@ -1003,18 +1013,18 @@ The set of persistent clauses \( S^\infty \) denotes the lower limit of \( {\{ S
             \begin{gather*}
                 \infer
                 [ (\sigma) ]
-                {A_\mf[t]\sigma\mNE\mc_\top}
-                {s\mEQ t&A_\mf[s']\mNE\mc_\top}
+                {{A}[t]\sigma\mNE\bool{\mc}}
+                {s\mEQ t&{A}[s']\mNE\bool{\mc}}
                 \qquad\qquad
                 \infer
                 [ (\sigma)  ]
-                {A_\mf[t]\sigma\mEQ \mc_\top}
-                {s\mEQ t&A_\mf[s']\mEQ \mc_\top}
+                {{A}[t]\sigma\mEQ \bool{\mc}}
+                {s\mEQ t&{A}[s']\mEQ \bool{\mc}}
                 \end{gather*}
             where \( \sigma=\mgu(s,s') \) is defined,
             \( s'\not\in\mcV \),
             \( s\sigma\theta\succG t\sigma\theta \),
-            \( \textcolor{colG}{(A_\mf[s']\sigma\theta\succG\mc_\top)} \)
+            {(\( {A}[s']\sigma\theta\succG\bool{\mc} \))}
 
             for some grounding substitution \( \theta \);
 
@@ -1030,14 +1040,14 @@ The set of persistent clauses \( S^\infty \) denotes the lower limit of \( {\{ S
                 {
                     \infer[(\emptyset)]
                     {\emptyclause}
-                    {\mc_\top \mNE \mc_\top}
+                    {\bool{\mc} \mNE \bool{\mc}}
                     }
-                {A\mEQ\mc_\top & \lnot B\mNE\mc_\top}
+                {A\mEQ\bool{\mc} & \lnot B\mNE\bool{\mc}}
             \end{gather*}
             where \( \sigma=\mgu(A,B) \) is defined,
-            \textcolor{colG}{
-                \( (A\sigma\theta\succ\mc_\top) \)
-                for any grounding substitution \( \theta \)
+            {
+                (\( A\sigma\theta\succ\bool{\mc} \)
+                for any grounding substitution \( \theta \))
             }
         \end{itemize}
     \end{proof}
@@ -1048,7 +1058,7 @@ The set of persistent clauses \( S^\infty \) denotes the lower limit of \( {\{ S
         and the application of the unit para\-modulation
         to translated literals are well defined,
         e.g.\ we will not end up with literals like
-        \( x \mEQ \mc_\top \),
+        \( x \mEQ \bool{\mc} \),
         \( \mP_\mf(x) \mEQ x \) or
         \( \mf(\mP_\mf(x)) \mEQ x \).
 
@@ -1058,23 +1068,23 @@ The set of persistent clauses \( S^\infty \) denotes the lower limit of \( {\{ S
         The root symbols of the two terms of an equation are always of the same sort.
 
         Due the extended order \( \succG \), where
-        \( \mc_\top \) is the smallest term,
+        \( \bool{\mc} \) is the smallest term,
         even \( \mP_\mf(x) \mEQ \mQ_\mf(x) \) cannot be derived from
-        literals \( \mP_\mf(x) \mEQ \mc_\top \) and \(\mQ_\mf(x) \mEQ \mc_\top \). So we can easily transform derived literals back to predicate logic.
+        literals \( \mP_\mf(x) \mEQ \bool{\mc} \) and \(\mQ_\mf(x) \mEQ \bool{\mc} \). So we can easily transform derived literals back to predicate logic.
 
         Further we can easily transform predicate models to equational models and vice versa.
         \begin{align*}
             \mcM\models&\,\mP(s)
             &\Longleftrightarrow&&
-            \mcM'\models&\,\mP(s)\mEQ \mc_\top
+            \mcM'\models&\,\mP(s)\mEQ \bool{\mc}
             \\
             \mcM\models&\,\lnot\mP(s)
             &\Longleftrightarrow&&
-            \mcM'\models&\,\mP(s)\mNE \mc_\top
+            \mcM'\models&\,\mP(s)\mNE \bool{\mc}
         \end{align*}
         i.e.\ %
         \( s\in P_{\mcM} \) if and only if the evaluations
-        \( v'_{\mcM'}(\mP(s)) = v'_{\mcM'}(\mc_\top) \) are equal.
+        \( v'_{\mcM'}(\mP(s)) = v'_{\mcM'}(\bool{\mc}) \) are equal.
     \end{remark}
 
 
