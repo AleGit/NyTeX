@@ -5,13 +5,13 @@
 \chapter{Completeness}\label{chapter:completeness}
 
 In the previous chapter we stated some calculi
-that has been used for the implementation
+that have been used for the implementation
 of automated theorem provers.
 %
-It was easy to see that Gilmore`s prover is theoretically complete,
+It was easy to see that Gilmore's prover is theoretically complete,
 but practically very inefficient.
-Additionally it would not stop for clearly satisfiable and simple sets of clauses.
-While it seams intuitive that resolution is complete
+Additionally it does not stop for clearly satisfiable and simple sets of clauses.
+While it seems intuitive that resolution is complete
 --- we search for all clashing literals between clauses and resolve them ---
 it is puzzling that ordered resolution and then superposition are indeed complete.
 At first sight we could expect that all these restrictions
@@ -22,14 +22,14 @@ and stricter conditions for a rule's application
 could improve the efficiency of a procedure,
 but undermine the completeness
 of the procedure, e.g.~an empty calculus,
-i.e.~a calculus without any rules,
+a calculus without any rules,
 is obviously sound and very efficient, but not complete.
 %
-In other words we have to prove for every saturation based calculus
+In other words we have to prove for every saturation-based calculus
 that we can decide satisfiability of any saturated set of clauses.
 That's even true for Gilmore's prover, but in most cases
 ---
-the signature contains at least one not-constant predicate symbol
+the signature contains at least one non-constant predicate symbol
 (or the equality symbol)
 and one non-constant function symbol
 ---
@@ -54,7 +54,7 @@ In Section~\vref{sec:inst:saturated:sets} we present
 an untangled version of the proof of satisfiability
 of saturated sets of closures
 from the literature~\cite{GK2004csl}.
-After that we look a saturation strategies in
+After that we look at saturation strategies in
 Section~\vref{sec:saturation:strategies}
 and finally we apply the completeness result to \InstGenEQ{}
 in Section~\vref{sec:equational:reasoning:on:predicates}.
@@ -63,7 +63,7 @@ in Section~\vref{sec:equational:reasoning:on:predicates}.
 % Section~\vref{sec:inst:process:fairness}.
 
 
-\section{Equational Reasoning on equation closures}\label{sec:reasoning:on:equational:closures}
+\section{Equational Reasoning on Equation Closures}\label{sec:reasoning:on:equational:closures}
 
 \begin{definition}
     A closure is a pair of a clause \( C \) and a substitution \( \sigma \),
@@ -77,7 +77,7 @@ in Section~\vref{sec:equational:reasoning:on:predicates}.
 For the following definitions we assume
 \( \succG \) as a a total, well-founded and monotone extension
 from a total simplification ordering on ground terms
-to ground literal and clauses~\cite{NR2001},
+to ground literals and clauses~\cite{NR2001},
 which always exists.
 
 
@@ -92,10 +92,11 @@ which always exists.
 	% 5.1
     We define an order \( \succC \) on ground closures
     as an arbitrary total well-founded extension of
-    \( \succC' \) --- an inherently well-founded order defined as extension of \( \succG \)
+    % \( \succC' \) --- an inherently well-founded order defined as extension of 
+    \( \succG \)
     such that
-    \( C\cdot\tau\succC' D\cdot\rho \) whenever
-    \( C\tau\succG D\rho \) or \( C\theta = D \) for an proper instantiator \( \theta \).
+    \( C\cdot\tau\succC D\cdot\rho \) whenever
+    \( C\tau\succG D\rho \) or \( C\theta = D \) for a proper instantiator \( \theta \).
 \end{definition}
 
 \begin{remark}
@@ -116,7 +117,7 @@ which always exists.
        &
        \left.
        \begin{array}{r}
-        C\tau=D\rho, C\theta=D
+        (C\tau=D\rho\text{ and }C\theta=D)
         \\
         \text{or } C\tau\succG D\rho
     \end{array}
@@ -128,9 +129,9 @@ which always exists.
         literals \( L, L' \),
         clauses \( C,D \),
         ground substitutions \( \sigma, \tau, \rho \),
-        and instantiator \( \theta \).
+        and proper instantiator \( \theta \).
         Note that the order on unit closures is slightly different than on literal closures, e.g.:
-       \begin{align*}
+       \begin{align*} 
             (\mf(x)\mEQ x)\cdot \{ x\mapsto \ma \}
             &\succC
             (\mf(\ma)\mEQ\ma)\cdot\emptyset
@@ -149,7 +150,8 @@ which always exists.
         \infer[(\sigma)]
         {(\underset{\mEQ}{L}[r])\sigma\cdot\rho}
         {(l\mEQ r)\cdot\theta_{\!_1} & (\underset{\mEQ}{L}[l'])\cdot\theta_{\!_2}}
-    \qquad\qquad\qquad
+    % \qquad\qquad\qquad
+    \hspace{6cm}
         \infer[(\sigma')]
         {\emptyclause}
         {(s'\mNE t')\cdot\theta'}
@@ -160,13 +162,13 @@ which always exists.
         \( \sigma = \mgu(l,l') \),
         \( l'\not\in\mcV \),
         \( l\theta_{\!_1} \succG r\theta_{\!_1} \),
-        \( s['l']\theta_{\!_2} \succG t\theta_{\!_2} \)
+        \( s[l']\theta_{\!_2} \succG t\theta_{\!_2} \)
         \hfill \( \sigma' = \mgu(s',t') \)
         \item
         \( l\theta_{\!_1} = l'\theta_{\!_2} \),
         \( \var(\{l,r\}) \cap \var(\{ s[l'],t \}) = \emptyset \)
         \hfill \( s'\theta' = r'\theta' \)
-        \item
+        \item there exists
         \( \rho \) such that
         \( (\theta_{\!_1}\cup\theta_{\!_2}) = \sigma\rho \),
         \( \domain(\rho) \subseteq \var(\{ s[r],t \}) \)
