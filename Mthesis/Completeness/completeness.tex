@@ -145,18 +145,27 @@ which always exists.
 
    %%% see CS2011PhD, p.45f %%%
 
-   \begin{definition}[Unit superposition and resolution on closures~\cite{GK2004csl,CS2011PhD}, UPC]\label{def:unit:superposition:on:closures}
+   \begin{definition}[Unit superposition and resolution on closures~\cite{CS2011PhD}, UPC]\label{def:unit:superposition:on:closures}
     \begin{gather*}
         \infer[(\sigma)]
         {(\underset{\mEQ}{L}[r])\sigma\cdot\rho}
         {(l\mEQ r)\cdot\theta_{\!_1} & (\underset{\mEQ}{L}[l'])\cdot\theta_{\!_2}}
-    % \qquad\qquad\qquad
-    \hspace{6cm}
+    \hspace{5cm}
+    % \qquad
+    %     \infer[(\sigma)]
+    %     {(s[r]\mNE t)\sigma\cdot\rho}
+    %     {(l\mEQ r)\cdot\theta_{\!_1} & (s[l']\mNE t)\cdot\theta_{\!_2}}
+    % \qquad
+    %     \infer[(\sigma)]
+    %     {(s[r]\mEQ t)\sigma\cdot\rho}
+    %     {(l\mEQ r)\cdot\theta_{\!_1} & (s[l']\mEQ t)\cdot\theta_{\!_2}}
+    % \qquad
         \infer[(\sigma')]
         {\emptyclause}
         {(s'\mNE t')\cdot\theta'}
     \end{gather*}
-    with \( \underset{\mEQ}{L}[l'] \in \{ s[l']\mNE t, s[l']\mEQ t \} \) and
+    with \( \underset{\mEQ}{L}[l'] \in \{ s[l']\mNE t, s[l']\mEQ t \} \) 
+    where
     \begin{itemize}
         \item
         \( \sigma = \mgu(l,l') \),
@@ -174,6 +183,15 @@ which always exists.
         \( \domain(\rho) \subseteq \var(\{ s[r],t \}) \)
     \end{itemize}
    \end{definition}
+
+   \begin{remark}
+    The corresponding inference rule in \cite{GK2004csl} 
+    misses \( s[l']\theta_{\!_2} \succG t\theta_{\!_2} \) 
+    and is still sound.
+    But we can expect that a calculus based on the inference rules above 
+    may draw less inferences with this restriction in place
+    than without.
+   \end{remark}
 
 %    \begin{example}
 %         Let \( \mf(s,t,u)\succG\mg(s') \) for all ground terms
