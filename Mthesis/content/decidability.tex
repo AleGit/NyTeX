@@ -5,11 +5,12 @@
 
 \chapter{Undecidability}
 
-A logical calculus, i.e.~a formal (purely syntactical) proof system for an underlying logic,
-is \coloremph{complete} if every (semantically) valid formula is (syntactically) provable from its premises by the calculus.
+A logical calculus, i.e.~a formal (or purely syntactical) proof system for an underlying logic,
+is \coloremph{complete} if every (semantically) valid formula is (syntactically) 
+provable from its premises by the calculus.
 In other words, every sentence that holds in all possible models for its premises
 is derivable from its premises by applying rules of the formal system only.
-Additional we expect a useful calculus to be \coloremph{sound}, that is,
+Naturally we expect a useful calculus to be \coloremph{sound}, that is,
 every (syntactically) provable formula (semantically) holds in any model for its premises.
 Without premises a sentence has to be provable if and only if it holds in any interpretation of its signature.
 
@@ -69,7 +70,7 @@ By definition of the semantics of negation, validity, and satisfiability.
 
 \begin{theorem}
 	[Undecidability~\cite{church_1936,turing1937}, Church 1936,
-	Turing 1937. ]
+	Turing 1937.]
 	The satisfiability problem for first-order logic is undecidable.
 \end{theorem}
 
@@ -85,7 +86,7 @@ By definition of the semantics of negation, validity, and satisfiability.
 	If every finite subset of a set of formulas \( S \) has a model then \( S \) has a model.
 \end{theorem}
 
-\begin{theorem}[Löwenheim Skolem, 1915, 1920]\label{the:loewenheim}
+\begin{theorem}[Löwenheim-Skolem, 1915, 1920]\label{the:loewenheim}
 	If a set of formulas \( S \) has a model then \( S \) has a countable model.
 \end{theorem}
 
@@ -109,7 +110,7 @@ By definition of the semantics of negation, validity, and satisfiability.
 \end{lemma}
 
 \begin{lemma}
-	Tseytin`s transformation preserves satisfiability.
+	Tseitin transformation preserves satisfiability.
 \end{lemma}
 
 \begin{lemma}
@@ -117,45 +118,89 @@ By definition of the semantics of negation, validity, and satisfiability.
 \end{lemma}
 
 \begin{lemma}
-With Skolemization and Tseytin transformation we can effectively transform a arbitrary first-order formula into an equisatisfiable set of clauses.
+With skolemization, Herbrandization, and Tseitin transformation introduced 
+we can effectively transform an arbitrary first-order formula 
+into an equisatisfiable set of clauses.
 \end{lemma}
 
 
 \section{Decidable Fragments of First Order Logic}\label{sec:decidable:fol:fragments}
 
 Validity and satisfiability in general are undecidable in First Order Logic.
-However this section presents purely syntactical defined (tiny) fragments
+However this section presents purely syntactically defined (tiny) fragments
 of first-order logic where satisfiability is decidable.%\footnote{
 % 	\,Definitions and compact overviews follow the presentation
 % 	“\href{http://logic.rwth-aachen.de/~graedel/kalmar.pdf}{Decidable fragments of first-order and fixed-point logic}”
 % 	by E.~Grädel (\url{http://logic.rwth-aachen.de/~graedel/}).
 % }
 
-
-
-
-
 \begin{definition}[\cite{MR1482227}]\label{def:prefix:class}
-	We define classes, i.e.~sets of first-order formulae, with triples
+	We introduce a simple notation to define fragments 
+	of first order logic---i.e.~sets of first order sentences in \PNF{}---by 
+	the syntactic structure of the included sentences.
 	\[
-	{[ \, \Pi, (p_1,p_2,\ldots, p_{j}), (f_1,f_2,\ldots, f_{k}) \, ]}_{(\mEQ)}
-	\subseteq {[\, all, all, all\,]}_{\mEQ}
+		{[ \, \Pi, (p_i)_{i>0}, (f_i)_{i>0} \, ]}_{(\mEQ)}
+		\subseteq {[\, all, all, all\,]}_{\mEQ}
 	\]
-	where \( \Pi = \quantify_1 \ldots \quantify_n \),
-	\( \quantify_i\in \{ \forall, \exists \} \)
-	describes the structure of the quantifier prefix (without variables) of the formulae in \PNF{} and \( all \) in the first position denotes arbitrary prefixes of any length.
-	The value \( p_i \) represents the maximal number of predicate symbols with arity \( i \) and \( p_\ell = 0 \) for \( \ell > j \).
-	Similar the value \( f_i \) represents the maximal number of function symbols with arity \( i \) and \( f_\ell = 0 \) for \( \ell > k \).
-	In both cases \( all \) denotes an arbitrary number of symbols with any arity.
-%
-	The equality symbol is not counted as binary predicate symbol. Instead,
-	the absence or presence of equality in the formulae
-	is indicated by the absence or presence of a subscript \( \mEQ \).
+	where 
+	% 
+	\begin{enumerate}
+		\item \( \Pi \) is a regular expression over quantifier symbols 
+		\( \{ \forall\,\exists \} \) 
+		to define the set of possible prefixes of sentences in the fragment, 
+		e.g.~with \( \Pi = \forall^*\exists \) we have 
+		\( \mcL(\Pi) = \{ \exists, \forall \exists, \forall\forall\exists, \ldots \} \)
+		where prefix \( \forall x \exists y \) matches,
+		but \( \exists x \exists y \) does not.
+	% 
+	\item \( (p_i)_{i>0} \) is an infinite sequence of 
+	\( p_i \in \mathbb{N}\disjointunion\{ \omega \} \) where 
+	\( p_i \) represents the maximal number of predicate symbols 
+	with arity \( i \in \mathbb{N}\disjointunion\{ \omega \} \),
+	% 
+	\item \( (f_i)_{i\in\mathbb{N}} \) is an infinite sequence of 
+	\( f_i \in \mathbb{N}\disjointunion\{ \omega \} \) where
+	\( f_i \) represents the maximal number of function symbols with arity \( i \),
+	% 
+	\item the equality symbol is not counted as binary predicate symbol. 
+	Instead, the absence or presence of equality in the fragment
+	is indicated by the absence or presence of a subscript \( \mEQ \),
+% 
+	\item and infinite sequences \( (v_i)_{i>0} \) are represented by
+	finite sequences \( (v_1,v_2,\ldots,v_\ell) \) if
+	\( v_j = 0 \) for all \( j > \ell \).
+\end{enumerate}
+\begin{remark}
+	The notation \( [\,all,all,all\,]_{\mEQ} \) abbreviates
+	\( [\,
+		\{\forall\,\exists\}^{*}, 
+		(\omega)_{i\in\mathbb{N}},
+		(\omega)_{i\in\mathbb{N}},	  
+	\,]_{\mEQ} \) 
+	and simply denotes to the set of all first order sentences in \( \PNF \)
+	with an arbitrary signature with equality. 
+\end{remark}
 \end{definition}
+
+\begin{example}
+	The sentence 
+	\( 
+		\forall x \exists y \, \mP(\mf(x)\lor\lnot\mP(y)))
+		\in	[\, \forall\exists, (\omega, 1), (1) \,] 
+	\),
+	i.e.~sentences with prefix 
+	\( \forall\exists \),
+	arbitrarily many predicate symbols of arity 1, one predicate symbol of one arity 2, 
+	no predicate symbol of arity 3 or more,
+	one function symbol with arity 1,
+	and no function symbol with arity 2 or more.
+\end{example}
+
+We now look on two historical examples of decidable fragments of first order logic.
 
 \begin{example}\label{ex:monadic}
 	The monadic predicate calculus includes formulae with arbitrary quantifier prefixes,
-	arbitrary many unary predicate symbols, the equality symbol, but no function symbols.
+	arbitrarily many unary predicate symbols, the equality symbol, but no function symbols.
 	\begin{gather*}
 	{\colG {[\,all, (\omega), (1)\,]}_{\mEQ}
 	\quad\supsetneq}\qquad
@@ -202,7 +247,7 @@ of first-order logic where satisfiability is decidable.%\footnote{
 
 \begin{table}[hbt]
 	\begin{align*}
-	[ \, all, (\omega), (1)& \, ]{}_{mEQ} \tag{Rabin 1969}
+	[ \, all, (\omega), (1)& \, ]{}_{\mEQ} \tag{Rabin 1969}
 	\\
 	[ \, \exists^{∗}\forall\exists^{∗}, all, (1)& \, ]{}_{\mEQ} \tag{Shelah 1977}
 	\end{align*}
@@ -229,12 +274,12 @@ by A. Middeldorp in~\cite{AM2015L}.
 	A theory is \coloremph{consistent} if the contradiction is not derivable.
 	A theory is satisfiable if there exists a model for its axioms.
 %
-	A \coloremph{theorem} is a sentence over the theory's signature,
+	A \coloremph{theorem} \( \phi \) is a sentence over the theory's signature,
 	i.e.~a closed formula, that holds in any model for the theory's axioms.
 	\[
-		\bigwedge_i A_i \models \mathsf{theorem}
+		\bigwedge_i A_i \models \phi
 		\quad\text{ or }\quad
-		\bigwedge_i A_i \limp \mathsf{theorem}
+		\bigwedge_i A_i \limp \phi
 	\]
 	A theory is \coloremph{decidable} if there is a decision procedure whether an arbitrary sentence holds in the theory, i.e.~if the sentence is a consequence of the axioms.
 \end{definition}
