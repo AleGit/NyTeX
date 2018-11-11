@@ -44,7 +44,7 @@ To actually prove a theorem
 we first can make use of the fact that a first-order formula is valid if and only if its negation is unsatisfiable.
 Second we can efficiently transform a negated sentence into an
 \coloremph{equisatisfiable} set of clauses
-(with Skolemization and Tseytin`s transformation~\cite{tseitin70}),
+(with Skolemization and Tseitin transformation transformation~\cite{tseitin70}),
 i.e.~the negated sentence is satisfiable if and only if the set of clauses is satisfiable.
 
 %This can be done efficiently with Skolemization \cite{books/el/RV01/Hahnle01} and Tseytin-transformation \cite{tseitin70, PLAISTED1986293} as shown in \cite{Nonnengart01computingsmall}.
@@ -432,7 +432,7 @@ So far we have observed three main disadvantages in Gilmore's procedure.
 	The check for unsatisfiability is far from efficient.
 	The transformation from a set of clauses
 	to a formula in disjunctive normal form\footnote{
-		In contrast the linear Tseytin transformation yields an equisatisfiable conjunctive normal form.
+		In contrast the linear Tseitin transformation yields an equisatisfiable conjunctive normal form.
 	}
 	usually introduces an exponential\footnote{
 		The existence of a polynomial algorithm
