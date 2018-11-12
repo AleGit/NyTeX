@@ -6,14 +6,14 @@
 
 \input{epigraphs/syllogism}
 
-In this chapter we will discuss refutational complete proving procedures.
+In this chapter we will discuss complete refuation proving procedures.
 It seems natural to expect decision procedures
 for decidable fragments of first order logic
 (Section~\ref{sec:decidable:fol:fragments})
 or decidable first order theories (Section~\ref{sec:decidable:fol:theories}).
 But we will demonstrate --- with simple examples ---
 that decision procedures do not automatically
-fall out from refutational complete procedures.
+fall out from complete refutation procedures.
 
 
 %An we judge the procedures by there theoretical performance on decidable fragments.
@@ -58,7 +58,7 @@ eventually.
 
 First we translate axioms and lemmata into clausal normal form in Sections~\ref{sec:clausal:normal:form},
 then we look at Gilmore's Prover from 1960 in Section~\ref{sec:gilmore:prover}.
-After that we look at more modern calculi for refutational first order theorem proving
+After that we look at more modern calculi for first order refutation theorem proving
 without equality in Section~\ref{sec:proving:without:equaltiy} and with equality in Section~\ref{sec:proving:with:equality}.
 
 
@@ -75,10 +75,11 @@ without equality in Section~\ref{sec:proving:without:equaltiy} and with equality
 %
 %There are some optimization to this transformation, e.g.~by Plaisted and Greenbaum in 1986 \cite{PLAISTED1986293}.
 
-\section{Theory axioms in \CNF}\label{sec:clausal:normal:form}
+\section{Theory axioms in Clausal Normal Form}
 
-In the previous chapter we expressed axioms and lemmas of first order theories in \FOF{} syntax.
-Since Gilmore`s prover, resolution and \InstGen{} work on sets of clauses we transform
+In the previous chapter we expressed axioms and lemmas of first order theories in \FOF{} syntax,
+but Gilmore's and other provers work on sets of clauses. 
+So we first had to transform
 those axioms into (at least) equisatisfiable representations in \CNF{} syntax
 as summarized for equivalence, congruence, natural numbers, and induction in Table~\ref{tab:natural:numbers},
 for addition and multiplication in Table~\ref{tab:addition:multiplication}.
@@ -103,6 +104,52 @@ for addition and multiplication in Table~\ref{tab:addition:multiplication}.
 	\end{align*}
 	\caption{The theory of natural numbers in \CNF}\label{tab:natural:numbers}
 \end{table}
+
+We demonstrate the satisfiability transformation for the induction schema over \( G(x) \).
+
+\begin{align*}
+	G(0) \land  \, \forall x'\, \left(G(x') \limp G(\msucc(x'))\right)
+\, \limp \, \forall x \, G(x)
+&\equiv\\
+\lnot\left(
+	G(0) \land  \, \forall x'\, \left(G(x') \limp G(\msucc(x'))\right)
+\right)
+\lor \forall x \, G(x)
+&\equiv\\
+\left(
+	\lnot G(0) \lor  \, \lnot\forall x'\, \left(\lnot G(x') \lor G(\msucc(x'))\right)
+\right)
+\lor \forall x \, G(x)
+&\equiv\\
+\left(
+	\lnot G(0) \lor  \, \exists x'\, \left(G(x') \land \lnot G(\msucc(x'))\right)
+\right)
+\lor \forall x \, G(x)
+&\equiv\\
+\exists x' \forall x
+\left(
+	\lnot G(0) \lor \left(G(x') \land \lnot G(\msucc(x'))\right)
+\right)
+\lor G(x)
+&\equiv\\
+\exists x' \forall x
+\left(
+	(\lnot G(0) \lor G(x') \lor G(x))
+	\land
+	(\lnot G(0) \lor \lnot G(\msucc(x')) \lor G(x))
+\right)
+&\equisat\\
+\forall x
+\left(
+	(\lnot G(0) \lor G(\mc_G) \lor G(x))
+	\land
+	(\lnot G(0) \lor \lnot G(\msucc(\mc_G)) \lor G(x))
+\right)
+&\equisat\tag*{skolemized}\\
+\lnot G(0) \lor G(\mc_G) \lor G(x),\,
+	\lnot G(0) \lor \lnot G(\msucc(\mc_G)) \lor G(x)
+	\tag*{clausified}
+\end{align*}
 
 \begin{table}[hbt]
 	\begin{align*}
@@ -719,7 +766,7 @@ We can easily notice disadvantages in resolution.
 % \end{definition}
 
 \begin{lemma}
-	Ordered resolution is refutational complete.
+	Ordered resolution is a complete refutation procedure.
 \end{lemma}
 
 % \begin{proof}
