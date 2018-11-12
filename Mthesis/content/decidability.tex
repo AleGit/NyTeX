@@ -182,28 +182,30 @@ of first-order logic where satisfiability is decidable.%\footnote{
 \end{remark}
 \end{definition}
 
-\begin{example}
-	The sentence 
-	\( 
-		\forall x \exists y \, \mP(\mf(x)\lor\lnot\mP(y)))
-		\in	[\, \forall\exists, (\omega, 1), (1) \,] 
-	\),
-	i.e.~sentences with prefix 
-	\( \forall\exists \),
-	arbitrarily many predicate symbols of arity 1, one predicate symbol of one arity 2, 
-	no predicate symbol of arity 3 or more,
-	one function symbol with arity 1,
-	and no function symbol with arity 2 or more.
-\end{example}
+% \begin{example}
+% 	The sentence 
+% 	\( 
+% 		\forall x \exists y \, \mP(\mf(x)\lor\lnot\mQ(y)))
+% 		\in	[\, \forall\exists, (\omega, 1), (1) \,] 
+% 	\),
+% 	i.e.~sentences with prefix 
+% 	\( \forall\exists \),
+% 	arbitrarily many predicate symbols of arity 1, one predicate symbol of one arity 2, 
+% 	no predicate symbol of arity 3 or more,
+% 	one function symbol with arity 1,
+% 	and no function symbol with arity 2 or more.
+% \end{example}
 
-We now look on two historical examples of decidable fragments of first order logic.
+\noindent
+First we look at two historical non-trivial examples of decidable fragments 
+of first order logic with equality.
 
 \begin{example}\label{ex:monadic}
 	The monadic predicate calculus includes formulae with arbitrary quantifier prefixes,
 	arbitrarily many unary predicate symbols, the equality symbol, but no function symbols.
 	\begin{gather*}
-	{\colG {[\,all, (\omega), (1)\,]}_{\mEQ}
-	\quad\supsetneq}\qquad
+	% {\colG {[\,all, (\omega), (1)\,]}_{\mEQ}
+	% \quad\supsetneq}\qquad
 	{[\,all, (\omega), (0 ) \,]}_{\mEQ}
 	\tag{Löwenheim 1925, Kalmár 1929}
 	\end{gather*}
@@ -212,19 +214,19 @@ We now look on two historical examples of decidable fragments of first order log
 \begin{example}\label{ex:ackermann}
 	The Ackermann prefix class contains formulae with arbitrary many existential quantifiers,
 	but just one universal quantifier. It contains arbitrary many predicate symbols
-	with arbitrary arities, the equality symbol, but no function symbols.
+	with arbitrarily arities, the equality symbol, but no function symbols.
 	\begin{gather*}
-	{\colG {[\,\exists^*\forall\exists^*,all,(1)\,]}_{\mEQ}
-	\quad\supsetneq}\qquad
+	% {\colG {[\,\exists^*\forall\exists^*,all,(1)\,]}_{\mEQ}
+	% \quad\supsetneq}\qquad
 	{[\,\exists^*\forall\exists^*,all,(0) \,]}_{\mEQ}\qquad\qquad\qquad
 	\tag{Ackermann 1928}
 	\end{gather*}
 \end{example}
 
-\begin{remark}
-	One unary function symbol can be added to these fragments of first order logic above
-	without loosing decidability (see Table~\vref{tab:decidable:InfinityAxioms}).
-\end{remark}
+% \begin{remark}
+% 	One unary function symbol can be added to these fragments of first order logic above
+% 	without loosing decidability (see Table~\vref{tab:decidable:InfinityAxioms}).
+% \end{remark}
 
 %Goldfarb, Gurevich, Rabin, Shelah completely characterized decidable and undecidable prefix classes.
 
@@ -244,6 +246,8 @@ We now look on two historical examples of decidable fragments of first order log
 	\end{align*}
 	\caption[Decidable prefix classes (finite)]{Decidable prefix classes with finite model property}\label{tab:decidedable:FiniteModelProperty}
 \end{table}
+
+
 
 \begin{table}[hbt]
 	\begin{align*}
@@ -269,10 +273,10 @@ by A. Middeldorp in~\cite{AM2015L}.
 
 \begin{definition}[Theory]
 	A \coloremph{first-order theory} is a pair of a first-order signature
-	and the possible infinite conjunction \( \bigwedge_i A_i \) of first-order formulae,
+	and the possibly infinite conjunction \( \bigwedge_i A_i \) of first-order formulae,
 	i.e.~the axioms, over the theory's signature.
-	A theory is \coloremph{consistent} if the contradiction is not derivable.
-	A theory is satisfiable if there exists a model for its axioms.
+	A theory is \coloremph{consistent} if the contradiction is not entailed.
+	A theory is \coloremph{satisfiable} if there exists a model for its axioms.
 %
 	A \coloremph{theorem} \( \phi \) is a sentence over the theory's signature,
 	i.e.~a closed formula, that holds in any model for the theory's axioms.
@@ -306,17 +310,17 @@ we still cannot conclude that the negation of the sentence is a theorem.
 In refutational theorem proving
 we show the unsatisfiability
 of a negated sentence,
-i.e.~a \coloremph{conjecture},
+i.e.~a \coloremph{conjecture} \( \psi \),
 in conjunction with the axioms
 to conclude that the conjecture is indeed a theorem.
 \[
 	\lnot\left(\bigwedge_i A_i \limp \mathsf{conj}\right) \equiv
 	\lnot\left(\lnot\bigwedge_i A_i \lor \mathsf{conj}\right) \equiv
-	\bigwedge_i A_i \land \lnot \mathsf{conj}
+	\bigwedge_i A_i \land \lnot \mathsf{\psi}
 \]
 \end{remark}
 
-\subsection{Theory of equality}
+\subsection{Theory of Equality}
 
 The following equivalence and congruence axioms form the theory of equality over a first order signature.
 
@@ -339,13 +343,21 @@ The following equivalence and congruence axioms form the theory of equality over
 \end{definition}
 
 \begin{remark}
-	The equivalence axioms are expressible within
-	the decidable first-order fragments
-	\(
-		[ \, \forall^3, (0), (0) \, ]{}_{\mEQ}
-		\subsetneq
-		[ \, all, (\omega), (1) \, ]{}_{\mEQ}
-	\).
+	% The equivalence axioms are expressible within
+	% the decidable first-order fragments
+	% \(
+	% 	[ \, \forall^3, (0), (0) \, ]{}_{\mEQ}
+	% 	\subsetneq
+	% 	[ \, all, (\omega), (1) \, ]{}_{\mEQ}
+	% \).
+
+	The decidable fragments \( [\,\exists^{∗}\forall^2\exists^{∗} , all, (0) \,] \) 
+	and \( [\,\exists^{∗}\forall\exists^{∗}, all, all \,] \)
+	from Table \vref{tab:decidedable:FiniteModelProperty}
+	contain binary predicate symbols. 
+	We could introduce a fresh binary predicate symbol, e.g.~\( \mathsf{equals}\),
+	but we would gain nothing, because we cannot express transitivity of \( \mathsf{equals} \)
+	within these fragments of first order logic.
 \end{remark}
 
 
@@ -353,7 +365,7 @@ The following equivalence and congruence axioms form the theory of equality over
 	Occasionally we may abbreviate a sequence of \( n \) variables by \( \vec{x} \).
 	Then we write \( \mcf(\vecn{x}) \)
 	for first-order expression \( \mcf(x_1,\ldots,x_n) \)
-	with n-ary function or predicate symbol \( \mcf \),
+	with \(n\)-ary function or predicate symbol \( \mcf \),
 %	 \( \mcf\in\mcFn \),
 	a single equation \( \vecn{x}\mEQ\vecn{y} \) for
 	the conjunction of \( n \) equations
@@ -364,7 +376,7 @@ The following equivalence and congruence axioms form the theory of equality over
 
 \begin{definition}
 	[Congruence schemata] An equivalence relation \( \mEQ \) is a congruence relation if and only if
-	the following formulae hold\label{def:congruence:schemata}
+	the following formulae hold\label{def:congruence:schemata}:
 	\begin{align*}
 	\forall\vecn{x}\,\forall\vecn{y}\,
 	&\left(\vecn{x}\mEQ\vecn{y} \limp \mf(\vecn{x}) \mEQ \mf(\vecn{y}) \right)
@@ -436,8 +448,8 @@ and Table~\vref{tab:natural:deduction:quantifiers}).
 \\[0.7em]
 \begin{BMAT}{rcrclccl}{ccccc}
 1 &&     && x=y\land y=z 	& && \texttt{assume}\\
-2 && 	 &&	y=z	& && \land{}e_2 \\
-3 && 	 &&	x=y	& && \land{}e_1, 2 \\
+2 && 	 &&	y=z	& && \land{}e_2, 1 \\
+3 && 	 &&	x=y	& && \land{}e_1, 1 \\
 4 && 	 &&	x=z	& && {=}e,2,3 \\
 5 && 	 &&	x=y\land y=z\limp x=z	& && {\limp}i,2{-}4
 \addpath{(2,1,1)rrrruuuulllldddd}
@@ -466,7 +478,7 @@ The following axioms characterize natural numbers, addition, and multiplication.
 	and restrict the possible models with two axioms.
 \begin{align*}
 \forall x\, &(\msucc(x) \mNE 0)
-\tag*{zero is smallest}
+\tag*{zero is minimal}
 \\ %–––––––––––––––––––––––––––
 \forall x \forall y\, &(\msucc(x) \mEQ \msucc(y) \limp x \mEQ y)
 \tag*{injectivity of \( \msucc \)}
@@ -486,12 +498,12 @@ The following axioms characterize natural numbers, addition, and multiplication.
 
 \begin{remark}
 	The axioms of natural numbers are expressible within the
-	decidable first-order fragments
+	decidable first-order fragment
 	\(
 		[ \, \exists\forall^2, (0), (1) \, ]{}_{\mEQ}
 		\subsetneq
 		[ \, all, (\omega), (1) \, ]{}_{\mEQ}
-	\).
+	\), e.g.~\( \exists z \forall x (\msucc(x)\mNE z)\).
 \end{remark}
 
 \begin{example}
@@ -543,7 +555,8 @@ The following axioms characterize natural numbers, addition, and multiplication.
 	Still they are part of a decidable first-order theory.
 \end{remark}
 
-\begin{theorem}Presburger arithmetic (Moj\'{z}esz Presburger, 1929), i.e.\ the first-order theory that includes the axioms for equality, natural numbers, induction schemata, and addition, is consistent, complete and decidable. The computational complexity of the decision problem is at least doubly exponential \( 2^{2^{cn}} \)(Fischer and Rabin, 1974), but less than triple exponential (Oppen, 1978. Berman, 1980).
+\begin{theorem}Presburger arithmetic (Moj\'{z}esz Presburger, 1929), i.e.\ the first-order theory that includes the axioms for equality, natural numbers, addition, and 
+	infinitely many induction schemata for all possible formulae, is consistent, complete and decidable. The computational complexity of the decision problem is at least doubly exponential \( 2^{2^{cn}} \)(Fischer and Rabin, 1974), but less than triple exponential (Oppen, 1978, Berman, 1980).
 \end{theorem}
 
 \begin{remark}
@@ -580,7 +593,8 @@ The following axioms characterize natural numbers, addition, and multiplication.
 \end{remark}
 
 \begin{theorem}
-	The axioms of Peano Arithmetic appear consistent (Gentzen, 1936).
+	The axioms of Peano Arithmetic is consistent (Gentzen, 1936)
+	if primitive recursive arithmetic (Skolem, 1923) is consistent.
 \end{theorem}
 
 \begin{lemma}[ACN]\label{lem:acn}
