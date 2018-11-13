@@ -6,7 +6,7 @@
 
 \input{epigraphs/syllogism}
 
-In this chapter we will discuss complete refuation proving procedures.
+In this chapter we will discuss complete refutation proving procedures.
 It seems natural to expect decision procedures
 for decidable fragments of first order logic
 (Section~\ref{sec:decidable:fol:fragments})
@@ -47,7 +47,7 @@ Second we can efficiently transform a negated sentence into an
 (with Skolemization and Tseitin transformation transformation~\cite{tseitin70}),
 i.e.~the negated sentence is satisfiable if and only if the set of clauses is satisfiable.
 
-%This can be done efficiently with Skolemization \cite{books/el/RV01/Hahnle01} and Tseytin-transformation \cite{tseitin70, PLAISTED1986293} as shown in \cite{Nonnengart01computingsmall}.
+%This can be done efficiently with Skolemization \cite{books/el/RV01/Hahnle01} and Tseitin transformation \cite{tseitin70, PLAISTED1986293} as shown in \cite{Nonnengart01computingsmall}.
 
 It would be sufficient to just luckily guess an unsatisfiable set of ground instances.
 Usually instantiation based automated provers generate
@@ -75,10 +75,10 @@ without equality in Section~\ref{sec:proving:without:equaltiy} and with equality
 %
 %There are some optimization to this transformation, e.g.~by Plaisted and Greenbaum in 1986 \cite{PLAISTED1986293}.
 
-\section{Theory axioms in Clausal Normal Form}
+\section{Theory Axioms in Clausal Normal Form}\label{sec:clausal:normal:form}
 
-In the previous chapter we expressed axioms and lemmas of first order theories in \FOF{} syntax,
-but Gilmore's and other provers work on sets of clauses. 
+In the previous chapter we expressed axioms and lemmas of first order theories in \FOF{} syntax.
+But Gilmore's and other provers check the satisfiability of sets of clauses. 
 So we first had to transform
 those axioms into (at least) equisatisfiable representations in \CNF{} syntax
 as summarized for equivalence, congruence, natural numbers, and induction in Table~\ref{tab:natural:numbers},
@@ -98,15 +98,17 @@ for addition and multiplication in Table~\ref{tab:addition:multiplication}.
 	\msucc(x) \mNE \msucc(y) \lor x \mEQ y
 	\tag*{natural numbers}
 	\\
-	\lnot G(0) \lor \boxed{G(\mc_{_G})} \lor G(x),\
-	\lnot G(0) \lor \boxed{\lnot G(\msucc(\mc_{_G}))} \lor G(x)
+	\lnot G(0) \lor {G(\mc_{_G})} \lor G(x),\
+	\lnot G(0) \lor {\lnot G(\msucc(\mc_{_G}))} \lor G(x)
 	\tag*{induction schema}
 	\end{align*}
 	\caption{The theory of natural numbers in \CNF}\label{tab:natural:numbers}
 \end{table}
 
-We demonstrate the satisfiability transformation for the induction schema over \( G(x) \).
-
+\begin{proof}
+We use first order equivalence and satisfiability transformations---briefly introduced 
+in Section \ref{sec:equisatisfiability}---on the induction schema 
+applied to an arbitrary formula \( G(x) \).
 \begin{align*}
 	G(0) \land  \, \forall x'\, \left(G(x') \limp G(\msucc(x'))\right)
 \, \limp \, \forall x \, G(x)
@@ -145,11 +147,13 @@ We demonstrate the satisfiability transformation for the induction schema over \
 	\land
 	(\lnot G(0) \lor \lnot G(\msucc(\mc_G)) \lor G(x))
 \right)
-&\equisat\tag*{skolemized}\\
+&\equisat\tag*{Skolemization}\\
 \lnot G(0) \lor G(\mc_G) \lor G(x),\,
 	\lnot G(0) \lor \lnot G(\msucc(\mc_G)) \lor G(x)
-	\tag*{clausified}
+	\tag*{Clausification}
 \end{align*}
+The remaining axioms can be transformed by the same approach without the need for the introduction of fresh skolem constants.
+\end{proof}
 
 \begin{table}[hbt]
 	\begin{align*}
@@ -178,11 +182,11 @@ We demonstrate the satisfiability transformation for the induction schema over \
 %		\underbrace{x\times \msucc(0) \mEQ x, \, \msucc(0)\times x\mEQ x}_N
 %		\tag*{ACN of \( \times \)}
 	\end{align*}
-	\caption{Addition and multiplication in \CNF}\label{tab:addition:multiplication}
+	\caption{The axioms for addition and multiplication in \CNF}\label{tab:addition:multiplication}
 \end{table}
 
 \begin{example} For the formula \( G(x)=\msucc(x)\mNE x \) we state the induction axioms in \CNF{} in the theory of natural numbers.
-	We had to introduce a fresh constant \( \mc_{\msucc} \) in this satisfiability transformation process.
+	We introduced the fresh constant \( \mc_{\msucc} \) in this satisfiability transformation process.
 	\begin{gather*}
 	\msucc(0)\mEQ 0 \lor \boxed{\msucc(\mc_{\msucc})\mNE \mc_{\msucc}} \lor \msucc(x)\mNE x \\
 	\msucc(0)\mEQ 0 \lor \boxed{\msucc(\msucc(\mc_{\msucc}))\mEQ \msucc(\mc_{\msucc})} \lor \msucc(x)\mNE x
@@ -232,18 +236,18 @@ a refutation proof can be found eventually.
 In practice this prover ran into memory issues or time outs more often than not.
 We will discuss reasons for this inefficiency after we have described and demonstrated the procedure.
 
-First the negation of a sentence \( F \) has to be transformed into an equisatisfiable set of clauses.
-Then the prover`s procedure
-creates a sequence of finite sets of ground instances \( S_k \)
-for the set of clauses \( S\equisat\lnot F \) to prove the validity of a formula \( F \)
-by showing the unsatisfiability of \( S \).
-Each set \( S_k \) contains all possible ground instances of \( S \)
-where all variables are substituted by elements of \( H_k \)
-from definition~\ref{def:hk} of the Herbrand universe.
-Each \( S_k \) is then transformed into a disjunctive normal form where satisfiability is obvious.
-The procedure is aborted when an unsatisfiable \( S_k \) is encountered.
+% First the negation of a sentence \( F \) has to be transformed into an equisatisfiable set of clauses.
+% Then the prover's procedure
+% creates a sequence of finite sets of ground instances \( S_k \)
+% for the set of clauses \( S\equisat\lnot F \) to prove the validity of a formula \( F \)
+% by showing the unsatisfiability of \( S \).
+% Each set \( S_k \) contains all possible round instances of \( S \)
+% where all variables are substituted by elements of \( H_k \)
+% from definition~\ref{def:hk} of the Herbrand universe.
+% Each \( S_k \) is then transformed into a disjunctive normal form where satisfiability is obvious.
+% The procedure is aborted when an unsatisfiable \( S_k \) is encountered.
 
-\begin{procedure}[Gilmore`s Prover]\label{proc:gilmore's:prover}
+\begin{procedure}[Gilmore's Prover]\label{proc:gilmore's:prover}
 	We translate the negation of our formula \( F \) into an equisatisfiable set of clauses
 	\( \lnot F \equisat S = \bigcup_{i=1}^{n} \mcC_i \) with an efficient algorithm~\cite{tseitin70, PLAISTED1986293}.
 	Then we start our first iteration with \( k=0 \).
@@ -322,7 +326,14 @@ Following Gilmore's prover we can easily prove the syllogism from above.
 	%\( \mortal^\mcI = \{ (\fosca) \} \).
 
 
-	Then we negate the formula to clausal normal form \( S_{(\ref{ex:fosca:is:mortal})} = A\land B \land\lnot C \equiv \lnot F \).
+	Then we translate the negated formula \( \lnot F = A\land B \land\lnot C \) 
+	into an equisatisfiable clausal normal form 
+	\( \{
+		S = 
+		\lnot \human(x) \lor \mortal(x),\,
+		\human(\fosca), \mortal(\fosca)
+	\} \)
+	
 	Since there is exactly one constant we get
 	\( H_0 = \{ \fosca \} \) and
 	\( S_0 =
@@ -342,9 +353,10 @@ Following Gilmore's prover we can easily prove the syllogism from above.
 	(\mortal(\fosca)\land\human(\fosca)\land\lnot\mortal(\fosca))
 	%\end{array}
 	\end{gather*}
-	Both conjunctions contain complementary literals and we conclude the negated formula is unsatisfiable
-	and the given syllogism holds.
-
+	Both conjunctions contain complementary literals and we conclude 
+	the negated formula \( \lnot F \) is unsatisfiable, 
+	the formula \( F \) is valid,
+	hence the given syllogism holds.
 \end{example}
 
 %
@@ -356,13 +368,13 @@ Following Gilmore's prover we can easily prove the syllogism from above.
 	Let \( k\in\mathbb{N} \) be an arbitrary but fixed number.
 	Consider the unsatisfiable set of clauses
 	\(
-		S_{(\ref{ex:unsat:nexsx})} = \{ \, \lnot\mcL_1, \, \mcL_2 \, \} =
+		S = \{ \, \lnot\mcL_1, \, \mcL_2 \, \} =
 		 \{ \,
 		{ \lnot\mE(x, \msucc(x)) }, \,
 		{ \mE(\msucc^{k}(y), \msucc(\msucc^{k}(y)))}
 		 \, \}
 	 \).
-	The sets of instances \( S_{i+1} \) are satisfiable for all \( i+1<k \).
+	The sets of instances \( S_{i} \) are satisfiable for all \( i<k \).
 	The set of instances \( S_{k} \) is clearly unsatisfiable.
 	%
 	\begin{align*}
@@ -405,7 +417,7 @@ Following Gilmore's prover we can easily prove the syllogism from above.
 
 \begin{example}\label{ex:sat:exy}
 	Consider the satisfiable set of clauses
-	\( S_{\ref{ex:sat:exy}}= \{ \lnot\mE(\mzero,\msucc(x)\} \).
+	\( S = \{ \lnot\mE(\mzero,\msucc(x)\} \).
 	This set is clearly in the decidable Ackermann fragment of first order logic.
 	But the procedure yields an infinite sequence of distinct and satisfiable sets \( S_{k\geq0} \):
 	\begin{align*}
@@ -473,8 +485,6 @@ So far we have observed three main disadvantages in Gilmore's procedure.
 	%	\left(
 	%	\sum_{n>0}\left(\lvert \mcFPn \rvert\cdot \lvert H_{i}\rvert^n \right)\right)^n{\ }\right) \geq \lvert S_i \rvert^n
 	\end{align*}
-	This makes disadvantage No.~\ref{enum:gilmore:transformation}
-	which is invoked at every iteration even worse.
 	\item\label{enum:gilmore:transformation}
 	The check for unsatisfiability is far from efficient.
 	The transformation from a set of clauses
@@ -535,6 +545,7 @@ So far we have observed three main disadvantages in Gilmore's procedure.
 	(1,2,1),(1,2,2),(1,2,3)
 	\}
 	\end{gather*}
+	Considering the generation of instances we have to expect that the size of the disjunctive normal form grows double exponentially.
 
 	\item\label{enum:gilmore:termination}
 	The procedure will not terminate for satisfiable sets
@@ -566,7 +577,7 @@ which was the starting point for the development of efficient propositionally sa
 \section{ATP without Equality}\label{sec:proving:without:equaltiy}
 
 In this section we already add the equality symbol \( \mEQ \) into our formulae,
-but we treat it not different from an arbitrary binary predicate symbol with infix notation.
+but we treat it not differently from an arbitrary binary predicate symbol with infix notation.
 
 \subsection{Resolution}\label{sec:resolution}
 
@@ -619,7 +630,7 @@ but we treat it not different from an arbitrary binary predicate symbol with inf
 \begin{example}\label{ex:xsx:skyssky}
 	We easily infer the empty clause and
 	conclude unsatisfiability of the set of clauses
-	\( S_{\ref{ex:xsx:skyssky}} = \{ \,
+	\( S = \{ \,
 	{ \msucc(x)\mNE x}, \,
 	{ \msucc(\msucc^k(y))\mEQ\msucc^k(y) }
 	 \, \} \).
@@ -635,9 +646,9 @@ but we treat it not different from an arbitrary binary predicate symbol with inf
 \end{example}
 
 \begin{example}\label{ex:sat:msxx:mymzyz}
-	With observe an infinite sequence of resolution steps from satisfiable set
+	We easily generate an infinite sequence of resolution steps from the satisfiable set of clauses
 	\(
-		S_{\ref{ex:sat:msxx:mymzyz}} =
+		S =
 		 \{ \,
 		\msucc(x)\mNE x, \, \msucc(y)\mNE\msucc(z) \lor y\mEQ z
 		 \, \}
@@ -666,9 +677,7 @@ but we treat it not different from an arbitrary binary predicate symbol with inf
 	\end{gather*}
 \end{example}
 
-
-
-We can easily notice disadvantages in resolution.
+We may notice some disadvantages in resolution.
 
 \begin{enumerate}
 	\item\label{enum:resolution:clauses:longer}
@@ -681,16 +690,16 @@ We can easily notice disadvantages in resolution.
 	we have to check all pairings
 	of positive literals in \( \mcC \)
 	with negative literals in \( \mcD \)
-	and all pairing of negative literals in \( \mcC \)
+	and all pairings of negative literals in \( \mcC \)
 	with positive literals in \( \mcD \) for clashing,
 	i.e.~in the worst case we have \( c\times d \) pairs to check,
-	which makes disadvantage No.~\ref{enum:resolution:clauses:longer} even worse
+	which makes disadvantage \ref{enum:resolution:clauses:longer} even worse
 	(see Example~\ref{ex:resolution:9a4}).
 	This workload can be reduced with ordered resolution as presented
 	in Section~\ref{sec:ordered:resolution}.
 
-	\item Resolution is sound but not complete in the presence of equality,
-	e.g.~we expect the set of clauses
+	\item In the presence of equality, resolution is still sound, but not complete.
+	E.g.~we expect the set of clauses
 	\( \{ \mf(\ma) \mEQ \mc, \mP(\mc), \lnot\mP(\mf(\ma)) \} \)
 	or even simpler the set with one clause
 	\( \{ \ma\mNE\ma \} \)
@@ -702,7 +711,7 @@ We can easily notice disadvantages in resolution.
 \begin{example}\label{ex:resolution:9a4}
 	One of { \coloremph{}{}nine} derivable clauses à 4 literals from two clauses à 3 literals.
 	\begin{gather*}
-	\infer[]{\mP(\ma,z)\lor\mP(z,\mb)\lor\lnot\mP(a,z')\lor\lnot\mP(z',b)}
+	\infer[]{\mP(\ma,z)\lor\mP(z,\mb)\lor\lnot\mP(\ma,z')\lor\lnot\mP(z',b)}
 	{{\colN\mP(x,y)}\lor\mP(\ma,z)\lor\mP(z,\mb) & {\colN\lnot\mP(x',y')}\lor\lnot\mP(\ma,z')\lor\lnot\mP(z',\mb)}
 	\end{gather*}
 \end{example}
