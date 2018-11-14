@@ -545,7 +545,9 @@ So far we have observed three main disadvantages in Gilmore's procedure.
 	(1,2,1),(1,2,2),(1,2,3)
 	\}
 	\end{gather*}
-	Considering the generation of instances we have to expect that the size of the disjunctive normal form grows double exponentially.
+	Since we have to check for unsatisfiability after each iteration and
+	considering the exponential growth of the number of instances 
+	we have to handle a double exponential growth in the size of the disjunctive normal form.
 
 	\item\label{enum:gilmore:termination}
 	The procedure will not terminate for satisfiable sets
@@ -786,7 +788,7 @@ We may notice some disadvantages in resolution.
 % 	\( \lnot B \succ_\mL A \) because \( A\sigma=B\sigma=C \) and \( \lnot X\succ_\mL X \).
 % \end{proof}
 
-\subsection{InstGen}\label{sec:inst:gen}
+\subsection{Inst-Gen}\label{sec:inst:gen}
 
 Gilmore's prover systematically constructs all ground instances eventually --- starting with the smallest. So it can take many steps to discover a simple contradiction.
 
@@ -842,8 +844,8 @@ and we conclude unsatisfiability because of propositional unsatisfiability of
 
 \begin{example}
 	With \InstGen{} we cannot derive any new clause from set
-	\( S_{(\ref{ex:sat:exy}) } = \{ \, \mE(\mzero,y) \, \} \)
-	introduced in Example~\ref{ex:sat:exy} and we conclude satisfiability
+	\( S = \{ \, \mE(\mzero,y) \, \} \)
+	(see Example~\ref{ex:sat:exy}) and we conclude satisfiability
 	of the \InstGen-saturated set \( S_{(\ref{ex:sat:exy}) } \)
 	because of the propositional satisfiability of
 	\( S_{(\ref{ex:sat:exy})}\subsbot \).
@@ -881,10 +883,11 @@ and we conclude unsatisfiability because of propositional unsatisfiability of
 	\begin{enumerate}
 		\item\label{step:igl:skbot}
 		We construct a set \( S_{k} \, \subsbot \) of ground instances from \( S_k \)
-		where instantiator \( \subsbot := \{ x\mapsto \consbot \mid x\in\var(S_k) \} \)
+		where instantiator \( \subsbot = \{ x\mapsto \consbot \mid x\in\var(S_k) \} \)
 		substitutes all occurring variables with constant symbol \( \consbot \).
 %
-		\item\label{step:igl:sksat} We check the decidable satisfiability of
+		\item\label{step:igl:sksat} 
+		We check the decidable satisfiability of
 		\( S_k \, \subsbot \)
 		with a modern \SAT{} or \SMT{}-solver.
 
@@ -893,7 +896,7 @@ and we conclude unsatisfiability because of propositional unsatisfiability of
 
 		\item\label{step:igl:model} The set \( S_k \, \subsbot \) is satisfiable, hence we can retrieve a model \( \mcM_k \models S_k\subsbot \).
 		We select one literal \( L_i = \sel(\mcC_i) \) per clause \( \mcC_i \in S_k \)
-		such that the each grounded selected literal holds in model
+		such that each ground selected literal holds in model
 		\( \mcM_k\models L_i\subsbot \) for all \( i \leq | S_k | \).
 
 		\item\label{step:igl:clashes} We search for pairs of selected literals
@@ -933,13 +936,20 @@ S_0\subsbot &= \{ \,
 \tag{satisfiable}
 \\
 &\qquad\infer[
-	x\mapsto\ma
+	\sigma_1
 	]{
-		{\colG \mP(\ma)\lor\mQ(\ast)}\quad\lnot\mP(\ma)
+		{\colG \mP(\ma)\lor\mQ(\ma)}\quad\lnot\mP(\ma)
 	}{
-		\mP(\ma)\lor\mQ(\ast) & \lnot\mP(x)
+		\mP(\ma)\lor\mQ(\ma) & \lnot\mP(x)
 	}
-\tag*{\( \ast\in \{ \ma,y\} \)}
+	\qquad\infer[
+	\sigma_1
+	]{
+		{\colG \mP(\ma)\lor\lnot\mQ(y)}\quad\lnot\mP(\ma)
+	}{
+		\mP(\ma)\lor \lnot\mQ(y) & \lnot\mP(x)
+	}
+	\tag*{\( \sigma_1 = \{ x\mapsto\ma \} \)}
 \\
 S_1 &= \{ \,
 	\mP(\ma)\lor\mQ(\ma),
@@ -957,12 +967,13 @@ S_1\subsbot &= \{ \,
 \tag{satisfiable}
 \\
 &\qquad\infer[
-y\mapsto\ma
+\sigma_2
 ]{
 	{\colG \mP(\ma)\lor\mQ(\ma)}\quad\mP(\ma)\lor\lnot\mQ(\ma)
 }{
 	\mP(\ma)\lor\mQ(\ma) & \mP(\ma)\lor\lnot\mQ(y)
 }
+\tag*{\( \sigma_2 = \{ y\mapsto\ma \} \)}
 \\
 S_2 &= \{ \,
 \mP(\ma)\lor\mQ(\ma),
@@ -984,13 +995,13 @@ S_2\subsbot &= \{ \,
 \end{example}
 
 \begin{lemma}
-	The \( \tau = \mgu(A,B) \) in Procedure~\ref{proc:inst:gen:loop},
+	The unifier \( \tau = \mgu(A,B) \) in Procedure~\ref{proc:inst:gen:loop},
 	step~\ref{step:igl:clashes} is a proper instantiator,
 	i.e.~it is not a variable renaming.
 \end{lemma}
 \begin{proof}
 	Assume \( \tau \) in Procedure~\ref{proc:inst:gen:loop}
-	is a renaming, then we have
+	is a variable renaming, then we have
 	\( A\tau\subsbot = A\subsbot \),
 	\( B\tau\subsbot = B\subsbot \),
 	and by definition of the most general unifier \( A\tau = B\tau \).
@@ -1005,7 +1016,7 @@ S_2\subsbot &= \{ \,
 
 
 \begin{example}\label{ex:unsat2}
-Let \( S_0 = S_{(\ref{ex:unsat:nexsx})} \) be the set of unsatisfiable clauses
+Let \( S_0 \) be the set of unsatisfiable clauses
 from Example~\ref{ex:unsat:nexsx}.
 Then the initial set of ground instances
 \( S_0\subsbot =\
