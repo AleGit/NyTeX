@@ -1060,8 +1060,11 @@ but we can ensure that we find only desired models.
 \begin{theorem}\cite{Harrison:2009:HPL:1540610}
 	Any set of clauses (a formula) has a \emph{normal} model
 	if and only if it has a model that satisfies the
-	{ \coloremph{}equality axioms}, i.e.~reflexivity, symmetry, transitivity,
-	and congruence for all function symbols \( \mf\in\mcFf \)
+	{ \coloremph{}equality axioms}, 
+	i.e.~reflexivity \axiom{R}, 
+	symmetry \axiom{S}, 
+	transitivity \axiom{T},
+	and congruence \axiom{C} for all function symbols \( \mf\in\mcFf \)
 	and all predicate symbols \( \mP\in\mcFP \).
 \end{theorem}
 
@@ -1069,66 +1072,67 @@ but we can ensure that we find only desired models.
 %	The only decidable fragment of first order logic where we can state the equality axioms is the Schönfinkel-Bernays-Ramsey class.
 %\end{remark}
 
-\begin{example}[Ordered resolution with equality axioms]
-	We add the equality axioms to a small set of clauses
-	\( S = \{ \msucc(x)\mNE 0,{\ }\msucc(x)\mNE\msucc(y)\lor x\mEQ y \} \) and mark maximal literals.
+\begin{example}[Ordered resolution with equality axioms]\label{ex:nat:ordres}
+	We combine the small set 
+	\( S = \{ \msucc(x)\mNE 0,{\ }\msucc(x)\mNE\msucc(y)\lor x\mEQ y \} \) 
+	with the equality axioms to set \( S' \) and mark maximal literals.
 	\begin{align*}
 	{\colN x \mEQ x},\
-	x \mEQ y \lor {\colN y \mNE x},\
+	x \mEQ y \lor \underline{\colN y \mNE x},\
 	x \mEQ z \lor {\colN x \mNE y} \lor {\colN y\mNE z}
-\tag*{\( \mEQ \)-equivalence}
+\tag*{\(\axiom{R}_\mEQ,\,\axiom{R}_\mEQ,\,\axiom{T}_\mEQ \) }
 \\
 	{\colN \msucc(x) \mEQ \msucc(y)} \lor x\mNE y
-	\tag*{\( \msucc \)-congruence}
+	\tag*{\(\axiom{C}_\msucc \)}
 \\
 	{\colN \msucc(x)\mNE 0},\
 	{\colN \msucc(x) \mNE \msucc(y)} \lor x \mEQ y
-\tag*{\( S \)}
+\tag*{\( S = \{ \axiom{0}_\msucc, \axiom{I}_\msucc \} \)}
 	\end{align*}
 	With ordered resolution we cannot infer new clauses from clauses in \( S \).
 	But we can apply rules of ordered resolution to pairs of equality axioms and clauses,
-	although most derivations are ignorable.
+	although most derivations are ignorable and the saturable set \( S' \) will saturate.
 	\begin{align*}
 \infer[ \{ x'\mapsto x, y'\mapsto x\}]
 {x \mEQ x}
 {{\colN x \mEQ x} & x' \mEQ y' \lor {\colN y' \mNE x'}}
-\tag*{\( R,S\proves R \)}
+\tag*{\( \axiom{R}_\mEQ,\axiom{S}_\mEQ\proves \axiom{R}_\mEQ\)}
 \\
 \infer[ \{ x'\mapsto x,y'\mapsto x \}]
 {x\mEQ z'\lor x\mNE z' }
 {{\colN x \mEQ x} & x' \mEQ z' \lor {\colN x' \mNE y'} \lor {y'\mNE z'}}
-\tag*{\( R,T\proves\true \)}
+\tag*{\( \axiom{R}_\mEQ,\axiom{T}_\mEQ\proves\true \)}
 \\
 \infer[ \{ y'\mapsto x, z'\mapsto x \}]
 {x'\mEQ x\lor x'\mNE x }
 {{\colN x \mEQ x} & x' \mEQ z' \lor {x' \mNE y'} \lor {\colN y'\mNE z'}}
-\tag*{\( R,T\proves\true \)}
+\tag*{\( \axiom{R}_\mEQ, \axiom{T}_\mEQ\proves\true \)}
 \\
 \infer[ \{ y\mapsto \msucc(x'), x\mapsto\msucc(y')\}]
 {\msucc(y')\mEQ\msucc(x')\lor x'\mNE y'}
 {x \mEQ y \lor {\colN y \mNE x} & {\colN \msucc(x') \mEQ \msucc(y')} \lor x'\mNE y'}
-\tag*{\( S,C\proves C_S \)}
+\tag*{\( \axiom{S}_\mEQ,\axiom{C}_\msucc\proves \axiom{C}_\msucc \)}
 \\
 \infer[ \{ x\mapsto\msucc(x'),y\mapsto\msucc(y')\}]
 {\msucc(x')\mEQ z\lor \msucc(y')\mNE z \lor x'\mNE y'}
 {x \mEQ z \lor {\colN x \mNE y} \lor {y\mNE z} & {\colN \msucc(x') \mEQ \msucc(y')} \lor x'\mNE y'}
-\tag*{\( T,C\proves ? \)}
+\tag*{\( \axiom{T}_\mEQ,\axiom{C}_\msucc\proves ? \)}
 \\
 \infer[ \{ y\mapsto\msucc(x'),z\mapsto\msucc(y')\}]
 {x\mEQ\msucc(y')\lor x\mNE\msucc(x')\lor x'\mNE y'}
 {x \mEQ z \lor {x \mNE y} \lor {\colN y\mNE z} & {\colN \msucc(x') \mEQ \msucc(y')} \lor x'\mNE y'}
-\tag*{\( T,C\proves ? \)}
+\tag*{\( \axiom{T}_\mEQ,\axiom{C}_\msucc\proves ? \)}
 \\
 \infer[ \{ x'\mapsto x, y'\mapsto y\}]
 {x\mNE y\lor x\mEQ y}
 {{\colN \msucc(x) \mEQ \msucc(y)} \lor x\mNE y & x' \mEQ y' \lor {\colN \msucc(x') \mNE \msucc(y')}}
-\tag*{\( C,I\proves\true \)}
+\tag*{\( \axiom{C}_\msucc,\axiom{I}_\msucc\proves\true \)}
 \\
 	\end{align*}
 \end{example}
 
-\begin{example} We extend our set with clause \( \msucc(\msucc(x))\mEQ\msucc(0) \)
-	that clashes with injectivity of \( \msucc \).
+\begin{example} 
+	We prove that \( S' \cup \{ \msucc(\msucc(x))\mEQ\msucc(0) \} \) is unsatisfiable.
 	\begin{gather*}
 	\infer[ \{ \, x'\mapsto x \, \}]
 	{\square}
@@ -1146,59 +1150,82 @@ but we can ensure that we find only desired models.
 \end{example}
 
 \begin{example}[\InstGen{} with equality axioms]\label{ex:nat:instgen}
-	The default grounding for \InstGen{} substitutes \emph{all} variables with one constant function symbol.
-	We notice that the selection process is unfortunate,
-	because the selected \coloremph{positive} literals of each axiom but congruence clash with \( \msucc(x)\mNE 0 \).
+	Let \( S' = \{
+		\axiom{R}_\mEQ, \axiom{S}_\mEQ, \axiom{T}_\mEQ,
+		\axiom{C}_\msucc, \axiom{I}_\msucc, \axiom{0}_\msucc
+		\}\) 
+		be the satisfiable set from Example \vref{ex:nat:ordres}.
+	The default ground substitution of \InstGen{} substitutes \emph{every} 
+	variable in \emph{every} clause and literal with one fixed constant function symbol \( \consbot \). 
+	We notice that the selection function defined 
+	by any suitable model \(
+		\mcM \entails \{
+			\axiom{R}_\mEQ, \axiom{S}_\mEQ, \axiom{T}_\mEQ,
+			\axiom{C}_\msucc, \axiom{I}_\msucc, \axiom{0}_\msucc
+			\}\consbot
+	\) for the ground instances of the axioms is unique and unfavorable.
 	\begin{align*}
-	\colHi \consbot \mEQ \consbot
-	\tag*{reflexivity}\\
-	{ \consbot \mEQ \consbot} \lor {\colLo \consbot \mNE \consbot}
-	\tag*{symmetry}\\
+	{ \colHi \consbot \mEQ \consbot },\,
+	{ \consbot \mEQ \consbot} \lor { \colLo \consbot \mNE \consbot }
+	,\,
 	{ \consbot \mEQ \consbot}
 	\lor {\colLo \consbot \mNE \consbot}
 	\lor {\colLo \consbot\mNE \consbot}
-	\tag*{transitivity}\\
+	\tag*{\( \{\axiom{R}_\mEQ, \axiom{S}_\mEQ, \axiom{T}_\mEQ\}\consbot \) }\\
 	{\colHi \msucc(\consbot) \mEQ \msucc(\consbot)} \lor {\colLo \consbot \mNE \consbot}
-	\tag*{congruence}\\[0.5em]
+	,\,
 	{ \consbot \mEQ \consbot} \lor {\colLo \msucc(\consbot) \mNE \msucc(\consbot)}
-	\tag*{injectivity}\\
+	,\,
 	{\colHi \msucc(\consbot) \mNE 0}
+	\tag*{ \( \{\axiom{C}_\msucc, \axiom{I}_\msucc, \axiom{0}_\msucc \}\consbot \)}
 	\end{align*}
-	\begin{align*}
-	\infer[x\mapsto 0, y\mapsto \msucc(x') ]
-	{ 0\mEQ\msucc(x')\lor \msucc(x')\mEQ 0}
-	{
-		0 \mNE\msucc(x')
-		&
-		x\mEQ y\lor y\mNE x
-	}
-\\
-%
-\infer[x\mapsto 0, y\mapsto \msucc(x') ]
-{ 0\mEQ\msucc(x')\lor \msucc(x')\mEQ 0}
-{
-	0 \mNE \msucc(x')
-	&
-	x \mEQ y \lor \msucc(x)\mNE \msucc(y)
-}
-	\end{align*}
-\end{example}
+	The selected literals of 
+	\(\axiom{R}_\mEQ\), \(\axiom{S}_\mEQ\), \(\axiom{T}_\mEQ\), and \(\axiom{I}_\mEQ\) 
+	(with variables) will clash with
+	\(\axiom{0}_\msucc\), e.g.
 
+	\begin{align*}
+		\infer[\{ x\mapsto \msucc(x'), y\mapsto 0 \}]{
+			\msucc(x') \mEQ 0 \lor 0 \mNE \msucc(x')
+		}{
+			\msucc(x')\mNE 0 & x \mEQ y  \lor y \mNE x
+		}
+		\tag*{ \( \axiom{0}_\msucc, \axiom{S}_\mEQ \proves \true \)}
+		% \\
+		% \infer[
+		% 	\{ x\mapsto\msucc(x'), y\mapsto 0 \} 
+		% ]{
+		% 	\msucc(x')\mEQ 0 \lor \msucc(\msucc(x') \mNE \msucc(0)	
+		% }{
+		% 	\msucc(x')\mNE 0 & x \mEQ y  \lor \msucc(x) \mNE \msucc(y)
+		% }
+		% \tag*{\( 
+		% 	\axiom{0}_\msucc, \axiom{I}_\msucc \proves 
+		% 	\lnot\axiom{0}_\msucc \lor \axiom{0}_\msucc(\msucc(x)) 
+		% \)}
+		\end{align*}
+
+This does not hurt the saturation process badly, 
+but we get an infinite sequence of generated instances starting with \( \axiom{I}_\msucc \) and \( \axiom{0}_\msucc \).
 	\begin{gather*}
-	\infer[ \{ x'\mapsto \msucc (x), y'\mapsto x\}]{
+	\infer[ \sigma_0 ]{
 		\boxed{\msucc (\msucc (x)) \mNE \msucc (x)} \lor\colLo \msucc (x)\mEQ x
 	}{
-		\msucc (x') \mNE \msucc (y') \lor x'\mEQ y' & \colHi\msucc (x) \mNE x
+		\axiom{I}'_\msucc & \colHi\msucc (x) \mNE x
 	}
-	\end{gather*}
-	\begin{gather*}
-	\infer[ \{ x'\mapsto \msucc^{i+2} (x), y'\mapsto \msucc^{i+1} (x)\}]{
+	\\[0.5em]
+	\infer[ \sigma_{i+1}]{ \cdots }{\axiom{I}'_\msucc&
+	\infer[ \sigma_i]{
 		\msucc (\msucc^{i+2} (x)) \mNE \msucc (\msucc^{i+1} (x)) \lor \msucc^{i+2} (x)\mEQ\msucc^{i+1} (x)
 	}{
-		\msucc (x') \mNE \msucc (y') \lor x'\mEQ y' & \boxed{\msucc^{i+2} (x) \mNE \msucc^{i+1} (x)}\colG \lor \msucc^{i+1} (x)\mEQ\msucc^{i}(x)
+		\axiom{I}'_\msucc & \boxed{\msucc^{i+2} (x) \mNE \msucc^{i+1} (x)}\colG \lor \msucc^{i+1} (x)\mEQ\msucc^{i}(x)
+	}
 	}
 	\end{gather*}
-	for all \( i\geq 0 \).
+	where \( \axiom{I}'_\msucc = \msucc (x') \mNE \msucc (y') \lor x'\mEQ y' \) and 
+	\( \sigma_i = \{ x'\mapsto \msucc^{i+2} (x), y'\mapsto \msucc^{i+1} (x)\} \) for all \( i\geq 0 \).
+	Hence every satisfiable superset of set \( S' \) will not saturate.
+\end{example}
 
 	\begin{align*}
 \colN \mc_{x_0} \mEQ \mc_{x_0}
@@ -1218,6 +1245,8 @@ but we can ensure that we find only desired models.
 \\
 {\colN \msucc(\mc_{x_5}) \mNE \msucc(\mc_{y_5})} \lor \mc_{x_5 }\mEQ \mc_{y_5}
 \tag*{\( \msucc \)-injectivity}
+\\
+\msucc(\msucc(x_6)) \mEQ\msucc(0)
 \end{align*}
 
 
