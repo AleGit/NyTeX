@@ -1205,8 +1205,8 @@ but we can ensure that we find only desired models.
 		% \)}
 		\end{align*}
 
-This does not hurt the saturation process badly, 
-but we get an infinite sequence of generated instances starting with \( \axiom{I}_\msucc \) and \( \axiom{0}_\msucc \).
+This would not hurt the saturation process.
+Additionally we get an infinite sequence of new instances starting with \( \axiom{I}_\msucc \) and \( \axiom{0}_\msucc \).
 	\begin{gather*}
 	\infer[ \sigma_0 ]{
 		\boxed{\msucc (\msucc (x)) \mNE \msucc (x)} \lor\colLo \msucc (x)\mEQ x
@@ -1226,28 +1226,55 @@ but we get an infinite sequence of generated instances starting with \( \axiom{I
 	\( \sigma_i = \{ x'\mapsto \msucc^{i+2} (x), y'\mapsto \msucc^{i+1} (x)\} \) for all \( i\geq 0 \).
 	Hence every satisfiable superset of set \( S' \) will not saturate.
 \end{example}
-
+% 
+To overcome this we may try to substitute different variables in clauses with distinct fresh constants where clauses do no share these introduced constants.
+\begin{example} Let \( S' \) 
+	be the satisfiable set from Example \vref{ex:nat:ordres}.
 	\begin{align*}
-\colN \mc_{x_0} \mEQ \mc_{x_0}
-\tag*{\( \mEQ \)-reflexivity}
+{\colHi \mc_{x_0} \mEQ \mc_{x_0}}
+,\,
+{\mc_{x_1} \mEQ \mc_{y_1}} \lor {\colHi \mc_{y_1} \mNE \mc_{x_1}}
+,\,
+{\mc_{x_2} \mEQ \mc_{z_2}} \lor {\colHi \mc_{x_2} \mNE \mc_{y_2}} \lor {\colN \mc_{y_2}\mNE \mc_{z_2}}
+\tag*{\( \{\axiom{R}_\mEQ,\axiom{S}_\mEQ,\axiom{T}_\mEQ\}{\mc_*} \)}
 \\
-{\mc_{x_1} \mEQ \mc_{y_1}} \lor {\colN \mc_{y_1} \mNE \mc_{x_1}}
-\tag*{\( \mEQ \)-symmetry}
-\\
-{\mc_{x_2} \mEQ \mc_{z_2}} \lor {\colN \mc_{x_2} \mNE \mc_{y_2}} \lor {\colN \mc_{y_2}\mNE \mc_{z_2}}
-\tag*{\( \mEQ \)-transitivity}
-\\
-{ \msucc(\mc_{x_3}) \mEQ \msucc(\mc_{y_3})} \lor {\colN \mc_{x_3}\mNE \mc_{y_3}}
-\tag*{\( \msucc \)-congruence}
-\\[0.5em]
-{\colN \msucc(\mc_{x_4})\mNE 0}
-\tag*{\( 0\not\in\image(\msucc) \)}
-\\
-{\colN \msucc(\mc_{x_5}) \mNE \msucc(\mc_{y_5})} \lor \mc_{x_5 }\mEQ \mc_{y_5}
-\tag*{\( \msucc \)-injectivity}
-\\
-\msucc(\msucc(x_6)) \mEQ\msucc(0)
+{ \msucc(\mc_{x_3}) \mEQ \msucc(\mc_{y_3})} \lor {\colHi \mc_{x_3}\mNE \mc_{y_3}}
+,\,
+{\colHi \msucc(\mc_{x_4})\mNE 0}
+,\,
+\underline{\colHi \msucc(\mc_{x_5}) \mNE \msucc(\mc_{y_5})} \lor \mc_{x_5 }\mEQ \mc_{y_5}
+\tag*{\(\{\axiom{C}_\msucc,\axiom{0}_\msucc,\axiom{I}_\msucc\}{\mc_*} \)}
+% \\
+% \msucc(\msucc(\mc_{x_6})) \mEQ\msucc(\mc_{y_6}) \lor \mc_{x_6} \mNE \mc_{y_6}
 \end{align*}
+After literal selection, \( \axiom{R}_\msucc \) clashes with selected negative literals
+of \( \axiom{S}_\mEQ \), \( \axiom{T}_\mEQ \), and \( \axiom{C}_\msucc \).
+\begin{gather*}
+\infer[\sigma_1]{
+	x_0 \mEQ x_0 \lor x_0 \mNE x_0
+}{
+	x_0 \mEQ x_0 & x_1 \mEQ y_1 \lor y_1 \mNE x_1 
+}
+\qquad
+\infer[\sigma_2]{
+	x_0 \mEQ z_2 \lor x_0 \mNE x_0 \lor x_0 \mNE z_2
+}{
+	x_0 \mEQ x_0 & x_2 \mEQ z_2 \lor x_2 \mNE y_2 \lor y_2 \mNE z_2
+}
+\\
+\infer[\sigma_3]{
+	\msucc(x_0) \mNE \msucc(x_0) \lor x_0 \mEQ x_0
+}{
+	x_0 \mEQ x_0 & \msucc(x_3) \mNE \msucc(y_3) \lor x_3 \mNE y_3
+}
+\end{gather*}
+with \( \sigma_1 = \{ x_1\mapsto x_0, y_1 \mapsto x_0 \}\),
+\( \sigma_2 = \{ x_2\mapsto x_0, y_2 \mapsto x_0 \}  \),
+\( \sigma_3 = \{ x_3\mapsto x_0, y_3 \mapsto x_0 \} \).
+\end{example}
+
+The derived instances are weakened variants (see Lemma \vref{lem:weakend:variants}) of clauses already in \( S ' \) and can be ignored. Hence the process saturates for \( S' \).
+
 
 
 %	An equational interpretation must satisfy the formulas for reflexivity, symmetry, transitivity,
