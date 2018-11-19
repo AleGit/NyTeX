@@ -155,6 +155,13 @@ applied to an arbitrary formula \( G(x) \).
 The remaining axioms can be transformed by the same approach without the need for the introduction of fresh skolem constants.
 \end{proof}
 
+
+\begin{remark}
+	For brevity, we have used and will use the same variable symbols in different clauses.
+	Even so, we always can assume that different clauses are variable distinct.
+	If necessary we just apply a suitable renaming, i.e.~a variable substitution (see Definition \vref{def:substitution}), per clause.
+\end{remark}
+
 \begin{table}[hbt]
 	\begin{align*}
 		x_1\mNE y_1\lor x_2\mNE y_2\lor x_1+y_1 \mEQ x_2+y_2
@@ -580,12 +587,18 @@ which was the starting point for the development of efficient propositionally sa
 
 In this section we already add the equality symbol \( \mEQ \) into our formulae,
 but we treat it not differently from an arbitrary binary predicate symbol with infix notation.
+% 
+Without further notice we will always assume 
+that different clauses do not share variable symbols,
+as we have already justified in Section \vref{sec:clausal:normal:form}.
+Further we assume that any set of clauses is variant free, 
+i.e.~does not contain multiple variants of a clause.
 
 \subsection{Resolution}\label{sec:resolution}
 
 \begin{definition}[Resolution calculus]\label{def:resolution}
-	Let \( A, B \) be atoms and
-	\( \mcC,\mcD \) be clauses.
+	Let \( A, B \) be atoms and 
+	\( \mcC, \mcD \) be clauses.
 	\begin{gather*}
 	\infer
 	[\text{Resolution}]
@@ -594,8 +607,8 @@ but we treat it not differently from an arbitrary binary predicate symbol with i
 	\qquad\qquad
 	\infer
 	[\text{Factoring}]
-	{(A\lor\mcC)\sigma}
-	{A\lor B\lor\mcC}
+	{(A'\lor\mcC')\sigma}
+	{A'\lor B'\lor\mcC'}
 	\end{gather*}
 	\begin{center}
 		where
@@ -720,6 +733,8 @@ We may notice some disadvantages in resolution.
 
 \subsection{Ordered resolution}\label{sec:ordered:resolution}
 
+With an order on literal and clause instances the number of possible derivations can be noticeably reduced.
+
 \begin{definition}[Ordered Resolution]\label{def:ordered:resolution}
 	Let \( A, B \) be atoms and \( \mcC,\mcD \) be clauses.
 	\begin{gather*}
@@ -735,8 +750,8 @@ We may notice some disadvantages in resolution.
 	\end{gather*}
 	\begin{center}
 		where \( \sigma=\mgu(A,B) \),
-		\( A\sigma \) is strictly maximal in \( \mcC\sigma \),
-		\( \lnot B\sigma \) is maximal in \( \mcD\sigma \).
+		\( A\sigma \) strictly maximal in \( (A\lor\mcC)\sigma \),
+		\( \lnot B\sigma \) maximal in \( (\lnot B\lor\mcD)\sigma \).
 	\end{center}
 	%	The rule looks very similar to the resolution rule in Definition \ref{def:res}.
 	%	But there is an important difference.
@@ -756,7 +771,7 @@ We may notice some disadvantages in resolution.
 	\( \mP(x,y)\succ\mP(\ma,z)\succ\mP(z,\mb) \)
 	for \( \{ x\mapsto\ma, y\mapsto\ma,z\mapsto\mb \} \).
 	\begin{gather*}
-	\infer[]{\mP(\ma,z)\lor\mP(z,\mb)\lor\lnot\mP(a,z')\lor\lnot\mP(z',b)}
+	\infer[]{\mP(\ma,z)\lor\mP(z,\mb)\lor\lnot\mP(\ma,z')\lor\lnot\mP(z',b)}
 	{{\colN\mP(x,y)}\lor\mP(\ma,z)\lor\mP(z,\mb) & {\colN\lnot\mP(x',y')}\lor\lnot\mP(\ma,z')\lor\lnot\mP(z',\mb)}
 	\end{gather*}
 
@@ -764,7 +779,7 @@ We may notice some disadvantages in resolution.
 
 \begin{example}
 	With an ordering such that \( \msucc(y)\mEQ\msucc(z)) \succ y\mEQ z \) on atoms and \( {\lnot A} \succ A \)
-	the satisfiable set \( S_{\ref{ex:sat:msxx:mymzyz}} \) saturates with ordered resolution,
+	the satisfiable set \( S \) in Example \vref{ex:sat:msxx:mymzyz} saturates with ordered resolution,
 	because the strictly maximal literals
 	\( \msucc(x)\mNE x \) and
 	\( \msucc(y)\mNE\msucc(z) \)
@@ -772,12 +787,12 @@ We may notice some disadvantages in resolution.
 \end{example}
 
 
-% \begin{definition}[Order on clauses]
-% 	multiset order
-% \end{definition}
+\begin{procedure}[Ordered Resolution] We start with a set of clauses. We either apply ordered resolution or ordered factoring to derive a clause. If this clause is not a variant of a clause already in the set, we add it to the set. We continue until we derive the empty clause or we can only derive variants of clauses in the set.
+\end{procedure}
 
 \begin{lemma}
-	Ordered resolution is a complete refutation procedure.
+	The ordered resolution procedure is a complete refutation process for a set of clauses, 
+	i.e.~this set is unsatisfiable if and only if the empty clause can be derived.
 \end{lemma}
 
 % \begin{proof}
@@ -790,7 +805,8 @@ We may notice some disadvantages in resolution.
 
 \subsection{Inst-Gen}\label{sec:inst:gen}
 
-Gilmore's prover systematically constructs all ground instances eventually --- starting with the smallest. So it can take many steps to discover a simple contradiction.
+Gilmore's prover systematically constructs all ground instances eventually---starting with the smallest. So it can take many (unnecessary) steps to discover a simple contradiction. 
+\InstGen searches actively for contradicting instances of literals to shorten this discovery process.
 
 \begin{definition}[\InstGen{}~\cite{KK2008}] Let \( A, B \) be atoms and \( \mcC,\mcD \) be clauses.
 	\begin{gather*}
@@ -799,7 +815,7 @@ Gilmore's prover systematically constructs all ground instances eventually --- s
 	{(A\lor\mathcal C)\sigma\qquad (\lnot B\lor\mathcal D)\sigma}
 	{A\lor\mathcal C\quad&\quad \lnot B\lor\mathcal D}
 	\end{gather*}
-	\begin{center}\( \sigma=\mgu(A,B) \)
+	\begin{center}where \( \sigma=\mgu(A,B) \)
 %		, \( \sigma \) is proper
 	\end{center}
 	%	The rule looks very similar to the resolution rule in Definition \ref{def:res}.
@@ -815,9 +831,9 @@ Gilmore's prover systematically constructs all ground instances eventually --- s
 \end{definition}
 
 \begin{example}
-	With \InstGen{} we immediately can derive a helpful clause from set
+	With \InstGen{} we can immediately derive a helpful clause from set
 \(
-	S_{(\ref{ex:unsat:nexsx})} =
+	S =
  \{ \,
 { \lnot\mE(x, \msucc(x)) }, \,
 { \mE(\msucc^k(y), \msucc(\msucc^k(y)))}
@@ -840,15 +856,6 @@ and we conclude unsatisfiability because of propositional unsatisfiability of
  \, \}
 \end{gather*}
 
-\end{example}
-
-\begin{example}
-	With \InstGen{} we cannot derive any new clause from set
-	\( S = \{ \, \mE(\mzero,y) \, \} \)
-	(see Example~\ref{ex:sat:exy}) and we conclude satisfiability
-	of the \InstGen-saturated set \( S_{(\ref{ex:sat:exy}) } \)
-	because of the propositional satisfiability of
-	\( S_{(\ref{ex:sat:exy})}\subsbot \).
 \end{example}
 
 \begin{lemma}
@@ -1044,6 +1051,19 @@ S_0 \disjointunion
 \end{example}
 
 
+\begin{lemma}
+	Inst-Gen-Loop is a complete refutation procedure.
+\end{lemma}
+
+\begin{example}
+	Obviously we cannot derive any new clause from set
+	\( S = \{ \, \mE(\mzero,\msucc(x)) \, \} \)
+	(see Example~\ref{ex:sat:exy}) with \InstGen.
+	We then conclude satisfiability
+	of \InstGen-saturated set \( S \)
+	because of refutation completeness of \InstGen 
+	and satisfiability of \( S\bot \).
+\end{example}
 
 
 \section{ATP with Equality}\label{sec:proving:with:equality}
@@ -1091,7 +1111,7 @@ but we can ensure that we find only desired models.
 	\end{align*}
 	With ordered resolution we cannot infer new clauses from clauses in \( S \).
 	But we can apply rules of ordered resolution to pairs of equality axioms and clauses,
-	although most derivations are ignorable and the saturable set \( S' \) will saturate.
+	most derivations are ignorable and the process will saturate.
 	\begin{align*}
 \infer[ \{ x'\mapsto x, y'\mapsto x\}]
 {x \mEQ x}
@@ -1227,7 +1247,8 @@ Additionally we get an infinite sequence of new instances starting with \( \axio
 	Hence every satisfiable superset of set \( S' \) will not saturate.
 \end{example}
 % 
-To overcome this we may try to substitute different variables in clauses with distinct fresh constants where clauses do no share these introduced constants.
+To overcome this we may substitute different variables in clauses 
+with distinct fresh constants where clauses do no share these introduced constants.
 \begin{example} Let \( S' \) 
 	be the satisfiable set from Example \vref{ex:nat:ordres}.
 	\begin{align*}
@@ -1274,8 +1295,6 @@ with \( \sigma_1 = \{ x_1\mapsto x_0, y_1 \mapsto x_0 \}\),
 \end{example}
 
 The derived instances are weakened variants (see Lemma \vref{lem:weakend:variants}) of clauses already in \( S ' \) and can be ignored. Hence the process saturates for \( S' \).
-
-
 
 %	An equational interpretation must satisfy the formulas for reflexivity, symmetry, transitivity,
 %	function congruence for every function symbol \( f\in\mcFf \),
@@ -1348,7 +1367,7 @@ we add specific equality inference rules for completeness.
 \subsubsection{Superposition}\label{sec:superposition}
 
 As in ordered resolution the unsatisfiability of a set of clauses is shown
-if and only if the empty clause can be derived. \MISSING{Proof of completeness Reference}
+if and only if the empty clause can be derived.
 
 
 \input{appendix/superposition}
