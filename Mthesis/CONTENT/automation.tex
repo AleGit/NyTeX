@@ -883,22 +883,23 @@ and we conclude unsatisfiability because of propositional unsatisfiability of
 \begin{procedure}[Inst-Gen-Loop]\label{proc:inst:gen:loop}
 	As in Gilmore's prover (Procedure~\ref{proc:gilmore's:prover})
 	we translate the negation of our formula \( F \) into an equisatisfiable set of clauses
-	\( S_0 \). Then we introduce a distinct constant symbol
-	\( \consbot\not\in\mcF(S_0) \) even when there are constant symbols in the signature.
+	\( S = S_0 \). Then we introduce a distinct constant symbol
+	\( \consbot\not\in\mcF(S_0) \), even when there are constant symbols in the signature.
 	We start our first iteration with \( k=0 \).
 
 	\begin{enumerate}
 		\item\label{step:igl:skbot}
-		We construct a set \( S_{k} \, \subsbot \) of ground instances from \( S_k \)
-		where instantiator \( \subsbot = \{ x\mapsto \consbot \mid x\in\var(S_k) \} \)
+		We construct a set \( S_{k}\subsbot \) of ground instances from \( S_k \)
+		where proper instantiator \( \subsbot = \{ x\mapsto \consbot \mid x\in\var(S_k) \} \)
 		substitutes all occurring variables with constant symbol \( \consbot \).
 %
 		\item\label{step:igl:sksat} 
-		We check the decidable satisfiability of
-		\( S_k \, \subsbot \)
-		with a modern \SAT{} or \SMT{}-solver.
-
-		If \( S_k \, \subsbot \) is unsatisfiable then we exit the procedure and report
+		We check the decidable propositional satisfiability of
+		\( S_k\subsbot \) with a \SAT{} or \SMT{}-solver
+		(see Section \vref{sec:encodings} for details).
+		If \( S_k \, \subsbot \) is unsatisfiable
+		we exit the procedure 
+		and report
 		{ \coloremph{}{}unsatisfiability} of \( S \), i.e~the original formula \( F \) is valid.
 
 		\item\label{step:igl:model} The set \( S_k \, \subsbot \) is satisfiable, hence we can retrieve a model \( \mcM_k \models S_k\subsbot \).
@@ -907,15 +908,16 @@ and we conclude unsatisfiability because of propositional unsatisfiability of
 		\( \mcM_k\models L_i\subsbot \) for all \( i \leq | S_k | \).
 
 		\item\label{step:igl:clashes} We search for pairs of selected literals
-		\( (A, \lnot B) = (L_i, L_j^c) \)
+		\( (A, \lnot B) = (L_i, L_j) \)
 		such that the most general unifier \( \tau = \mgu(A,B) \) exists.
 
-		\item We set \( S_{k+1} ::= S_k \) and for each pair of clashing literals
-		\( (L_i, L^c_j) \)
+		\item We start with \( S_{k+1} = S_k \). For each pair of clashing literals
+		\( (L_i, L_j) \)
 		we apply \InstGen{} to the originating clauses
-		\( \{ \, \mcC_{i}, \mcC_{j} \, \} = \{ \, L_i\lor\mcC, L_j\lor\mcD \, \} \)
+		\( \{ \, \mcC_{i}, \mcC_{j} \, \} = \{ \, L_i\lor\mcC, L_j\lor\mcD \, \} \subseteq S_k \)
 %		where \( \sel(\mcC_{i_1}) = L_i \) and \( \sel(\mcC_{i_2})=\lnot L_j \)
-		to add new (not necessarily ground) instances to \( S_{k+1} \).
+		and add all new (not necessarily ground) instances to \( S_{k+1} \).
+		A clause is new to a set if no variant of the clause is already is in this set.
 
 		If no new clauses were added, i.e.~\( S_{k+1} = S_k \) after all pairs were processed we exit the procedure and report { \coloremph{}satisfiability} of \( S \), i.e.~the original formula \( F \) is not valid.
 
