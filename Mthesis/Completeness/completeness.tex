@@ -67,7 +67,8 @@ in Section~\vref{sec:equational:reasoning:on:predicates}.
 
 \begin{definition}
     A closure is a pair of a clause \( C \) and a substitution \( \sigma \),
-    conveniently written as \( C\cdot\sigma \). Two closures \( C\cdot\sigma = D\cdot\tau \)
+    conveniently written as \( C\cdot\sigma \), where \( \domain(\sigma) \subseteq \var(C)\). 
+    Two closures \( C\cdot\sigma = D\cdot\tau \)
     are the same if \( C \) is a variant of \( D \) and \( C\sigma \) is a variant of \( D\tau \).
     A closure \( C\cdot\sigma \) represents a clause \( C\sigma \),
     i.e.~the result of applying substitution \( \sigma \) to \( C \).
@@ -88,7 +89,7 @@ which always exists.
     such that
     \( L\cdot\sigma\succL L'\cdot\sigma' \) whenever
     \( L\sigma\succG L'\sigma' \).
-
+% 
 	% 5.1
     We define an order \( \succC \) on ground closures
     as an arbitrary total well-founded extension of
@@ -185,7 +186,7 @@ which always exists.
    \end{definition}
 
    \begin{remark}
-    The corresponding inference rule in \cite{GK2004csl} 
+    The corresponding inference rule in \cite{GK2004csl} (an earlier paper)
     misses \( s[l']\theta_{\!_2} \succG t\theta_{\!_2} \) 
     and is still sound.
     But we can expect that a calculus based on the inference rules above 
@@ -232,8 +233,8 @@ which always exists.
 %    \end{example}
 
    \begin{example}
-    Let \( \mf(s,t,u)\succG\mg(s') \) for all ground terms
-   \( r,s,t,s' \).
+    Let \( \mf(s,t,u)\succG\mg(s) \) for all ground terms
+   \( r,s,t \).
     % \( \succ_{kbo} \) order on terms.
    \begin{gather*}
        \infer[(\sigma)]{
@@ -276,9 +277,16 @@ which always exists.
    \end{align*}
 \end{example}
 
+\begin{definition}
+    A substitution \( \sigma \) is irreducible w.r.t.~TRS \( R \)
+    if
+    \( \image(\sigma)\subseteq\mNFR \),
+    i.e.~all terms \(\sigma(x)\) with
+    \( x\in\domain(\sigma) \) are irreducible (normal forms) w.r.t.~TRS \(R\).
+\end{definition}
 
    \begin{lemma}
-        Let \( R \) be a ground rewrite system and USC is applicable to
+        Let \( R \) be a ground rewrite system and suppose USC is applicable to
        \( (l\mEQ r)\cdot\theta_{\!_1}, L[l']\cdot\theta_{\!_2} \)
         with conclusion
        \( L[r]\sigma\cdot\rho \).
