@@ -14,9 +14,9 @@
 	the conjunction \( (F \land F')  \),
 	and the implication \( (F \limp F') \)
 	of two first order formulae
-	are (composite) first order formulae.
+	are (composite) first order formulae, where 
 %
-	\(F \) and \( F' \) are \coloremph{subformulae} of
+	we refer to formulae \(F \) and \( F' \) as \coloremph{subformulae} of
 	the quantified or composite formulae above.
 \end{definition}
 
@@ -86,10 +86,11 @@ We may denote \( \mcF(F) \) for the implicit signature of an formula \( F \).
 
 \begin{definition}\label{def:fof:closed}\label{def:fof:sentence}
 	A first order formula is closed, i.e.~a first order \coloremph{sentence},
-	if it does not contain free variables --- all occurring variables are bound.
-	For practical reasons we assume that the variables of a sentence
+	if and only if it does not contain free variables, 
+	i.e.~all occurring variables are bound.
+	For practical reasons we assume that all the occuring variables of a sentence
 	are bound exactly once
-	and occur as free variables
+	and are free variables
 	in the subformulae of the quantified formulae where they were bound.
 	Thus the following will be assured.
 	\begin{align*}
@@ -110,7 +111,7 @@ We may denote \( \mcF(F) \) for the implicit signature of an formula \( F \).
 
 \begin{example}The sentences on the left do not match
 	the assumptions in Definition~\vref{def:fof:sentence}
-	but their {equivalent (Definition~\vref{def:equivalence})}
+	but their {equivalent (see Definition~\vref{def:equivalence})}
 	counterparts on the right do.
 	\[
 	\begin{array}{rrcll}

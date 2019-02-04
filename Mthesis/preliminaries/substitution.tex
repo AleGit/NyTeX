@@ -58,7 +58,7 @@
 	We define the application of the special “grounding substitution” \( \subsbot \) to a term \( t \) with distinct constant symbol \( \consbot \not\in\mcF \)
 	as follows
 	\begin{gather*}
-	\MDEFINE{t\sigma}{ll}{
+	\MDEFINE{t\subsbot}{ll}{
 			\consbot & \text{if }t=x\in\mcV
 			\\
 			\mf(t_1\consbot,\ldots,t_n\consbot)	&\text{if }t=\mf(t_1,\ldots,t_n)
@@ -110,7 +110,7 @@
 
 \begin{definition}\label{def:strictly:subsumes}
 	A clause \( \mcC \) \coloremph{strictly subsumes} a clause \( \mcD \) if there exists a substitution \( \theta \) such that \( \mcC\theta \subsetneq \mcD \),
-	e.g.~when clause \( \mcD = \mcC\theta \lor \mcD' \) is a weakened instance of clause \( \mcC \).
+	e.g.~whenever clause \( \mcD = \mcC\theta \lor \mcD' \) is a weakened instance of clause \( \mcC \).
 \end{definition}
 
 \begin{definition}\label{def:substcomp}
@@ -123,7 +123,7 @@ We define the \coloremph{composition} of two substitutions \( \sigma \) and \( \
 \end{definition}
 
 \begin{lemma}\label{lem:substitution}
-	With the Definitions in~\ref{def:substitution} and~\ref{def:substcomp} the resulting expressions for
+	With the Definitions \ref{def:substitution} and~\ref{def:substcomp} the resulting expressions for
 	\( (\mct\sigma)\tau \) and \( \mct( \sigma\tau) \) coincide for
 	any term or literal \( \mct \), i.e.~\( (\mct\sigma)\tau = \mct( \sigma\tau) \).
 \end{lemma}

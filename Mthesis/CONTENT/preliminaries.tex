@@ -54,7 +54,8 @@ of clauses, literals and terms.
 \section{Semantics}\label{sec:semantics}
 
 In this section we recall some basic aspects and definitions of semantics in first order logic.
-We state satisfiability and validity of arbitrary first order formulae or sets of clauses.
+We state satisfiability and validity 
+for arbitrary first order formulae as well as sets of clauses.
 %See the appendix for more details and mathematics.
 
 \subsection{Models}
@@ -134,11 +135,11 @@ We state satisfiability and validity of arbitrary first order formulae or sets o
 \end{definition}
 
 \begin{definition}
-	A \coloremph{model} \( \mcM \) for a set of clauses \( S \) (for a sentence \( F \))
+	A \coloremph{model} \( \mcM \) for a set of clauses \( S \) (a sentence \( F \))
 	is an interpretation that
 	\coloremph{satisfies} the set of clauses (the sentence),
 	i.e.~the set of clauses (the sentence) holds in that interpretation \( \mcM \).
-	We write \( \mcM\models S \) or \( \mcM\models F \).
+	We write \( \mcM\models S \) (\( \mcM\models F \)).
 	% i.e.~the set of clauses (the sentence) holds in this interpretation.
 
 	A set of clauses (a sentence) is \coloremph{satisfiable} if there exists at least one model for it.
@@ -168,7 +169,6 @@ We state satisfiability and validity of arbitrary first order formulae or sets o
 	&
 	H'_{k+1} &= H_k \cup{} H'_{k+1}
 	\end{align*}
-
 \end{definition}
 
 \begin{definition}
@@ -203,7 +203,7 @@ We state satisfiability and validity of arbitrary first order formulae or sets o
 	For an arbitrary first order sentence \( F \)
 	we can easily see the composite sentence \( F\land\lnot F \)
 	is unsatisfiable and entails every sentence,
-	that the composite sentence \( F\lor\lnot F \) is valid and entailed by every sequence of sentences, and further that
+	the composite sentence \( F\lor\lnot F \) is valid and is entailed by every sequence of sentences, and further
 	\begin{align*}
 	\Delta, F&\entails G  &\text{if and only if} && \Delta &\entails \lnot F\lor G
 	\\
@@ -257,6 +257,8 @@ quantified variable by its position index.
 	any unsatisfiable formulae is equisatisfiable to \emph{any} unsatisfiable formula
 	and any satisfiable formula is equisatisfiable to \emph{any} satisfiable formula by definition,
 	e.g.\ \(\mP(\ma) \equisat \mb\mEQ\mc \). % chktex 21
+
+	But if we want to check satisfiability of formulae \( F \) and we can transform \( F \) to a “simpler” formula \( G \) such that \( F \equisat G \) then it is sufficient to check \( G \) for satisfiability to show (un)satisfiability of \( F\).
 \end{remark}
 
 \begin{example}
@@ -358,7 +360,7 @@ and demonstrate their usage in an example.
 	On the other hand we easily construct a normal term model
 	\( \mcM_t \) with domain \( \{ {[\ma]}_\sim \} \),
 	a plain function definition
-	\( \mf_{\mcM_t}({[\ma]}_\sim) \mapsto {[\ma]}_\sim \)
+	\( \mf_{\mcM_t}({[\ma]}_\sim) = {[\ma]}_\sim \)
 	with equivalence relation
 	\( \ma \sim \mf(\ma) \).
 	Hence \( \mEQ_{\mcM_t} \) agrees to equality in its domain of equivalence classes of ground terms.
@@ -424,7 +426,7 @@ and the rewrite symbol is used between (function) terms.
 %	A \coloremph{reduction order} is a well-founded rewrite order.
 %\end{definition}
 %
-\begin{definition}
+\begin{definition}\label{def:rewritten}
 	A term \( s \) can be rewritten to term \( t \) with notion \( s\rightarrow^*_\mcR t \)
 	if there exists at least one \coloremph{rewrite sequence} \( (a_1,\ldots ,a_n) \) such that
 	\( s=a_1 \), \( a_n=t \), and \( a_i\rightarrow_\mcR a_{i+1} \) are rewrite steps for \( 1\leq i<n \).
@@ -445,7 +447,7 @@ and the rewrite symbol is used between (function) terms.
 %
 \begin{definition}\label{def:closed-under}
 	A \coloremph{rewrite relation} is a binary relation
-	\( \relation \) on arbitrary terms \( s \) and \( t \),
+	\( \relation \) on (arbitrary) terms (\( s \) and \( t \)),
 	which additionally is \coloremph{closed under contexts}
 	(whenever \( s\relation t \) then \( u{[s]}_p\relation u{[t]}_p \)
 	for an arbitrary term \( u \) and any position \( p\in\pos(u) \))
@@ -455,8 +457,9 @@ and the rewrite symbol is used between (function) terms.
 \end{definition}
 \begin{definition}
 	Let \( \mcR \) be a TRS, \( s \) and \( t \) be terms.
-	% The relation \( s \rightarrow^*_\mcR t \) holds if \( s \) can be rewritten to \( t \).
-	The relation \( s \rightarrow^+_\mcR t \) holds
+	The relation \( s \rightarrow^*_\mcR t \) has been already defined in Definition
+	\vref{def:rewritten}.
+	Further	the relation \( s \rightarrow^+_\mcR t \) holds
 	if \( s \) can be rewritten to \( t \)
 	and the length of the rewrite sequence is at least one,
 	relation \( s \uparrow_\mcR t \) holds if there is a term \( r \) such that
@@ -521,11 +524,11 @@ etc.
 
 \begin{lemma}
 	Any ordering \( \succ \) on a set \( C \) can be extended to an ordering on multisets over \( C \)
-	as follows \( N \succ M \) if \( N \neq M \)
-	and whenever there is \( x\in C \) with \( N(x) < M(x) \)
+	as follows:
+	\( N \succ M \) if \( N \neq M \)
+	and whenever there is some \( x\in C \) with \( N(x) < M(x) \)
 	then there is \( y \succ x \) with \( N(y) > M(y) \).
-
-	An ordering \( \succ \) on terms can be extended to orderings on literals and clauses.
+	Further an ordering \( \succ \) on terms can be extended to orderings on literals and clauses.
 \end{lemma}
 
 
@@ -540,16 +543,15 @@ etc.
 % \begin{lemma}A well-founded and total order on general ground terms always exists.\end{lemma}
 
 	\begin{definition}[Order on literals]\label{def:orders-on-literals}
-		We extend a well-founded and total order \( \succ \) on general ground terms,
-		i.e~general atoms to a well-founded proper order \( \succ_\mL \)
+		We extend a well-founded and total order \( \succ \) on first order atoms to a well-founded proper order \( \succ_\mL \)
 		on literals such that for all atoms \( A \) and \( B \) with \( A\succ B \)
 		the relations \( A\succ_\mL B \),
 		\( \lnot A\succ_\mL\lnot B \) and
 		\( \lnot A\succ_\mL A \) hold.
 		%
 		A (non-ground) literal \( L \) is \coloremph{(strictly) maximal} if there exists a ground substitution \( \tau \)
-		such for no other literal \( L' \) the relation \( L'\tau\succ L\tau \) (strictly: \( \succcurlyeq \)) holds.
-		We write \( \succ_{gr} \) to suggest the existence of such a ground substitution \( \tau \).
+		such that for no other literal \( L' \) the relation \( L'\tau\succ L\tau \) (strictly: \( \succcurlyeq \)) holds.
+		We write \( L \succ_{gr} L' \) to suggest the existence of such a ground substitution \( \tau \) such that \( L \) is maximal.
 	\end{definition}
 
 

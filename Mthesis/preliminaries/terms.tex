@@ -21,12 +21,13 @@
 		\bigcup_{i=1}^n \var(t_i) & \text{if }  t = \mf(t_1, \ldots t_n)
 	}
 	\end{gather*}
-	A \coloremph{ground} term \( t' \) does not contain any variables, i.e.~\( \var(t') = \emptyset \).
+	A term \( t' \) is \coloremph{ground} if and only if \( \var(t') = \emptyset \),
+	i.e.~it does not contain any variables.
 \end{definition}
 
 \begin{definition}\label{def:unary:power}
 	For a unary function symbol \( \mg\in\mcFfn[1] \), a natural number
-	\( i\in\mathbb{N} \), and an arbitrary term \( t\in\mcTf \) we introduce the notation \( \mg^i(t) \) defined as follows:
+	\( i\in\mathbb{N} \), and an arbitrary term \( t\in\mcTf \) we introduce the convenience notation \( \mg^i(t) \) defined as follows:
 	\[
 	\mg^0(t) := t \qquad
 	\mg^{i+1}(t) := \mg(\mg^i(t))
