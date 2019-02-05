@@ -71,11 +71,11 @@ By definition of the semantics of negation, validity, and satisfiability.
 \begin{theorem}
 	[Undecidability~\cite{church_1936,turing1937}, Church 1936,
 	Turing 1937.]
-	The satisfiability problem for first-order logic is undecidable.
+	The satisfiability problem for first order logic is undecidable.
 \end{theorem}
 
 \begin{theorem}[Trakhtenbort 1950, Craig 1950]
-	The satisfiability problem for first-order logic on \coloremph{finite} structures (domains) is undecidable.
+	The satisfiability problem for first order logic on \coloremph{finite} structures (domains) is undecidable.
 \end{theorem}
 
 \begin{definition}[Finite model property]
@@ -126,15 +126,15 @@ into an equisatisfiable set of clauses.
 
 \section{Decidable Fragments of First Order Logic}\label{sec:decidable:fol:fragments}
 
-Validity and satisfiability in general are undecidable in First Order Logic.
-However this section presents purely syntactically defined (tiny) fragments
-of first-order logic where satisfiability is decidable.%\footnote{
+In first order logic validity and satisfiability are undecidable for arbitrary formulae.
+Even so this section presents purely syntactically defined fragments
+of first order logic where satisfiability is decidable.%\footnote{
 % 	\,Definitions and compact overviews follow the presentation
 % 	“\href{http://logic.rwth-aachen.de/~graedel/kalmar.pdf}{Decidable fragments of first-order and fixed-point logic}”
 % 	by E.~Grädel (\url{http://logic.rwth-aachen.de/~graedel/}).
 % }
 
-\begin{definition}[\cite{MR1482227}]\label{def:prefix:class}
+\begin{definition}[Prefix-vocabulary classes \cite{MR1482227}]\label{def:prefix:class}
 	We introduce a simple notation to define fragments 
 	of first order logic---i.e.~sets of first order sentences in \PNF{}---by 
 	the syntactic structure of the included sentences.
@@ -143,9 +143,9 @@ of first-order logic where satisfiability is decidable.%\footnote{
 		\subseteq {[\, all, all, all\,]}_{\mEQ}
 	\]
 	where 
-	% 
+	%      
 	\begin{enumerate}
-		\item \( \Pi \) is a regular expression over quantifier symbols 
+		\item \( \Pi \) is an expression over quantifier symbols 
 		\( \{ \forall\,\exists \} \) 
 		to define the set of possible prefixes of sentences in the fragment, 
 		e.g.~with \( \Pi = \forall^*\exists \) we have 
@@ -157,6 +157,7 @@ of first-order logic where satisfiability is decidable.%\footnote{
 	\( p_i \in \mathbb{N}\disjointunion\{ \omega \} \) where 
 	\( p_i \) represents the maximal number of predicate symbols 
 	with arity \( i \in \mathbb{N}\disjointunion\{ \omega \} \),
+	where \( \omega \) allows a countable set of symbols,
 	% 
 	\item \( (f_i)_{i\in\mathbb{N}} \) is an infinite sequence of 
 	\( f_i \in \mathbb{N}\disjointunion\{ \omega \} \) where
@@ -197,19 +198,8 @@ of first-order logic where satisfiability is decidable.%\footnote{
 % \end{example}
 
 \noindent
-First we look at two historical non-trivial examples of decidable fragments 
-of first order logic with equality.
-
-\begin{example}\label{ex:monadic}
-	The monadic predicate calculus includes formulae with arbitrary quantifier prefixes,
-	arbitrarily many unary predicate symbols, the equality symbol, but no function symbols.
-	\begin{gather*}
-	% {\colG {[\,all, (\omega), (1)\,]}_{\mEQ}
-	% \quad\supsetneq}\qquad
-	{[\,all, (\omega), (0 ) \,]}_{\mEQ}
-	\tag{Löwenheim 1925, Kalmár 1929}
-	\end{gather*}
-\end{example}
+Quantifier free first oder logic \([\emptyset, \omega, \omega ]\) is decidable \cite{Kroening:2008:DPA:1391237}, 
+but let us take a quick look at two historical non-trivial fragments of first order logic with equality where satisfiability is decidable.
 
 \begin{example}\label{ex:ackermann}
 	The Ackermann prefix class contains formulae with arbitrary many existential quantifiers,
@@ -222,6 +212,23 @@ of first order logic with equality.
 	\tag{Ackermann 1928}
 	\end{gather*}
 \end{example}
+
+\begin{example}\label{ex:monadic}
+	The monadic predicate calculus includes sentences with arbitrary quantifier prefixes,
+	arbitrarily many unary predicate symbols, the equality symbol, but no function symbols.
+	\begin{gather*}
+	% {\colG {[\,all, (\omega), (1)\,]}_{\mEQ}
+	% \quad\supsetneq}\qquad
+	{[\,all, (\omega), (0 ) \,]}_{\mEQ}
+	\tag{Löwenheim 1925, Kalmár 1929}
+	\end{gather*}
+\end{example}
+
+Both examples above are subsets of slightly bigger fragments of first order logic 
+with equality where one single unary function symbol can be present
+(see Table \ref{tab:decidable:InfinityAxioms}).
+
+
 
 % \begin{remark}
 % 	One unary function symbol can be added to these fragments of first order logic above
@@ -244,10 +251,12 @@ of first order logic with equality.
 	\\
 	[\,\exists^{∗}, all, all& \, ]{}_{\mEQ} \tag{Gurevich 1976}
 	\end{align*}
-	\caption[Decidable prefix classes (finite)]{Decidable prefix classes with finite model property}\label{tab:decidedable:FiniteModelProperty}
+	\caption[Decidable classes (finite)]{Decidable prefix-vocabulary classes with finite model property}\label{tab:decidedable:FiniteModelProperty}
 \end{table}
 
-
+\begin{definition}
+	\coloremph{Axioms of infinity} refers to satisfiable sentences without a finite model.
+	\end{definition}
 
 \begin{table}[hbt]
 	\begin{align*}
@@ -255,14 +264,36 @@ of first order logic with equality.
 	\\
 	[ \, \exists^{∗}\forall\exists^{∗}, all, (1)& \, ]{}_{\mEQ} \tag{Shelah 1977}
 	\end{align*}
-	\caption[Decidable prefix classes (infinite)]{Decidable prefix classes with infinity axioms.}\label{tab:decidable:InfinityAxioms}
+	\caption[Decidable classes (infinite)]{Decidable prefix-vocabulary classes with infinity axioms}\label{tab:decidable:InfinityAxioms}
 \end{table}
 
+\begin{example}[\cite{MR1482227}]
+	Two examples of infinity axioms, each contained 
+	in one of the prefix-vocabulary classes from 
+	Table~\vref{tab:decidable:InfinityAxioms}.
+	\begin{align*}
+		\exists x \forall y \forall z\, 
+		\left(
+			\mf(y) \mNE x \land (\mf(y) \mEQ \mf(z) \limp y \mEQ z) 
+		\right)
+		&\in [ \, all, (\omega), (1) \, ]{}_{\mEQ} \\
+		\forall x\exists y 
+		\left(
+			\mf^2(y)\mEQ\mf(x) \land \mf(y)\mNE x
+		\right)
+		&\in [ \, \exists^{∗}\forall\exists^{∗}, all, (1) \, ]{}_{\mEQ}
+	\end{align*}
+	\end{example}
+
 \begin{lemma}[\cite{MR1482227}]
-	Satisfiability is decidable in all prefix classes from
-	Tables~\ref{tab:decidedable:FiniteModelProperty} and~\ref{tab:decidable:InfinityAxioms}.
-	Each of theses classes is closed under conjunction with respect to satisfiability.
+	Satisfiability is decidable within the prefix-vocabulary classes from
+	Tables~\ref{tab:decidedable:FiniteModelProperty} and~\vref{tab:decidable:InfinityAxioms}.
+	% Each of theses classes is closed under conjunction with respect to satisfiability.
+	% [\cite{MR1482227, p.227}]
 \end{lemma}
+
+\noindent We notice that these decidable fragments of first order logic are 
+tiny and limited in their applications.
 
 
 
@@ -300,9 +331,9 @@ Even if we can decide that a sentence is not a theorem in a theory,
 e.g.~if we find a model for the axioms where the sentence does not hold,
 we still cannot conclude that the negation of the sentence is a theorem.
 \begin{example}
-	The sentence \( F = \forall x \forall y\, (x\mEQ y) \) is definitly not a theorem in many theories, but its negation \( \lnot F \equiv \exists x \exists y\, (x \mNE y) \) is not a theorem in any theory that allows models with a universe of cardinality one.
+	The sentence \( F = \forall x \forall y\, (x\mEQ y) \) is definitely not a theorem in many theories, but its negation \( \lnot F \equiv \exists x \exists y\, (x \mNE y) \) is not a theorem in any theory that allows models with a universe of cardinality one.
 \end{example}
-\begin{definition}
+\begin{definition}\label{def:complete:theory}
 	A (consistent) theory is \coloremph{complete} iff for any sentence in the theory (either) the sentence or its negation is a theorem in the theory.
 \end{definition}
 %
@@ -417,8 +448,8 @@ and Table~\vref{tab:natural:deduction:quantifiers}).
 	Additionally we just show congruence for a unary function and a unary predicate symbol.
 	\begin{gather*}
 \begin{BMAT}{rcrclccl}{cc}
-1 && \mc_0 && \mc_0=\mc_0 	& && {=}i\\
-2 && 	 &&	\forall x\,(x=x)	& && \forall{}i,1,\{x\mapsto\mc_0\}
+1 && x_0 && x_0=x_0 	& && {=}i\\
+2 && 	 &&	\forall x\,(x=x)	& && \forall{}i,1,\{x\mapsto x_0\}
 \addpath{(2,1,1)rrrrulllld}
 \end{BMAT}
 \\[0.7em]
@@ -548,20 +579,18 @@ The following axioms characterize natural numbers, addition, and multiplication.
 	\end{gather*}
 \end{example}
 
-\begin{remark}
-	Already the axioms of addition (without function congruence)
-	are only contained in a non-decidable first order fragment
-	\( [ \, \forall^2 , (0), (1,1) \, ]{}_{\mEQ} \).
-	Still they are part of a decidable first-order theory.
-\end{remark}
-
-\begin{theorem}Presburger arithmetic (Moj\'{z}esz Presburger, 1929), i.e.\ the first-order theory that includes the axioms for equality, natural numbers, addition, and 
-	infinitely many induction schemata for all possible formulae, is consistent, complete and decidable. The computational complexity of the decision problem is at least doubly exponential \( 2^{2^{cn}} \)(Fischer and Rabin, 1974), but less than triple exponential (Oppen, 1978, Berman, 1980).
+\begin{theorem}Presburger arithmetic (Moj\'{z}esz Presburger, 1929), i.e.\ the first order theory that includes the axioms for equality, natural numbers, addition, and 
+	infinitely many induction schemata for all possible formulae, is a consistent, decidable, and complete (as in Definition~\vref{def:complete:theory}) theory. 
+	The computational complexity of the decision problem is at least doubly exponential \( 2^{2^{cn}} \)(Fischer and Rabin, 1974), but less than triple exponential (Oppen, 1978, Berman, 1980).
 \end{theorem}
 
 \begin{remark}
-	Sentences in Presburger arithmetic are contained in
+	Already the axioms of addition (without function congruence)
+	are only contained in a non-decidable first order fragment
+	\( [ \, \forall^2 , (0), (1,1) \, ]{}_{\mEQ} \). Morover
+	sentences in Presburger arithmetic are contained in
 	\( [ \, all , (0), (1,1) \, ]{}_{\mEQ} \).
+	Still the theory is decidable, even complete.
 \end{remark}
 
 \begin{definition}
