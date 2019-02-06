@@ -20,7 +20,7 @@
 		\infer
 		[\mathsf{(oF)}]
 		{(A \lor \mcC')\sigma}
-		{{ A}\lor B\lor\mcC}
+		{{ A}\lor B\lor\mcC'}
 		\end{gather*}
 		where unifier \( \sigma=\mgu(A,B) \) exists,
 		instance \( A\sigma \) is \txtSTRICTLY{} in \( \mcC \sigma \),
@@ -37,12 +37,13 @@
 		[\mathsf{(oP)}]
 		{(\mcC\lor A[t]\lor\mcD')\,\sigma}
 		{{ s\mEQ t} \lor\mcC\quad { A[s']}\lor\mcD'}
-		%
-%		where unifier \( \sigma=\mgu(s,s') \) exists,
-%		\( (s\mEQ t)\sigma \) {is strictly maximal} in \( \mcC\sigma \),
-%		\( \lnot A[s'] \) { is maximal} in \( \mcD\sigma \),
-%		\( A[s'] \) {is strictly maximal} in \( \mcD'\sigma \);
 \end{gather*}
+where unifier \( \sigma=\mgu(s,s') \) exists, 
+\( s'\not\in\mcV \),
+\( t\sigma\not\succcurlyeq s\sigma \),
+\( (s\mEQ t)\sigma \) is \txtSTRICTLY{} in \( \mcC\sigma \),
+\( \lnot A[s'] \) is \txtMAXIMAL{} in \( \mcD\sigma \),
+\( A[s'] \) is \txtSTRICTLY{} in \( \mcD'\sigma \);
 \item superposition
 \begin{gather*}
 		\infer
@@ -52,8 +53,8 @@
 		\hspace{3cm}
 		\infer
 		[\mathsf{(S_+)}]
-		{(\mcC\lor u[t]\mEQ v\lor\mcD)\,\sigma}
-		{{ s\mEQ t}\lor\mcC\quad { u[s']\mEQ v}\lor\mcD}
+		{(\mcC\lor u[t]\mEQ v\lor\mcD')\,\sigma}
+		{{ s\mEQ t}\lor\mcC\quad { u[s']\mEQ v}\lor\mcD'}
 		\end{gather*}
 		%
 		where unifier \( \sigma=\mgu(s,s') \) exists,
@@ -61,8 +62,8 @@
 		\( t\sigma\not\succcurlyeq s\sigma \),
 		\( v\sigma\not\succcurlyeq u[s']\sigma \),
 		\( (s\mEQ t)\sigma \) is \txtSTRICTLY{} in \( \mcC\sigma \),
-		\( \lnot A[s'] \) and \( u[s']\mNE v \) are \txtMAXIMAL{} in \( \mcC\sigma \),
-		\( A[s'] \) and \( u[s']\mEQ v \) are \txtSTRICTLY{} in \( \mcD\sigma \),
+		\( u[s']\mNE v \) is \txtMAXIMAL{} in \( \mcC\sigma \),
+		\( A[s'] \) and \( u[s']\mEQ v \) is \txtSTRICTLY{} in \( \mcD'\sigma \),
 		\( (s\mEQ t)\sigma\not\succcurlyeq(u[s']\mEQ v)\sigma \).
 		\item
 		equality resolution and equality factoring
@@ -85,3 +86,5 @@
 	\end{itemize}
 	%
 \end{definition}
+
+\begin{lemma}The superposition calculus is complete.\end{lemma}

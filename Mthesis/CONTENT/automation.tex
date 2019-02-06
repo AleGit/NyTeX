@@ -11,7 +11,7 @@ It seems natural to expect decision procedures
 for decidable fragments of first order logic
 (Section~\ref{sec:decidable:fol:fragments})
 or decidable first order theories (Section~\ref{sec:decidable:fol:theories}).
-But we will demonstrate --- with simple examples ---
+But we will demonstrate with basic examples
 that decision procedures do not automatically
 fall out from complete refutation procedures.
 
@@ -40,12 +40,14 @@ while in general there is no bound on the size of a smallest set of unsatisfiabl
 %translation of an undecidable problem into a (potentially infinite) sequence of decidable problems.
 
 
-To actually prove a theorem
+To actually prove a theorem automatically \cite{books/el/RobinsonV01}
 we first can make use of the fact that a first-order formula is valid if and only if its negation is unsatisfiable.
 Second we can efficiently transform a negated sentence into an
-\coloremph{equisatisfiable} set of clauses
-(with Skolemization and Tseitin transformation transformation~\cite{tseitin70}),
-i.e.~the negated sentence is satisfiable if and only if the set of clauses is satisfiable.
+\coloremph{equisatisfiable} set of clauses,
+e.g.~efficiently with Skolemization~\cite{books/el/RV01/Hahnle01} 
+and Tseitin transformation~\cite{tseitin70},
+i.e.~the negated sentence is satisfiable if and only if the constructed 
+set of clauses is satisfiable.
 
 %This can be done efficiently with Skolemization \cite{books/el/RV01/Hahnle01} and Tseitin transformation \cite{tseitin70, PLAISTED1986293} as shown in \cite{Nonnengart01computingsmall}.
 
@@ -78,11 +80,74 @@ without equality in Section~\ref{sec:proving:without:equaltiy} and with equality
 \section{Theory Axioms in Clausal Normal Form}\label{sec:clausal:normal:form}
 
 In the previous chapter we expressed axioms and lemmas of first order theories in \FOF{} syntax.
-But Gilmore's and other provers check the satisfiability of sets of clauses. 
-So we first had to transform
+As many provers can only check satisfiability of sets of clauses, 
+we first have to transform
 those axioms into (at least) equisatisfiable representations in \CNF{} syntax
-as summarized for equivalence, congruence, natural numbers, and induction in Table~\ref{tab:natural:numbers},
-for addition and multiplication in Table~\ref{tab:addition:multiplication}.
+as summarized for equivalence, congruence, natural numbers, and induction in Table~\vref{tab:natural:numbers},
+for addition and multiplication in Table~\vref{tab:addition:multiplication}.
+Bur first let us demonstrate Skolemization for the induction schema from Definition~\vref{def:natural:numbers:axioms}.
+
+\begin{example} Let \( G \) a first order formula with free variable \( x \).
+	We lazily write \( G(x') \) for \( G\{x\mapsto x'\} \).
+	We have to introduce a fresh constant skolem function \( \mc_{_G} \)---briefly introduced 
+	in Section \ref{sec:equisatisfiability}---
+	for every formula \( G \) we want to apply the induction schema.
+	\begin{align*}
+		{		
+			G(0) \land \, \forall x'\,
+		(\underline{G(x') \limp G(\msucc(x'))})
+		\, \limp \, 
+		\forall x \, G(x)
+		} 
+		\tag*{   \( A \limp B \equiv \lnot A \lor B \ (2\times)\)}
+\\
+\underline{\lnot(
+G(0) \land \, \forall x'\,
+(\lnot G(x') \lor G(\msucc(x')))
+)} \lor 
+\forall x \, G(x) 
+\tag*{\( \lnot(A\land \forall x' B) \equiv \lnot A\lor \exists x' \lnot B \)}
+\\
+\lnot G(0) \lor \exists x'\, 
+\underline{\lnot(\lnot G(x') \lor G(\msucc(x')))}
+\lor 
+\forall x \, G(x)
+\tag*{\( \lnot(\lnot A \lor B) \equiv (A \land \lnot B) \)}
+\\
+\lnot G(0) \lor 
+\exists x'\,(G(x') \land \lnot G(\msucc(x')))
+\lor 
+\forall x \, G(x)
+\tag*{\( (\exists x' A) \lor C \equiv \exists x' (A \lor C) \)}
+\\
+\exists x'\,(
+\lnot G(0) \lor 
+(G(x') \land \lnot G(\msucc(x')))
+\lor 
+\forall x \, G(x)
+)
+\tag*{\( \exists x' B(x') \equisat B(\mc_{_B}) \)}
+\\
+\lnot G(0) \lor 
+(G(\mc_{_G}) \land \lnot G(\msucc(\mc_{_G}))) 
+\lor 
+\forall x \, G(x)
+% \tag*{\( (A\land B) \lor C \equiv (A\lor C) \land (B\lor C) \)}
+\tag*{distribute \(\lor\) over \(\land\)}
+\\
+{\lnot G(0) \lor 
+G(\mc_{_G})
+\lor 
+\forall x \, G(x)}
+\land
+{\lnot G(0) \lor 
+\lnot G(\msucc(\mc_{_G}))
+\lor 
+\forall x \, G(x)}
+% \tag*{ \( A \lor \forall x B \equisat A \lor B(x) \)}
+\tag*{easily clausifiable}
+\end{align*}
+\end{example}
 
 \begin{table}[hbt]
 	\begin{align*}
@@ -105,55 +170,55 @@ for addition and multiplication in Table~\ref{tab:addition:multiplication}.
 	\caption{The theory of natural numbers in \CNF}\label{tab:natural:numbers}
 \end{table}
 
-\begin{proof}
-We use first order equivalence and satisfiability transformations---briefly introduced 
-in Section \ref{sec:equisatisfiability}---on the induction schema 
-applied to an arbitrary formula \( G(x) \).
-\begin{align*}
-	G(0) \land  \, \forall x'\, \left(G(x') \limp G(\msucc(x'))\right)
-\, \limp \, \forall x \, G(x)
-&\equiv\\
-\lnot\left(
-	G(0) \land  \, \forall x'\, \left(G(x') \limp G(\msucc(x'))\right)
-\right)
-\lor \forall x \, G(x)
-&\equiv\\
-\left(
-	\lnot G(0) \lor  \, \lnot\forall x'\, \left(\lnot G(x') \lor G(\msucc(x'))\right)
-\right)
-\lor \forall x \, G(x)
-&\equiv\\
-\left(
-	\lnot G(0) \lor  \, \exists x'\, \left(G(x') \land \lnot G(\msucc(x'))\right)
-\right)
-\lor \forall x \, G(x)
-&\equiv\\
-\exists x' \forall x
-\left(
-	\lnot G(0) \lor \left(G(x') \land \lnot G(\msucc(x'))\right)
-\right)
-\lor G(x)
-&\equiv\\
-\exists x' \forall x
-\left(
-	(\lnot G(0) \lor G(x') \lor G(x))
-	\land
-	(\lnot G(0) \lor \lnot G(\msucc(x')) \lor G(x))
-\right)
-&\equisat\\
-\forall x
-\left(
-	(\lnot G(0) \lor G(\mc_G) \lor G(x))
-	\land
-	(\lnot G(0) \lor \lnot G(\msucc(\mc_G)) \lor G(x))
-\right)
-&\equisat\tag*{Skolemization}\\
-\lnot G(0) \lor G(\mc_G) \lor G(x),\,
-	\lnot G(0) \lor \lnot G(\msucc(\mc_G)) \lor G(x)
-	\tag*{Clausification}
-\end{align*}
-The remaining axioms can be transformed by the same approach without the need for the introduction of fresh skolem constants.
-\end{proof}
+% \begin{proof}
+% We use first order equivalence and satisfiability transformations---briefly introduced 
+% in Section \ref{sec:equisatisfiability}---on the induction schema 
+% applied to an arbitrary formula \( G(x) \).
+% \begin{align*}
+% 	G(0) \land  \, \forall x'\, \left(G(x') \limp G(\msucc(x'))\right)
+% \, \limp \, \forall x \, G(x)
+% &\equiv\\
+% \lnot\left(
+% 	G(0) \land  \, \forall x'\, \left(G(x') \limp G(\msucc(x'))\right)
+% \right)
+% \lor \forall x \, G(x)
+% &\equiv\\
+% \left(
+% 	\lnot G(0) \lor  \, \lnot\forall x'\, \left(\lnot G(x') \lor G(\msucc(x'))\right)
+% \right)
+% \lor \forall x \, G(x)
+% &\equiv\\
+% \left(
+% 	\lnot G(0) \lor  \, \exists x'\, \left(G(x') \land \lnot G(\msucc(x'))\right)
+% \right)
+% \lor \forall x \, G(x)
+% &\equiv\\
+% \exists x' \forall x
+% \left(
+% 	\lnot G(0) \lor \left(G(x') \land \lnot G(\msucc(x'))\right)
+% \right)
+% \lor G(x)
+% &\equiv\\
+% \exists x' \forall x
+% \left(
+% 	(\lnot G(0) \lor G(x') \lor G(x))
+% 	\land
+% 	(\lnot G(0) \lor \lnot G(\msucc(x')) \lor G(x))
+% \right)
+% &\equisat\\
+% \forall x
+% \left(
+% 	(\lnot G(0) \lor G(\mc_G) \lor G(x))
+% 	\land
+% 	(\lnot G(0) \lor \lnot G(\msucc(\mc_G)) \lor G(x))
+% \right)
+% &\equisat\tag*{Skolemization}\\
+% \lnot G(0) \lor G(\mc_G) \lor G(x),\,
+% 	\lnot G(0) \lor \lnot G(\msucc(\mc_G)) \lor G(x)
+% 	\tag*{Clausification}
+% \end{align*}
+% The remaining axioms can be transformed by the same approach without the need for the introduction of fresh skolem constants.
+% \end{proof}
 
 
 \begin{remark}
@@ -234,7 +299,7 @@ The remaining axioms can be transformed by the same approach without the need fo
 
 \section{Gilmore's Prover}\label{sec:gilmore:prover}
 
-In 1960 Paul Gilmore presented a first { \coloremph{}{}implementation} of an automated
+In 1960 Paul Gilmore presented a first \coloremph{implementation} of an automated
 theorem prover~\cite{5392528} for first order logic (without equality),
 which happened to use an instantiation-based approach.
 The procedure is complete, i.e.~for every valid formula
@@ -333,13 +398,12 @@ Following Gilmore's prover we can easily prove the syllogism from above.
 	%\( \mortal^\mcI = \{ (\fosca) \} \).
 
 
-	Then we translate the negated formula \( \lnot F = A\land B \land\lnot C \) 
+	Then we easily translate the negated formula \( \lnot F = A\land B \land\lnot C \) 
 	into an equisatisfiable clausal normal form 
-	\( \{
-		S = 
+	\( S = \{
 		\lnot \human(x) \lor \mortal(x),\,
 		\human(\fosca), \mortal(\fosca)
-	\} \)
+	\} \).
 	
 	Since there is exactly one constant we get
 	\( H_0 = \{ \fosca \} \) and
@@ -360,10 +424,10 @@ Following Gilmore's prover we can easily prove the syllogism from above.
 	(\mortal(\fosca)\land\human(\fosca)\land\lnot\mortal(\fosca))
 	%\end{array}
 	\end{gather*}
-	Both conjunctions contain complementary literals and we conclude 
-	the negated formula \( \lnot F \) is unsatisfiable, 
+	Both conjunctions contain complementary literals and hence we conclude 
+	that the negated formula \( \lnot F \) is unsatisfiable, 
 	the formula \( F \) is valid,
-	hence the given syllogism holds.
+	and the given syllogism holds.
 \end{example}
 
 %
@@ -451,9 +515,9 @@ So far we have observed three main disadvantages in Gilmore's procedure.
 \begin{enumerate}
 	\item\label{enum:gilmore:generation}
 	The generation of instances is unguided.
-	With each iteration exponentially many (mostly useless)
-	instances are created
-	--- depending on the number and the arities of used symbols.
+	With each iteration 
+	(depending on the number and the arities of used symbols) exponentially many (mostly useless)
+	instances are created.
 	%	\begin{align*}
 	%		H'_0 &= \{ \, \mc \, \}
 	%		&H_0 = H'_0
@@ -496,7 +560,7 @@ So far we have observed three main disadvantages in Gilmore's procedure.
 	The check for unsatisfiability is far from efficient.
 	The transformation from a set of clauses
 	to a formula in disjunctive normal form\footnote{
-		In contrast the linear Tseitin transformation yields an equisatisfiable conjunctive normal form.
+		In contrast the \emph{linear} Tseitin transformation yields an equisatisfiable conjunctive normal form.
 	}
 	usually introduces an exponential\footnote{
 		The existence of a polynomial algorithm
@@ -508,8 +572,8 @@ So far we have observed three main disadvantages in Gilmore's procedure.
 		%		\( \mathsf{SAT}\in\mcP \)
 		and would prove \( \mcP = \mcN\mcP \), which remains unknown.
 	}
-	blow up in the size of the formula
-	--- depending on the number of clauses \( n \) in the set
+	blow up in the size of the formula.
+	Depending on the number of clauses \( n \) in the set
 	and the number of literals \( c_i \) per clause \( \mcC_i \)
 	we get the disjunction of
 	\( \prod_{1}^{n} c_i \)
@@ -577,7 +641,7 @@ So far we have observed three main disadvantages in Gilmore's procedure.
 
 Issue~\ref{enum:gilmore:transformation} was already implicitly
 addressed in 1960~\cite{Davis:1960:CPQ:321033.321034}
-(which also incorporated the basic idea of resolution --- on ground instances of terms)
+(which also incorporated the basic idea of resolution on ground instances of terms)
 and refined in 1962~\cite{Davis:1962:MPT:368273.368557}
 by Davis, Putnam, Longeman, and Loveland,
 which was the starting point for the development of efficient propositionally satisfiability checkers, i.e.~efficient modern SAT solvers.
@@ -585,8 +649,8 @@ which was the starting point for the development of efficient propositionally sa
 
 \section{ATP without Equality}\label{sec:proving:without:equaltiy}
 
-In this section we already add the equality symbol \( \mEQ \) into our formulae,
-but we treat it not differently from an arbitrary binary predicate symbol with infix notation.
+In this section we will incorporate the equality symbol \( \mEQ \) into our formulae,
+but we will treat it not differently from an arbitrary binary predicate symbol with infix notation.
 % 
 Without further notice we will always assume 
 that different clauses do not share variable symbols,
@@ -890,8 +954,8 @@ and we conclude unsatisfiability because of propositional unsatisfiability of
 	\begin{enumerate}
 		\item\label{step:igl:skbot}
 		We construct a set \( S_{k}\subsbot \) of ground instances from \( S_k \)
-		where proper instantiator \( \subsbot = \{ x\mapsto \consbot \mid x\in\var(S_k) \} \)
-		substitutes all occurring variables with constant symbol \( \consbot \).
+		with proper instantiator \( \subsbot = \{ x\mapsto \consbot \mid x\in\var(S_k) \} \)
+		that substitutes all occurring variables with constant symbol \( \consbot \).
 %
 		\item\label{step:igl:sksat} 
 		We check the decidable propositional satisfiability of
@@ -1228,7 +1292,7 @@ but we can ensure that we find only desired models.
 		\end{align*}
 
 This would not hurt the saturation process.
-Additionally we get an infinite sequence of new instances starting with \( \axiom{I}_\msucc \) and \( \axiom{0}_\msucc \).
+But additionally we get an infinite sequence of new instances starting with \( \axiom{I}_\msucc \) and \( \axiom{0}_\msucc \).
 	\begin{gather*}
 	\infer[ \sigma_0 ]{
 		\boxed{\msucc (\msucc (x)) \mNE \msucc (x)} \lor\colLo \msucc (x)\mEQ x
@@ -1296,7 +1360,7 @@ with \( \sigma_1 = \{ x_1\mapsto x_0, y_1 \mapsto x_0 \}\),
 \( \sigma_3 = \{ x_3\mapsto x_0, y_3 \mapsto x_0 \} \).
 \end{example}
 
-The derived instances are weakened variants (see Lemma \vref{lem:weakend:variants}) of clauses already in \( S ' \) and can be ignored. Hence the process saturates for \( S' \).
+The derived instances are weakened variants (see Lemma \vref{lem:weakend:variants}) of clauses already in \( S ' \) and can be ignored. Hence the process saturates for \( S' \). This approach is sound, but at this point it is unclear if it is complete.
 
 %	An equational interpretation must satisfy the formulas for reflexivity, symmetry, transitivity,
 %	function congruence for every function symbol \( f\in\mcFf \),
@@ -1374,13 +1438,13 @@ if and only if the empty clause can be derived.
 
 \input{appendix/superposition}
 
-\begin{example} With Superposition calculus no derivation rule is applicable
+\begin{example} With the superposition calculus no derivation rule is applicable
 	to clauses of the set \( S = \{ \msucc(x)\mNE 0, \msucc{x}\mNE\msucc{y} \lor x\mEQ y \} \)
 	because the maximal literals are both negations.
 	\begin{align*}
 	{\colN \msucc(x_1) \mNE 0}\qquad{\colN \msucc(x_2) \mNE \msucc(y_2)} \lor x_2\mEQ y_2
 	\end{align*}
-	The saturated set does not contain the empty clause, hence we conclude it's satisfiability.
+	The saturated set does not contain the empty clause, hence we conclude its satisfiability because of completeness of the superposition calculus.
 \end{example}
 
 \subsubsection{Inst-Gen-Eq}\label{sec:inst:gen:eq}
@@ -1408,29 +1472,87 @@ From occuring conflicts we construct new instances.
 %	\end{align*}
 %\end{example}
 
-A naive approach would just consider pairs of selected literals to generate new instances.
+A naive approach would just consider pairs of selected literals to generate new instances. But this would yield an incomplete procedure 
+as demonstrated in the next example, even with the additional rules.
 
 \newcommand{\myset}[1]{\{ \, #1 \, \}}
 \newcommand{\mysub}[1]{\{ #1 \}}
-\begin{example}We consider the unsatisfiable set \( S \).
+
+\begin{example}\label{ex:naive:inst:gen:eq}
+	We consider the unsatisfiable set \( S \).
 	\begin{align*}
 		S &= \myset{
-			\mf(\mh(x)) \mEQ \mc, \mh(y)\mEQ y, \mf(\ma) \mNE c
+			\mf(\mh(x)) \mEQ \mc, \mh(y)\mEQ y, \mf(\ma) \mNE \mc
 		}
 		\\
 		S\bot &= \myset{
-			\mf(\mh(\bot)) \mEQ \mc, \mh(\bot)\mEQ y, \mf(\ma) \mNE c
+			\mf(\mh(\consbot)) \mEQ \mc, \mh(\consbot)\mEQ \consbot, \mf(\ma) \mNE \mc
 		}\tag{satisfiable}
 		\\
 		\mcM &= \myset{
-			[\mf(\mh(\bot),c)], [\mh(\bot),\bot], [\mf(a)]
+			[\mf(\mh(\consbot),c)], [\mh(\consbot),\consbot], [\mf(a)]
 		}\tag{term model}
 	\end{align*}
 	The only applicable rule is paramodulation of the first two selected literals,
 	but the instantiator is not proper and just get variants of clauses in the set.
-	We have to use intermediate results and proof the empty clause.
+\end{example}
+
+\begin{procedure}[Inst-Gen-Eq-Loop]\label{proc:inst:gen:eq:loop}
+	As in Procedure \vref{proc:inst:gen:loop} we translate the 
+	negation of our formula \( F \) 
+	into an equisatisfiable set of clauses
+	\( S = S_0 \) and introduce a distinct constant symbol
+	\( \consbot\not\in\mcF(S_0) \).
+	We start our first iteration with \( k=0 \).
+
+	\begin{enumerate}
+		\item\label{step:igl:eq:skbot}
+		We construct a set \( S_{k}\subsbot \) of ground instances from \( S_k \)
+		with proper instantiator \( \subsbot = \{ x\mapsto \consbot \mid x\in\var(S_k) \} \)
+		that substitutes all occurring variables with constant symbol \( \consbot \).
+%
+		\item\label{step:igl:eq:sksat} 
+		We check the decidable propositional satisfiability of
+		\( S_k\subsbot \) with a \SAT{} or \SMT{}-solver
+		(see Section \vref{sec:encodings} for details).
+		If \( S_k \, \subsbot \) is unsatisfiable
+		we exit the procedure 
+		and report
+		{ \coloremph{}{}unsatisfiability} of \( S \), i.e~the original formula \( F \) is valid.
+
+		\item\label{step:igl:eq:model} The set \( S_k \, \subsbot \) is satisfiable, hence we can retrieve a model \( \mcM_k \models S_k\subsbot \).
+		We select one literal \( L_i = \sel(\mcC_i) \) per clause \( \mcC_i \in S_k \)
+		such that each ground selected literal holds in model
+		\( \mcM_k\models L_i\subsbot \) for all \( i \leq | S_k | \).
+
+		\item\label{step:igl:eq:false} We search for subsets 
+		\( \{ L_{i'}, \ldots, L_{n'} \} \) of the selected literals
+		such that we can derive a contradiction with unit superposition.
+
+		\item We start with \( S_{k+1} = S_k \). For each set of contradicting literals
+		\( \{ L_{i'}, \ldots L_{n'} \} \)
+		we generate new instances from \( \mcC_{i'}, \ldots \mcC_{n'} \)
+		by applying the same substitutions as were applied 
+		to \( L_{i'}, \ldots L_{j'} \) 
+%		where \( \sel(\mcC_{i_1}) = L_i \) and \( \sel(\mcC_{i_2})=\lnot L_j \)
+		and add all new (not necessarily ground) instances to \( S_{k+1} \).
+		A clause is new to a set if no variant of the clause is already is in this set.
+
+		If no new clauses were added, i.e.~\( S_{k+1} = S_k \) after all subsets were processed we exit the procedure and report \coloremph{satisfiability} of \( S \), i.e.~the original formula \( F \) is not valid.
+
+		\item We increase \( k \) by \( 1 \) and continue with step~\ref{step:igl:skbot}.
+
+	\end{enumerate}
+\end{procedure}
+
+So now step 4 and 5 are more work than in \InstGen.
+
+\begin{example}
+	We continue Example \vref{ex:naive:inst:gen:eq} but follow Procedure \vref{proc:inst:gen:eq:loop}.
 	\begin{gather*}
-		\infer[\mysub{y\mapsto \ma}]{\emptyclause}{
+		\infer[\mysub{y\mapsto \ma}]{
+			\infer[\{\}]{\emptyclause}{c\mNE c}
+			}{
 		\infer[\mysub{x\mapsto y}]
 		{\mf(y)\mEQ\mc}
 		{\mh(y)\mEQ y & \mf(\mh(x))\mEQ \mc}
@@ -1438,7 +1560,7 @@ A naive approach would just consider pairs of selected literals to generate new 
 		}
 	\end{gather*}
 	Now we follow the path from each branch, i.e.~literal, to the root, i.e.~the empty clause
-	and concatenate the apply the occuring substitutions to the clauses the literals are originating from.
+	and apply the sequence of occuring substitutions to the clauses the literals are originating from.
 	\begin{align*}
 		 \mh(\ma)\mEQ \ma &=
 		 (\mh(y)\mEQ y)\mysub{x\mapsto y}\mysub{y\mapsto \ma}
@@ -1467,21 +1589,22 @@ A naive approach would just consider pairs of selected literals to generate new 
 
 
 
-At a first glance \InstGenEQ{} is expected to behave similar to the application of Superposition.
+At a first glance the \InstGenEQ{} procedure is expected to behave similar to the application of the superposition calculus.
 But actually it shares a disadvantage with \InstGen{} (see Example~\ref{ex:nat:instgen}) as we can see in the following example.
 
 
 \begin{example}\label{ex:nat:instgeneq}
 	Let \( S = \{ \, \msucc(x_1) \mNE \msucc (y_1) \lor x_1 \mEQ y_1, \, \msucc(x_2)\mNE x_2 \, \} \).
-	We start with \( S_0 = S \), construct the \SMT-encoding for \( S_{0\!_\bot} \)
+	We start with \( S_0 = S \), construct the \SMT-encoding for \( S_0\subsbot \)
 	and select one literal per clause from \( S_0 \) into \( L_1 \).
-	The selection is unambiguous by any model.
+	Because of congruence the selection is unambiguous by any model,
+	i.e.~\(\msucc(\consbot) \mNE \msucc (\consbot)\) must not hold in the ground model.
 	We easily derive the empty clause from the set of selected literals \( L_0 \)
-	by first applying unit superposition first and unit equality resolution afterwards.
+	by first applying unit superposition and unit equality resolution afterwards.
 \begin{align*}
 	S_0 &= \{ \, {\msucc(x_1) \mNE \msucc (y_1) \lor x_1 \mEQ y_1}, \, \msucc(x_2)\mNE x_2 \, \}
 	\\
-	S_{0\!_\bot} &= \{ \, \msucc(\consbot) \mNE \msucc (\consbot) \lor{\colHi\consbot \mEQ \consbot}, \,
+	S_0\subsbot &= \{ \, \msucc(\consbot) \mNE \msucc (\consbot) \lor{\colHi\consbot \mEQ \consbot}, \,
 	{\colHi \msucc(\consbot)\mNE \consbot} \, \}
 	\\
 	L_0 &= \{ x_1\mEQ y_1, \msucc(x_2)\mNE x_2 \}
@@ -1494,7 +1617,7 @@ But actually it shares a disadvantage with \InstGen{} (see Example~\ref{ex:nat:i
 	\\[0.7em]
 \end{align*}
 
-Since the clauses just contributed to the first step
+Following the procedure
 we instantiate \( \mcC'_3 = \mcC_1\cdot\sigma_1 \).
 For convenience we rename the variables \( \mcC_3 = \mcC_3'\cdot\rho \).
 We ignore \( \mcC_2 \) which would just yield a variant of itself.
