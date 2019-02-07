@@ -320,10 +320,10 @@ which always exists.
         if \( \ma\succG\mb \).
            \end{example}
 
-\section{Satisfiability of saturated sets}\label{sec:inst:saturated:sets}
+\section{Satisfiability of Saturated Sets}\label{sec:inst:saturated:sets}
 
-In this section we will define saturated set of literal closures
-with respect to unit paramodulation.
+In this section we will define saturated sets of literal closures
+with respect to UPC.
 Additionally we will show that a saturated set of literal closures
 is satisfiable if and only if its grounding is satisfiable.
 
@@ -347,15 +347,14 @@ is satisfiable if and only if its grounding is satisfiable.
        \, \}
          \).
 
-       \item Literal closure \( L\cdot\sigma \) is UP-redundant in \( \mcL \) if
+       \item Literal closure \( L\cdot\sigma \) is \emph{UP-redundant} in \( \mcL \) if
 
        \begin{gather*}
             % cspell:disable
-            R \cup irred_R(\mcL_{L\cdot\sigma\succL}) \vDash L\sigma
+            R \cup \IRRED_R(\mcL_{L\cdot\sigma\succL}) \vDash L\sigma
             % cspell:enable
        \end{gather*}
         for every ground rewrite system \( R \)
-
         oriented by \( \succG \)
         where \( \sigma \) is irreducible w.r.t.~\( R \).
 
@@ -366,7 +365,7 @@ is satisfiable if and only if its grounding is satisfiable.
 
    \begin{definition}[UP-Saturation]
 
-            The UP-{saturation process}
+            A UP-{saturation process}
             is a sequence \( {\{ \mcL_i \}}_{i=0}^\infty \)
             where \( \mcL_{i+1} \) is constructed from \( \mcL_i \)
             by removing redundant literal closures in \( \mcL_i \)
@@ -404,7 +403,7 @@ is satisfiable if and only if its grounding is satisfiable.
                        \\
                        \\
                        \mcL_i
-                        &&\text{otherwise}
+                        &&\text{if and only if no other step is applicable}
                    \end{array}
                \right.
                \end{gather*}
@@ -415,7 +414,7 @@ is satisfiable if and only if its grounding is satisfiable.
    \end{definition}
    \begin{definition}[UP-Fairness]
 
-            The UP-saturation process is {UP-fair} if for every UP-inference
+            A UP-saturation process is \coloremph{UP-fair} if for every UP-inference
             with premises in \( \mcL^\infty \) the conclusion is UP-redundant
             w.r.t.~\( \mcL_j \) for some \( j \).
    \end{definition}
@@ -448,7 +447,7 @@ is satisfiable if and only if its grounding is satisfiable.
     Let \( S \) be a set of clauses.
 
    \begin{itemize}
-       \item A ground closure \( C \) is Inst-redundant in \( S \)
+       \item A ground closure \( C \) is \coloremph{Inst-redundant} in \( S \)
         if for some \( k \)
         % consequence of smaller ground instances \( C_1,\ldots,C_k \) of \( S \), i.e.~
        \begin{itemize}
@@ -482,11 +481,12 @@ is satisfiable if and only if its grounding is satisfiable.
    \end{example}
 
    \begin{definition}[S-Relevance]
-        Let \( S \) be a set of clauses \( S \), let \( I_\bot \) be a model of \( S\bot \).
+        Let \( S \) be a set of clauses, let \( I_\bot \) be a model of \( S\bot \).
 
        \begin{itemize}
            \item
-        A selection function \( \sel \) maps clauses to literals such that
+        A selection function \( \sel \) based on \( I_\bot \) 
+        maps clauses to literals such that
        \begin{align*}
            \sel(C)&\in C
             &&&
@@ -499,7 +499,7 @@ is satisfiable if and only if its grounding is satisfiable.
            \mcL_S &= \left \{ \, L\cdot\sigma \mid
            \begin{array}{l}
                 L\lor C\in S,\,L = \sel(L\lor C)\\
-                (L\lor C)\cdot\sigma\text{ is not Inst-redundant in S},\\
+                (L\lor C)\cdot\sigma\text{ is not Inst-redundant in \(S\)},\\
            \end{array}
            \, \right \}
        \end{align*}
@@ -511,8 +511,8 @@ is satisfiable if and only if its grounding is satisfiable.
 \end{definition}
 
 \begin{definition}[Inst-Saturation]
-    Let \( \mcL_S^{sat} \) denote the saturation process of \( \mcL_S \).
-    Then a set of clauses \( S \) is Inst-saturated w.r.t.~a selection function \( \sel \),
+    Let \( \mcL_S^{sat} \) denote the result of the saturation process of \( \mcL_S \).
+    Then a set of clauses \( S \) is \coloremph{Inst-saturated} w.r.t.~a selection function \( \sel \),
             if \( \mcL_S^{sat} \) does not contain the empty literal clause.
 \end{definition}
 
