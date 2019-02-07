@@ -2,43 +2,47 @@
 % !TeX encoding = UTF-8
 % !TeX spellcheck = en_US
 
-\chapter{Completeness}\label{chapter:completeness}
+\chapter{Completeness of Saturation}\label{chapter:completeness}
 
 In the previous chapter we stated some calculi
 that have been used for the implementation
-of automated theorem provers.
-%
+of the automated theorem provers we listed at the end of the chapter.
+We have seen in examples that in some cases the set of clauses
+saturates, i.e.~the procedure cannot generate any new clause
+from the set of clauses using the procedure-specific calculus. 
+A procedure is complete when it does not saturate for unsatisfiable 
+set of clause without proofing unsatisfiability, 
+e.g. by demonstrating unsatisfiability 
+with an expensive transformation of the set of clauses 
+into a disjunctive normal form.
+
 It was easy to see that Gilmore's prover is theoretically complete,
 but practically very inefficient.
 Additionally it does not stop for clearly satisfiable and simple sets of clauses.
-While it seems intuitive that resolution is complete
---- we search for all clashing literals between clauses and resolve them ---
-it is puzzling that ordered resolution and then superposition are indeed complete.
+It seems intuitive that resolution is complete since
+we search for all clashing literals between clauses and resolve them.
+But it is puzzling that ordered resolution 
+and even superposition are indeed complete.
 At first sight we could expect that all these restrictions
 would ignore important inferences at least in some special cases.
 
 In general a smaller set of sound rules
 and stricter conditions for a rule's application
-could improve the efficiency of a procedure,
+can improve the efficiency of a procedure,
 but undermine the completeness
-of the procedure, e.g.~an empty calculus,
-a calculus without any rules,
-is obviously sound and very efficient, but not complete.
-%
+of the procedure. An empty calculus,
+i.e.~a calculus without any rules at all,
+is obviously sound and very efficient, 
+but of course not complete.
+
 In other words we have to prove for every saturation-based calculus
 that we can decide satisfiability of any saturated set of clauses.
-That's even true for Gilmore's prover, but in most cases
----
+That's even true for Gilmore's prover, but in most cases, 
+i.e.~where
 the signature contains at least one non-constant predicate symbol
 (or the equality symbol)
-and one non-constant function symbol
----
-sets of clauses cannot saturate.
-
-
-
-
-
+and one non-constant function symbol,
+sets of clauses will not saturate.
 
 % We want to restrict our calculus as far as possible,
 % such that there is a chance of termination
@@ -532,7 +536,7 @@ is satisfiable if and only if its grounding is satisfiable.
    \begin{definition}[{Candidate Model Construction}]\label{def:candidate:model:construction}
 
         Let \( S \) be an Inst-saturated set of clauses,
-        i.e.~\( \emptyclause\not\in\mcL_S^{sat} \), SAT\( (S\bot) \).
+        i.e.~\( \emptyclause\not\in\mcL_S^{sat} \) and \( (S\bot) \) is satisfiable.
 
         Let \( L = L'\cdot\sigma \in\mcL_S^{sat} \).
         We define inductively:
@@ -574,7 +578,7 @@ is satisfiable if and only if its grounding is satisfiable.
        \end{definition}
 
             Let \( \mcI \) be an arbitrary consistent extension of \( I_S \)
-
+% 
             in all the following lemmata.
 
 
@@ -586,14 +590,14 @@ is satisfiable if and only if its grounding is satisfiable.
        \end{lemma}
 
        \begin{proof}
-            We have two cases
+            We have two cases:
 
        \begin{itemize}
            \item If \( L\cdot\sigma \) is not UP-redundant in \( \mcL_S^{sat} \),
             then \( L'\cdot\sigma'=L\cdot\sigma \).
-           \hfill\checkmark{}
+        %    \hfill\checkmark{}
 
-           \item If \( L\cdot\sigma \) is UP-redundant in \( \mcL_S^{sat} \).
+           \item Let \( L\cdot\sigma \) be UP-redundant in \( \mcL_S^{sat} \).
         By construction \( \sigma \) is irreducible by \( R_S \). Then we have
        \begin{align*}
             R_S \cup \IRRED_{R_S}(
@@ -619,8 +623,8 @@ is satisfiable if and only if its grounding is satisfiable.
                 M\cdot\tau = \min_{\succL}\!
                \left \{ \,
                 L'\cdot\tau' \mid
-                L'\cdot\sigma' \in \IRRED_{R_S}(\mcL_S^{sat}), \,
-                L'\sigma'\text{ false in }\mcI \,
+                L'\cdot\tau' \in \IRRED_{R_S}(\mcL_S^{sat}), \,
+                L'\tau'\text{ false in }\mcI \,
                \right \}
            \end{gather*}
             is defined, then \( M\cdot\tau \) is irreducible by \( R_S \).
@@ -628,20 +632,17 @@ is satisfiable if and only if its grounding is satisfiable.
 
        \begin{proof}
             Assume \( M\cdot\tau \) is reducible by \( (\ell\to r)\in R_S \)
-
-            and \( (\ell\to r) \) is produced by \( (\ell'\mEQ r')\cdot\rho\in\mcL_S^{sat} \).
+% 
+            and \( (\ell\to r) \) is produced by \( (\ell'\mEQ r')\cdot\rho\in\mcL_S^{sat} \)
 
            \vspace{0.7em}
-            Now UP-inference is applicable because \( \tau \) is irreducible by \( R_S \),
+            Now a UPC-inference is applicable because \( \tau \) is irreducible by \( R_S \):
            \begin{gather*}
-               \infer[UP]
+               \infer[UPC]
                 {M[r']\theta\cdot\mu}
                 {(\ell'\mEQ r')\cdot\rho & M[\ell'']\cdot\tau}
            \end{gather*}
-           \( \mu \) is irreducible by \( R_S \), and \( M[r']\theta\mu \){ is false in }\( \mcI \).
-           \hfill\ldots
-
-        We have two cases
+           Then \( \mu \) is irreducible by \( R_S \), and \( M[r']\theta\mu \){ is false in }\( \mcI \) and we have two cases:
 
            \begin{itemize}
                \item If \( M[r']\theta\cdot\mu \) is not UP-redundant in \( \mcL_S^{sat} \)
@@ -666,7 +667,7 @@ is satisfiable if and only if its grounding is satisfiable.
                \end{gather*}
                 Hence there is \( M'\cdot\tau'\in\mcL_S^{sat} \) false in \( \mcI \) such that
                \( M\cdot\tau\succL M[r']\theta\cdot\mu\succL M'\cdot\tau' \),
-
+and
                \( M'\cdot\tau' \) contradicts minimality of \( M\cdot\tau \).
                \hfill
 
@@ -696,7 +697,7 @@ is satisfiable if and only if its grounding is satisfiable.
            \end{itemize}
             Hence \( (s\mNE t)\tau\in I_{M\cdot\tau} \)
             is produced to \( I_{M\cdot\tau} \) by some \( (s'\mNE t')\cdot\tau' \),
-
+% 
             but \( (s'\mNE t')\tau'\succG (s\mEQ t)\tau \)
             and \( (s'\mNE t')\cdot\tau'\succL M\cdot\tau \).
            \hfill
@@ -706,10 +707,10 @@ is satisfiable if and only if its grounding is satisfiable.
 
 
        \begin{lemma}\label{inequation}
-            Let \( M\cdot\tau\in\mcL_S^{sat} \),
+            Let \( M\cdot\tau\in\mcL_S^{sat} \) be
             irreducible by \( R_S \), and defined (not productive).
 
-            From \( \mcI\not\models M\tau \) follows that \( M \) is not an inequation \( (s\mNE t) \).
+            From \( \mcI\not\models M\tau \) it follows that \( M \) is not an inequation \( (s\mNE t) \).
            \begin{proof}
             Assume \( M\cdot\tau \) is inequation \( (s\mNE t)\cdot\tau \). We have
            \begin{itemize}
@@ -718,7 +719,7 @@ is satisfiable if and only if its grounding is satisfiable.
            \end{itemize}
             Hence \( s\tau = t\tau \) and equality resolution is applicable.
 
-            Contradiction to \( \emptyclause\not\in\mcL_S^{sat} \).
+            This contradicts \( \emptyclause\not\in\mcL_S^{sat} \).
            \hfill
 
        \end{proof}
@@ -728,7 +729,7 @@ is satisfiable if and only if its grounding is satisfiable.
 
 
        \begin{lemma}\label{lemma:model:is:candidate}
-           \( \mcI \) is a model for all ground instances of \( S \)
+           \( \mcI \) is a model for all ground instances of \( S \). 
        \end{lemma}
 
        \begin{proof}
@@ -740,30 +741,28 @@ is satisfiable if and only if its grounding is satisfiable.
                \mcI\not\models C'\sigma \,
                \} \),
                 an instance of a clause in \( S \),
-               \( \false \) in \( \mcI \), must exist. Further on
+               \( \false \) in \( \mcI \), must exist. Furthermore 
 
        \begin{itemize}
            \item \( D = D'\cdot\sigma \) is not Inst-redundant.
-           \vspace{0.2em}
-
+           
             Otherwise by Definition~\ref{def:inst:redundant} there are
            \( D_1,\ldots,D_n\models D \), \( D\succC D_i \) for all \( i \),
 
-            and \( D_j \) \( \false \) in \( \mcI \) for one \( j \), which contradicts minimality.
+            and \( D_j \) is \( \false \) in \( \mcI \) for some \( j \), which contradicts minimality.
            \hfill
 
-           \item \( x\sigma \) irreducible by \( R_S \) for every variable \( x \) in \( D' \).
+           \item \( x\sigma \) is irreducible by \( R_S \) for every variable \( x \) in \( D' \).
            \vspace{0.2em}
 
-            Otherwise let \( (\ell\to r)\tau\in R_L \) and \( x\sigma = x\sigma{[l\tau]}_p \) for some variable x in D'.
-            We define substitution \( \sigma' \) with \( x\sigma' = x\sigma{[r\tau]}_p \) and \( y\sigma' = y\sigma \) for \( y\neq x \).
+            Otherwise let \( (\ell\to r)\tau\in R_L \) and \( x\sigma = x\sigma{[l\tau]}_p \) for some variable \( x \) in \( D' \).
+            We define the substitution \( \sigma' \) such that \( x\sigma' = x\sigma{[r\tau]}_p \) and \( y\sigma' = y\sigma \) for \( y\neq x \).
            \( D'\sigma' \) is false in \( \mcI \) and \( D\succC D'\cdot\sigma' \),
             which contradicts minimality.\hfill
        \end{itemize}
 
         Since \( D \) is not Inst-redundant in \( S \),
         we have for some literal \( L \),
-
         that \( D' = L\lor D'' \), \( \sel(D') = L \), \( L\cdot\sigma\in\mcL_S \),
        \( L\sigma \) is \( \false \) in \( \mcI \).
        \vspace{0.7em}
@@ -780,7 +779,7 @@ is satisfiable if and only if its grounding is satisfiable.
         exists by Lemma~\ref{existence}, is irreducible by Lemma~\ref{irreducible},
         and is not productive.
         Since \( \mcI\not\models M\cdot\tau \) the literal
-        M cannot be an equation by Lemma~\ref{equation}
+        \(M\) cannot be an equation by Lemma~\ref{equation}
         or an inequation by Lemma~\ref{inequation}.
         We have derived a contradiction from our only assumption.
 
@@ -797,26 +796,29 @@ is satisfiable if and only if its grounding is satisfiable.
    So far we have only shown that a Inst-saturated set of clauses
    \( S \) is satisfiable if \( S\bot \) is satisfiable.
    Now we take a look at how Inst-saturation can be achieved
-   starting from a set of clauses \( S^1 \).
+   starting from a set of clauses \( S^1 \) with satisfiable set \( S^1\!\bot \).
 
    \begin{definition}
     An Inst-\coloremph{saturation process} is a sequence of triples
     \(
-        {\{
+        {\left(
             \langle
             S^i, I^{i}_{\!\bot}, \sel^i
             \rangle
-            \}}_{i=1}^\infty
+            \right)}_{i=1}^\infty
     \)
     where \( S^i \) is a set of clauses,
     \( I^{i}_{\!\bot} \) a model for \( S^i\bot \),
     and \( \sel^i \) a selection function based on that model.
 %
-    We try to go from a given state
-    \( {\{ \langle S^i, I^{i}_{\!\bot}, \sel^i \rangle \}} \)
-    to a successor state
-    \( {\{ \langle S^{i+1}, I^{i+1}_{\!\bot}, \sel^{i+1} \rangle \}} \)
-    by first performing one of the following steps
+    % We try to go from a given state
+    % \( { \langle S^i, I^{i}_{\!\bot}, \sel^i \rangle } \)
+    % to a successor state
+    % \( { \langle S^{i+1}, I^{i+1}_{\!\bot}, \sel^{i+1} \rangle } \)
+    % by first performing one of the following steps
+    A valid successor state 
+    \( { \langle S^{i+1}, I^{i+1}_{\!\bot}, \sel^{i+1} \rangle } \)
+    satisfies one of the following conditions:
     \begin{itemize}
         \item
         \( S^{i+1} = S^i \cup N \)
@@ -862,7 +864,7 @@ The set of persistent clauses \( S^\infty \) denotes the lower limit of \( {\{ S
         such that \(S^\infty \) is Inst-saturated w.r.t. \( \sel \).
     \end{lemma}
 
-    \begin{proof} …
+    \begin{proof}\cite{GK2004csl}] …
     \end{proof}
 
 
@@ -885,22 +887,22 @@ The set of persistent clauses \( S^\infty \) denotes the lower limit of \( {\{ S
     At each node we assume that the left proof branch
     is variable disjoint from the right proof branch
     (which can be achieved by variable renaming).
-    We construct a \coloremph{P-relevant instantiator}
+    We construct a \coloremph{\(P\)-relevant instantiator}
     of literal \( L \in \mcL \)
-    as composition \( \theta = \theta_1\ldots\theta_k \)
+    as composition \( \theta = \theta_1\cdots\theta_k \)
     of the sequence of substitutions \( {(\theta_i)}_{i=1}^k \)
     along the path of length \( k \)
     from leaf \( L\cdot\sigma \)
     to the root of a proof \( P \).
-    Further we construct the \coloremph{P-relevant instance}
+    Further we construct the \coloremph{\(P\)-relevant instance}
     \( L\theta\cdot\tau \) from
     \( L \cdot \sigma \) with \( \theta \)
     with \( L\theta\tau = L\sigma \).
 
 
     \begin{lemma}
-        Let \( \mcP \) be the set of all P-relevant instances
-        of all leafs of a proof \( P \) of the empty clause.
+        Let \( \mcP \) be the set of all \(P\)-relevant instances
+        of all leaves of a proof \( P \) of the empty clause.
         Then \( \mcP \bot \) is unsatisfiable.
     \end{lemma}
 
@@ -912,39 +914,41 @@ The set of persistent clauses \( S^\infty \) denotes the lower limit of \( {\{ S
 
     We make closures in \( K \)
     of a persistent conflict \( (K,\mcL) \)
-    Inst-redundant by adding their P-relevant proper instances.
-    We make and Inst-saturation process fair
+    Inst-redundant by adding their \(P\)-relevant proper instances.
+    We make an Inst-saturation process fair
     by UP-saturating literal closures from persisting conflicts
     and adding proper instantiations of clauses with substitutions
     gained from proofs of the empty clause.
 
 
-    \section{Equational reasoning on equation literals}\label{sec:reasoning:on:equational:literals}
+    \section{Equational Reasoning on Equation Literals}\label{sec:reasoning:on:equational:literals}     
+    
+    We now lift unit superposition and resolution form closures to literals.
 
     \begin{definition}[Unit superposition and resolution on literals~\cite{GK2004csl,CS2011PhD}, UPL]\label{def:unit:superposition:on:literals}
         \begin{gather*}
             \infer[(\sigma)]
             {(\underset{\mEQ}{L}[r])\sigma}
-            {(l\mEQ r) & (\underset{\mEQ}{L}[l'])}
+            {(\ell\mEQ r) & (\underset{\mEQ}{L}[\ell'])}
         \qquad\qquad\qquad
             \infer[(\sigma')]
             {\emptyclause}
             {(s'\mNE t')}
+            \tag*{\(\sigma' = \mgu(s',t')\)}
         \end{gather*}
-        with \( \underset{\mEQ}{L}[l'] \in \{ s[l']\mNE t, s[l']\mEQ t \} \) where
+        with \( \underset{\mEQ}{L}[\ell'] \in \{ s[\ell']\mNE t, s[\ell']\mEQ t \} \) where
         for some grounding substitution \( \theta \)
         \begin{itemize}
             \item
-            \( \sigma = \mgu(l,l') \),
-            \( l'\not\in\mcV \),
+            \( \sigma = \mgu(\ell,\ell') \),
+            \( \ell'\not\in\mcV \),
             \( l\sigma\theta \succG r\sigma\theta \),
-            \( s[l']\sigma\theta \succG t\sigma\theta \)
-            \hfill \( \sigma' = \mgu(s',t') \)
+            \( s[\ell']\sigma\theta \succG t\sigma\theta \)
             \item
-            \( l\theta_{\!_1} = l'\theta_{\!_2} \),
-            \( \var(\{l,r\}) \cap \var(\{ s[l'],t \}) = \emptyset \)
+            % \( \ell\theta_{\!_1} = l'\theta_{\!_2} \),
+            \( \var(\{\ell,r\}) \cap \var(\{ s[\ell'],t \}) = \emptyset \)
             \item
-            \( \domain(\theta) \subseteq \var(\{ l\sigma,r\sigma,s[l']\sigma,t\sigma \}) \)
+            \( \domain(\theta) \subseteq \var(\{ \ell\sigma,r\sigma,s[\ell']\sigma,t\sigma \}) \)
         \end{itemize}
     \end{definition}
 
@@ -952,18 +956,18 @@ The set of persistent clauses \( S^\infty \) denotes the lower limit of \( {\{ S
     of literals \( L\sigma \) from proofs in UPL of the empty clause
     in the same way as above.
 
-    \begin{lemma}
+    \begin{lemma}\cite{GK2004csl}
         Let \(Lit\) be a set of literals such that \( Lit\bot \) is satisfiable.
         Further let \( \mcL \) be a set of ground closures from \( Lit \)
-        such that the empty clause is derivable in \( UP \) from \( \mcL \).
-        Then there is a proof of the empty clause in \( UPL \) from \( Lit \)
+        such that the empty clause is derivable in \emph{UPC} from \( \mcL \).
+        Then there is a proof of the empty clause in \emph{UPL} from \( Lit \)
         such that for at least one closure \( L \cdot \sigma \in \mcL \),
         P-relevant instance of \(L\) is \( L\theta \)
         where \( \theta \) is a proper instantiator
         and \( L\sigma = L\theta\tau \) for some ground substitution \( \tau \).
     \end{lemma}
 
-    \section{Equational reasoning on predicate literals}\label{sec:equational:reasoning:on:predicates}
+    \section{Equational Reasoning on Predicate Literals}\label{sec:equational:reasoning:on:predicates}
 
     So far the calculi in Definitions~\ref{def:unit:superposition:on:closures} (UPC)
     and~\ref{def:unit:superposition:on:literals} (UPL) dealt
@@ -1053,7 +1057,6 @@ The set of persistent clauses \( S^\infty \) denotes the lower limit of \( {\{ S
             \( s'\not\in\mcV \),
             \( s\sigma\theta\succG t\sigma\theta \),
             {(\( {A}[s']\sigma\theta\succG\bool{\mc} \))}
-
             for some grounding substitution \( \theta \);
 
             \item % unit equality resolution and
@@ -1090,16 +1093,15 @@ The set of persistent clauses \( S^\infty \) denotes the lower limit of \( {\{ S
         \( \mP_\mf(x) \mEQ x \) or
         \( \mf(\mP_\mf(x)) \mEQ x \).
 
-        Implicitly we define two sorts of function symbols in the transformation,
+        Implicitly we define two sorts of function symbols in this transformation,
         uninterpreted and Boolean function symbols.
         Boolean function symbols only appear at the root positions of terms.
         The root symbols of the two terms of an equation are always of the same sort.
 
-        Due the extended order \( \succG \), where
+        Due to the extended order \( \succG \), where
         \( \bool{\mc} \) is the smallest term,
         even \( \mP_\mf(x) \mEQ \mQ_\mf(x) \) cannot be derived from
-        literals \( \mP_\mf(x) \mEQ \bool{\mc} \) and \(\mQ_\mf(x) \mEQ \bool{\mc} \). So we can easily transform derived literals back to predicate logic.
-
+        literals \( \mP_\mf(x) \mEQ \bool{\mc} \) and \(\mQ_\mf(x) \mEQ \bool{\mc} \). So we can always transform derived literals back to predicate logic.
         Further we can easily transform predicate models to equational models and vice versa.
         \begin{align*}
             \mcM\models&\,\mP(s)
