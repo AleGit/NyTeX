@@ -1733,22 +1733,38 @@ S_{i+2} &= S_{i+1}\disjointunion \{ \,
 \}
 \end{align*}
 
+\newpage
 \section{Roundup of Calculi}
 
-\begin{tabular}{llllll}
+In Table \vref{tab:calculi:and:provers} we give a small list of first order theorem provers,
+e.g. 
+Vampire\footnote{\url{http://vprover.org}}, 
+E\footnote{\url{https://wwwlehre.dhbw-stuttgart.de/~sschulz/E/E.html}},
+iProver\footnote{\url{http://www.cs.man.ac.uk/~korovink/iprover/}},
+and iProverEq \cite{KS2010ijcar},
+that take advantage of the discussed calculi.
+
+\begin{table}[hb]
+\begin{tabular}{lllllll}
 	\toprule
 	Calculus & Equality & Exit condition & Implementations
 	\\ \midrule
 	Gilmore & axioms & \( S_i \equiv \bigvee\emptyclause \) & Gilmore
 	\\
-	Resolution & axioms & \( \emptyclause\in S_i \)
+	Resolution & axioms & \( \emptyclause\in S_i \) & Vampire, iProver, \ldots
 	\\
-	\InstGen{} & axioms & \( \lnot\SAT(S_i\bot) \) & iProver\\
-	Superposition & derivation rules & \( \emptyclause\in S_i \) & Vampire
+	\InstGen{} & axioms & \( \lnot\SAT(S_i\bot) \) 
+	& iProver
 	\\
-	\InstGenEQ{} & derivation rules & \( \lnot\SMT(S_i\bot \)) & iProverEq
+	Superposition & derivation rules & \( \emptyclause\in S_i \) 
+	& Vampire, E, \ldots
+	\\
+	\InstGenEQ{} & derivation rules & \( \lnot\SMT(S_i\bot \)) 
+	& iProverEq
 	\\ \bottomrule
 \end{tabular}
+\label{tab:calculi:and:provers}
+\end{table}
 
 
 

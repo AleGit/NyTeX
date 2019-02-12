@@ -413,13 +413,11 @@ is satisfiable if and only if its grounding is satisfiable.
             % i.e.~the lower limit of the sequence.
    \end{definition}
    \begin{definition}[UP-Fairness]
-
             A UP-saturation process is \coloremph{UP-fair} if for every UP-inference
             with premises in \( \mcL^\infty \) the conclusion is UP-redundant
             w.r.t.~\( \mcL_j \) for some \( j \).
    \end{definition}
    \begin{definition}
-
             For a set of literals \( \mcL \) we define
             the saturated set of literal closures
            \( \mcL^{sat} = \mcL^\infty\backslash\mcR_{UP}(\mcL^\infty) \)
@@ -429,7 +427,7 @@ is satisfiable if and only if its grounding is satisfiable.
    \end{definition}
 
 
-       \begin{lemma}
+       \begin{lemma}\cite{GK2004csl}
         The set \( \mcL^{sat} \) is unique because
         for any two UP-fair saturation processes
         \( {\{ \mcL_i \}}_{i=0}^\infty \) and
@@ -954,7 +952,9 @@ The set of persistent clauses \( S^\infty \) denotes the lower limit of \( {\{ S
 
     We construct P-relevant instantiators and P-relevant instances
     of literals \( L\sigma \) from proofs in UPL of the empty clause
-    in the same way as above.
+    in the same way as for \( UPC \) since proof in \( UPL \) 
+    can be represented as
+    proofs in \( UPC \) by the following lemma.
 
     \begin{lemma}\cite{GK2004csl}
         Let \(Lit\) be a set of literals such that \( Lit\bot \) is satisfiable.
