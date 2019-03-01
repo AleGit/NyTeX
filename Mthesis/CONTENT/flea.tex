@@ -2,22 +2,47 @@
 % !TeX encoding = UTF-8
 % !TeX spellcheck = en_US
 
-\chapter{FLEA}
+\chapter{FLEA}\label{chapter:flea}
 
 \input{epigraphs/faust}
 
-In this chapter we introduce \FLEA{} ---
+In this chapter we introduce \FLEA{},
 our
 % cspell:disable
 \textbf{F}irst Order \textbf{L}ogic with \textbf{E}quality Theorem \textbf{A}ttester.
 % cspell:enable
 It is
---- as the reader may already suspect ---
-a modest implementation of an instantiation based theorem prover for first order clauses with equality.
+as the reader may already suspect
+a modest implementation of an instantiation based theorem prover for first order clauses with equality. 
+
+We shortly discuss the Thousands of Problems for Theorem Proving library for automated provers 
+in Section~\vref{sec:flea:tptp},
+the installation  and usage in 
+Sections~\vref{sec:flea:installation} and \vref{sec:flea:usage},
+some implementation details in Section~\vref{sec:flea:details}, 
+and outline the encoding of grounded first order clauses for \SMT-sovlers in Section~\vref{sec:flea:encodings}. Last but not least we present evaluation results in Section~\vref{sec:flea:evaluation}. 
 
 %We discuss its general architecture and elaborate on some implementation details.
 
-\section{Installation}
+\section{The Problem Library}\label{sec:flea:tptp}
+
+The \emph{Thousands of Problems for Theorem Prover} (TPTP) Library\cite{Sut17}
+% , first introduced in 1993, 
+is a maintained and huge collection of logical problem statements and
+has become the golden standard for the evaluation of first order theorem provers over the years.
+The automated reasoning community, both authors and applicants of automated reasoning tools 
+have continually supplied new and relevant problems since its start in 1993.
+
+First of all TPTP defines standards for inputs, 
+e.g.~annotated formulae in clausal normal form,
+and outputs for automated theorem proving (ATP) systems. 
+Theses standards are widely accepted and supported by many (most) theorem provers. 
+Second it provides a comprehensive library of problems, structured by their domain,
+e.g. puzzles, algebra, geometry, software verification, hardware verification, etc.
+Both these TPTP standards and variants of library problems establish the basis of the CADE Automated Theorem Prover System Competition\cite{Sut16}.
+
+
+\section{Installation}\label{sec:flea:installation}
 
 \FLEA{} is open source (but still without license) and available on \GitHub\footnote{
 	\href{https://github.com/AleGit/FLEA}{github.com/AleGit/FLEA}
@@ -32,14 +57,14 @@ and \Ziii\footnote{
 } at build and run time. After installation of these three prerequisites you may check the success with commands and results from Listing~\ref{lst:check:Swyz}.
 
 Not a prerequisite, but we recommend to download
-the \href{http://www.cs.miami.edu/~tptp/}{\emph{Thousands of Problems for Theorem Provers}} library package (about 560~MB)
+the \href{http://www.cs.miami.edu/~tptp/}{\emph{Thousands of Problems for Theorem Provers}} problem library package (about 560~MB)
 from the \TPTP{} website\footnote{
 	\href{http://www.cs.miami.edu/~tptp/}{www.cs.miami.edu/\textasciitilde tptp}
 }, to unpack it, and to create a symbolic link \verb+~/TPTP/+{} to the unpacked library (about~6.5 GB) in your home directory.
 \begin{lstlisting}[
 	% cspell:disable
 	label=lst:check:Swyz,
-	% cspell:enable
+	% cspell:enable∫
 	caption={Check toolchain and libraries},
 	language=bash]
 $\prompt$ yices -V
@@ -75,9 +100,9 @@ $\prompt$ Scripts/ctests.sh                        # build and run all tests
 \end{lstlisting}
 
 
-\section{Usage}
+\section{Usage}\label{sec:flea:usage}
 
-\section{Data struture}
+\section{Data structures}\label{sec:flea:details}
 
 \begin{lstlisting}[language=flea, caption={Simplified definition of general terms}]
 protocol Node: Hashable {
@@ -87,7 +112,7 @@ protocol Node: Hashable {
 }
 \end{lstlisting}
 
-\section{Encodings}\label{sec:encodings}
+\section{Encodings}\label{sec:flea:encodings}
 
 %\begin{figure}
 %	test
@@ -299,7 +324,7 @@ func application(_ symbol: String,
 
 
 
-\section{Experiments}
+\section{Experiments}\label{{sec:flea:evaluation}}
 
 \subsection{The TPTP library}
 
