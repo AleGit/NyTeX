@@ -69,6 +69,8 @@ in Section~\vref{sec:equational:reasoning:on:predicates}.
 
 \section{Equational Reasoning on Equation Closures}\label{sec:reasoning:on:equational:closures}
 
+Before we can approach the completeness proof we have to define our terminology.
+
 \begin{definition}
     A closure is a pair of a clause \( C \) and a substitution \( \sigma \),
     conveniently written as \( C\cdot\sigma \), where \( \domain(\sigma) \subseteq \var(C)\). 
@@ -154,7 +156,7 @@ which always exists.
     \( s[l']\mNE t \) or \( s[l']\mEQ t \)
         for some first order terms \( s \) and \( t \).
 
-   \begin{definition}[Unit superposition and resolution on closures~\cite{CS2011PhD}, UPC]\label{def:unit:superposition:on:closures}
+   \begin{definition}[Unit superposition and resolution on literal closures~\cite{CS2011PhD}, UPC]\label{def:unit:superposition:on:closures}
     \begin{gather*}
         \infer[(\sigma)]
         {(\underset{\mEQ}{L}[r])\sigma\cdot\rho}
@@ -197,7 +199,8 @@ which always exists.
     omits \( s[l']\theta_{\!_2} \succG t\theta_{\!_2} \) and is sound.
     We expect a calculus that is based on the inference rules above 
     to draw less inferences with this restriction in place
-    than without. However, it still has to yield a complete procedure.
+    than without. However, it still has to yield a complete procedure
+    with some additional considerations.
    \end{remark}
 
 %    \begin{example}
@@ -237,6 +240,8 @@ which always exists.
 %             \ell'\theta\rho &= \mf(\ma, \mh(\mb), \mc) = \ell\sigma = \ell'\sigma'
 %        \end{align*}
 %    \end{example}
+
+In the following example we demonstrate an entire unit superposition step where all necessary conditions are checked and fulfilled.
 
    \begin{example}
     Let \( \mf(s,t,u)\succG\mg(s) \) for all ground terms
@@ -311,22 +316,30 @@ which always exists.
 
 %    \end{proof}
 
-\noindent We can easily show that UPC without additional considerations is no complete.
-First we show a working example then the “equivalent” counterexample.
+\noindent Note that we can easily demonstrate that UPC on its own 
+is not complete on sets of unit closures,
+i.e.~we might or might not be able to derive the empty clause 
+from inconsistent set of literal closures.
+First we look at a working example then at an “equivalent” counterexample.
 
 \begin{example}
-    We derive the empty clause from
-       \( \{
-           (\mf(\ma)\mEQ\mb) \cdot\emptyset, 
-           \ma\mEQ \mb \cdot\emptyset,
-           \mf(\mb)\mNE\mb \cdot\emptyset
-        \} \) as follows, when \( \ma\succG\mb \).
+    With \( \ma\succG\mb \) 
+    we can derive the empty clause from the set of unit closures
+    \( \{
+        (\mf(\ma)\mEQ\mb) \cdot\emptyset, 
+        \ma\mEQ \mb \cdot\emptyset,
+        \mf(\mb)\mNE\mb \cdot\emptyset
+    \} \) in two steps.
+    We start with a superposition step and finish with a resolution step, as follows.
 \begin{gather*}
-    \infer[\emptyset]{\emptyclause}{
+    \infer[\emptyset]{
+        \emptyclause
+    }{
        \infer[\emptyset]{
            \mf(\mb)\mEQ\mb\cdot\emptyset
         }{
-            \ma\mEQ\mb\cdot\emptyset & \mf(\ma)\mEQ \mb\cdot\emptyset
+            \ma\mEQ\mb\cdot\emptyset 
+            & \mf(\ma)\mEQ \mb\cdot\emptyset
         }
         & \mf(\mb)\mNE\mb\cdot\emptyset
     }
@@ -334,50 +347,50 @@ First we show a working example then the “equivalent” counterexample.
 \end{example}
 
 \begin{example}
-        We cannot derive any new literal closure from the set of literal closures
+    With \( \ma\succG\mb \) 
+    we cannot derive any unit closure from the set of unit closures
        \( \{
            \mf(x)\mEQ\mb \cdot\{ x\mapsto\ma \},
            \ma\mEQ \mb \cdot\emptyset,
            \mf(\mb)\mNE\mb \cdot\emptyset
-       \} \) 
-       when \( \ma\succG\mb \). 
+       \} \). 
+       Neither the resolution rule nor the superposition rule 
+       are applicable to any of the unit closures.
 \begin{align*}
-    &
-       \infer[\emptyset]{
-        }{
-            \ma\mEQ\mb\cdot\emptyset 
-            & \mf(x)\mEQ \mb\cdot\{ x\mapsto \ma\}
-        }
-        &&
-        x\,{\colLo\in}\,\mcV
-        \tag*{not applicable}
-        \\
-    &
-        \infer[\{ x\mapsto\mb \}]{
-        }{
-            \mf(x)\mEQ \mb\cdot\{ x\mapsto \ma\}
-            & \mf(\mb) \mNE \mb
-        }
-        &&
-            \mf(x) \{ x\mapsto\ma \} 
-            \,{\colLo\neq}\, \mf(\mb) \emptyset
-        \tag*{not applicable}
+    \infer[\emptyset]{
+        {\colG \varepsilon}
+    }{
+        \ma\mEQ\mb\cdot\emptyset 
+        & \mf(x)\mEQ \mb\cdot\{ x\mapsto \ma\}
+    }
+        &\qquad
+            x\,{\colLo\in}\,\mcV
     \\
-    &
-    \infer[]{}{
+    \infer[\{ x\mapsto\mb \}]{
+        {\colG \varepsilon}
+    }{
+        \mf(x)\mEQ \mb\cdot\{ x\mapsto \ma\}
+        & \mf(\mb) \mNE \mb
+    }
+        &\qquad \mf(x) \{ x\mapsto\ma \} 
+            \,{\colLo\neq}\, \mf(\mb) \emptyset
+    \\
+    \infer[]{
+        {\colG \varepsilon}
+    }{
         \ma\mEQ\mb\cdot\emptyset 
         & \mf(\mb) \mNE \mb
     }
-    && \mgu(\ma, {\colLo\ell'})
-    \tag*{not applicable}
+        &\qquad \mgu(\ma, {\colLo\ell'}) \text{ does not exist}
     \\
-    &
-    \infer[]{}{
+    \infer[]{
+        {\colG \varepsilon}
+    }{
         \mf(x)\mEQ \mb\cdot\{ x\mapsto \ma\}
         & \ma\mEQ\mb\cdot\emptyset
     }
-    && \mgu(\mf(x), {\colLo\ell'})
-    \tag*{not applicable}
+        &\qquad \mgu(\mf(x), {\colLo\ell'}) \text{ does not exist}
+    % \tag*{not applicable}
 \end{align*}
            \end{example}
 
