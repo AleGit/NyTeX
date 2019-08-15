@@ -683,7 +683,9 @@ i.e.~does not contain multiple variants of a clause.
 
 \begin{example}Modus tollens is a special case of resolution (\( F\limp G\equiv \lnot F\lor G \)).
 	\begin{gather*}
-	\infer[\text{modus}\atop\text{tollens}]{\lnot F}{F\limp G & \lnot G}
+	\infer[\substack{\text{modus}\\\text{tollens}}]
+	{\lnot F}
+	{F\limp G & \lnot G}
 	\qquad
 	\infer[]{\lnot F}{\lnot F\lor G & \lnot G}
 	\end{gather*}
@@ -803,12 +805,12 @@ With an order on literal and clause instances the number of possible derivations
 	Let \( A, B \) be atoms and \( \mcC,\mcD \) be clauses.
 	\begin{gather*}
 	\infer
-	[\text{Ordered}\atop\text{Resolution	}]
+	[\substack{\text{Ordered}\\\text{Resolution}}]
 	{(\mcC\lor\mcD)\sigma}
 	{A\lor\mcC&\lnot B\lor\mcD}
 	\qquad\qquad
 	\infer
-	[\text{Ordered}\atop\text{Factoring}]
+	[\substack{\text{Ordered}\\\text{Factoring}}]
 	{(A\lor\mcC)\sigma}
 	{A\lor B\lor\mcC}
 	\end{gather*}
