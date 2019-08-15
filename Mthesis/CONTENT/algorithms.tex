@@ -5,7 +5,7 @@
 \chapter{Algorithms and Data Structures}
 
 In this chapter we give a short overview on some basic, useful, and necessary techniques for a reasonable prover. We assume familiarity with algorithms and data structures as taught in many basic courses in computer science, e.g.\ sequences, trees, tries, etc. Still we will state some definitions and notions.
-First we take a look at methods to practically achieve saturation in Section~\vref{sec:saturation:basics}.
+First we take a look at some methods to practically achieve saturation in Section~\vref{sec:saturation:basics}.
 Then we discuss some basics to speed up the retrieval of
 suitable clauses and literals in Section~\vref{sec:term:indexing}.
 
@@ -65,9 +65,9 @@ and an infinite number of inferences can be drawn
 from a satisfiable subset of clauses.
 %
 In Chapter~\ref{chapter:completeness}, on the other hand,
-we relied on a fair ---
-i.e.\ every non-redundant clause will be processed eventually ---
-saturation process to show completeness of \InstGenEQ{}.
+we relied on a \coloremph{fair} saturation process,
+i.e.~every non-redundant clause will be processed eventually,
+to show completeness of \InstGenEQ{}.
 
 For now we will ignore possible simplifications of the set of clauses.
 In Section~\ref{sec:given:clause:algorithm}
@@ -75,8 +75,8 @@ we will combine the given clause algorithm
 and a basic selection strategy to a a simple and fair saturation process
 that eventually determines all possible derivate clauses
 with respect to ordered resolution.
-Surprisingly the same approach will fail easily for \InstGen{}.
-We consider a better suited bookkeeping of processed clauses and literals
+Surprisingly the same unchanged approach will fail easily for \InstGen{}.
+We consider a better suited modified bookkeeping of processed clauses and literals
 in Section~\ref{sec:selected:literals:bookkeeping}.
 
 
@@ -1075,6 +1075,11 @@ For \InstGenEQ we have to quickly search for unifiable subterms of selected lite
 		\{ 2^{11}, 4^{11} \} \cap \{ 6^{11} \} = \emptyset
 	\end{align*}
 \end{example}
+
+These outlined algorithms and data structures 
+are just some of the theoretical building blocks for an actual prover. 
+In the next chapter we discuss a practical implementation of a prover 
+with these ideas and take a look how it performs on a wide variety of problems. 
 
 
 

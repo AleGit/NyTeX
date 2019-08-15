@@ -55,7 +55,7 @@ sets of clauses will not saturate.
 In the first Section~\vref{sec:reasoning:on:equational:closures}
 we state unit paramodulation for literal closures.
 In Section~\vref{sec:inst:saturated:sets} we present
-an untangled version of the proof of satisfiability
+a less nested and more sequential version of the proof of satisfiability
 of saturated sets of closures
 from the literature~\cite{GK2004csl}.
 After that we look at saturation strategies in
@@ -104,7 +104,6 @@ which always exists.
     \( C\tau\succG D\rho \) or \( C\theta = D \) for a proper instantiator \( \theta \).
 \end{definition}
 
-\begin{remark}
     In summary we assume \( \succG \), \( \succL \), \( \succC \) as
         total, well-founded, and monotone extensions of a
         total simplification order \( \succ \)
@@ -146,9 +145,14 @@ which always exists.
         &\not\succL
         (\mf(\ma)\mEQ\ma)\cdot\emptyset
        \end{align*}
-\end{remark}
 
    %%% see CS2011PhD, p.45f %%%
+
+   In the following definition we write 
+   \( \underset{\mEQ}{L}[l'] \) 
+    for an arbitrary equational literal, i.e.~either
+    \( s[l']\mNE t \) or \( s[l']\mEQ t \)
+        for some first order terms \( s \) and \( t \).
 
    \begin{definition}[Unit superposition and resolution on closures~\cite{CS2011PhD}, UPC]\label{def:unit:superposition:on:closures}
     \begin{gather*}
@@ -169,8 +173,7 @@ which always exists.
         {\emptyclause}
         {(s'\mNE t')\cdot\theta'}
     \end{gather*}
-    with \( \underset{\mEQ}{L}[l'] \in \{ s[l']\mNE t, s[l']\mEQ t \} \) 
-    where
+    whenever
     \begin{itemize}
         \item
         \( \sigma = \mgu(l,l') \),
@@ -190,12 +193,11 @@ which always exists.
    \end{definition}
 
    \begin{remark}
-    The corresponding inference rule in \cite{GK2004csl} (an earlier paper)
-    misses \( s[l']\theta_{\!_2} \succG t\theta_{\!_2} \) 
-    and is still sound.
-    But we can expect that a calculus based on the inference rules above 
-    may draw less inferences with this restriction in place
-    than without.
+    The corresponding inference rule in an earlier paper \cite{GK2004csl}
+    omits \( s[l']\theta_{\!_2} \succG t\theta_{\!_2} \) and is sound.
+    We expect a calculus that is based on the inference rules above 
+    to draw less inferences with this restriction in place
+    than without. However, it still has to yield a complete procedure.
    \end{remark}
 
 %    \begin{example}
@@ -298,27 +300,88 @@ which always exists.
         then \( \rho \) is irreducible w.r.t.~R.
    \end{lemma}
 
-   \begin{proof}
-        Assume otherwise.
-    %     Hence there is a \(
-    %         x\in\var(l'\theta)
-    %     \) such that
-    %    \( x\theta\rho \) is reducible by \(
-    %         R
-    %         \).
+%    \begin{proof}
+%         Assume otherwise.
+%     %     Hence there is a \(
+%     %         x\in\var(l'\theta)
+%     %     \) such that
+%     %    \( x\theta\rho \) is reducible by \(
+%     %         R
+%     %         \).
 
-   \end{proof}
+%    \end{proof}
 
-           \begin{example}
-        The set of literal closures
-       \( \{ \,
-        (\mf(x)\mEQ\mb)\cdot \{ x\mapsto\ma \}, \,
-       \ma\mEQ \mb, \,
-       \mf(\mb)\mNE\mb \,
-       \} \) is inconsistent,
-        but the empty clause is not derivable
-        if \( \ma\succG\mb \).
+\noindent We can easily show that UPC without additional considerations is no complete.
+First we show a working example then the “equivalent” counterexample.
+
+\begin{example}
+    We derive the empty clause from
+       \( \{
+           (\mf(\ma)\mEQ\mb) \cdot\emptyset, 
+           \ma\mEQ \mb \cdot\emptyset,
+           \mf(\mb)\mNE\mb \cdot\emptyset
+        \} \) as follows, when \( \ma\succG\mb \).
+\begin{gather*}
+    \infer[\emptyset]{\emptyclause}{
+       \infer[\emptyset]{
+           \mf(\mb)\mEQ\mb\cdot\emptyset
+        }{
+            \ma\mEQ\mb\cdot\emptyset & \mf(\ma)\mEQ \mb\cdot\emptyset
+        }
+        & \mf(\mb)\mNE\mb\cdot\emptyset
+    }
+\end{gather*}
+\end{example}
+
+\begin{example}
+        We cannot derive any new literal closure from the set of literal closures
+       \( \{
+           \mf(x)\mEQ\mb \cdot\{ x\mapsto\ma \},
+           \ma\mEQ \mb \cdot\emptyset,
+           \mf(\mb)\mNE\mb \cdot\emptyset
+       \} \) 
+       when \( \ma\succG\mb \). 
+\begin{align*}
+    &
+       \infer[\emptyset]{
+        }{
+            \ma\mEQ\mb\cdot\emptyset 
+            & \mf(x)\mEQ \mb\cdot\{ x\mapsto \ma\}
+        }
+        &&
+        x\,{\colLo\in}\,\mcV
+        \tag*{not applicable}
+        \\
+    &
+        \infer[\{ x\mapsto\mb \}]{
+        }{
+            \mf(x)\mEQ \mb\cdot\{ x\mapsto \ma\}
+            & \mf(\mb) \mNE \mb
+        }
+        &&
+            \mf(x) \{ x\mapsto\ma \} 
+            \,{\colLo\neq}\, \mf(\mb) \emptyset
+        \tag*{not applicable}
+    \\
+    &
+    \infer[]{}{
+        \ma\mEQ\mb\cdot\emptyset 
+        & \mf(\mb) \mNE \mb
+    }
+    && \mgu(\ma, {\colLo\ell'})
+    \tag*{not applicable}
+    \\
+    &
+    \infer[]{}{
+        \mf(x)\mEQ \mb\cdot\{ x\mapsto \ma\}
+        & \ma\mEQ\mb\cdot\emptyset
+    }
+    && \mgu(\mf(x), {\colLo\ell'})
+    \tag*{not applicable}
+\end{align*}
            \end{example}
+
+        
 
 \section{Satisfiability of Saturated Sets}\label{sec:inst:saturated:sets}
 
@@ -980,7 +1043,7 @@ The set of persistent clauses \( S^\infty \) denotes the lower limit of \( {\{ S
 
     \begin{definition}
         Let \( \mcF = \mcFfPE \) be a first order signature.
-        We construct a set of “Boolean“ function symbols
+        We construct a set of “Boolean” function symbols
         \[
             \bool{\mcF} = \{ \, \bool{\mP} \mid \mP \in \mcFP \, \}
         \]
@@ -1027,7 +1090,7 @@ The set of persistent clauses \( S^\infty \) denotes the lower limit of \( {\{ S
     while we replace each predicate with an equation,
     and each negated predicate with an inequation,
     where we have a Boolean term on the left side
-    and the Boolean constant \( \bool{\mc} \) on the right side.
+    and the unique Boolean constant \( \bool{\mc} \) on the right side.
 
 
 
