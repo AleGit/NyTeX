@@ -9,22 +9,23 @@
 In this thesis we assume the reader's familiarity with
 propositional and first order logic~\cite{Huth:2004:LCS:975331},
 %automated theorem proving \cite{Fitting:1996:FLA:230183},
-term rewriting (\textsf{TRW})~\cite{Baader:1998:TR:280474},
-decision procedures (\textsf{DP})~\cite{Kroening:2008:DPA:1391237},
-and satisfiability checking (\textsf{SAT}) modulo theories (\textsf{SMT})~\cite{Biere:2009:HSV:1550723}.
+term rewriting~\cite{Baader:1998:TR:280474},
+decision procedures~\cite{Kroening:2008:DPA:1391237},
+and satisfiability checking modulo theories~\cite{Biere:2009:HSV:1550723}.
 Nevertheless --- for clarity --- we state basic notions and  definitions
 of first order logic with equality in Section~\ref{sec:syntax},
 introduce basic concepts of first order semantics in Section~\ref{sec:semantics},
 and describe basic term rewriting terminology in Section~\ref{sec:termrewriting}.
 %This section is an extension of the same section in our seminar report \cite{axm:SR2}
-These notions and notations largely follow the lecture notes to term rewriting and automated reasoning~\cite{AM2015tr, GM2013ar}.
+These notions and notations largely follow lecture notes to term rewriting and automated reasoning~\cite{AM2015tr, GM2013ar}.
 % Figure \vref{fig:conventions} in the appendix lists typographical conventions.
 
 \section{Syntax}\label{sec:syntax}
 
-In this section we introduce the syntax of arbitrary first order formulae (\FOF),
-formulae in prenex normal form (\PNF),
-and sentences in clausal normal form (\CNF).
+In this section we introduce a fairly common syntax of 
+arbitrary first order formulae,
+first order formulae in prenex normal form,
+and first order sentences in clausal normal form.
 
 \input{preliminaries/signature}
 
@@ -238,7 +239,7 @@ for arbitrary first order formulae as well as sets of clauses.
 
 \noindent We use Lemma~\ref{lem:quantified:variable:renaming}
 to justify our assumption about first order sentences
-in Definition~\ref{def:fof:closed} by renaming each
+in Definition~\vref{def:fof:closed} by renaming each
 quantified variable by its position index.
 
 \begin{definition}\label{def:equisatisfiable}
@@ -251,19 +252,10 @@ quantified variable by its position index.
 	but the validity may differ between \( F \) and \( F' \).
 \end{definition}
 
-\begin{remark}
-	By itself equisatisfiability of arbitrary formulae
-	usually gives no insights since
-	any unsatisfiable formulae is equisatisfiable to \emph{any} unsatisfiable formula
-	and any satisfiable formula is equisatisfiable to \emph{any} satisfiable formula by definition,
-	e.g.\ \(\mP(\ma) \equisat \mb\mEQ\mc \). % chktex 21
-
-	But if we want to check satisfiability of formulae \( F \) and we can transform \( F \) to a “simpler” formula \( G \) such that \( F \equisat G \) then it is sufficient to check \( G \) for satisfiability to show (un)satisfiability of \( F\).
-\end{remark}
-
 \begin{example}
 	Let \( F \) be a sentence.
-	Then \( F \equisat F \land \exists x \mP(x) \).
+	Then \( F \equisat F \land \exists x \mP(x) \) 
+	since \( \exists x \mP(x) \) is satisfiable.
 	But \( F \not\entails F \land \exists x \mP(x) \)
 	as we can see for the tautology \( F = \mP(\ma)\lor\lnot\mP(\ma) \)
 	and interpretation \( \mP_\mcI = \emptyset \).
@@ -285,8 +277,9 @@ quantified variable by its position index.
 	It is easy to see that in general
 	\( F\{ x\mapsto\ma \} \not\equiv F\{ x\mapsto\mb \} \)
 	but
-	\( F\{ x\mapsto\ma \} \equisat F\{ x\mapsto\mb \} \),
-	e.g.~we can construct a model such that
+	\( F\{ x\mapsto\ma \} \equisat F\{ x\mapsto\mb \} \).
+	% 
+	E.g.~we can construct a model such that
 	\(\mP(\ma)\) holds but \(\mP(\mb)\) does not.
 	But undoubtedly \(\mP(\ma)\) is as satisfiable as
 	 \(\mP(\mb)\).
@@ -303,6 +296,66 @@ quantified variable by its position index.
 % 	\equisat \forall x\exists y(\mP(x,y)) \land \exists a\forall y(\mQ(y,a)) .
 % 	\]
 % \end{example}
+
+% \begin{remark}
+	By itself equisatisfiability of arbitrary formulae
+	usually gives no insights since
+	any unsatisfiable formulae is equisatisfiable to \emph{any} unsatisfiable formula
+	and any satisfiable formula is equisatisfiable to \emph{any} satisfiable formula by definition,
+	e.g.\ \(\mP(\ma) \equisat \mb\mEQ\mc \), which gives no insights over \( \mP(\ma) \) or \( \mb\mEQ\mc \). % chktex 21
+
+	Otherwise when we can efficiently transform 
+	a first order sentence \( F \) 
+	into an other sentence \( F' \),
+	such that \( F \equisat F' \),
+	then it is sufficient to check \( F' \) 
+	for satisfiability to show (un)satisfiability of \( F\).
+	Preferably the transformation work should not grow exponentially with 
+	the size of the transformed sentences.
+% \end{remark}
+
+In the following we briefly describe such satisfiability transformations.
+
+\begin{definition}\label{def:tseitin}
+	Tseitin transformation
+\end{definition}
+
+\begin{definition}\label{def:skolemization}
+	Let \( F = \mcQ\,G \) be a first order sentence in \PNF
+	with quantifier prefix \( \mcQ \) and quantifier free first order formula \( G \). 
+	Let \( x_i \) be the leftmost existentially quantified variable in \( \mcQ \).
+	
+	We define a \coloremph{skolemization} step \( \mcQ\,G \Rightarrow_{sk} \mcQ\,G' \)
+	where \( \exists x_i \) is removed from \( \mcQ \)
+	and
+	all occurrences of \( x_i \) in \( G \) are substituted
+	with a choice function value for \( x_i \) depending only
+	on the (universally quantified) variables left of \( \exists x_i \) in \( \mcQ \).
+	\[
+		\forall x_1 \ldots \forall x_{i-1}
+		\exists x_i 
+		\quantify x_{i+1} \ldots \quantify_n x_n\, (G)
+% 
+		\quad \Rightarrow_{sk} \quad
+% 
+		\forall x_1 \ldots \forall x_{i-1}
+		\quantify x_{i+1} \ldots \quantify_n x_n\, (G\sigma)
+	\]
+
+	with \( \sigma = \{ x_i \mapsto \mf_{x_i}(x_1,\ldots, x_{x-1}) \} \)
+	where \( \mf_{x_i} \) is a fresh function symbol.
+
+	\( \mcQ''\,G'' \) is in \coloremph{skolem normal form} if \( \mcQ'' \)
+	does not contain existenial quantifiers.
+\end{definition}
+
+\begin{lemma}
+	Skolemization steps are a satisfiability transformations, 
+	i.e.~\( \mcQ\,G \equisat \mcQ'\,G' \)
+	holds after 
+	\( \mathcal{Q}\,G \Rightarrow_{sk} \mathcal{Q}'\,G' \).
+\end{lemma}
+
 
 
 \subsection{Equality}
@@ -392,7 +445,7 @@ This section follows basic definitions and notions as in~\cite{AM2015L}.
 	A rewrite rule \( \ell'\rwStep r' \) is a \coloremph{variant} of \( \ell\rwStep r \) if there is a variable renaming \( \varrho \)
 	such that
 	\( (\ell\rightarrow r)\varrho = \ell\varrho\rightarrow r\varrho = l'\rightarrow r' \).
-	A \coloremph{term rewrite system} (TRS) is a set of rewrite rules without variants.
+	A \coloremph{term rewrite system} (TRS) is a set of finite rewrite rules without variants.
 	In a \coloremph{ground} term rewrite system every term on every side in every rule is a ground term.
 \end{definition}
 

@@ -136,13 +136,28 @@ We may denote \( \mcF(F) \) for the implicit signature of an formula \( F \).
 
 \end{example}
 
-\begin{definition}[\PNF]
-	A first order sentence \( F = \quantify_1 x_1 \ldots \quantify_n x_n\, G \)
-	with \( n \) quantifiers \( \quantify_i \in \{ \exists, \forall \} \),
-	\( n \) bound and distinct variables \( x_i \),
-	and quantifier free subformula \( G \) with
-	a matching set of free variables, i.e.~\( \fvar(G) = \bvar(F) \),
+\begin{definition}[\PNF]\label{def:prenex:normal:form}
+	A first order sentence 
+	\( F = \mcQ\,G \)
+	with quantifier prefix 
+	\( \mathcal{Q} = \quantify_1 x_1 \ldots \quantify_n x_n \)
+	and quantifier free subformula \( G \),
+	such that
+	\( \quantify_i \in \{ \exists, \forall \} \) 
+	and the pairwise distinct bound variables
+	in \(\mcQ\)
+	match with the set of free variables of \(G\), 
+	i.e.~\( \fvar(G) = \bvar(F) = \{ x_1,\ldots,x_n \} \),
 	is in \coloremph{prenex normal form}.
+\end{definition}
+
+\begin{definition}[\SNF]\label{def:skolem:normal:form}
+	A first order sentence \( F = \mcQ\,G \) in \PNF 
+	with quantifier prefix \( \mcQ \) 
+	and quantifier free subformula \( G \)
+	is in \coloremph{skolem normal form}
+	if and only if \( \mcQ \) does not contain any existential quantifier,
+	i.e.~\( \mcQ\, G = \forall x_1 \ldots \forall x_n \, G \) for some \( n \).
 \end{definition}
 
 
