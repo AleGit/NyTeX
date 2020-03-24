@@ -59,7 +59,7 @@ We state satisfiability and validity
 for arbitrary first order formulae as well as sets of clauses.
 %See the appendix for more details and mathematics.
 
-\subsection{Models}
+\subsection{Interpretations and Models}
 
 \begin{definition}\label{def:interpretation}
 	An \coloremph{interpretation} \( \mcI \)
@@ -182,7 +182,7 @@ for arbitrary first order formulae as well as sets of clauses.
 
 
 
-\subsection{Equisatisfiability}\label{sec:equisatisfiability}
+\subsection{Satisfiability transformations}\label{sec:equisatisfiability}
 
 \begin{definition}\label{def:entailment}\label{def:equivalence}
 	% [Consequence and entailment]
@@ -195,9 +195,6 @@ for arbitrary first order formulae as well as sets of clauses.
 	if an only if the first sentence entails the second and vice versa.
 	An \coloremph{equivalence transformation} morphs an arbitrary sentence \(F\)
 	to another sentence \(F'\) such that \( F\equiv F'\).
-	Equivalence transformations preserve
-	validity \coloremph{and} satisfiability
-	of sentences.
 \end{definition}
 
 \begin{example}
@@ -248,29 +245,17 @@ quantified variable by its position index.
 	and the other way round.
 	A \coloremph{satisfiability transformation} morphs an arbitrary sentence
 	\( F \) to a sentence \( F' \) such that \( F \equisat F' \).
-	Satisfiability transformations respect the satisfiability of sentences,
-	but the validity may differ between \( F \) and \( F' \).
 \end{definition}
 
-\begin{example}
-	Let \( F \) be a sentence.
-	Then \( F \equisat F \land \exists x \mP(x) \) 
-	since \( \exists x \mP(x) \) is satisfiable.
-	But \( F \not\entails F \land \exists x \mP(x) \)
-	as we can see for the tautology \( F = \mP(\ma)\lor\lnot\mP(\ma) \)
-	and interpretation \( \mP_\mcI = \emptyset \).
-\end{example}
-
-
-% \begin{example}
-% 	\begin{align*}
-% 		\{ \mcC\lor p, \mcD\lor\lnot p \} &\entails \{ \mcC\lor p, \mcD\lor\lnot p, \mcC\lor\mcD \}
-% 		\\
-% 		\{ \mcC\lor p, \mcD\lor\lnot p \} &\equisat \{ \mcC\lor p, \mcD\lor\lnot p, \mcC\lor\mcD \}
-% 		\\
-% 		\{ \mcC\lor p, \mcD\lor\lnot p \} &\not\equiv \{ \mcC\lor p, \mcD\lor\lnot p, \mcC\lor\mcD \}
-% 	\end{align*}
-% \end{example}
+\begin{remark}
+	To show equisatisfiability of arbitrary formulae \( F \equisat G \) 
+	we would have to show satisfiability of \( F \) and \( G \) independently,
+	e.g.~\(\mP(\ma) \equisat \mb\mEQ\mc \), 
+	which would gain nothing. % chktex 21
+	The goal is to transform \( F \) to \( F' \) such that \( F \equisat F' \)
+	and satisfiability is “easier”
+	to show for \( F' \) than for \( F \).
+\end{remark}
 
 \begin{example}
 	Let \(F\) be an arbitrary formula with \( \fvar(F) = \{ x \} \).
@@ -290,31 +275,13 @@ quantified variable by its position index.
 	\( \mP(\ma) \entails \exists x \, \mP(x) \) holds.
 \end{example}
 
-% \begin{example}
-% 	\[
-% 	\{ \, \mP(x, \mf(x)), \, \mQ(y,\ma)\, \}
-% 	\equisat \forall x\exists y(\mP(x,y)) \land \exists a\forall y(\mQ(y,a)) .
-% 	\]
-% \end{example}
-
-% \begin{remark}
-	By itself equisatisfiability of arbitrary formulae
-	usually gives no insights since
-	any unsatisfiable formulae is equisatisfiable to \emph{any} unsatisfiable formula
-	and any satisfiable formula is equisatisfiable to \emph{any} satisfiable formula by definition,
-	e.g.\ \(\mP(\ma) \equisat \mb\mEQ\mc \), which gives no insights over \( \mP(\ma) \) or \( \mb\mEQ\mc \). % chktex 21
-
-	Otherwise when we can efficiently transform 
-	a first order sentence \( F \) 
-	into an other sentence \( F' \),
-	such that \( F \equisat F' \),
-	then it is sufficient to check \( F' \) 
-	for satisfiability to show (un)satisfiability of \( F\).
-	Preferably the transformation work should not grow exponentially with 
-	the size of the transformed sentences.
-% \end{remark}
-
-In the following we briefly describe such satisfiability transformations.
+\begin{lemma}
+	Equivalence transformations are satisfiability transformations 
+	since every model for the original formula holds for the transformed formula 
+	and vice versa
+	by definition. 
+	\qed
+\end{lemma}
 
 \begin{definition}\label{def:tseitin}
 	Tseitin transformation
@@ -344,35 +311,33 @@ In the following we briefly describe such satisfiability transformations.
 
 	with \( \sigma = \{ x_i \mapsto \mf_{x_i}(x_1,\ldots, x_{x-1}) \} \)
 	where \( \mf_{x_i} \) is a fresh function symbol.
-
-	\( \mcQ''\,G'' \) is in \coloremph{skolem normal form} if \( \mcQ'' \)
-	does not contain existenial quantifiers.
 \end{definition}
 
 \begin{lemma}
+	\cite{Bundy1984}
 	Skolemization steps are a satisfiability transformations, 
 	i.e.~\( \mcQ\,G \equisat \mcQ'\,G' \)
-	holds after 
+	holds after any well executed skolemization step
 	\( \mathcal{Q}\,G \Rightarrow_{sk} \mathcal{Q}'\,G' \).
 \end{lemma}
 
+\subsection{Equality interpretations}
 
-
-\subsection{Equality}
+\noindent In Definition~\vref{def:semantics:atoms} we allowed
+interpretations of the equality symbol without restrictions.
+This may yield unwelcome models as in Example~\vref{ex:a:neq:a}.
+Hence we state Definitions \vref{def:normal:interpretation} 
+and \vref{def:term:interpretation}
+to match our expectations for the equality symbol
+and demonstrate their usage in Example \vref{ex:equality:interpretation}.
 
 \begin{example}\label{ex:a:neq:a}
 	Any interpretation \( \mcI \)
 	with \( {\mEQ_\mcI} = \emptyset \) satisfies \( \ma\mNE\ma \).
 \end{example}
 
-\noindent In Definition~\vref{def:semantics:atoms} we allowed
-to interpret the equality symbol without restrictions.
-This may yield unwelcome models as in Example~\vref{ex:a:neq:a}.
-Hence we state useful definitions to deal with this situation
-and demonstrate their usage in an example.
 
-
-\begin{definition}\label{def:normal:interpreation}
+\begin{definition}\label{def:normal:interpretation}
 	A \coloremph{normal} interpretation defines \( \mEQ_\mcI \) as identity on its domain,
 	e.g.~the equation of terms \( s \mEQ_\mcI t \) holds if and only
 	if any evaluation of its terms are equal \( \alpha_\mcI(s) = \alpha_\mcI(t) \)
@@ -381,7 +346,7 @@ and demonstrate their usage in an example.
 	for ground terms \( s' \) and \( t' \) if and only if \( s'\mNE_\mcI t' \).
 \end{definition}
 
-\begin{definition}
+\begin{definition}\label{def:term:interpretation}
 	A \coloremph{term interpretation}
 	\( \mcI_t \)
 	is an interpretation
@@ -396,7 +361,7 @@ and demonstrate their usage in an example.
 \end{definition}
 
 
-\begin{example}
+\begin{example}\label{ex:equality:interpretation}
 	Consider the satisfiable set of clauses \( S = \{ \mf(x) \mEQ x \} \).
 	%
 	We easily find a Herbrand model \( \mcH \) with

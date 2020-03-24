@@ -25,6 +25,25 @@
 	with the equational symbol for rewrite rules in Section~\ref{sec:termrewriting}.
 \end{remark}
 
+\begin{definition}
+	We define the \coloremph{size} of a first order formula \( F \) as follows:
+\begin{gather*}
+	\MDEFINE{\size(F)}{ll}{
+		1
+		&\text{if }F
+		= \mP(t_1,\ldots,t_n), \mP\in\mcFPn
+		\\
+		1
+		&\text{if }F
+		= t_1\mEQ t_2
+		\\
+		1 + \size(G) + \size(H)&\text{if }F \in \{ \, G\land H,G \lor H,G\limp H \, \}
+		\\
+		1 + \size (G) &\text{if } F \in \{ \, \lnot G, \, \forall x \, G, \exists x \, G \, \}
+	}
+\end{gather*}
+\end{definition}
+
 \begin{definition}\label{def:fof:fvars}\label{def:fof:bvars}
 	We define the set of \coloremph{free} variables and the set of \coloremph{bound} variables
 	of a first order formula \( F \) as follows:
@@ -159,5 +178,7 @@ We may denote \( \mcF(F) \) for the implicit signature of an formula \( F \).
 	if and only if \( \mcQ \) does not contain any existential quantifier,
 	i.e.~\( \mcQ\, G = \forall x_1 \ldots \forall x_n \, G \) for some \( n \).
 \end{definition}
+
+We will define a transformation from \PNF to \SNF in Definition \vref{def:skolemization}.
 
 
