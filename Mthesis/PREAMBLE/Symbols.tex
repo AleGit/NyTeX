@@ -23,16 +23,17 @@
 
 \DeclareMathOperator{\arity}{arity}		% arity of a symbol
 
-\DeclareMathOperator{\var}{\mathpzc{Vars}}			% variables of a term
-\DeclareMathOperator{\fun}{\mathpzc{Funs}}			% function symbols of a term
-\DeclareMathOperator{\pos}{\mathpzc{Pos}}			% positions in a term
-\DeclareMathOperator{\posT}{\mathpzc{{t-}Pos}}			% positions in a term
-\DeclareMathOperator{\PosStr}{\mathpzc{Pos^F}}
-\DeclareMathOperator{\vaPosStr}{\mathpzc{Pos^F_*}}
-\DeclareMathOperator{\posV}{\mathpzc{Pos^{\!V}}}
-\DeclareMathOperator{\occurs}{occurs}
-\DeclareMathOperator{\fvar}{\mathpzc{Fvars}}
-\DeclareMathOperator{\bvar}{\mathpzc{Bvars}}
+\DeclareMathOperator{\var}{\mathpzc{Vars}}			% set of variables of a term
+\DeclareMathOperator{\fun}{\mathpzc{Funs}}			% set function symbols of a term
+\DeclareMathOperator{\pos}{\mathpzc{Pos}}			% set of positions in a term
+\DeclareMathOperator{\posT}{\mathpzc{{t-}Pos}}	    % set of positions in a term
+\DeclareMathOperator{\PosStr}{\mathpzc{Pos^F}}      % set of position strings
+\DeclareMathOperator{\vaPosStr}{\mathpzc{Pos^F_*}}  % set of variable agnostic positions strings
+% \DeclareMathOperator{\posV}{\mathpzc{Pos^{\!V}}}
+% \DeclareMathOperator{\occurs}{occurs}
+\DeclareMathOperator{\fvar}{\mathpzc{Fvars}}		% set of free variables
+\DeclareMathOperator{\bvar}{\mathpzc{Bvars}}        % set of bound variables
+\DeclareMathOperator{\subformulae}{\mathpzc{Sf}}	% set of subformulae
 
 \DeclareMathOperator{\domain}{dom}			% domain of an assignment
 \DeclareMathOperator{\range}{rng}		% range of an assignment
@@ -44,24 +45,29 @@
 
 %\DeclareMathOperator{\mul}{mul}
 %\DeclareMathOperator{\add}{add}
-\DeclareMathOperator{\head}{head}
-\DeclareMathOperator{\size}{size}
-\DeclareMathOperator{\tail}{tail}
-\DeclareMathOperator{\length}{length}
-
-\DeclareMathOperator{\UNIF}{unifiable}
-\DeclareMathOperator{\INST}{instance}
-\DeclareMathOperator{\GNRL}{generalization}
-\DeclareMathOperator{\VRNT}{variant}
-\DeclareMathOperator{\SUBS}{subsumses}
-\DeclareMathOperator{\PSSTR}{substring}
-\DeclareMathOperator{\PSTR}{pstr}
+\DeclareMathOperator{\head}{head}		% head of a position	
+\DeclareMathOperator{\tail}{tail}		% tail of a position
+\DeclareMathOperator{\length}{length}   % length of a position
 
 %\DeclareMathOperator{\subterms}{\mathpzc{Subterms}}
 %\DeclareMathOperator{\termsize}{size}
 %\DeclareMathOperator{\symbols}{symbols}
 %\DeclareMathOperator{\subforms}{\mathpzc{Subforms}}
 
+% depth of a term
+% width of a term
+
+\DeclareMathOperator{\size}{size} 		% size of a formula
+% height of a formula
+
+% termindexing:
+\DeclareMathOperator{\UNIF}{unifiable}
+\DeclareMathOperator{\INST}{instance}
+\DeclareMathOperator{\GNRL}{generalization}
+\DeclareMathOperator{\VRNT}{variant}
+\DeclareMathOperator{\SUBS}{subsumses}
+% \DeclareMathOperator{\PSSTR}{substring}
+% \DeclareMathOperator{\PSTR}{pstr}
 
 %\newcommand\TOP[2]{\genfrac{}{}{0pt}{}{#1}{#2}}
 %\newcommand\TOPTEXT[2]{\TOP{\text{#1}}{\text{#2}}}
@@ -312,8 +318,8 @@
 
 \newcommand{\CNF}{\texttt{CNF}\xspace}
 \newcommand{\FOF}{\texttt{FOF}\xspace}
-\newcommand{\PNF}{\texttt{PNF}\xspace}
-\newcommand{\SNF}{\texttt{SNF}\xspace}
+% \newcommand{\PNF}{\texttt{PNF}\xspace}
+% \newcommand{\SNF}{\texttt{SNF}\xspace}
 \newcommand{\FLEA}{\texttt{FLEA}\xspace}
 \newcommand{\TPTP}{\texttt{TPTP}\xspace}
 \newcommand{\TPTPtgz}{\texttt{TPTP-v7.1.0.tgz}\xspace}

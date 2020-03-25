@@ -12,7 +12,7 @@ propositional and first order logic~\cite{Huth:2004:LCS:975331},
 term rewriting~\cite{Baader:1998:TR:280474},
 decision procedures~\cite{Kroening:2008:DPA:1391237},
 and satisfiability checking modulo theories~\cite{Biere:2009:HSV:1550723}.
-Nevertheless --- for clarity --- we state basic notions and  definitions
+Nevertheless we state for clarity basic notions and  definitions
 of first order logic with equality in Section~\ref{sec:syntax},
 introduce basic concepts of first order semantics in Section~\ref{sec:semantics},
 and describe basic term rewriting terminology in Section~\ref{sec:termrewriting}.
@@ -23,9 +23,7 @@ These notions and notations largely follow lecture notes to term rewriting and a
 \section{Syntax}\label{sec:syntax}
 
 In this section we introduce a fairly common syntax of 
-arbitrary first order formulae,
-first order formulae in prenex normal form,
-and first order sentences in clausal normal form.
+arbitrary first order formulae and introduce first order normal forms.
 
 \input{preliminaries/signature}
 
@@ -244,16 +242,17 @@ quantified variable by its position index.
 	if \( F \) is satisfiable whenever \( G \) is satisfiable
 	and the other way round.
 	A \coloremph{satisfiability transformation} morphs an arbitrary sentence
-	\( F \) to a sentence \( F' \) such that \( F \equisat F' \).
+	\( F \) to a equisatisfiable sentence \( F' \), i.e.~\( F \equisat F' \).
 \end{definition}
 
 \begin{remark}
-	To show equisatisfiability of arbitrary formulae \( F \equisat G \) 
+	To show equisatisfiability of two arbitrary formulae \( F \equisat G \) 
 	we would have to show satisfiability of \( F \) and \( G \) independently,
 	e.g.~\(\mP(\ma) \equisat \mb\mEQ\mc \), 
 	which would gain nothing. % chktex 21
-	The goal is to transform \( F \) to \( F' \) such that \( F \equisat F' \)
-	and satisfiability is “easier”
+	The goal is to efficiently transform \( F \) to a \( F' \) 
+	such that \( F \equisat F' \)
+	where satisfiability is “easier”
 	to show for \( F' \) than for \( F \).
 \end{remark}
 
@@ -283,16 +282,29 @@ quantified variable by its position index.
 	\qed
 \end{lemma}
 
-\begin{definition}\label{def:tseitin}
-	Tseitin transformation
+\subsubsection{Tseitin transformation}
+
+\begin{definition}[Tseitin transformation]\label{def:tseitin}
+	Let \( F \) be a first order formula. 
 \end{definition}
 
+\begin{example}
+	We start with a simple example in propositional logic.
+	Let \( 
+		F = ((\mpp_1 \land \mpp_2) \land \lnot\mpp_3) 
+		\lor 
+		((\mpq_1 \land \mpq_2) \land \mpq_3)
+	\)
+\end{example}
+
+\subsubsection{Skolemization}
+
 \begin{definition}\label{def:skolemization}
-	Let \( F = \mcQ\,G \) be a first order sentence in \PNF
+	Let \( F = \mcQ\,G \) be a first order sentence in prenex normal form
 	with quantifier prefix \( \mcQ \) and quantifier free first order formula \( G \). 
 	Let \( x_i \) be the leftmost existentially quantified variable in \( \mcQ \).
-	
-	We define a \coloremph{skolemization} step \( \mcQ\,G \Rightarrow_{sk} \mcQ\,G' \)
+	% 
+	We define a \coloremph{skolemization} step \( \mcQ\,G \Rightarrow_{\mathsf{sk}} \mcQ\,G' \)
 	where \( \exists x_i \) is removed from \( \mcQ \)
 	and
 	all occurrences of \( x_i \) in \( G \) are substituted
@@ -303,7 +315,7 @@ quantified variable by its position index.
 		\exists x_i 
 		\quantify x_{i+1} \ldots \quantify_n x_n\, (G)
 % 
-		\quad \Rightarrow_{sk} \quad
+		\quad \Rightarrow_{\mathsf {sk}} \quad
 % 
 		\forall x_1 \ldots \forall x_{i-1}
 		\quantify x_{i+1} \ldots \quantify_n x_n\, (G\sigma)
@@ -329,7 +341,7 @@ This may yield unwelcome models as in Example~\vref{ex:a:neq:a}.
 Hence we state Definitions \vref{def:normal:interpretation} 
 and \vref{def:term:interpretation}
 to match our expectations for the equality symbol
-and demonstrate their usage in Example \vref{ex:equality:interpretation}.
+and demonstrate their application in Example \vref{ex:equality:interpretation}.
 
 \begin{example}\label{ex:a:neq:a}
 	Any interpretation \( \mcI \)
@@ -386,7 +398,7 @@ and demonstrate their usage in Example \vref{ex:equality:interpretation}.
 
 %How we find a normal model or justify its existence we will discuss in Section \vref{sec:automation} about Automation.
 
-\section{Term Rewriting and Term Orderings}\label{sec:termrewriting}
+\section{Term Rewriting and Term Orderings}\label{sec:term:rewriting}
 
 Term rewriting provides theoretical foundations for practical procedures
 when dealing with equations of terms.

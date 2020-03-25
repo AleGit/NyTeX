@@ -16,17 +16,19 @@
 	of two first order formulae
 	are (composite) first order formulae, where 
 %
-	we refer to formulae \(F \) and \( F' \) as \coloremph{subformulae} of
+	we refer to formulae \(F \) and \( F' \)
+	as immediate \coloremph{subformulae} of
 	the quantified or composite formulae above.
 \end{definition}
 
 \begin{remark}
 	The symbol \( \limp \) for implication is not to be confused
-	with the equational symbol for rewrite rules in Section~\ref{sec:termrewriting}.
+	with the equational symbol for rewrite rules in Section~\ref{sec:term:rewriting}.
 \end{remark}
 
 \begin{definition}
-	We define the \coloremph{size} of a first order formula \( F \) as follows:
+	We define the \coloremph{size} 
+	and the \coloremph{set of subformulae} of a first order formula \( F \):
 \begin{gather*}
 	\MDEFINE{\size(F)}{ll}{
 		1
@@ -40,6 +42,20 @@
 		1 + \size(G) + \size(H)&\text{if }F \in \{ \, G\land H,G \lor H,G\limp H \, \}
 		\\
 		1 + \size (G) &\text{if } F \in \{ \, \lnot G, \, \forall x \, G, \exists x \, G \, \}
+	}
+	\\
+	\MDEFINE{\subformulae(F)}{ll}{
+		\{ F \}
+		&\text{if }F
+		= \mP(t_1,\ldots,t_n), \mP\in\mcFPn
+		\\
+		\{ F \}
+		&\text{if }F
+		= t_1\mEQ t_2
+		\\
+		\{ F \} \disjointunion \subformulae(G) \disjointunion \subformulae(H)&\text{if }F \in \{ \, G\land H,G \lor H,G\limp H \, \}
+		\\
+		\{ F \} \disjointunion \subformulae(G) &\text{if } F \in \{ \, \lnot G, \, \forall x \, G, \exists x \, G \, \}
 	}
 \end{gather*}
 \end{definition}
@@ -79,16 +95,16 @@
 \end{definition}
 
 \begin{example}
-	With formula \( F = (\forall x (x\mEQ y)) \lor (\exists y \mP(x,y)) \)
+	With formula \( F = (\forall x (x\!\mEQ\!y)) \lor (\exists y \mP(x,y)) \)
 	we have \( \fvar(F) = \bvar(F) \), which we would like to avoid.
+
 	In Section~\vref{sec:semantics} we will see that formula
-	\( F' = (\forall x (x\mEQ y')) \lor (\exists y \mP(x',y)) \)
+	\( F' = (\forall x (x\!\mEQ\!y')) \lor (\exists y \mP(x',y)) \)
 	is equivalent to our first formula F
 	and we get
 	\( \fvar(F') \cap \bvar(F') = \emptyset \).
 	%	 = \{ x, y\}$.
 \end{example}
-
 %\begin{remark}
 We often will use formulae or sentences
 without stating the signature.
@@ -155,12 +171,12 @@ We may denote \( \mcF(F) \) for the implicit signature of an formula \( F \).
 
 \end{example}
 
-\begin{definition}[\PNF]\label{def:prenex:normal:form}
+\begin{definition}\label{def:prenex:normal:form}
 	A first order sentence 
 	\( F = \mcQ\,G \)
 	with quantifier prefix 
 	\( \mathcal{Q} = \quantify_1 x_1 \ldots \quantify_n x_n \)
-	and quantifier free subformula \( G \),
+	and quantifier free matrix \( G \),
 	such that
 	\( \quantify_i \in \{ \exists, \forall \} \) 
 	and the pairwise distinct bound variables
@@ -170,15 +186,17 @@ We may denote \( \mcF(F) \) for the implicit signature of an formula \( F \).
 	is in \coloremph{prenex normal form}.
 \end{definition}
 
-\begin{definition}[\SNF]\label{def:skolem:normal:form}
-	A first order sentence \( F = \mcQ\,G \) in \PNF 
-	with quantifier prefix \( \mcQ \) 
-	and quantifier free subformula \( G \)
+\begin{definition}\label{def:skolem:normal:form}
+	Let \( F = \mcQ\,G \) be a first order sentence
+	already in prenex normal form.
+	Then \( F \) 
 	is in \coloremph{skolem normal form}
-	if and only if \( \mcQ \) does not contain any existential quantifier,
-	i.e.~\( \mcQ\, G = \forall x_1 \ldots \forall x_n \, G \) for some \( n \).
+	if \( \mcQ \) does not contain any existential quantifier.
 \end{definition}
 
-We will define a transformation from \PNF to \SNF in Definition \vref{def:skolemization}.
+We will define a transformation of first order sentences 
+from prenex normal form
+to skolem normal form 
+in Definition \vref{def:skolemization}.
 
 

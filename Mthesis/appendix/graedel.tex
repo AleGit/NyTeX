@@ -26,7 +26,7 @@ Then we remove the trailing existential quantifiers and replace there variables 
 
 \begin{table}[hbt]
 \begin{align}
-\PNF& &&& \CNF& \tag*{}\\
+pnf& &&& \CNF& \tag*{}\\
 [\,\exists^{∗}\forall^{∗}, all, (0)&\,]_{=}
 &&\checkmark& _{_\CNF}\langle\,\omega,all, (0)&\,\rangle_{=}
 \label{tab:decidable:CNF:1}
@@ -59,7 +59,8 @@ Then we remove the trailing existential quantifiers and replace there variables 
 \label{tab:decidedable:CNF}
 \end{table}
 
-First we transform the matrix of a formula in \PNF into an equisatisfiable conjunctive normal form.
+First we transform the matrix of a formula in prenex normal form 
+into an equisatisfiable conjunctive normal form.
 With the following transformation into clausal normal form
 we get one skolem constant per leading existential quantifier. And we get \ldots
 
