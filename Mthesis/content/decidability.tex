@@ -78,10 +78,6 @@ By definition of the semantics of negation, validity, and satisfiability.
 	The satisfiability problem for first order logic on \coloremph{finite} structures (domains) is undecidable.
 \end{theorem}
 
-\begin{definition}[Finite model property]
-	A logic has the finite model property if each non-theorem is falsified by some finite model.
-\end{definition}
-
 \begin{theorem}[Compactness, Gödel 1930, Maltsev 1936]\label{the:compactness}
 	If every finite subset of a set of formulas \( S \) has a model then \( S \) has a model.
 \end{theorem}
@@ -229,6 +225,9 @@ Both examples above are subsets of slightly bigger fragments of first order logi
 with equality where one single unary function symbol can be present
 (see Table \ref{tab:decidable:InfinityAxioms}).
 
+\begin{definition}\label{def:finite:model:property}
+	A logic has the \coloremph{finite model property} if each non-theorem is falsified by some finite model.
+\end{definition}
 
 
 % \begin{remark}
@@ -256,7 +255,7 @@ with equality where one single unary function symbol can be present
 \end{table}
 
 \begin{definition}
-	\coloremph{Axioms of infinity} refers to satisfiable sentences without a finite model.
+	\coloremph{Infinity axioms} refers to the existence of satisfiable first order sentences without finite models.
 	\end{definition}
 
 \begin{table}[hbt]

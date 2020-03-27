@@ -55,3 +55,52 @@ from \( \{ F_1,\ldots,F_n\} \).
 \end{center}
 \end{figure}\label{fig:natural:dedction:proof}
 \end{example}
+
+\begin{definition}
+	We write \( F \biprove G \) as shorthand whenever 
+	\( F \proves G \) and \( G \proves F \) hold
+	which denotes \coloremph{provable equivalence} of first order formulae.
+\end{definition}
+
+\begin{lemma}\cite{Huth:2004:LCS:975331}
+	Let \( F \), \( G \), and \( H \) be first oder formulae.
+	\begin{align*}
+		F \land G &\biprove G \land F 
+		&
+		F \land ( G \lor H) &\biprove (F\land G) \lor (F\land H)
+		\\
+		F \lor G &\biprove G \lor F
+		&
+		F \lor ( G \land H) &\biprove (F \lor G) \land (F \lor H)
+		\\
+		F \limp &\biprove \lnot F \lor G
+		&
+		\lnot( F \land G) &\biprove \lnot F \lor \lnot G
+		\\
+		\lnot \lnot F &\biprove F
+		&
+		\lnot( F \lor G) &\biprove \lnot F \land \lnot G
+	\end{align*}
+% 
+	\begin{align*}
+		\lnot \forall x F &\biprove \exists \lnot F & 
+		\lnot \exists x F &\biprove \forall \lnot F 
+		\\[0.5em]
+		(\forall x F) \land G &\biprove \forall x ( F \land G) &
+		(\exists x F) \land G &\biprove \exists x ( F \land G ) 
+		\tag*{if \( x\not\in\fvar(G)\)} 
+		\\
+		(\forall x F) \lor G &\biprove \forall x ( F \lor G) &
+		(\exists x F) \lor G &\biprove \exists x ( F \lor G )
+		\tag*{if \( x\not\in\fvar(G)\)} 
+		\\[0.5em]
+		(\forall x F) \land (\forall x G) &\biprove \forall x (F \land G) &
+		(\exists x F) \lor (\exists x G) &\biprove \exists x (F \lor G)
+		\\
+		\forall x \forall y F &\biprove \forall y \forall x F &
+		\exists x \exists y F &\biprove \exists y \exists x F
+	\end{align*}
+\end{lemma}
+\begin{proof}
+	By natural deduction.
+\end{proof}

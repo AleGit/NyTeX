@@ -98,7 +98,7 @@
 	With formula \( F = (\forall x (x\!\mEQ\!y)) \lor (\exists y \mP(x,y)) \)
 	we have \( \fvar(F) = \bvar(F) \), which we would like to avoid.
 
-	In Section~\vref{sec:semantics} we will see that formula
+	In Section~\vref{sec:first:order:semantics} we will see that formula
 	\( F' = (\forall x (x\!\mEQ\!y')) \lor (\exists y \mP(x',y)) \)
 	is equivalent to our first formula F
 	and we get
@@ -176,7 +176,8 @@ We may denote \( \mcF(F) \) for the implicit signature of an formula \( F \).
 	\( F = \mcQ\,G \)
 	with quantifier prefix 
 	\( \mathcal{Q} = \quantify_1 x_1 \ldots \quantify_n x_n \)
-	and quantifier free matrix \( G \),
+	for some \( n > 0 \)
+	and quantifier free first order formula \( G \),
 	such that
 	\( \quantify_i \in \{ \exists, \forall \} \) 
 	and the pairwise distinct bound variables
@@ -187,16 +188,50 @@ We may denote \( \mcF(F) \) for the implicit signature of an formula \( F \).
 \end{definition}
 
 \begin{definition}\label{def:skolem:normal:form}
-	Let \( F = \mcQ\,G \) be a first order sentence
-	already in prenex normal form.
-	Then \( F \) 
-	is in \coloremph{skolem normal form}
-	if \( \mcQ \) does not contain any existential quantifier.
+	Let \( F = \mcQ\,G \) be a first order sentence already
+	in prenex normal form.
+	If prefix \( \mcQ \) does not contain any existential quantifier
+	then \( F \) is in \coloremph{skolem normal form}.
 \end{definition}
 
 We will define a transformation of first order sentences 
 from prenex normal form
 to skolem normal form 
 in Definition \vref{def:skolemization}.
+
+\begin{definition}\label{def:negation:normal:form}
+	A first order formula \( F \)
+	is in \coloremph{negation normal form}
+	if and only if for any subformula \( \lnot G \) of \( F \)
+	subformula \( G \)
+	is a predicate or equation.
+\end{definition}
+
+\begin{definition}\label{def:negation:normal:form}
+	A quantifier free first order formula \( F \)
+	is in \coloremph{conjunctive normal form}
+	if and only if 
+	we have
+	\( F = (C_1 \land ... \land C_n) \) for some \( n > 0 \),
+	we have 
+	\( C_i = (L_{i,1} \lor ... \lor L_{i, m_i}) \) with some \( m_i > 0 \)
+	for \( 1 \leq i \leq n \), 
+	and we have
+	\( L_{i,j} \) 
+	is a (negated) predicate or equation
+	for any \((i,j)\) with
+	\( 1 \leq i \leq n \), and
+	\( 1 \leq j \leq m_i \).
+
+	Obviously such \( F \) is in negation 
+\end{definition}
+
+% \begin{definition}\label{def:conjunctive:normal:form}
+% 	A quantifier free first order formula \( F \)
+% 	is in \coloremph{conjunctive normal form}
+% 	if an only if
+% 	it is in negation normal form 
+% 	and 
+% \end{definition}
 
 
