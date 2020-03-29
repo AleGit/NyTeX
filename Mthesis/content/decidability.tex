@@ -251,7 +251,7 @@ with equality where one single unary function symbol can be present
 	\\
 	[\,\exists^{∗}, all, all& \, ]{}_{\mEQ} \tag{Gurevich 1976}
 	\end{align*}
-	\caption[Decidable classes (finite)]{Decidable prefix-vocabulary classes with finite model property}\label{tab:decidedable:FiniteModelProperty}
+	\caption[Decidable classes (finite)]{Decidable classes with the finite model property}\label{tab:decidedable:FiniteModelProperty}
 \end{table}
 
 \begin{definition}
@@ -264,7 +264,7 @@ with equality where one single unary function symbol can be present
 	\\
 	[ \, \exists^{∗}\forall\exists^{∗}, all, (1)& \, ]{}_{\mEQ} \tag{Shelah 1977}
 	\end{align*}
-	\caption[Decidable classes (infinite)]{Decidable prefix-vocabulary classes with infinity axioms}\label{tab:decidable:InfinityAxioms}
+	\caption[Decidable classes (infinite)]{Decidable classes with infinity axioms}\label{tab:decidable:InfinityAxioms}
 \end{table}
 
 \begin{example}[\cite{MR1482227}]
@@ -303,11 +303,12 @@ We follow the definitions and examples of first order theories
 by A. Middeldorp in~\cite{AM2015L}.
 
 \begin{definition}[Theory]
-	A \coloremph{first-order theory} is a pair of a first-order signature
-	and the possibly infinite conjunction \( \bigwedge_i A_i \) of first-order formulae,
+	A \coloremph{first-order theory} is a pair of a first order signature
+	and the possibly infinite conjunction \( \bigwedge_i A_i \) of first order formulae,
 	i.e.~the axioms, over the theory's signature.
-	A theory is \coloremph{consistent} if the contradiction is not entailed.
-	A theory is \coloremph{satisfiable} if there exists a model for its axioms.
+	A theory is \coloremph{consistent} if the contradiction is not provable by its axioms.
+	A theory is \coloremph{satisfiable} if there exists a model such thats its axioms hold
+	in that model.
 %
 	A \coloremph{theorem} \( \phi \) is a sentence over the theory's signature,
 	i.e.~a closed formula, that holds in any model for the theory's axioms.
@@ -318,14 +319,16 @@ by A. Middeldorp in~\cite{AM2015L}.
 	\]
 	A theory is \coloremph{decidable} if there is a decision procedure whether an arbitrary sentence holds in the theory, i.e.~if the sentence is a consequence of the axioms.
 \end{definition}
-%
-\begin{example}
-A theory with axioms \( \forall x\,\mP(x) \) and \( \exists x\,\lnot\mP(x) \) is neither consistent nor satisfiable.
-\end{example}
 
 \begin{lemma}
-	A first order theory is consistent if and only if it is satisfiable.
+	As a consequence of completeness a first order theory 
+	is consistent if and only if it is satisfiable.
 \end{lemma}
+%
+\begin{example}
+A theory with axioms \( \forall x\,\mP(x) \) and \( \exists x\,\lnot\mP(x) \) 
+would be neither consistent nor satisfiable. 
+\end{example}
 %
 Even if we can decide that a sentence is not a theorem in a theory,
 e.g.~if we find a model for the axioms where the sentence does not hold,
@@ -390,20 +393,6 @@ The following equivalence and congruence axioms form the theory of equality over
 	but we would gain nothing, because we cannot express transitivity of \( \mathsf{equals} \)
 	within these fragments of first order logic.
 \end{remark}
-
-
-\begin{definition}[\( \vec{x} \)-Notation]
-	Occasionally we may abbreviate a sequence of \( n \) variables by \( \vec{x} \).
-	Then we write \( \mcf(\vecn{x}) \)
-	for first-order expression \( \mcf(x_1,\ldots,x_n) \)
-	with \(n\)-ary function or predicate symbol \( \mcf \),
-%	 \( \mcf\in\mcFn \),
-	a single equation \( \vecn{x}\mEQ\vecn{y} \) for
-	the conjunction of \( n \) equations
-	\( x_1\mEQ y_1\land\ldots\land x_n\mEQ y_n \),
-	and \( \forall\vecn{x} \) for
-	the sequence of quantified variables \( \forall x_1\ldots\forall x_n \).
-\end{definition}
 
 \begin{definition}
 	[Congruence schemata] An equivalence relation \( \mEQ \) is a congruence relation if and only if
@@ -622,7 +611,7 @@ The following axioms characterize natural numbers, addition, and multiplication.
 \end{remark}
 
 \begin{theorem}
-	The axioms of Peano Arithmetic is consistent (Gentzen, 1936)
+	Peano Arithmetic is consistent (Gentzen, 1936)
 	if primitive recursive arithmetic (Skolem, 1923) is consistent.
 \end{theorem}
 
