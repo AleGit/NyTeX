@@ -306,8 +306,8 @@ by A. Middeldorp in~\cite{AM2015L}.
 	A \coloremph{first-order theory} is a pair of a first order signature
 	and the possibly infinite conjunction \( \bigwedge_i A_i \) of first order formulae,
 	i.e.~the axioms, over the theory's signature.
-	A theory is \coloremph{consistent} if the contradiction is not provable by its axioms.
-	A theory is \coloremph{satisfiable} if there exists a model such thats its axioms hold
+	A theory is \coloremph{consistent} if the contradiction is not provable from its axioms.
+	A theory is \coloremph{satisfiable} if there exists a model such that its axioms hold
 	in that model.
 %
 	A \coloremph{theorem} \( \phi \) is a sentence over the theory's signature,
@@ -319,16 +319,16 @@ by A. Middeldorp in~\cite{AM2015L}.
 	\]
 	A theory is \coloremph{decidable} if there is a decision procedure whether an arbitrary sentence holds in the theory, i.e.~if the sentence is a consequence of the axioms.
 \end{definition}
+%
+\begin{example}
+A theory that contains axioms \( \forall x\,\mP(x) \) and \( \exists x\,\lnot\mP(x) \) 
+is neither consistent nor satisfiable. 
+\end{example}
 
 \begin{lemma}
 	As a consequence of completeness a first order theory 
 	is consistent if and only if it is satisfiable.
 \end{lemma}
-%
-\begin{example}
-A theory with axioms \( \forall x\,\mP(x) \) and \( \exists x\,\lnot\mP(x) \) 
-would be neither consistent nor satisfiable. 
-\end{example}
 %
 Even if we can decide that a sentence is not a theorem in a theory,
 e.g.~if we find a model for the axioms where the sentence does not hold,
@@ -337,20 +337,22 @@ we still cannot conclude that the negation of the sentence is a theorem.
 	The sentence \( F = \forall x \forall y\, (x\mEQ y) \) is definitely not a theorem in many theories, but its negation \( \lnot F \equiv \exists x \exists y\, (x \mNE y) \) is not a theorem in any theory that allows models with a universe of cardinality one.
 \end{example}
 \begin{definition}\label{def:complete:theory}
-	A (consistent) theory is \coloremph{complete} iff for any sentence in the theory (either) the sentence or its negation is a theorem in the theory.
+	A (consistent or satisfiable) theory is \coloremph{complete} iff for any sentence in the theory either the sentence or its negation is a theorem in the theory.
 \end{definition}
 %
 \begin{remark}
 In refutation theorem proving
 we show the unsatisfiability
 of a negated sentence,
-i.e.~a \coloremph{conjecture} \( \psi \),
-in conjunction with the axioms
+i.e.~a \coloremph{conjecture} \( F \),
+in conjunction with the axioms \( ( A_i )_i \)
 to conclude that the conjecture is indeed a theorem.
 \[
-	\lnot\left(\bigwedge_i A_i \limp \mathsf{conj}\right) \equiv
-	\lnot\left(\lnot\bigwedge_i A_i \lor \mathsf{conj}\right) \equiv
-	\bigwedge_i A_i \land \lnot \mathsf{\psi}
+	\lnot\left(\bigwedge_i A_i \limp F \right) 
+	\equiv
+	\lnot\left( \lnot\bigwedge_i A_i \lor F \right) 
+	\equiv
+	\bigwedge_i A_i \land \lnot F
 \]
 \end{remark}
 
@@ -498,7 +500,7 @@ The following axioms characterize natural numbers, addition, and multiplication.
 	and restrict the possible models with two axioms.
 \begin{align*}
 \forall x\, &(\msucc(x) \mNE 0)
-\tag*{zero is minimal}
+\tag*{zero}
 \\ %–––––––––––––––––––––––––––
 \forall x \forall y\, &(\msucc(x) \mEQ \msucc(y) \limp x \mEQ y)
 \tag*{injectivity of \( \msucc \)}
@@ -558,6 +560,7 @@ The following axioms characterize natural numbers, addition, and multiplication.
 \end{definition}
 
 \begin{example}
+	We “compute” \( 3 + 5 \).
 	\begin{gather*}
 	{\colG \msucc(\msucc(\msucc(0)))} + \msucc(\msucc(0))
 	\mEQ\msucc({\colG \msucc(\msucc(\msucc(0)))} + \msucc(0))
