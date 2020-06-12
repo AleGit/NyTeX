@@ -50,7 +50,7 @@ eventually.
 First we translate axioms and lemmata into clausal normal form in Sections~\ref{sec:clausal:normal:form},
 then we look at Gilmore's Prover from 1960 in Section~\ref{sec:gilmore:prover}.
 After that we look at more modern calculi for first order refutation theorem proving
-without equality in Section~\ref{sec:proving:without:equaltiy} and with equality in Section~\ref{sec:proving:with:equality}.
+without equality in Section~\ref{sec:theorem:proving:without:equaltiy} and with equality in Section~\ref{sec:theorem:proving:with:equality}.
 
 
 %
@@ -419,23 +419,22 @@ Following Gilmore's prover we can easily prove the syllogism from above.
 	and the given syllogism holds.
 \end{example}
 
-%
-%On the other hand the procedure will never terminate
-%even for very simple satisfiable sets where the Herbrand universe is infinite,
-%i.e.~there is at least one non-constant function symbol.
+Let us demonstrate a simple disadvantage of systematically generating instances of growing sizes.
 
 \begin{example}\label{ex:unsat:nexsx}
 	Let \( k\in\mathbb{N} \) be an arbitrary but fixed number.
 	Consider the unsatisfiable set of clauses
 	\(
-		S = \{ \, \lnot\mcL_1, \, \mcL_2 \, \} =
+		S =
 		 \{ \,
 		{ \lnot\mE(x, \msucc(x)) }, \,
 		{ \mE(\msucc^{k}(y), \msucc(\msucc^{k}(y)))}
 		 \, \}
 	 \).
-	The sets of instances \( S_{i} \) are satisfiable for all \( i<k \).
-	The set of instances \( S_{k} \) is clearly unsatisfiable.
+	Since no constant symbol in the signature of \( S \) is present 
+	we choose fresh symbol \( \mzero \) as our only constant symbol for instantiation.
+	Then we apply Procedure \ref{proc:gilmore's:prover} 
+	and check every generated set of instances \( S_i \) for satisfiability.
 	%
 	\begin{align*}
 	H'_{0} =&{\ } \{ \, \mzero{} \, \}
@@ -463,17 +462,28 @@ Following Gilmore's prover we can easily prove the syllogism from above.
 	%	{\ldots}
 	 \, \}
 	\end{align*}
-	We've produced \( 2\cdot k \)
+	The sets of instances \( S_{i} \) are satisfiable for all \( i<k \).
+	The set of instances \( S_{k} \) is clearly unsatisfiable.
+	% 
+	We computed \(k\) iterations and produced \( 2\cdot k \)
 	{ \coloremph{}{}irrelevant} instances,
 	i.e.~these clauses did not cause any conflict in
 	propositional satisfiability.
-	In this example the guess for a finite unsatisfiable set of ground instances appears feasible and yields a smaller unsatisfiable set of ground instances.
+	In contrast the smallest subset of unsatisfiable ground instances
 	\[
-	 \{ \,
-	\lnot\mcL_1\sigma, \, \mcL_2\sigma
-	 \, \} \qquad \sigma= \{ x\mapsto \msucc^k(\mzero), \, y\mapsto \mzero \}
+		S\sigma = 
+		\{ \,
+			{ \lnot\mE(\msucc^k(\mzero), \msucc(\msucc^k(\mzero))) }, \,
+			{ \mE(\msucc^{k}(\mzero), \msucc(\msucc^{k}(\mzero)))}
+		 \, \}
+		 \qquad \sigma= \{ x\mapsto \msucc^k(\mzero), \, y\mapsto \mzero \}
 	\]
+	will be derived by \InstGen in Section \vref{sec:inst:gen} after one iteration.
 \end{example}
+
+\noindent Is is easy to demonstrate that Procedure 
+\vref{proc:gilmore's:prover} is not a decision procedure 
+for decidable fragments of first order logic.
 
 \begin{example}\label{ex:sat:exy}
 	Consider the satisfiable set of clauses
@@ -500,7 +510,7 @@ Following Gilmore's prover we can easily prove the syllogism from above.
 
 
 
-So far we have observed three main disadvantages in Gilmore's procedure.
+\noindent So far we have observed three main disadvantages in Gilmore's procedure.
 \begin{enumerate}
 	\item\label{enum:gilmore:generation}
 	The generation of instances is unguided.
@@ -610,7 +620,7 @@ So far we have observed three main disadvantages in Gilmore's procedure.
 	we have to handle a double exponential growth in the size of the disjunctive normal form.
 
 	\item\label{enum:gilmore:termination}
-	The procedure will not terminate for satisfiable sets
+	The procedure will not terminate for any satisfiable sets
 	when at least one non-constant predicate symbol is used in the set of clauses and
 	one non-constant function symbol is available, e.g.~for
 	\( S = \{ \, \mP(\mf(x)) \, \} \)
@@ -636,9 +646,9 @@ by Davis, Putnam, Longeman, and Loveland,
 which was the starting point for the development of efficient propositionally satisfiability checkers, i.e.~efficient modern SAT solvers.
 
 
-\section{ATP without Equality}\label{sec:proving:without:equaltiy}
+\section{Theorem proving without Equality}\label{sec:theorem:proving:without:equaltiy}
 
-In this section we will incorporate the equality symbol \( \mEQ \) into our formulae,
+In this section we may incorporate the equality symbol into our formulae,
 but we will treat it not differently from an arbitrary binary predicate symbol with infix notation.
 % 
 Without further notice we will always assume 
@@ -680,37 +690,39 @@ i.e.~does not contain multiple variants of a clause.
 	\end{gather*}
 \end{example}
 
-%\begin{example}
-%	We conclude unsatisfiability of
-%	$ \{ \,
-%	{ \lnot\mE(x, \msucc(x)))}, \,
-%	{ \mE(\msucc^k(y), \msucc(\msucc^k(y)))}
-%	 \, \}$
-%	because we can infer the empty clause in one resolution step.
-%	\begin{gather*}
-%	\infer[ \{ x\mapsto\msucc^k(y)\}]{
-%		\square
-%	}{
-%		{ \mE(\msucc^k(y), \msucc(\msucc^k(y)))} &
-%		{ \lnot\mE(x, \msucc(x)))} &
-%	}
-%	\end{gather*}
-%\end{example}
-
-\begin{example}\label{ex:xsx:skyssky}
-	We easily infer the empty clause and
-	conclude unsatisfiability of the set of clauses
-	\( S = \{ \,
-	{ \msucc(x)\mNE x}, \,
-	{ \msucc(\msucc^k(y))\mEQ\msucc^k(y) }
-	 \, \} \).
+\begin{example}
+	Let \( k\in\mathbb{N} \) be an arbitrary but fixed number.
+	Consider the unsatisfiable set of clauses
+	\(
+		S =
+		 \{ \,
+		{ \lnot\mE(x, \msucc(x)) }, \,
+		{ \mE(\msucc^{k}(y), \msucc(\msucc^{k}(y)))}
+		 \, \}
+	 \).
+	We can easily infer the empty clause and
+	conclude unsatisfiability after one resolution step.
 	\begin{gather*}
-	\infer[ \{ x\mapsto\msucc^k(y) \}]
-	{
+	\infer[ \{ x\mapsto\msucc^k(y)\}]{
 		\square
+	}{
+		{ \mE(\msucc^k(y), \msucc(\msucc^k(y)))} &
+		{ \lnot\mE(x, \msucc(x)))}
 	}
-	{
-		\msucc(x)\mNE x & \msucc(\msucc^k(y))\mEQ\msucc^k(y)
+	\end{gather*}
+\end{example}
+
+
+
+\begin{example}
+	The setting above works perfectly for a “predicate” symbol \( \mEQ \).
+	% 
+	\begin{gather*}
+	\infer[ \{ x\mapsto\msucc^k(y)\}]{
+		\square
+	}{
+		\msucc^k(y) \mEQ \msucc(\msucc^k(y)) &
+		x \mNE \msucc(x)
 	}
 	\end{gather*}
 \end{example}
@@ -747,7 +759,7 @@ i.e.~does not contain multiple variants of a clause.
 	\end{gather*}
 \end{example}
 
-We may notice some disadvantages in resolution.
+\noindent We may notice some disadvantages in resolution.
 
 \begin{enumerate}
 	\item\label{enum:resolution:clauses:longer}
@@ -775,11 +787,13 @@ We may notice some disadvantages in resolution.
 	\( \{ \ma\mNE\ma \} \)
 	to be unsatisfiable, but neither resolution nor factoring
 	are applicable. This can be addressed with equality axioms or equality inference rules
-	as presented in Section~\ref{sec:proving:with:equality}.
+	as presented in Section~\ref{sec:theorem:proving:with:equality}.
 \end{enumerate}
 
 \begin{example}\label{ex:resolution:9a4}
-	One of { \coloremph{}{}nine} derivable clauses à 4 literals from two clauses à 3 literals.
+	We demonstrate issues \ref{enum:resolution:clauses:longer} 
+	and \ref{enum:resolution:clauses:multiple} with  
+	one of {\coloremph{}{}nine} derivable clauses à 4 literals from two clauses à 3 literals.
 	\begin{gather*}
 	\infer[]{\mP(\ma,z)\lor\mP(z,\mb)\lor\lnot\mP(\ma,z')\lor\lnot\mP(z',b)}
 	{{\colN\mP(x,y)}\lor\mP(\ma,z)\lor\mP(z,\mb) & {\colN\lnot\mP(x',y')}\lor\lnot\mP(\ma,z')\lor\lnot\mP(z',\mb)}
@@ -966,7 +980,7 @@ and we conclude unsatisfiability because of propositional unsatisfiability of
 		\( (A, \lnot B) = (L_i, L_j) \)
 		such that the most general unifier \( \tau = \mgu(A,B) \) exists.
 
-		\item We start with \( S_{k+1} = S_k \). For each pair of clashing literals
+		\item We set \( S_{k+1} = S_k \). For each pair of clashing literals
 		\( (L_i, L_j) \)
 		we apply \InstGen{} to the originating clauses
 		\( \{ \, \mcC_{i}, \mcC_{j} \, \} = \{ \, L_i\lor\mcC, L_j\lor\mcD \, \} \subseteq S_k \)
@@ -981,7 +995,7 @@ and we conclude unsatisfiability because of propositional unsatisfiability of
 	\end{enumerate}
 \end{procedure}
 
-\begin{example} The selected literals of the first and the second clause change between iterations.
+\begin{example} The selected literals of clauses may change between iterations.
 %	1. p(a) | q(a)
 %	2. p(a) | ~q(X)
 %	3. ~p(X)
@@ -991,14 +1005,13 @@ S_0 &= \{ \,
 	\mP(\ma)\lor\lnot\mQ(y),
 	\lnot\mP(x)
  \, \}
-\\
+\tag*{(a)}\\
 S_0\subsbot &= \{ \,
 	{\colHi\mP(\ma)}\lor\mQ(\ma),
 	{\colHi\mP(\ma)}\lor\lnot\mQ(\consbot),
 	{\colHi\lnot\mP(\consbot)}
  \, \}
-\tag{satisfiable}
-\\
+\tag*{(b)}\\
 &\qquad\infer[
 	\sigma_1
 	]{
@@ -1013,23 +1026,21 @@ S_0\subsbot &= \{ \,
 	}{
 		\mP(\ma)\lor \lnot\mQ(y) & \lnot\mP(x)
 	}
-	\tag*{\( \sigma_1 = \{ x\mapsto\ma \} \)}
-\\
+	\tag*{\raisebox{3mm}{(c)}}\\
 S_1 &= \{ \,
 	\mP(\ma)\lor\mQ(\ma),
 	\mP(\ma)\lor\lnot\mQ(y),
 	\lnot\mP(x),
 	\lnot\mP(\ma)
  \, \}
-\\
+ \tag*{(d)}\\
 S_1\subsbot &= \{ \,
 	{\colG\mP(\ma)}\lor{\colHi\mQ(\ma)},
 	{\colG\mP(\ma)}\lor{\colHi\lnot\mQ(\consbot)},
 	{\colHi\lnot\mP(\consbot)},
 	{\colHi\lnot\mP(\ma)}
  \, \}
-\tag{satisfiable}
-\\
+\tag*{(e)}\\
 &\qquad\infer[
 \sigma_2
 ]{
@@ -1037,8 +1048,7 @@ S_1\subsbot &= \{ \,
 }{
 	\mP(\ma)\lor\mQ(\ma) & \mP(\ma)\lor\lnot\mQ(y)
 }
-\tag*{\( \sigma_2 = \{ y\mapsto\ma \} \)}
-\\
+\tag*{\raisebox{3mm}{(f)}}\\
 S_2 &= \{ \,
 \mP(\ma)\lor\mQ(\ma),
 \mP(\ma)\lor\lnot\mQ(y),
@@ -1046,7 +1056,7 @@ S_2 &= \{ \,
 \lnot\mP(\ma),
 \mP(\ma)\lor\lnot\mQ(\ma)
  \, \}
-\\
+ \tag*{(g)}\\
 S_2\subsbot &= \{ \,
 {\colG\mP(\ma)}\lor{\colHi\mQ(\ma)},
 {\colG\mP(\ma)}\lor{\colHi\lnot\mQ(\consbot)},
@@ -1054,8 +1064,23 @@ S_2\subsbot &= \{ \,
 {\colHi\lnot\mP(\ma)},
 {\colLo\mP(\ma)}\lor{\colLo\lnot\mQ(\ma)}
  \, \}
-\tag{unsatisfiable}
+\tag*{(h)}
 \end{align*}
+    (a) We start with the set of clauses \( S_0 \).
+	(b) The set of ground instances \( S_0\subsbot \)
+	is satisfiable and literals \( \mP(\ma) \) and \( \lnot(\mP(x)) \) are selected.
+	(c) The selected literals \( \mP(\ma) \) and \( \lnot(\mP(x)) \) 
+	clash with substitution \( \sigma_1 = \{ x\mapsto\ma \} \)
+	and we instantiate affected clauses with \( \sigma_1 \).
+	(d) We define \( S_1 \) by the union of \( S_0 \) and the set of generated clauses.
+	(e) The set of ground instances \( S_1\subsbot \) is satisfiable 
+	and literals \( \mQ(\ma) \), \( \lnot \mQ(y) \), and \( \lnot \mP(x) \) are selected.
+	(f) The selected literals \( \mQ(\ma) \) and \( \lnot \mQ(y) \) 
+	clash with substitution \( \sigma_2 = \{ y\mapsto\ma \} \)
+	and we instantiate affected clauses with \( \sigma_2 \).
+	(g) We define \( S_2 \) by the union of \( S_1 \) and the set of generated clauses.
+	(h) The set of ground instances \( S_2\subsbot \) is not satisfiable
+	and we conclude unsatisfiability of \( S_0 \).
 \end{example}
 
 \begin{lemma}
@@ -1109,7 +1134,11 @@ S_0 \disjointunion
 
 
 \begin{lemma}
-	Inst-Gen-Loop is a complete refutation procedure.
+	Inst-Gen-Loop is a complete refutation procedure, 
+	i.e.\ it will eventually find an unsatisfiable set of instances
+	for any unsatisfiable set of clauses 
+	but may or may not terminate for
+	satisfiable sets of clauses.
 \end{lemma}
 
 \begin{example}
@@ -1123,7 +1152,7 @@ S_0 \disjointunion
 \end{example}
 
 
-\section{ATP with Equality}\label{sec:proving:with:equality}
+\section{Theorem proving with Equality}\label{sec:theorem:proving:with:equality}
 
 So far we have treated the equality symbol like any other binary predicate symbol,
 which can yield models where \( \ma\mNE\ma \) holds.

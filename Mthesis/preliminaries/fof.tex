@@ -174,13 +174,14 @@ We may denote \( \mcF(F) \) for the implicit signature of an formula \( F \).
 \begin{definition}\label{def:prenex:normal:form}
 	A first order sentence 
 	\( F = \mcQ\,G \)
-	with quantifier prefix 
-	\( \mathcal{Q} = \quantify_1 x_1 \ldots \quantify_n x_n \)
+	with 
+	quantifier free first order formula \( G \)
+	and
+	quantifier prefix \( \mathcal{Q} = \quantify_1 x_1 \ldots \quantify_n x_n \)
 	for some \( n > 0 \)
-	and quantifier free first order formula \( G \),
 	such that
 	\( \quantify_i \in \{ \exists, \forall \} \) 
-	and the pairwise distinct bound variables
+	and pairwise distinct bound variables
 	in \(\mcQ\)
 	match with the set of free variables of \(G\), 
 	i.e.~\( \fvar(G) = \bvar(F) = \{ x_1,\ldots,x_n \} \),

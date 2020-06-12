@@ -99,4 +99,7 @@
         "\\\\[a-z]*",
         "chktex"
     ],
+    "cSpell.ignoreWords": [
+        "addtolist"
+    ],
 }
