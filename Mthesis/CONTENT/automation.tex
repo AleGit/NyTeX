@@ -1161,32 +1161,33 @@ at least in models that implies the existence of a normal model.
 We have already seen that a normal Herbrand model might not exist,
 but we can ensure that we find only desired models.
 
-\subsection{Adding equality axioms}\label{sec:equality:axioms}
+\subsection{Equality axioms}\label{sec:equality:axioms}
 
 \begin{theorem}\cite{Harrison:2009:HPL:1540610}
 	Any set of clauses (a formula) has a \emph{normal} model
 	if and only if it has a model that satisfies the
 	{ \coloremph{}equality axioms}, 
 	i.e.~reflexivity \axiom{R}, 
-	symmetry \axiom{S}, 
-	transitivity \axiom{T},
-	and congruence \axiom{C} for all function symbols \( \mf\in\mcFf \)
-	and all predicate symbols \( \mP\in\mcFP \).
+	symmetry \axiom{S}, and
+	transitivity \axiom{T} for the equality predicate.
+	Further the congruence \axiom{C} must be satisfied 
+	for all function symbols \( \mf\in\mcFf \)
+	and all predicate symbols \( \mP\in\mcFP \) 
+	(including the equality predicate).
 \end{theorem}
 
-%\begin{remark}
-%	The only decidable fragment of first order logic where we can state the equality axioms is the Schönfinkel-Bernays-Ramsey class.
-%\end{remark}
-
 \begin{example}[Ordered resolution with equality axioms]\label{ex:nat:ordres}
-	We combine the small set 
+	Let \( S' \) be the union of the small set 
 	\( S = \{ \msucc(x)\mNE 0,{\ }\msucc(x)\mNE\msucc(y)\lor x\mEQ y \} \) 
-	with the equality axioms to set \( S' \) and mark maximal literals.
+	and the equality axioms. We mark the maximal literals which may be more than one per clause.
 	\begin{align*}
 	{\colN x \mEQ x},\
 	x \mEQ y \lor {\colN y \mNE x},\
 	x \mEQ z \lor {\colN x \mNE y} \lor {\colN y\mNE z}
 \tag*{\(\axiom{R}_\mEQ,\,\axiom{S}_\mEQ,\,\axiom{T}_\mEQ \) }
+\\
+	{\colN x \mNE x'} \lor {\colN y \mNE y'} \lor {\colN x \mNE y} \lor {x' \mEQ y'}
+	\tag*{\(\axiom{C}_\mEQ\)}
 \\
 	{\colN \msucc(x) \mEQ \msucc(y)} \lor x\mNE y
 	\tag*{\(\axiom{C}_\msucc \)}
@@ -1238,7 +1239,10 @@ but we can ensure that we find only desired models.
 \end{example}
 
 \begin{example} 
-	We prove that \( S' \cup \{ \msucc(\msucc(x))\mEQ\msucc(0) \} \) is unsatisfiable.
+	Let \( S'' \) be the 
+	union of \( \{ \msucc(\msucc(x))\mEQ\msucc(0) \} \)
+	and \( S' \) from Example \vref{ex:nat:ordres}
+	We prove that \( S'' \) is unsatisfiable.
 	\begin{gather*}
 	\infer[ \{ \, x'\mapsto x \, \}]
 	{\square}
@@ -1499,25 +1503,43 @@ as demonstrated in the next example, even with the additional rules.
 \newcommand{\mysub}[1]{\{ #1 \}}
 
 \begin{example}\label{ex:naive:inst:gen:eq}
-	We consider the unsatisfiable set \( S \).
+	We consider the unsatisfiable set \( S \). Let \( L = \me\mEQ\mf \).
 	\begin{align*}
 		S &= \myset{
-			\mf(\mh(x)) \mEQ \mc, \mh(y)\mEQ y, \mf(\ma) \mNE \mc
+			\mf(\mh(x)) \mEQ \mc \lor L, 
+			\mh(y)\mEQ y \lor L, 
+			\mf(\ma) \mNE \mc \lor L, 
+			\lnot L
 		}
 		\\
 		S\bot &= \myset{
-			\mf(\mh(\consbot)) \mEQ \mc, \mh(\consbot)\mEQ \consbot, \mf(\ma) \mNE \mc
+			\mf(\mh(\consbot)) \mEQ \mc \lor L, 
+			\mh(\consbot)\mEQ \consbot \lor L, 
+			\mf(\ma) \mNE \mc \lor L,
+			\lnot L
 		}\tag{satisfiable}
 		\\
 		\mcM &= \myset{
-			[\mf(\mh(\consbot),c)], [\mh(\consbot),\consbot], [\mf(a)]
+			[\mf(\mh(\consbot),c)], [\mh(\consbot),\consbot], [\mf(\ma)], [\me], [\mf] 
 		}\tag{term model}
 	\end{align*}
-	The only applicable rule is paramodulation of the first two selected literals,
-	but the instantiator is not proper and just get variants of clauses in the set.
+	The only applicable rule on the selected literals 
+	\(\{ 
+		\mf(\mh(x)) \mEQ \mc,
+		\mh(y)\mEQ y,
+		\mf(\ma) \mNE \mc,
+		\lnot L
+	\}\)
+	is unit paramodulation.
+	\[
+		\infer[\{ x\mapsto y \}]
+		{\mf(y)\mEQ\mc}
+		{\mf(\mh(x))\mEQ\mc & \mh(y)\mEQ y}
+		\]
+	But the unifier is not proper and generates just a variant on an existing clause.
 \end{example}
 
-\begin{procedure}[Inst-Gen-Eq-Loop]\label{proc:inst:gen:eq:loop}
+\begin{procedure}[Inst-Gen-Eq-Loop]\label{proc:inst:gen:eq:loop} \cite{KS2010ijcar}
 	As in Procedure \vref{proc:inst:gen:loop} we translate the 
 	negation of our formula \( F \) 
 	into an equisatisfiable set of clauses
@@ -1582,20 +1604,23 @@ So now step 4 and 5 are more work than in \InstGen.
 	Now we follow the path from each branch, i.e.~literal, to the root, i.e.~the empty clause
 	and apply the sequence of occuring substitutions to the clauses the literals are originating from.
 	\begin{align*}
-		 \mh(\ma)\mEQ \ma &=
-		 (\mh(y)\mEQ y)\mysub{x\mapsto y}\mysub{y\mapsto \ma}
+		 \mh(\ma)\mEQ \ma \lor L&=
+		 (\mh(y)\mEQ y \lor L)\mysub{x\mapsto y}\mysub{y\mapsto \ma}
 		 \\
-		 \mf(\mh(\ma))\mEQ\mc &=
-		 (\mf(\mh(x))\mEQ \mc)\mysub{x\mapsto y}\mysub{y\mapsto \ma}
+		 \mf(\mh(\ma))\mEQ\mc \lor L&=
+		 (\mf(\mh(x))\mEQ \mc\lor L)\mysub{x\mapsto y}\mysub{y\mapsto \ma}
 		 \\
-		 \mf(\ma)\mNE \mc &=
-		 (\mf(\ma)\mNE \mc)\mysub{y\mapsto \ma}
+		 \mf(\ma)\mNE \mc \lor L&=
+		 (\mf(\ma)\mNE \mc\lor L)\mysub{y\mapsto \ma}
 		 \\
 		S_1 &\supseteq \myset{
-			\mf(\ma) \mNE \mc,
-			\mf(\mh(\ma))\mEQ \mc, \mh(\ma)\mEQ \ma
+			\mf(\ma) \mNE \mc\lor L,
+			\mf(\mh(\ma))\mEQ \mc\lor L, 
+			\mh(\ma)\mEQ \ma \lor L,
+			\lnot L
 		}
 	\end{align*}
+	Hence there is not term model for \( S_1\consbot \) and we conclude unsatisfiable of \( S \).
 
 	% \begin{align*}
 	% 	S_1 &\supseteq \myset{
@@ -1752,6 +1777,7 @@ S_{i+2} &= S_{i+1}\disjointunion \{ \,
 \boxed{\msucc^{i+3}(x) \mNE \msucc^{i+2}(0) \lor \msucc^{i+2}(x) \mEQ \msucc^{i+1}(0)} \,
 \}
 \end{align*}
+Hence a satisfiable superset of \( S \) will never saturate.
 
 \newpage
 \section{Roundup of Calculi}
