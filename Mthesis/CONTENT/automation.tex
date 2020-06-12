@@ -13,32 +13,23 @@ for decidable fragments of first order logic
 or decidable first order theories (Section~\ref{sec:decidable:fol:theories}).
 But we will demonstrate with basic examples
 that decision procedures do not automatically
-fall out from complete refutation procedures.
+fall out from complete refutation procedures
+over decidable fragments of first order logic.
 
-
-%An we judge the procedures by there theoretical performance on decidable fragments.
-%
-% If we fail to prove a theorem directly we can show that its negation leads to an contradiction, in the case of a first order theorem, that its negation (which can be transformed into a equisatisfiable set of clauses) is not satisfiable.
 We know by Herbrand`s theorem
-%(\ref{the:herbrand}, p.~\pageref{the:herbrand})
 that each satisfiable set of (non-ground) clauses
 and each finite set of ground instances of a satisfiable set of (non-ground) clauses
 has a Herbrand model.
 And we know by compactness
-%(\ref{the:compactness}, p.~\pageref{the:compactness})
 that if every finite subset of a set of clauses is satisfiable then this set is satisfiable.
 The satisfiability of a set of ground instances is decidable
 as we have already implicitly stated in Table~\vref{tab:decidedable:FiniteModelProperty}
 with decidable class \( {[ \, \exists^{∗}, all, all \, ]}_{=} \).
 So a natural idea of first order theorem proving
 is to derive an unsatisfiable and finite set of ground instances for a given set of clauses.
-In general a failure in this search does not show satisfiability of the given set of clauses.
-In practice we make many detours in the search and we experience very finite resources of space and time,
-while in general there is no bound on the size of a smallest set of unsatisfiable ground instances.
-
-%So the central idea of instantiation-based first order theorem proving is the
-%translation of an undecidable problem into a (potentially infinite) sequence of decidable problems.
-
+A failure in this search does not show satisfiability of the given set of clauses.
+In practice we will make many detours in the search and we will stumble over finite resources
+when in general there is no bound on the size of a smallest set of unsatisfiable ground instances.
 
 To actually prove a theorem automatically \cite{books/el/RobinsonV01}
 we first can make use of the fact that a first-order formula is valid if and only if its negation is unsatisfiable.
@@ -48,8 +39,6 @@ e.g.~efficiently with Skolemization~\cite{books/el/RV01/Hahnle01}
 and Tseitin transformation~\cite{tseitin70},
 i.e.~the negated sentence is satisfiable if and only if the constructed 
 set of clauses is satisfiable.
-
-%This can be done efficiently with Skolemization \cite{books/el/RV01/Hahnle01} and Tseitin transformation \cite{tseitin70, PLAISTED1986293} as shown in \cite{Nonnengart01computingsmall}.
 
 It would be sufficient to just luckily guess an unsatisfiable set of ground instances.
 Usually instantiation based automated provers generate
@@ -1166,7 +1155,7 @@ but we can ensure that we find only desired models.
 	with the equality axioms to set \( S' \) and mark maximal literals.
 	\begin{align*}
 	{\colN x \mEQ x},\
-	x \mEQ y \lor \underline{\colN y \mNE x},\
+	x \mEQ y \lor {\colN y \mNE x},\
 	x \mEQ z \lor {\colN x \mNE y} \lor {\colN y\mNE z}
 \tag*{\(\axiom{R}_\mEQ,\,\axiom{S}_\mEQ,\,\axiom{T}_\mEQ \) }
 \\
