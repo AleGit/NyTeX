@@ -17,13 +17,11 @@ a modest implementation of an instantiation based theorem prover for first order
 
 We shortly discuss the Thousands of Problems for Theorem Proving library for automated provers 
 in Section~\vref{sec:flea:tptp},
-the installation  and usage in 
+the installation and usage in 
 Sections~\vref{sec:flea:installation} and \vref{sec:flea:usage},
-some implementation details in Section~\vref{sec:flea:details}, 
+some general implementation details in Section~\vref{sec:flea:details}, 
 and outline the encoding of grounded first order clauses for \SMT-solvers in Section~\vref{sec:flea:encodings}. 
-Last but not least we present evaluation results in Section~\vref{sec:flea:evaluation}. 
-
-%We discuss its general architecture and elaborate on some implementation details.
+Last but not least we present evaluation results in Section~\vref{sec:flea:evaluation}.
 
 \section{The Problem Library}\label{sec:flea:tptp}
 
@@ -45,73 +43,73 @@ Both these TPTP standards and variants of library problems establish the basis o
 
 \section{Installation}\label{sec:flea:installation}
 
-\FLEA{} is open source (but still without license) and available on \GitHub\footnote{
-	\href{https://github.com/AleGit/FLEA}{github.com/AleGit/FLEA}
-}. It depends on a working \Swift\footnote{
-	Instructions and binaries available on \href{https://swift.org}{swift.org}
-} toolchain at build time and the local installation of
-\Yices\footnote{
-	Instruction and binary available on \href{http://yices.csl.sri.com}{yices.csl.sri.com}
-}
-and \Ziii\footnote{
-	Instructions and source code available on \href{https://github.com/Z3Prover/z3}{github.com/Z3Prover/z3}
-} at build and run time. After installation of these three prerequisites you may check the success with commands and results from Listing~\ref{lst:check:Swyz}.
+% \FLEA is open source (but still without license) and available on \GitHub\footnote{
+% 	\href{https://github.com/AleGit/FLEA}{github.com/AleGit/FLEA}
+% }. It depends on a working \Swift\footnote{
+% 	Instructions and binaries available on \href{https://swift.org}{swift.org}
+% } toolchain at build time and the local installation of
+% \Yices\footnote{
+% 	Instruction and binary available on \href{http://yices.csl.sri.com}{yices.csl.sri.com}
+% }
+% and \Ziii\footnote{
+% 	Instructions and source code available on \href{https://github.com/Z3Prover/z3}{github.com/Z3Prover/z3}
+% } at build and run time. After installation of these three prerequisites you may check the success with commands and results from Listing~\ref{lst:check:Swyz}.
 
-Not a prerequisite, but we recommend to download
-the \href{http://www.cs.miami.edu/~tptp/}{\emph{Thousands of Problems for Theorem Provers}} problem library package (about 560~MB)
-from the \TPTP{} website\footnote{
-	\href{http://www.cs.miami.edu/~tptp/}{www.cs.miami.edu/\textasciitilde tptp}
-}, to unpack it, and to create a symbolic link \verb+~/TPTP/+{} to the unpacked library (about~6.5 GB) in your home directory.
-\begin{lstlisting}[
-	% cspell:disable
-	label=lst:check:Swyz,
-	% cspell:enable∫
-	caption={Check toolchain and libraries},
-	language=bash]
-$\prompt$ yices -V
-Yices 2.5.2          # or newer
-$\prompt$ z3 --version
-Z3 version 4.5.1     # or newer
-$\prompt$ swift -version
-Swift version 4.1    # or newer
-$\prompt$ ls $\text{\textasciitilde}$/TPTP
-Axioms    Documents    Generators    Problems    README    Scripts
-\end{lstlisting}
+% Not a prerequisite, but we recommend to download
+% the \href{http://www.cs.miami.edu/~tptp/}{\emph{Thousands of Problems for Theorem Provers}} problem library package (about 560~MB)
+% from the \TPTP{} website\footnote{
+% 	\href{http://www.cs.miami.edu/~tptp/}{www.cs.miami.edu/\textasciitilde tptp}
+% }, to unpack it, and to create a symbolic link \verb+~/TPTP/+{} to the unpacked library (about~6.5 GB) in your home directory.
+% \begin{lstlisting}[
+% 	% cspell:disable
+% 	label=lst:check:Swyz,
+% 	% cspell:enable∫
+% 	caption={Check toolchain and libraries},
+% 	language=bash]
+% $\prompt$ yices -V
+% Yices 2.5.2          # or newer
+% $\prompt$ z3 --version
+% Z3 version 4.5.1     # or newer
+% $\prompt$ swift -version
+% Swift version 4.1    # or newer
+% $\prompt$ ls $\text{\textasciitilde}$/TPTP
+% Axioms    Documents    Generators    Problems    README    Scripts
+% \end{lstlisting}
 
-After we have downloaded and installed external tool chain and libraries we clone \FLEA{} and install the parsing lib as in Listing~\ref{lst:install:parsing}.
+% After we have downloaded and installed external tool chain and libraries we clone \FLEA and install the parsing lib as in Listing~\ref{lst:install:parsing}.
 
-\begin{lstlisting}[
-label=lst:install:parsing,
-caption={Download \FLEA and install parsing lib},
-language=bash]
-$\prompt$ git clone https://github.com/AleGit/FLEA # download sources
-$\prompt$ cd FLEA
-$\prompt$ swift build                              # downloads dependencies, but fails
-$\prompt$ pushd Packages/CTptpParsing-1.0.0        # or 1.0.1 or ...
-$\prompt$ sudo make install                        # install parsing lib
-$\prompt$ popd
-\end{lstlisting}
+% \begin{lstlisting}[
+% label=lst:install:parsing,
+% caption={Download \FLEA and install parsing lib},
+% language=bash]
+% $\prompt$ git clone https://github.com/AleGit/FLEA # download sources
+% $\prompt$ cd FLEA
+% $\prompt$ swift build                              # downloads dependencies, but fails
+% $\prompt$ pushd Packages/CTptpParsing-1.0.0        # or 1.0.1 or ...
+% $\prompt$ sudo make install                        # install parsing lib
+% $\prompt$ popd
+% \end{lstlisting}
 
-\begin{lstlisting}[
-label=lst:test:all,
-caption={Build and and run all \FLEA tests.},
-language=bash]
-$\prompt$ Scripts/z3headers.sh                     # workaround for headers
-$\prompt$ Scripts/ctests.sh                        # build and run all tests
-\end{lstlisting}
+% \begin{lstlisting}[
+% label=lst:test:all,
+% caption={Build and and run all \FLEA tests.},
+% language=bash]
+% $\prompt$ Scripts/z3headers.sh                     # workaround for headers
+% $\prompt$ Scripts/ctests.sh                        # build and run all tests
+% \end{lstlisting}
 
 
 \section{Usage}\label{sec:flea:usage}
 
 \section{Data structures}\label{sec:flea:details}
 
-\begin{lstlisting}[language=flea, caption={Simplified definition of general terms}]
-protocol Node: Hashable {
-	associatedtype Symbol : Hashable
-	var symbol: Symbol { get set }
-	var nodes: [Self]? { get set }
-}
-\end{lstlisting}
+% \begin{lstlisting}[language=flea, caption={Simplified definition of general terms}]
+% protocol Node: Hashable {
+% 	associatedtype Symbol : Hashable
+% 	var symbol: Symbol { get set }
+% 	var nodes: [Self]? { get set }
+% }
+% \end{lstlisting}
 
 \section{Encodings}\label{sec:flea:encodings}
 
@@ -119,12 +117,10 @@ protocol Node: Hashable {
 %	test
 %\end{figure}
 
-We can simply encode first order atoms purely propositional
-when we construct the name for the propositional atom
-from a predicate or equation recursively as concatenation of symbols.
-After installation of these prerequisites you may check if everything went well.
-
-
+For the purely propositional encoding of first order atoms
+we construct the name for the propositional atom
+from a predicate or equation recursively as concatenation of symbols
+separated by a delimiter.
 
 \begin{definition}
 	We derive the propositional identifier of a general term as follows
@@ -150,20 +146,43 @@ where \( \bot, \encsep\not\in\mcF \) are distinct symbols that do not occur in t
 \end{example}
 
 \begin{definition}
-	We define den \SMT-Encoding as follows
+	We define symbols for the SMT-Encoding as follows
 \begin{gather*}
-\MDEFINE{\Xi(\mct)}{lcll}{
-	\mc_0&:&U &\text{if } \mct=x\in\mcV, \mc_0\not\in\mcFn[0]
+\begin{array}{lcll}
+	\mc_0&:&\UTYPE &\mc_0\not\in\mcFfn[0]
 	\\
-	\mc&:&U &\text{if } \mct=c\in\mcFfn[0]
+	\mc&:&\UTYPE &\text{for all } c\in\mcFfn[0]
 	\\
-	\mf&:&(U^n\rightarrow U){\ }\Xi(t_1){\ }\ldots{\ }\Xi(t_n)
+	\mf&:&(\UTYPE^n\rightarrow \UTYPE)
+	&\text{for all }\mf\in\mcFfn{}
+	\\
+	\mpp&:&\BTYPE &\text{for all } \mpp\in\mcFPn[0]
+	\\
+	\mP&:& (\UTYPE^n \rightarrow\BTYPE)
+	&\text{for all }\mP\in\mcFPn{}
+\end{array}
+\end{gather*}
+with \( \UTYPE \) as uninterpreted type.
+Then we define den \SMT-Encoding of a term as follows
+\begin{gather*}
+\MDEFINE{\Xi(\mct)}{lll}{
+	\mc_0
+	&\text{if } \mct=x\in\mcV
+	\\
+	\mc
+	&\text{if } \mct=c\in\mcFfn[0]
+	\\
+	\mf(\Xi(t_1),\ldots,\Xi(t_n))
 	&\text{if }\mct=\mf(t_1,\ldots,t_n), \mf\in\mcFfn{}
 	\\
-	\mP&:&\mathsf{Bool} &\text{if } \mct=p\in\mcFPn[0]
+	\mpp
+	&\text{if } \mct=\mpp\in\mcFPn[0]
 	\\
-	\mP&:& (U^n \rightarrow\mathsf{Bool}){\ }\Xi(t_1){\ }\ldots{\ }\Xi(t_n)
+	\mP(\Xi(t_1),\ldots,\Xi(t_n))
 	&\text{if }\mct=\mP(t_1,\ldots,t_n), \mP\in\mcFPn{}
+	\\
+	\Xi(t_1) = \Xi(t_2)
+	&\text{if }\mct = t_1 \mEQ t_2
 }
 \end{gather*}
 \end{definition}
@@ -325,20 +344,22 @@ func application(_ symbol: String,
 
 
 
-\section{Experiments}\label{{sec:flea:evaluation}}
+\section{Experiments}\label{sec:flea:evaluation}
 
-\subsection{The TPTP library}
+In this section we discuss the performance of \FLEA with problems of \TPTP from section \vref{sec:flea:tptp}.
 
-\begin{align*}
-F
-&=
-(F_1 \land \ldots \land F_n) \rightarrow G
-\\
-\lnot F
-&\equiv
-\lnot\left( \lnot(F_1 \land \ldots \land F_n) \lor G \right)
-\\
-&\equiv
-(F_1 \land \ldots \land F_n) \land \lnot G
-\end{align*}
+% \subsection{The TPTP library}
+
+% \begin{align*}
+% F
+% &=
+% (F_1 \land \ldots \land F_n) \rightarrow G
+% \\
+% \lnot F
+% &\equiv
+% \lnot\left( \lnot(F_1 \land \ldots \land F_n) \lor G \right)
+% \\
+% &\equiv
+% (F_1 \land \ldots \land F_n) \land \lnot G
+% \end{align*}
 
