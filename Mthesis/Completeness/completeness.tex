@@ -199,7 +199,8 @@ which always exists.
     omits \( s[l']\theta_{\!_2} \succG t\theta_{\!_2} \) and is sound.
     We expect a calculus that is based on the inference rules above 
     to draw less inferences with this restriction in place
-    than without. However, it still has to yield a complete procedure
+    than without, which is a benefit because saturation is more likely. 
+    However, it still has to yield a complete procedure
     with some additional considerations.
    \end{remark}
 
@@ -406,7 +407,7 @@ is satisfiable if and only if its grounding is satisfiable.
    \begin{definition}[UP-Redundancy]
         Let \( \mcL \) be a set of literal closures. We define
        \begin{itemize}
-           \item \( \IRRED_R(\mcL) =
+           \item The set of irreducible literal closures \( \IRRED_R(\mcL) =
            \{ \,
             L\cdot\sigma\in\mcL \mid
            \sigma\text{ is irreducible w.r.t.~}R
@@ -414,7 +415,7 @@ is satisfiable if and only if its grounding is satisfiable.
 
         for an arbitrary ground rewrite system \( R \)
 
-       \item
+       \item The subset of smaller literal closures
        \(
        \mcL_{L\cdot\sigma\succL} =
        \{ \,
@@ -451,7 +452,7 @@ is satisfiable if and only if its grounding is satisfiable.
                    \begin{array}{lclc}
                        \mcL_i \backslash L\cdot\sigma
                         &\text{if}
-                        &R \cup \IRRED_R(\mcL_{i,L\cdot\sigma\succL}) \entails L\sigma
+                        &R \cup \IRRED_R(\mcL_i)_{L\cdot\sigma\succL} \entails L\sigma
                        \\
                        \\
                        \mcL_i \cup \, \emptyclause
@@ -479,7 +480,7 @@ is satisfiable if and only if its grounding is satisfiable.
                        \\
                        \\
                        \mcL_i
-                        &&\text{if and only if no other step is applicable}
+                        &&\text{saturates if no other case is applicable}
                    \end{array}
                \right.
                \end{gather*}
@@ -569,14 +570,20 @@ is satisfiable if and only if its grounding is satisfiable.
 
        \item
         The set of \( S \)-relevant literal closures
-       \begin{align*}
-           \mcL_S &= \left \{ \, L\cdot\sigma \mid
-           \begin{array}{l}
-                L\lor C\in S,\,L = \sel(L\lor C)\\
-                (L\lor C)\cdot\sigma\text{ is not Inst-redundant in \(S\)},\\
-           \end{array}
-           \, \right \}
-       \end{align*}
+        \[
+        \mcL_S = \{ L\cdot\sigma \mid
+        L\lor C\in S,\,L = \sel(L\lor C),
+        (L\lor C)\cdot\sigma\text{ is not Inst-redundant in \(S\)}
+        \}
+        \]
+    %    \begin{align*}
+    %        \mcL_S &= \left \{ \, L\cdot\sigma \mid
+    %        \begin{array}{l}
+    %             L\lor C\in S,\,L = \sel(L\lor C)\\
+    %             (L\lor C)\cdot\sigma\text{ is not Inst-redundant in \(S\)},\\
+    %        \end{array}
+    %        \, \right \}
+    %    \end{align*}
 
 
 
@@ -585,7 +592,7 @@ is satisfiable if and only if its grounding is satisfiable.
 \end{definition}
 
 \begin{definition}[Inst-Saturation]
-    Let \( \mcL_S^{sat} \) denote the result of the saturation process of \( \mcL_S \).
+    Let \( \mcL_S^{sat} \) denote the result of the UP-saturation process of \( \mcL_S \).
     Then a set of clauses \( S \) is \coloremph{Inst-saturated} w.r.t.~a selection function \( \sel \),
             if \( \mcL_S^{sat} \) does not contain the empty literal clause.
 \end{definition}
@@ -630,11 +637,11 @@ is satisfiable if and only if its grounding is satisfiable.
                             I_L\vDash L'\sigma
                            \text{ or }
                             I_L\vDash \overline{L'}\sigma
-                            &\text{(defined)}
+                            &\text{i.e. a defined literal closure}
                            \\
                            \{ L'\sigma \}
                             &\text{otherwise}
-                            &\text{(productive)}
+                            &\text{i.e~a productive literal closure}
                        \end{array}
                    \right. \)
 
@@ -673,7 +680,7 @@ is satisfiable if and only if its grounding is satisfiable.
 
            \item Let \( L\cdot\sigma \) be UP-redundant in \( \mcL_S^{sat} \).
         By construction \( \sigma \) is irreducible by \( R_S \). Then we have
-       \begin{align*}
+       \(
             R_S \cup \IRRED_{R_S}(
                \{
                 L'\cdot\sigma'\in\mcL_S^{sat}
@@ -683,10 +690,10 @@ is satisfiable if and only if its grounding is satisfiable.
             )
            \models
             L\sigma
-       \end{align*}
+       \)
         % At least one \( L'\cdot\sigma'\in \IRRED{R_S}(\mcL_S^{sat}) \)
-        with \( \mcI\not\models L'\sigma' \).
-       \hfill \checkmark{}
+        with \( \mcI\not\models L'\sigma' \).\\[-2em]
+    %    \hfill \checkmark{}
        \end{itemize}
    \end{proof}
 
@@ -808,14 +815,15 @@ and
 
        \begin{proof}
             Assume \( \mcI \) is not a model.
-
-            Hence a minimal ground closure \(
+% 
+            Then a minimal ground closure \(
                 D = \min_{\succC} \{ \,
                 C'\cdot\sigma \mid C'\in S, \,
                \mcI\not\models C'\sigma \,
                \} \),
                 an instance of a clause in \( S \),
-               \( \false \) in \( \mcI \), must exist. Furthermore 
+               \( \false \) in \( \mcI \), must exist. 
+               Furthermore 
 
        \begin{itemize}
            \item \( D = D'\cdot\sigma \) is not Inst-redundant.
@@ -868,7 +876,7 @@ and
    \section{Saturation Strategies}\label{sec:saturation:strategies}
 
    So far we have only shown that a Inst-saturated set of clauses
-   \( S \) is satisfiable if \( S\bot \) is satisfiable.
+   \( S \) is satisfiable whenever \( S\bot \) is satisfiable.
    Now we take a look at how Inst-saturation can be achieved
    starting from a set of clauses \( S^1 \) with satisfiable set \( S^1\!\bot \).
 
@@ -928,7 +936,7 @@ The set of persistent clauses \( S^\infty \) denotes the lower limit of \( {\{ S
     is Inst-redundant in \( S^i \) for some \( i \).
     \end{definition}
 
-    \begin{lemma}
+    \begin{lemma}\cite{GK2004csl}]
         Let \( S^\infty \) be a set of persistent clauses
         of an Inst-fair saturation process
         \( {\{ \langle S^i, {I\!_\bot}^i, \sel^i \rangle \}}_{i=1}^\infty \),
@@ -937,10 +945,6 @@ The set of persistent clauses \( S^\infty \) denotes the lower limit of \( {\{ S
         and a selection function \( \sel \) based on \( I \! \bot \)
         such that \(S^\infty \) is Inst-saturated w.r.t. \( \sel \).
     \end{lemma}
-
-    \begin{proof}\cite{GK2004csl}] …
-    \end{proof}
-
 
         In an \emph{Inst-fair} saturation process
         % \( { \{ \langle S^i, I^{i}_{\!\bot}, \sel^i \rangle \}}_{i=1}^\infty \)
