@@ -1478,7 +1478,8 @@ for proving unsatisfiability of a set of clauses
 is the same as with \InstGen{}.
 We approximate the satisfiability of the set of clauses with a \SAT{}- or \SMT{}-solver.
 In case of satisfiability we select one literal per clause based on the propositional model.
-From occuring conflicts we construct new instances.
+In a first step towards a new calculus we adapt the rules of superposition from 
+Definition~\vref{def:superposition-calculus} for literalsx.
 
 \input{appendix/unitsuperposition}
 
@@ -1496,8 +1497,13 @@ From occuring conflicts we construct new instances.
 %	\end{align*}
 %\end{example}
 
-A naive approach would just consider pairs of selected literals to generate new instances. But this would yield an incomplete procedure 
-as demonstrated in the next example, even with the additional rules.
+\noindent We want to keep the nice feature or \InstGen 
+that we do combine clauses to new and often bigger clauses
+as the superposition calculus does.
+A naive approach would just consider pairs of selected literals 
+to generate new instances with unit superposition.
+But this would yield an incomplete procedure 
+as demonstrated in the next example.
 
 \newcommand{\myset}[1]{\{ \, #1 \, \}}
 \newcommand{\mysub}[1]{\{ #1 \}}
@@ -1537,6 +1543,32 @@ as demonstrated in the next example, even with the additional rules.
 		{\mf(\mh(x))\mEQ\mc & \mh(y)\mEQ y}
 		\]
 	But the unifier is not proper and generates just a variant on an existing clause.
+	As with \InstGen we have to search for conflicts 
+	but pairs of literals are not sufficient to discover 
+	all conflicts in the presence of equations.
+\end{example}
+
+\begin{definition}\label{def:minimal:conflicting:literals}
+	A set of \coloremph{conflicting literals} is not satisfiable.
+	A conflicting set of literals is minimal if each proper subset is satisfiable.
+\end{definition}
+
+\begin{example}\label{ex:minimal:conflicting:literals}
+	Clashing literals from Definition \vref{def:unifier} 
+	are a special case of minimal conflicting literals.
+	The selected literals \( \{ \mh(y)\mEQ y, \mf(\mh(x))\mEQ \mc, \mf(\ma)\mNE\mc \} \) 
+	from Example~\vref{ex:naive:inst:gen:eq} are conflicting and minimal too.
+
+	\begin{gather*}
+		\infer[\mysub{y\mapsto \ma}]{
+			\infer[\{\}]{\emptyclause}{c\mNE c}
+			}{
+		\infer[\mysub{x\mapsto y}]
+		{\mf(y)\mEQ\mc}
+		{\mh(y)\mEQ y & \mf(\mh(x))\mEQ \mc}
+		& \mf(\ma)\mNE\mc
+		}
+	\end{gather*}
 \end{example}
 
 \begin{procedure}[Inst-Gen-Eq-Loop]\label{proc:inst:gen:eq:loop} \cite{KS2010ijcar}
@@ -1567,9 +1599,8 @@ as demonstrated in the next example, even with the additional rules.
 		such that each ground selected literal holds in model
 		\( \mcM_k\models L_i\subsbot \) for all \( i \leq | S_k | \).
 
-		\item\label{step:igl:eq:false} We search for subsets 
-		\( \{ L_{i'}, \ldots, L_{n'} \} \) of the selected literals
-		such that we can derive a contradiction with unit superposition.
+		\item\label{step:igl:eq:false} We search for minimal sets 
+		of contradicting selected literals using unit superposition.
 
 		\item We start with \( S_{k+1} = S_k \). For each set of contradicting literals
 		\( \{ L_{i'}, \ldots L_{n'} \} \)
@@ -1587,22 +1618,17 @@ as demonstrated in the next example, even with the additional rules.
 	\end{enumerate}
 \end{procedure}
 
-So now step 4 and 5 are more work than in \InstGen.
+Steps 4 and 5 are significant more work than in Procedure~\vref{proc:inst:gen:loop} with \InstGen.
 
 \begin{example}
-	We continue Example \vref{ex:naive:inst:gen:eq} but follow Procedure \vref{proc:inst:gen:eq:loop}.
-	\begin{gather*}
-		\infer[\mysub{y\mapsto \ma}]{
-			\infer[\{\}]{\emptyclause}{c\mNE c}
-			}{
-		\infer[\mysub{x\mapsto y}]
-		{\mf(y)\mEQ\mc}
-		{\mh(y)\mEQ y & \mf(\mh(x))\mEQ \mc}
-		& \mf(\ma)\mNE\mc
-		}
-	\end{gather*}
-	Now we follow the path from each branch, i.e.~literal, to the root, i.e.~the empty clause
-	and apply the sequence of occuring substitutions to the clauses the literals are originating from.
+	We continue Example~\ref{ex:naive:inst:gen:eq} 
+	and follow Procedure~\ref{proc:inst:gen:eq:loop}
+	using the proof tree of the minimal conflicting literals 
+	from Example~\ref{ex:minimal:conflicting:literals}.
+	We follow the path from each leave, i.e.~a selected literal, 
+	to the root, i.e.~the empty literal clause
+	and apply the sequence of occuring substitutions 
+	to the clauses the selected literals are originating from.
 	\begin{align*}
 		 \mh(\ma)\mEQ \ma \lor L&=
 		 (\mh(y)\mEQ y \lor L)\mysub{x\mapsto y}\mysub{y\mapsto \ma}
@@ -1620,7 +1646,10 @@ So now step 4 and 5 are more work than in \InstGen.
 			\lnot L
 		}
 	\end{align*}
-	Hence there is not term model for \( S_1\consbot \) and we conclude unsatisfiable of \( S \).
+	We get equivalence class \( e_1 = [ \mh(\ma), \ma], \) and therefore \( e_2 = [ \mf(\ma), \mf(\mh(\ma))] \).
+	Then we have \( e_2 \mNE \mc \)
+	and \( e_2 \mEQ \mc \).
+	This is a contradiction and we conclude unsatisfiable of \( S \).
 
 	% \begin{align*}
 	% 	S_1 &\supseteq \myset{
@@ -1635,7 +1664,8 @@ So now step 4 and 5 are more work than in \InstGen.
 
 
 At a first glance the \InstGenEQ{} procedure is expected to behave similar to the application of the superposition calculus.
-But actually it shares a disadvantage with \InstGen{} (see Example~\ref{ex:nat:instgen}) as we can see in the following example.
+But actually it shares a disadvantage with \InstGen (see Example~\vref{ex:nat:instgen})
+and we demonstrate this in the following example.
 
 
 \begin{example}\label{ex:nat:instgeneq}
@@ -1779,7 +1809,6 @@ S_{i+2} &= S_{i+1}\disjointunion \{ \,
 \end{align*}
 Hence a satisfiable superset of \( S \) will never saturate.
 
-\newpage
 \section{Roundup of Calculi}
 
 In Table \vref{tab:calculi:and:provers} we give a small list of first order theorem provers,
@@ -1793,7 +1822,7 @@ that take advantage of the discussed calculi.
 \begin{table}[hb]
 \begin{tabular}{lllllll}
 	\toprule
-	Calculus & Equality & Exit condition & Implementations
+	Calculus & Equality & Proof condition & Implementations
 	\\ \midrule
 	Gilmore & axioms & \( S_i \equiv \bigvee\emptyclause \) & Gilmore
 	\\
