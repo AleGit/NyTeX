@@ -31,16 +31,10 @@ Then \( F_1,\ldots,F_n \proves H \) claims that there is a proof where
 and has been inferred (via a finite set of intermediate formulae)
 from \( \{ F_1,\ldots,F_n\} \).
 
-\begin{example}We show \( \forall x (\mP(x)\land\lnot\mQ(x)) \proves \forall x(\lnot\mQ(x)\land\mP(x)) \) with natural deduction in Figure~\ref{fig:natural:dedction:proof}.
-	First we state our premise (1), then we open a box and assume a fresh variable \( x_0 \)(2),
-	we create an instance of our premise with quantifier elimination and the variable \( x_0 \) (3),
-	we extract the literals with both variants of conjunction elimination (4, 5),
-	we introduce a conjunction of the literals (6),
-	and close the box to introduce the universally quantified conjunction (7).
-	\begin{figure}
-		\begin{center}
-	\begin{gather*}
-	\begin{BMAT}{rcrclccl}{ccccccccc}
+\begin{figure}[b]
+	\begin{center}
+\begin{gather*}
+\begin{BMAT}{rcrclccl}{ccccccccc}
 1 && 		&& \forall x(\mP(x)\land\lnot\mQ(x)) 	& && \texttt{premise}\\
 2 && x_0 	&& 										& && \\
 3 && 	 	&& \mP(x_0)\land\lnot\mQ(x_0)			& && 1: {\forall}e\\
@@ -54,6 +48,13 @@ from \( \{ F_1,\ldots,F_n\} \).
 \caption{\( \forall x (\mP(x)\land\lnot\mQ(x)) \proves \forall x(\lnot\mQ(x)\land\mP(x)) \)}
 \end{center}
 \end{figure}\label{fig:natural:dedction:proof}
+
+\begin{example}We show \( \forall x (\mP(x)\land\lnot\mQ(x)) \proves \forall x(\lnot\mQ(x)\land\mP(x)) \) with natural deduction in Figure~\vref{fig:natural:dedction:proof}.
+	First we state our premise (1), then we open a box and assume a fresh variable \( x_0 \)(2),
+	we create an instance of our premise with quantifier elimination and the variable \( x_0 \) (3),
+	we extract the literals with both variants of conjunction elimination (4, 5),
+	we introduce a conjunction of the literals (6),
+	and close the box to introduce the universally quantified conjunction (7).
 \end{example}
 
 \begin{definition}
