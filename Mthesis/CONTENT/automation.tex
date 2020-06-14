@@ -1758,7 +1758,6 @@ We ignore \( \mcC_2 \) which would just yield a variant of itself.
 %	\boxed{\msucc^{i+3}(x) \mNE \msucc^{i+2}(x) \lor \msucc^{i+2}(x) \mEQ \msucc^{i+1}(x)} \,
 %	\}
 %\end{align*}
-\end{example}
 
 %\begin{definition}\label{def:unit:superposition}
 %	\begin{align*}
@@ -1807,7 +1806,28 @@ S_{i+2} &= S_{i+1}\disjointunion \{ \,
 \boxed{\msucc^{i+3}(x) \mNE \msucc^{i+2}(0) \lor \msucc^{i+2}(x) \mEQ \msucc^{i+1}(0)} \,
 \}
 \end{align*}
-Hence a satisfiable superset of \( S \) will never saturate.
+Hence any satisfiable superset of \( S \) will never saturate.
+\end{example}
+
+\begin{corollary}
+	Procedure~\ref{proc:inst:gen:eq:loop}, i.e.~the \InstGenEQ loop, 
+	is not a decision procedure for decidable Presburger arithmetic,
+	i.e.~natural numbers and addition (see Section~\vref{sec:natural:numbers}),
+	since the clauses in \( S \) from non-saturating Example~\vref{ex:nat:instgeneq} 
+	are variants or at least consequences of the axioms of Presburger arithmetic.
+\end{corollary}
+
+\begin{corollary}
+	Procedure~\ref{proc:inst:gen:eq:loop}, i.e.~the \InstGenEQ loop, is not a decision procedure for decidable fragments of First Order Logic with infinity axioms of Table~\vref{tab:decidable:InfinityAxioms}
+	since the clauses in \( S \) from non-saturating Example~\vref{ex:nat:instgeneq}
+	are contained in these fragments.
+\end{corollary}
+
+In its core Procedure~\ref{proc:inst:gen:eq:loop} can only show satisfiability of a set of clauses if it can construct a model.
+
+
+
+\newpage
 
 \section{Roundup of Calculi}
 

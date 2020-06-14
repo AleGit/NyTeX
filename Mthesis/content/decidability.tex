@@ -254,9 +254,10 @@ with equality where one single unary function symbol can be present
 	\caption[Decidable classes (finite)]{Decidable classes with the finite model property}\label{tab:decidedable:FiniteModelProperty}
 \end{table}
 
-\begin{definition}
-	We denote satisfiable first order sentences without finite models
-	as \coloremph{Infinity axioms}.
+\begin{definition}\label{def:infinity:axioms}
+	\coloremph{Infinity axioms} denotes satisfiable first order sentences without finite models, 
+	e.g.~the axioms for natural numbers
+	(see Definition~\vref{def:natural:numbers:axioms}) or the first order sentences in the following Example \vref{ex:infinity:axioms}.
 	\end{definition}
 
 \begin{table}[hbt]
@@ -268,7 +269,7 @@ with equality where one single unary function symbol can be present
 	\caption[Decidable classes (infinite)]{Decidable classes with infinity axioms}\label{tab:decidable:InfinityAxioms}
 \end{table}
 
-\begin{example}[\cite{MR1482227}]
+\begin{example}[\cite{MR1482227}]\label{ex:infinity:axioms}
 	Two examples of infinity axioms, each contained 
 	in one of the prefix-vocabulary classes from 
 	Table~\vref{tab:decidable:InfinityAxioms}
@@ -491,7 +492,7 @@ and Table~\vref{tab:natural:deduction:quantifiers}).
 \end{gather*}
 \end{proof}
 
-\subsection{Natural numbers}
+\subsection{Natural numbers}\label{sec:natural:numbers}
 
 The following axioms characterize natural numbers, addition, and multiplication.
 
@@ -521,13 +522,16 @@ The following axioms characterize natural numbers, addition, and multiplication.
 \end{definition}
 
 \begin{remark}
-	The axioms of natural numbers are expressible within the
+	The axioms of natural numbers are infinity axioms, i.e.~no finite model exists, 
+	and they are expressible within the
 	decidable first-order fragment
 	\(
 		[ \, \exists\forall^2, (0), (1) \, ]{}_{\mEQ}
 		\subsetneq
 		[ \, all, (\omega), (1) \, ]{}_{\mEQ}
-	\), e.g.~\( \exists z \forall x (\msucc(x)\mNE z)\).
+	\), e.g.~\( \exists z \forall x (\msucc(x)\mNE z)\)
+	but they are not expressible in any decidable fragment with equality and finite model property
+	(see Table~\vref{tab:decidedable:FiniteModelProperty}).
 \end{remark}
 
 \begin{example}
