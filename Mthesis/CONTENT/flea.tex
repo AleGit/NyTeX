@@ -17,11 +17,12 @@ a modest implementation of an instantiation based theorem prover for first order
 
 We shortly discuss the Thousands of Problems for Theorem Proving library for automated provers 
 in Section~\vref{sec:flea:tptp},
-the installation and usage in 
-Sections~\vref{sec:flea:installation} and \vref{sec:flea:usage},
-some general implementation details in Section~\vref{sec:flea:details}, 
-and outline the encoding of grounded first order clauses for \SMT-solvers in Section~\vref{sec:flea:encodings}. 
-Last but not least we present evaluation results in Section~\vref{sec:flea:evaluation}.
+present installation, usage, and some implementation details of FLEA 
+in Section~\vref{sec:flea:overview}, 
+and outline encodings of grounded first order clauses for \SAT and \SMT-solvers
+in Section~\vref{sec:flea:encodings}. 
+Last but not least we show evaluation results of FLEA
+in Section~\vref{sec:flea:evaluation}.
 
 \section{The Problem Library}\label{sec:flea:tptp}
 
@@ -40,8 +41,9 @@ Second it provides a comprehensive library of problems, structured by their doma
 e.g. puzzles, algebra, geometry, software verification, hardware verification, etc.
 Both these TPTP standards and variants of library problems establish the basis of the CADE Automated Theorem Prover System Competition\cite{Sut16}.
 
-
-\section{Installation}\label{sec:flea:installation}
+\newpage
+\section{Overview}\label{sec:flea:overview}
+\subsection{Installation}\label{sec:flea:installation}
 
 % \FLEA is open source (but still without license) and available on \GitHub\footnote{
 % 	\href{https://github.com/AleGit/FLEA}{github.com/AleGit/FLEA}
@@ -98,10 +100,11 @@ Both these TPTP standards and variants of library problems establish the basis o
 % $\prompt$ Scripts/ctests.sh                        # build and run all tests
 % \end{lstlisting}
 
+\newpage
+\subsection{Usage}\label{sec:flea:usage}
 
-\section{Usage}\label{sec:flea:usage}
-
-\section{Data structures}\label{sec:flea:details}
+\newpage
+\subsection{Data Structures}\label{sec:flea:details}
 
 % \begin{lstlisting}[language=flea, caption={Simplified definition of general terms}]
 % protocol Node: Hashable {
@@ -111,6 +114,7 @@ Both these TPTP standards and variants of library problems establish the basis o
 % }
 % \end{lstlisting}
 
+\newpage
 \section{Encodings}\label{sec:flea:encodings}
 
 %\begin{figure}
@@ -343,10 +347,14 @@ func application(_ symbol: String,
 
 
 
-
+\newpage
 \section{Experiments}\label{sec:flea:evaluation}
 
 In this section we discuss the performance of \FLEA with problems of \TPTP from section \vref{sec:flea:tptp}.
+
+\newpage
+...
+\newpage
 
 % \subsection{The TPTP library}
 
