@@ -704,7 +704,7 @@ i.e.~does not contain multiple variants of a clause.
 	conclude unsatisfiability after one resolution step.
 	\begin{gather*}
 	\infer[ \{ x\mapsto\msucc^k(y)\}]{
-		\square
+		\emptyclause
 	}{
 		{ \mE(\msucc^k(y), \msucc(\msucc^k(y)))} &
 		{ \lnot\mE(x, \msucc(x)))}
@@ -719,7 +719,7 @@ i.e.~does not contain multiple variants of a clause.
 	% 
 	\begin{gather*}
 	\infer[ \{ x\mapsto\msucc^k(y)\}]{
-		\square
+		\emptyclause
 	}{
 		\msucc^k(y) \mEQ \msucc(\msucc^k(y)) &
 		x \mNE \msucc(x)
@@ -1245,7 +1245,7 @@ but we can ensure that we find only desired models.
 	We prove that \( S'' \) is unsatisfiable.
 	\begin{gather*}
 	\infer[ \{ \, x'\mapsto x \, \}]
-	{\square}
+	{\emptyclause}
 	{s(x')\mNE 0 &
 		\infer[
 		 \{ \, x'\mapsto \msucc(x), y'\mapsto 0 \, \}
