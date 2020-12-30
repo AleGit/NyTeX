@@ -856,15 +856,15 @@ we have to search quickly for clashing selected literals.
 \subsubsection{Redundant clauses}
 
 In Resolution-based calculi
-we can ignore or omit clauses that are subsumed
-by other clauses.
-Weakened instances of other clauses are redundant.
+we can omit clauses that are subsumed
+by other clauses, 
+i.e.~weakened instances of clauses are redundant.
 %
-In contrast
-we must keep keep or add subsumed clauses
-with \InstGen and \InstGenEQ as 
-we show with the following example and lemma.
-But still we can ignore or remove some redundant clause,
+We will show in the following example and lemma 
+that in contrast 
+we must keep keep subsumed clauses
+with \InstGen or \InstGenEQ.
+We still can ommit some redundant clauses,
 but the notion of redundancy is different from resolution.
 
 \begin{example}\label{ex:not:equisat}
