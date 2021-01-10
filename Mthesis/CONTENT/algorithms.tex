@@ -75,7 +75,8 @@ we will combine the given clause algorithm
 and a basic selection strategy to a a simple and fair saturation process
 that eventually determines all possible derivate clauses
 with respect to ordered resolution.
-Surprisingly the same unchanged approach will fail easily for \InstGen{}.
+Surprisingly the unmodified approach is not well suited for \InstGen{} 
+as we will see in Example~\ref{ex:given:clause:algorithm:with:inst:gen}.
 We consider a better suited modified bookkeeping of processed clauses and literals
 in Section~\ref{sec:selected:literals:bookkeeping}.
 
@@ -248,7 +249,7 @@ with respect to resolution.
 	\end{align*}
 \end{example}
 
-% \subsubsection{InstGen}
+% \subsubsection{Given clause algortihm and Inst-Gen}\label{sec:given:clause:algorithm:with:inst:gen}
 
 \begin{remark}
 \( \text{(\Lightning)} \Leftarrow \UNSAT(S_i\bot) \).
@@ -267,9 +268,9 @@ as probable new clauses to extend the set of unprocessed clauses.
 	}
 \end{gather*}
 
-The following example demonstrates that the basic given clause algorithm is not suitable for \InstGen.
+The following example demonstrates that a unmodified basic given clause algorithm is not well suited for \InstGen.
 
-\begin{example}
+\begin{example}\label{ex:given:clause:algorithm:with:inst:gen}
 	Again we start with the clearly unsatisfiable set of clauses
 \( S=\{ \, \mP(\ma)\lor\mQ(\ma), \mP(\ma)\lor\lnot\mQ(y), \lnot\mP(x) \, \} \).
 	The processed and given clauses are already encoded and
@@ -300,7 +301,7 @@ The following example demonstrates that the basic given clause algorithm is not 
 	\end{align*}
 	But the model did change in (4) and the selected literals of two of the processed clauses had to be changed too.
 	Already processed clauses with changed selected literals have to be moved back to the unprocessed clauses.
-	Then we hit a contradiction of ground instances in (7').
+	With this modification we hit a contradiction of ground instances in (7').
 	\begin{align*}
 	(4')\quad^{3:}&{\underline{\colHi\lnot\mP(\consbot/x)}}
 	& ^{1,3:}_{2,3:}&\boxed{\underline{\lnot\mP(\ma)}}
